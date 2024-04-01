@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */; };
+		D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */; };
 		D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */; };
 		D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4ED2BB9DA3C00CA5CAF /* Word.swift */; };
 		D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EF2BB9DA6000CA5CAF /* Article.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentence.swift; sourceTree = "<group>"; };
+		D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewModel.swift; sourceTree = "<group>"; };
 		D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		D020A4ED2BB9DA3C00CA5CAF /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		D020A4EF2BB9DA6000CA5CAF /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
@@ -51,6 +55,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D0058CE72BBA713B00D2BB25 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		D020A4EA2BB9D8E700CA5CAF /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +78,7 @@
 				D04EB7592BB66EE7009E3A41 /* Vacabulary.swift */,
 				D04EB75B2BB66EEF009E3A41 /* Card.swift */,
 				D020A4ED2BB9DA3C00CA5CAF /* Word.swift */,
+				D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */,
 				D020A4EF2BB9DA6000CA5CAF /* Article.swift */,
 			);
 			path = Models;
@@ -111,6 +124,7 @@
 		D0DA5AC32BB66A05008644DC /* NewWord */ = {
 			isa = PBXGroup;
 			children = (
+				D0058CE72BBA713B00D2BB25 /* ViewModels */,
 				D04EB75F2BB670D3009E3A41 /* Controllers */,
 				D04EB7582BB66ED5009E3A41 /* Models */,
 				D020A4EA2BB9D8E700CA5CAF /* Views */,
@@ -196,7 +210,9 @@
 				D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */,
 				D04EB75A2BB66EE7009E3A41 /* Vacabulary.swift in Sources */,
 				D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */,
+				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
 				D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */,
+				D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */,
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
 				D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */,
 				D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */,

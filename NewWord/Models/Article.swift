@@ -8,6 +8,6 @@
 import Foundation
 
 
-struct Articles {
-    var words: [Word]
+struct Article {
+    var words: [Sentence]
 }

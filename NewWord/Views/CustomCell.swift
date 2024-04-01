@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol CustomCellDelegate: AnyObject {
+    func answerSuccessfully()
+}
+
 class CustomCell: UITableViewCell {
 
     var word: Word!
+
+    weak var delegate: CustomCellDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -154,10 +160,10 @@ extension CustomCell: UITextFieldDelegate {
 
         if let wordTextField = textField as? WordTextField {
             if wordTextField.word == lowercasedNewText {
-
-                print("123")
+                wordTextField.text = newText
+                delegate?.answerSuccessfully()
+                return false
             }
-
         }
 
         return true
