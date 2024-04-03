@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */; };
 		D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */; };
+		D0058CEC2BBAAE8D00D2BB25 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0058CEA2BBAAE8D00D2BB25 /* Model.xcdatamodeld */; };
 		D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */; };
 		D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4ED2BB9DA3C00CA5CAF /* Word.swift */; };
 		D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EF2BB9DA6000CA5CAF /* Article.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentence.swift; sourceTree = "<group>"; };
 		D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewModel.swift; sourceTree = "<group>"; };
+		D0058CEB2BBAAE8D00D2BB25 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		D020A4ED2BB9DA3C00CA5CAF /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		D020A4EF2BB9DA6000CA5CAF /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				D020A4ED2BB9DA3C00CA5CAF /* Word.swift */,
 				D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */,
 				D020A4EF2BB9DA6000CA5CAF /* Article.swift */,
+				D0058CEA2BBAAE8D00D2BB25 /* Model.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
 				D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */,
 				D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */,
+				D0058CEC2BBAAE8D00D2BB25 /* Model.xcdatamodeld in Sources */,
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +443,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D0058CEA2BBAAE8D00D2BB25 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D0058CEB2BBAAE8D00D2BB25 /* Model.xcdatamodel */,
+			);
+			currentVersion = D0058CEB2BBAAE8D00D2BB25 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D0DA5AB92BB66A05008644DC /* Project object */;
 }

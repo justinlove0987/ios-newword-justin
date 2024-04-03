@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 private let reuseIdentifier = "Cell"
 
@@ -51,5 +52,40 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         navigationController?.pushViewController(dataSource[indexPath.row], animated: true)
     }
+}
+
+
+
+
+struct Vocabulary1 {
+    let state: VocabularyState1
+}
+
+class VocabularyState1 {
+    var completedDate: Date = Date()
+    var id: String = UUID().uuidString
+    var type: VocabularyState1.type = .review
+
+    enum type {
+        case test(VacabularyTest)
+        case review
+        case preview
+        case storage
+    }
+
+}
+
+class VacabularyTest {
+    var firdtTestDate: Date = Date()
+    var type: VacabularyTest.type = .sentenceCloze(SentenceCloze(cloze: ""))
+
+    enum type {
+        case sentenceCloze(SentenceCloze)
+        case vocabularCloze
+    }
+}
+
+struct SentenceCloze {
+    var cloze: String
 }
 

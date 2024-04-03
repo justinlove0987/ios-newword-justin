@@ -11,11 +11,3 @@ enum PartOfSpeech {
     case noun
     case verb
 }
-
-struct Vacabulary {
-    let text: String
-    let range: NSRange
-    var needReview: Bool
-    //    let partOfSpeech: PartOfSpeech
-    //    let pastTense: String
-}

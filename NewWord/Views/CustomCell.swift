@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CustomCellDelegate: AnyObject {
-    func answerSuccessfully()
+    func answerCorrect()
 }
 
 class CustomCell: UITableViewCell {
@@ -161,7 +161,7 @@ extension CustomCell: UITextFieldDelegate {
         if let wordTextField = textField as? WordTextField {
             if wordTextField.word == lowercasedNewText {
                 wordTextField.text = newText
-                delegate?.answerSuccessfully()
+                delegate?.answerCorrect()
                 return false
             }
         }

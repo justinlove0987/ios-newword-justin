@@ -40,7 +40,7 @@ extension SentenceClozeViewController: UITableViewDataSource {
 }
 
 extension SentenceClozeViewController: CustomCellDelegate {
-    func answerSuccessfully() {
+    func answerCorrect() {
         if viewModel.hasNextSentence {
             viewModel.nextSentence()
             tableView.reloadData()
