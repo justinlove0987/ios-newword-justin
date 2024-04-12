@@ -85,7 +85,4 @@ class VacabularyTest {
     }
 }
 
-struct SentenceCloze {
-    var cloze: String
-}
 
