@@ -33,7 +33,6 @@ class ViewController: UIViewController {
 
         dataSource = [vc]
     }
-
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
@@ -57,32 +56,32 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
 
 
-struct Vocabulary1 {
-    let state: VocabularyState1
-}
-
-class VocabularyState1 {
-    var completedDate: Date = Date()
-    var id: String = UUID().uuidString
-    var type: VocabularyState1.type = .review
-
-    enum type {
-        case test(VacabularyTest)
-        case review
-        case preview
-        case storage
-    }
-
-}
-
-class VacabularyTest {
-    var firdtTestDate: Date = Date()
-    var type: VacabularyTest.type = .sentenceCloze(SentenceCloze(cloze: ""))
-
-    enum type {
-        case sentenceCloze(SentenceCloze)
-        case vocabularCloze
-    }
-}
+//struct Vocabulary1 {
+//    let state: VocabularyState1
+//}
+//
+//class VocabularyState1 {
+//    var completedDate: Date = Date()
+//    var id: String = UUID().uuidString
+//    var type: VocabularyState1.type = .review
+//
+//    enum type {
+//        case test(VacabularyTest)
+//        case review
+//        case preview
+//        case storage
+//    }
+//
+//}
+//
+//class VacabularyTest {
+//    var firdtTestDate: Date = Date()
+//    var type: VacabularyTest.type = .sentenceCloze(SentenceCloze(cloze: ""))
+//
+//    enum type {
+//        case sentenceCloze(SentenceCloze)
+//        case vocabularCloze
+//    }
+//}
 
 

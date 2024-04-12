@@ -7,31 +7,8 @@
 
 import Foundation
 
-struct Cloze {
-    let text: Vocabulary
-    let range: NSRange
-}
-
-enum CardType {
-    case cloze(Cloze)
-}
-
-//struct SentenceCloze {
-//    
-//}
-
-enum NoteType {
-//    case sentenceCloze(SentenceCloze)
-}
-
-struct SentenceCloze {
-    var cloze: String
-}
-
-
 struct Card {
-    let cardId: String = ""
-    let cardtype: CardType
+    let cardId: String
     let addedDate: Date = Date()
     let firstReviewDate: Date = Date()
     let lastestReviewDate: Date = Date()
@@ -41,25 +18,40 @@ struct Card {
     let lapses: Int = 0
     let averageTime: Int = 0
     let totalTime: Int = 0
-    let noteId: String
+    let note: Note
 }
 
-struct Note {
-    let noteId: String
-    let noteType: Int
-    
+extension Card {
+    enum CardState {
+        case new
+        case review
+    }
+
+    var cardState: CardState {
+        if reviews == 0 {
+            return .new
+        }
+
+        return .review
+    }
 }
 
-enum CardGroupType {
-    case articleCloze(ArticleCloze)
-}
 
-struct CardGroup {
-    let cardGroupId: String = ""
-    let carGroupType: CardGroupType
-    let cards: [Card]
-}
+extension Card {
+    static func createFakeData() -> [Card] {
+        let sentences = [
+            ["Life", "is", "like", "riding", "a", "bicycle", ".", "To", "keep", "your", "balance", ",", "you", "must", "keep", "moving", "."],
+            ["Genius", "is", "one", "percent", "inspiration", "and", "ninety-nine", "percent", "perspiration", "."]
+        ]
 
-struct ArticleCloze {
-    let article: String
+        let sentenceCloze1 = SentenceCloze(clozeWord: Word(text: "like", isReview: false), sentence: sentences[0])
+        let sentenceCloze2 = SentenceCloze(clozeWord: Word(text: "one", isReview: false), sentence: sentences[1])
+        
+        let note1 = Note(noteId: UUID().uuidString, noteType: .sentenceCloze(sentenceCloze1))
+        let note2 = Note(noteId: UUID().uuidString, noteType: .sentenceCloze(sentenceCloze2))
+        let card1 = Card(cardId: UUID().uuidString, interval: 0, note: note1)
+        let card2 = Card(cardId: UUID().uuidString, interval: 0, note: note2)
+
+        return [card1, card2]
+    }
 }

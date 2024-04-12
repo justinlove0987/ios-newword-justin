@@ -33,7 +33,6 @@ extension SentenceClozeViewController: UITableViewDataSource {
 
         cell.delegate = self
         cell.configureStackViewSubViews(wtih: words, at: indexPath)
-        
 
         return cell
     }

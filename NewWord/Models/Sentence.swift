@@ -30,8 +30,6 @@ extension Sentence {
             return Sentence(words: words)
         })
 
-        print(wordsInSentences)
-
         return wordsInSentences
     }
 }

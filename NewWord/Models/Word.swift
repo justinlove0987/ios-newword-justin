@@ -10,7 +10,9 @@ import UIKit
 struct Word {
     let text: String
     var isReview: Bool
+}
 
+extension Word {
     var isPunctuation: Bool {
         let punctuationRegex = try! NSRegularExpression(pattern: "^\\p{P}*$", options: [])
         return punctuationRegex.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) != nil

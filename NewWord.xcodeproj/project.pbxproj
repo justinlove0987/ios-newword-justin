@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */; };
 		D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */; };
-		D0058CEC2BBAAE8D00D2BB25 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0058CEA2BBAAE8D00D2BB25 /* Model.xcdatamodeld */; };
 		D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */; };
 		D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4ED2BB9DA3C00CA5CAF /* Word.swift */; };
 		D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EF2BB9DA6000CA5CAF /* Article.swift */; };
@@ -17,18 +16,20 @@
 		D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */; };
 		D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB75B2BB66EEF009E3A41 /* Card.swift */; };
 		D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */; };
+		D078D0982BC9242900F601B2 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D078D0972BC9242900F601B2 /* Note.swift */; };
 		D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC42BB66A05008644DC /* AppDelegate.swift */; };
 		D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */; };
 		D0DA5AC92BB66A05008644DC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC82BB66A05008644DC /* ViewController.swift */; };
 		D0DA5ACC2BB66A05008644DC /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D0DA5ACB2BB66A05008644DC /* Base */; };
 		D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DA5ACD2BB66A07008644DC /* Assets.xcassets */; };
 		D0DA5AD12BB66A07008644DC /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D0DA5AD02BB66A07008644DC /* Base */; };
+		D0E8848B2BC93C3600C78B97 /* NoteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848A2BC93C3600C78B97 /* NoteType.swift */; };
+		D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848C2BC93CB800C78B97 /* Deck.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentence.swift; sourceTree = "<group>"; };
 		D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewModel.swift; sourceTree = "<group>"; };
-		D0058CEB2BBAAE8D00D2BB25 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		D020A4ED2BB9DA3C00CA5CAF /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		D020A4EF2BB9DA6000CA5CAF /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
@@ -36,6 +37,7 @@
 		D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vocabulary.swift; sourceTree = "<group>"; };
 		D04EB75B2BB66EEF009E3A41 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewController.swift; sourceTree = "<group>"; };
+		D078D0972BC9242900F601B2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		D0DA5AC12BB66A05008644DC /* NewWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DA5AC42BB66A05008644DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +46,8 @@
 		D0DA5ACD2BB66A07008644DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0DA5AD02BB66A07008644DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0DA5AD22BB66A07008644DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0E8848A2BC93C3600C78B97 /* NoteType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteType.swift; sourceTree = "<group>"; };
+		D0E8848C2BC93CB800C78B97 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,11 +82,12 @@
 			isa = PBXGroup;
 			children = (
 				D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */,
+				D0E8848C2BC93CB800C78B97 /* Deck.swift */,
 				D04EB75B2BB66EEF009E3A41 /* Card.swift */,
-				D020A4ED2BB9DA3C00CA5CAF /* Word.swift */,
+				D0E884892BC93C2A00C78B97 /* Note */,
 				D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */,
+				D020A4ED2BB9DA3C00CA5CAF /* Word.swift */,
 				D020A4EF2BB9DA6000CA5CAF /* Article.swift */,
-				D0058CEA2BBAAE8D00D2BB25 /* Model.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -135,6 +140,15 @@
 				D0DA5AD22BB66A07008644DC /* Info.plist */,
 			);
 			path = NewWord;
+			sourceTree = "<group>";
+		};
+		D0E884892BC93C2A00C78B97 /* Note */ = {
+			isa = PBXGroup;
+			children = (
+				D078D0972BC9242900F601B2 /* Note.swift */,
+				D0E8848A2BC93C3600C78B97 /* NoteType.swift */,
+			);
+			path = Note;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0DA5AC92BB66A05008644DC /* ViewController.swift in Sources */,
+				D0E8848B2BC93C3600C78B97 /* NoteType.swift in Sources */,
 				D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */,
 				D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */,
 				D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */,
@@ -217,9 +232,10 @@
 				D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */,
 				D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */,
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
+				D078D0982BC9242900F601B2 /* Note.swift in Sources */,
 				D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */,
+				D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */,
 				D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */,
-				D0058CEC2BBAAE8D00D2BB25 /* Model.xcdatamodeld in Sources */,
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -445,19 +461,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		D0058CEA2BBAAE8D00D2BB25 /* Model.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				D0058CEB2BBAAE8D00D2BB25 /* Model.xcdatamodel */,
-			);
-			currentVersion = D0058CEB2BBAAE8D00D2BB25 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = D0DA5AB92BB66A05008644DC /* Project object */;
 }

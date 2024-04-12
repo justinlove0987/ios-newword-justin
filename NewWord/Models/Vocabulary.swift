@@ -11,3 +11,7 @@ enum PartOfSpeech {
     case noun
     case verb
 }
+
+struct Vocabulary {
+    let text: String
+}
