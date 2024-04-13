@@ -10,15 +10,9 @@ import UIKit
 
 struct SentenceClozeViewModel {
 
-    struct DataSource {
-        let card: Card
-        let note: Note
-        let sentenceCloze: SentenceCloze
-    }
-
     var index = 0
 
-    let sentences: [Card] = Card.createFakeData()
+    let cards: [Card] = Card.createFakeData()
 
     var numberOfRowsInSection: Int = 0
 
@@ -28,22 +22,15 @@ struct SentenceClozeViewModel {
 
     var hasNextSentence: Bool {
         let nextIndex = index + 1
-        return nextIndex < sentences.count
+        return nextIndex < cards.count
     }
-
-//    var datasource: DataSource
-
-//    init() {
-//        let dataSource = DataSource(card: <#T##Card#>, note: <#T##Note#>, sentenceCloze: <#T##SentenceCloze#>)
-//    }
 
     mutating func setup(with width: CGFloat) {
         self.width = width
         configureWordsInRows(width: width)
     }
 
-    func getCurrentSentence () -> Sentence {
-        let cards = Card.createFakeData()
+    func getCurrentSentence() -> Sentence {
         let noteType = cards[index].note.noteType
 
         if case .sentenceCloze(let sentenceCloze) = noteType {
@@ -61,7 +48,7 @@ struct SentenceClozeViewModel {
         configureWordsInRows(width: width)
     }
 
-    mutating func configureWordsInRows(width: CGFloat){
+    mutating func configureWordsInRows(width: CGFloat) {
         let sentence = getCurrentSentence()
         var wordsInRows: [[Word]] = []
         var items: [Word] = []
