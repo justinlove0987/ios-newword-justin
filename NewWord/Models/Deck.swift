@@ -10,5 +10,5 @@ import Foundation
 
 struct Deck {
     let startingEase: Double
-    let easyBonus: Double
+    let correctBonus: Double
 }

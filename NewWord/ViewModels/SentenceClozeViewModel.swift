@@ -9,69 +9,94 @@ import UIKit
 
 
 struct SentenceClozeViewModel {
+    
+    struct Rows {
+        struct Row {
+            var words: [Word]
+        }
+        
+        var clozeWord: Word
+        var rows: [Row] = []
+        var wordsForRows: [[Word]]
+        var numberOfRowsInSection: Int {
+            return wordsForRows.count
+        }
+    }
+    
+    var width: CGFloat!
 
-    var index = 0
+    var index = 0 {
+        didSet {
+            updateData(width: width)
+        }
+    }
 
     let cards: [Card] = Card.createFakeData()
 
     var numberOfRowsInSection: Int = 0
 
     var wordsForRows: [[Word]] = []
-
-    var width: CGFloat!
+    
+    var data: Rows!
 
     var hasNextSentence: Bool {
         let nextIndex = index + 1
         return nextIndex < cards.count
     }
+    
+    weak var textField: WordTextField?
 
     mutating func setup(with width: CGFloat) {
         self.width = width
-        configureWordsInRows(width: width)
+        self.updateData(width: width)
     }
 
-    func getCurrentSentence() -> Sentence {
-        let noteType = cards[index].note.noteType
-
-        if case .sentenceCloze(let sentenceCloze) = noteType {
-            let sentence = sentenceCloze.sentence
-            return sentence
-        }
-
-        return Sentence(words: [])
+    func getCurrentCard() -> Card {
+        return cards[index]
     }
 
     mutating func nextSentence() {
         let nextIndex = index + 1
         index = nextIndex
-
-        configureWordsInRows(width: width)
     }
-
-    mutating func configureWordsInRows(width: CGFloat) {
-        let sentence = getCurrentSentence()
+    
+    mutating func updateData(width: CGFloat) {
+        let card = getCurrentCard()
+        let noteType = card.note.noteType
         var wordsInRows: [[Word]] = []
         var items: [Word] = []
         var currentBounds: CGFloat = 0
+        
+        if case .sentenceCloze(let sentenceCloze) = noteType {
+            let sentence = sentenceCloze.sentence
+            let clozeWord = sentenceCloze.clozeWord
+            
+            for i in 0..<sentence.words.count {
+                let word = sentence.words[i]
 
-        for i in 0..<sentence.words.count {
-            let word = sentence.words[i]
+                if (currentBounds + word.bound.width) >= width {
+                    wordsInRows.append(items)
+                    currentBounds = 0
+                    items = []
+                }
 
-            if (currentBounds + word.bound.width) >= width {
-                wordsInRows.append(items)
-                currentBounds = 0
-                items = []
+                currentBounds += word.bound.width
+                currentBounds += 10
+                items.append(sentence.words[i])
             }
 
-            currentBounds += word.bound.width
-            currentBounds += 10
-            items.append(sentence.words[i])
+            wordsInRows.append(items)
+            
+            data = Rows(clozeWord: clozeWord, wordsForRows: wordsInRows)
         }
-
-        wordsInRows.append(items)
-
-        self.wordsForRows = wordsInRows
-        self.numberOfRowsInSection = wordsInRows.count
+    }
+    
+    func showAnswer() {
+        if let textField = textField {
+            textField.text = textField.word
+            textField.textColor = .red
+            textField.isUserInteractionEnabled = false
+        }
     }
 
     func createAlertController() -> UIAlertController {

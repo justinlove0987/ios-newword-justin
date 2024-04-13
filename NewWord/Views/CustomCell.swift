@@ -10,6 +10,7 @@ import UIKit
 
 protocol CustomCellDelegate: AnyObject {
     func answerCorrect()
+    func didCreateTextField(textField: WordTextField)
 }
 
 class CustomCell: UITableViewCell {
@@ -48,7 +49,7 @@ class CustomCell: UITableViewCell {
         return stack
     }
 
-    func configureStackViewSubViews(wtih words: [Word], at indexPath: IndexPath) {
+    func configureStackViewSubViews(clozeWord: Word, words: [Word], at indexPath: IndexPath) {
         var i = 0
         let stackView = setupStackView()
 
@@ -56,19 +57,20 @@ class CustomCell: UITableViewCell {
             let currentWord = words[i]
             let hasNextWord = i+1 < words.count
             let arrangedSubview: UIView
+            let isClozeWord = currentWord.text == clozeWord.text
 
             if hasNextWord {
                 let nextWord = words[i+1]
 
                 if nextWord.isPunctuation {
-                    let firstView = currentWord.isReview ? createTextField(with: currentWord.text) : createLabel(with: currentWord.text)
+                    let firstView = isClozeWord ? createTextField(with: currentWord.text) : createLabel(with: currentWord.text)
                     let secondView = createLabel(with: nextWord.text)
                     arrangedSubview = UIStackView(arrangedSubviews: [firstView, secondView])
 
                     i += 2
 
                 } else {
-                    arrangedSubview = currentWord.isReview ? createTextField(with: currentWord.text) : createLabel(with: currentWord.text)
+                    arrangedSubview = isClozeWord ? createTextField(with: currentWord.text) : createLabel(with: currentWord.text)
 
                     i += 1
                 }
@@ -95,6 +97,7 @@ class CustomCell: UITableViewCell {
         tf.delegate = self
         tf.word = word
         // tf.placeholder = "平衡？"
+        delegate?.didCreateTextField(textField: tf)
 
         return tf
     }

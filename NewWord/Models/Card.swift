@@ -19,6 +19,7 @@ struct Card {
     let averageTime: Int = 0
     let totalTime: Int = 0
     let note: Note
+    let reviewRecords: [ReviewRecord]
 }
 
 extension Card {
@@ -49,8 +50,8 @@ extension Card {
         
         let note1 = Note(noteId: UUID().uuidString, noteType: .sentenceCloze(sentenceCloze1))
         let note2 = Note(noteId: UUID().uuidString, noteType: .sentenceCloze(sentenceCloze2))
-        let card1 = Card(cardId: UUID().uuidString, interval: 0, note: note1)
-        let card2 = Card(cardId: UUID().uuidString, interval: 0, note: note2)
+        let card1 = Card(cardId: UUID().uuidString, interval: 0, note: note1, reviewRecords: [])
+        let card2 = Card(cardId: UUID().uuidString, interval: 0, note: note2, reviewRecords: [])
 
         return [card1, card2]
     }
