@@ -19,6 +19,5 @@ struct LearningRecord {
     let dueDate: Date
     let interval: Double
     let totalTime: Int = 0
-    let isCorrect: Bool
     let status: Status
 }

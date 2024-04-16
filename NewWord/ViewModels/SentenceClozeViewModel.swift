@@ -113,18 +113,11 @@ struct SentenceClozeViewModel {
         let cardState = card.cardState
         let deck = Deck.createFakeDeck()
         
-        let reviewRecord = LearningRecord(dueDate: <#T##Date#>, interval: <#T##Int#>)
-        
-        switch cardState {
-        case .new:
-            <#code#>
-        case .review:
-            <#code#>
-        }
-        
-        let card = Card(id: card.id, interval: <#T##Int#>, note: <#T##Note#>, reviewRecords: <#T##[ReviewRecord]#>)
-        
-        
-//        card
+//        switch cardState {
+//        case .new:
+//            <#code#>
+//        case .review:
+//            <#code#>
+//        }
     }
 }

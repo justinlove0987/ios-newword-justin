@@ -37,9 +37,9 @@ extension Card {
         }
     }
     
-    var latesReview: LearningRecord? {
+    var latestReview: LearningRecord? {
         let record = learningRecords.max { lRecord, rRecord in
-            lRecord.dueDate > rRecord.dueDate
+            lRecord.dueDate < rRecord.dueDate
         }
         
         return (hasReivews ? record : nil)
@@ -50,16 +50,16 @@ extension Card {
     }
     
     var lastestReviewDate: Date? {
-        return latesReview?.date
+        return latestReview?.date
     }
     
     var interval: Double? {
-        return latesReview?.interval
+        return latestReview?.interval
     }
     
     var lapses: Int {
         return learningRecords.reduce(0) { partialResult, record in
-            return record.isCorrect ? (partialResult + 1) : partialResult
+            return record.status == .incorrect ? (partialResult + 1) : partialResult
         }
     }
 }
@@ -77,9 +77,31 @@ extension Card {
         
         let note1 = Note(noteId: UUID().uuidString, noteType: .sentenceCloze(sentenceCloze1))
         let note2 = Note(noteId: UUID().uuidString, noteType: .sentenceCloze(sentenceCloze2))
-        let card1 = Card(id: UUID().uuidString, note: note1, learningRecords: [])
-        let card2 = Card(id: UUID().uuidString, note: note2, learningRecords: [])
-        
+
+        let date1 = Card.dateCreator(year: 2024, month: 5, day: 1)
+        let date2 = Card.dateCreator(year: 2024, month: 5, day: 2)
+        let date3 = Card.dateCreator(year: 2024, month: 5, day: 3)
+
+        let card1 = Card(id: UUID().uuidString, note: note1, learningRecords: [LearningRecord(date: date1, dueDate: date1, interval: 1.1, status: .correct),
+                                                                               LearningRecord(date: date2, dueDate: date2, interval: 1.2, status: .correct),
+                                                                               LearningRecord(date: date3, dueDate: date3, interval: 1.3, status: .correct),
+                                                                              ])
+        let card2 = Card(id: UUID().uuidString, note: note2, learningRecords: [LearningRecord(date: date1, dueDate: date1, interval: 1.1, status: .correct),
+                                                                               LearningRecord(date: date2, dueDate: date2, interval: 1.2, status: .correct),
+                                                                               LearningRecord(date: date3, dueDate: date3, interval: 1.3, status: .correct),
+                                                                              ])
+
         return [card1, card2]
+    }
+
+    static func dateCreator(year: Int, month: Int, day: Int) -> Date {
+        var dateComponents = DateComponents()
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+
+        let calendar = Calendar.current
+
+        return calendar.date(from: dateComponents)!
     }
 }
