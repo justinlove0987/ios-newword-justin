@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A74CDE42BCA86EC00F2B8AB /* ReviewRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74CDE32BCA86EC00F2B8AB /* ReviewRecord.swift */; };
+		2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */; };
 		D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */; };
 		D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */; };
 		D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */; };
@@ -29,7 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2A74CDE32BCA86EC00F2B8AB /* ReviewRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRecord.swift; sourceTree = "<group>"; };
+		2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecord.swift; sourceTree = "<group>"; };
 		D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentence.swift; sourceTree = "<group>"; };
 		D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewModel.swift; sourceTree = "<group>"; };
 		D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
@@ -90,7 +90,7 @@
 				D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */,
 				D020A4ED2BB9DA3C00CA5CAF /* Word.swift */,
 				D020A4EF2BB9DA6000CA5CAF /* Article.swift */,
-				2A74CDE32BCA86EC00F2B8AB /* ReviewRecord.swift */,
+				2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -239,7 +239,7 @@
 				D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */,
 				D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */,
 				D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */,
-				2A74CDE42BCA86EC00F2B8AB /* ReviewRecord.swift in Sources */,
+				2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */,
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

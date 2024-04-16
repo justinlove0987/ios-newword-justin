@@ -18,6 +18,8 @@ class CustomCell: UITableViewCell {
     var word: Word!
 
     weak var delegate: CustomCellDelegate?
+    
+    var textFieldDidChanged: (() -> ())?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
