@@ -112,7 +112,15 @@ struct SentenceClozeViewModel {
         let card = getCurrentCard()
         let cardState = card.cardState
         let deck = Deck.createFakeDeck()
-        
+
+
+        if card.cardState == .new { // 當是new card時，basic是一天，然後透過starting ease去計算下一次的due date
+
+            deck.newCard.easyInterval
+
+            // LearningRecord(createdDate: Date(), dueDate: <#T##Date#>, interval: <#T##Double#>, status: .correct)
+        }
+
 //        switch cardState {
 //        case .new:
 //            <#code#>

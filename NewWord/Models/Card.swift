@@ -10,7 +10,6 @@ import Foundation
 struct Card {
     let id: String
     let addedDate: Date = Date()
-    let dueDate: Date = Date() // 需要考量怎麼計算，透過 latestReview.date + latestReview.interval
     let averageTime: Int = 0
     let totalTime: Int = 0
     let note: Note
@@ -20,6 +19,7 @@ struct Card {
 extension Card {
     enum CardState {
         case new
+        case relearn
         case review
     }
     
@@ -46,14 +46,14 @@ extension Card {
     }
     
     var firstReviewDate: Date? {
-        return firstReview?.date
+        return firstReview?.createdDate
     }
     
     var lastestReviewDate: Date? {
-        return latestReview?.date
+        return latestReview?.createdDate
     }
     
-    var interval: Double? {
+    var interval: Int? {
         return latestReview?.interval
     }
     
@@ -82,13 +82,13 @@ extension Card {
         let date2 = Card.dateCreator(year: 2024, month: 5, day: 2)
         let date3 = Card.dateCreator(year: 2024, month: 5, day: 3)
 
-        let card1 = Card(id: UUID().uuidString, note: note1, learningRecords: [LearningRecord(date: date1, dueDate: date1, interval: 1.1, status: .correct),
-                                                                               LearningRecord(date: date2, dueDate: date2, interval: 1.2, status: .correct),
-                                                                               LearningRecord(date: date3, dueDate: date3, interval: 1.3, status: .correct),
+        let card1 = Card(id: UUID().uuidString, note: note1, learningRecords: [LearningRecord(createdDate: date1, dueDate: date1, interval: 1, status: .correct),
+                                                                               LearningRecord(createdDate: date2, dueDate: date2, interval: 2, status: .correct),
+                                                                               LearningRecord(createdDate: date3, dueDate: date3, interval: 3, status: .correct),
                                                                               ])
-        let card2 = Card(id: UUID().uuidString, note: note2, learningRecords: [LearningRecord(date: date1, dueDate: date1, interval: 1.1, status: .correct),
-                                                                               LearningRecord(date: date2, dueDate: date2, interval: 1.2, status: .correct),
-                                                                               LearningRecord(date: date3, dueDate: date3, interval: 1.3, status: .correct),
+        let card2 = Card(id: UUID().uuidString, note: note2, learningRecords: [LearningRecord(createdDate: date1, dueDate: date1, interval: 1, status: .correct),
+                                                                               LearningRecord(createdDate: date2, dueDate: date2, interval: 2, status: .correct),
+                                                                               LearningRecord(createdDate: date3, dueDate: date3, interval: 3, status: .correct),
                                                                               ])
 
         return [card1, card2]
