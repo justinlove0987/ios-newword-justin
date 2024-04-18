@@ -17,19 +17,8 @@ struct Card {
 }
 
 extension Card {
-    enum CardState {
-        case new
-        case relearn
-        case review
-    }
-    
-    var reviews: Int { learningRecords.count }
     
     var hasReivews: Bool { return learningRecords.count != 0 }
-    
-    var cardState: CardState {
-        return hasReivews ? .review : .new
-    }
     
     var firstReview: LearningRecord? {
         return learningRecords.min { lRecord, rRecord in
@@ -57,6 +46,8 @@ extension Card {
         return latestReview?.interval
     }
     
+    var reviews: Int { learningRecords.count }
+    
     var lapses: Int {
         return learningRecords.reduce(0) { partialResult, record in
             return record.status == .incorrect ? (partialResult + 1) : partialResult
@@ -82,13 +73,13 @@ extension Card {
         let date2 = Card.dateCreator(year: 2024, month: 5, day: 2)
         let date3 = Card.dateCreator(year: 2024, month: 5, day: 3)
 
-        let card1 = Card(id: UUID().uuidString, note: note1, learningRecords: [LearningRecord(createdDate: date1, dueDate: date1, interval: 1, status: .correct),
-                                                                               LearningRecord(createdDate: date2, dueDate: date2, interval: 2, status: .correct),
-                                                                               LearningRecord(createdDate: date3, dueDate: date3, interval: 3, status: .correct),
+        let card1 = Card(id: UUID().uuidString, note: note1, learningRecords: [LearningRecord(createdDate: date1, dueDate: date1, interval: 1, status: .correct, state: .new),
+                                                                               LearningRecord(createdDate: date2, dueDate: date2, interval: 2, status: .correct, state: .new),
+                                                                               LearningRecord(createdDate: date3, dueDate: date3, interval: 3, status: .correct, state: .new),
                                                                               ])
-        let card2 = Card(id: UUID().uuidString, note: note2, learningRecords: [LearningRecord(createdDate: date1, dueDate: date1, interval: 1, status: .correct),
-                                                                               LearningRecord(createdDate: date2, dueDate: date2, interval: 2, status: .correct),
-                                                                               LearningRecord(createdDate: date3, dueDate: date3, interval: 3, status: .correct),
+        let card2 = Card(id: UUID().uuidString, note: note2, learningRecords: [LearningRecord(createdDate: date1, dueDate: date1, interval: 1, status: .correct, state: .new),
+                                                                               LearningRecord(createdDate: date2, dueDate: date2, interval: 2, status: .correct, state: .new),
+                                                                               LearningRecord(createdDate: date3, dueDate: date3, interval: 3, status: .correct, state: .new),
                                                                               ])
 
         return [card1, card2]

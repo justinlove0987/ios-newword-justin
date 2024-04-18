@@ -9,6 +9,12 @@ import Foundation
 
 
 struct LearningRecord {
+    
+    enum State {
+        case new // 第一次練習
+        case relearn // 答錯後在下一次答對前的狀態
+        case review // 答錯後第一次答對
+    }
 
     enum TimeUnit {
         case minute
@@ -31,6 +37,7 @@ struct LearningRecord {
     let interval: Int
     let totalTime: Int = 0
     let status: Status
+    let state: State
 }
 
 extension LearningRecord {
