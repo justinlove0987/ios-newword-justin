@@ -17,7 +17,7 @@ extension SentenceCloze {
     init(clozeWord: Word, sentence: [String]) {
         let words: [Word] = sentence.reduce([]) { partialResult, word in
             var result = partialResult
-            result.append(Word(text: word, isReview: false))
+            result.append(Word(text: word, isReview: false, chinese: clozeWord.chinese))
             return result
         }
 

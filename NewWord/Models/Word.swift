@@ -10,6 +10,7 @@ import UIKit
 struct Word {
     let text: String
     var isReview: Bool
+    let chinese: String
 }
 
 extension Word {
@@ -18,9 +19,11 @@ extension Word {
         return punctuationRegex.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) != nil
     }
 
-    var bound: CGRect {
-        return (text as NSString).boundingRect(with: CGSize(width: CGFloat.infinity, height: CGFloat.infinity),
-                                               attributes: [.font : UIFont.systemFont(ofSize: 20)],
-                                               context: nil)
+    var bound: CGSize {
+        return text.size(withAttributes: [.font: UIFont.systemFont(ofSize: Preference.fontSize)])
+    }
+
+    var chineseBound: CGSize {
+        return text.size(withAttributes: [.font: UIFont.systemFont(ofSize: Preference.fontSize)])
     }
 }

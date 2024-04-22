@@ -32,19 +32,29 @@ struct SentenceClozeViewModel {
     }
 
     let cards: [Card] = Card.createFakeData()
+    let relearnCards: [Card]
+    let reviewCards: [Card]
+    let newCards: [Card]
+    let sortedCards: [Card]
 
     var numberOfRowsInSection: Int = 0
-
     var wordsForRows: [[Word]] = []
-    
     var data: Rows!
 
-    var hasNextSentence: Bool {
+    var hasNextCard: Bool {
         let nextIndex = index + 1
         return nextIndex < cards.count
     }
     
     weak var textField: WordTextField?
+
+    init() {
+        self.relearnCards = cards.filter { $0.cardState == .relearn }
+        self.reviewCards = cards.filter { $0.cardState == .review }
+        self.newCards = cards.filter { $0.cardState == .new }
+
+        sortedCards = relearnCards + reviewCards + newCards
+    }
 
     mutating func setup(with width: CGFloat) {
         self.width = width
@@ -55,7 +65,7 @@ struct SentenceClozeViewModel {
         return cards[index]
     }
 
-    mutating func nextSentence() {
+    mutating func nextCard() {
         let nextIndex = index + 1
         index = nextIndex
     }
@@ -74,14 +84,17 @@ struct SentenceClozeViewModel {
             for i in 0..<sentence.words.count {
                 let word = sentence.words[i]
 
-                if (currentBounds + word.bound.width) >= width {
+                let biggerWidth: CGFloat = word.bound.width > word.chineseBound.width ? word.bound.width : word.chineseBound.width
+
+                if (currentBounds + biggerWidth) >= width {
                     wordsInRows.append(items)
                     currentBounds = 0
                     items = []
                 }
 
-                currentBounds += word.bound.width
-                currentBounds += 10
+                currentBounds += biggerWidth
+                currentBounds += Preference.spacing
+
                 items.append(sentence.words[i])
             }
 
@@ -93,7 +106,7 @@ struct SentenceClozeViewModel {
     
     func showAnswer() {
         if let textField = textField {
-            textField.text = textField.word
+            textField.text = textField.word.text
             textField.textColor = .red
             textField.isUserInteractionEnabled = false
         }
@@ -115,8 +128,6 @@ struct SentenceClozeViewModel {
 
 
         if !card.hasReivews { // 當是new card時，basic是一天，然後透過starting ease去計算下一次的due date
-
-            deck.newCard.easyInterval
 
             // LearningRecord(createdDate: Date(), dueDate: <#T##Date#>, interval: <#T##Double#>, status: .correct)
         }

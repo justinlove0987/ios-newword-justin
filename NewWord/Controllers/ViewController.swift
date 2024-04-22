@@ -27,6 +27,11 @@ class ViewController: UIViewController {
         setupViewControllers()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = view.bounds
+    }
+
     private func setupViewControllers() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: String(describing: SentenceClozeViewController.self))

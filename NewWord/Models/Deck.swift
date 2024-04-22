@@ -50,8 +50,6 @@ extension Deck {
 
         let deck = Deck(newCard: newCard, lapses: lapses, advanced: advanced)
 
-        let d: TimeInterval = 13
-
         return deck
     }
 }

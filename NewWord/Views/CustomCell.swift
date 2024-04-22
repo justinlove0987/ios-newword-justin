@@ -36,7 +36,7 @@ class CustomCell: UITableViewCell {
         stack.axis = .horizontal
         stack.distribution = .fill
         stack.alignment = .fill
-        stack.spacing = 10
+        stack.spacing = Preference.spacing
         stack.translatesAutoresizingMaskIntoConstraints = false
 
         contentView.addSubview(stack)
@@ -65,14 +65,14 @@ class CustomCell: UITableViewCell {
                 let nextWord = words[i+1]
 
                 if nextWord.isPunctuation {
-                    let firstView = isClozeWord ? createTextField(with: currentWord.text) : createLabel(with: currentWord.text)
+                    let firstView = isClozeWord ? createTextField(with: currentWord) : createLabel(with: currentWord.text)
                     let secondView = createLabel(with: nextWord.text)
                     arrangedSubview = UIStackView(arrangedSubviews: [firstView, secondView])
 
                     i += 2
 
                 } else {
-                    arrangedSubview = isClozeWord ? createTextField(with: currentWord.text) : createLabel(with: currentWord.text)
+                    arrangedSubview = isClozeWord ? createTextField(with: currentWord) : createLabel(with: currentWord.text)
 
                     i += 1
                 }
@@ -89,16 +89,16 @@ class CustomCell: UITableViewCell {
         }
     }
 
-    private func createTextField(with word: String) -> UITextField {
+    private func createTextField(with word: Word) -> UITextField {
         let tf = WordTextField(with: word, frame: .infinite)
 
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.backgroundColor = .lightGray
         tf.textAlignment = .center
-        tf.font = UIFont.systemFont(ofSize: 20)
+        tf.font = UIFont.systemFont(ofSize: Preference.fontSize)
         tf.delegate = self
         tf.word = word
-        // tf.placeholder = "平衡？"
+        tf.placeholder = word.chinese
         delegate?.didCreateTextField(textField: tf)
 
         return tf
@@ -108,7 +108,7 @@ class CustomCell: UITableViewCell {
         let label = UILabel()
         label.text = word
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.systemFont(ofSize: Preference.fontSize)
         return label
     }
 
@@ -164,7 +164,7 @@ extension CustomCell: UITextFieldDelegate {
         let lowercasedNewText = newText.lowercased()
 
         if let wordTextField = textField as? WordTextField {
-            if wordTextField.word == lowercasedNewText {
+            if wordTextField.word.text == lowercasedNewText {
                 wordTextField.text = newText
                 delegate?.answerCorrect()
                 return false

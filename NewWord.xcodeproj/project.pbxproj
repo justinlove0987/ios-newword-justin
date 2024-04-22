@@ -14,6 +14,7 @@
 		D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4ED2BB9DA3C00CA5CAF /* Word.swift */; };
 		D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EF2BB9DA6000CA5CAF /* Article.swift */; };
 		D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */; };
+		D032145B2BD63C2200512263 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D032145A2BD63C2200512263 /* Preferences.swift */; };
 		D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */; };
 		D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB75B2BB66EEF009E3A41 /* Card.swift */; };
 		D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */; };
@@ -36,6 +37,7 @@
 		D020A4ED2BB9DA3C00CA5CAF /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		D020A4EF2BB9DA6000CA5CAF /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTextField.swift; sourceTree = "<group>"; };
+		D032145A2BD63C2200512263 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vocabulary.swift; sourceTree = "<group>"; };
 		D04EB75B2BB66EEF009E3A41 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */,
 				D0DA5ACD2BB66A07008644DC /* Assets.xcassets */,
 				D0DA5ACF2BB66A07008644DC /* LaunchScreen.storyboard */,
+				D032145A2BD63C2200512263 /* Preferences.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */,
 				D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */,
 				D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */,
+				D032145B2BD63C2200512263 /* Preferences.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
 				D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */,
 				D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */,

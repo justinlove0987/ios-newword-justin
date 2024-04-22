@@ -62,8 +62,8 @@ class SentenceClozeViewController: UIViewController {
     }
     
     private func nextQuestion() {
-        if viewModel.hasNextSentence {
-            viewModel.nextSentence()
+        if viewModel.hasNextCard {
+            viewModel.nextCard()
             tableView.reloadData()
         } else {
             let alert = viewModel.createAlertController()
