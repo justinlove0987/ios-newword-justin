@@ -70,6 +70,17 @@ struct SentenceClozeViewModel {
         index = nextIndex
     }
     
+    func getCurrentClozeChinese() -> Word? {
+        let card = cards[index]
+        let noteType = card.note.noteType
+        
+        if case .sentenceCloze(let sentenceCloze) = noteType {
+            return sentenceCloze.clozeWord
+        }
+        
+        return nil
+    }
+    
     mutating func updateData(width: CGFloat) {
         let card = getCurrentCard()
         let noteType = card.note.noteType
@@ -123,8 +134,9 @@ struct SentenceClozeViewModel {
     
     func updateCardInformation() {
         let card = getCurrentCard()
-//        let cardState = card.cardState
         let deck = Deck.createFakeDeck()
+        
+        card.cardState
 
 
         if !card.hasReivews { // 當是new card時，basic是一天，然後透過starting ease去計算下一次的due date
