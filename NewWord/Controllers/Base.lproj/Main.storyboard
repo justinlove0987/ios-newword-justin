@@ -33,7 +33,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="OKn-nO-T70">
-                                <rect key="frame" x="20" y="59" width="353" height="500"/>
+                                <rect key="frame" x="39.333333333333343" y="59" width="314.33333333333326" height="500"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="500" id="GKz-Ic-NgZ"/>
@@ -47,9 +47,9 @@
                         <viewLayoutGuide key="safeArea" id="SyF-A5-8Kv"/>
                         <color key="backgroundColor" systemColor="systemBrownColor"/>
                         <constraints>
-                            <constraint firstItem="OKn-nO-T70" firstAttribute="leading" secondItem="SyF-A5-8Kv" secondAttribute="leading" constant="20" id="J1S-VJ-KbR"/>
+                            <constraint firstItem="OKn-nO-T70" firstAttribute="centerX" secondItem="Lk0-PZ-NdC" secondAttribute="centerX" id="7Ps-iK-S0a"/>
                             <constraint firstItem="OKn-nO-T70" firstAttribute="top" secondItem="SyF-A5-8Kv" secondAttribute="top" id="S15-xx-FhR"/>
-                            <constraint firstItem="SyF-A5-8Kv" firstAttribute="trailing" secondItem="OKn-nO-T70" secondAttribute="trailing" constant="20" id="vki-QF-m4v"/>
+                            <constraint firstItem="OKn-nO-T70" firstAttribute="width" secondItem="Lk0-PZ-NdC" secondAttribute="width" multiplier="0.8" id="zPB-Lq-BuS"/>
                         </constraints>
                     </view>
                     <connections>

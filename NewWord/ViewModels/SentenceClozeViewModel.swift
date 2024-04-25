@@ -83,16 +83,25 @@ struct SentenceClozeViewModel {
             
             for i in 0..<sentence.words.count {
                 let word = sentence.words[i]
+                let isClozeWord = word.text == clozeWord.text
 
-                let biggerWidth: CGFloat = word.bound.width > word.chineseBound.width ? word.bound.width : word.chineseBound.width
+                let greaterWidth: CGFloat = (isClozeWord && clozeWord.chineseSize.width > word.size.width) ? clozeWord.chineseSize.width : word.size.width
+                
+                if word.text == clozeWord.text && clozeWord.chinese == "像是我們" {
+                    print(word.size.width)
+                    print(clozeWord.chineseSize.width)
 
-                if (currentBounds + biggerWidth) >= width {
+
+                }
+
+
+                if (currentBounds + greaterWidth) >= width {
                     wordsInRows.append(items)
                     currentBounds = 0
                     items = []
                 }
 
-                currentBounds += biggerWidth
+                currentBounds += greaterWidth
                 currentBounds += Preference.spacing
 
                 items.append(sentence.words[i])
@@ -124,7 +133,7 @@ struct SentenceClozeViewModel {
     func updateCardInformation() {
         let card = getCurrentCard()
 //        let cardState = card.cardState
-        let deck = Deck.createFakeDeck()
+//        let deck = Deck.createFakeDeck()
 
 
         if !card.hasReivews { // 當是new card時，basic是一天，然後透過starting ease去計算下一次的due date

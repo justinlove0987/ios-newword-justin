@@ -65,14 +65,14 @@ class CustomCell: UITableViewCell {
                 let nextWord = words[i+1]
 
                 if nextWord.isPunctuation {
-                    let firstView = isClozeWord ? createTextField(with: currentWord) : createLabel(with: currentWord.text)
+                    let firstView = isClozeWord ? createTextField(clozeWord: clozeWord, word: currentWord) : createLabel(with: currentWord.text)
                     let secondView = createLabel(with: nextWord.text)
                     arrangedSubview = UIStackView(arrangedSubviews: [firstView, secondView])
 
                     i += 2
 
                 } else {
-                    arrangedSubview = isClozeWord ? createTextField(with: currentWord) : createLabel(with: currentWord.text)
+                    arrangedSubview = isClozeWord ? createTextField(clozeWord: clozeWord, word: currentWord) : createLabel(with: currentWord.text)
 
                     i += 1
                 }
@@ -89,7 +89,7 @@ class CustomCell: UITableViewCell {
         }
     }
 
-    private func createTextField(with word: Word) -> UITextField {
+    private func createTextField(clozeWord: Word, word: Word) -> UITextField {
         let tf = WordTextField(with: word, frame: .infinite)
 
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -98,7 +98,8 @@ class CustomCell: UITableViewCell {
         tf.font = UIFont.systemFont(ofSize: Preference.fontSize)
         tf.delegate = self
         tf.word = word
-        tf.placeholder = word.chinese
+        tf.placeholder = clozeWord.chinese
+
         delegate?.didCreateTextField(textField: tf)
 
         return tf
@@ -128,7 +129,7 @@ class CustomCell: UITableViewCell {
 
         if let arrangedTextField = arrangedSubview as? UITextField {
             NSLayoutConstraint.activate([
-                arrangedTextField.widthAnchor.constraint(equalToConstant: currentWord.bound.width + 8),
+                arrangedTextField.widthAnchor.constraint(equalToConstant: currentWord.size.width + 8),
                 arrangedTextField.heightAnchor.constraint(equalTo: stackView.heightAnchor)
             ])
             return;

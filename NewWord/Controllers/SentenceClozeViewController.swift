@@ -31,10 +31,10 @@ class SentenceClozeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(CustomCell.self, forCellReuseIdentifier: reuserIdnetifier)
-        viewModel.setup(with: tableView.frame.width)
+        viewModel.setup(with: view.frame.width*0.8)
         setup()
     }
-    
+
     // MARK: - Helpers
     
     private func setup() {
