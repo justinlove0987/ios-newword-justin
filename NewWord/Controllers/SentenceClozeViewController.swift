@@ -17,6 +17,7 @@ class SentenceClozeViewController: UIViewController {
     }
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var chineseLabel: UILabel!
     
     private var currentState: AnswerState = .answering {
         didSet {
@@ -31,7 +32,8 @@ class SentenceClozeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(CustomCell.self, forCellReuseIdentifier: reuserIdnetifier)
-        viewModel.setup(with: view.frame.width*0.8)
+        viewModel.setup(with:  view.frame.width*0.8)
+        chineseLabel.text =  viewModel.getCurrentClozeChinese()?.chinese
         setup()
     }
 
@@ -64,6 +66,7 @@ class SentenceClozeViewController: UIViewController {
     private func nextQuestion() {
         if viewModel.hasNextCard {
             viewModel.nextCard()
+            chineseLabel.text =  viewModel.getCurrentClozeChinese()?.chinese
             tableView.reloadData()
         } else {
             let alert = viewModel.createAlertController()

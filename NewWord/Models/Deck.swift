@@ -19,16 +19,20 @@ struct Deck {
             case tagOnly
             case suspendCard
             case moveToStrengthenArea
-
         }
         
         let relearningSteps: Double
         let leachThreshold: Int
         let leachAction: LeachAction = .moveToStrengthenArea
     }
+    
+    struct Proficiency {
+        let interval: Double // 如果card達到多少interval就變成proficient card
+        let consecutiveCorrects: Int // 如果card達到多少次correct就變成proficient card
+    }
 
     struct Advanced {
-        let startingEase: Double
+        let startingEase: Double // 2.5
         let easyBonus: Double
     }
 

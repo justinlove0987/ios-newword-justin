@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pSA-EX-MVA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pSA-EX-MVA">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -43,16 +43,26 @@
                                     <outlet property="delegate" destination="0bB-md-E3Z" id="C3O-KX-pk0"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hyT-ye-4l8">
+                                <rect key="frame" x="20" y="583" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SyF-A5-8Kv"/>
                         <color key="backgroundColor" systemColor="systemBrownColor"/>
                         <constraints>
-                            <constraint firstItem="OKn-nO-T70" firstAttribute="centerX" secondItem="Lk0-PZ-NdC" secondAttribute="centerX" id="7Ps-iK-S0a"/>
+                            <constraint firstItem="OKn-nO-T70" firstAttribute="leading" secondItem="SyF-A5-8Kv" secondAttribute="leading" constant="20" id="J1S-VJ-KbR"/>
+                            <constraint firstItem="SyF-A5-8Kv" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hyT-ye-4l8" secondAttribute="trailing" symbolic="YES" id="PAu-3Q-y8H"/>
                             <constraint firstItem="OKn-nO-T70" firstAttribute="top" secondItem="SyF-A5-8Kv" secondAttribute="top" id="S15-xx-FhR"/>
-                            <constraint firstItem="OKn-nO-T70" firstAttribute="width" secondItem="Lk0-PZ-NdC" secondAttribute="width" multiplier="0.8" id="zPB-Lq-BuS"/>
+                            <constraint firstItem="hyT-ye-4l8" firstAttribute="top" secondItem="OKn-nO-T70" secondAttribute="bottom" constant="24" id="jv6-33-qNd"/>
+                            <constraint firstItem="hyT-ye-4l8" firstAttribute="leading" secondItem="OKn-nO-T70" secondAttribute="leading" id="lzW-vF-KxA"/>
+                            <constraint firstItem="SyF-A5-8Kv" firstAttribute="trailing" secondItem="OKn-nO-T70" secondAttribute="trailing" constant="20" id="vki-QF-m4v"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="chineseLabel" destination="hyT-ye-4l8" id="r6j-x4-9pQ"/>
                         <outlet property="tableView" destination="OKn-nO-T70" id="RaX-jk-2Mk"/>
                     </connections>
                 </viewController>
