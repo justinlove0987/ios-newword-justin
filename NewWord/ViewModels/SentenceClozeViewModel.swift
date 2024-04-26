@@ -32,10 +32,10 @@ struct SentenceClozeViewModel {
     }
 
     let cards: [Card] = Card.createFakeData()
-    let relearnCards: [Card]
-    let reviewCards: [Card]
-    let newCards: [Card]
-    let sortedCards: [Card]
+//    let relearnCards: [Card]
+//    let reviewCards: [Card]
+//    let newCards: [Card]
+//    let sortedCards: [Card]
 
     var numberOfRowsInSection: Int = 0
     var wordsForRows: [[Word]] = []
@@ -49,11 +49,11 @@ struct SentenceClozeViewModel {
     weak var textField: WordTextField?
 
     init() {
-        self.relearnCards = cards.filter { $0.cardState == .relearn }
-        self.reviewCards = cards.filter { $0.cardState == .review }
-        self.newCards = cards.filter { $0.cardState == .new }
+//        self.relearnCards = cards.filter { $0.cardState == .relearn }
+//        self.reviewCards = cards.filter { $0.cardState == .review }
+//        self.newCards = cards.filter { $0.cardState == .new }
 
-        sortedCards = relearnCards + reviewCards + newCards
+//        sortedCards = relearnCards + reviewCards + newCards
     }
 
     mutating func setup(with width: CGFloat) {
@@ -141,13 +141,9 @@ struct SentenceClozeViewModel {
         return alertController
     }
     
-    func updateCardInformation() {
+    func addLearningRecord() {
         let card = getCurrentCard()
-//        let cardState = card.cardState
-//        let deck = Deck.createFakeDeck()
         let deck = Deck.createFakeDeck()
-        
-//        card.cardState
 
 
         if !card.hasReivews { // 當是new card時，basic是一天，然後透過starting ease去計算下一次的due date

@@ -20,8 +20,11 @@ extension Card {
 
     enum CardState {
         case new
-        case relearn
+        case learn
         case review
+        case relearn
+        case leach
+        case master
     }
     
     var reviews: Int {
@@ -32,26 +35,9 @@ extension Card {
 
     var hasReivews: Bool { return learningRecords.count != 0 }
 
-
     /// This is the state existing **prior to** the answer card.
-    var cardState: CardState {
-        if !hasReivews {
-            return .new
-        }
-
-        let learningState = latestReview!.state
-        let learningStatus = latestReview!.status
-
-        switch (learningState, learningStatus) {
-        case (.learn, .incorrect):
-            return .new
-        case (.learn, .correct), (.relearn, .correct), (.review, .correct):
-            return .review
-        case (.relearn, .incorrect), (.review, .incorrect):
-            return .relearn
-        }
-
-
+    var currentLearningState: LearningRecord.State? {
+        return latestReview?.state
     }
     
     var firstReview: LearningRecord? {

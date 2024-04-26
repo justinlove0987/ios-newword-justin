@@ -12,8 +12,14 @@ struct LearningRecord {
 
     enum State {
         case learn
-        case relearn
         case review
+        case relearn
+        case leach
+        case master
+        
+        // case relearn
+        // case leach
+        // case master
     }
 
     enum Status {
