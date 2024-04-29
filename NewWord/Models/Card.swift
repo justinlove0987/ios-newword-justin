@@ -69,7 +69,7 @@ extension Card {
     
     var lapses: Int {
         return learningRecords.reduce(0) { partialResult, record in
-            return (record.state == .relearn && record.status == .incorrect) ? (partialResult + 1) : partialResult
+            return (record.state == .relearn && record.status == .correct) ? (partialResult + 1) : partialResult
         }
     }
 }

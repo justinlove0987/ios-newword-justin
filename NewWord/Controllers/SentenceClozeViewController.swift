@@ -58,8 +58,9 @@ class SentenceClozeViewController: UIViewController {
         case .answering:
             nextQuestion()
             
-        case .showingAnswer:
+        case .showingAnswer: // incorrect
             viewModel.showAnswer()
+            
         }
     }
     
