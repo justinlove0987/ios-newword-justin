@@ -9,9 +9,22 @@ import Foundation
 
 
 struct Deck {
+
+    enum Interval {
+        case learnCorrect
+        case learnIncorrect
+        case reviewCorrect
+        case reviewIncorrect
+        case relearnCorrect
+        case relearnIncorrect
+    }
+
     struct NewCard {
+        /// It's day
         let graduatingInterval: Int
+        /// It's day
         let easyInterval: Int
+        /// It's second
         let learningStpes: Double
     }
     
@@ -64,4 +77,32 @@ extension Deck {
 
         return deck
     }
+}
+
+
+extension Deck {
+    func isLeachCard(card: Card, answerIsCorrect: Bool = false) -> Bool {
+        let filteredRecords = card.learningRecords.filter { reocrd in
+            return reocrd.state == .relearn && reocrd.status == .correct
+        }
+
+        return filteredRecords.count + 1 >= lapses.leachThreshold
+    }
+
+    func isMasterCard(card: Card, answerIsCorrect: Bool = true) -> Bool {
+        let filteredRecords = card.learningRecords.filter { reocrd in
+            return reocrd.status == .correct
+        }
+
+        return filteredRecords.count + 1 >= master.consecutiveCorrects
+    }
+
+
+    func createInterval(lastLearningRedord: LearningRecord, isAnwerCorrect: Bool) {
+
+    }
+
+//    func createCorreLearningRecord(_ lastLearningReocrd: LearningRecord) -> LearningRecord {
+//
+//    }
 }

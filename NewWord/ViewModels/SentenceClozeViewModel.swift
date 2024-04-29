@@ -141,52 +141,121 @@ struct SentenceClozeViewModel {
         return alertController
     }
     
-    func addLearningRecord(answerIsCorrect: Bool) -> LearningRecord {
+    func addLearningRecord(isAswerCorrect: Bool) -> LearningRecord {
         let card = getCurrentCard()
         let deck = Deck.createFakeDeck()
         let today: Date = Date()
 
-        let learningStatus: LearningRecord.Status = answerIsCorrect ? .correct : .incorrect
+        let currentLearningStatus: LearningRecord.Status = isAswerCorrect ? .correct : .incorrect
 
 
         // 第一次回答
+        // TODO: - 調整 latestReview ease
         guard let latestReview = card.latestReview else {
-            let dueDate: Date = today.addingTimeInterval(1)
+            // When we don't have latest reivew, then it's a new card.
+            let newCard = deck.newCard
 
-            return LearningRecord(learnedDate: today, dueDate: dueDate, status: learningStatus, state: .learn)
+            let dueDate: Date = isAswerCorrect ? addInterval(to: today, dayInterval: newCard.easyInterval)! : addInterval(to: today, secondInterval: newCard.learningStpes)
+
+            return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .learn)
         }
 
-        let status =  latestReview.status
-        let state = latestReview.state
+
+        if isAswerCorrect {
+            if deck.isMasterCard(card: card) {
+                let newInterval = latestReview.interval * (latestReview.ease + 0.2)
+                let dueDate = today.addingTimeInterval(newInterval)
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: .correct, state: .master)
+            } else {
+                
+            }
+
+        } else {
+            if deck.isLeachCard(card: card) {
+                return LearningRecord(learnedDate: today, dueDate: today, status: .incorrect, state: .leach)
+            }
+        }
 
 
-        switch (state, status) {
+
+        let lastStatus =  latestReview.status
+        let lastState = latestReview.state
+
+        let lastRecord = (lastState, lastStatus)
+
+        switch (lastState, lastStatus) {
+        // 複習
         case (.learn, .correct):
+            if isAswerCorrect {
+                // TODO: - 將答對時ease需要加上的趴數獨立出來
+                let newInterval = latestReview.interval * (latestReview.ease + 0.2)
+                let dueDate = today.addingTimeInterval(newInterval)
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .review)
+            } else {
+                let relearningStpes = deck.lapses.relearningSteps
+                let dueDate = addInterval(to: today, secondInterval: relearningStpes)
 
-
-
-
-            let easyInterval = deck.newCard.easyInterval
-            let dueDate = addInterval(to: today, dayInterval: easyInterval) ?? today
-            return LearningRecord(learnedDate: today, dueDate: dueDate, status: learningStatus, state: .review)
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .relearn)
+            }
 
         case (.learn, .incorrect):
-            let interval = deck.lapses.relearningSteps
-            let dueDate = addInterval(to: today, secondInterval: interval)
-            return LearningRecord(learnedDate: today, dueDate: dueDate, status: learningStatus, state: .learn)
+            if isAswerCorrect {
+                let interval = deck.newCard.graduatingInterval
+                let dueDate = addInterval(to: today, dayInterval: interval)!
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: .correct, state: .learn)
+            } else {
+                let interval = deck.lapses.relearningSteps
+                let dueDate = addInterval(to: today, secondInterval: interval)
+
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .learn)
+            }
 
         case (.review, .correct):
-            let interval = deck.lapses.relearningSteps
-            let dueDate = addInterval(to: today, secondInterval: interval)
-            return LearningRecord(learnedDate: today, dueDate: dueDate, status: learningStatus, state: .learn)
+            if isAswerCorrect {
+                let newInterval = latestReview.interval * (latestReview.ease + 0.2)
+                let dueDate = addInterval(to: today, secondInterval: newInterval)
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .review)
+            } else {
+                let interval = deck.lapses.relearningSteps
+                let dueDate = addInterval(to: today, secondInterval: interval)
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .relearn)
+            }
 
 
         case (.review, .incorrect):
-            break
+            // 上一次回答review時候答錯，而且是第一次reivew
+            // TODO: - 將答錯時，ease需要加上的趴數獨立出來
+
+            if isAswerCorrect {
+                let newInterval = 1
+                let dueDate = addInterval(to: today, dayInterval: newInterval)!
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .relearn)
+            } else {
+                let interval = deck.lapses.relearningSteps
+                let dueDate = addInterval(to: today, secondInterval: interval)
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .relearn)
+            }
         case (.relearn, .correct):
-            break
+            if isAswerCorrect {
+                let newInterval = latestReview.interval * (latestReview.ease + 0.2)
+                let dueDate = addInterval(to: today, secondInterval: newInterval)
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .review)
+            } else {
+                let interval = deck.lapses.relearningSteps
+                let dueDate = addInterval(to: today, secondInterval: interval)
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .relearn)
+            }
+
         case (.relearn, .incorrect):
-            break
+            if isAswerCorrect {
+                let newInterval = 1
+                let dueDate = addInterval(to: today, dayInterval: newInterval)!
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .relearn)
+            } else {
+                let interval = deck.lapses.relearningSteps
+                let dueDate = addInterval(to: today, secondInterval: interval)
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .relearn)
+            }
         case (.leach, .incorrect):
             break
         case (.master, .correct):
