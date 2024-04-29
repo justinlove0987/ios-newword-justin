@@ -16,10 +16,6 @@ struct LearningRecord {
         case relearn
         case leach
         case master
-        
-        // case relearn
-        // case leach
-        // case master
     }
 
     enum Status {
@@ -34,6 +30,8 @@ struct LearningRecord {
 
     /// This is the state **after** the answer card.
     let state: State
+
+    let ease: Double = 2.5
 }
 
 extension LearningRecord {

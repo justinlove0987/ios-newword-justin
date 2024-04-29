@@ -46,12 +46,11 @@ extension Card {
         }
     }
     
+    /// If there is no learning record, it means it's a **new card**.
     var latestReview: LearningRecord? {
-        let record = learningRecords.max { lRecord, rRecord in
+        return learningRecords.max { lRecord, rRecord in
             lRecord.dueDate < rRecord.dueDate
         }
-        
-        return (hasReivews ? record : nil)
     }
     
     var firstReviewDate: Date? {

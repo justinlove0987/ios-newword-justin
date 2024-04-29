@@ -141,21 +141,78 @@ struct SentenceClozeViewModel {
         return alertController
     }
     
-    func addLearningRecord() {
+    func addLearningRecord(answerIsCorrect: Bool) -> LearningRecord {
         let card = getCurrentCard()
         let deck = Deck.createFakeDeck()
+        let today: Date = Date()
+
+        let learningStatus: LearningRecord.Status = answerIsCorrect ? .correct : .incorrect
 
 
-        if !card.hasReivews { // 當是new card時，basic是一天，然後透過starting ease去計算下一次的due date
+        // 第一次回答
+        guard let latestReview = card.latestReview else {
+            let dueDate: Date = today.addingTimeInterval(1)
 
-            // LearningRecord(createdDate: Date(), dueDate: <#T##Date#>, interval: <#T##Double#>, status: .correct)
+            return LearningRecord(learnedDate: today, dueDate: dueDate, status: learningStatus, state: .learn)
         }
 
-//        switch cardState {
-//        case .new:
-//            <#code#>
-//        case .review:
-//            <#code#>
-//        }
+        let status =  latestReview.status
+        let state = latestReview.state
+
+
+        switch (state, status) {
+        case (.learn, .correct):
+
+
+
+
+            let easyInterval = deck.newCard.easyInterval
+            let dueDate = addInterval(to: today, dayInterval: easyInterval) ?? today
+            return LearningRecord(learnedDate: today, dueDate: dueDate, status: learningStatus, state: .review)
+
+        case (.learn, .incorrect):
+            let interval = deck.lapses.relearningSteps
+            let dueDate = addInterval(to: today, secondInterval: interval)
+            return LearningRecord(learnedDate: today, dueDate: dueDate, status: learningStatus, state: .learn)
+
+        case (.review, .correct):
+            let interval = deck.lapses.relearningSteps
+            let dueDate = addInterval(to: today, secondInterval: interval)
+            return LearningRecord(learnedDate: today, dueDate: dueDate, status: learningStatus, state: .learn)
+
+
+        case (.review, .incorrect):
+            break
+        case (.relearn, .correct):
+            break
+        case (.relearn, .incorrect):
+            break
+        case (.leach, .incorrect):
+            break
+        case (.master, .correct):
+            break
+        default:
+            fatalError()
+            break
+        }
+
+        return LearningRecord(learnedDate: today, dueDate: today, status: .correct, state: .learn)
+    }
+
+
+    private func addInterval(to date: Date, dayInterval: Int) -> Date? {
+        let interval: Int = dayInterval
+
+        var dateComponents = DateComponents()
+        dateComponents.day = interval
+
+        let calendar = Calendar.current
+        let futureDate = calendar.date(byAdding: dateComponents, to: date)
+
+        return futureDate
+    }
+
+    private func addInterval(to date: Date, secondInterval: Double) -> Date {
+        return date.addingTimeInterval(secondInterval)
     }
 }
