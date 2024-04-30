@@ -59,7 +59,10 @@ class SentenceClozeViewController: UIViewController {
             nextQuestion()
             
         case .showingAnswer: // incorrect
+            let learningRecord = viewModel.createLearningRecord(isAnswerCorrect: false)
             viewModel.showAnswer()
+            
+            print(learningRecord)
             
         }
     }
@@ -100,6 +103,8 @@ extension SentenceClozeViewController: CustomCellDelegate {
     }
     
     func answerCorrect() {
+        let learningRecord = viewModel.createLearningRecord(isAnswerCorrect: true)
+        print(learningRecord)
         nextQuestion()
     }
 }

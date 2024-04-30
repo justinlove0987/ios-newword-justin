@@ -87,17 +87,12 @@ extension Card {
         let note1 = Note(noteId: UUID().uuidString, noteType: .sentenceCloze(sentenceCloze1))
         let note2 = Note(noteId: UUID().uuidString, noteType: .sentenceCloze(sentenceCloze2))
 
-        let date1 = Card.dateCreator(year: 2024, month: 5, day: 1)
+        let date1 = Card.dateCreator(year: 2024, month: 4, day: 28)
         let date2 = Card.dateCreator(year: 2024, month: 5, day: 2)
         let date3 = Card.dateCreator(year: 2024, month: 5, day: 3)
 
-        let card1 = Card(id: UUID().uuidString, note: note1, learningRecords: [LearningRecord(learnedDate: date1, dueDate: date1, status: .correct, state: .relearn),
-                                                                               LearningRecord(learnedDate: date2, dueDate: date2, status: .correct, state: .learn),
-                                                                               LearningRecord(learnedDate: date3, dueDate: date3, status: .correct, state: .relearn),
-                                                                              ])
-        let card2 = Card(id: UUID().uuidString, note: note2, learningRecords: [LearningRecord(learnedDate: date1, dueDate: date1, status: .correct, state: .relearn),
-                                                                               LearningRecord(learnedDate: date2, dueDate: date2, status: .correct, state: .review),
-                                                                               LearningRecord(learnedDate: date3, dueDate: date3, status: .correct, state: .review),
+        let card1 = Card(id: UUID().uuidString, note: note1, learningRecords: [])
+        let card2 = Card(id: UUID().uuidString, note: note2, learningRecords: [LearningRecord(learnedDate: date1, dueDate: date1, status: .correct, state: .learn),
                                                                               ])
 
         return [card1, card2]
