@@ -104,7 +104,6 @@ extension SentenceClozeViewController: CustomCellDelegate {
     
     func answerCorrect() {
         let learningRecord = viewModel.createLearningRecord(isAnswerCorrect: true)
-        print(learningRecord)
         nextQuestion()
     }
 }

@@ -10,7 +10,7 @@ import CoreData
 
 private let reuseIdentifier = "Cell"
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
 
     let tableView: UITableView = UITableView()
     var dataSource: [UIViewController] = []
@@ -33,14 +33,16 @@ class ViewController: UIViewController {
     }
 
     private func setupViewControllers() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: String(describing: SentenceClozeViewController.self))
+        let reviewVC = ReviewViewController()
+        let exploreVC = ExploreViewController()
+        let searchVC = SearchViewController()
+        let settingsVC = SettingsViewController()
 
-        dataSource = [vc]
+        dataSource = [reviewVC, exploreVC, searchVC, settingsVC]
     }
 }
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
