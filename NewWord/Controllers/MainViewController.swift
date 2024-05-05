@@ -33,7 +33,8 @@ class MainViewController: UIViewController {
     }
 
     private func setupViewControllers() {
-        let reviewVC = ReviewViewController()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let reviewVC = storyboard.instantiateViewController(withIdentifier: "ReviewViewController")
         let exploreVC = ExploreViewController()
         let searchVC = SearchViewController()
         let settingsVC = SettingsViewController()

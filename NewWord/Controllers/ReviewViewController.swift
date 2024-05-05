@@ -7,24 +7,14 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
-
 class ReviewViewController: UIViewController {
     
-    let tableView: UITableView = UITableView()
+    @IBOutlet weak var tableView: UITableView!
+    
     var dataSource: [UIViewController] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
-        
-        tableView.frame = view.bounds
-        tableView.delegate = self
-        tableView.dataSource = self
-        view.addSubview(tableView)
-
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
-
         setup()
     }
     
@@ -44,9 +34,9 @@ extension ReviewViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-
-        cell.textLabel?.text = String(describing: type(of: dataSource[indexPath.row]))
+        let cell = tableView.dequeueReusableCell(withIdentifier: DeckCell.reuseIdentifier, for: indexPath) as! DeckCell
+        
+        cell.nameLabel.text = String(describing: type(of: dataSource[indexPath.row]))
 
         return cell
     }
