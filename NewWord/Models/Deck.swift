@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct Deck {
+struct Deck: Hashable {
 
     enum Interval {
         case learnCorrect
@@ -62,8 +62,18 @@ struct Deck {
     let lapses: Lapses
     let advanced: Advanced
     let master: Master
+    
+    let id: String
+    var name: String
+    let cards: [Card]
 
+    static func == (lhs: Deck, rhs: Deck) -> Bool {
+        return lhs.id == rhs.id
+    }
 
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 extension Deck {
@@ -73,7 +83,7 @@ extension Deck {
         let advanced = Deck.Advanced(startingEase: 2.5, easyBonus: 1.3)
         let master = Deck.Master(graduatingInterval: 730, consecutiveCorrects: 5)
 
-        let deck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master)
+        let deck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: UUID().uuidString, name: "英文句子", cards: [])
 
         return deck
     }
@@ -96,13 +106,4 @@ extension Deck {
 
         return filteredRecords.count + 1 >= master.consecutiveCorrects
     }
-
-
-    func createInterval(lastLearningRedord: LearningRecord, isAnwerCorrect: Bool) {
-
-    }
-
-//    func createCorreLearningRecord(_ lastLearningReocrd: LearningRecord) -> LearningRecord {
-//
-//    }
 }
