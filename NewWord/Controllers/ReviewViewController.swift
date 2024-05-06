@@ -43,7 +43,10 @@ class ReviewViewController: UIViewController {
     private func setupDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             let cell = tableView.dequeueReusableCell(withIdentifier: DeckCell.reuseIdentifier, for: indexPath) as! DeckCell
+            
+            cell.deck = self.decks[indexPath.row]
             cell.nameLabel.text = itemIdentifier.name
+            
             return cell
         })
 

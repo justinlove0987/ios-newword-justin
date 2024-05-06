@@ -11,17 +11,23 @@ class DeckCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     
+    var deck: Deck?
+    
+    
     static let reuseIdentifier = String(describing: DeckCell.self)
+    
+    // MARK: - Lifecycles
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    // MARK: - Actions
+    
+    @IBAction func settingAction(_ sender: UIButton) {
+        
     }
+    
 
 }

@@ -10,15 +10,6 @@ import Foundation
 
 struct Deck: Hashable {
 
-    enum Interval {
-        case learnCorrect
-        case learnIncorrect
-        case reviewCorrect
-        case reviewIncorrect
-        case relearnCorrect
-        case relearnIncorrect
-    }
-
     struct NewCard {
         /// It's day
         let graduatingInterval: Int
