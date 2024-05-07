@@ -44,9 +44,14 @@ class ReviewViewController: UIViewController {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             let cell = tableView.dequeueReusableCell(withIdentifier: DeckCell.reuseIdentifier, for: indexPath) as! DeckCell
             
-            cell.deck = self.decks[indexPath.row]
-            cell.nameLabel.text = itemIdentifier.name
             
+            cell.deck = itemIdentifier
+            cell.nameLabel.text = itemIdentifier.name
+            cell.settingAction = {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: String(describing: ReviseDeckViewController.self))
+                self.present(vc, animated: true)
+            }
             return cell
         })
 
@@ -76,7 +81,6 @@ class ReviewViewController: UIViewController {
                 var snapshot = self.dataSource.snapshot()
                 snapshot.appendItems([deck], toSection: 1)
                 self.dataSource.apply(snapshot)
-
             }
         }
 

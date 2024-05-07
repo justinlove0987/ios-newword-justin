@@ -162,7 +162,7 @@
         <!--Revise Deck View Controller-->
         <scene sceneID="BKq-dO-AO9">
             <objects>
-                <viewController id="06O-NH-wWK" customClass="ReviseDeckViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ReviseDeckViewController" id="06O-NH-wWK" customClass="ReviseDeckViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rCw-wr-0Mw">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

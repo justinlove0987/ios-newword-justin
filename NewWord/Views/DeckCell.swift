@@ -13,6 +13,7 @@ class DeckCell: UITableViewCell {
     
     var deck: Deck?
     
+    var settingAction: (() -> ())?
     
     static let reuseIdentifier = String(describing: DeckCell.self)
     
@@ -26,6 +27,11 @@ class DeckCell: UITableViewCell {
     // MARK: - Actions
     
     @IBAction func settingAction(_ sender: UIButton) {
+        guard let settingAction = settingAction else {
+            return
+        }
+        
+        settingAction()
         
     }
     
