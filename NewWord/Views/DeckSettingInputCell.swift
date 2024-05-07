@@ -25,12 +25,5 @@ class DeckSettingInputCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    static func createCell(tableView: UITableView, indexPath: IndexPath, title: String, inputText: String) -> Self {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Self.reuseIdentifier, for: indexPath) as! Self
-        cell.titleLabel.text = title
-        cell.inputTextField.placeholder = inputText
-        return cell
-    }
 
 }

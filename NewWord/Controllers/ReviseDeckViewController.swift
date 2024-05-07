@@ -18,11 +18,12 @@ class ReviseDeckViewController: UIViewController {
     }
     
     enum Item {
-        static let newCard: [Item] = [.learningStpes]
-        
+        static let newCard: [Item] = [.learningStpes, .learningGraduatingInterval, .easyInterval]
+
         case learningStpes
-        case easyInterval
         case learningGraduatingInterval
+        case easyInterval
+
         case relearningSteps
         case minumumInterval
         case leachThreshold
@@ -44,19 +45,23 @@ class ReviseDeckViewController: UIViewController {
     private func setupDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             let deck = Deck.createFakeDeck()
-            
-//            let lapses = deck.lapses
-//            let master = deck.master
-//            let advanced = deck.advanced
-            
             let section = Section.allCases[indexPath.section]
-            
+            let factory = DeckSettingCellFactory(tableView: tableView, indexPath: indexPath)
+
             switch section {
             case .newCard:
                 let newCard = deck.newCard
+
                 switch itemIdentifier {
                 case .learningStpes:
-                    return DeckSettingInputCell.createCell(tableView: tableView, indexPath: indexPath, title: "學習階段", inputText: "\(newCard.learningStpes)")
+                    return factory.createInputCell(title: "學習階段", inputText: "\(newCard.learningStpes)")
+
+                case .learningGraduatingInterval:
+                    return factory.createInputCell(title: "畢業間隔", inputText: "\(newCard.graduatingInterval)")
+
+                case .easyInterval:
+                    return factory.createInputCell(title: "簡單間隔", inputText: "\(newCard.easyInterval)")
+
                 default:
                     break
                 }
@@ -77,4 +82,20 @@ class ReviseDeckViewController: UIViewController {
         tableView.dataSource = dataSource
     }
     
+}
+
+extension ReviseDeckViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let titles = ["新卡片", "忘記卡片", "低效卡", "高效卡", "進階設定"]
+
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 50))
+        label.text = titles[section]
+        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+
+        return label
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
 }

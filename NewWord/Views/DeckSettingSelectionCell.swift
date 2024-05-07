@@ -8,9 +8,10 @@
 import UIKit
 
 class DeckSettingSelectionCell: UITableViewCell {
-    
+
+    static let reuseIdentifier = String(describing: DeckSettingSelectionCell.self)
+
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var selectionLabel: UILabel!
     
     override func awakeFromNib() {
