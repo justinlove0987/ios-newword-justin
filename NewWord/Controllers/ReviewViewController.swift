@@ -49,7 +49,9 @@ class ReviewViewController: UIViewController {
             cell.nameLabel.text = itemIdentifier.name
             cell.settingAction = {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: String(describing: ReviseDeckViewController.self))
+                let vc = storyboard.instantiateViewController(withIdentifier: String(describing: ReviseDeckViewController.self)) as! ReviseDeckViewController
+                vc.deck = self.decks[indexPath.row]
+                
                 self.present(vc, animated: true)
             }
             return cell

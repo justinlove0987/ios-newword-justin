@@ -49,7 +49,7 @@ struct Deck: Hashable {
         let easyBonus: Double
     }
 
-    let newCard: NewCard
+    var newCard: NewCard
     let lapses: Lapses
     let advanced: Advanced
     let master: Master

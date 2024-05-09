@@ -26,7 +26,7 @@
 		D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */; };
 		D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB75B2BB66EEF009E3A41 /* Card.swift */; };
 		D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */; };
-		D07571672BEA29EB00D78B6C /* DeckSettingFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07571662BEA29EB00D78B6C /* DeckSettingFactory.swift */; };
+		D07571672BEA29EB00D78B6C /* DeckSettingCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07571662BEA29EB00D78B6C /* DeckSettingCellFactory.swift */; };
 		D078D0982BC9242900F601B2 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D078D0972BC9242900F601B2 /* Note.swift */; };
 		D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC42BB66A05008644DC /* AppDelegate.swift */; };
 		D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */; };
@@ -58,7 +58,7 @@
 		D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vocabulary.swift; sourceTree = "<group>"; };
 		D04EB75B2BB66EEF009E3A41 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewController.swift; sourceTree = "<group>"; };
-		D07571662BEA29EB00D78B6C /* DeckSettingFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckSettingFactory.swift; sourceTree = "<group>"; };
+		D07571662BEA29EB00D78B6C /* DeckSettingCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckSettingCellFactory.swift; sourceTree = "<group>"; };
 		D078D0972BC9242900F601B2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		D0DA5AC12BB66A05008644DC /* NewWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DA5AC42BB66A05008644DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 				D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */,
 				D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */,
 				2A18E7B32BE74008005139C8 /* DeckCell.swift */,
-				D07571662BEA29EB00D78B6C /* DeckSettingFactory.swift */,
+				D07571662BEA29EB00D78B6C /* DeckSettingCellFactory.swift */,
 				2A9AFEA72BE8A9D90085766C /* DeckSettingInputCell.swift */,
 				2A9AFEA92BE8A9F00085766C /* DeckSettingSelectionCell.swift */,
 			);
@@ -267,7 +267,7 @@
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
-				D07571672BEA29EB00D78B6C /* DeckSettingFactory.swift in Sources */,
+				D07571672BEA29EB00D78B6C /* DeckSettingCellFactory.swift in Sources */,
 				2A9AFEAC2BE8AA140085766C /* ReviseDeckViewController.swift in Sources */,
 				2A9AFEA82BE8A9D90085766C /* DeckSettingInputCell.swift in Sources */,
 				D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */,

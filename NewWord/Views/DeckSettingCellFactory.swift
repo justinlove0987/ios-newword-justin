@@ -16,11 +16,16 @@ struct DeckSettingCellFactory {
         self.tableView = tableView
         self.indexPath = indexPath
     }
+    
+    init(tableView: UITableView) {
+        self.tableView = tableView
+        self.indexPath = IndexPath()
+    }
 
-    func createInputCell(title: String, inputText: String) -> DeckSettingInputCell {
+    func createInputCell(title: String, input: String) -> DeckSettingInputCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DeckSettingInputCell.reuseIdentifier, for: indexPath) as! DeckSettingInputCell
         cell.titleLabel.text = title
-        cell.inputTextField.text = inputText
+        cell.inputTextField.text = input
         return cell
     }
 
@@ -30,6 +35,10 @@ struct DeckSettingCellFactory {
         cell.selectionLabel.text = selection
         return cell
     }
-
+    
+    func getCellInput() -> String {
+        let cell = tableView.cellForRow(at: indexPath) as! DeckSettingInputCell
+        return cell.inputTextField.text ?? ""
+    }
 
 }

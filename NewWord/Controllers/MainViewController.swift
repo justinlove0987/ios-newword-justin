@@ -15,6 +15,8 @@ class MainViewController: UIViewController {
     let tableView: UITableView = UITableView()
     var dataSource: [UIViewController] = []
 
+    // MARK: - Lifecycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.frame = view.bounds
@@ -31,6 +33,8 @@ class MainViewController: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
+    
+    // MARK: - Helpers
 
     private func setupViewControllers() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -60,36 +64,5 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         navigationController?.pushViewController(dataSource[indexPath.row], animated: true)
     }
 }
-
-
-
-
-//struct Vocabulary1 {
-//    let state: VocabularyState1
-//}
-//
-//class VocabularyState1 {
-//    var completedDate: Date = Date()
-//    var id: String = UUID().uuidString
-//    var type: VocabularyState1.type = .review
-//
-//    enum type {
-//        case test(VacabularyTest)
-//        case review
-//        case preview
-//        case storage
-//    }
-//
-//}
-//
-//class VacabularyTest {
-//    var firdtTestDate: Date = Date()
-//    var type: VacabularyTest.type = .sentenceCloze(SentenceCloze(cloze: ""))
-//
-//    enum type {
-//        case sentenceCloze(SentenceCloze)
-//        case vocabularCloze
-//    }
-//}
 
 
