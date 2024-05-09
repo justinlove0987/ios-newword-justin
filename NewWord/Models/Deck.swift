@@ -12,11 +12,11 @@ struct Deck: Hashable {
 
     struct NewCard {
         /// It's day
-        let graduatingInterval: Int
+        var graduatingInterval: Int
         /// It's day
-        let easyInterval: Int
+        var easyInterval: Int
         /// It's second
-        let learningStpes: Double
+        var learningStpes: Double
     }
     
     struct Lapses {
@@ -27,36 +27,36 @@ struct Deck: Hashable {
         }
 
         /// It's second
-        let relearningSteps: Double
-        
+        var relearningSteps: Double
+
         /// The number of times Again needs to be pressed on a review card before it is marked as a leech. Leeches are cards that consume a lot of your time, and when a card is marked as a leech, it's a good idea to rewrite it, delete it, or think of a mnemonic to help you remember it.
-        let leachThreshold: Int
-        
+        var leachThreshold: Int
+
         /// The minimum interval given to a review card after answering Again.
-        let minumumInterval: Int
-        
+        var minumumInterval: Int
+
         /// Tag Only: Add a "leech" tag to the note, and display a pop-up. Suspend Card: In addition to tagging the note, hide the card until it is manually unsuspended.
-        let leachAction: LeachAction = .moveToStrengthenArea
+        var leachAction: LeachAction = .moveToStrengthenArea
     }
     
     struct Master {
-        let graduatingInterval: Int // 如果card達到多少interval就變成proficient card
-        let consecutiveCorrects: Int // 如果card達到多少次correct就變成proficient card
+        var graduatingInterval: Int // 如果card達到多少interval就變成proficient card
+        var consecutiveCorrects: Int // 如果card達到多少次correct就變成proficient card
     }
 
     struct Advanced {
-        let startingEase: Double // 2.5
+        var startingEase: Double // 2.5
         let easyBonus: Double
     }
 
     var newCard: NewCard
-    let lapses: Lapses
-    let advanced: Advanced
-    let master: Master
-    
+    var lapses: Lapses
+    var advanced: Advanced
+    var master: Master
+
     let id: String
-    var name: String
     let cards: [Card]
+    var name: String
 
     static func == (lhs: Deck, rhs: Deck) -> Bool {
         return lhs.id == rhs.id
@@ -74,7 +74,7 @@ extension Deck {
         let advanced = Deck.Advanced(startingEase: 2.5, easyBonus: 1.3)
         let master = Deck.Master(graduatingInterval: 730, consecutiveCorrects: 5)
 
-        let deck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: UUID().uuidString, name: "英文句子", cards: [])
+        let deck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: UUID().uuidString, cards: [], name: "英文句子")
 
         return deck
     }

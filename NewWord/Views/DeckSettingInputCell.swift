@@ -12,7 +12,6 @@ class DeckSettingInputCell: UITableViewCell {
     static let reuseIdentifier  = String(describing: DeckSettingInputCell.self)
     
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var inputTextField: UITextField!
     
     override func awakeFromNib() {
