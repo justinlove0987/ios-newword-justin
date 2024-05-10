@@ -32,10 +32,6 @@ struct SentenceClozeViewModel {
     }
 
     let cards: [Card] = Card.createFakeData()
-//    let relearnCards: [Card]
-//    let reviewCards: [Card]
-//    let newCards: [Card]
-//    let sortedCards: [Card]
 
     var numberOfRowsInSection: Int = 0
     var wordsForRows: [[Word]] = []
@@ -49,11 +45,6 @@ struct SentenceClozeViewModel {
     weak var textField: WordTextField?
 
     init() {
-//        self.relearnCards = cards.filter { $0.cardState == .relearn }
-//        self.reviewCards = cards.filter { $0.cardState == .review }
-//        self.newCards = cards.filter { $0.cardState == .new }
-
-//        sortedCards = relearnCards + reviewCards + newCards
     }
 
     mutating func setup(with width: CGFloat) {

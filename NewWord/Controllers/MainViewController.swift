@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 
 private let reuseIdentifier = "Cell"
 
@@ -27,8 +26,6 @@ class MainViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
 
         setupViewControllers()
-        
-        testWritingFile()
     }
 
     override func viewDidLayoutSubviews() {
@@ -46,19 +43,6 @@ class MainViewController: UIViewController {
         let settingsVC = SettingsViewController()
 
         dataSource = [reviewVC, exploreVC, searchVC, settingsVC]
-    }
-    
-    private func testWritingFile() {
-        // Example usage:
-        let newDeck = Deck(newCard: Deck.NewCard(graduatingInterval: 10, easyInterval: 5, learningStpes: 2.0),
-                            lapses: Deck.Lapses(relearningSteps: 1.5, leachThreshold: 3, minumumInterval: 2),
-                            advanced: Deck.Advanced(startingEase: 2.5, easyBonus: 1.2),
-                            master: Deck.Master(graduatingInterval: 100, consecutiveCorrects: 3),
-                            id: "new_deck_id",
-                            cards: [],
-                            name: "New Deck Name")
-
-        JsonManager.writeDeckToFile(deck: newDeck, filename: "decks.json")
     }
 }
 

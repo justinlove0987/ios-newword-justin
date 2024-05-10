@@ -14,8 +14,8 @@
 		2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */; };
 		2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */; };
 		2A9AFEAC2BE8AA140085766C /* ReviseDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AFEAB2BE8AA140085766C /* ReviseDeckViewController.swift */; };
-		2AA328C22BEDC40E001D83C2 /* decks.json in Resources */ = {isa = PBXBuildFile; fileRef = 2AA328C12BEDC40E001D83C2 /* decks.json */; };
 		2AA328C42BEDCAEE001D83C2 /* JsonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA328C32BEDCAEE001D83C2 /* JsonManager.swift */; };
+		2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA328C72BEDF509001D83C2 /* DeckManager.swift */; };
 		D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */; };
 		D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */; };
 		D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */; };
@@ -45,8 +45,8 @@
 		2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecord.swift; sourceTree = "<group>"; };
 		2A9AFEAB2BE8AA140085766C /* ReviseDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseDeckViewController.swift; sourceTree = "<group>"; };
-		2AA328C12BEDC40E001D83C2 /* decks.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = decks.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		2AA328C32BEDCAEE001D83C2 /* JsonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonManager.swift; sourceTree = "<group>"; };
+		2AA328C72BEDF509001D83C2 /* DeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckManager.swift; sourceTree = "<group>"; };
 		D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentence.swift; sourceTree = "<group>"; };
 		D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewModel.swift; sourceTree = "<group>"; };
 		D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
@@ -84,8 +84,8 @@
 		2AA328C02BEDC3ED001D83C2 /* Json */ = {
 			isa = PBXGroup;
 			children = (
-				2AA328C12BEDC40E001D83C2 /* decks.json */,
 				2AA328C32BEDCAEE001D83C2 /* JsonManager.swift */,
+				2AA328C72BEDF509001D83C2 /* DeckManager.swift */,
 			);
 			path = Json;
 			sourceTree = "<group>";
@@ -250,7 +250,6 @@
 				D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */,
 				D0DA5AD12BB66A07008644DC /* Base in Resources */,
 				D0DA5ACC2BB66A05008644DC /* Base in Resources */,
-				2AA328C22BEDC40E001D83C2 /* decks.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +272,7 @@
 				2AA328C42BEDCAEE001D83C2 /* JsonManager.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
+				2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */,
 				2A9AFEAC2BE8AA140085766C /* ReviseDeckViewController.swift in Sources */,
 				D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */,
 				2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */,

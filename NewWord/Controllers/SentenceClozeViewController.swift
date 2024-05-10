@@ -32,7 +32,7 @@ class SentenceClozeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(CustomCell.self, forCellReuseIdentifier: reuserIdnetifier)
-        viewModel.setup(with:  view.frame.width*0.8)
+        viewModel.setup(with: view.frame.width*0.8)
         chineseLabel.text =  viewModel.getCurrentClozeChinese()?.chinese
         setup()
     }
@@ -61,9 +61,6 @@ class SentenceClozeViewController: UIViewController {
         case .showingAnswer: // incorrect
             let learningRecord = viewModel.createLearningRecord(isAnswerCorrect: false)
             viewModel.showAnswer()
-            
-            print(learningRecord)
-            
         }
     }
     

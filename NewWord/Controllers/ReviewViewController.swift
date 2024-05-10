@@ -14,8 +14,6 @@ class ReviewViewController: UIViewController {
     var dataSource: UITableViewDiffableDataSource<Int, Deck>!
     var viewControllers: [UIViewController] = []
 
-    var decks: [Deck] = []
-
     // MARK: - Lifecycles
 
     override func viewDidLoad() {
@@ -25,7 +23,6 @@ class ReviewViewController: UIViewController {
     
     func setup() {
         setupViewControllers()
-        setupDecks()
         setupDataSource()
     }
 
@@ -35,10 +32,6 @@ class ReviewViewController: UIViewController {
         viewControllers = [vc]
     }
 
-    private func setupDecks() {
-        decks.append(Deck.createFakeDeck())
-    }
-
     private func setupDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             let cell = tableView.dequeueReusableCell(withIdentifier: DeckCell.reuseIdentifier, for: indexPath) as! DeckCell
@@ -46,10 +39,11 @@ class ReviewViewController: UIViewController {
             
             cell.deck = itemIdentifier
             cell.nameLabel.text = itemIdentifier.name
+            
             cell.settingAction = {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: String(describing: ReviseDeckViewController.self)) as! ReviseDeckViewController
-                vc.deck = self.decks[indexPath.row]
+                vc.deck = itemIdentifier
                 
                 self.present(vc, animated: true)
             }
@@ -58,7 +52,7 @@ class ReviewViewController: UIViewController {
 
         var snapshot = NSDiffableDataSourceSnapshot<Int, Deck>()
         snapshot.appendSections([1])
-        snapshot.appendItems(decks, toSection: 1)
+        snapshot.appendItems(DeckManager.shared.snapshot, toSection: 1)
 
         tableView.dataSource = dataSource
         dataSource.apply(snapshot)
@@ -76,8 +70,11 @@ class ReviewViewController: UIViewController {
         let cancel = UIAlertAction(title: "取消", style: .cancel)
         let confirm = UIAlertAction(title: "新增", style: .default) { action in
             if let textField = alert.textFields?.first, let text = textField.text {
-                var deck = Deck.createFakeDeck()
+                var deck = DeckManager.shared.createDefaultDeck()
                 deck.name = text
+                
+                DeckManager.shared.add(deck)
+                DeckManager.shared.writeToFile()
 
                 var snapshot = self.dataSource.snapshot()
                 snapshot.appendItems([deck], toSection: 1)

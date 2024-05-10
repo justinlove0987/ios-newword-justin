@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+// TODO: - 考慮要不要做subDeck
 struct Deck: Hashable, Codable {
 
     struct NewCard: Codable {

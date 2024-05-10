@@ -1,5 +1,5 @@
 //
-//  JsonManager.swift
+//  DeckManager.swift
 //  NewWord
 //
 //  Created by 曾柏楊 on 2024/5/10.
@@ -7,41 +7,24 @@
 
 import Foundation
 
-
-class JsonManager {
+class DeckManager {
     
-    static func writeDeckToFile(deck: Deck, filename: String) {
-        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
-            print("Failed to locate Documents directory")
-            return
-        }
-        
-        let fileURL = documentsDirectory.appendingPathComponent(filename)
-        
-        var existingDecks: [Deck] = []
-        
-        if let data = try? Data(contentsOf: fileURL),
-           let decodedDecks = try? JSONDecoder().decode([Deck].self, from: data) {
-            existingDecks = decodedDecks
-        }
-        
-        existingDecks.append(deck)
-        
-        if let encodedData = try? JSONEncoder().encode(existingDecks) {
-            do {
-                try encodedData.write(to: fileURL)
-            } catch {
-                print("Error writing deck to file:", error.localizedDescription)
-            }
-        } else {
-            print("Error encoding deck data")
-        }
+    static let shared = DeckManager()
+    static let filename = "decks.json"
+    
+    var snapshot: [Deck] = []
+    
+    private init() {
+        self.snapshot = DeckManager.readDeckFromFile(filename: DeckManager.filename) ?? []
     }
     
     static func readDeckFromFile(filename: String) -> [Deck]? {
-        guard let url = getDocumentsDirectory() else { return nil }
+        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            print("Failed to locate Documents directory")
+            return nil
+        }
         
-        let fileURL = url.appendingPathComponent(filename)
+        let fileURL = documentsDirectory.appendingPathComponent(filename)
         
         if let data = try? Data(contentsOf: fileURL),
            let decodedDecks = try? JSONDecoder().decode([Deck].self, from: data) {
@@ -52,13 +35,21 @@ class JsonManager {
         }
     }
     
-    static func writeDeckArrayToFile(decks: [Deck], filename: String) {
+    func add(_ deck: Deck) {
+        snapshot.append(deck)
+    }
+    
+    func remove(at index: Int) {
+        snapshot.remove(at: index)
+    }
+    
+    func writeToFile() {
         guard let url = getDocumentsDirectory() else { return }
         
-        let fileURL = url.appendingPathComponent(filename)
+        let fileURL = url.appendingPathComponent(DeckManager.filename)
         let encoder = JSONEncoder()
         
-        if let encodedData = try? encoder.encode(decks) {
+        if let encodedData = try? encoder.encode(snapshot) {
             do {
                 try encodedData.write(to: fileURL)
             } catch {
@@ -69,12 +60,23 @@ class JsonManager {
         }
     }
     
-    static func getDocumentsDirectory() -> URL? {
+    func getDocumentsDirectory() -> URL? {
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             print("Failed to locate Documents directory")
             return nil
         }
         
         return documentsDirectory
+    }
+    
+    func createDefaultDeck() -> Deck {
+        let newCard = Deck.NewCard(graduatingInterval: 1, easyInterval: 3, learningStpes: 1)
+        let lapses = Deck.Lapses(relearningSteps: 1, leachThreshold: 2, minumumInterval: 1)
+        let advanced = Deck.Advanced(startingEase: 2.5, easyBonus: 1.3)
+        let master = Deck.Master(graduatingInterval: 730, consecutiveCorrects: 5)
+
+        let deck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: UUID().uuidString, cards: [], name: "英文句子")
+
+        return deck
     }
 }
