@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Card {
+struct Card: Codable {
     let id: String
-    let addedDate: Date = Date()
-    let averageTime: Int = 0
-    let totalTime: Int = 0
+    var addedDate: Date = Date()
+    var averageTime: Int = 0
+    var totalTime: Int = 0
     let note: Note
     let learningRecords: [LearningRecord]
 }

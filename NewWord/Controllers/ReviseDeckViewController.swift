@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ReviseDeckViewControllerDelegate: AnyObject {
+    func didTapSaveButton(_ controller: ReviseDeckViewController, revisedDeck: Deck)
+}
+
 class ReviseDeckViewController: UIViewController {
     
     @IBOutlet weak var learningStepsTextField: UITextField!
@@ -20,9 +24,9 @@ class ReviseDeckViewController: UIViewController {
     @IBOutlet weak var consecutiveCorrectsTextField: UITextField!
     @IBOutlet weak var startingEaseTextField: UITextField!
     
-    @IBOutlet weak var tableView: UITableView!
-    
     var deck: Deck!
+    
+    weak var delegate: ReviseDeckViewControllerDelegate?
     
     // MARK: - Lifecycles
     
@@ -71,6 +75,8 @@ class ReviseDeckViewController: UIViewController {
         let advanced = Deck.Advanced(startingEase: startingEase, easyBonus: deck.advanced.easyBonus)
         
         let newDeck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: deck.id, cards: deck.cards, name: deck.name)
+        
+        delegate?.didTapSaveButton(self, revisedDeck: newDeck)
         
         self.dismiss(animated: true)
     }

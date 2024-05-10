@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Word {
+struct Word: Codable {
     let text: String
     let chinese: String
 }

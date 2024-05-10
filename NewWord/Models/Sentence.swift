@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Sentence {
+struct Sentence: Codable {
     let words: [Word]
 }

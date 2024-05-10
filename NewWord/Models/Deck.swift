@@ -8,9 +8,9 @@
 import Foundation
 
 
-struct Deck: Hashable {
+struct Deck: Hashable, Codable {
 
-    struct NewCard {
+    struct NewCard: Codable {
         /// It's day
         var graduatingInterval: Int
         /// It's day
@@ -19,32 +19,33 @@ struct Deck: Hashable {
         var learningStpes: Double
     }
     
-    struct Lapses {
-        enum LeachAction {
+    struct Lapses: Codable {
+        enum LeachAction: String, Codable {
             case tagOnly
             case suspendCard
             case moveToStrengthenArea
         }
 
-        /// It's second
         var relearningSteps: Double
-
-        /// The number of times Again needs to be pressed on a review card before it is marked as a leech. Leeches are cards that consume a lot of your time, and when a card is marked as a leech, it's a good idea to rewrite it, delete it, or think of a mnemonic to help you remember it.
         var leachThreshold: Int
-
-        /// The minimum interval given to a review card after answering Again.
         var minumumInterval: Int
-
-        /// Tag Only: Add a "leech" tag to the note, and display a pop-up. Suspend Card: In addition to tagging the note, hide the card until it is manually unsuspended.
         var leachAction: LeachAction = .moveToStrengthenArea
+
+        private enum CodingKeys: String, CodingKey {
+            case relearningSteps
+            case leachThreshold
+            case minumumInterval
+            case leachAction
+        }
     }
     
-    struct Master {
+    
+    struct Master: Codable {
         var graduatingInterval: Int // 如果card達到多少interval就變成proficient card
         var consecutiveCorrects: Int // 如果card達到多少次correct就變成proficient card
     }
 
-    struct Advanced {
+    struct Advanced: Codable {
         var startingEase: Double // 2.5
         let easyBonus: Double
     }

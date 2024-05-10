@@ -8,30 +8,60 @@
 import Foundation
 
 
-struct LearningRecord {
-
-    enum State {
+enum State: String, Codable {
+    case learn
+    case review
+    case relearn
+    case leach
+    case master
+    
+    enum CodingKeys: String, CodingKey {
         case learn
         case review
         case relearn
         case leach
         case master
     }
+}
 
-    enum Status {
+
+struct LearningRecord: Codable {
+
+    enum State: String, Codable {
+        case learn
+        case review
+        case relearn
+        case leach
+        case master
+        
+        enum CodingKeys: String, CodingKey {
+            case learn
+            case review
+            case relearn
+            case leach
+            case master
+        }
+    }
+
+    enum Status: String, Codable {
         case correct
         case incorrect
+        
+        enum CodingKeys: String, CodingKey {
+            case correct
+            case incorrect
+        }
     }
-    
+        
     let learnedDate: Date
     let dueDate: Date
-    let totalTime: Int = 0
+    var totalTime: Int = 0
     let status: Status
 
     /// This is the state **after** the answer card.
     let state: State
 
-    let ease: Double = 2.5
+    var ease: Double = 2.5
 }
 
 extension LearningRecord {

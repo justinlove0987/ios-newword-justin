@@ -23,7 +23,6 @@ class ReviewViewController: UIViewController {
         setup()
     }
     
-    
     func setup() {
         setupViewControllers()
         setupDecks()
@@ -94,8 +93,18 @@ class ReviewViewController: UIViewController {
 
 }
 
+// MARK: - UITableViewDelegate
+
 extension ReviewViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         navigationController?.pushViewController(viewControllers[0], animated: true)
+    }
+}
+
+// MARK: - ReviseDeckViewControllerDelegate
+
+extension ReviewViewController: ReviseDeckViewControllerDelegate {
+    func didTapSaveButton(_ controller: ReviseDeckViewController, revisedDeck: Deck) {
+        
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct SentenceCloze {
+struct SentenceCloze: Codable {
     var clozeWord: Word
     var sentence: Sentence
 }
@@ -26,6 +26,10 @@ extension SentenceCloze {
     }
 }
 
-enum NoteType {
+enum NoteType: Codable {
     case sentenceCloze(SentenceCloze)
+    
+    enum CodingKeys: String, CodingKey {
+        case sentenceCloze
+    }
 }
