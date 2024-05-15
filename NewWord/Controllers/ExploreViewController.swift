@@ -8,23 +8,80 @@
 import UIKit
 
 class ExploreViewController: UIViewController {
+    
+    @IBOutlet weak var deckLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+    
+    var dataSource: UITableViewDiffableDataSource<Int,Note>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        view.backgroundColor = .orange
+        setupDeck()
+        setupTableView()
+        setupDataSouce()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupDeck() {
+        let deck = DeckManager.shared.snapshot.first!
+        deckLabel.text = deck.name
     }
-    */
+    
+    private func setupTableView() {
+        view.backgroundColor = .orange
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.delegate = self
+    }
+    
+    private func setupDataSouce() {
+        dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            
+            var config = cell.defaultContentConfiguration()
+            
+            switch itemIdentifier.noteType {
+            case .sentenceCloze(let data):
+                config.text = data.clozeWord.text
+                break
+            }
+            
+            cell.contentConfiguration = config
+            
+            return cell
+        })
+        
+        
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Note>()
+        NoteManager.shared.addFakeNotes()
+        
+        let notes = NoteManager.shared.notes
+        
+        snapshot.appendSections([0])
+        snapshot.appendItems(notes, toSection: 0)
+        
+        tableView.dataSource = dataSource
+        dataSource.apply(snapshot)
+    }
+    
+    private func readFileFromLocal() -> [Note] {
+        let path = Bundle.main.path(forResource: "notes", ofType: "json")!
+        let jsonData = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+        
+        let result = (try? JSONDecoder().decode([Note].self, from: jsonData)) ?? []
+        
+        return result
+    }
 
+}
+
+extension ExploreViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var snapshot = dataSource.snapshot()
+        
+        let item = dataSource.itemIdentifier(for: indexPath)!
+        snapshot.deleteItems([item])
+        
+        dataSource.apply(snapshot, animatingDifferences: true)
+        
+    }
 }

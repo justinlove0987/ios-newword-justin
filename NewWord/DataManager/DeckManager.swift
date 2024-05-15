@@ -14,8 +14,18 @@ class DeckManager {
     
     var snapshot: [Deck] = []
     
+    enum DataType {
+        case card
+        case deck
+    }
+    
     private init() {
         self.snapshot = DeckManager.readDeckFromFile(filename: DeckManager.filename) ?? []
+    }
+    
+    static func read<T: Codable>(filename: String) -> [T]? {
+        
+        return nil
     }
     
     static func readDeckFromFile(filename: String) -> [Deck]? {
@@ -75,7 +85,7 @@ class DeckManager {
         let advanced = Deck.Advanced(startingEase: 2.5, easyBonus: 1.3)
         let master = Deck.Master(graduatingInterval: 730, consecutiveCorrects: 5)
 
-        let deck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: UUID().uuidString, cards: [], name: "英文句子")
+        let deck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: UUID().uuidString, cards: [], name: "")
 
         return deck
     }

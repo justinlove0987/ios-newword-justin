@@ -29,6 +29,8 @@ class ReviewViewController: UIViewController {
     private func setupViewControllers() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: String(describing: SentenceClozeViewController.self))
+        
+        
         viewControllers = [vc]
     }
 

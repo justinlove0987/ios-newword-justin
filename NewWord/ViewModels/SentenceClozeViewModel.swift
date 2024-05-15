@@ -31,7 +31,7 @@ struct SentenceClozeViewModel {
         }
     }
 
-    let cards: [Card] = Card.createFakeData()
+    var cards: [Card] = []
 
     var numberOfRowsInSection: Int = 0
     var wordsForRows: [[Word]] = []

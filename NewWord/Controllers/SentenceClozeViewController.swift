@@ -25,13 +25,17 @@ class SentenceClozeViewController: UIViewController {
         }
     }
     
+    var cards: [Card] = []
+    
     private var viewModel = SentenceClozeViewModel()
+    
     
     // MARK: - Life cycles
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(CustomCell.self, forCellReuseIdentifier: reuserIdnetifier)
+        viewModel.cards = cards
         viewModel.setup(with: view.frame.width*0.8)
         chineseLabel.text =  viewModel.getCurrentClozeChinese()?.chinese
         setup()

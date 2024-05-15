@@ -84,8 +84,8 @@ extension Card {
         let sentenceCloze1 = SentenceCloze(clozeWord: Word(text: "like", chinese: "像是我"), sentence: sentences[0])
         let sentenceCloze2 = SentenceCloze(clozeWord: Word(text: "inspiration", chinese: "激發"), sentence: sentences[1])
 
-        let note1 = Note(noteId: UUID().uuidString, noteType: .sentenceCloze(sentenceCloze1))
-        let note2 = Note(noteId: UUID().uuidString, noteType: .sentenceCloze(sentenceCloze2))
+        let note1 = Note(id: UUID().uuidString, noteType: .sentenceCloze(sentenceCloze1))
+        let note2 = Note(id: UUID().uuidString, noteType: .sentenceCloze(sentenceCloze2))
 
         let date1 = Card.dateCreator(year: 2024, month: 4, day: 28)
         let date2 = Card.dateCreator(year: 2024, month: 5, day: 2)
