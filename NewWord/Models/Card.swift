@@ -71,6 +71,12 @@ extension Card {
             return (record.state == .relearn && record.status == .correct) ? (partialResult + 1) : partialResult
         }
     }
+    
+    init() {
+        self.id = ""
+        self.note = Note(id: "", noteType: .sentenceCloze(SentenceCloze(clozeWord: Word(text: "", chinese: ""), sentence: [])))
+        self.learningRecords = []
+    }
 }
 
 

@@ -89,14 +89,26 @@ class ReviewViewController: UIViewController {
 
         present(alert, animated: true)
     }
-
 }
 
 // MARK: - UITableViewDelegate
 
 extension ReviewViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(viewControllers[0], animated: true)
+        
+        guard let deck = dataSource.itemIdentifier(for: indexPath) else { return }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let vc = storyboard.instantiateViewController(identifier: String(describing: ShowCardsViewController.self)) { coder in
+            
+            let vc = ShowCardsViewController(coder: coder, cards: deck.cards)
+            
+            return vc
+        }
+              
+        
+        navigationController?.pushViewController(vc, animated: false)
     }
 }
 

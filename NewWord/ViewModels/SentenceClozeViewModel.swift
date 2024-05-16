@@ -24,45 +24,40 @@ struct SentenceClozeViewModel {
     }
     
     var width: CGFloat!
-
+    
     var index = 0 {
         didSet {
             updateData(width: width)
         }
     }
-
+    
     var cards: [Card] = []
-
+    var card: Card
+    
     var numberOfRowsInSection: Int = 0
     var wordsForRows: [[Word]] = []
     var data: Rows!
-
-    var hasNextCard: Bool {
-        let nextIndex = index + 1
-        return nextIndex < cards.count
-    }
     
     weak var textField: WordTextField?
-
-    init() {
+    
+    init(card: Card) {
+        self.card = card
     }
-
+    
+    init() {
+        self.card = Card(id: "", note: Note(id: "", noteType: .sentenceCloze(SentenceCloze(clozeWord: Word(text: "", chinese: ""), sentence: []))), learningRecords: [])
+    }
+    
     mutating func setup(with width: CGFloat) {
         self.width = width
         self.updateData(width: width)
     }
-
+    
     func getCurrentCard() -> Card {
-        return cards[index]
-    }
-
-    mutating func nextCard() {
-        let nextIndex = index + 1
-        index = nextIndex
+        return card
     }
     
     func getCurrentClozeChinese() -> Word? {
-        let card = cards[index]
         let noteType = card.note.noteType
         
         if case .sentenceCloze(let sentenceCloze) = noteType {
@@ -86,29 +81,27 @@ struct SentenceClozeViewModel {
             for i in 0..<sentence.words.count {
                 let word = sentence.words[i]
                 let isClozeWord = word.text == clozeWord.text
-
+                
                 let greaterWidth: CGFloat = (isClozeWord && clozeWord.chineseSize.width > word.size.width) ? clozeWord.chineseSize.width : word.size.width
                 
                 if word.text == clozeWord.text && clozeWord.chinese == "像是我們" {
                     print(word.size.width)
                     print(clozeWord.chineseSize.width)
-
-
                 }
-
-
+                
+                
                 if (currentBounds + greaterWidth) >= width {
                     wordsInRows.append(items)
                     currentBounds = 0
                     items = []
                 }
-
+                
                 currentBounds += greaterWidth
                 currentBounds += Preference.spacing
-
+                
                 items.append(sentence.words[i])
             }
-
+            
             wordsInRows.append(items)
             
             data = Rows(clozeWord: clozeWord, wordsForRows: wordsInRows)
@@ -122,13 +115,13 @@ struct SentenceClozeViewModel {
             textField.isUserInteractionEnabled = false
         }
     }
-
+    
     func createAlertController() -> UIAlertController {
         let alertController = UIAlertController(title: nil, message: "完成練習", preferredStyle: .alert)
-
+        
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
-
+        
         return alertController
     }
     
@@ -137,22 +130,5 @@ struct SentenceClozeViewModel {
         let deck = Deck.createFakeDeck()
         
         return LearningRecord.createLearningRecord(lastCard: card, deck: deck, isAnswerCorrect: isAnswerCorrect)
-    }
-
-
-    private func addInterval(to date: Date, dayInterval: Int) -> Date? {
-        let interval: Int = dayInterval
-
-        var dateComponents = DateComponents()
-        dateComponents.day = interval
-
-        let calendar = Calendar.current
-        let futureDate = calendar.date(byAdding: dateComponents, to: date)
-
-        return futureDate
-    }
-
-    private func addInterval(to date: Date, secondInterval: Double) -> Date {
-        return date.addingTimeInterval(secondInterval)
     }
 }

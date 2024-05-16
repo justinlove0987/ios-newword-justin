@@ -16,6 +16,9 @@
 		2A9AFEAC2BE8AA140085766C /* ReviseDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AFEAB2BE8AA140085766C /* ReviseDeckViewController.swift */; };
 		2AA328C42BEDCAEE001D83C2 /* JsonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA328C32BEDCAEE001D83C2 /* JsonManager.swift */; };
 		2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA328C72BEDF509001D83C2 /* DeckManager.swift */; };
+		2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */; };
+		2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AB8CC0A2BF5AA1D00BFFD4A /* SentenceClozeView.xib */; };
+		2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */; };
 		2AE025F42BF49686006EC021 /* CardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE025F32BF49686006EC021 /* CardManager.swift */; };
 		2AE025F62BF4983A006EC021 /* NoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE025F52BF4983A006EC021 /* NoteManager.swift */; };
 		2AE025F82BF49C6F006EC021 /* notes.json in Resources */ = {isa = PBXBuildFile; fileRef = 2AE025F72BF49C6F006EC021 /* notes.json */; };
@@ -51,6 +54,9 @@
 		2A9AFEAB2BE8AA140085766C /* ReviseDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseDeckViewController.swift; sourceTree = "<group>"; };
 		2AA328C32BEDCAEE001D83C2 /* JsonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonManager.swift; sourceTree = "<group>"; };
 		2AA328C72BEDF509001D83C2 /* DeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckManager.swift; sourceTree = "<group>"; };
+		2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewController.swift; sourceTree = "<group>"; };
+		2AB8CC0A2BF5AA1D00BFFD4A /* SentenceClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SentenceClozeView.xib; sourceTree = "<group>"; };
+		2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeView.swift; sourceTree = "<group>"; };
 		2AE025F32BF49686006EC021 /* CardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardManager.swift; sourceTree = "<group>"; };
 		2AE025F52BF4983A006EC021 /* NoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteManager.swift; sourceTree = "<group>"; };
 		2AE025F72BF49C6F006EC021 /* notes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = notes.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
@@ -115,6 +121,8 @@
 				D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */,
 				D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */,
 				2A18E7B32BE74008005139C8 /* DeckCell.swift */,
+				2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */,
+				2AB8CC0A2BF5AA1D00BFFD4A /* SentenceClozeView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -146,6 +154,7 @@
 				2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */,
 				D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */,
 				2A9AFEAB2BE8AA140085766C /* ReviseDeckViewController.swift */,
+				2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -260,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */,
+				2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */,
 				D0DA5AD12BB66A07008644DC /* Base in Resources */,
 				2AE025F82BF49C6F006EC021 /* notes.json in Resources */,
 				D0DA5ACC2BB66A05008644DC /* Base in Resources */,
@@ -296,6 +306,8 @@
 				D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */,
 				2A38F8C12BE48F88003F058F /* ExploreViewController.swift in Sources */,
 				2AE025F62BF4983A006EC021 /* NoteManager.swift in Sources */,
+				2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */,
+				2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */,
 				D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */,
 				D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */,
 				2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */,
