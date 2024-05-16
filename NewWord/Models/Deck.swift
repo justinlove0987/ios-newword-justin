@@ -56,7 +56,7 @@ struct Deck: Hashable, Codable {
     var master: Master
 
     let id: String
-    let cards: [Card]
+    var cards: [Card]
     var name: String
 
     static func == (lhs: Deck, rhs: Deck) -> Bool {

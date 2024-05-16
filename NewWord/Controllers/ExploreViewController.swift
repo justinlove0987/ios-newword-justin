@@ -12,6 +12,8 @@ class ExploreViewController: UIViewController {
     @IBOutlet weak var deckLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    private var currentDeck: Deck?
+    
     var dataSource: UITableViewDiffableDataSource<Int,Note>!
 
     override func viewDidLoad() {
@@ -22,8 +24,8 @@ class ExploreViewController: UIViewController {
     }
     
     private func setupDeck() {
-        let deck = DeckManager.shared.snapshot.first!
-        deckLabel.text = deck.name
+        currentDeck = DeckManager.shared.snapshot.first!
+        deckLabel.text = currentDeck!.name
     }
     
     private func setupTableView() {
@@ -76,12 +78,35 @@ class ExploreViewController: UIViewController {
 
 extension ExploreViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard var currentDeck = currentDeck else { return }
+        
         var snapshot = dataSource.snapshot()
         
-        let item = dataSource.itemIdentifier(for: indexPath)!
-        snapshot.deleteItems([item])
+        let note = dataSource.itemIdentifier(for: indexPath)!
+        snapshot.deleteItems([note])
         
         dataSource.apply(snapshot, animatingDifferences: true)
         
+        let card = Card(id: UUID().uuidString, 
+                        note: note,
+                        learningRecords: [])
+        
+        currentDeck.cards.append(card)
+        
+        var decks = DeckManager.shared.snapshot
+        
+        for i in 0..<decks.count {
+            if decks[i].id == currentDeck.id {
+                decks.remove(at: i)
+                decks.insert(currentDeck, at: i)
+                break
+            }
+        }
+        
+        DeckManager.shared.snapshot = decks
+        DeckManager.shared.writeToFile()
+        
+        let deck = DeckManager.shared.snapshot.first!
+        print(deck)
     }
 }
