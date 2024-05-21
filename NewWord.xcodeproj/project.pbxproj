@@ -34,6 +34,9 @@
 		D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB75B2BB66EEF009E3A41 /* Card.swift */; };
 		D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */; };
 		D078D0982BC9242900F601B2 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D078D0972BC9242900F601B2 /* Note.swift */; };
+		D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A0643E2BFC8E78001AFE08 /* PronounciationView.swift */; };
+		D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A064402BFC913C001AFE08 /* PronounciationView.xib */; };
+		D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */; };
 		D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC42BB66A05008644DC /* AppDelegate.swift */; };
 		D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */; };
 		D0DA5AC92BB66A05008644DC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC82BB66A05008644DC /* MainViewController.swift */; };
@@ -72,6 +75,9 @@
 		D04EB75B2BB66EEF009E3A41 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewController.swift; sourceTree = "<group>"; };
 		D078D0972BC9242900F601B2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		D0A0643E2BFC8E78001AFE08 /* PronounciationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PronounciationView.swift; sourceTree = "<group>"; };
+		D0A064402BFC913C001AFE08 /* PronounciationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PronounciationView.xib; sourceTree = "<group>"; };
+		D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibOwnerLoadable.swift; sourceTree = "<group>"; };
 		D0DA5AC12BB66A05008644DC /* NewWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DA5AC42BB66A05008644DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +127,8 @@
 				D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */,
 				D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */,
 				2A18E7B32BE74008005139C8 /* DeckCell.swift */,
+				D0A0643E2BFC8E78001AFE08 /* PronounciationView.swift */,
+				D0A064402BFC913C001AFE08 /* PronounciationView.xib */,
 				2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */,
 				2AB8CC0A2BF5AA1D00BFFD4A /* SentenceClozeView.xib */,
 			);
@@ -167,6 +175,7 @@
 				D0DA5ACD2BB66A07008644DC /* Assets.xcassets */,
 				D0DA5ACF2BB66A07008644DC /* LaunchScreen.storyboard */,
 				D032145A2BD63C2200512263 /* Preferences.swift */,
+				D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -272,6 +281,7 @@
 				2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */,
 				D0DA5AD12BB66A07008644DC /* Base in Resources */,
 				2AE025F82BF49C6F006EC021 /* notes.json in Resources */,
+				D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */,
 				D0DA5ACC2BB66A05008644DC /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,6 +302,7 @@
 				D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */,
 				D032145B2BD63C2200512263 /* Preferences.swift in Sources */,
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
+				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
 				2AA328C42BEDCAEE001D83C2 /* JsonManager.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
@@ -311,6 +322,7 @@
 				D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */,
 				D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */,
 				2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */,
+				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
 				2AE025F42BF49686006EC021 /* CardManager.swift in Sources */,
 			);

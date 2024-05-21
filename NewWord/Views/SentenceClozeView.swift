@@ -7,23 +7,35 @@
 
 import UIKit
 
-class SentenceClozeView: UIView {
-    
+private let reuserIdnetifier = "Cell"
+
+class SentenceClozeView: UIView, NibOwnerLoadable {
+
     @IBOutlet weak var chineseLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-//    private var viewModel: SentenceClozeViewModel!
-//    private var card: Card!
-    
-    static var nib: UINib {
-           UINib(nibName: String(describing: self), bundle: Bundle(for: self))
-       }
-    
-    init(frame: CGRect, viewModel: SentenceClozeViewModel, card: Card) {
-        super.init(frame: frame)
+    private var viewModel: SentenceClozeViewModel!
+    private var card: Card!
+
+    init(viewModel: SentenceClozeViewModel, card: Card) {
+        self.viewModel = viewModel
+        self.card = card
+        super.init(frame: .zero)
         commonInit()
+        setup()
     }
-    
+
+
+    private func setup() {
+        tableView.register(CustomCell.self, forCellReuseIdentifier: reuserIdnetifier)
+        viewModel.setup(with: tableView.frame.width)
+        chineseLabel.text =  viewModel.getCurrentClozeChinese()?.chinese
+    }
+
+    private func setupDataSource() {
+
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -33,18 +45,36 @@ class SentenceClozeView: UIView {
          super.init(coder: aDecoder)
          commonInit()
      }
-    
+
     private func commonInit() {
-        guard let views = Self.nib.instantiate(withOwner: self, options: nil) as? [UIView],
-              let contentView = views.first else {
-            fatalError("Fail to load \(self) nib content")
-        }
-        
-        self.addSubview(contentView)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        contentView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        contentView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        contentView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        loadNibContent()
+    }
+}
+
+extension SentenceClozeView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.data.numberOfRowsInSection
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuserIdnetifier, for: indexPath) as! CustomCell
+        let words = viewModel.data.wordsForRows[indexPath.row]
+
+        cell.delegate = self
+        cell.configureStackViewSubViews(clozeWord: viewModel!.data.clozeWord,
+                                        words: words,
+                                        at: indexPath)
+
+        return cell
+    }
+}
+
+extension SentenceClozeView: CustomCellDelegate {
+    func didCreateTextField(textField: WordTextField) {
+        viewModel.textField = textField
+    }
+
+    func answerCorrect() {
+        let learningRecord = viewModel.createLearningRecord(isAnswerCorrect: true)
     }
 }

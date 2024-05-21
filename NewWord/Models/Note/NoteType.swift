@@ -28,8 +28,10 @@ extension SentenceCloze {
 
 enum NoteType: Codable {
     case sentenceCloze(SentenceCloze)
-    
+    case prononciation
+
     enum CodingKeys: String, CodingKey {
         case sentenceCloze
+        case prononciation
     }
 }

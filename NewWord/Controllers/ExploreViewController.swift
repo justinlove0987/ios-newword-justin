@@ -45,6 +45,8 @@ class ExploreViewController: UIViewController {
             case .sentenceCloze(let data):
                 config.text = data.clozeWord.text
                 break
+            case .prononciation:
+                break
             }
             
             cell.contentConfiguration = config
