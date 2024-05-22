@@ -16,9 +16,21 @@ class ShowCardsViewController: UIViewController {
 
     var cards: [Card]
 
+    private var lastShowingSubview: UIView = UIView() {
+        willSet {
+            lastShowingSubview.removeFromSuperview()
+        }
+
+        didSet {
+            view.addSubview(lastShowingSubview)
+            lastShowingSubview.frame = view.bounds
+            print(view.subviews)
+        }
+    }
+
     private var currentCardIndex = 0 {
         didSet {
-            nextCard()
+            updateCard()
         }
     }
 
@@ -47,7 +59,7 @@ class ShowCardsViewController: UIViewController {
         super.viewDidLoad()
         setup()
         insertFakeData()
-        nextCard()
+        updateCard()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -57,9 +69,17 @@ class ShowCardsViewController: UIViewController {
     private func setup() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         view.addGestureRecognizer(tap)
+        
+        let hasCards = cards.count > 0
+
+        if hasCards {
+            updateCard()
+        } else {
+            lastShowingSubview = NoCardView()
+        }
     }
 
-    private func nextCard() {
+    private func updateCard() {
         let noteType = currentCard.note.noteType
 
         let subview: UIView
@@ -72,12 +92,18 @@ class ShowCardsViewController: UIViewController {
             subview = PronounciationView()
         }
 
-        view.addSubview(subview)
-        subview.frame = self.view.bounds
+        lastShowingSubview = subview
     }
 
     @objc func tap(_ sender: UITapGestureRecognizer) {
-        currentCardIndex += 1
+        let hasNextCard = currentCardIndex+1 < cards.count
+
+        if hasNextCard {
+            currentCardIndex += 1
+        } else {
+            lastShowingSubview = NoCardView()
+        }
+
     }
 
 }

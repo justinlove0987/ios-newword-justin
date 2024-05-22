@@ -53,8 +53,8 @@ class ReviewViewController: UIViewController {
         })
 
         var snapshot = NSDiffableDataSourceSnapshot<Int, Deck>()
-        snapshot.appendSections([1])
-        snapshot.appendItems(DeckManager.shared.snapshot, toSection: 1)
+        snapshot.appendSections([0])
+        snapshot.appendItems(DeckManager.shared.snapshot, toSection: 0)
 
         tableView.dataSource = dataSource
         dataSource.apply(snapshot)
@@ -79,14 +79,13 @@ class ReviewViewController: UIViewController {
                 DeckManager.shared.writeToFile()
 
                 var snapshot = self.dataSource.snapshot()
-                snapshot.appendItems([deck], toSection: 1)
+                snapshot.appendItems([deck], toSection: 0)
                 self.dataSource.apply(snapshot)
             }
         }
 
         alert.addAction(confirm)
         alert.addAction(cancel)
-
         present(alert, animated: true)
     }
 }
@@ -108,7 +107,7 @@ extension ReviewViewController: UITableViewDelegate {
         }
               
         
-        navigationController?.pushViewController(vc, animated: false)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
