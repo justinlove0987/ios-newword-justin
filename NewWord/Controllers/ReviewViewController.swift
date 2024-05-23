@@ -21,9 +21,14 @@ class ReviewViewController: UIViewController {
         setup()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateDataSource()
+    }
+    
     func setup() {
         setupViewControllers()
-        setupDataSource()
+        updateDataSource()
     }
 
     private func setupViewControllers() {
@@ -34,7 +39,7 @@ class ReviewViewController: UIViewController {
         viewControllers = [vc]
     }
 
-    private func setupDataSource() {
+    private func updateDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             let cell = tableView.dequeueReusableCell(withIdentifier: DeckCell.reuseIdentifier, for: indexPath) as! DeckCell
             

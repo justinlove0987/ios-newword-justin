@@ -46,7 +46,6 @@ class MainViewController: UIViewController {
         
         let card = CardManager(filename: "asdf")
     }
-    
 }
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {

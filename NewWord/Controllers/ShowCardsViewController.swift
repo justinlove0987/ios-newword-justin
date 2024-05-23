@@ -11,6 +11,7 @@ protocol ShowCardsSubviewDelegate: UIView {
     associatedtype CardStateType: RawRepresentable where CardStateType.RawValue == Int
     
     var currentState: CardStateType { get set }
+    
     func nextState()
     func hasNextState() -> Bool
 }
@@ -26,7 +27,7 @@ class ShowCardsViewController: UIViewController {
     
     var deck: Deck
     
-    var cards: [Card] = []
+    var filteredCards: [Card] = []
     
     private var lastShowingSubview: any ShowCardsSubviewDelegate = NoCardView() {
         willSet {
@@ -41,12 +42,12 @@ class ShowCardsViewController: UIViewController {
     
     private var currentCardIndex = 0 {
         didSet {
-            updateCard()
+            updateSubview()
         }
     }
     
     private var currentCard: Card {
-        return cards[currentCardIndex]
+        return filteredCards[currentCardIndex]
     }
     
     // MARK: - Lifecycles
@@ -76,19 +77,39 @@ class ShowCardsViewController: UIViewController {
     }
     
     private func setupCards() {
-        self.cards = deck.cards
-        insertFakeData()
+        filterCards()
+        insertFakeCards()
         
-        let hasCards = cards.count > 0
+        let hasCards = filteredCards.count > 0
         
         if hasCards {
-            updateCard()
+            updateSubview()
         } else {
             lastShowingSubview = NoCardView()
         }
     }
     
-    private func updateCard() {
+    private func filterCards() {
+        let newCards = deck.cards.filter { card in
+            card.learningRecords.isEmpty
+        }
+        
+        let reviewCards = deck.cards.filter { card in
+            guard let review = card.latestReview else { return false }
+            
+            return review.dueDate <= Date() && review.state == .review
+        }
+        
+        let relearnCards = deck.cards.filter { card in
+            guard let review = card.latestReview else { return false }
+            
+            return review.dueDate <= Date() && review.state == .relearn
+        }
+        
+        filteredCards = newCards + reviewCards + relearnCards
+    }
+    
+    private func updateSubview() {
         let noteType = currentCard.note.noteType
         
         let subview: any ShowCardsSubviewDelegate
@@ -105,14 +126,13 @@ class ShowCardsViewController: UIViewController {
     }
     
     @objc func tap(_ sender: UITapGestureRecognizer) {
-        
-        
         let hasNextState = lastShowingSubview.hasNextState()
         
         if hasNextState {
             lastShowingSubview.nextState()
         } else {
-            let hasNextCard = currentCardIndex+1 < cards.count
+            
+            let hasNextCard = currentCardIndex+1 < filteredCards.count
             
             if hasNextCard {
                 currentCardIndex += 1
@@ -124,7 +144,16 @@ class ShowCardsViewController: UIViewController {
     
     @IBAction func correctAction(_ sender: UIButton) {
         let record = LearningRecord.createLearningRecord(lastCard: currentCard, deck: deck, isAnswerCorrect: true)
-        cards[currentCardIndex].learningRecords.append(record)
+        filteredCards[currentCardIndex].learningRecords.append(record)
+        
+        
+//        let deck = DeckManager.shared.snapshot.first { deck in
+//            return deck.id == self.deck.id
+//        }!
+//        
+//        deck.cards.filter { card in
+//            return
+//        }
         
     }
     
@@ -134,8 +163,8 @@ class ShowCardsViewController: UIViewController {
 }
 
 extension ShowCardsViewController {
-    func insertFakeData() {
-        cards.insert(Card(id: "1", note: Note(id: "1", noteType: .prononciation), learningRecords: []), at: 0)
+    func insertFakeCards() {
+        filteredCards.insert(Card(id: "1", note: Note(id: "1", noteType: .prononciation), learningRecords: []), at: 0)
     }
 }
 

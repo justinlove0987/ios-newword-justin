@@ -10,14 +10,9 @@ import Foundation
 class DeckManager {
     
     static let shared = DeckManager()
-    static let filename = "decks.json"
+    private static let filename = "decks.json"
     
     var snapshot: [Deck] = []
-    
-    enum DataType {
-        case card
-        case deck
-    }
     
     private init() {
         self.snapshot = DeckManager.readDeckFromFile(filename: DeckManager.filename) ?? []
@@ -51,6 +46,10 @@ class DeckManager {
     
     func remove(at index: Int) {
         snapshot.remove(at: index)
+    }
+    
+    func update(deck: Deck) {
+        
     }
     
     func writeToFile() {
