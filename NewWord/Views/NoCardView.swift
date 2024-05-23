@@ -8,6 +8,12 @@
 import UIKit
 
 class NoCardView: UIView, NibOwnerLoadable {
+    
+    enum CardStateType: Int {
+        case none
+    }
+    
+    var currentState: CardStateType = .none
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,5 +27,15 @@ class NoCardView: UIView, NibOwnerLoadable {
 
     private func commonInit() {
         loadNibContent()
+    }
+}
+
+extension NoCardView: ShowCardsSubviewDelegate {
+    func nextState() {
+        
+    }
+    
+    func hasNextState() -> Bool {
+        return false
     }
 }

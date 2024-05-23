@@ -10,12 +10,20 @@ import UIKit
 private let reuserIdnetifier = "Cell"
 
 class SentenceClozeView: UIView, NibOwnerLoadable {
+    
+    enum CardStateType: Int {
+        case a
+    }
 
     @IBOutlet weak var chineseLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     private var viewModel: SentenceClozeViewModel!
     private var card: Card!
+    
+    var currentState: CardStateType = .a
+    
+//    weak var delegate: AnswerStatusDelegate?
 
     init(viewModel: SentenceClozeViewModel, card: Card) {
         self.viewModel = viewModel
@@ -76,5 +84,14 @@ extension SentenceClozeView: CustomCellDelegate {
 
     func answerCorrect() {
         let learningRecord = viewModel.createLearningRecord(isAnswerCorrect: true)
+    }
+}
+
+extension SentenceClozeView: ShowCardsSubviewDelegate {
+    func hasNextState() -> Bool {
+        return false
+    }
+    
+    func nextState(){
     }
 }

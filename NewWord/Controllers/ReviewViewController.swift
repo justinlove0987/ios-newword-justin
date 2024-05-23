@@ -101,11 +101,10 @@ extension ReviewViewController: UITableViewDelegate {
         
         let vc = storyboard.instantiateViewController(identifier: String(describing: ShowCardsViewController.self)) { coder in
             
-            let vc = ShowCardsViewController(coder: coder, cards: deck.cards)
+            let vc = ShowCardsViewController(coder: coder, deck: deck)
             
             return vc
         }
-              
         
         navigationController?.pushViewController(vc, animated: true)
     }

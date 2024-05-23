@@ -13,7 +13,7 @@ struct Card: Codable {
     var averageTime: Int = 0
     var totalTime: Int = 0
     let note: Note
-    let learningRecords: [LearningRecord]
+    var learningRecords: [LearningRecord]
 }
 
 extension Card {

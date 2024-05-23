@@ -7,83 +7,92 @@
 
 import UIKit
 
-class ShowCardsViewController: UIViewController {
+protocol ShowCardsSubviewDelegate: UIView {
+    associatedtype CardStateType: RawRepresentable where CardStateType.RawValue == Int
+    
+    var currentState: CardStateType { get set }
+    func nextState()
+    func hasNextState() -> Bool
+}
 
+class ShowCardsViewController: UIViewController {
+    
     enum AnswerState {
         case answering
         case showingAnswer
     }
-
-    var cards: [Card]
-
-    private var lastShowingSubview: UIView = UIView() {
+    
+    @IBOutlet weak var contentView: UIView!
+    
+    var deck: Deck
+    
+    var cards: [Card] = []
+    
+    private var lastShowingSubview: any ShowCardsSubviewDelegate = NoCardView() {
         willSet {
             lastShowingSubview.removeFromSuperview()
         }
-
+        
         didSet {
-            view.addSubview(lastShowingSubview)
-            lastShowingSubview.frame = view.bounds
-            print(view.subviews)
+            contentView.addSubview(lastShowingSubview)
+            lastShowingSubview.frame = contentView.bounds
         }
     }
-
+    
     private var currentCardIndex = 0 {
         didSet {
             updateCard()
         }
     }
-
-    //    private var currentState: AnswerState = .answering {
-    //        didSet {
-    //            updateUI(state: currentState)
-    //        }
-    //    }
-
+    
     private var currentCard: Card {
         return cards[currentCardIndex]
     }
-
+    
     // MARK: - Lifecycles
-
-    init?(coder: NSCoder, cards: [Card]) {
-        self.cards = cards
+    
+    init?(coder: NSCoder, deck: Deck) {
+        self.deck = deck
         super.init(coder: coder)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        insertFakeData()
-        updateCard()
+        setupCards()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-
+    
     private func setup() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         view.addGestureRecognizer(tap)
+    }
+    
+    private func setupCards() {
+        self.cards = deck.cards
+        insertFakeData()
         
         let hasCards = cards.count > 0
-
+        
         if hasCards {
             updateCard()
         } else {
             lastShowingSubview = NoCardView()
         }
     }
-
+    
     private func updateCard() {
         let noteType = currentCard.note.noteType
-
-        let subview: UIView
-
+        
+        let subview: any ShowCardsSubviewDelegate
+        
         switch noteType {
         case .sentenceCloze(_):
             let viewModel = SentenceClozeViewModel(card: currentCard)
@@ -91,21 +100,37 @@ class ShowCardsViewController: UIViewController {
         case .prononciation:
             subview = PronounciationView()
         }
-
+        
         lastShowingSubview = subview
     }
-
+    
     @objc func tap(_ sender: UITapGestureRecognizer) {
-        let hasNextCard = currentCardIndex+1 < cards.count
-
-        if hasNextCard {
-            currentCardIndex += 1
+        
+        
+        let hasNextState = lastShowingSubview.hasNextState()
+        
+        if hasNextState {
+            lastShowingSubview.nextState()
         } else {
-            lastShowingSubview = NoCardView()
+            let hasNextCard = currentCardIndex+1 < cards.count
+            
+            if hasNextCard {
+                currentCardIndex += 1
+            } else {
+                lastShowingSubview = NoCardView()
+            }
         }
-
     }
-
+    
+    @IBAction func correctAction(_ sender: UIButton) {
+        let record = LearningRecord.createLearningRecord(lastCard: currentCard, deck: deck, isAnswerCorrect: true)
+        cards[currentCardIndex].learningRecords.append(record)
+        
+    }
+    
+    @IBAction func incorrectAction(_ sender: UIButton) {
+        
+    }
 }
 
 extension ShowCardsViewController {
