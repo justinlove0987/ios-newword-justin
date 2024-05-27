@@ -85,18 +85,17 @@ extension ExploreViewController: UITableViewDelegate {
         var snapshot = dataSource.snapshot()
         
         let note = dataSource.itemIdentifier(for: indexPath)!
-        let card = Card(id: UUID().uuidString, 
+        let newCard = Card(id: UUID().uuidString, 
                         note: note,
                         learningRecords: [])
+
         snapshot.deleteItems([note])
         dataSource.apply(snapshot, animatingDifferences: true)
-
-//        print(currentDeck.storedCardIds)
         
-        CardManager.shared.add(card)
-        DeckManager.shared.addCardTo(deck: currentDeck, cardId: card.id)
+        CardManager.shared.add(newCard)
+        DeckManager.shared.addCardTo(to: currentDeck, with: newCard.id)
         
-        let deck = DeckManager.shared.snapshot.first!
+//        let deck = DeckManager.shared.snapshot.first!
         
         
     }

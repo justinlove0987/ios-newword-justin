@@ -25,8 +25,10 @@ class ReviewViewController: UIViewController {
         super.viewWillAppear(animated)
         updateDataSource()
     }
-    
-    func setup() {
+
+    // MARK: - Helpers
+
+    private func setup() {
         setupViewControllers()
         setupDataSource()
     }
@@ -46,8 +48,6 @@ class ReviewViewController: UIViewController {
             cell.deck = itemIdentifier
             cell.nameLabel.text = itemIdentifier.name
 
-            print(itemIdentifier.storedCardIds)
-
             cell.settingAction = {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: String(describing: ReviseDeckViewController.self)) as! ReviseDeckViewController
@@ -62,9 +62,13 @@ class ReviewViewController: UIViewController {
     }
 
     private func updateDataSource() {
+        let decks = DeckManager.shared.snapshot
+
+        decks.forEach { print($0.storedCardIds) }
+
         var snapshot = NSDiffableDataSourceSnapshot<Int, Deck>()
         snapshot.appendSections([0])
-        snapshot.appendItems(DeckManager.shared.snapshot, toSection: 0)
+        snapshot.appendItems(decks, toSection: 0)
 
         tableView.dataSource = dataSource
         dataSource.apply(snapshot)
@@ -106,7 +110,7 @@ extension ReviewViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         guard let deck = dataSource.itemIdentifier(for: indexPath) else { return }
-        
+
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let vc = storyboard.instantiateViewController(identifier: String(describing: ShowCardsViewController.self)) { coder in

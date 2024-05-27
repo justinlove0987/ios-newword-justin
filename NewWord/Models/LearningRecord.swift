@@ -80,10 +80,12 @@ extension LearningRecord {
 
         let today: Date = Date()
 
+        // TODO: - 在新增learningRecord時增加說明
         // TODO: - 調整 latestReview ease
         // TODO: - 將答錯時，ease需要加上的趴數獨立出來
         // TODO: - 需要調整 ease
         // TODO: - 修改 dueDate 應該是 today 加上 computed interval
+
         guard let latestReview = lastCard.latestReview else {
             // When we don't have latest reivew, then it's a new card.
             let newCard = deck.newCard
@@ -91,7 +93,11 @@ extension LearningRecord {
 
             let dueDate: Date = isAnswerCorrect ? addInterval(to: today, dayInterval: newCard.easyInterval)! : addInterval(to: today, secondInterval: newCard.learningStpes)
 
-            return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .learn)
+            if isAnswerCorrect {
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .review)
+            } else {
+                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .relearn)
+            }
         }
         
         let lastStatus =  latestReview.status

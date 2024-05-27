@@ -85,8 +85,6 @@ struct SentenceClozeViewModel {
                 let greaterWidth: CGFloat = (isClozeWord && clozeWord.chineseSize.width > word.size.width) ? clozeWord.chineseSize.width : word.size.width
                 
                 if word.text == clozeWord.text && clozeWord.chinese == "像是我們" {
-                    print(word.size.width)
-                    print(clozeWord.chineseSize.width)
                 }
                 
                 

@@ -17,15 +17,23 @@ class DeckManager: DataManager<Deck> {
         self.snapshot = readFromFile() ?? []
     }
     
-    func addCardTo(deck: Deck, cardId: String) {
+    func addCardTo(to deck: Deck,with cardId: String) {
         if let index = snapshot.firstIndex(where: { $0 == deck }) {
-            snapshot[index] = deck
             snapshot[index].storedCardIds.append(cardId)
             writeToFile()
         } else {
             print("Deck with id \(deck) not found.")
         }
+    }
 
+    func deleteAllCards(_ deck: Deck) {
+        if let index = snapshot.firstIndex(where: { $0 == deck }) {
+            snapshot[index] = deck
+            snapshot[index].storedCardIds.removeAll()
+            writeToFile()
+        } else {
+            print("Deck with id \(deck) not found.")
+        }
     }
 }
 

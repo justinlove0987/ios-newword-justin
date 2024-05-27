@@ -24,11 +24,36 @@ class ShowCardsViewController: UIViewController {
     }
     
     @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var newLabel: UILabel!
+    @IBOutlet weak var relearnLabel: UILabel!
+    @IBOutlet weak var reviewLabel: UILabel!
     
     var deck: Deck
-    
-    var filteredCards: [Card] = []
-    
+
+    private var newCards: [Card] = [] {
+        didSet {
+            newLabel.text = "\(newCards.count)"
+        }
+    }
+
+    private var reviewCards: [Card] = [] {
+        didSet {
+            reviewLabel.text = "\(reviewCards.count)"
+        }
+    }
+
+
+    private var relearnCards: [Card] = [] {
+        didSet {
+            relearnLabel.text = "\(relearnCards.count)"
+        }
+    }
+
+
+    private var filteredCards: [Card] = []
+
+
+
     private var lastShowingSubview: any ShowCardsSubviewDelegate = NoCardView() {
         willSet {
             lastShowingSubview.removeFromSuperview()
@@ -90,23 +115,17 @@ class ShowCardsViewController: UIViewController {
     }
     
     private func filterCards() {
-        print(deck.storedCardIds)
-        print(deck.cards.count)
-        print("=================")
-        
-        let newCards = deck.cards.filter { card in
+        newCards = deck.cards.filter { card in
             card.learningRecords.isEmpty
         }
         
-        let reviewCards = deck.cards.filter { card in
+        reviewCards = deck.cards.filter { card in
             guard let review = card.latestReview else { return false }
-            
             return review.dueDate <= Date() && review.state == .review
         }
         
-        let relearnCards = deck.cards.filter { card in
+        relearnCards = deck.cards.filter { card in
             guard let review = card.latestReview else { return false }
-            
             return review.dueDate <= Date() && review.state == .relearn
         }
         
@@ -149,18 +168,13 @@ class ShowCardsViewController: UIViewController {
     @IBAction func correctAction(_ sender: UIButton) {
         let record = LearningRecord.createLearningRecord(lastCard: currentCard, deck: deck, isAnswerCorrect: true)
         filteredCards[currentCardIndex].learningRecords.append(record)
-        
-        
-        let deck = DeckManager.shared.snapshot.first { deck in
-            return deck.id == self.deck.id
-        }!
-        
-        let card = deck.cards.first { card in
-            return card.id == filteredCards[currentCardIndex].id
-        }
-        
-        DeckManager.shared.snapshot
-        
+        CardManager.shared.update(data: filteredCards[currentCardIndex])
+
+        record.status
+
+
+
+
     }
     
     @IBAction func incorrectAction(_ sender: UIButton) {
