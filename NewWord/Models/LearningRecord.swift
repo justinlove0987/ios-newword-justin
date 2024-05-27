@@ -25,7 +25,7 @@ enum State: String, Codable {
 }
 
 
-struct LearningRecord: Codable {
+struct LearningRecord: Hashable,Codable {
 
     enum State: String, Codable {
         case learn

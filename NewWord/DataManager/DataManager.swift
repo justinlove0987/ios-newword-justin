@@ -8,20 +8,37 @@
 import Foundation
 
 
-class DataManager<T: Codable> {
+class DataManager<T> where T: Codable & Hashable {
     
     let filename: String
-//    var snapshot: [T] = []
+    
+    var snapshot: [T] = []
     
     init(filename: String) {
         self.filename = filename
     }
     
-    static func shared(filename: String) -> DataManager {
-        return DataManager(filename: filename)
+    func add(_ data: T) {
+        snapshot.append(data)
+        writeToFile()
     }
     
-    func readFromFile(filename: String) -> [T]? {
+    func remove(at index: Int) {
+        snapshot.remove(at: index)
+        writeToFile()
+    }
+    
+    func update(data: T) {
+        if let index = snapshot.firstIndex(where: { $0 == data }) {
+            snapshot[index] = data
+            writeToFile()
+        } else {
+            print("Deck with id \(data) not found.")
+        }
+    }
+
+    
+    func readFromFile() -> [T]? {
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             print("Failed to locate Documents directory")
             return nil
@@ -53,22 +70,14 @@ class DataManager<T: Codable> {
         }
     }
     
-//    func add(_ data: T) {
-//        snapshot.append(data)
-//    }
-//    
-//    func remove(at index: Int) {
-//        snapshot.remove(at: index)
-//    }
-    
-    func writeToFile(data: [T]) {
+    func writeToFile() {
         
         guard let url = getDocumentsDirectory() else { return }
         
         let fileURL = url.appendingPathComponent(filename)
         let encoder = JSONEncoder()
         
-        if let encodedData = try? encoder.encode(data) {
+        if let encodedData = try? encoder.encode(snapshot) {
             do {
                 try encodedData.write(to: fileURL)
             } catch {

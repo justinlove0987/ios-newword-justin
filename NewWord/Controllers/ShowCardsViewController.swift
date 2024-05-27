@@ -90,6 +90,10 @@ class ShowCardsViewController: UIViewController {
     }
     
     private func filterCards() {
+        print(deck.storedCardIds)
+        print(deck.cards.count)
+        print("=================")
+        
         let newCards = deck.cards.filter { card in
             card.learningRecords.isEmpty
         }
@@ -147,13 +151,15 @@ class ShowCardsViewController: UIViewController {
         filteredCards[currentCardIndex].learningRecords.append(record)
         
         
-//        let deck = DeckManager.shared.snapshot.first { deck in
-//            return deck.id == self.deck.id
-//        }!
-//        
-//        deck.cards.filter { card in
-//            return
-//        }
+        let deck = DeckManager.shared.snapshot.first { deck in
+            return deck.id == self.deck.id
+        }!
+        
+        let card = deck.cards.first { card in
+            return card.id == filteredCards[currentCardIndex].id
+        }
+        
+        DeckManager.shared.snapshot
         
     }
     

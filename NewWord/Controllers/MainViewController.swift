@@ -44,7 +44,7 @@ class MainViewController: UIViewController {
         
         dataSource = [reviewVC, exploreVC, searchVC, settingsVC]
         
-        let card = CardManager(filename: "asdf")
+        let cards = CardManager.shared.snapshot
     }
 }
 

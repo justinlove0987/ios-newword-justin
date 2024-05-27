@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Codable {
+struct Card: Hashable, Codable {
     let id: String
     var addedDate: Date = Date()
     var averageTime: Int = 0

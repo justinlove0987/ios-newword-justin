@@ -9,5 +9,13 @@ import Foundation
 
 class CardManager: DataManager<Card> {
     
+    static let shared = CardManager()
     
+    private static let filename = "cards.json"
+    
+    private init() {
+        super.init(filename: CardManager.filename)
+        self.snapshot = readFromFile() ?? []
+    }
+
 }

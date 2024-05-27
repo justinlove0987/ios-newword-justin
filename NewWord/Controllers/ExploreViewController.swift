@@ -58,7 +58,7 @@ class ExploreViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Note>()
         NoteManager.shared.addFakeNotes()
         
-        let notes = NoteManager.shared.notes
+        let notes = NoteManager.shared.snapshot
         
         snapshot.appendSections([0])
         snapshot.appendItems(notes, toSection: 0)
@@ -80,35 +80,25 @@ class ExploreViewController: UIViewController {
 
 extension ExploreViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard var currentDeck = currentDeck else { return }
+        guard let currentDeck = currentDeck else { return }
         
         var snapshot = dataSource.snapshot()
         
+        
         let note = dataSource.itemIdentifier(for: indexPath)!
-        snapshot.deleteItems([note])
-        
-        dataSource.apply(snapshot, animatingDifferences: true)
-        
         let card = Card(id: UUID().uuidString, 
                         note: note,
                         learningRecords: [])
+        snapshot.deleteItems([note])
+        dataSource.apply(snapshot, animatingDifferences: true)
+
+//        print(currentDeck.storedCardIds)
         
-        currentDeck.cards.append(card)
-        
-        var decks = DeckManager.shared.snapshot
-        
-        for i in 0..<decks.count {
-            if decks[i].id == currentDeck.id {
-                decks.remove(at: i)
-                decks.insert(currentDeck, at: i)
-                break
-            }
-        }
-        
-        DeckManager.shared.snapshot = decks
-        DeckManager.shared.writeToFile()
+        CardManager.shared.add(card)
+        DeckManager.shared.addCardTo(deck: currentDeck, cardId: card.id)
         
         let deck = DeckManager.shared.snapshot.first!
-        print(deck)
+        
+        
     }
 }

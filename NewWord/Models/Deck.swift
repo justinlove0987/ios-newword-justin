@@ -56,8 +56,16 @@ struct Deck: Hashable, Codable {
     var master: Master
 
     let id: String
-    var cards: [Card]
-    var name: String
+        var name: String
+    
+    var storedCardIds: [String]
+    
+    var cards: [Card] {
+        return CardManager.shared.snapshot.filter { card in
+            storedCardIds.contains(card.id)
+        }
+    }
+
 
     static func == (lhs: Deck, rhs: Deck) -> Bool {
         return lhs.id == rhs.id
@@ -74,8 +82,7 @@ extension Deck {
         let lapses = Deck.Lapses(relearningSteps: 1, leachThreshold: 2, minumumInterval: 1)
         let advanced = Deck.Advanced(startingEase: 2.5, easyBonus: 1.3)
         let master = Deck.Master(graduatingInterval: 730, consecutiveCorrects: 5)
-
-        let deck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: UUID().uuidString, cards: [], name: "英文句子")
+        let deck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: UUID().uuidString, name: "英文句子", storedCardIds: [])
 
         return deck
     }

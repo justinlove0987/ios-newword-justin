@@ -11,20 +11,15 @@ import Foundation
 class NoteManager: DataManager<Note> {
     
     static let shared = NoteManager()
-    
     static let filename = "notes.json"
-    
-    var notes: [Note] = []
     
     private init() {
         super.init(filename: NoteManager.filename)
-        
-        self.notes = readFromFile(filename: NoteManager.filename) ?? []
+        self.snapshot = readFromFile() ?? []
     }
     
     func addFakeNotes() {
-        notes.append(contentsOf: Note.createFakeNotes())
-        
-        writeToFile(data: notes)
+        snapshot.append(contentsOf: Note.createFakeNotes())
+        writeToFile()
     }
 }

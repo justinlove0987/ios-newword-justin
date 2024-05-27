@@ -74,7 +74,7 @@ class ReviseDeckViewController: UIViewController {
         let master = Deck.Master(graduatingInterval: masterGraduatingInterval, consecutiveCorrects: consecutiveCorrects)
         let advanced = Deck.Advanced(startingEase: startingEase, easyBonus: deck.advanced.easyBonus)
         
-        let newDeck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: deck.id, cards: deck.cards, name: deck.name)
+        let newDeck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: deck.id, name: deck.name, storedCardIds: [])
         
         delegate?.didTapSaveButton(self, revisedDeck: newDeck)
         
