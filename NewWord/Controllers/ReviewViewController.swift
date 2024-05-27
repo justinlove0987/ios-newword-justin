@@ -28,7 +28,7 @@ class ReviewViewController: UIViewController {
     
     func setup() {
         setupViewControllers()
-        updateDataSource()
+        setupDataSource()
     }
 
     private func setupViewControllers() {
@@ -39,24 +39,29 @@ class ReviewViewController: UIViewController {
         viewControllers = [vc]
     }
 
-    private func updateDataSource() {
+    private func setupDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             let cell = tableView.dequeueReusableCell(withIdentifier: DeckCell.reuseIdentifier, for: indexPath) as! DeckCell
-            
-            
+
             cell.deck = itemIdentifier
             cell.nameLabel.text = itemIdentifier.name
-            
+
+            print(itemIdentifier.storedCardIds)
+
             cell.settingAction = {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: String(describing: ReviseDeckViewController.self)) as! ReviseDeckViewController
                 vc.deck = itemIdentifier
-                
+
                 self.present(vc, animated: true)
             }
             return cell
         })
 
+        updateDataSource()
+    }
+
+    private func updateDataSource() {
         var snapshot = NSDiffableDataSourceSnapshot<Int, Deck>()
         snapshot.appendSections([0])
         snapshot.appendItems(DeckManager.shared.snapshot, toSection: 0)

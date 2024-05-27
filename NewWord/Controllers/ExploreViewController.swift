@@ -84,7 +84,6 @@ extension ExploreViewController: UITableViewDelegate {
         
         var snapshot = dataSource.snapshot()
         
-        
         let note = dataSource.itemIdentifier(for: indexPath)!
         let card = Card(id: UUID().uuidString, 
                         note: note,
