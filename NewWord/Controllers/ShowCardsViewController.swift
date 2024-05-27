@@ -25,10 +25,10 @@ class ShowCardsViewController: UIViewController {
     
     @IBOutlet weak var contentView: UIView!
     
-    var deck: Deck
-    
-    var filteredCards: [Card] = []
-    
+    var deck: CDDeck
+
+    var filteredCards: [CDCard] = []
+
     private var lastShowingSubview: any ShowCardsSubviewDelegate = NoCardView() {
         willSet {
             lastShowingSubview.removeFromSuperview()
@@ -46,13 +46,13 @@ class ShowCardsViewController: UIViewController {
         }
     }
     
-    private var currentCard: Card {
+    private var currentCard: CDCard {
         return filteredCards[currentCardIndex]
     }
     
     // MARK: - Lifecycles
     
-    init?(coder: NSCoder, deck: Deck) {
+    init?(coder: NSCoder, deck: CDDeck) {
         self.deck = deck
         super.init(coder: coder)
     }
@@ -90,15 +90,15 @@ class ShowCardsViewController: UIViewController {
     }
     
     private func filterCards() {
-        print(deck.storedCardIds)
-        print(deck.cards.count)
-        print("=================")
-        
-        let newCards = deck.cards.filter { card in
-            card.learningRecords.isEmpty
+
+        let cards = CoreDataManager.shared.cards(from: deck)
+
+        let newCards = cards.filter { card in
+            let learningRecord = CoreDataManager.shared.learningRecords(from: card)
+            return learningRecord.isEmpty
         }
         
-        let reviewCards = deck.cards.filter { card in
+        let reviewCards = cards.filter { card in
             guard let review = card.latestReview else { return false }
             
             return review.dueDate <= Date() && review.state == .review
@@ -114,7 +114,7 @@ class ShowCardsViewController: UIViewController {
     }
     
     private func updateSubview() {
-        let noteType = currentCard.note.noteType
+        let noteType = currentCard.note?.noteType
         
         let subview: any ShowCardsSubviewDelegate
         

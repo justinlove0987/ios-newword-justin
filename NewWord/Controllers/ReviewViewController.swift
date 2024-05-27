@@ -11,7 +11,7 @@ class ReviewViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
-    var dataSource: UITableViewDiffableDataSource<Int, Deck>!
+    var dataSource: UITableViewDiffableDataSource<Int, CDDeck>!
     var viewControllers: [UIViewController] = []
 
     // MARK: - Lifecycles
@@ -50,16 +50,24 @@ class ReviewViewController: UIViewController {
             cell.settingAction = {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: String(describing: ReviseDeckViewController.self)) as! ReviseDeckViewController
-                vc.deck = itemIdentifier
+//                vc.deck = itemIdentifier
                 
                 self.present(vc, animated: true)
             }
             return cell
         })
 
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Deck>()
+        if !CoreDataManager.shared.deckExists() {
+            CoreDataManager.shared.addDeck(name: "一個Deck")
+            CoreDataManager.shared.addDeck(name: "兩個Deck")
+        }
+
+        let decks = CoreDataManager.shared.getDecks()
+        print(decks.count)
+
+        var snapshot = NSDiffableDataSourceSnapshot<Int, CDDeck>()
         snapshot.appendSections([0])
-        snapshot.appendItems(DeckManager.shared.snapshot, toSection: 0)
+        snapshot.appendItems(decks, toSection: 0)
 
         tableView.dataSource = dataSource
         dataSource.apply(snapshot)
@@ -84,7 +92,7 @@ class ReviewViewController: UIViewController {
                 DeckManager.shared.writeToFile()
 
                 var snapshot = self.dataSource.snapshot()
-                snapshot.appendItems([deck], toSection: 0)
+//                snapshot.appendItems([deck], toSection: 0)
                 self.dataSource.apply(snapshot)
             }
         }

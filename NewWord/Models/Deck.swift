@@ -56,7 +56,7 @@ struct Deck: Hashable, Codable {
     var master: Master
 
     let id: String
-        var name: String
+    var name: String
     
     var storedCardIds: [String]
     

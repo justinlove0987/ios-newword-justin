@@ -11,7 +11,7 @@ class DeckCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     
-    var deck: Deck?
+    var deck: CDDeck?
     
     var settingAction: (() -> ())?
     

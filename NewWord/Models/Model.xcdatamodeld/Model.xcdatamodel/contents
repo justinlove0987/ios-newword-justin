@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
-    <entity name="CDCard" representedClassName="CDCard" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="CDCard" representedClassName="CDCard" syncable="YES">
         <attribute name="addedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="String"/>
-        <relationship name="deck" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDeck" inverseName="card" inverseEntity="CDDeck"/>
-        <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNote"/>
+        <relationship name="deck" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDeck" inverseName="cards" inverseEntity="CDDeck"/>
+        <relationship name="learningRecords" toMany="YES" deletionRule="Nullify" destinationEntity="CDLearningRecord" inverseName="card" inverseEntity="CDLearningRecord"/>
+        <relationship name="note" maxCount="1" deletionRule="Nullify" destinationEntity="CDNote" inverseName="card" inverseEntity="CDNote"/>
     </entity>
     <entity name="CDDeck" representedClassName="CDDeck" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCard" inverseName="deck" inverseEntity="CDCard"/>
+        <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDCard" inverseName="deck" inverseEntity="CDCard"/>
     </entity>
-    <entity name="CDLearningRecord" representedClassName="CDLearningRecord" syncable="YES" codeGenerationType="class"/>
+    <entity name="CDLearningRecord" representedClassName="CDLearningRecord" syncable="YES" codeGenerationType="class">
+        <attribute name="dueDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="learnedDate" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCard" inverseName="learningRecords" inverseEntity="CDCard"/>
+    </entity>
     <entity name="CDNote" representedClassName="CDNote" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String"/>
-        <relationship name="noteType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNoteType"/>
+        <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCard" inverseName="note" inverseEntity="CDCard"/>
+        <relationship name="noteType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNoteType" inverseName="note" inverseEntity="CDNoteType"/>
     </entity>
     <entity name="CDNoteType" representedClassName="CDNoteType" syncable="YES" codeGenerationType="class">
         <attribute name="rawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNote" inverseName="noteType" inverseEntity="CDNote"/>
         <relationship name="sentenceCloze" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentenceCloze" inverseName="noteType" inverseEntity="CDSentenceCloze"/>
     </entity>
     <entity name="CDSentence" representedClassName="CDSentence" syncable="YES" codeGenerationType="class">
