@@ -31,21 +31,21 @@ struct SentenceClozeViewModel {
         }
     }
     
-    var cards: [Card] = []
-    var card: Card
-    
+    var cards: [CDCard] = []
+    var card: CDCard?
+
     var numberOfRowsInSection: Int = 0
     var wordsForRows: [[Word]] = []
     var data: Rows!
     
     weak var textField: WordTextField?
     
-    init(card: Card) {
+    init(card: CDCard) {
         self.card = card
     }
     
     init() {
-        self.card = Card(id: "", note: Note(id: "", noteType: .sentenceCloze(SentenceCloze(clozeWord: Word(text: "", chinese: ""), sentence: []))), learningRecords: [])
+//        self.card = Card(id: "", note: Note(id: "", noteType: .sentenceCloze(SentenceCloze(clozeWord: Word(text: "", chinese: ""), sentence: []))), learningRecords: [])
     }
     
     mutating func setup(with width: CGFloat) {
@@ -53,13 +53,13 @@ struct SentenceClozeViewModel {
         self.updateData(width: width)
     }
     
-    func getCurrentCard() -> Card {
-        return card
+    func getCurrentCard() -> CDCard {
+        return card!
     }
     
     func getCurrentClozeChinese() -> Word? {
-        let noteType = card.note.noteType
-        
+        let noteType = card!.note!.noteType!.rawValue
+
         if case .sentenceCloze(let sentenceCloze) = noteType {
             return sentenceCloze.clozeWord
         }

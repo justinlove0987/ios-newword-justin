@@ -19,13 +19,13 @@ class SentenceClozeView: UIView, NibOwnerLoadable {
     @IBOutlet weak var tableView: UITableView!
     
     private var viewModel: SentenceClozeViewModel!
-    private var card: Card!
-    
+    private var card: CDCard!
+
     var currentState: CardStateType = .a
     
 //    weak var delegate: AnswerStatusDelegate?
 
-    init(viewModel: SentenceClozeViewModel, card: Card) {
+    init(viewModel: SentenceClozeViewModel, card: CDCard) {
         self.viewModel = viewModel
         self.card = card
         super.init(frame: .zero)

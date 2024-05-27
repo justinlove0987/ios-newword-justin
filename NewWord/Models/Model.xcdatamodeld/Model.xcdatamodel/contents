@@ -12,9 +12,11 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDCard" inverseName="deck" inverseEntity="CDCard"/>
     </entity>
-    <entity name="CDLearningRecord" representedClassName="CDLearningRecord" syncable="YES" codeGenerationType="class">
+    <entity name="CDLearningRecord" representedClassName="CDLearningRecord" syncable="YES" codeGenerationType="category">
         <attribute name="dueDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="learnedDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="stateRawValue" attributeType="String"/>
+        <attribute name="statusRawValue" attributeType="String"/>
         <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCard" inverseName="learningRecords" inverseEntity="CDCard"/>
     </entity>
     <entity name="CDNote" representedClassName="CDNote" syncable="YES" codeGenerationType="class">
@@ -22,7 +24,7 @@
         <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCard" inverseName="note" inverseEntity="CDCard"/>
         <relationship name="noteType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNoteType" inverseName="note" inverseEntity="CDNoteType"/>
     </entity>
-    <entity name="CDNoteType" representedClassName="CDNoteType" syncable="YES" codeGenerationType="class">
+    <entity name="CDNoteType" representedClassName="CDNoteType" syncable="YES" codeGenerationType="category">
         <attribute name="rawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNote" inverseName="noteType" inverseEntity="CDNote"/>
         <relationship name="sentenceCloze" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentenceCloze" inverseName="noteType" inverseEntity="CDSentenceCloze"/>

@@ -101,30 +101,34 @@ class ShowCardsViewController: UIViewController {
         let reviewCards = cards.filter { card in
             guard let review = card.latestReview else { return false }
             
-            return review.dueDate <= Date() && review.state == .review
+            return review.dueDate! <= Date() && review.state == .review
         }
         
-        let relearnCards = deck.cards.filter { card in
+        let relearnCards = cards.filter { card in
             guard let review = card.latestReview else { return false }
             
-            return review.dueDate <= Date() && review.state == .relearn
+            return review.dueDate! <= Date() && review.state == .relearn
         }
         
         filteredCards = newCards + reviewCards + relearnCards
     }
     
     private func updateSubview() {
-        let noteType = currentCard.note?.noteType
-        
+        let rawValue = currentCard.note?.noteType?.rawValue
+
         let subview: any ShowCardsSubviewDelegate
-        
-        switch noteType {
-        case .sentenceCloze(_):
+
+        switch rawValue {
+        case 0:
             let viewModel = SentenceClozeViewModel(card: currentCard)
             subview = SentenceClozeView(viewModel: viewModel, card: currentCard)
-        case .prononciation:
+        case 1:
             subview = PronounciationView()
+        default:
+            break
         }
+
+
         
         lastShowingSubview = subview
     }

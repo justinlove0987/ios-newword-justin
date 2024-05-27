@@ -43,6 +43,10 @@
 		D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A0643E2BFC8E78001AFE08 /* PronounciationView.swift */; };
 		D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A064402BFC913C001AFE08 /* PronounciationView.xib */; };
 		D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */; };
+		D0B678432C0499B500F76BE7 /* CDLearningRecord+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B678412C0499B500F76BE7 /* CDLearningRecord+CoreDataClass.swift */; };
+		D0B678442C0499B500F76BE7 /* CDLearningRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B678422C0499B500F76BE7 /* CDLearningRecord+CoreDataProperties.swift */; };
+		D0B678472C049EA200F76BE7 /* CDNoteType+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B678452C049EA100F76BE7 /* CDNoteType+CoreDataClass.swift */; };
+		D0B678482C049EA200F76BE7 /* CDNoteType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B678462C049EA100F76BE7 /* CDNoteType+Extensions.swift */; };
 		D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC42BB66A05008644DC /* AppDelegate.swift */; };
 		D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */; };
 		D0DA5AC92BB66A05008644DC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC82BB66A05008644DC /* MainViewController.swift */; };
@@ -90,6 +94,10 @@
 		D0A0643E2BFC8E78001AFE08 /* PronounciationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PronounciationView.swift; sourceTree = "<group>"; };
 		D0A064402BFC913C001AFE08 /* PronounciationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PronounciationView.xib; sourceTree = "<group>"; };
 		D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibOwnerLoadable.swift; sourceTree = "<group>"; };
+		D0B678412C0499B500F76BE7 /* CDLearningRecord+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDLearningRecord+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D0B678422C0499B500F76BE7 /* CDLearningRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDLearningRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		D0B678452C049EA100F76BE7 /* CDNoteType+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDNoteType+CoreDataClass.swift"; sourceTree = "<group>"; };
+		D0B678462C049EA100F76BE7 /* CDNoteType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDNoteType+Extensions.swift"; sourceTree = "<group>"; };
 		D0DA5AC12BB66A05008644DC /* NewWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DA5AC42BB66A05008644DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +169,10 @@
 				D020A4EF2BB9DA6000CA5CAF /* Article.swift */,
 				2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */,
 				D07BD5B72C04729800DFD246 /* CoreDataManager.swift */,
+				D0B678452C049EA100F76BE7 /* CDNoteType+CoreDataClass.swift */,
+				D0B678462C049EA100F76BE7 /* CDNoteType+Extensions.swift */,
+				D0B678412C0499B500F76BE7 /* CDLearningRecord+CoreDataClass.swift */,
+				D0B678422C0499B500F76BE7 /* CDLearningRecord+CoreDataProperties.swift */,
 				D07BD5BF2C04819B00DFD246 /* CDCard+CoreDataClass.swift */,
 				D07BD5C02C04819B00DFD246 /* CDCard+CoreDataProperties.swift */,
 				D07BD5BD2C04813200DFD246 /* CDCard+Extensions.swift */,
@@ -308,12 +320,16 @@
 				D0E8848B2BC93C3600C78B97 /* NoteType.swift in Sources */,
 				2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */,
 				D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */,
+				D0B678432C0499B500F76BE7 /* CDLearningRecord+CoreDataClass.swift in Sources */,
+				D0B678442C0499B500F76BE7 /* CDLearningRecord+CoreDataProperties.swift in Sources */,
 				D07BD5B82C04729800DFD246 /* CoreDataManager.swift in Sources */,
 				D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */,
 				D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */,
 				D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */,
 				D032145B2BD63C2200512263 /* Preferences.swift in Sources */,
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
+				D0B678472C049EA200F76BE7 /* CDNoteType+CoreDataClass.swift in Sources */,
+				D0B678482C049EA200F76BE7 /* CDNoteType+Extensions.swift in Sources */,
 				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
