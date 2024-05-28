@@ -93,11 +93,7 @@ extension LearningRecord {
 
             let dueDate: Date = isAnswerCorrect ? addInterval(to: today, dayInterval: newCard.easyInterval)! : addInterval(to: today, secondInterval: newCard.learningStpes)
 
-            if isAnswerCorrect {
-                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .review)
-            } else {
-                return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .relearn)
-            }
+            return LearningRecord(learnedDate: today, dueDate: dueDate, status: currentLearningStatus, state: .learn)
         }
         
         let lastStatus =  latestReview.status
