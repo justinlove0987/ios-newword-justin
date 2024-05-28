@@ -212,7 +212,7 @@ struct LearningFactory {
     var relearnCards: [Card] = []
     var redoCards: [Card] = []
 
-    var currentIndex: (collection: Int, card: Int) = (0,0)
+    var currentIndex: (collectionIndex: Int, cardIndex: Int) = (0,0)
 
     var deck: Deck
 
@@ -220,8 +220,28 @@ struct LearningFactory {
         self.deck = deck
     }
 
+    mutating func setupCards() {
+        newCards = deck.cards.filter { card in
+            card.learningRecords.isEmpty
+        }
+
+        reviewCards = deck.cards.filter { card in
+            guard let review = card.latestReview else { return false }
+            return (review.dueDate <= Date() &&
+                    review.status == .correct &&
+                    (review.state == .learn || review.state == .review))
+        }
+
+        relearnCards = deck.cards.filter { card in
+            guard let review = card.latestReview else { return false }
+            return (review.dueDate <= Date() &&
+                    review.status == .incorrect &&
+                    (review.state == .relearn || review.state == .learn))
+        }
+    }
+
     func getCurrentCard() -> Card {
-        let order = cardsOrder[currentIndex.collection]
+        let order = cardsOrder[currentIndex.collectionIndex]
 
         let currentCards: [Card]
 
@@ -236,7 +256,7 @@ struct LearningFactory {
             currentCards = []
         }
 
-        let card = currentCards[currentIndex.card]
+        let card = currentCards[currentIndex.cardIndex]
 
         return card
     }
