@@ -21,8 +21,8 @@ class ReviewViewController: UIViewController {
         setup()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         updateDataSource()
     }
 
@@ -57,7 +57,8 @@ class ReviewViewController: UIViewController {
             }
             return cell
         })
-
+        
+        tableView.dataSource = dataSource
         updateDataSource()
     }
 
@@ -65,12 +66,14 @@ class ReviewViewController: UIViewController {
         let decks = DeckManager.shared.snapshot
 
         decks.forEach { print($0.storedCardIds) }
+//        decks.forEach { DeckManager.shared.deleteAllCards($0) }
 
         var snapshot = NSDiffableDataSourceSnapshot<Int, Deck>()
         snapshot.appendSections([0])
         snapshot.appendItems(decks, toSection: 0)
+        
+        
 
-        tableView.dataSource = dataSource
         dataSource.apply(snapshot)
     }
 

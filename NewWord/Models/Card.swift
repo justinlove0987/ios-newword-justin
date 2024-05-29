@@ -115,3 +115,9 @@ extension Card {
         return calendar.date(from: dateComponents)!
     }
 }
+
+extension Card {
+    mutating func addLearningRecord(_ record: LearningRecord) {
+        self.learningRecords.append(record)
+    }
+}
