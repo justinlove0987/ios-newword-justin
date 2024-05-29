@@ -10,6 +10,7 @@ import Foundation
 class DeckManager: DataManager<Deck> {
     
     static let shared = DeckManager()
+
     private static let filename = "decks.json"
     
     private init() {
