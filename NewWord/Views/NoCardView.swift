@@ -9,7 +9,7 @@ import UIKit
 
 class NoCardView: UIView, NibOwnerLoadable {
     
-    enum CardStateType: Int {
+    enum CardStateType: Int, CaseIterable {
         case none
     }
     
@@ -30,12 +30,4 @@ class NoCardView: UIView, NibOwnerLoadable {
     }
 }
 
-extension NoCardView: ShowCardsSubviewDelegate {
-    func nextState() {
-        
-    }
-    
-    func hasNextState() -> Bool {
-        return false
-    }
-}
+extension NoCardView: ShowCardsSubviewDelegate {}

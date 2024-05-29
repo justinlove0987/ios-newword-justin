@@ -13,7 +13,7 @@ class PronounciationView: UIView, NibOwnerLoadable {
     @IBOutlet weak var bLabel: UILabel!
     @IBOutlet weak var cLabel: UILabel!
     
-    enum CardStateType: Int {
+    enum CardStateType: Int, CaseIterable {
         case aState
         case bState
         case cState
@@ -55,25 +55,4 @@ class PronounciationView: UIView, NibOwnerLoadable {
     }
 }
 
-extension PronounciationView: ShowCardsSubviewDelegate {
-    
-    func hasNextState() -> Bool {
-        let rawValue = currentState.rawValue
-        let nextState = CardStateType(rawValue: rawValue+1)
-        
-        guard let nextState else { return false }
-        
-        
-        return true
-    }
-    
-    func nextState(){
-        let rawValue = currentState.rawValue
-        let nextState = CardStateType(rawValue: rawValue+1)
-        
-        guard let nextState else { return }
-        
-        currentState = nextState
-    }
-
-}
+extension PronounciationView: ShowCardsSubviewDelegate {}

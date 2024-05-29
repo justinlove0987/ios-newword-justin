@@ -42,6 +42,8 @@ class ShowCardsViewControllerViewModel {
     func setupCards() {
         guard let deck else { return }
         
+        deck.cards.forEach { print("learning records count \($0.learningRecords.count)") }
+        
         newCards = deck.cards.filter { card in
             card.learningRecords.isEmpty
         }
@@ -60,9 +62,8 @@ class ShowCardsViewControllerViewModel {
                     (review.state == .relearn || review.state == .learn))
         }
         
-        let card = Card(id: "1", note: Note(id: "1", noteType: .prononciation), learningRecords: [])
-        
-        newCards.insert(card, at: 0)
+//        let card = Card(id: "1", note: Note(id: "1", noteType: .prononciation), learningRecords: [])
+//        newCards.insert(card, at: 0)
     }
     
     func nextCard() -> Card? {
@@ -243,15 +244,6 @@ class ShowCardsViewControllerViewModel {
         case .notToday:
             break
         }
-        
-        // 決定card下一個要去的collection
-        // new,correct -> notToday
-        // new,incorret -> relearn
-        // relearn,correct -> notToday
-        // relearn,incorrect -> relearn
-        // review,correct -> notToday
-        // review, incorrect -> relearn
-
     }
     
 }

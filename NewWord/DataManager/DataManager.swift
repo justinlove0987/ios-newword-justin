@@ -33,7 +33,7 @@ class DataManager<T> where T: Codable & Hashable {
             snapshot[index] = data
             writeToFile()
         } else {
-            print("Deck with id \(data) not found.")
+            print("Data with id not found. \n \(data) ")
         }
     }
 

@@ -17,7 +17,7 @@ class DeckManager: DataManager<Deck> {
         self.snapshot = readFromFile() ?? []
     }
     
-    func addCardTo(to deck: Deck,with cardId: String) {
+    func addCardTo(to deck: Deck, with cardId: String) {
         if let index = snapshot.firstIndex(where: { $0 == deck }) {
             snapshot[index].storedCardIds.append(cardId)
             writeToFile()

@@ -14,6 +14,14 @@ struct Card: Hashable, Codable {
     var totalTime: Int = 0
     let note: Note
     var learningRecords: [LearningRecord]
+    
+    static func == (lhs: Card, rhs: Card) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 extension Card {

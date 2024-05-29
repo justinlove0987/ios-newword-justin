@@ -9,10 +9,11 @@ import UIKit
 
 class ReviewViewController: UIViewController {
 
+    // MARK: - Properties
+    
     @IBOutlet weak var tableView: UITableView!
 
     var dataSource: UITableViewDiffableDataSource<Int, Deck>!
-    var viewControllers: [UIViewController] = []
 
     // MARK: - Lifecycles
 
@@ -23,22 +24,16 @@ class ReviewViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        let decks = DeckManager.shared.snapshot
+        decks.forEach { print("stored id counts \($0.storedCardIds.count)") }
+        
         updateDataSource()
     }
 
     // MARK: - Helpers
 
     private func setup() {
-        setupViewControllers()
         setupDataSource()
-    }
-
-    private func setupViewControllers() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: String(describing: SentenceClozeViewController.self))
-        
-        
-        viewControllers = [vc]
     }
 
     private func setupDataSource() {
@@ -64,15 +59,11 @@ class ReviewViewController: UIViewController {
 
     private func updateDataSource() {
         let decks = DeckManager.shared.snapshot
-
-        decks.forEach { print($0.storedCardIds) }
 //        decks.forEach { DeckManager.shared.deleteAllCards($0) }
 
         var snapshot = NSDiffableDataSourceSnapshot<Int, Deck>()
         snapshot.appendSections([0])
         snapshot.appendItems(decks, toSection: 0)
-        
-        
 
         dataSource.apply(snapshot)
     }

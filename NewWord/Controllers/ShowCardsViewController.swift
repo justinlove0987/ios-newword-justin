@@ -8,19 +8,47 @@
 import UIKit
 
 protocol ShowCardsSubviewDelegate: UIView {
-    associatedtype CardStateType: RawRepresentable where CardStateType.RawValue == Int
+    associatedtype CardStateType: RawRepresentable & CaseIterable where CardStateType.RawValue == Int
 
     var currentState: CardStateType { get set }
-
-    func nextState()
+    
+    var isNextStateFinalState: Bool { get }
+    
     func hasNextState() -> Bool
+    
+    func nextState()
+}
+
+extension ShowCardsSubviewDelegate {
+    
+    var isNextStateFinalState: Bool {
+        return currentState.rawValue + 1 == CardStateType.allCases.count - 1
+    }
+    
+    func hasNextState() -> Bool {
+        let rawValue = currentState.rawValue
+        let nextState = CardStateType(rawValue: rawValue+1)
+        
+        guard nextState != nil else { return false }
+        
+        return true
+    }
+    
+    func nextState() {
+        let rawValue = currentState.rawValue
+        let nextState = CardStateType(rawValue: rawValue+1)
+        
+        guard let nextState else { return }
+        
+        currentState = nextState
+    }
 }
 
 class ShowCardsViewController: UIViewController {
 
     enum AnswerState {
-        case answering
-        case showingAnswer
+        case question
+        case answer
     }
 
     @IBOutlet weak var contentView: UIView!
@@ -29,6 +57,8 @@ class ShowCardsViewController: UIViewController {
     @IBOutlet weak var reviewLabel: UILabel!
 
     var deck: Deck
+    
+    var currentAnswerState: AnswerState = .question
     
     private var viewModel = ShowCardsViewControllerViewModel()
 
@@ -81,16 +111,18 @@ class ShowCardsViewController: UIViewController {
 
     @objc func tap(_ sender: UITapGestureRecognizer) {
         let hasNextState = lastShowingSubview.hasNextState()
-
+        
         if hasNextState {
             lastShowingSubview.nextState()
-        } else {
             
+        } else {
             guard let _ = viewModel.nextCard() else {
                 lastShowingSubview = NoCardView()
-                view.layoutSubviews()
                 return
             }
+            
+            let isAnswerCorrect = isTouchOnRightSide(of: contentView, at: sender.location(in: self.view))
+            viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: isAnswerCorrect)
             
             lastShowingSubview = viewModel.getCurrentSubview()
         }
@@ -100,23 +132,17 @@ class ShowCardsViewController: UIViewController {
         viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: true)
         
         lastShowingSubview = viewModel.getCurrentSubview()
-        
-        
-        
-//        filteredCards[currentCardIndex].learningRecords.append(record)
-
-        // 一方面要對正在用的資料進行操作 另一方面要對本地端的資料進行操作
-        // 檢查是否要繼續放入filtered card，不要就從filteredcard中剔除
-        // 先訂一個順序就好 new review relearn
-        // 怎麼讓new學完後再學下一個review？
-
-//        if record.dueDate <= Date() {
-//
-//        }
     }
 
     @IBAction func incorrectAction(_ sender: UIButton) {
-
+        viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: false)
+        
+        lastShowingSubview = viewModel.getCurrentSubview()
+    }
+    
+    func isTouchOnRightSide(of view: UIView, at point: CGPoint) -> Bool {
+        let midX = view.bounds.midX
+        return point.x > midX
     }
 }
 
