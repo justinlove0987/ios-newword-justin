@@ -197,12 +197,90 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yp6-wt-y0s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1055.7251908396945" y="702.81690140845069"/>
+            <point key="canvasLocation" x="138" y="717"/>
         </scene>
         <!--Revise Deck View Controller-->
+        <scene sceneID="6Sg-7o-oin">
+            <objects>
+                <viewController storyboardIdentifier="ReviseDeckViewController" id="mo4-fd-myH" customClass="ReviseDeckViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tpw-Eo-H51">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Sq4-gz-BMl">
+                                <rect key="frame" x="0.0" y="59" width="393" height="150"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yOp-1J-jpr">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="英文學習" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uJK-qU-ZlZ">
+                                                <rect key="frame" x="10" y="10" width="69.333333333333329" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0WX-Zu-8zM">
+                                                <rect key="frame" x="324.33333333333331" y="10" width="58.666666666666686" height="30"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="修改"/>
+                                                <connections>
+                                                    <action selector="reviseAction:" destination="mo4-fd-myH" eventType="touchUpInside" id="AgE-O6-6g1"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="0WX-Zu-8zM" secondAttribute="bottom" constant="10" id="CGU-yX-ymr"/>
+                                            <constraint firstItem="uJK-qU-ZlZ" firstAttribute="top" secondItem="yOp-1J-jpr" secondAttribute="top" constant="10" id="Nzs-NT-aoM"/>
+                                            <constraint firstItem="uJK-qU-ZlZ" firstAttribute="leading" secondItem="yOp-1J-jpr" secondAttribute="leading" constant="10" id="PFQ-Fe-2bD"/>
+                                            <constraint firstAttribute="bottom" secondItem="uJK-qU-ZlZ" secondAttribute="bottom" constant="10" id="VU8-Ie-rmk"/>
+                                            <constraint firstAttribute="trailing" secondItem="0WX-Zu-8zM" secondAttribute="trailing" constant="10" id="rB7-z8-cRv"/>
+                                            <constraint firstItem="0WX-Zu-8zM" firstAttribute="top" secondItem="yOp-1J-jpr" secondAttribute="top" constant="10" id="s5V-VY-7cu"/>
+                                            <constraint firstItem="0WX-Zu-8zM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="uJK-qU-ZlZ" secondAttribute="trailing" constant="8" symbolic="YES" id="uId-nc-oUv"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k7u-eG-00H">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="學習選項"/>
+                                        <connections>
+                                            <action selector="learningOptionsAction:" destination="mo4-fd-myH" eventType="touchUpInside" id="wqH-yq-wBZ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2H-UK-JJG">
+                                        <rect key="frame" x="0.0" y="100" width="393" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="刪除"/>
+                                        <connections>
+                                            <action selector="deleteAction:" destination="mo4-fd-myH" eventType="touchUpInside" id="cbh-Kt-GL0"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="3Wz-bN-vZD"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ygC-3C-3em"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Sq4-gz-BMl" firstAttribute="leading" secondItem="ygC-3C-3em" secondAttribute="leading" id="ZXI-cF-3JR"/>
+                            <constraint firstItem="ygC-3C-3em" firstAttribute="trailing" secondItem="Sq4-gz-BMl" secondAttribute="trailing" id="j2v-wz-F6S"/>
+                            <constraint firstItem="Sq4-gz-BMl" firstAttribute="top" secondItem="ygC-3C-3em" secondAttribute="top" id="yRH-4L-iWm"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="nameLabel" destination="uJK-qU-ZlZ" id="GyN-Cu-xcM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xV1-bp-ZsE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="993" y="717"/>
+        </scene>
+        <!--Revise Preset View Controller-->
         <scene sceneID="BKq-dO-AO9">
             <objects>
-                <viewController storyboardIdentifier="ReviseDeckViewController" id="06O-NH-wWK" customClass="ReviseDeckViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RevisePresetViewController" id="06O-NH-wWK" customClass="RevisePresetViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rCw-wr-0Mw">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -690,6 +768,48 @@
             </objects>
             <point key="canvasLocation" x="2675.5725190839694" y="716.90140845070425"/>
         </scene>
+        <!--Revise Name View Controller-->
+        <scene sceneID="MlQ-W8-nRg">
+            <objects>
+                <viewController storyboardIdentifier="ReviseNameViewController" id="Oph-yS-zae" customClass="ReviseNameViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wv1-ab-4ft">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fcp-hg-Q3g">
+                                <rect key="frame" x="20" y="79" width="353" height="34"/>
+                                <color key="backgroundColor" systemColor="systemCyanColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emI-fL-bYx">
+                                <rect key="frame" x="10" y="133" width="373" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="儲存"/>
+                                <connections>
+                                    <action selector="saveAction:" destination="Oph-yS-zae" eventType="touchUpInside" id="M6X-bp-dpZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="0Rg-RQ-nkC"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="0Rg-RQ-nkC" firstAttribute="trailing" secondItem="Fcp-hg-Q3g" secondAttribute="trailing" constant="20" id="0cr-gm-5wK"/>
+                            <constraint firstItem="emI-fL-bYx" firstAttribute="leading" secondItem="0Rg-RQ-nkC" secondAttribute="leading" constant="10" id="CBh-Cs-uly"/>
+                            <constraint firstItem="Fcp-hg-Q3g" firstAttribute="leading" secondItem="0Rg-RQ-nkC" secondAttribute="leading" constant="20" id="R7d-QC-Ft7"/>
+                            <constraint firstItem="0Rg-RQ-nkC" firstAttribute="trailing" secondItem="emI-fL-bYx" secondAttribute="trailing" constant="10" id="dMu-2Y-VHG"/>
+                            <constraint firstItem="Fcp-hg-Q3g" firstAttribute="top" secondItem="0Rg-RQ-nkC" secondAttribute="top" constant="20" id="dxd-Aq-YtT"/>
+                            <constraint firstItem="emI-fL-bYx" firstAttribute="top" secondItem="Fcp-hg-Q3g" secondAttribute="bottom" constant="20" id="fxZ-Zw-dGQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textField" destination="Fcp-hg-Q3g" id="Jx3-yT-c1g"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fzs-a2-WMU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3454" y="717"/>
+        </scene>
         <!--Sentence Cloze View Controller-->
         <scene sceneID="eSo-Y6-juQ">
             <objects>
@@ -762,10 +882,10 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemCyanColor">
-            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

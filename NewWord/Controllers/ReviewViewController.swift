@@ -34,6 +34,7 @@ class ReviewViewController: UIViewController {
 
     private func setup() {
         setupDataSource()
+        setupNotifications()
     }
 
     private func setupDataSource() {
@@ -44,11 +45,11 @@ class ReviewViewController: UIViewController {
             cell.nameLabel.text = itemIdentifier.name
 
             cell.settingAction = {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: String(describing: ReviseDeckViewController.self)) as! ReviseDeckViewController
+                let vc = ReviseDeckViewController.instantiate()
+                
                 vc.deck = itemIdentifier
-
-                self.present(vc, animated: true)
+                
+                self.navigationController?.pushViewController(vc, animated: true)
             }
             return cell
         })
@@ -56,16 +57,23 @@ class ReviewViewController: UIViewController {
         tableView.dataSource = dataSource
         updateDataSource()
     }
+    
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDeckUpdate(notification:)), name: .deckDidUpdate, object: nil)
+
+    }
 
     private func updateDataSource() {
         let decks = DeckManager.shared.snapshot
-//        decks.forEach { DeckManager.shared.deleteAllCards($0) }
+        
+        decks.forEach { print($0.name) }
 
         var snapshot = NSDiffableDataSourceSnapshot<Int, Deck>()
         snapshot.appendSections([0])
         snapshot.appendItems(decks, toSection: 0)
 
         dataSource.apply(snapshot)
+        tableView.reloadData()
     }
 
     // MARK: - Actions
@@ -96,6 +104,10 @@ class ReviewViewController: UIViewController {
         alert.addAction(cancel)
         present(alert, animated: true)
     }
+    
+    @objc func handleDeckUpdate(notification: Notification) {
+        updateDataSource()
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -120,8 +132,8 @@ extension ReviewViewController: UITableViewDelegate {
 
 // MARK: - ReviseDeckViewControllerDelegate
 
-extension ReviewViewController: ReviseDeckViewControllerDelegate {
-    func didTapSaveButton(_ controller: ReviseDeckViewController, revisedDeck: Deck) {
+extension ReviewViewController: RevisePresetViewControllerDelegate {
+    func didTapSaveButton(_ controller: RevisePresetViewController, revisedDeck: Deck) {
         
     }
 }

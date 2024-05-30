@@ -14,7 +14,12 @@
 		2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C22BE48FB2003F058F /* SearchViewController.swift */; };
 		2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */; };
 		2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */; };
-		2A9AFEAC2BE8AA140085766C /* ReviseDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AFEAB2BE8AA140085766C /* ReviseDeckViewController.swift */; };
+		2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */; };
+		2A7B6CD12C080A900017BB5C /* StoryboardGenerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CD02C080A900017BB5C /* StoryboardGenerated.swift */; };
+		2A7B6CD32C080B440017BB5C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CD22C080B440017BB5C /* Constants.swift */; };
+		2A7B6CD52C0810030017BB5C /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CD42C0810030017BB5C /* NotificationName+Extension.swift */; };
+		2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */; };
+		2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */; };
 		2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA328C72BEDF509001D83C2 /* DeckManager.swift */; };
 		2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */; };
 		2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AB8CC0A2BF5AA1D00BFFD4A /* SentenceClozeView.xib */; };
@@ -57,7 +62,12 @@
 		2A38F8C22BE48FB2003F058F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecord.swift; sourceTree = "<group>"; };
-		2A9AFEAB2BE8AA140085766C /* ReviseDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseDeckViewController.swift; sourceTree = "<group>"; };
+		2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseDeckViewController.swift; sourceTree = "<group>"; };
+		2A7B6CD02C080A900017BB5C /* StoryboardGenerated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardGenerated.swift; sourceTree = "<group>"; };
+		2A7B6CD22C080B440017BB5C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2A7B6CD42C0810030017BB5C /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
+		2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseNameViewController.swift; sourceTree = "<group>"; };
+		2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevisePresetViewController.swift; sourceTree = "<group>"; };
 		2AA328C72BEDF509001D83C2 /* DeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckManager.swift; sourceTree = "<group>"; };
 		2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewController.swift; sourceTree = "<group>"; };
 		2AB8CC0A2BF5AA1D00BFFD4A /* SentenceClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SentenceClozeView.xib; sourceTree = "<group>"; };
@@ -167,9 +177,10 @@
 				2A38F8C02BE48F88003F058F /* ExploreViewController.swift */,
 				2A38F8C22BE48FB2003F058F /* SearchViewController.swift */,
 				2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */,
-				D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */,
-				2A9AFEAB2BE8AA140085766C /* ReviseDeckViewController.swift */,
+				2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */,
 				2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */,
+				2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */,
+				2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -177,12 +188,16 @@
 		D04EB7602BB670DD009E3A41 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */,
 				D0DA5AC42BB66A05008644DC /* AppDelegate.swift */,
 				D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */,
 				D0DA5ACD2BB66A07008644DC /* Assets.xcassets */,
 				D0DA5ACF2BB66A07008644DC /* LaunchScreen.storyboard */,
 				D032145A2BD63C2200512263 /* Preferences.swift */,
 				D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */,
+				2A7B6CD02C080A900017BB5C /* StoryboardGenerated.swift */,
+				2A7B6CD22C080B440017BB5C /* Constants.swift */,
+				2A7B6CD42C0810030017BB5C /* NotificationName+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -294,9 +309,11 @@
 			files = (
 				D0DA5AC92BB66A05008644DC /* MainViewController.swift in Sources */,
 				D0E8848B2BC93C3600C78B97 /* NoteType.swift in Sources */,
+				2A7B6CD12C080A900017BB5C /* StoryboardGenerated.swift in Sources */,
 				2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */,
 				D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */,
 				D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */,
+				2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */,
 				D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */,
 				D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */,
 				D032145B2BD63C2200512263 /* Preferences.swift in Sources */,
@@ -305,7 +322,7 @@
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
 				2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */,
-				2A9AFEAC2BE8AA140085766C /* ReviseDeckViewController.swift in Sources */,
+				2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */,
 				D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */,
 				2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */,
 				D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */,
@@ -313,6 +330,8 @@
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
 				D078D0982BC9242900F601B2 /* Note.swift in Sources */,
 				D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */,
+				2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */,
+				2A7B6CD52C0810030017BB5C /* NotificationName+Extension.swift in Sources */,
 				2A38F8C12BE48F88003F058F /* ExploreViewController.swift in Sources */,
 				2AE025F62BF4983A006EC021 /* NoteManager.swift in Sources */,
 				2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */,
@@ -325,6 +344,7 @@
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
 				D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */,
 				2AE025F42BF49686006EC021 /* CardManager.swift in Sources */,
+				2A7B6CD32C080B440017BB5C /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
