@@ -24,9 +24,6 @@ class ReviewViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let decks = DeckManager.shared.snapshot
-        decks.forEach { print("stored id counts \($0.storedCardIds.count)") }
-        
         updateDataSource()
     }
 
@@ -87,14 +84,8 @@ class ReviewViewController: UIViewController {
         let cancel = UIAlertAction(title: "取消", style: .cancel)
         let confirm = UIAlertAction(title: "新增", style: .default) { action in
             if let textField = alert.textFields?.first, let text = textField.text {
-//                var deck = DeckManager.shared.createDefaultDeck()
-//                deck.name = text
-
                 let deck = CoreDataManager.shared.addDeck(name: text)
-
-                
-//                DeckManager.shared.add(deck)
-//                DeckManager.shared.writeToFile()
+                deck.name = text
 
                 var snapshot = self.dataSource.snapshot()
                 snapshot.appendItems([deck], toSection: 0)
@@ -129,13 +120,5 @@ extension ReviewViewController: UITableViewDelegate {
         }
         
         navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-// MARK: - ReviseDeckViewControllerDelegate
-
-extension ReviewViewController: RevisePresetViewControllerDelegate {
-    func didTapSaveButton(_ controller: RevisePresetViewController, revisedDeck: Deck) {
-        
     }
 }

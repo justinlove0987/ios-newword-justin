@@ -22,14 +22,14 @@ class ShowCardsViewControllerViewModel {
     
     var cardsOrder: [CardsOrder] = [.new, .review, .relearn]
     
-    var newCards: [Card] = []
-    var reviewCards: [Card] = []
-    var relearnCards: [Card] = []
-    var redoCards: [Card] = []
+    var newCards: [CDCard] = []
+    var reviewCards: [CDCard] = []
+    var relearnCards: [CDCard] = []
+    var redoCards: [CDCard] = []
     
     var currentIndex: (collectionIndex: Int, cardIndex: Int) = (0,0)
     
-    var currentCard: Card? {
+    var currentCard: CDCard? {
         return getCurrentCard() ?? nil
     }
     
@@ -37,27 +37,28 @@ class ShowCardsViewControllerViewModel {
         return currentIndex.collectionIndex + 1 < cardsOrder.count
     }
     
-    var deck: Deck?
+    var deck: CDDeck?
     
     func setupCards() {
         guard let deck else { return }
         
-        deck.cards.forEach { print("learning records count \($0.learningRecords.count)") }
+        let cards = CoreDataManager.shared.cards(from: deck)
         
-        newCards = deck.cards.filter { card in
-            card.learningRecords.isEmpty
+        newCards = cards.filter { card in
+            let learningRecords = CoreDataManager.shared.learningRecords(from: card)
+            return learningRecords.isEmpty
         }
         
-        reviewCards = deck.cards.filter { card in
-            guard let review = card.latestReview else { return false }
-            return (review.dueDate <= Date() &&
+        reviewCards = cards.filter { card in
+            guard let review = card.latestLearningRecord else { return false }
+            return (review.dueDate! <= Date() &&
                     review.status == .correct &&
                     (review.state == .learn || review.state == .review))
         }
         
-        relearnCards = deck.cards.filter { card in
-            guard let review = card.latestReview else { return false }
-            return (review.dueDate <= Date() &&
+        relearnCards = cards.filter { card in
+            guard let review = card.latestLearningRecord else { return false }
+            return (review.dueDate! <= Date() &&
                     review.status == .incorrect &&
                     (review.state == .relearn || review.state == .learn))
         }
@@ -66,7 +67,7 @@ class ShowCardsViewControllerViewModel {
 //        newCards.insert(card, at: 0)
     }
     
-    func nextCard() -> Card? {
+    func nextCard() -> CDCard? {
         let cards = getCurrentCardCollection()
         let hasNextCard = currentIndex.cardIndex + 1 < cards.count
         
@@ -129,7 +130,7 @@ class ShowCardsViewControllerViewModel {
         return false
     }
     
-    func getCurrentCard() -> Card? {
+    func getCurrentCard() -> CDCard? {
         let hasCollection = currentIndex.collectionIndex < cardsOrder.count
         
         if hasCollection {
@@ -145,10 +146,10 @@ class ShowCardsViewControllerViewModel {
         return nil
     }
     
-    func getCurrentCardCollection() -> [Card] {
+    func getCurrentCardCollection() -> [CDCard] {
         let order = cardsOrder[currentIndex.collectionIndex]
         
-        let currentCards: [Card]
+        let currentCards: [CDCard]
         
         switch order {
         case .relearn:
@@ -167,16 +168,18 @@ class ShowCardsViewControllerViewModel {
     func getCurrentSubview() -> any ShowCardsSubviewDelegate {
         guard let card = getCurrentCard() else { return NoCardView() }
         
-        let noteType = card.note.noteType
+        let noteType = card.note!.noteType!
         
         let subview: any ShowCardsSubviewDelegate
         
-        switch noteType {
+        switch noteType.content {
         case .sentenceCloze(_):
             let viewModel = SentenceClozeViewModel(card: card)
             subview = SentenceClozeView(viewModel: viewModel, card: card)
         case .prononciation:
             subview = PronounciationView()
+        default:
+            subview = NoCardView()
         }
         
         return subview
@@ -186,16 +189,18 @@ class ShowCardsViewControllerViewModel {
         guard let deck = deck else { return }
         guard var card = getCurrentCard() else { return }
         
-        let record = LearningRecord.createLearningRecord(lastCard: card, deck: deck, isAnswerCorrect: isAnswerCorrect)
+        let learningRecord = CoreDataManager.shared.createLearningRecord(lastCard: card, deck: deck, isAnswerCorrect: isAnswerCorrect)
         
-        card.addLearningRecord(record)
+//        let record = LearningRecord.createLearningRecord(lastCard: card, deck: deck, isAnswerCorrect: isAnswerCorrect)
+        
+//        card.addLearningRecord(record)
         updateCurrentCard(card)
         moveCardToNextCollection(isAnswerCorrect: isAnswerCorrect)
         
-        CardManager.shared.update(data: card)
+//        CardManager.shared.update(data: card)
     }
     
-    func updateCurrentCard(_ card: Card) {
+    func updateCurrentCard(_ card: CDCard) {
         let order = cardsOrder[currentIndex.collectionIndex]
         
         switch order {

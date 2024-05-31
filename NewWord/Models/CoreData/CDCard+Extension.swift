@@ -17,7 +17,7 @@ public class CDCard: NSManagedObject {
 
 
 extension CDCard {
-    var latestReview: CDLearningRecord? {
+    var latestLearningRecord: CDLearningRecord? {
 
         let persistentContainer = CoreDataManager.shared.persistentContainer
 
@@ -32,4 +32,25 @@ extension CDCard {
             lRecord.dueDate! < rRecord.dueDate!
         }
     }
+    
+    func isMasterCard(belongs deck: CDDeck, answerIsCorrect: Bool = true) -> Bool {
+        let learningRecords = CoreDataManager.shared.learningRecords(from: self)
+        
+        let filteredRecords = learningRecords.filter { reocrd in
+            return reocrd.status == .correct
+        }
+
+        return filteredRecords.count + 1 >= Int(deck.preset!.master!.consecutiveCorrects)
+    }
+    
+    func isLeachCard(belongs deck: CDDeck, answerIsCorrect: Bool = false) -> Bool {
+        let learningRecords = CoreDataManager.shared.learningRecords(from: self)
+        
+        let filteredRecords = learningRecords.filter { reocrd in
+            return reocrd.state == .relearn && reocrd.status == .correct
+        }
+
+        return filteredRecords.count + 1 >= Int(deck.preset!.lapses!.leachThreshold)
+    }
+
 }

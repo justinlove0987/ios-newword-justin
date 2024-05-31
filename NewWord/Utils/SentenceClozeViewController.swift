@@ -37,10 +37,10 @@ class SentenceClozeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let card = card else { return }
-        viewModel = SentenceClozeViewModel(card: card)
-        viewModel!.card = card
+//        viewModel = SentenceClozeViewModel(card: card)
+//        viewModel!.card = card
         tableView.register(CustomCell.self, forCellReuseIdentifier: reuserIdnetifier)
-        viewModel!.cards = cards
+//        viewModel!.cards = cards
         viewModel!.setup(with: view.frame.width*0.8)
         chineseLabel.text =  viewModel!.getCurrentClozeChinese()?.chinese
         setup()
@@ -68,7 +68,7 @@ class SentenceClozeViewController: UIViewController {
             nextQuestion()
             
         case .showingAnswer: // incorrect
-            let learningRecord = viewModel!.createLearningRecord(isAnswerCorrect: false)
+//            let learningRecord = viewModel!.createLearningRecord(isAnswerCorrect: false)
             viewModel!.showAnswer()
         }
     }
@@ -95,9 +95,9 @@ extension SentenceClozeViewController: UITableViewDataSource {
         let words = viewModel!.data.wordsForRows[indexPath.row]
         
         cell.delegate = self
-        cell.configureStackViewSubViews(clozeWord: viewModel!.data.clozeWord,
-                                        words: words,
-                                        at: indexPath)
+//        cell.configureStackViewSubViews(clozeWord: viewModel!.data.clozeWord,
+//                                        words: words,
+//                                        at: indexPath)
         
         return cell
     }
@@ -109,7 +109,7 @@ extension SentenceClozeViewController: CustomCellDelegate {
     }
     
     func answerCorrect() {
-        let learningRecord = viewModel!.createLearningRecord(isAnswerCorrect: true)
+//        let learningRecord = viewModel!.createLearningRecord(isAnswerCorrect: true)
         nextQuestion()
     }
 }

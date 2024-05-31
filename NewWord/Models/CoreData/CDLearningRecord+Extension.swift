@@ -47,5 +47,10 @@ extension CDLearningRecord {
     var status: Status {
         return Status(rawValue: statusRawValue!)!
     }
+    
+    /// The unit of interval is **second**.
+    var interval: Double {
+        return dueDate!.timeIntervalSince(learnedDate!) // seconds
+    }
 }
 

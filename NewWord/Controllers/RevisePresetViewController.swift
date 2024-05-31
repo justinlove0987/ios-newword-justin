@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RevisePresetViewControllerDelegate: AnyObject {
-    func didTapSaveButton(_ controller: RevisePresetViewController, revisedDeck: Deck)
+    func didTapSaveButton(_ controller: RevisePresetViewController)
 }
 
 class RevisePresetViewController: UIViewController, StoryboardGenerated {
@@ -75,15 +75,19 @@ class RevisePresetViewController: UIViewController, StoryboardGenerated {
         
         let newCard = CoreDataManager.shared.addNewCard(graduatingInterval: learningGraduatingInterval, easyInterval: easyInterval, learningStpes: learningSteps)
 
-
-//        let newCard = Deck.NewCard(graduatingInterval: learningGraduatingInterval, easyInterval: easyInterval, learningStpes: learningSteps)
-        let lapses = Deck.Lapses(relearningSteps: relearningSteps, leachThreshold: leachThreshold, minumumInterval: minumumInterval)
-        let master = Deck.Master(graduatingInterval: masterGraduatingInterval, consecutiveCorrects: consecutiveCorrects)
-        let advanced = Deck.Advanced(startingEase: startingEase, easyBonus: deck.advanced.easyBonus)
+        let lapses = CoreDataManager.shared.addLapses(relearningSteps: relearningSteps, leachThreshold: leachThreshold, minumumInterval: minumumInterval)
         
-//        let newDeck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: deck.id, name: deck.name, storedCardIds: [])
         
-        delegate?.didTapSaveButton(self, revisedDeck: newDeck)
+        let master = CoreDataManager.shared.addMaster(graduatingInterval: masterGraduatingInterval, consecutiveCorrects: consecutiveCorrects)
+        
+        let advanced = CoreDataManager.shared.addAdvanced(startingEase: startingEase, easyBonus: 1.3)
+        
+        deck.preset?.newCard = newCard
+        deck.preset?.lapses = lapses
+        deck.preset?.master = master
+        deck.preset?.advanced = advanced
+        
+        delegate?.didTapSaveButton(self)
         
         self.dismiss(animated: true)
     }

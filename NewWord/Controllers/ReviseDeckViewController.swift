@@ -20,38 +20,54 @@ class ReviseDeckViewController: UIViewController, StoryboardGenerated {
         nameLabel.text = deck?.name
     }
     
+    // MARK: - Helpers
+    
+    func updateUI() {
+        nameLabel.text = deck?.name
+    }
+    
+    // MARK: - Actions
+    
     @IBAction func learningOptionsAction(_ sender: UIButton) {
         guard let deck else { return }
         
         let vc = RevisePresetViewController.instantiate()
         vc.deck = deck
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func deleteAction(_ sender: UIButton) {
         guard let deck else { return }
         
-        if let index = DeckManager.shared.snapshot.firstIndex(where: { $0 == deck }) {
-            DeckManager.shared.remove(at: index)
-            NotificationCenter.default.post(name: .deckDidUpdate, object: deck)
-        }
+        CoreDataManager.shared.deleteDeck(deck)
+        NotificationCenter.default.post(name: .deckDidUpdate, object: deck)
         
         navigationController?.popViewController(animated: true)
     }
     
     @IBAction func reviseAction(_ sender: UIButton) {
-        guard var deck else { return }
+        guard let deck else { return }
         
         let vc = ReviseNameViewController.instantiate()
+        
         vc.previousName = deck.name
+        
         vc.renameAction = { newName in
-            deck.name = newName
-            self.nameLabel.text = newName
-            DeckManager.shared.update(data: deck)
+            CoreDataManager.shared.updateDeckName(deck, newName)
+            self.updateUI()
             NotificationCenter.default.post(name: .deckDidUpdate, object: deck)
         }
         
         navigationController?.pushViewController(vc, animated: true)
     }
     
+}
+
+// MARK: - ReviseDeckViewControllerDelegate
+
+extension ReviseDeckViewController: RevisePresetViewControllerDelegate {
+    func didTapSaveButton(_ controller: RevisePresetViewController) {
+        updateUI()
+    }
 }

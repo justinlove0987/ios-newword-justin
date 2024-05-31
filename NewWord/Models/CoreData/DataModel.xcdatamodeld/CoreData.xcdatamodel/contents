@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="CDAdvanced" representedClassName="CDAdvanced" syncable="YES" codeGenerationType="class">
         <attribute name="easyBonus" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="startingEase" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -10,11 +10,11 @@
         <attribute name="id" optional="YES" attributeType="String"/>
         <relationship name="deck" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDeck" inverseName="cards" inverseEntity="CDDeck"/>
         <relationship name="learningRecords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDLearningRecord" inverseName="card" inverseEntity="CDLearningRecord"/>
-        <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNote" inverseName="card" inverseEntity="CDNote"/>
+        <relationship name="note" maxCount="1" deletionRule="Nullify" destinationEntity="CDNote" inverseName="card" inverseEntity="CDNote"/>
     </entity>
     <entity name="CDDeck" representedClassName="CDDeck" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
         <relationship name="cards" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCard" inverseName="deck" inverseEntity="CDCard"/>
         <relationship name="preset" maxCount="1" deletionRule="Nullify" destinationEntity="CDPreset" inverseName="deck" inverseEntity="CDPreset"/>
     </entity>
@@ -26,10 +26,11 @@
         <relationship name="preset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPreset" inverseName="lapses" inverseEntity="CDPreset"/>
     </entity>
     <entity name="CDLearningRecord" representedClassName="CDLearningRecord" syncable="YES" codeGenerationType="category">
-        <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="learnedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="stateRawValue" optional="YES" attributeType="String"/>
-        <attribute name="statusRawValue" optional="YES" attributeType="String"/>
+        <attribute name="dueDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="ease" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="learnedDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="stateRawValue" attributeType="String"/>
+        <attribute name="statusRawValue" attributeType="String"/>
         <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCard" inverseName="learningRecords" inverseEntity="CDCard"/>
     </entity>
     <entity name="CDMaster" representedClassName="CDMaster" syncable="YES" codeGenerationType="class">
@@ -46,7 +47,7 @@
     <entity name="CDNote" representedClassName="CDNote" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String"/>
         <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCard" inverseName="note" inverseEntity="CDCard"/>
-        <relationship name="noteType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNoteType" inverseName="note" inverseEntity="CDNoteType"/>
+        <relationship name="noteType" maxCount="1" deletionRule="Nullify" destinationEntity="CDNoteType" inverseName="note" inverseEntity="CDNoteType"/>
     </entity>
     <entity name="CDNoteType" representedClassName="CDNoteType" syncable="YES" codeGenerationType="category">
         <attribute name="rawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -65,12 +66,14 @@
         <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWord" inverseName="sentence" inverseEntity="CDWord"/>
     </entity>
     <entity name="CDSentenceCloze" representedClassName="CDSentenceCloze" syncable="YES" codeGenerationType="class">
+        <relationship name="clozeWord" maxCount="1" deletionRule="Nullify" destinationEntity="CDWord" inverseName="sentenceCloze" inverseEntity="CDWord"/>
         <relationship name="noteType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNoteType" inverseName="sentenceCloze" inverseEntity="CDNoteType"/>
-        <relationship name="sentence" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentence" inverseName="sentenceCloze" inverseEntity="CDSentence"/>
-        <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWord" inverseName="sentenceCloze" inverseEntity="CDWord"/>
+        <relationship name="sentence" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentence" inverseName="sentenceCloze" inverseEntity="CDSentence"/>
     </entity>
-    <entity name="CDWord" representedClassName="CDWord" syncable="YES" codeGenerationType="class">
+    <entity name="CDWord" representedClassName="CDWord" syncable="YES" codeGenerationType="category">
+        <attribute name="chinese" optional="YES" attributeType="String"/>
+        <attribute name="text" attributeType="String"/>
         <relationship name="sentence" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentence" inverseName="word" inverseEntity="CDSentence"/>
-        <relationship name="sentenceCloze" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentenceCloze" inverseName="word" inverseEntity="CDSentenceCloze"/>
+        <relationship name="sentenceCloze" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentenceCloze" inverseName="clozeWord" inverseEntity="CDSentenceCloze"/>
     </entity>
 </model>

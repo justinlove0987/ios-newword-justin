@@ -12,12 +12,12 @@ struct SentenceClozeViewModel {
     
     struct Rows {
         struct Row {
-            var words: [Word]
+            var words: [CDWord]
         }
         
-        var clozeWord: Word
+        var clozeWord: CDWord
         var rows: [Row] = []
-        var wordsForRows: [[Word]]
+        var wordsForRows: [[CDWord]]
         var numberOfRowsInSection: Int {
             return wordsForRows.count
         }
@@ -31,21 +31,21 @@ struct SentenceClozeViewModel {
         }
     }
     
-    var cards: [Card] = []
-    var card: Card
+    var cards: [CDCard] = []
+    var card: CDCard
     
     var numberOfRowsInSection: Int = 0
-    var wordsForRows: [[Word]] = []
+    var wordsForRows: [[CDWord]] = []
     var data: Rows!
     
     weak var textField: WordTextField?
     
-    init(card: Card) {
+    init(card: CDCard) {
         self.card = card
     }
     
     init() {
-        self.card = Card(id: "", note: Note(id: "", noteType: .sentenceCloze(SentenceCloze(clozeWord: Word(text: "", chinese: ""), sentence: []))), learningRecords: [])
+        self.card = CoreDataManager.shared.createEmptyCard()
     }
     
     mutating func setup(with width: CGFloat) {
@@ -53,15 +53,15 @@ struct SentenceClozeViewModel {
         self.updateData(width: width)
     }
     
-    func getCurrentCard() -> Card {
+    func getCurrentCard() -> CDCard {
         return card
     }
     
-    func getCurrentClozeChinese() -> Word? {
-        let noteType = card.note.noteType
+    func getCurrentClozeChinese() -> CDWord? {
+        let noteType = card.note!.noteType
         
-        if case .sentenceCloze(let sentenceCloze) = noteType {
-            return sentenceCloze.clozeWord
+        if case .sentenceCloze(let sentenceCloze) = noteType?.content {
+            return sentenceCloze.clozeWord!
         }
         
         return nil
@@ -69,40 +69,41 @@ struct SentenceClozeViewModel {
     
     mutating func updateData(width: CGFloat) {
         let card = getCurrentCard()
-        let noteType = card.note.noteType
-        var wordsInRows: [[Word]] = []
-        var items: [Word] = []
+        let noteType = card.note!.noteType
+        var wordsInRows: [[CDWord]] = []
+        var items: [CDWord] = []
         var currentBounds: CGFloat = 0
         
-        if case .sentenceCloze(let sentenceCloze) = noteType {
-            let sentence = sentenceCloze.sentence
-            let clozeWord = sentenceCloze.clozeWord
+        if case .sentenceCloze(let sentenceCloze) = noteType?.content {
             
-            for i in 0..<sentence.words.count {
-                let word = sentence.words[i]
-                let isClozeWord = word.text == clozeWord.text
+            if let sentence = sentenceCloze.sentence,
+               let clozeWord = sentenceCloze.clozeWord{
                 
-                let greaterWidth: CGFloat = (isClozeWord && clozeWord.chineseSize.width > word.size.width) ? clozeWord.chineseSize.width : word.size.width
+                let words = CoreDataManager.shared.words(from: sentence)
                 
-                if word.text == clozeWord.text && clozeWord.chinese == "像是我們" {
+                for i in 0..<words.count {
+                    let word = words[i]
+                    let isClozeWord = word.text! == clozeWord.text!
+                    
+                    let greaterWidth: CGFloat = (isClozeWord && clozeWord.chineseSize.width > word.size.width) ? clozeWord.chineseSize.width : word.size.width
+                    
+                    
+                    if (currentBounds + greaterWidth) >= width {
+                        wordsInRows.append(items)
+                        currentBounds = 0
+                        items = []
+                    }
+                    
+                    currentBounds += greaterWidth
+                    currentBounds += Preference.spacing
+                    
+                    items.append(words[i])
                 }
                 
+                wordsInRows.append(items)
                 
-                if (currentBounds + greaterWidth) >= width {
-                    wordsInRows.append(items)
-                    currentBounds = 0
-                    items = []
-                }
-                
-                currentBounds += greaterWidth
-                currentBounds += Preference.spacing
-                
-                items.append(sentence.words[i])
+                data = Rows(clozeWord: clozeWord, wordsForRows: wordsInRows)
             }
-            
-            wordsInRows.append(items)
-            
-            data = Rows(clozeWord: clozeWord, wordsForRows: wordsInRows)
         }
     }
     
@@ -123,10 +124,10 @@ struct SentenceClozeViewModel {
         return alertController
     }
     
-    func createLearningRecord(isAnswerCorrect: Bool) -> LearningRecord {
-        let card = getCurrentCard()
-        let deck = Deck.createFakeDeck()
-        
-        return LearningRecord.createLearningRecord(lastCard: card, deck: deck, isAnswerCorrect: isAnswerCorrect)
-    }
+//    func createLearningRecord(isAnswerCorrect: Bool) -> LearningRecord {
+//        let card = getCurrentCard()
+//        let deck = Deck.createFakeDeck()
+//        
+//        return LearningRecord.createLearningRecord(lastCard: card, deck: deck, isAnswerCorrect: isAnswerCorrect)
+//    }
 }

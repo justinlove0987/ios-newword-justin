@@ -20,7 +20,7 @@ class SentenceClozeView: UIView, NibOwnerLoadable {
     @IBOutlet weak var tableView: UITableView!
     
     private var viewModel: SentenceClozeViewModel!
-    private var card: Card!
+    private var card: CDCard!
     
     var currentState: CardStateType = .question {
         didSet {
@@ -33,7 +33,7 @@ class SentenceClozeView: UIView, NibOwnerLoadable {
         }
     }
 
-    init(viewModel: SentenceClozeViewModel, card: Card) {
+    init(viewModel: SentenceClozeViewModel, card: CDCard) {
         self.viewModel = viewModel
         self.card = card
         super.init(frame: .zero)
@@ -91,7 +91,7 @@ extension SentenceClozeView: CustomCellDelegate {
     }
 
     func answerCorrect() {
-        let learningRecord = viewModel.createLearningRecord(isAnswerCorrect: true)
+        // let learningRecord = viewModel.createLearningRecord(isAnswerCorrect: true)
     }
 }
 

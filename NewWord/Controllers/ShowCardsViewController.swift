@@ -50,7 +50,7 @@ class ShowCardsViewController: UIViewController {
     @IBOutlet weak var relearnLabel: UILabel!
     @IBOutlet weak var reviewLabel: UILabel!
 
-    var deck: Deck
+    var deck: CDDeck
     
     var currentAnswerState: AnswerState = .question
     
@@ -76,7 +76,7 @@ class ShowCardsViewController: UIViewController {
 
     // MARK: - Lifecycles
 
-    init?(coder: NSCoder, deck: Deck) {
+    init?(coder: NSCoder, deck: CDDeck) {
         self.deck = deck
         super.init(coder: coder)
     }

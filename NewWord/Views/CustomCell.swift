@@ -51,7 +51,7 @@ class CustomCell: UITableViewCell {
         return stack
     }
 
-    func configureStackViewSubViews(clozeWord: Word, words: [Word], at indexPath: IndexPath) {
+    func configureStackViewSubViews(clozeWord: CDWord, words: [CDWord], at indexPath: IndexPath) {
         var i = 0
         let stackView = setupStackView()
 
@@ -65,20 +65,20 @@ class CustomCell: UITableViewCell {
                 let nextWord = words[i+1]
 
                 if nextWord.isPunctuation {
-                    let firstView = isClozeWord ? createTextField(clozeWord: clozeWord, word: currentWord) : createLabel(with: currentWord.text)
-                    let secondView = createLabel(with: nextWord.text)
+                    let firstView = isClozeWord ? createTextField(clozeWord: clozeWord, word: currentWord) : createLabel(with: currentWord.text!)
+                    let secondView = createLabel(with: nextWord.text!)
                     arrangedSubview = UIStackView(arrangedSubviews: [firstView, secondView])
 
                     i += 2
 
                 } else {
-                    arrangedSubview = isClozeWord ? createTextField(clozeWord: clozeWord, word: currentWord) : createLabel(with: currentWord.text)
+                    arrangedSubview = isClozeWord ? createTextField(clozeWord: clozeWord, word: currentWord) : createLabel(with: currentWord.text!)
 
                     i += 1
                 }
 
             } else {
-                arrangedSubview = createLabel(with: currentWord.text)
+                arrangedSubview = createLabel(with: currentWord.text!)
                 i += 1
             }
 
@@ -89,7 +89,7 @@ class CustomCell: UITableViewCell {
         }
     }
 
-    private func createTextField(clozeWord: Word, word: Word) -> UITextField {
+    private func createTextField(clozeWord: CDWord, word: CDWord) -> UITextField {
         let tf = WordTextField(with: word, frame: .infinite)
 
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -113,7 +113,7 @@ class CustomCell: UITableViewCell {
         return label
     }
 
-    private func configureArrangedSubview(_ arrangedSubview: UIView, for currentWord: Word, in stackView: UIStackView) {
+    private func configureArrangedSubview(_ arrangedSubview: UIView, for currentWord: CDWord, in stackView: UIStackView) {
 
         if let arrangedStackView = arrangedSubview as? UIStackView {
             guard arrangedStackView.arrangedSubviews.count > 0 else { return }
@@ -136,7 +136,7 @@ class CustomCell: UITableViewCell {
         }
     }
 
-    private func configureStackViewLayoutPriority(_ stackView: UIStackView, words: [Word]) {
+    private func configureStackViewLayoutPriority(_ stackView: UIStackView, words: [CDWord]) {
         var priority = 1000
         let arrangedSubviews = stackView.arrangedSubviews
 

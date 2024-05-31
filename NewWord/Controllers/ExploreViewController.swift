@@ -94,9 +94,5 @@ extension ExploreViewController: UITableViewDelegate {
         
         CardManager.shared.add(newCard)
         DeckManager.shared.addCardTo(to: currentDeck, with: newCard.id)
-        
-//        let deck = DeckManager.shared.snapshot.first!
-        
-        
     }
 }

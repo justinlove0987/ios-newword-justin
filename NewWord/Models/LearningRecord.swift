@@ -182,10 +182,7 @@ extension LearningRecord {
     static func addInterval(to date: Date, secondInterval: Double) -> Date {
         return date.addingTimeInterval(secondInterval)
     }
-    
-    private func createInterval() {
-        
-    }
+
 }
 
 extension LearningRecord {

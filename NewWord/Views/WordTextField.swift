@@ -9,9 +9,9 @@ import UIKit
 
 class WordTextField: UITextField {
 
-    var word: Word
+    var word: CDWord
 
-    init(with word: Word, frame: CGRect) {
+    init(with word: CDWord, frame: CGRect) {
         self.word = word
         super.init(frame: frame)
 

@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-@objc(CDNoteType)
+@objc(CDLapses)
 public class CDLapses: NSManagedObject {
 
 }

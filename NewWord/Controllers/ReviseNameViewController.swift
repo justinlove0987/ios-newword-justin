@@ -13,7 +13,7 @@ class ReviseNameViewController: UIViewController, StoryboardGenerated {
     
     @IBOutlet weak var textField: UITextField!
     
-    var previousName: String = ""
+    var previousName: String? = ""
     
     var renameAction: ((_ name: String) -> ())?
     
