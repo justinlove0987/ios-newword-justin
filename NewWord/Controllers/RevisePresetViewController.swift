@@ -26,8 +26,8 @@ class RevisePresetViewController: UIViewController, StoryboardGenerated {
     @IBOutlet weak var consecutiveCorrectsTextField: UITextField!
     @IBOutlet weak var startingEaseTextField: UITextField!
     
-    var deck: Deck!
-    
+    var deck: CDDeck!
+
     weak var delegate: RevisePresetViewControllerDelegate?
     
     // MARK: - Lifecycles
@@ -40,11 +40,12 @@ class RevisePresetViewController: UIViewController, StoryboardGenerated {
     // MARK: - Helpers
     
     private func setupTextFields() {
-        let newCard = self.deck.newCard
-        let lapses = self.deck.lapses
-        let master = self.deck.master
-        let advanced = self.deck.advanced
-        
+        guard let preset = self.deck.preset else { return }
+        let newCard = preset.newCard!
+        let lapses = preset.lapses!
+        let master = preset.master!
+        let advanced = preset.advanced!
+
         learningStepsTextField.text =               "\(newCard.learningStpes)"
         learningGraduatingIntervalTextField.text =  "\(newCard.graduatingInterval)"
         easyIntervalTextField.text =                "\(newCard.easyInterval)"
@@ -70,13 +71,17 @@ class RevisePresetViewController: UIViewController, StoryboardGenerated {
         let masterGraduatingInterval = Int(masterGraduatingIntervalTextField.text!)!
         let consecutiveCorrects = Int(consecutiveCorrectsTextField.text!)!
         let startingEase = Double(startingEaseTextField.text!)!
+
         
-        let newCard = Deck.NewCard(graduatingInterval: learningGraduatingInterval, easyInterval: easyInterval, learningStpes: learningSteps)
+        let newCard = CoreDataManager.shared.addNewCard(graduatingInterval: learningGraduatingInterval, easyInterval: easyInterval, learningStpes: learningSteps)
+
+
+//        let newCard = Deck.NewCard(graduatingInterval: learningGraduatingInterval, easyInterval: easyInterval, learningStpes: learningSteps)
         let lapses = Deck.Lapses(relearningSteps: relearningSteps, leachThreshold: leachThreshold, minumumInterval: minumumInterval)
         let master = Deck.Master(graduatingInterval: masterGraduatingInterval, consecutiveCorrects: consecutiveCorrects)
         let advanced = Deck.Advanced(startingEase: startingEase, easyBonus: deck.advanced.easyBonus)
         
-        let newDeck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: deck.id, name: deck.name, storedCardIds: [])
+//        let newDeck = Deck(newCard: newCard, lapses: lapses, advanced: advanced, master: master, id: deck.id, name: deck.name, storedCardIds: [])
         
         delegate?.didTapSaveButton(self, revisedDeck: newDeck)
         

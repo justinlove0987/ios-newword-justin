@@ -13,7 +13,7 @@ class ReviseDeckViewController: UIViewController, StoryboardGenerated {
     
     @IBOutlet weak var nameLabel: UILabel!
     
-    var deck: Deck?
+    var deck: CDDeck?
     
     override func viewDidLoad() {
         super.viewDidLoad()

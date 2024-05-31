@@ -13,7 +13,7 @@ class ReviewViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
 
-    var dataSource: UITableViewDiffableDataSource<Int, Deck>!
+    var dataSource: UITableViewDiffableDataSource<Int, CDDeck>!
 
     // MARK: - Lifecycles
 
@@ -64,11 +64,10 @@ class ReviewViewController: UIViewController {
     }
 
     private func updateDataSource() {
-        let decks = DeckManager.shared.snapshot
-        
-        decks.forEach { print($0.name) }
+        // let decks = DeckManager.shared.snapshot
+        let decks = CoreDataManager.shared.getDecks()
 
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Deck>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, CDDeck>()
         snapshot.appendSections([0])
         snapshot.appendItems(decks, toSection: 0)
 
@@ -88,11 +87,14 @@ class ReviewViewController: UIViewController {
         let cancel = UIAlertAction(title: "取消", style: .cancel)
         let confirm = UIAlertAction(title: "新增", style: .default) { action in
             if let textField = alert.textFields?.first, let text = textField.text {
-                var deck = DeckManager.shared.createDefaultDeck()
-                deck.name = text
+//                var deck = DeckManager.shared.createDefaultDeck()
+//                deck.name = text
+
+                let deck = CoreDataManager.shared.addDeck(name: text)
+
                 
-                DeckManager.shared.add(deck)
-                DeckManager.shared.writeToFile()
+//                DeckManager.shared.add(deck)
+//                DeckManager.shared.writeToFile()
 
                 var snapshot = self.dataSource.snapshot()
                 snapshot.appendItems([deck], toSection: 0)

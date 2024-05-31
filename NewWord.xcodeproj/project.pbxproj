@@ -41,6 +41,12 @@
 		D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB75B2BB66EEF009E3A41 /* Card.swift */; };
 		D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */; };
 		D078D0982BC9242900F601B2 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D078D0972BC9242900F601B2 /* Note.swift */; };
+		D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */; };
+		D09262BA2C097ECD00CA90BA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262B92C097ECD00CA90BA /* CoreDataManager.swift */; };
+		D09262BD2C097F3D00CA90BA /* CDNoteType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262BC2C097F3D00CA90BA /* CDNoteType+Extension.swift */; };
+		D09262BF2C097FC600CA90BA /* CDLearningRecord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */; };
+		D09262C12C09808400CA90BA /* CDCard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262C02C09808400CA90BA /* CDCard+Extension.swift */; };
+		D09262C32C098A4400CA90BA /* CDLapses+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */; };
 		D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A0643E2BFC8E78001AFE08 /* PronounciationView.swift */; };
 		D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A064402BFC913C001AFE08 /* PronounciationView.xib */; };
 		D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */; };
@@ -89,6 +95,12 @@
 		D04EB75B2BB66EEF009E3A41 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewController.swift; sourceTree = "<group>"; };
 		D078D0972BC9242900F601B2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		D09262B72C097D2400CA90BA /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
+		D09262B92C097ECD00CA90BA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		D09262BC2C097F3D00CA90BA /* CDNoteType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDNoteType+Extension.swift"; sourceTree = "<group>"; };
+		D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDLearningRecord+Extension.swift"; sourceTree = "<group>"; };
+		D09262C02C09808400CA90BA /* CDCard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDCard+Extension.swift"; sourceTree = "<group>"; };
+		D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDLapses+Extension.swift"; sourceTree = "<group>"; };
 		D0A0643E2BFC8E78001AFE08 /* PronounciationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PronounciationView.swift; sourceTree = "<group>"; };
 		D0A064402BFC913C001AFE08 /* PronounciationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PronounciationView.xib; sourceTree = "<group>"; };
 		D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibOwnerLoadable.swift; sourceTree = "<group>"; };
@@ -163,6 +175,7 @@
 				D020A4ED2BB9DA3C00CA5CAF /* Word.swift */,
 				D020A4EF2BB9DA6000CA5CAF /* Article.swift */,
 				2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */,
+				D09262BB2C097F2A00CA90BA /* CoreData */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -200,6 +213,19 @@
 				2A7B6CD42C0810030017BB5C /* NotificationName+Extension.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		D09262BB2C097F2A00CA90BA /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				D09262B92C097ECD00CA90BA /* CoreDataManager.swift */,
+				D09262C02C09808400CA90BA /* CDCard+Extension.swift */,
+				D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */,
+				D09262BC2C097F3D00CA90BA /* CDNoteType+Extension.swift */,
+				D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */,
+				D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		D0DA5AB82BB66A05008644DC = {
@@ -320,6 +346,7 @@
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
 				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
+				D09262BD2C097F3D00CA90BA /* CDNoteType+Extension.swift in Sources */,
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
 				2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */,
 				2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */,
@@ -328,6 +355,7 @@
 				D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */,
 				2AE025FA2BF4AB60006EC021 /* DataManager.swift in Sources */,
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
+				D09262C32C098A4400CA90BA /* CDLapses+Extension.swift in Sources */,
 				D078D0982BC9242900F601B2 /* Note.swift in Sources */,
 				D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */,
 				2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */,
@@ -336,14 +364,18 @@
 				2AE025F62BF4983A006EC021 /* NoteManager.swift in Sources */,
 				2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */,
 				2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */,
+				D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */,
 				2A2176852C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift in Sources */,
 				D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */,
+				D09262C12C09808400CA90BA /* CDCard+Extension.swift in Sources */,
 				D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */,
 				2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
 				D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */,
 				2AE025F42BF49686006EC021 /* CardManager.swift in Sources */,
+				D09262BA2C097ECD00CA90BA /* CoreDataManager.swift in Sources */,
+				D09262BF2C097FC600CA90BA /* CDLearningRecord+Extension.swift in Sources */,
 				2A7B6CD32C080B440017BB5C /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -569,6 +601,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D09262B72C097D2400CA90BA /* CoreData.xcdatamodel */,
+			);
+			currentVersion = D09262B72C097D2400CA90BA /* CoreData.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D0DA5AB92BB66A05008644DC /* Project object */;
 }
