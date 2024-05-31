@@ -7,7 +7,8 @@
 
 import UIKit
 
-class ReviewViewController: UIViewController {
+class ReviewViewController: UIViewController, StoryboardGenerated {
+    static var storyboardName: String = "Main"
 
     // MARK: - Properties
     
@@ -21,7 +22,7 @@ class ReviewViewController: UIViewController {
         super.viewDidLoad()
         setup()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateDataSource()
@@ -52,6 +53,7 @@ class ReviewViewController: UIViewController {
         })
         
         tableView.dataSource = dataSource
+
         updateDataSource()
     }
     
@@ -61,7 +63,6 @@ class ReviewViewController: UIViewController {
     }
 
     private func updateDataSource() {
-        // let decks = DeckManager.shared.snapshot
         let decks = CoreDataManager.shared.getDecks()
 
         var snapshot = NSDiffableDataSourceSnapshot<Int, CDDeck>()
@@ -99,7 +100,7 @@ class ReviewViewController: UIViewController {
     }
     
     @objc func handleDeckUpdate(notification: Notification) {
-        updateDataSource()
+       updateDataSource()
     }
 }
 

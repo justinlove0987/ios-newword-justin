@@ -12,9 +12,9 @@ class ExploreViewController: UIViewController {
     @IBOutlet weak var deckLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-    private var currentDeck: Deck?
-    
-    var dataSource: UITableViewDiffableDataSource<Int,Note>!
+    private var currentDeck: CDDeck?
+
+    var dataSource: UITableViewDiffableDataSource<Int,CDNote>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +24,7 @@ class ExploreViewController: UIViewController {
     }
     
     private func setupDeck() {
-        currentDeck = DeckManager.shared.snapshot.first!
+        currentDeck = CoreDataManager.shared.getDecks().first!
         deckLabel.text = currentDeck!.name
     }
     
@@ -41,11 +41,13 @@ class ExploreViewController: UIViewController {
             
             var config = cell.defaultContentConfiguration()
             
-            switch itemIdentifier.noteType {
+            switch itemIdentifier.noteType!.content {
             case .sentenceCloze(let data):
-                config.text = data.clozeWord.text
+                config.text = data.clozeWord?.text
                 break
             case .prononciation:
+                break
+            default:
                 break
             }
             
@@ -55,25 +57,16 @@ class ExploreViewController: UIViewController {
         })
         
         
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Note>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, CDNote>()
         NoteManager.shared.addFakeNotes()
         
-        let notes = NoteManager.shared.snapshot
-        
+        let notes = CoreDataManager.shared.createFakeNote()
+
         snapshot.appendSections([0])
         snapshot.appendItems(notes, toSection: 0)
         
         tableView.dataSource = dataSource
         dataSource.apply(snapshot)
-    }
-    
-    private func readFileFromLocal() -> [Note] {
-        let path = Bundle.main.path(forResource: "notes", ofType: "json")!
-        let jsonData = try! Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-        
-        let result = (try? JSONDecoder().decode([Note].self, from: jsonData)) ?? []
-        
-        return result
     }
 
 }
@@ -85,14 +78,12 @@ extension ExploreViewController: UITableViewDelegate {
         var snapshot = dataSource.snapshot()
         
         let note = dataSource.itemIdentifier(for: indexPath)!
-        let newCard = Card(id: UUID().uuidString, 
-                        note: note,
-                        learningRecords: [])
 
         snapshot.deleteItems([note])
         dataSource.apply(snapshot, animatingDifferences: true)
         
-        CardManager.shared.add(newCard)
-        DeckManager.shared.addCardTo(to: currentDeck, with: newCard.id)
+        print(currentDeck)
+
+        CoreDataManager.shared.addCard(to: currentDeck, with: note)
     }
 }

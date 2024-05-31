@@ -187,17 +187,21 @@ class ShowCardsViewControllerViewModel {
     
     func addLearningRecordToCurrentCard(isAnswerCorrect: Bool) {
         guard let deck = deck else { return }
-        guard var card = getCurrentCard() else { return }
-        
+        guard let card = getCurrentCard() else { return }
+
         let learningRecord = CoreDataManager.shared.createLearningRecord(lastCard: card, deck: deck, isAnswerCorrect: isAnswerCorrect)
-        
-//        let record = LearningRecord.createLearningRecord(lastCard: card, deck: deck, isAnswerCorrect: isAnswerCorrect)
-        
-//        card.addLearningRecord(record)
+
+        CoreDataManager.shared.addLearningReocrd(learningRecord, to: card)
+
+
         updateCurrentCard(card)
         moveCardToNextCollection(isAnswerCorrect: isAnswerCorrect)
-        
-//        CardManager.shared.update(data: card)
+
+
+        //        let record = LearningRecord.createLearningRecord(lastCard: card, deck: deck, isAnswerCorrect: isAnswerCorrect)
+
+        //        card.addLearningRecord(record)
+        //        CardManager.shared.update(data: card)
     }
     
     func updateCurrentCard(_ card: CDCard) {

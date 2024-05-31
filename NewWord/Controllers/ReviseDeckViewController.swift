@@ -17,9 +17,9 @@ class ReviseDeckViewController: UIViewController, StoryboardGenerated {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nameLabel.text = deck?.name
+        updateUI()
     }
-    
+
     // MARK: - Helpers
     
     func updateUI() {
@@ -39,7 +39,7 @@ class ReviseDeckViewController: UIViewController, StoryboardGenerated {
     
     @IBAction func deleteAction(_ sender: UIButton) {
         guard let deck else { return }
-        
+
         CoreDataManager.shared.deleteDeck(deck)
         NotificationCenter.default.post(name: .deckDidUpdate, object: deck)
         

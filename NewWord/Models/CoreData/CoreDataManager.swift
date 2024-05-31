@@ -29,6 +29,7 @@ class CoreDataManager {
         do {
             try persistentContainer.viewContext.save()
         } catch {
+            print(error)
             persistentContainer.viewContext.rollback()
             print("Failed to save data!")
         }
@@ -108,12 +109,28 @@ extension CoreDataManager {
         return fetched
     }
 
+    func addCard(to deck: CDDeck, with note: CDNote) {
+        let card = createCard(note: note)
+        card.deck = deck
+
+        save()
+    }
     
 }
 
 // MARK: - Card
 
 extension CoreDataManager {
+    func createCard(note: CDNote) -> CDCard {
+        let card = CDCard(context: persistentContainer.viewContext)
+        
+        card.id = UUID().uuidString
+        card.addedDate = Date()
+        card.note = note
+
+        return card
+    }
+
     func createEmptyCard() -> CDCard {
         let card = CDCard(context: persistentContainer.viewContext)
         return card
@@ -132,6 +149,59 @@ extension CoreDataManager {
             print("Error fetching songs \(error)")
         }
         return fetched
+    }
+
+    func addLearningReocrd(_ learningReocrd: CDLearningRecord, to card: CDCard) {
+        learningReocrd.card = card
+
+        save()
+    }
+}
+
+// MARK: - Note
+
+
+extension CoreDataManager {
+    func createNote(noteType: CDNoteType) -> CDNote {
+        let note = CDNote(context: persistentContainer.viewContext)
+
+        note.id = UUID().uuidString
+        note.noteType = noteType
+
+        return note
+    }
+
+    func createFakeNote() -> [CDNote] {
+//        let sentences = [
+//            ["Life", "is", "like", "riding", "a", "bicycle", ".", "To", "keep", "your", "balance", ",", "you", "must", "keep", "moving", "."],
+//            ["Genius", "is", "one", "percent", "inspiration", "and", "ninety-nine", "percent", "perspiration", "."]
+//        ]
+
+        let clozeword1 = CoreDataManager.shared.createWord(chinese: "像是我", text: "like")
+        let words1 = CoreDataManager.shared.createWords(words: ["Life", "is", "like", "riding", "a", "bicycle", ".", "To", "keep", "your", "balance", ",", "you", "must", "keep", "moving", "."])
+
+        let sentence1 = CoreDataManager.shared.createSentence(words: words1)
+        let sentenceCloze1 = CoreDataManager.shared.createSentenceCloze(clozeword: clozeword1, sentence: sentence1)
+
+        let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: 0)
+        noteType.sentenceCloze = sentenceCloze1
+
+        let note = CoreDataManager.shared.createNote(noteType: noteType)
+
+        return [note]
+    }
+}
+
+// MARK: - Note Type
+
+extension CoreDataManager {
+
+    func createNoteNoteType(rawValue: Int) -> CDNoteType {
+        let noteType = CDNoteType(context: persistentContainer.viewContext)
+
+        noteType.rawValue = Int64(rawValue)
+
+        return noteType
     }
 }
 
@@ -301,9 +371,35 @@ extension CoreDataManager {
     }
 }
 
+
+// MARK: - SentenceCloze
+
+extension CoreDataManager {
+    func createSentenceCloze(clozeword: CDWord, sentence: CDSentence) -> CDSentenceCloze {
+        let sentenceCloze = CDSentenceCloze(context: persistentContainer.viewContext)
+        sentenceCloze.clozeWord = createWord(chinese: "像是", text: "like")
+        sentenceCloze.sentence = sentence
+        
+        return sentenceCloze
+    }
+}
+
 // MARK: - Sentence
 
 extension CoreDataManager {
+
+    func createSentence(words: [CDWord]) -> CDSentence {
+        let sentence = CDSentence(context: persistentContainer.viewContext)
+
+        for word in words {
+            word.sentence = sentence
+        }
+
+        return sentence
+    }
+
+
+
     func words(from sentence: CDSentence) -> [CDWord] {
         let request: NSFetchRequest<CDWord> = CDWord.fetchRequest()
         request.predicate = NSPredicate(format: "sentence = %@", sentence)
@@ -314,6 +410,30 @@ extension CoreDataManager {
             print("Error fetching songs \(error)")
         }
         return fetched
+    }
+}
+
+// MARK: Word
+
+extension CoreDataManager {
+    func createWord(chinese: String, text: String) -> CDWord {
+        let word = CDWord(context: persistentContainer.viewContext)
+
+        word.chinese = chinese
+        word.text = text
+
+        return word
+    }
+
+    func createWords(words: [String]) -> [CDWord] {
+        var cdWords: [CDWord] = []
+
+        for word in words {
+            let cdWord = createWord(chinese: "", text: word)
+            cdWords.append(cdWord)
+        }
+
+        return cdWords
     }
 }
 
