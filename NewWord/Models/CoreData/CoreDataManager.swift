@@ -172,13 +172,13 @@ extension CoreDataManager {
     }
 
     func createFakeNote() -> [CDNote] {
-//        let sentences = [
-//            ["Life", "is", "like", "riding", "a", "bicycle", ".", "To", "keep", "your", "balance", ",", "you", "must", "keep", "moving", "."],
-//            ["Genius", "is", "one", "percent", "inspiration", "and", "ninety-nine", "percent", "perspiration", "."]
-//        ]
+        let sentences = [
+            ["Life", "is", "like", "riding", "a", "bicycle", ".", "To", "keep", "your", "balance", ",", "you", "must", "keep", "moving", "."],
+            ["Genius", "is", "one", "percent", "inspiration", "and", "ninety-nine", "percent", "perspiration", "."]
+        ]
 
         let clozeword1 = CoreDataManager.shared.createWord(chinese: "像是我", text: "like")
-        let words1 = CoreDataManager.shared.createWords(words: ["Life", "is", "like", "riding", "a", "bicycle", ".", "To", "keep", "your", "balance", ",", "you", "must", "keep", "moving", "."])
+        let words1 = CoreDataManager.shared.createWords(words: sentences[0])
 
         let sentence1 = CoreDataManager.shared.createSentence(words: words1)
         let sentenceCloze1 = CoreDataManager.shared.createSentenceCloze(clozeword: clozeword1, sentence: sentence1)

@@ -15,7 +15,7 @@
     <entity name="CDDeck" representedClassName="CDDeck" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
-        <relationship name="cards" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="CDCard" inverseName="deck" inverseEntity="CDCard"/>
+        <relationship name="cards" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="CDCard" inverseName="deck" inverseEntity="CDCard"/>
         <relationship name="preset" maxCount="1" deletionRule="No Action" destinationEntity="CDPreset" inverseName="deck" inverseEntity="CDPreset"/>
     </entity>
     <entity name="CDLapses" representedClassName="CDLapses" syncable="YES" codeGenerationType="category">
