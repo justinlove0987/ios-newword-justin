@@ -810,6 +810,47 @@
             </objects>
             <point key="canvasLocation" x="3454" y="717"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="FUc-lo-w6H">
+            <objects>
+                <viewController id="g7p-P2-eTT" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OGW-Hd-Pvr">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VUj-fs-Qfk">
+                                <rect key="frame" x="10" y="79" width="373" height="32"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                            </segmentedControl>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YTl-XJ-gP8">
+                                <rect key="frame" x="20" y="130" width="353" height="668"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="LrW-po-FBd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="YTl-XJ-gP8" firstAttribute="top" secondItem="VUj-fs-Qfk" secondAttribute="bottom" constant="20" id="GoF-Bc-GLl"/>
+                            <constraint firstItem="LrW-po-FBd" firstAttribute="trailing" secondItem="VUj-fs-Qfk" secondAttribute="trailing" constant="10" id="HV2-mx-qHm"/>
+                            <constraint firstItem="VUj-fs-Qfk" firstAttribute="top" secondItem="LrW-po-FBd" secondAttribute="top" constant="20" id="J9R-h9-4Hk"/>
+                            <constraint firstItem="LrW-po-FBd" firstAttribute="trailing" secondItem="YTl-XJ-gP8" secondAttribute="trailing" constant="20" id="No0-mV-eL0"/>
+                            <constraint firstItem="LrW-po-FBd" firstAttribute="bottom" secondItem="YTl-XJ-gP8" secondAttribute="bottom" constant="20" id="guQ-BI-HKN"/>
+                            <constraint firstItem="YTl-XJ-gP8" firstAttribute="leading" secondItem="LrW-po-FBd" secondAttribute="leading" constant="20" id="lmJ-bL-oax"/>
+                            <constraint firstItem="VUj-fs-Qfk" firstAttribute="leading" secondItem="LrW-po-FBd" secondAttribute="leading" constant="10" id="yxn-I5-kfi"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZD3-Nl-shL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4274" y="717"/>
+        </scene>
         <!--Sentence Cloze View Controller-->
         <scene sceneID="eSo-Y6-juQ">
             <objects>
@@ -878,14 +919,17 @@
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemCyanColor">
-            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
