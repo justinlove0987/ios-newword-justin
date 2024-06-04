@@ -134,12 +134,21 @@
                                     <action selector="addDeckAction:" destination="q0q-gF-HWm" eventType="touchUpInside" id="M19-t5-z4M"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbz-OJ-oNV">
+                                <rect key="frame" x="142.33333333333334" y="763.66666666666663" width="110.66666666666666" height="34.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="新增克漏字"/>
+                                <connections>
+                                    <action selector="addClozeAction:" destination="q0q-gF-HWm" eventType="touchUpInside" id="GM8-I7-bkg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qT2-jy-IAt"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="NZU-q5-NZz" firstAttribute="width" secondItem="1TZ-B0-l4z" secondAttribute="width" multiplier="0.9" id="3kp-lV-1pG"/>
                             <constraint firstItem="yo1-Xi-2Bs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qT2-jy-IAt" secondAttribute="leading" symbolic="YES" id="5Wa-hX-ypW"/>
+                            <constraint firstItem="yo1-Xi-2Bs" firstAttribute="leading" secondItem="cbz-OJ-oNV" secondAttribute="trailing" constant="20" id="Art-vt-afg"/>
                             <constraint firstItem="NZU-q5-NZz" firstAttribute="top" secondItem="qT2-jy-IAt" secondAttribute="top" id="KEV-Nc-bj0"/>
                             <constraint firstItem="qT2-jy-IAt" firstAttribute="trailing" secondItem="yo1-Xi-2Bs" secondAttribute="trailing" constant="20" id="VTf-u9-ycU"/>
                             <constraint firstItem="yo1-Xi-2Bs" firstAttribute="top" secondItem="ceV-BR-XvJ" secondAttribute="bottom" constant="20" id="Xm9-a3-nAF"/>
@@ -148,6 +157,7 @@
                             <constraint firstItem="NZU-q5-NZz" firstAttribute="height" secondItem="1TZ-B0-l4z" secondAttribute="height" multiplier="0.25" id="fjh-Qk-Bdb"/>
                             <constraint firstItem="qT2-jy-IAt" firstAttribute="bottom" secondItem="yo1-Xi-2Bs" secondAttribute="bottom" constant="20" id="fsa-Ig-jxQ"/>
                             <constraint firstItem="ceV-BR-XvJ" firstAttribute="top" secondItem="NZU-q5-NZz" secondAttribute="bottom" constant="20" id="iIA-2o-H8O"/>
+                            <constraint firstItem="cbz-OJ-oNV" firstAttribute="centerY" secondItem="yo1-Xi-2Bs" secondAttribute="centerY" id="m30-ha-miL"/>
                             <constraint firstItem="NZU-q5-NZz" firstAttribute="centerX" secondItem="1TZ-B0-l4z" secondAttribute="centerX" id="pIY-VP-vvz"/>
                         </constraints>
                     </view>
@@ -810,10 +820,10 @@
             </objects>
             <point key="canvasLocation" x="3454" y="717"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Cloze View Controller-->
         <scene sceneID="FUc-lo-w6H">
             <objects>
-                <viewController id="g7p-P2-eTT" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddClozeViewController" id="g7p-P2-eTT" customClass="AddClozeViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OGW-Hd-Pvr">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -821,14 +831,55 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VUj-fs-Qfk">
                                 <rect key="frame" x="10" y="79" width="373" height="32"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="修改文本"/>
+                                    <segment title="挑選單字"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentedControlValueChanged:" destination="g7p-P2-eTT" eventType="valueChanged" id="BtN-8M-30a"/>
+                                </connections>
                             </segmentedControl>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YTl-XJ-gP8">
                                 <rect key="frame" x="20" y="130" width="353" height="668"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <mutableString key="text">OpenAI has recently unveiled GPT-4o, its latest large language model and the successor to GPT-4 Turbo. This innovative model stands out by accepting prompts in various formats, including text, audio, images, and video, all within a single interface. The "o" in GPT-4o represents "omni," reflecting its ability to handle multiple content types simultaneously, a significant advancement from previous models that required separate interfaces for different media.
+
+OpenAI 最近推出了 GPT-4o，這是其最新的大型語言模型，也是 GPT-4 Turbo 的繼任者。這個創新模型的突出之處在於它能夠接受各種格式的提示，包括文字、聲音、圖像和影片，所有這些都在一個單一的界面內。GPT-4o 中的「o」代表「omni」，反映了它能夠同時處理多種內容類型的能力，這是與之前需要為不同媒體使用單獨界面的模型相比的重大進步。
+
+ 
+
+GPT-4o brings several improvements over its predecessor, GPT-4 Turbo. The model can now consider tone of voice, enabling more emotionally appropriate responses. Additionally, the reduced latency allows for near-real-time conversations, making it suitable for applications like live translations. GPT-4o's integrated vision capabilities enable it to describe and analyze content from camera feeds or computer screens, opening up new possibilities for interactive experiences and accessibility features for visually impaired users.
+
+GPT-4o 在其前身 GPT-4 Turbo 的基礎上帶來了幾項改進。該模型現在可以考慮語調，從而產生更適當情緒的回應。此外，延遲時間的縮短使其能夠進行近乎即時的對話，這使其適用於即時翻譯等應用。GPT-4o 集成的視覺功能使其能夠描述和分析來自攝影機和電腦螢幕的內容，為互動體驗和視障用戶的無障礙功能開闢了新的可能。
+
+ 
+
+In terms of performance, GPT-4o has demonstrated impressive results in various benchmarks, often outperforming other top models like Claude 3 Opus and Gemini Pro 1.5. The model's multimodal training approach shows promise in enhancing its problem-solving abilities, extensive world knowledge, and code generation capabilities. As GPT-4o becomes more widely available, it has the potential to revolutionize how we interact with AI in both personal and professional contexts.
+
+在性能方面，GPT-4o 在各種基準測試中展示了令人印象深刻的結果，通常優於其他頂級模型，如 Claude 3 Opus 和 Gemini Pro 1.5。該模型的多模態訓練方法在提高其解決問題的能力、廣泛的世界知識和代碼生成能力方面顯出極大的潛力。隨著 GPT-4o 變得更加普及，它有可能革新我們在個人和專業領域與 AI 互動的方式。
+
+ 
+
+While GPT-4o represents a significant leap forward, it is not without limitations and risks. Like other generative AI models, its output can be imperfect, particularly when interpreting images, videos, or transcribing speech with technical terms or strong accents. There are also concerns about the potential misuse of GPT-4o's audio capabilities in creating more convincing deepfake scams. As OpenAI continues to refine and optimize this new architecture, addressing these challenges will be crucial to ensure the model's safe and effective deployment.
+
+儘管 GPT-4o 代表了重大的躍進，但它並非沒有局限性和風險。與其他生成式 AI 模型一樣，它的輸出可能並不完美，尤其是在解釋圖像、影片或製作包含技術術語或強烈口音的語音逐字稿時。人們還擔心 GPT-4o 的語音功能可能被濫用，用於創造可信度更高的 deepfake 詐騙。隨著 OpenAI 繼續完善和優化這種新架構，解決這些挑戰將是確保該模型安全有效部署的關鍵。
+
+ 
+
+The release of GPT-4o aligns with OpenAI's mission to develop artificial general intelligence (AGI) and its business model of creating increasingly powerful AI systems. As the first generation of this new model architecture, GPT-4o presents ample opportunities for the company to learn and optimize in the coming months. Users can expect improvements in speed and output quality over time, along with the emergence of novel use cases and applications.
+
+GPT-4o 的發布符合 OpenAI 開發通用人工智慧 (AGI) 的使命以及其創建越來越強大的 AI 系統的商業模式。作為這種新模型架構的第一代，GPT-4o 為該公司在未來幾個月內學習和優化提供了充足的機會。用戶可以期待速度和輸出品質隨著時間的推移而提升，以及新的使用案例和應用的出現。
+
+ 
+
+The launch of GPT-4o coincides with the declining interest in virtual assistants like Siri, Alexa, and Google Assistant. OpenAI's focus on making AI more conversational and interactive could potentially revitalize this space and bring forth a new wave of AI-driven experiences. The model's lower cost compared to GPT-4 Turbo, coupled with its enhanced capabilities, positions GPT-4o as a game-changer in the AI industry.
+
+GPT-4o 的推出恰逢人們對 Siri、Alexa 和 Google Assistant 等虛擬助手的興趣下降之際。OpenAI 致力於使 AI 更具對話性和交互性，這可能會重振該領域，帶來新一波 AI 驅動的體驗。與 GPT-4 Turbo 相比，該模型的成本更低，再加上其增強的功能，使 GPT-4o 成為 AI 行業的遊戲規則改變者。
+
+ 
+
+As GPT-4o becomes more accessible, it is essential for individuals and professionals to familiarize themselves with the technology and its potential applications. OpenAI offers resources such as the AI Fundamentals skill track and hands-on courses on working with the OpenAI API to help users navigate this exciting new frontier in artificial intelligence.
+
+隨著 GPT-4o 變得更加易於獲取，個人和專業人士必須熟悉該技術及其潛在應用。OpenAI 提供了資源，如 AI 基礎技能追蹤和使用 OpenAI API 的相關實踐課程，以幫助用戶探索人工智慧的這個令人興奮的新疆土。</mutableString>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -846,6 +897,9 @@
                             <constraint firstItem="VUj-fs-Qfk" firstAttribute="leading" secondItem="LrW-po-FBd" secondAttribute="leading" constant="10" id="yxn-I5-kfi"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="textView" destination="YTl-XJ-gP8" id="5gD-SZ-hSU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZD3-Nl-shL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -926,10 +980,10 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemCyanColor">
-            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

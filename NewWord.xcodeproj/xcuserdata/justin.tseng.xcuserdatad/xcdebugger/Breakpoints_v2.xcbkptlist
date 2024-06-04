@@ -3,4 +3,102 @@
    uuid = "DA4114AB-B04F-4AA3-B33B-AA94ADD26C22"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D14ECB34-0E4A-47A0-9515-513B885C154E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NewWord/Views/ContextRevisionInputAccessoryView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "cleanChineseAction(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D14ECB34-0E4A-47A0-9515-513B885C154E - 5fa3eb529c1ef515"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewWord.ContextRevisionInputAccessoryView.cleanChineseAction(__C.UIButton) -&gt; ()"
+                  moduleName = "NewWord"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/justin.tseng/Desktop/developer/iOS/Me/ios-newword-justin/NewWord/Views/ContextRevisionInputAccessoryView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "D14ECB34-0E4A-47A0-9515-513B885C154E - 5fa3eb529c1ef515"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewWord.ContextRevisionInputAccessoryView.cleanChineseAction(__C.UIButton) -&gt; ()"
+                  moduleName = "NewWord"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/justin.tseng/Desktop/developer/iOS/Me/ios-newword-justin/NewWord/Views/ContextRevisionInputAccessoryView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3CC30802-8F27-4F2F-8FE4-6D8D0AD07331"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NewWord/Controllers/AddClozeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "didTapCleanChineseButton()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3CC30802-8F27-4F2F-8FE4-6D8D0AD07331 - 2a3464307d2e842f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewWord.AddClozeViewController.didTapCleanChineseButton() -&gt; ()"
+                  moduleName = "NewWord"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/justin.tseng/Desktop/developer/iOS/Me/ios-newword-justin/NewWord/Controllers/AddClozeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "200">
+               </Location>
+               <Location
+                  uuid = "3CC30802-8F27-4F2F-8FE4-6D8D0AD07331 - 2a3464307d2e842f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NewWord.AddClozeViewController.didTapCleanChineseButton() -&gt; ()"
+                  moduleName = "NewWord"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/justin.tseng/Desktop/developer/iOS/Me/ios-newword-justin/NewWord/Controllers/AddClozeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "60">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

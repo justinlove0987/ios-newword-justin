@@ -98,9 +98,17 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
         present(alert, animated: true)
     }
     
+    @IBAction func addClozeAction(_ sender: UIButton) {
+        let controller = AddClozeViewController.instantiate()
+        
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
     @objc func handleDeckUpdate(notification: Notification) {
        updateDataSource()
     }
+    
+    
 }
 
 // MARK: - UITableViewDelegate

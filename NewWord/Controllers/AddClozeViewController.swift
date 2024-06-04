@@ -7,12 +7,31 @@
 
 import UIKit
 
-class AddClozeViewController: UIViewController {
-
+class AddClozeViewController: UIViewController, StoryboardGenerated {
+    
+    static var storyboardName: String = K.Storyboard.main
+    
+    @IBOutlet weak var textView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        addContextRevisionInputAccessoryView()
     }
+    
+    @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+    }
+    
+    private func addContextRevisionInputAccessoryView() {
+        let view = ContextRevisionInputAccessoryView()
+        view.delegate = self
+        textView.inputAccessoryView = view
+        textView.becomeFirstResponder()
+    }
+    
+}
 
+extension AddClozeViewController: ContextRevisionInputAccessoryViewDelegate {
+    func didTapCleanChineseButton() {
+        textView.text
+    }
 }
