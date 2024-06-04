@@ -36,8 +36,8 @@ extension CDCard {
     func isMasterCard(belongs deck: CDDeck, answerIsCorrect: Bool = true) -> Bool {
         let learningRecords = CoreDataManager.shared.learningRecords(from: self)
         
-        let filteredRecords = learningRecords.filter { reocrd in
-            return reocrd.status == .correct
+        let filteredRecords = learningRecords.filter { record in
+            return record.status == .correct
         }
 
         return filteredRecords.count + 1 >= Int(deck.preset!.master!.consecutiveCorrects)
@@ -46,8 +46,8 @@ extension CDCard {
     func isLeachCard(belongs deck: CDDeck, answerIsCorrect: Bool = false) -> Bool {
         let learningRecords = CoreDataManager.shared.learningRecords(from: self)
         
-        let filteredRecords = learningRecords.filter { reocrd in
-            return reocrd.state == .relearn && reocrd.status == .correct
+        let filteredRecords = learningRecords.filter { record in
+            return record.state == .relearn && record.status == .correct
         }
 
         return filteredRecords.count + 1 >= Int(deck.preset!.lapses!.leachThreshold)

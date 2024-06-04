@@ -59,7 +59,6 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
     
     private func setupNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleDeckUpdate(notification:)), name: .deckDidUpdate, object: nil)
-
     }
 
     private func updateDataSource() {
