@@ -841,7 +841,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YTl-XJ-gP8">
                                 <rect key="frame" x="20" y="130" width="353" height="668"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <mutableString key="text">OpenAI has recently unveiled GPT-4o, its latest large language model and the successor to GPT-4 Turbo. This innovative model stands out by accepting prompts in various formats, including text, audio, images, and video, all within a single interface. The "o" in GPT-4o represents "omni," reflecting its ability to handle multiple content types simultaneously, a significant advancement from previous models that required separate interfaces for different media.
+                                <string key="text">OpenAI has recently unveiled GPT-4o, its latest large language model and the successor to GPT-4 Turbo. This innovative model stands out by accepting prompts in various formats, including text, audio, images, and video, all within a single interface. The "o" in GPT-4o represents "omni," reflecting its ability to handle multiple content types simultaneously, a significant advancement from previous models that required separate interfaces for different media.
 
 OpenAI 最近推出了 GPT-4o，這是其最新的大型語言模型，也是 GPT-4 Turbo 的繼任者。這個創新模型的突出之處在於它能夠接受各種格式的提示，包括文字、聲音、圖像和影片，所有這些都在一個單一的界面內。GPT-4o 中的「o」代表「omni」，反映了它能夠同時處理多種內容類型的能力，這是與之前需要為不同媒體使用單獨界面的模型相比的重大進步。
 
@@ -879,7 +879,7 @@ GPT-4o 的推出恰逢人們對 Siri、Alexa 和 Google Assistant 等虛擬助�
 
 As GPT-4o becomes more accessible, it is essential for individuals and professionals to familiarize themselves with the technology and its potential applications. OpenAI offers resources such as the AI Fundamentals skill track and hands-on courses on working with the OpenAI API to help users navigate this exciting new frontier in artificial intelligence.
 
-隨著 GPT-4o 變得更加易於獲取，個人和專業人士必須熟悉該技術及其潛在應用。OpenAI 提供了資源，如 AI 基礎技能追蹤和使用 OpenAI API 的相關實踐課程，以幫助用戶探索人工智慧的這個令人興奮的新疆土。</mutableString>
+隨著 GPT-4o 變得更加易於獲取，個人和專業人士必須熟悉該技術及其潛在應用。OpenAI 提供了資源，如 AI 基礎技能追蹤和使用 OpenAI API 的相關實踐課程，以幫助用戶探索人工智慧的這個令人興奮的新疆土。</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -904,6 +904,77 @@ As GPT-4o becomes more accessible, it is essential for individuals and professio
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZD3-Nl-shL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4274" y="717"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="zm3-m9-kG9">
+            <objects>
+                <viewController storyboardIdentifier="SearchViewController" id="D0N-pH-E9B" customClass="SearchViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zNc-0w-oYZ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="38C-zP-s4j">
+                                <rect key="frame" x="0.0" y="69" width="393" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="D0N-pH-E9B" id="Ztm-KJ-vpN"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uTF-hG-Vwz">
+                                <rect key="frame" x="0.0" y="125" width="393" height="693"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchCell" id="SmP-Rv-EfC" customClass="SearchCell" customModule="NewWord" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="82.666664123535156"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SmP-Rv-EfC" id="o7v-7g-vaC">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="82.666664123535156"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7S-8H-M8e">
+                                                    <rect key="frame" x="40" y="31" width="42" height="20.666666666666671"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="x7S-8H-M8e" secondAttribute="trailing" constant="20" symbolic="YES" id="3FO-2Y-nv9"/>
+                                                <constraint firstItem="x7S-8H-M8e" firstAttribute="top" secondItem="o7v-7g-vaC" secondAttribute="topMargin" constant="20" id="akK-Wh-AGH"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="x7S-8H-M8e" secondAttribute="bottom" constant="20" id="dqa-95-c2w"/>
+                                                <constraint firstItem="x7S-8H-M8e" firstAttribute="leading" secondItem="o7v-7g-vaC" secondAttribute="leadingMargin" constant="20" id="wtJ-hX-xVm"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="x7S-8H-M8e" id="siD-DM-evM"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="delegate" destination="D0N-pH-E9B" id="0OQ-xB-Yv7"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="jph-08-094"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="38C-zP-s4j" firstAttribute="leading" secondItem="jph-08-094" secondAttribute="leading" id="8yM-DA-Yrn"/>
+                            <constraint firstItem="38C-zP-s4j" firstAttribute="trailing" secondItem="jph-08-094" secondAttribute="trailing" id="98g-kE-QFm"/>
+                            <constraint firstItem="uTF-hG-Vwz" firstAttribute="top" secondItem="38C-zP-s4j" secondAttribute="bottom" id="DaW-Mr-ovD"/>
+                            <constraint firstItem="jph-08-094" firstAttribute="trailing" secondItem="uTF-hG-Vwz" secondAttribute="trailing" id="Tv1-65-G7f"/>
+                            <constraint firstItem="uTF-hG-Vwz" firstAttribute="leading" secondItem="jph-08-094" secondAttribute="leading" id="Wnt-3C-cfS"/>
+                            <constraint firstItem="38C-zP-s4j" firstAttribute="top" secondItem="jph-08-094" secondAttribute="top" constant="10" id="d3A-dw-BcL"/>
+                            <constraint firstItem="jph-08-094" firstAttribute="bottom" secondItem="uTF-hG-Vwz" secondAttribute="bottom" id="fqJ-LF-Ukq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="searchViewController" destination="38C-zP-s4j" id="V5m-dL-Mlt"/>
+                        <outlet property="tableView" destination="uTF-hG-Vwz" id="bHy-eM-dGy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OX2-Fx-vnb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5073" y="717"/>
         </scene>
         <!--Sentence Cloze View Controller-->
         <scene sceneID="eSo-Y6-juQ">

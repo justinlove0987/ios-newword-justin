@@ -55,49 +55,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3CC30802-8F27-4F2F-8FE4-6D8D0AD07331"
+            uuid = "7C1B66A6-6A14-4C6B-AA44-9861AF304423"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NewWord/Controllers/AddClozeViewController.swift"
+            filePath = "NewWord/Controllers/ShowCardsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "didTapCleanChineseButton()"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "tap(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "3CC30802-8F27-4F2F-8FE4-6D8D0AD07331 - 2a3464307d2e842f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "NewWord.AddClozeViewController.didTapCleanChineseButton() -&gt; ()"
-                  moduleName = "NewWord"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/justin.tseng/Desktop/developer/iOS/Me/ios-newword-justin/NewWord/Controllers/AddClozeViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
-                  offsetFromSymbolStart = "200">
-               </Location>
-               <Location
-                  uuid = "3CC30802-8F27-4F2F-8FE4-6D8D0AD07331 - 2a3464307d2e842f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "NewWord.AddClozeViewController.didTapCleanChineseButton() -&gt; ()"
-                  moduleName = "NewWord"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/justin.tseng/Desktop/developer/iOS/Me/ios-newword-justin/NewWord/Controllers/AddClozeViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
-                  offsetFromSymbolStart = "60">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

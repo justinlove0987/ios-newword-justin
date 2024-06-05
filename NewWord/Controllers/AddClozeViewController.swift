@@ -33,5 +33,6 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
 extension AddClozeViewController: ContextRevisionInputAccessoryViewDelegate {
     func didTapCleanChineseButton() {
         textView.text
+        print(textView.text)
     }
 }

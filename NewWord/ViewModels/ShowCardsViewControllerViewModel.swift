@@ -196,12 +196,6 @@ class ShowCardsViewControllerViewModel {
 
         updateCurrentCard(card)
         moveCardToNextCollection(isAnswerCorrect: isAnswerCorrect)
-
-
-        //        let record = LearningRecord.createLearningRecord(lastCard: card, deck: deck, isAnswerCorrect: isAnswerCorrect)
-
-        //        card.addLearningRecord(record)
-        //        CardManager.shared.update(data: card)
     }
     
     func updateCurrentCard(_ card: CDCard) {

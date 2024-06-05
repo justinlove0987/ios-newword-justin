@@ -18,6 +18,7 @@
 		2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */; };
 		2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */; };
 		2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */; };
+		2A791A702C10D29700C26FFB /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A791A6F2C10D29700C26FFB /* SearchCell.swift */; };
 		2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */; };
 		2A7B6CD12C080A900017BB5C /* StoryboardGenerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CD02C080A900017BB5C /* StoryboardGenerated.swift */; };
 		2A7B6CD32C080B440017BB5C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CD22C080B440017BB5C /* Constants.swift */; };
@@ -76,6 +77,7 @@
 		2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecord.swift; sourceTree = "<group>"; };
 		2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextRevisionInputAccessoryView.xib; sourceTree = "<group>"; };
 		2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextRevisionInputAccessoryView.swift; sourceTree = "<group>"; };
+		2A791A6F2C10D29700C26FFB /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseDeckViewController.swift; sourceTree = "<group>"; };
 		2A7B6CD02C080A900017BB5C /* StoryboardGenerated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardGenerated.swift; sourceTree = "<group>"; };
 		2A7B6CD22C080B440017BB5C /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -158,9 +160,10 @@
 		D020A4EA2BB9D8E700CA5CAF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2A791A6F2C10D29700C26FFB /* SearchCell.swift */,
+				2A18E7B32BE74008005139C8 /* DeckCell.swift */,
 				D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */,
 				D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */,
-				2A18E7B32BE74008005139C8 /* DeckCell.swift */,
 				D0A0643E2BFC8E78001AFE08 /* PronounciationView.swift */,
 				D0A064402BFC913C001AFE08 /* PronounciationView.xib */,
 				2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */,
@@ -347,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0DA5AC92BB66A05008644DC /* MainViewController.swift in Sources */,
+				2A791A702C10D29700C26FFB /* SearchCell.swift in Sources */,
 				D0E8848B2BC93C3600C78B97 /* NoteType.swift in Sources */,
 				2A7B6CD12C080A900017BB5C /* StoryboardGenerated.swift in Sources */,
 				2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */,

@@ -121,6 +121,18 @@ extension CoreDataManager {
 // MARK: - Card
 
 extension CoreDataManager {
+    func getCards() -> [CDCard] {
+        let fetchReqeust: NSFetchRequest<CDCard> = CDCard.fetchRequest()
+
+        do {
+            let decks = try persistentContainer.viewContext.fetch(fetchReqeust)
+            return decks
+        } catch {
+            return []
+        }
+    }
+    
+    
     func createCard(note: CDNote) -> CDCard {
         let card = CDCard(context: persistentContainer.viewContext)
         
