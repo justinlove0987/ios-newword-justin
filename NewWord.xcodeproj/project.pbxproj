@@ -54,6 +54,7 @@
 		D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A0643E2BFC8E78001AFE08 /* PronounciationView.swift */; };
 		D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A064402BFC913C001AFE08 /* PronounciationView.xib */; };
 		D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */; };
+		D0D8D5F62C0F0920001BB415 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8D5F52C0F0920001BB415 /* String+Extension.swift */; };
 		D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC42BB66A05008644DC /* AppDelegate.swift */; };
 		D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */; };
 		D0DA5AC92BB66A05008644DC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC82BB66A05008644DC /* MainViewController.swift */; };
@@ -112,6 +113,7 @@
 		D0A0643E2BFC8E78001AFE08 /* PronounciationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PronounciationView.swift; sourceTree = "<group>"; };
 		D0A064402BFC913C001AFE08 /* PronounciationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PronounciationView.xib; sourceTree = "<group>"; };
 		D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibOwnerLoadable.swift; sourceTree = "<group>"; };
+		D0D8D5F52C0F0920001BB415 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		D0DA5AC12BB66A05008644DC /* NewWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DA5AC42BB66A05008644DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				2A7B6CD02C080A900017BB5C /* StoryboardGenerated.swift */,
 				2A7B6CD22C080B440017BB5C /* Constants.swift */,
 				2A7B6CD42C0810030017BB5C /* NotificationName+Extension.swift */,
+				D0D8D5F52C0F0920001BB415 /* String+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
 				D09262BD2C097F3D00CA90BA /* CDNoteType+Extension.swift in Sources */,
+				D0D8D5F62C0F0920001BB415 /* String+Extension.swift in Sources */,
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
 				2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */,
 				2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */,
