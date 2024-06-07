@@ -41,14 +41,14 @@ class RevisePresetViewController: UIViewController, StoryboardGenerated {
     
     private func setupTextFields() {
         guard let preset = self.deck.preset else { return }
-        let newCard = preset.newCard!
+        let startCard = preset.startCard!
         let lapses = preset.lapses!
         let master = preset.master!
         let advanced = preset.advanced!
 
-        learningStepsTextField.text =               "\(newCard.learningStpes)"
-        learningGraduatingIntervalTextField.text =  "\(newCard.graduatingInterval)"
-        easyIntervalTextField.text =                "\(newCard.easyInterval)"
+        learningStepsTextField.text =               "\(startCard.learningStpes)"
+        learningGraduatingIntervalTextField.text =  "\(startCard.graduatingInterval)"
+        easyIntervalTextField.text =                "\(startCard.easyInterval)"
         relearningStepsTextField.text =             "\(lapses.relearningSteps)"
         minumumIntervalTextField.text =             "\(lapses.minumumInterval)"
         leachThresholdTextField.text =              "\(lapses.leachThreshold)"
@@ -73,7 +73,7 @@ class RevisePresetViewController: UIViewController, StoryboardGenerated {
         let startingEase = Double(startingEaseTextField.text!)!
 
         
-        let newCard = CoreDataManager.shared.addNewCard(graduatingInterval: learningGraduatingInterval, easyInterval: easyInterval, learningStpes: learningSteps)
+        let startCard = CoreDataManager.shared.addStartCard(graduatingInterval: learningGraduatingInterval, easyInterval: easyInterval, learningStpes: learningSteps)
 
         let lapses = CoreDataManager.shared.addLapses(relearningSteps: relearningSteps, leachThreshold: leachThreshold, minumumInterval: minumumInterval)
         
@@ -82,7 +82,7 @@ class RevisePresetViewController: UIViewController, StoryboardGenerated {
         
         let advanced = CoreDataManager.shared.addAdvanced(startingEase: startingEase, easyBonus: 1.3)
         
-        deck.preset?.newCard = newCard
+        deck.preset?.startCard = startCard
         deck.preset?.lapses = lapses
         deck.preset?.master = master
         deck.preset?.advanced = advanced

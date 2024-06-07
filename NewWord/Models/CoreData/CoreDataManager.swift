@@ -35,6 +35,35 @@ class CoreDataManager {
         }
     }
 
+    func deleteAllEntities() {
+
+        let context = persistentContainer.viewContext
+        // 獲取所有實體描述
+        guard let persistentStoreCoordinator = context.persistentStoreCoordinator else { return }
+        let entities = persistentStoreCoordinator.managedObjectModel.entities
+
+        for entity in entities {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity.name!)
+            fetchRequest.includesPropertyValues = true // 我們只需要對象的引用來刪除它們
+
+            do {
+                if let objects = try context.fetch(fetchRequest) as? [NSManagedObject] {
+                    for object in objects {
+                        context.delete(object)
+                    }
+                }
+            } catch {
+                print("刪除實體 \(entity.name!) 時出錯：\(error)")
+            }
+        }
+
+        do {
+            try context.save()
+        } catch {
+            print("保存上下文時出錯：\(error)")
+        }
+    }
+
 }
 
 
@@ -244,9 +273,9 @@ extension CoreDataManager {
         // TODO: - 修改 dueDate 應該是 today 加上 computed interval
 
         guard let latestLearningRecord = lastCard.latestLearningRecord else {
-            let newCard = deck.preset!.newCard!
+            let startCard = deck.preset!.startCard!
             
-            let dueDate: Date = isAnswerCorrect ? addInterval(to: today, dayInterval: Int(newCard.easyInterval))! : addInterval(to: today, secondInterval: newCard.learningStpes)
+            let dueDate: Date = isAnswerCorrect ? addInterval(to: today, dayInterval: Int(startCard.easyInterval))! : addInterval(to: today, secondInterval: startCard.learningStpes)
             let statusRawValue = isAnswerCorrect ? CDLearningRecord.Status.correct.rawValue : CDLearningRecord.Status.incorrect.rawValue
             
             let learningRecord = createLearningRecord(dueDate: dueDate, ease: 2.5, learnedDate: today, stateRawValue: statusRawValue, statusRawValue: CDLearningRecord.State.learn.rawValue)
@@ -276,7 +305,7 @@ extension CoreDataManager {
                     dueDate = today.addingTimeInterval(newInterval)
                     newState = .review
                 case (.learn, .incorrect):
-                    let interval = deck.preset!.newCard!.graduatingInterval
+                    let interval = deck.preset!.startCard!.graduatingInterval
                     dueDate = addInterval(to: today, dayInterval: Int(interval))!
                     newState = .learn
                 case (.review, .incorrect), (.relearn, .incorrect):
@@ -326,17 +355,17 @@ extension CoreDataManager {
 
 extension CoreDataManager {
 
-    func addNewCard(graduatingInterval: Int, easyInterval: Int, learningStpes: Double) -> CDNewCard {
+    func addStartCard(graduatingInterval: Int, easyInterval: Int, learningStpes: Double) -> CDStartCard {
 
-        let newCard = CDNewCard(context: persistentContainer.viewContext)
+        let startCard = CDStartCard(context: persistentContainer.viewContext)
 
-        newCard.graduatingInterval = Int64(graduatingInterval)
-        newCard.easyInterval = Int64(easyInterval)
-        newCard.learningStpes = learningStpes
+        startCard.graduatingInterval = Int64(graduatingInterval)
+        startCard.easyInterval = Int64(easyInterval)
+        startCard.learningStpes = learningStpes
 
-        return newCard
+        return startCard
     }
-    
+
     func addLapses(relearningSteps: Double, leachThreshold: Int, minumumInterval: Int) -> CDLapses {
         let lapses = CDLapses(context: persistentContainer.viewContext)
         
@@ -369,16 +398,16 @@ extension CoreDataManager {
     func createDefaultPreset() -> CDPreset {
         let preset = CDPreset(context: persistentContainer.viewContext)
 
-        let newCard = addNewCard(graduatingInterval: 1, easyInterval: 3, learningStpes: 1)
+        let startCard = addStartCard(graduatingInterval: 1, easyInterval: 3, learningStpes: 1)
         let lapses = addLapses(relearningSteps: 1, leachThreshold: 2, minumumInterval: 1)
         let advanced = addAdvanced(startingEase: 2.5, easyBonus: 1.3)
         let master = addMaster(graduatingInterval: 730, consecutiveCorrects: 5)
         
-        preset.newCard = newCard
+        preset.startCard = startCard
         preset.lapses = lapses
         preset.advanced = advanced
         preset.master = master
-        
+
         return preset
     }
 }

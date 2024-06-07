@@ -38,12 +38,6 @@
         <attribute name="graduatingInterval" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="preset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPreset" inverseName="master" inverseEntity="CDPreset"/>
     </entity>
-    <entity name="CDNewCard" representedClassName="CDNewCard" syncable="YES" codeGenerationType="class">
-        <attribute name="easyInterval" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="graduatingInterval" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="learningStpes" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="preset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPreset" inverseName="newCard" inverseEntity="CDPreset"/>
-    </entity>
     <entity name="CDNote" representedClassName="CDNote" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="String"/>
         <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCard" inverseName="note" inverseEntity="CDCard"/>
@@ -59,7 +53,7 @@
         <relationship name="deck" maxCount="1" deletionRule="Nullify" destinationEntity="CDDeck" inverseName="preset" inverseEntity="CDDeck"/>
         <relationship name="lapses" maxCount="1" deletionRule="Nullify" destinationEntity="CDLapses" inverseName="preset" inverseEntity="CDLapses"/>
         <relationship name="master" maxCount="1" deletionRule="Nullify" destinationEntity="CDMaster" inverseName="preset" inverseEntity="CDMaster"/>
-        <relationship name="newCard" maxCount="1" deletionRule="Nullify" destinationEntity="CDNewCard" inverseName="preset" inverseEntity="CDNewCard"/>
+        <relationship name="startCard" maxCount="1" deletionRule="Nullify" destinationEntity="CDStartCard" inverseName="preset" inverseEntity="CDStartCard"/>
     </entity>
     <entity name="CDSentence" representedClassName="CDSentence" syncable="YES" codeGenerationType="class">
         <relationship name="sentenceCloze" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentenceCloze" inverseName="sentence" inverseEntity="CDSentenceCloze"/>
@@ -69,6 +63,12 @@
         <relationship name="clozeWord" maxCount="1" deletionRule="Nullify" destinationEntity="CDWord" inverseName="sentenceCloze" inverseEntity="CDWord"/>
         <relationship name="noteType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNoteType" inverseName="sentenceCloze" inverseEntity="CDNoteType"/>
         <relationship name="sentence" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentence" inverseName="sentenceCloze" inverseEntity="CDSentence"/>
+    </entity>
+    <entity name="CDStartCard" representedClassName="CDStartCard" syncable="YES" codeGenerationType="class">
+        <attribute name="easyInterval" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="graduatingInterval" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="learningStpes" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="preset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPreset" inverseName="startCard" inverseEntity="CDPreset"/>
     </entity>
     <entity name="CDWord" representedClassName="CDWord" syncable="YES" codeGenerationType="category">
         <attribute name="chinese" attributeType="String"/>
