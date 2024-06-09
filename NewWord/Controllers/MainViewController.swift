@@ -26,6 +26,7 @@ class MainViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         
         setupViewControllers()
+        
     }
     
     override func viewDidLayoutSubviews() {

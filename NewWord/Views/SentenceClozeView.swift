@@ -91,7 +91,6 @@ extension SentenceClozeView: CustomCellDelegate {
     }
 
     func answerCorrect() {
-        // let learningRecord = viewModel.createLearningRecord(isAnswerCorrect: true)
     }
 }
 

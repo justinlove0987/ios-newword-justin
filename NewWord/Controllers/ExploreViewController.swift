@@ -47,6 +47,9 @@ class ExploreViewController: UIViewController {
                 break
             case .prononciation:
                 break
+            case .cloze:
+                guard let cloze = itemIdentifier.noteType?.cloze else { fatalError() }
+                config.text = cloze.id
             default:
                 break
             }
@@ -60,7 +63,8 @@ class ExploreViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Int, CDNote>()
         NoteManager.shared.addFakeNotes()
         
-        let notes = CoreDataManager.shared.createFakeNote()
+//        let notes = CoreDataManager.shared.creaetFakeSentenceCloze()
+        let notes = CoreDataManager.shared.createFakeCloze()
 
         snapshot.appendSections([0])
         snapshot.appendItems(notes, toSection: 0)
@@ -81,8 +85,6 @@ extension ExploreViewController: UITableViewDelegate {
 
         snapshot.deleteItems([note])
         dataSource.apply(snapshot, animatingDifferences: true)
-        
-        print(currentDeck)
 
         CoreDataManager.shared.addCard(to: currentDeck, with: note)
     }

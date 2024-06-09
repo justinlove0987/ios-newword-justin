@@ -175,6 +175,9 @@ class ShowCardsViewControllerViewModel {
             subview = SentenceClozeView(viewModel: viewModel, card: card)
         case .prononciation:
             subview = PronounciationView()
+        case .cloze:
+            let viewModel = ClozeViewViewModel(card: card)
+            subview = ClozeView(card: card, viewModel: viewModel)
         default:
             subview = NoCardView()
         }

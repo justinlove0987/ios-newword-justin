@@ -31,7 +31,6 @@ struct SentenceClozeViewModel {
         }
     }
     
-    var cards: [CDCard] = []
     var card: CDCard
     
     var numberOfRowsInSection: Int = 0

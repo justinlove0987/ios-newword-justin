@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A17DAF62C1579D700919642 /* ClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A17DAF52C1579D700919642 /* ClozeView.xib */; };
+		2A17DAF82C1579E400919642 /* ClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A17DAF72C1579E400919642 /* ClozeView.swift */; };
+		2A17DAFA2C157C7F00919642 /* ClozeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A17DAF92C157C7F00919642 /* ClozeViewViewModel.swift */; };
+		2A17DAFC2C158C3B00919642 /* InputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A17DAFB2C158C3B00919642 /* InputAccessoryView.xib */; };
+		2A17DAFE2C158C5A00919642 /* InputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A17DAFD2C158C5A00919642 /* InputAccessoryView.swift */; };
 		2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A18E7B32BE74008005139C8 /* DeckCell.swift */; };
 		2A2176852C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */; };
 		2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */; };
@@ -67,6 +72,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A17DAF52C1579D700919642 /* ClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClozeView.xib; sourceTree = "<group>"; };
+		2A17DAF72C1579E400919642 /* ClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClozeView.swift; sourceTree = "<group>"; };
+		2A17DAF92C157C7F00919642 /* ClozeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClozeViewViewModel.swift; sourceTree = "<group>"; };
+		2A17DAFB2C158C3B00919642 /* InputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputAccessoryView.xib; sourceTree = "<group>"; };
+		2A17DAFD2C158C5A00919642 /* InputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAccessoryView.swift; sourceTree = "<group>"; };
 		2A18E7B32BE74008005139C8 /* DeckCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckCell.swift; sourceTree = "<group>"; };
 		2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +165,7 @@
 			children = (
 				D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */,
 				2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */,
+				2A17DAF92C157C7F00919642 /* ClozeViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -174,6 +185,10 @@
 				D00A72EE2BFDEC5A0064F325 /* NoCardView.xib */,
 				2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */,
 				2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */,
+				2A17DAF72C1579E400919642 /* ClozeView.swift */,
+				2A17DAF52C1579D700919642 /* ClozeView.xib */,
+				2A17DAFD2C158C5A00919642 /* InputAccessoryView.swift */,
+				2A17DAFB2C158C3B00919642 /* InputAccessoryView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -335,10 +350,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */,
+				2A17DAF62C1579D700919642 /* ClozeView.xib in Resources */,
 				2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */,
 				2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */,
 				D0DA5AD12BB66A07008644DC /* Base in Resources */,
 				2AE025F82BF49C6F006EC021 /* notes.json in Resources */,
+				2A17DAFC2C158C3B00919642 /* InputAccessoryView.xib in Resources */,
 				D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */,
 				D00A72EF2BFDEC5A0064F325 /* NoCardView.xib in Resources */,
 				D0DA5ACC2BB66A05008644DC /* Base in Resources */,
@@ -378,6 +395,7 @@
 				D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */,
 				2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */,
 				2AE025FA2BF4AB60006EC021 /* DataManager.swift in Sources */,
+				2A17DAFA2C157C7F00919642 /* ClozeViewViewModel.swift in Sources */,
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
 				D09262C32C098A4400CA90BA /* CDLapses+Extension.swift in Sources */,
 				D078D0982BC9242900F601B2 /* Note.swift in Sources */,
@@ -393,9 +411,11 @@
 				D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */,
 				D09262C12C09808400CA90BA /* CDCard+Extension.swift in Sources */,
 				D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */,
+				2A17DAFE2C158C5A00919642 /* InputAccessoryView.swift in Sources */,
 				2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
+				2A17DAF82C1579E400919642 /* ClozeView.swift in Sources */,
 				D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */,
 				2AE025F42BF49686006EC021 /* CardManager.swift in Sources */,
 				D09262BA2C097ECD00CA90BA /* CoreDataManager.swift in Sources */,

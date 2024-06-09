@@ -120,6 +120,10 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
        updateDataSource()
     }
     
+    @IBAction func deleteAllEntities(_ sender: UIButton) {
+        CoreDataManager.shared.deleteAllEntities()
+        tableView.reloadData()
+    }
     
 }
 

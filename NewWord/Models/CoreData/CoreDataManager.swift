@@ -249,7 +249,7 @@ extension CoreDataManager {
         return note
     }
 
-    func createFakeNote() -> [CDNote] {
+    func creaetFakeSentenceCloze() -> [CDNote] {
         let sentences = [
             ["Life", "is", "like", "riding", "a", "bicycle", ".", "To", "keep", "your", "balance", ",", "you", "must", "keep", "moving", "."],
             ["Genius", "is", "one", "percent", "inspiration", "and", "ninety-nine", "percent", "perspiration", "."]
@@ -266,6 +266,23 @@ extension CoreDataManager {
 
         let note = CoreDataManager.shared.createNote(noteType: noteType)
 
+        return [note]
+    }
+    
+    func createFakeCloze() -> [CDNote] {
+        let contextText = createContextText()
+        let cloze = createCloze()
+        
+        contextText.text = "Life is like riding a {{C\(cloze.id!):bicycle}}. To keep your balance, you must keep moving."
+        
+        cloze.contextTextId = contextText.id
+        cloze.contextText = contextText
+        
+        let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: 1)
+        noteType.cloze = cloze
+
+        let note = CoreDataManager.shared.createNote(noteType: noteType)
+        
         return [note]
     }
 }
@@ -476,8 +493,6 @@ extension CoreDataManager {
         return sentence
     }
 
-
-
     func words(from sentence: CDSentence) -> [CDWord] {
         let request: NSFetchRequest<CDWord> = CDWord.fetchRequest()
         request.predicate = NSPredicate(format: "sentence = %@", sentence)
@@ -512,6 +527,26 @@ extension CoreDataManager {
         }
 
         return cdWords
+    }
+}
+
+// MARK: - Cloze
+
+extension CoreDataManager {
+    func createCloze() -> CDCloze {
+        let cloze = CDCloze(context: persistentContainer.viewContext)
+        
+        cloze.id = UUID().uuidString
+        
+        return cloze
+    }
+    
+    func createContextText() -> CDClozeContext {
+        let context = CDClozeContext(context: persistentContainer.viewContext)
+        
+        context.id = UUID().uuidString
+        
+        return context
     }
 }
 

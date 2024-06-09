@@ -17,6 +17,7 @@ extension CDNoteType {
     enum Content {
         case sentenceCloze(CDSentenceCloze)
         case prononciation
+        case cloze
 
         enum CodingKeys: String, CodingKey {
             case sentenceCloze
@@ -28,6 +29,8 @@ extension CDNoteType {
         switch rawValue {
         case 0:
             return .sentenceCloze(sentenceCloze!)
+        case 1:
+            return .cloze
         default:
             return nil
         }

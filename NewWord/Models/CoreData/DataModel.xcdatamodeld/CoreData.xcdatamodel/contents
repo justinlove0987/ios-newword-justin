@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="CDAdvanced" representedClassName="CDAdvanced" syncable="YES" codeGenerationType="class">
         <attribute name="easyBonus" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="startingEase" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -11,6 +11,17 @@
         <relationship name="deck" maxCount="1" deletionRule="Nullify" destinationEntity="CDDeck" inverseName="cards" inverseEntity="CDDeck"/>
         <relationship name="learningRecords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDLearningRecord" inverseName="card" inverseEntity="CDLearningRecord"/>
         <relationship name="note" maxCount="1" deletionRule="Nullify" destinationEntity="CDNote" inverseName="card" inverseEntity="CDNote"/>
+    </entity>
+    <entity name="CDCloze" representedClassName="CDCloze" syncable="YES" codeGenerationType="class">
+        <attribute name="contextTextId" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <relationship name="contextText" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDClozeContext" inverseName="cloze" inverseEntity="CDClozeContext"/>
+        <relationship name="noteType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNoteType" inverseName="cloze" inverseEntity="CDNoteType"/>
+    </entity>
+    <entity name="CDClozeContext" representedClassName="CDClozeContext" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+        <relationship name="cloze" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDCloze" inverseName="contextText" inverseEntity="CDCloze"/>
     </entity>
     <entity name="CDDeck" representedClassName="CDDeck" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="String"/>
@@ -45,6 +56,7 @@
     </entity>
     <entity name="CDNoteType" representedClassName="CDNoteType" syncable="YES" codeGenerationType="category">
         <attribute name="rawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="cloze" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCloze" inverseName="noteType" inverseEntity="CDCloze"/>
         <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNote" inverseName="noteType" inverseEntity="CDNote"/>
         <relationship name="sentenceCloze" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentenceCloze" inverseName="noteType" inverseEntity="CDSentenceCloze"/>
     </entity>

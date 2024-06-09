@@ -151,6 +151,14 @@
                                     <action selector="addClozeAction:" destination="q0q-gF-HWm" eventType="touchUpInside" id="GM8-I7-bkg"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xWv-Wg-tyK">
+                                <rect key="frame" x="55.333333333333343" y="763.66666666666663" width="75" height="34.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Button"/>
+                                <connections>
+                                    <action selector="deleteAllEntities:" destination="q0q-gF-HWm" eventType="touchUpInside" id="aw6-sn-d7N"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qT2-jy-IAt"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -158,6 +166,8 @@
                             <constraint firstItem="NZU-q5-NZz" firstAttribute="width" secondItem="1TZ-B0-l4z" secondAttribute="width" multiplier="0.9" id="3kp-lV-1pG"/>
                             <constraint firstItem="yo1-Xi-2Bs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qT2-jy-IAt" secondAttribute="leading" symbolic="YES" id="5Wa-hX-ypW"/>
                             <constraint firstItem="yo1-Xi-2Bs" firstAttribute="leading" secondItem="cbz-OJ-oNV" secondAttribute="trailing" constant="20" id="Art-vt-afg"/>
+                            <constraint firstItem="cbz-OJ-oNV" firstAttribute="leading" secondItem="xWv-Wg-tyK" secondAttribute="trailing" constant="12" id="BVu-qy-UOa"/>
+                            <constraint firstItem="xWv-Wg-tyK" firstAttribute="centerY" secondItem="cbz-OJ-oNV" secondAttribute="centerY" id="IYT-Vg-cZ0"/>
                             <constraint firstItem="NZU-q5-NZz" firstAttribute="top" secondItem="qT2-jy-IAt" secondAttribute="top" id="KEV-Nc-bj0"/>
                             <constraint firstItem="qT2-jy-IAt" firstAttribute="trailing" secondItem="yo1-Xi-2Bs" secondAttribute="trailing" constant="20" id="VTf-u9-ycU"/>
                             <constraint firstItem="yo1-Xi-2Bs" firstAttribute="top" secondItem="ceV-BR-XvJ" secondAttribute="bottom" constant="20" id="Xm9-a3-nAF"/>
@@ -934,14 +944,14 @@ As GPT-4o becomes more accessible, it is essential for individuals and professio
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchCell" id="SmP-Rv-EfC" customClass="SearchCell" customModule="NewWord" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="53.333332061767578"/>
+                                        <rect key="frame" x="0.0" y="50" width="393" height="52.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SmP-Rv-EfC" id="o7v-7g-vaC">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="53.333332061767578"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="52.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7S-8H-M8e">
-                                                    <rect key="frame" x="40" y="15.999999999999998" width="42" height="21.333333333333329"/>
+                                                    <rect key="frame" x="40" y="16" width="42" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1060,10 +1070,10 @@ As GPT-4o becomes more accessible, it is essential for individuals and professio
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemCyanColor">
-            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
