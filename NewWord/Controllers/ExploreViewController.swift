@@ -22,7 +22,21 @@ class ExploreViewController: UIViewController {
         setupTableView()
         setupDataSouce()
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        let notes = CoreDataManager.shared.createFakeCloze()
+
+        var snapshot = dataSource.snapshot()
+
+        snapshot.appendItems(notes, toSection: 0)
+
+        dataSource.apply(snapshot)
+
+        tableView.reloadData()
+    }
+
     private func setupDeck() {
         currentDeck = CoreDataManager.shared.getDecks().first!
         deckLabel.text = currentDeck!.name

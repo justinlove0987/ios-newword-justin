@@ -7,10 +7,7 @@
 
 import UIKit
 
-class ClozeView: UIView, NibOwnerLoadable, ContextRevisionInputAccessoryViewDelegate, UITextFieldDelegate {
-    func didTapCleanChineseButton() {
-        
-    }
+class ClozeView: UIView, NibOwnerLoadable {
     
     enum CardStateType: Int, CaseIterable {
         case question
@@ -19,9 +16,7 @@ class ClozeView: UIView, NibOwnerLoadable, ContextRevisionInputAccessoryViewDele
     
     var currentState: CardStateType = .question
 
-//    private let inputAccossoryView = InputAccessoryView()
-
-    @IBOutlet weak var inputAccossoryView: InputAccessoryView!
+    @IBOutlet weak var customInputView: InputAccessoryView!
     @IBOutlet weak var contextTextTextView: UITextView!
     
     private var card: CDCard?
@@ -54,97 +49,97 @@ class ClozeView: UIView, NibOwnerLoadable, ContextRevisionInputAccessoryViewDele
     }
 
     deinit {
-        contextTextTextView.resignFirstResponder()
+        customInputView.textField.resignFirstResponder()
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     func setup() {
         contextTextTextView.text = viewModel?.getContextText()
-
-        addSubview(inputAccossoryView)
-        inputAccossoryView.translatesAutoresizingMaskIntoConstraints = false
-
+        addSubview(customInputView)
+        customInputView.translatesAutoresizingMaskIntoConstraints = false
         setupKeyboardHiding()
+
+        customInputView.textField.delegate = self
     }
 
-    func setupAfterViewInHierarchy() {
-        inputViewTopAnchor = inputAccossoryView.topAnchor.constraint(equalTo: topAnchor, constant: frame.height)
+    func setupAfterSubviewInHierarchy() {
+        guard let superview = superview else { return }
+
+        inputViewTopAnchor = customInputView.topAnchor.constraint(equalTo: topAnchor, constant: self.frame.maxY - self.customInputView.frame.height - superview.safeAreaInsets.top)
 
         NSLayoutConstraint.activate([
-            inputAccossoryView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            inputAccossoryView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            inputAccossoryView.heightAnchor.constraint(equalToConstant: 50),
+            customInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            customInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            customInputView.heightAnchor.constraint(equalToConstant: 50),
             inputViewTopAnchor
         ])
         
         layoutIfNeeded()
 
-        inputAccossoryView.textField.becomeFirstResponder()
+        customInputView.textField.becomeFirstResponder()
     }
 
     private func setupKeyboardHiding() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-
     }
 
     @objc func keyboardWillShow(sender: NSNotification) {
+        
         guard let userInfo = sender.userInfo,
               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-              let superview = superview else { return }
-
-        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
-        let safeAreaTop: CGFloat = superview.safeAreaInsets.top
-        let newConstant = keyboardTopY - (safeAreaTop + inputAccossoryView.bounds.height)
-
-
-        let animationDuration = sender.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
-        let animationCurve = sender.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
-        guard let duration = animationDuration,
-                let curve = animationCurve else {
+              let superview = superview,
+              let duration = sender.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+              let curve = sender.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else {
             return
         }
 
+        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
+        let safeAreaTop: CGFloat = superview.safeAreaInsets.top
+        let endConstant = keyboardTopY - (safeAreaTop + customInputView.bounds.height)
         let curveAnimationOption = UIView.AnimationOptions(rawValue: curve.uintValue)
 
-        UIView.animate(withDuration: duration, delay: 0.0, options: curveAnimationOption, animations: {
-            self.inputViewTopAnchor.constant = newConstant
-            self.inputAccossoryView.transform = .identity
+        self.inputViewTopAnchor.constant = endConstant
 
-        }, completion: { completed in
-
-        })
-
+        UIView.animate(withDuration: duration, delay: 0.0, options: curveAnimationOption) {
+            self.customInputView.transform = .identity
+        }
 
         layoutIfNeeded()
-
-
     }
 
-
-
     @objc func keyboardWillHide(notification: NSNotification) {
-        let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
-        let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
-        guard let duration = animationDuration, 
-                let curve = animationCurve,
+        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+                let curve = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber,
                 let superview = superview else {
             return
         }
 
         let curveAnimationOption = UIView.AnimationOptions(rawValue: curve.uintValue)
 
+        self.inputViewTopAnchor.constant = self.frame.maxY - self.customInputView.frame.height - superview.safeAreaInsets.top
+
         UIView.animate(withDuration: duration, delay: 0.0, options: curveAnimationOption, animations: {
-            self.inputViewTopAnchor.constant = self.frame.maxY - self.inputAccossoryView.frame.height - superview.safeAreaInsets.top
-            self.inputAccossoryView.transform = .identity
+            self.customInputView.transform = .identity
 
         }, completion: { completed in
 
         })
 
-        self.layoutIfNeeded()
+        layoutIfNeeded()
     }
 }
 
 extension ClozeView: ShowCardsSubviewDelegate {}
+
+extension ClozeView: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+
+        return true
+    }
+
+}

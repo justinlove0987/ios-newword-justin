@@ -11,12 +11,12 @@ protocol ShowCardsSubviewDelegate: UIView {
     associatedtype CardStateType: RawRepresentable & CaseIterable where CardStateType.RawValue == Int
 
     var currentState: CardStateType { get set }
-    
+
     func hasNextState() -> Bool
     
     func nextState()
 
-    func setupAfterViewInHierarchy()
+    func setupAfterSubviewInHierarchy()
 }
 
 extension ShowCardsSubviewDelegate {
@@ -39,7 +39,7 @@ extension ShowCardsSubviewDelegate {
         currentState = nextState
     }
 
-    func setupAfterViewInHierarchy() {}
+    func setupAfterSubviewInHierarchy() {}
 }
 
 class ShowCardsViewController: UIViewController {
@@ -62,10 +62,14 @@ class ShowCardsViewController: UIViewController {
 
     private var lastShowingSubview: any ShowCardsSubviewDelegate = NoCardView() {
         willSet {
+
+            if let oldClozeView = lastShowingSubview as? ClozeView {
+                oldClozeView.customInputView.textField.resignFirstResponder()
+            }
+
             lastShowingSubview.removeFromSuperview()
 
             self.view.addSubview(newValue)
-            
             newValue.translatesAutoresizingMaskIntoConstraints = false
 
             NSLayoutConstraint.activate([
@@ -75,18 +79,11 @@ class ShowCardsViewController: UIViewController {
                 newValue.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
             ])
 
-            newValue.layoutIfNeeded()
+            view.layoutIfNeeded()
 
-            newValue.setupAfterViewInHierarchy()
+            newValue.setupAfterSubviewInHierarchy()
         }
 
-        didSet {
-
-            oldValue.becomeFirstResponder()
-//            if let clozeView = oldValue as? ClozeView {
-//                clozeView.inputAccossoryView.textField.becomeFirstResponder()
-//            }
-        }
     }
 
     // MARK: - Lifecycles
