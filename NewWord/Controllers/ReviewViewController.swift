@@ -22,10 +22,15 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
         super.viewDidLoad()
         setup()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateDataSource()
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        updateDataSource()
+//        updateDataSource()
     }
 
     // MARK: - Helpers
@@ -38,9 +43,16 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
     private func setupDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             let cell = tableView.dequeueReusableCell(withIdentifier: DeckCell.reuseIdentifier, for: indexPath) as! DeckCell
+            
+            let newCards = CoreDataManager.shared.getNewCards(from: itemIdentifier)
+            let relearnCards = CoreDataManager.shared.getRelearnCards(from: itemIdentifier)
+            let reviewCards = CoreDataManager.shared.getReviewCards(from: itemIdentifier)
 
             cell.deck = itemIdentifier
             cell.nameLabel.text = itemIdentifier.name
+            cell.newLabel.text = "\(newCards.count)"
+            cell.relearnLabel.text = "\(relearnCards.count)"
+            cell.reviewLabel.text = "\(reviewCards.count)"
 
             cell.settingAction = {
                 let vc = ReviseDeckViewController.instantiate()

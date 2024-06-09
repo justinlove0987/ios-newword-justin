@@ -89,6 +89,43 @@ extension CoreDataManager {
         save()
     }
     
+    func getNewCards(from deck: CDDeck) -> [CDCard] {
+        let cards = cards(from: deck)
+        
+        let newCards = cards.filter { card in
+            let learningRecords = CoreDataManager.shared.learningRecords(from: card)
+            return learningRecords.isEmpty
+        }
+        
+        return newCards
+    }
+    
+    func getReviewCards(from deck: CDDeck) -> [CDCard] {
+        let cards = cards(from: deck)
+        
+        let reviewCards = cards.filter { card in
+            guard let review = card.latestLearningRecord else { return false }
+            return (review.dueDate! <= Date() &&
+                    review.status == .correct &&
+                    (review.state == .learn || review.state == .review))
+        }
+        
+        return reviewCards
+    }
+    
+    func getRelearnCards(from deck: CDDeck) -> [CDCard] {
+        let cards = cards(from: deck)
+        
+        let relearnCards = cards.filter { card in
+            guard let review = card.latestLearningRecord else { return false }
+            return (review.dueDate! <= Date() &&
+                    review.status == .incorrect &&
+                    (review.state == .relearn || review.state == .learn))
+        }
+        
+        return relearnCards
+    }
+    
     @discardableResult
     func addDeck(name: String) -> CDDeck {
         let deck = CDDeck(context: persistentContainer.viewContext)

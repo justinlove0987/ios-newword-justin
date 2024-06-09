@@ -62,9 +62,6 @@ class ShowCardsViewControllerViewModel {
                     review.status == .incorrect &&
                     (review.state == .relearn || review.state == .learn))
         }
-        
-//        let card = Card(id: "1", note: Note(id: "1", noteType: .prononciation), learningRecords: [])
-//        newCards.insert(card, at: 0)
     }
     
     func nextCard() -> CDCard? {

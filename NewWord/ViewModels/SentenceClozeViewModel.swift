@@ -123,11 +123,4 @@ struct SentenceClozeViewModel {
         
         return alertController
     }
-    
-//    func createLearningRecord(isAnswerCorrect: Bool) -> LearningRecord {
-//        let card = getCurrentCard()
-//        let deck = Deck.createFakeDeck()
-//        
-//        return LearningRecord.createLearningRecord(lastCard: card, deck: deck, isAnswerCorrect: isAnswerCorrect)
-//    }
 }

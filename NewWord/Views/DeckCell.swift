@@ -11,6 +11,10 @@ class DeckCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     
+    @IBOutlet weak var newLabel: UILabel!
+    @IBOutlet weak var relearnLabel: UILabel!
+    @IBOutlet weak var reviewLabel: UILabel!
+    
     var deck: CDDeck?
     
     var settingAction: (() -> ())?
