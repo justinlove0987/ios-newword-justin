@@ -18,111 +18,133 @@ class ClozeView: UIView, NibOwnerLoadable, ContextRevisionInputAccessoryViewDele
     }
     
     var currentState: CardStateType = .question
-    
-    private let dummyTextField = UITextField()
+
 //    private let inputAccossoryView = InputAccessoryView()
-    
+
+    @IBOutlet weak var inputAccossoryView: InputAccessoryView!
     @IBOutlet weak var contextTextTextView: UITextView!
     
     private var card: CDCard?
     private var viewModel: ClozeViewViewModel?
-    
+
+    var inputViewTopAnchor: NSLayoutConstraint!
+
     init(card: CDCard, viewModel: ClozeViewViewModel) {
         super.init(frame: .zero)
         commonInit()
         self.card = card
         self.viewModel = viewModel
         setup()
-        
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
+        setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
+        setup()
     }
 
     private func commonInit() {
         loadNibContent()
     }
-    
-    private func setup() {
+
+    deinit {
+        contextTextTextView.resignFirstResponder()
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    func setup() {
         contextTextTextView.text = viewModel?.getContextText()
+
+        addSubview(inputAccossoryView)
+        inputAccossoryView.translatesAutoresizingMaskIntoConstraints = false
+
+        setupKeyboardHiding()
+    }
+
+    func setupAfterViewInHierarchy() {
+        inputViewTopAnchor = inputAccossoryView.topAnchor.constraint(equalTo: topAnchor, constant: frame.height)
+
+        NSLayoutConstraint.activate([
+            inputAccossoryView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            inputAccossoryView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            inputAccossoryView.heightAnchor.constraint(equalToConstant: 50),
+            inputViewTopAnchor
+        ])
         
-//        let view = InputAccessoryView()
-//        
-//        addSubview(<#T##view: UIView##UIView#>)
-//        view.frame = CGRect(x: 0, y: 0, width: 0, height: 50)
-        
-//        dummyTextField.inputView = view
-//        dummyTextField.becomeFirstResponder()
-        
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(keyboardWillShow(notification:)),
-//                                               name: UIResponder.keyboardWillShowNotification,
-//                                               object: nil)
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(keyboardWillHide(notification:)),
-//                                               name: UIResponder.keyboardWillHideNotification,
-//                                               object: nil)
-        
-        
-        
-//        addSubview(dummyTextField)
-        
-        
-//        contextTextTextView.inputView = view
-//        view.frame = CGRect(x: 0, y: 0, width: 0, height: 50)
-        let view = InputAccessoryView()
-        addSubview(dummyTextField)
-        view.frame = CGRect(x: 0, y: 0, width: 0, height: 50)
-//        view.delegate = self
-        dummyTextField.inputAccessoryView = view
-        dummyTextField.becomeFirstResponder()
-        view.becomeFirstResponder()
+        layoutIfNeeded()
+
+        inputAccossoryView.textField.becomeFirstResponder()
+    }
+
+    private func setupKeyboardHiding() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
     }
-    
-    private lazy var accessoryTextField: UITextField = {
-            let textField = UITextField()
-            textField.borderStyle = .roundedRect
-            textField.backgroundColor = .clear
-            textField.returnKeyType = .done
-            textField.delegate = self
-            textField.autocorrectionType = .no
-            textField.spellCheckingType = .no
-            textField.translatesAutoresizingMaskIntoConstraints = false
-            textField.layer.borderColor = UIColor.black.cgColor
-            return textField
-        }()
 
-    func createAccessoryInputView(_ accessoryTextField: UITextField) -> UIView {
-            let containerView = UIView()
-            containerView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 70)
-            containerView.addSubview(accessoryTextField)
-            NSLayoutConstraint.activate([
-                accessoryTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-                accessoryTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
-                accessoryTextField.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
-                accessoryTextField.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -8),
-            ])
-            containerView.translatesAutoresizingMaskIntoConstraints = false
-            containerView.backgroundColor = .white
-            return containerView
+    @objc func keyboardWillShow(sender: NSNotification) {
+        guard let userInfo = sender.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+              let superview = superview else { return }
+
+        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
+        let safeAreaTop: CGFloat = superview.safeAreaInsets.top
+        let newConstant = keyboardTopY - (safeAreaTop + inputAccossoryView.bounds.height)
+
+
+        let animationDuration = sender.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
+        let animationCurve = sender.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
+        guard let duration = animationDuration,
+                let curve = animationCurve else {
+            return
         }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-           
-//        inputAccossoryView.textField.becomeFirstResponder()
-       }
-    
+
+        let curveAnimationOption = UIView.AnimationOptions(rawValue: curve.uintValue)
+
+        UIView.animate(withDuration: duration, delay: 0.0, options: curveAnimationOption, animations: {
+            self.inputViewTopAnchor.constant = newConstant
+            self.inputAccossoryView.transform = .identity
+
+        }, completion: { completed in
+
+        })
+
+
+        layoutIfNeeded()
+
+
+    }
+
+
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
+        let animationCurve = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber
+        guard let duration = animationDuration, 
+                let curve = animationCurve,
+                let superview = superview else {
+            return
+        }
+
+        let curveAnimationOption = UIView.AnimationOptions(rawValue: curve.uintValue)
+
+        UIView.animate(withDuration: duration, delay: 0.0, options: curveAnimationOption, animations: {
+            self.inputViewTopAnchor.constant = self.frame.maxY - self.inputAccossoryView.frame.height - superview.safeAreaInsets.top
+            self.inputAccossoryView.transform = .identity
+
+        }, completion: { completed in
+
+        })
+
+        self.layoutIfNeeded()
+    }
 }
 
-extension ClozeView: ShowCardsSubviewDelegate {
-
-    
-}
+extension ClozeView: ShowCardsSubviewDelegate {}

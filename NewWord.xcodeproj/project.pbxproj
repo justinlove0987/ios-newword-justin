@@ -51,6 +51,7 @@
 		D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB75B2BB66EEF009E3A41 /* Card.swift */; };
 		D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */; };
 		D078D0982BC9242900F601B2 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D078D0972BC9242900F601B2 /* Note.swift */; };
+		D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */; };
 		D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */; };
 		D09262BA2C097ECD00CA90BA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262B92C097ECD00CA90BA /* CoreDataManager.swift */; };
 		D09262BD2C097F3D00CA90BA /* CDNoteType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262BC2C097F3D00CA90BA /* CDNoteType+Extension.swift */; };
@@ -116,6 +117,7 @@
 		D04EB75B2BB66EEF009E3A41 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewController.swift; sourceTree = "<group>"; };
 		D078D0972BC9242900F601B2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
 		D09262B72C097D2400CA90BA /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		D09262B92C097ECD00CA90BA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		D09262BC2C097F3D00CA90BA /* CDNoteType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDNoteType+Extension.swift"; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				2A7B6CD22C080B440017BB5C /* Constants.swift */,
 				2A7B6CD42C0810030017BB5C /* NotificationName+Extension.swift */,
 				D0D8D5F52C0F0920001BB415 /* String+Extension.swift */,
+				D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */,
 				D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */,
 				2A2176852C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift in Sources */,
+				D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */,
 				D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */,
 				D09262C12C09808400CA90BA /* CDCard+Extension.swift in Sources */,
 				D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */,

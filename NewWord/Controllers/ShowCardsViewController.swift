@@ -15,6 +15,8 @@ protocol ShowCardsSubviewDelegate: UIView {
     func hasNextState() -> Bool
     
     func nextState()
+
+    func setupAfterViewInHierarchy()
 }
 
 extension ShowCardsSubviewDelegate {
@@ -36,6 +38,8 @@ extension ShowCardsSubviewDelegate {
         
         currentState = nextState
     }
+
+    func setupAfterViewInHierarchy() {}
 }
 
 class ShowCardsViewController: UIViewController {
@@ -59,18 +63,29 @@ class ShowCardsViewController: UIViewController {
     private var lastShowingSubview: any ShowCardsSubviewDelegate = NoCardView() {
         willSet {
             lastShowingSubview.removeFromSuperview()
+
+            self.view.addSubview(newValue)
+            
+            newValue.translatesAutoresizingMaskIntoConstraints = false
+
+            NSLayoutConstraint.activate([
+                newValue.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+                newValue.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+                newValue.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+                newValue.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+            ])
+
+            newValue.layoutIfNeeded()
+
+            newValue.setupAfterViewInHierarchy()
         }
 
         didSet {
-            self.view.addSubview(lastShowingSubview)
-            lastShowingSubview.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                lastShowingSubview.topAnchor.constraint(equalTo: contentView.topAnchor),
-                lastShowingSubview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                lastShowingSubview.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                lastShowingSubview.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            ])
+
+            oldValue.becomeFirstResponder()
+//            if let clozeView = oldValue as? ClozeView {
+//                clozeView.inputAccossoryView.textField.becomeFirstResponder()
+//            }
         }
     }
 
@@ -98,7 +113,7 @@ class ShowCardsViewController: UIViewController {
         viewModel.deck = deck
         viewModel.setupCards()
         lastShowingSubview = viewModel.getCurrentSubview()
-        
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         view.addGestureRecognizer(tap)
     }
@@ -117,7 +132,7 @@ class ShowCardsViewController: UIViewController {
                 lastShowingSubview = NoCardView()
                 return
             }
-            
+
             lastShowingSubview = viewModel.getCurrentSubview()
         }
     }
@@ -138,6 +153,9 @@ class ShowCardsViewController: UIViewController {
         let midX = view.bounds.midX
         return point.x > midX
     }
+
+
+
 }
 
 
