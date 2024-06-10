@@ -332,7 +332,7 @@ extension CoreDataManager {
             let dueDate: Date = isAnswerCorrect ? addInterval(to: today, dayInterval: Int(startCard.easyInterval))! : addInterval(to: today, secondInterval: startCard.learningStpes)
             let statusRawValue = isAnswerCorrect ? CDLearningRecord.Status.correct.rawValue : CDLearningRecord.Status.incorrect.rawValue
             
-            let learningRecord = createLearningRecord(dueDate: dueDate, ease: 2.5, learnedDate: today, stateRawValue: statusRawValue, statusRawValue: CDLearningRecord.State.learn.rawValue)
+            let learningRecord = createLearningRecord(dueDate: dueDate, ease: 2.5, learnedDate: today, stateRawValue: CDLearningRecord.State.learn.rawValue, statusRawValue: statusRawValue)
             
             return learningRecord
         }

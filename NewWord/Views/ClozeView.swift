@@ -86,7 +86,6 @@ class ClozeView: UIView, NibOwnerLoadable {
     }
 
     @objc func keyboardWillShow(sender: NSNotification) {
-        
         guard let userInfo = sender.userInfo,
               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
               let superview = superview,

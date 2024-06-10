@@ -14,12 +14,83 @@ class CardInformationViewController: UIViewController, StoryboardGenerated {
     @IBOutlet weak var tableView: UITableView!
 
     var card: CDCard?
+    
+    var cellTypes: [CellType] = []
 
     enum CellType {
         case card(CardInformation)
         case learningRecord(FormattedLearningRecord)
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setup()
+    }
+
+    private func setup() {
+        setupTableView()
+        setupDataSource()
+    }
+
+    private func setupDataSource() {
+        guard let card = card else { return }
+
+        let factory = CardInformationFactory(card: card)
+        cellTypes = factory.createCellTypes()
+    }
+
+    private func setupTableView() {
+        tableView.register(UINib(nibName: "LearningRecordCell", bundle: nil), forCellReuseIdentifier: "LearningRecordCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+}
+
+extension CardInformationViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cellTypes.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellType = cellTypes[indexPath.row]
+        
+        switch cellType {
+            
+        case .card(let information):
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            var config = cell.defaultContentConfiguration()
+            
+            config.text = information.title
+            config.secondaryText = information.content
+            
+            cell.contentConfiguration = config
+            
+            return cell
+            
+        case .learningRecord(_):
+            return UITableViewCell()
+        }
+        
+    }
+
+}
+
+extension CardInformationViewController {
+    
+    struct FormattedLearningRecord {
+        let learned: Date
+        let dueDate: Date
+        let ease: Double
+        let type: CDLearningRecord.State
+        let rate: CDLearningRecord.Status
+        let interval: Double
+    }
+    
+    struct CardInformation {
+        let title: String
+        let content: String
+    }
+    
     enum CardInformationCase: Int, CaseIterable {
 
         case addedDate
@@ -73,151 +144,171 @@ class CardInformationViewController: UIViewController, StoryboardGenerated {
             }
         }
     }
-
-    struct CardInformation {
-        let title: String
-        let content: String
-    }
-
-    struct CardInformations {
-        var cases: [CardInformationCase] = CardInformationCase.allCases
-
-//        let added:
-
-//        init(
-    }
-
-    struct FormattedLearningRecord {
-        let learned: Date
-        let dueDate: Date
-        let ease: Double
-        let type: CDLearningRecord.State
-        let rate: CDLearningRecord.Status
-        let interval: Double
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-
-
-    }
-
-    private func setup() {
-        setupTableView()
-        setupDataSource()
-    }
-
-    private func setupDataSource() {
-        guard let card = card else { return }
-
-        card.addedDate
-
-        let dataForCells: [CellType] = []
-
-//        CardInformationCase.allCases.forEach { infoCase in
-//            CardInformation(title: infoCase.title, content: <#T##String#>)
-//        }
-
-    }
-
-    private func setupTableView() {
-        tableView.register(UINib(nibName: "LearningRecordCell", bundle: nil), forCellReuseIdentifier: "LearningRecordCell")
-    }
-}
-
-extension CardInformationViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
-
-}
-
-extension CardInformationViewController {
+    
     class CardInformationFactory {
 
-//        var addedDate: Date
-//        var firstReviewDate: Date
-//        var latestReviewDate: Date
-//        var dueDate: Date
-//        var interval: Double
-//        var ease: Double
-//        var reviews: Int
-//        var lapses: Int
-//        var averageTime: Double
-//        var totalTime: Double
-//        var noteType: CDNoteType.Content
-//        var cardId: String
-//        var noteId: String
-//
-//
-//        var formattedAddedDate: String {
-//            return formatDate(addedDate)
-//        }
-//
-//        var formattedFirstReviewDate: String {
-//            return formatDate(firstReviewDate)
-//        }
-//
-//        var formattedLatestReviewDate: String {
-//            return formatDate(latestReviewDate)
-//        }
-//
-//        var formattedDueDate: String {
-//            return formatDate(dueDate)
-//        }
-//
-//        var formattedInterval: String {
-//            return formatInterval(interval)
-//        }
-//
-//        var formattedEase: String {
-//            let percentage = ease * 100
-//            return String(format: "%.0f%%", percentage)
-//        }
-
-        init(addedDate: Date, firstReviewDate: Date, latestReviewDate: Date, dueDate: Date, interval: Double, ease: Double, reviews: Int, lapses: Int, averageTime: Double, totalTime: Double, noteType: CDNoteType.Content, cardId: String, noteId: String, card: CDCard) {
-
-            if let latestLearningRecord = card.latestLearningRecord {
-
-            } else {
-                // still show without learning record
-
-                // addedDate
-                // reviews
-                // Lapses
-                // averageTime
-                // totalTime
-                // NoteType
-                // Deck
-                // Card Id
-                // Note Id
-            }
+        var addedDate: Date?
+        var firstReviewDate: Date?
+        var latestReviewDate: Date?
+        var dueDate: Date?
+        var interval: Double?
+        var ease: Double?
+        var reviews: Int
+        var lapses: Int
+        var averageTime: Double
+        var totalTime: Double
+        var noteType: CDNoteType.Content?
+        var cardId: String?
+        var noteId: String?
 
 
-//            self.addedDate = card.addedDate
-//            self.firstReviewDate =
-//            self.latestReviewDate = card.latestLearningRecord?.learnedDate
-//            self.dueDate = card.latestLearningRecord?.dueDate
-//            self.interval = card.latestLearningRecord?.interval
-//            self.ease = card.latestLearningRecord?.ease
-//            self.reviews = reviews
-//            self.lapses = lapses
-//            self.averageTime = averageTime
-//            self.totalTime = totalTime
-//            self.noteType = noteType
-//            self.cardId = cardId
-//            self.noteId = noteId
+        var formattedAddedDate: String {
+            guard let addedDate = addedDate else { return "" }
+            return formatDate(addedDate)
+        }
+
+        var formattedFirstReviewDate: String {
+            guard let firstReviewDate = firstReviewDate else { return "" }
+            return formatDate(firstReviewDate)
+        }
+
+        var formattedLatestReviewDate: String {
+            guard let latestReviewDate = latestReviewDate else { return "" }
+            return formatDate(latestReviewDate)
+        }
+
+        var formattedDueDate: String {
+            guard let dueDate = dueDate else { return "" }
+            return formatDate(dueDate)
+        }
+
+        var formattedInterval: String {
+            guard let interval = interval else { return "" }
+            
+            return formatInterval(interval)
+        }
+
+        var formattedEase: String {
+            guard let ease = ease else { return "" }
+            
+            let percentage = ease * 100
+            return String(format: "%.0f%%", percentage)
+        }
+
+        init(card: CDCard) {
+            self.addedDate = card.addedDate
+            self.firstReviewDate = card.firstLearningRecord?.learnedDate
+            self.latestReviewDate = card.latestLearningRecord?.learnedDate
+            self.dueDate = card.latestLearningRecord?.dueDate
+            self.interval = card.latestLearningRecord?.interval
+            self.ease = card.latestLearningRecord?.ease
+            self.reviews = card.reviews
+            self.lapses = card.lapses
+            self.averageTime = card.averageTime
+            self.totalTime = card.totalTime
+            self.noteType = card.note?.noteType?.content
+            self.cardId = card.id
+            self.noteId = card.note?.id
         }
 
         func createCellTypes() -> [CellType] {
-            // Logic to create and return cell types based on the properties
-            return []
+            var cellTypes: [CellType] = []
+            let cardCases = CardInformationCase.allCases
+            
+            for cardCase in cardCases {
+                switch cardCase {
+                case .addedDate:
+                    guard let addedDate else { break }
+                    
+                    cellTypes.append(CellType.card(
+                        CardInformation(title: cardCase.title, content: formattedAddedDate)
+                    ))
+                    
+                case .firstReviewDate:
+                    guard firstReviewDate != nil else { break }
+                    
+                    cellTypes.append(CellType.card(
+                        CardInformation(title: cardCase.title, content: formattedFirstReviewDate)
+                    ))
+                    
+                case .lastestReviewDate:
+                    guard latestReviewDate != nil else { break }
+                    
+                    cellTypes.append(CellType.card(
+                        CardInformation(title: cardCase.title, content: formattedLatestReviewDate)
+                    ))
+                    
+                case .dueDate:
+                    guard dueDate != nil else { break }
+                    
+                    cellTypes.append(CellType.card(
+                        CardInformation(title: cardCase.title, content: formattedDueDate)
+                    ))
+
+                case .interval:
+                    guard let interval = interval else { break }
+                    
+                    cellTypes.append(CellType.card(
+                        CardInformation(title: cardCase.title, content: formattedInterval)
+                    ))
+                    
+                case .ease:
+                    guard let ease = ease else { break }
+                    
+                    cellTypes.append(CellType.card(
+                        CardInformation(title: cardCase.title, content: formattedEase)
+                    ))
+
+                case .reviews:
+                    cellTypes.append(CellType.card(
+                        CardInformation(title: cardCase.title, content: "\(reviews)")
+                    ))
+                    
+                case .lapses:
+                    cellTypes.append(CellType.card(
+                        CardInformation(title: cardCase.title, content: "\(lapses)")
+                    ))
+                    
+                case .averageTime:
+                    cellTypes.append(CellType.card(
+                        CardInformation(title: cardCase.title, content: "\(averageTime)")
+                    ))
+                    
+                case .totalTime:
+                    cellTypes.append(CellType.card(
+                        CardInformation(title: cardCase.title, content: "\(totalTime)")
+                    ))
+                    
+                case .cardType:
+                    break
+                case .noteType:
+                    guard let noteType = noteType else { break }
+                    
+                    cellTypes.append(CellType.card(
+                        CardInformation(title: cardCase.title, content: String(describing: noteType))
+                    ))
+                    
+                case .deck:
+                    break
+                    
+                case .cardId:
+                    guard let cardId = cardId else { break }
+                    
+                    cellTypes.append(CellType.card(
+                        CardInformation(title: cardCase.title, content: cardId)
+                    ))
+                    
+                case .noteId:
+                    guard let noteId = noteId else { break }
+                    
+                    cellTypes.append(CellType.card(
+                        CardInformation(title: cardCase.title, content: noteId)
+                    ))
+                }
+            }
+            
+            
+            return cellTypes
         }
 
         func formatDate(_ date: Date) -> String {
@@ -228,7 +319,7 @@ extension CardInformationViewController {
 
         func formatInterval(_ interval: Double) -> String {
             let secondsInMinute = 60.0
-            let secondsInHour = 3600.0
+            // let secondsInHour = 3600.0
             let secondsInDay = 86400.0
             let secondsInMonth = 2592000.0 // Approximating 30 days per month
             let secondsInYear = 31536000.0 // Approximating 365 days per year

@@ -55,9 +55,25 @@ class SearchViewController: UIViewController, StoryboardGenerated {
 
 }
 
+// MARK: - UISearchBarDelegate
+
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
     }
 
+}
+
+// MARK: - UITableViewDelegate
+
+extension SearchViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = CardInformationViewController.instantiate()
+        
+        controller.card = cards[indexPath.row]
+        
+        navigationController?.pushViewController(controller, animated: true)
+        
+    }
 }
