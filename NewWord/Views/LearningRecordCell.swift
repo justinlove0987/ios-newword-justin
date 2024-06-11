@@ -26,5 +26,14 @@ class LearningRecordCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
+    func updateUI(with formattedLearningRecord: CardInformationViewController.FormattedLearningRecord) {
+        
+        learnedDateLabel.text = formattedLearningRecord.formattedlearnedDate
+        typeLabel.text = formattedLearningRecord.formattedType
+        ratingLabel.text = formattedLearningRecord.formattedRate
+        intervalLabel.text = formattedLearningRecord.formattedInterval
+        easeLabel.text = formattedLearningRecord.formattedEase
+        //        timeLabel.text = formattedLearningRecord.formatted
+    }
 }

@@ -59,16 +59,20 @@ extension CardInformationViewController: UITableViewDataSource {
         case .card(let information):
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             var config = cell.defaultContentConfiguration()
-            
+            config.prefersSideBySideTextAndSecondaryText = true
+
             config.text = information.title
             config.secondaryText = information.content
-            
             cell.contentConfiguration = config
             
             return cell
             
-        case .learningRecord(_):
-            return UITableViewCell()
+        case .learningRecord(let formattedLearningRecord):
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LearningRecordCell", for: indexPath) as! LearningRecordCell
+
+            cell.updateUI(with: formattedLearningRecord)
+
+            return cell
         }
         
     }
@@ -84,6 +88,84 @@ extension CardInformationViewController {
         let type: CDLearningRecord.State
         let rate: CDLearningRecord.Status
         let interval: Double
+
+        init(learningRecord: CDLearningRecord) {
+            self.learned = learningRecord.learnedDate ?? Date()
+            self.dueDate = learningRecord.dueDate ?? Date()
+            self.ease = learningRecord.ease
+            self.type = learningRecord.state
+            self.rate = learningRecord.status
+            self.interval = learningRecord.interval
+        }
+
+        var formattedlearnedDate: String {
+            return formatDate(learned)
+        }
+
+        var formattedDueDate: String {
+            return formatDate(dueDate)
+        }
+
+        var formattedEase: String {
+            let percentage = ease * 100
+            return String(format: "%.0f%%", percentage)
+        }
+
+        var formattedType: String {
+            return String(describing: type)
+        }
+
+        var formattedRate: String {
+            return String(describing: rate)
+        }
+
+        var formattedInterval: String {
+            return formatInterval(interval)
+        }
+
+
+        func formatDate(_ date: Date) -> String {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.string(from: date)
+        }
+
+        func formatInterval(_ interval: Double) -> String {
+            let secondsInMinute = 60.0
+            // let secondsInHour = 3600.0
+            let secondsInDay = 86400.0
+            let secondsInMonth = 2592000.0 // Approximating 30 days per month
+            let secondsInYear = 31536000.0 // Approximating 365 days per year
+
+            var remainingInterval = interval
+
+            let years = Int(remainingInterval / secondsInYear)
+            remainingInterval -= Double(years) * secondsInYear
+
+            let months = Int(remainingInterval / secondsInMonth)
+            remainingInterval -= Double(months) * secondsInMonth
+
+            let days = Int(remainingInterval / secondsInDay)
+            remainingInterval -= Double(days) * secondsInDay
+
+            let minutes = Int(remainingInterval / secondsInMinute)
+
+            var result = ""
+
+            if years > 0 {
+                result += "\(years) years "
+            }
+            if months > 0 {
+                result += "\(months) months "
+            }
+            if days > 0 {
+                result += "\(days) days"
+            } else if years == 0 && months == 0 {
+                result += "\(minutes) minutes"
+            }
+
+            return result.trimmingCharacters(in: .whitespaces)
+        }
     }
     
     struct CardInformation {
@@ -195,6 +277,8 @@ extension CardInformationViewController {
             return String(format: "%.0f%%", percentage)
         }
 
+        var card: CDCard
+
         init(card: CDCard) {
             self.addedDate = card.addedDate
             self.firstReviewDate = card.firstLearningRecord?.learnedDate
@@ -209,6 +293,7 @@ extension CardInformationViewController {
             self.noteType = card.note?.noteType?.content
             self.cardId = card.id
             self.noteId = card.note?.id
+            self.card = card
         }
 
         func createCellTypes() -> [CellType] {
@@ -218,8 +303,8 @@ extension CardInformationViewController {
             for cardCase in cardCases {
                 switch cardCase {
                 case .addedDate:
-                    guard let addedDate else { break }
-                    
+                    guard addedDate != nil else { break }
+
                     cellTypes.append(CellType.card(
                         CardInformation(title: cardCase.title, content: formattedAddedDate)
                     ))
@@ -246,15 +331,15 @@ extension CardInformationViewController {
                     ))
 
                 case .interval:
-                    guard let interval = interval else { break }
-                    
+                    guard interval != nil else { break }
+
                     cellTypes.append(CellType.card(
                         CardInformation(title: cardCase.title, content: formattedInterval)
                     ))
                     
                 case .ease:
-                    guard let ease = ease else { break }
-                    
+                    guard ease != nil else { break }
+
                     cellTypes.append(CellType.card(
                         CardInformation(title: cardCase.title, content: formattedEase)
                     ))
@@ -306,15 +391,17 @@ extension CardInformationViewController {
                     ))
                 }
             }
-            
+
+            let learningRecords = CoreDataManager.shared.learningRecords(from: card)
+
+            learningRecords.forEach { record in
+                let formattedRecord = FormattedLearningRecord(learningRecord: record)
+                let cellType = CellType.learningRecord(formattedRecord)
+                cellTypes.append(cellType)
+            }
+
             
             return cellTypes
-        }
-
-        func formatDate(_ date: Date) -> String {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            return dateFormatter.string(from: date)
         }
 
         func formatInterval(_ interval: Double) -> String {
@@ -353,5 +440,13 @@ extension CardInformationViewController {
 
             return result.trimmingCharacters(in: .whitespaces)
         }
+
+        func formatDate(_ date: Date) -> String {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            return dateFormatter.string(from: date)
+        }
     }
+
+
 }

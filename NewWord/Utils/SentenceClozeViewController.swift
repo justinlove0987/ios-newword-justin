@@ -36,7 +36,7 @@ class SentenceClozeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let card = card else { return }
+        // guard let card = card else { return }
 //        viewModel = SentenceClozeViewModel(card: card)
 //        viewModel!.card = card
         tableView.register(CustomCell.self, forCellReuseIdentifier: reuserIdnetifier)
@@ -92,7 +92,7 @@ extension SentenceClozeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuserIdnetifier, for: indexPath) as! CustomCell
-        let words = viewModel!.data.wordsForRows[indexPath.row]
+        // let words = viewModel!.data.wordsForRows[indexPath.row]
         
         cell.delegate = self
 //        cell.configureStackViewSubViews(clozeWord: viewModel!.data.clozeWord,
