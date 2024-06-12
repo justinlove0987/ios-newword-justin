@@ -117,10 +117,10 @@ extension CoreDataManager {
         let cards = cards(from: deck)
         
         let relearnCards = cards.filter { card in
-            guard let review = card.latestLearningRecord else { return false }
-            return (review.dueDate! <= Date() &&
-                    review.status == .incorrect &&
-                    (review.state == .relearn || review.state == .learn))
+            guard let record = card.latestLearningRecord else { return false }
+            return (record.dueDate! <= Date() &&
+                    record.status == .incorrect &&
+                    (record.state == .relearn || record.state == .learn || record.state == .relearn))
         }
         
         return relearnCards

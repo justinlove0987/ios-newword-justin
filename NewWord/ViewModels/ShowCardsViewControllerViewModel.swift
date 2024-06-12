@@ -64,31 +64,31 @@ class ShowCardsViewControllerViewModel {
         }
     }
     
-    func nextCard() -> CDCard? {
+    func getCardAfterMovingCard() -> CDCard? {
         let cards = getCurrentCardCollection()
-        let hasNextCard = currentMatrix.cardIndex + 1 < cards.count
+        let hasCards = currentMatrix.cardIndex < cards.count
         
-        if hasNextCard {
-            currentMatrix.cardIndex += 1
+        if hasCards {
             return getCurrentCard()
         } else {
-            if hasNextCardCollection {
-                let nextCollectionIndex = currentMatrix.collectionIndex + 1
-                let hasCard = hasCard(at: nextCollectionIndex)
-                
-                if hasCard {
-                    currentMatrix.collectionIndex += 1
-                    currentMatrix.cardIndex = 0
-                    return getCurrentCard()
-                    
-                } else {
-                    return nil
-                    
-                }
-            }
-            
-            return nil
+            return findPossibleCardInNextCollection()
         }
+    }
+    
+    func findPossibleCardInNextCollection() -> CDCard? {
+        let hasCard = hasCard(at: currentMatrix.collectionIndex)
+        
+        if hasCard {
+            return cardCollections[currentMatrix.collectionIndex][currentMatrix.cardIndex]
+        } else {
+            if hasNextCardCollection {
+                currentMatrix.collectionIndex += 1
+                
+                return findPossibleCardInNextCollection()
+            }
+        }
+        
+        return nil
     }
     
     func hasNextCard() -> Bool {
@@ -132,6 +132,8 @@ class ShowCardsViewControllerViewModel {
             if hasCardIndex {
                 let card = currentCards[currentMatrix.cardIndex]
                 return card
+            } else {
+                return findPossibleCardInNextCollection()
             }
         }
         
@@ -178,12 +180,12 @@ class ShowCardsViewControllerViewModel {
         CoreDataManager.shared.addLearningReocrd(learningRecord, to: card)
     }
     
-    func moveCardToNextCollection(isAnswerCorrect: Bool) {
-        let order = cardTypeOrder[currentMatrix.collectionIndex]
-        let moveCard = cardCollections[order.rawValue].remove(at: currentMatrix.cardIndex)
+    func moveCard(isAnswerCorrect: Bool) {
+        let moveCard = cardCollections[currentMatrix.collectionIndex].remove(at: currentMatrix.cardIndex)
         
         if isAnswerCorrect {
             storageCards.append(moveCard)
+            let counts = cardCollections.map { $0.count }
         } else {
             addCardToCollection(moveCard, type: .relearn)
         }
@@ -195,6 +197,27 @@ class ShowCardsViewControllerViewModel {
                 cardCollections[i].append(card)
             }
         }
+    }
+    
+    func getCollectionCounts() -> (new: Int, relearn: Int, review: Int) {
+        var new = 0
+        var review = 0
+        var relearn = 0
+        
+        for order in cardTypeOrder {
+            switch order {
+            case .new:
+                new = cardCollections[order.rawValue].count
+            case .relearn:
+                relearn = cardCollections[order.rawValue].count
+            case .review:
+                review = cardCollections[order.rawValue].count
+            case .notToday:
+                break
+            }
+        }
+        
+        return (new, review, relearn)
     }
     
 }

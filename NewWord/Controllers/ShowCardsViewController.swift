@@ -7,6 +7,8 @@
 
 import UIKit
 
+// TODO: - 調整answer stackView出現的時機
+
 protocol ShowCardsSubviewDelegate: UIView {
     associatedtype CardStateType: RawRepresentable & CaseIterable where CardStateType.RawValue == Int
 
@@ -22,8 +24,6 @@ protocol ShowCardsSubviewDelegate: UIView {
 extension ShowCardsSubviewDelegate {
 
     func hasNextState() -> Bool {
-        print(currentState)
-        
         let rawValue = currentState.rawValue
         let nextState = CardStateType(rawValue: rawValue+1)
         
@@ -37,8 +37,6 @@ extension ShowCardsSubviewDelegate {
         let nextState = CardStateType(rawValue: rawValue+1)
         
         guard let nextState else { return }
-        
-        print(currentState, nextState)
         
         currentState = nextState
     }
@@ -57,7 +55,7 @@ class ShowCardsViewController: UIViewController {
     @IBOutlet weak var newLabel: UILabel!
     @IBOutlet weak var relearnLabel: UILabel!
     @IBOutlet weak var reviewLabel: UILabel!
-
+    @IBOutlet weak var answerStackView: UIStackView!
     var deck: CDDeck
     
     var currentAnswerState: AnswerState = .question
@@ -124,6 +122,10 @@ class ShowCardsViewController: UIViewController {
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         lastShowingSubview.addGestureRecognizer(tap)
+        
+        let collectionCounts = viewModel.getCollectionCounts()
+        updateLabels(collectionCounts: collectionCounts)
+
     }
 
     @objc func tap(_ sender: UITapGestureRecognizer) {
@@ -131,17 +133,34 @@ class ShowCardsViewController: UIViewController {
     }
 
     @IBAction func correctAction(_ sender: UIButton) {
-        viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: true)
-        viewModel.moveCardToNextCollection(isAnswerCorrect: true)
+        let hasNextState = lastShowingSubview.hasNextState()
         
-        lastShowingSubview = viewModel.getCurrentSubview()
+        if hasNextState {
+            lastShowingSubview.nextState()
+        } else {
+            viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: true)
+            viewModel.moveCard(isAnswerCorrect: true)
+            
+            lastShowingSubview = viewModel.getCurrentSubview()
+            let collectionCounts = viewModel.getCollectionCounts()
+            updateLabels(collectionCounts: collectionCounts)
+        }
     }
 
     @IBAction func incorrectAction(_ sender: UIButton) {
-        viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: false)
-        viewModel.moveCardToNextCollection(isAnswerCorrect: false)
+        let hasNextState = lastShowingSubview.hasNextState()
         
-        lastShowingSubview = viewModel.getCurrentSubview()
+        if hasNextState {
+            lastShowingSubview.nextState()
+        } else {
+            viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: true)
+            viewModel.moveCard(isAnswerCorrect: true)
+            
+            lastShowingSubview = viewModel.getCurrentSubview()
+            let collectionCounts = viewModel.getCollectionCounts()
+            updateLabels(collectionCounts: collectionCounts)
+        }
+
     }
     
     func isTouchOnRightSide(of view: UIView, at point: CGPoint) -> Bool {
@@ -159,15 +178,23 @@ class ShowCardsViewController: UIViewController {
             let isAnswerCorrect = isTouchOnRightSide(of: contentView, at: sender.location(in: self.view))
             
             viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: isAnswerCorrect)
-            viewModel.moveCardToNextCollection(isAnswerCorrect: isAnswerCorrect)
+            viewModel.moveCard(isAnswerCorrect: isAnswerCorrect)
+            let collectionCounts = viewModel.getCollectionCounts()
+            updateLabels(collectionCounts: collectionCounts)
 
-            guard let _ = viewModel.nextCard() else {
+            guard let _ = viewModel.getCardAfterMovingCard() else {
                 lastShowingSubview = NoCardView()
                 return
             }
 
             lastShowingSubview = viewModel.getCurrentSubview()
         }
+    }
+    
+    private func updateLabels(collectionCounts: (new: Int, relearn: Int, review: Int)) {
+        newLabel.text = "\(collectionCounts.new)"
+        relearnLabel.text = "\(collectionCounts.relearn)"
+        reviewLabel.text = "\(collectionCounts.review)"
     }
 
 }

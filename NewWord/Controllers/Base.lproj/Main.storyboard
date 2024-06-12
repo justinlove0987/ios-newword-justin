@@ -787,6 +787,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="answerStackView" destination="JMa-FH-5aN" id="cZF-tz-0Um"/>
                         <outlet property="contentView" destination="JoT-fF-Q6V" id="HIc-Op-kD9"/>
                         <outlet property="newLabel" destination="aXi-EE-VVW" id="p93-CX-uIb"/>
                         <outlet property="relearnLabel" destination="T5e-nn-OAu" id="lby-xg-qpK"/>
