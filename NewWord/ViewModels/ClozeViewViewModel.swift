@@ -10,19 +10,59 @@ import Foundation
 struct ClozeViewViewModel {
     
     private var card: CDCard
-    
+
+    var clozeText: String?
+
+    var dummyText = "[...]"
+
     init(card: CDCard) {
         self.card = card
     }
-    
-    func getContextText() -> String? {
+
+    func setClozeText() {
+        
+    }
+
+    func getQuestionText() -> String? {
         guard let cloze = card.note?.noteType?.cloze else { return nil }
         guard let text = cloze.contextText?.text else { return nil }
         guard let id = cloze.id else { return nil }
         
-        let newText = text.replacingOccurrences(of: "\\{\\{C\(id):\\w+\\}\\}", with: "[...]", options: .regularExpression)
-        
+        let newText = text.replacingOccurrences(of: "\\{\\{C\(id):\\w+\\}\\}", with: dummyText, options: .regularExpression)
+
         return newText
     }
-    
+
+    func getClozeText() -> String? {
+        guard let cloze = card.note?.noteType?.cloze else { return nil }
+        guard let text = cloze.contextText?.text else { return nil }
+        guard let id = cloze.id else { return nil }
+
+        let pattern = "\\{\\{C\(id):([^\\}]+)\\}\\}"
+
+        do {
+            let regex = try NSRegularExpression(pattern: pattern)
+
+            if let match = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)) {
+                if let range = Range(match.range(at: 1), in: text) {
+                    return String(text[range])
+                }
+            }
+        } catch {
+            print("Invalid regex: \(error.localizedDescription)")
+        }
+
+        return nil
+    }
+
+    func getAnswerText(from text: String) -> String? {
+        guard let clozeText = getClozeText() else { return nil }
+        var text = text
+
+        let newText = text.replacingOccurrences(of: dummyText, with: clozeText)
+
+        return newText
+
+    }
+
 }

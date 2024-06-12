@@ -7,14 +7,24 @@
 
 import UIKit
 
+protocol ClozeViewProtocol: AnyObject {
+    func tap(from view: ClozeView, _ sender: UITapGestureRecognizer)
+}
+
 class ClozeView: UIView, NibOwnerLoadable {
     
     enum CardStateType: Int, CaseIterable {
+//        case questionTextField
+//        case answerTextField
         case question
         case answer
     }
     
-    var currentState: CardStateType = .question
+    var currentState: CardStateType = .question {
+        didSet {
+            updateUI()
+        }
+    }
 
     @IBOutlet weak var customInputView: InputAccessoryView!
     @IBOutlet weak var contextTextTextView: UITextView!
@@ -22,7 +32,11 @@ class ClozeView: UIView, NibOwnerLoadable {
     private var card: CDCard?
     private var viewModel: ClozeViewViewModel?
 
+    var delegate: ClozeViewProtocol?
+
     var inputViewTopAnchor: NSLayoutConstraint!
+
+    var tap: UITapGestureRecognizer?
 
     init(card: CDCard, viewModel: ClozeViewViewModel) {
         super.init(frame: .zero)
@@ -54,13 +68,22 @@ class ClozeView: UIView, NibOwnerLoadable {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-    func setup() {
-        contextTextTextView.text = viewModel?.getContextText()
+    private func setup() {
+        contextTextTextView.text = viewModel?.getQuestionText()
         addSubview(customInputView)
         customInputView.translatesAutoresizingMaskIntoConstraints = false
         setupKeyboardHiding()
 
         customInputView.textField.delegate = self
+
+        contextTextTextView.keyboardDismissMode = .interactive
+
+//        tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+//        contextTextTextView.addGestureRecognizer(tap!)
+    }
+
+    @objc func tapAction(_ sender: UITapGestureRecognizer) {
+        customInputView.textField.resignFirstResponder()
     }
 
     func setupAfterSubviewInHierarchy() {
@@ -80,6 +103,31 @@ class ClozeView: UIView, NibOwnerLoadable {
         customInputView.textField.becomeFirstResponder()
     }
 
+    private func updateUI() {
+        if let responder = UIResponder.currentFirst() as? UITextField {
+            responder.resignFirstResponder()
+        }
+
+        switch currentState {
+        case .question:
+            break
+        case .answer:
+            guard let text = contextTextTextView.text else { return }
+
+            let answerText = viewModel?.getAnswerText(from: text)
+
+            contextTextTextView.text = answerText
+//        case .questionTextField:
+//            <#code#>
+//        case .answerTextField:
+//            <#code#>
+        }
+    }
+}
+
+// MARK: - Keyboard
+
+extension ClozeView {
     private func setupKeyboardHiding() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -110,8 +158,8 @@ class ClozeView: UIView, NibOwnerLoadable {
 
     @objc func keyboardWillHide(notification: NSNotification) {
         guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
-                let curve = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber,
-                let superview = superview else {
+              let curve = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber,
+              let superview = superview else {
             return
         }
 
@@ -130,15 +178,22 @@ class ClozeView: UIView, NibOwnerLoadable {
     }
 }
 
-extension ClozeView: ShowCardsSubviewDelegate {}
+// MARK: - UITextFieldDelegate
 
 extension ClozeView: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
+        guard let text = contextTextTextView.text else { return true }
+
+        let answerText = viewModel?.getAnswerText(from: text)
+
+        contextTextTextView.text = answerText
+
         textField.resignFirstResponder()
 
         return true
     }
 
 }
+
+extension ClozeView: ShowCardsSubviewDelegate {}

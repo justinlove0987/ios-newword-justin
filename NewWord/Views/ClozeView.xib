@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="23C-78-fxq">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="748"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                     <color key="textColor" systemColor="labelColor"/>
@@ -42,7 +42,7 @@
                 <constraint firstItem="AHN-Ek-V99" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="JoV-y8-3mg"/>
                 <constraint firstItem="23C-78-fxq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="O2I-CU-2mG"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="23C-78-fxq" secondAttribute="trailing" id="VCl-I8-cvi"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="23C-78-fxq" secondAttribute="bottom" id="Z1D-l0-g3c"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="23C-78-fxq" secondAttribute="bottom" constant="70" id="Z1D-l0-g3c"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="AHN-Ek-V99" secondAttribute="trailing" id="fsh-Es-Eb7"/>
                 <constraint firstItem="23C-78-fxq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mgp-OK-Jek"/>
             </constraints>

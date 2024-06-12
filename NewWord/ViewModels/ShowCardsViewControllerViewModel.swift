@@ -7,7 +7,9 @@
 
 import UIKit
 
-class ShowCardsViewControllerViewModel {
+class ShowCardsViewControllerViewModel: ClozeViewProtocol {
+
+    
     // 有三個模式 learn relearn review success
     // 過濾 三個模式
     // 當回答後，決定card要去哪個模式的array中，或是success
@@ -38,7 +40,9 @@ class ShowCardsViewControllerViewModel {
     }
     
     var deck: CDDeck?
-    
+
+    var tapAction: ((UITapGestureRecognizer) -> ())?
+
     func setupCards() {
         guard let deck else { return }
         
@@ -177,7 +181,9 @@ class ShowCardsViewControllerViewModel {
             subview = PronounciationView()
         case .cloze:
             let viewModel = ClozeViewViewModel(card: card)
-            subview = ClozeView(card: card, viewModel: viewModel)
+            let clozeView = ClozeView(card: card, viewModel: viewModel)
+            clozeView.delegate = self
+            subview = clozeView
         default:
             subview = NoCardView()
         }
@@ -249,4 +255,11 @@ class ShowCardsViewControllerViewModel {
         }
     }
     
+}
+
+extension ShowCardsViewControllerViewModel {
+    func tap(from view: ClozeView, _ sender: UITapGestureRecognizer) {
+        guard let tapAction = tapAction else { return }
+        tapAction(sender)
+    }
 }

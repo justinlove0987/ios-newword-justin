@@ -60,6 +60,8 @@ class ShowCardsViewController: UIViewController {
     
     private var viewModel = ShowCardsViewControllerViewModel()
 
+    var tapAction: ((UITapGestureRecognizer) -> ())?
+
     private var lastShowingSubview: any ShowCardsSubviewDelegate = NoCardView() {
         willSet {
 
@@ -107,31 +109,21 @@ class ShowCardsViewController: UIViewController {
     }
 
     private func setup() {
+        tapAction = { sender in
+            self.tapHelper(sender)
+        }
+
         viewModel.deck = deck
         viewModel.setupCards()
+        viewModel.tapAction = tapAction
         lastShowingSubview = viewModel.getCurrentSubview()
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
-        view.addGestureRecognizer(tap)
+        lastShowingSubview.addGestureRecognizer(tap)
     }
 
     @objc func tap(_ sender: UITapGestureRecognizer) {
-        let hasNextState = lastShowingSubview.hasNextState()
-        
-        if hasNextState {
-            lastShowingSubview.nextState()
-            
-        } else {
-            let isAnswerCorrect = isTouchOnRightSide(of: contentView, at: sender.location(in: self.view))
-            viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: isAnswerCorrect)
-
-            guard let _ = viewModel.nextCard() else {
-                lastShowingSubview = NoCardView()
-                return
-            }
-
-            lastShowingSubview = viewModel.getCurrentSubview()
-        }
+        tapHelper(sender)
     }
 
     @IBAction func correctAction(_ sender: UIButton) {
@@ -151,7 +143,24 @@ class ShowCardsViewController: UIViewController {
         return point.x > midX
     }
 
+    private func tapHelper(_ sender: UITapGestureRecognizer) {
+        let hasNextState = lastShowingSubview.hasNextState()
 
+        if hasNextState {
+            lastShowingSubview.nextState()
+
+        } else {
+            let isAnswerCorrect = isTouchOnRightSide(of: contentView, at: sender.location(in: self.view))
+            viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: isAnswerCorrect)
+
+            guard let _ = viewModel.nextCard() else {
+                lastShowingSubview = NoCardView()
+                return
+            }
+
+            lastShowingSubview = viewModel.getCurrentSubview()
+        }
+    }
 
 }
 
