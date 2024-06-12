@@ -22,6 +22,8 @@ protocol ShowCardsSubviewDelegate: UIView {
 extension ShowCardsSubviewDelegate {
 
     func hasNextState() -> Bool {
+        print(currentState)
+        
         let rawValue = currentState.rawValue
         let nextState = CardStateType(rawValue: rawValue+1)
         
@@ -35,6 +37,8 @@ extension ShowCardsSubviewDelegate {
         let nextState = CardStateType(rawValue: rawValue+1)
         
         guard let nextState else { return }
+        
+        print(currentState, nextState)
         
         currentState = nextState
     }
@@ -128,12 +132,14 @@ class ShowCardsViewController: UIViewController {
 
     @IBAction func correctAction(_ sender: UIButton) {
         viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: true)
+        viewModel.moveCardToNextCollection(isAnswerCorrect: true)
         
         lastShowingSubview = viewModel.getCurrentSubview()
     }
 
     @IBAction func incorrectAction(_ sender: UIButton) {
         viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: false)
+        viewModel.moveCardToNextCollection(isAnswerCorrect: false)
         
         lastShowingSubview = viewModel.getCurrentSubview()
     }
@@ -151,7 +157,9 @@ class ShowCardsViewController: UIViewController {
 
         } else {
             let isAnswerCorrect = isTouchOnRightSide(of: contentView, at: sender.location(in: self.view))
+            
             viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: isAnswerCorrect)
+            viewModel.moveCardToNextCollection(isAnswerCorrect: isAnswerCorrect)
 
             guard let _ = viewModel.nextCard() else {
                 lastShowingSubview = NoCardView()

@@ -7,36 +7,36 @@
 
 import UIKit
 
-class ShowCardsViewControllerViewModel: ClozeViewProtocol {
+// TODO: - 如果下一個card collection沒有的話要繼續找下下一個card collection
 
+class ShowCardsViewControllerViewModel {
     
-    // 有三個模式 learn relearn review success
-    // 過濾 三個模式
-    // 當回答後，決定card要去哪個模式的array中，或是success
-    // 檢查第一個array還有沒有卡片，沒有就到下一個去。
-    
-    enum CardsOrder: Int {
+    enum CardType: Int {
         case new
         case relearn
         case review
         case notToday
     }
     
-    var cardsOrder: [CardsOrder] = [.new, .review, .relearn]
+    struct CardPosition {
+        let startPosition: (Int, Int)
+        let endPosition: (Int,Int)
+    }
     
-    var newCards: [CDCard] = []
-    var reviewCards: [CDCard] = []
-    var relearnCards: [CDCard] = []
-    var redoCards: [CDCard] = []
+    private var cardTypeOrder: [CardType] = [.new, .review, .relearn]
+    private var storageCards: [CDCard] = []
+    private var cardPositions: [CardPosition] = []
     
-    var currentIndex: (collectionIndex: Int, cardIndex: Int) = (0,0)
+    private var currentMatrix: (collectionIndex: Int, cardIndex: Int) = (0,0)
     
-    var currentCard: CDCard? {
+    private var cardCollections: [[CDCard]] = []
+    
+    private var currentCard: CDCard? {
         return getCurrentCard() ?? nil
     }
     
     var hasNextCardCollection: Bool {
-        return currentIndex.collectionIndex + 1 < cardsOrder.count
+        return currentMatrix.collectionIndex + 1 < cardTypeOrder.count
     }
     
     var deck: CDDeck?
@@ -46,43 +46,39 @@ class ShowCardsViewControllerViewModel: ClozeViewProtocol {
     func setupCards() {
         guard let deck else { return }
         
-        let cards = CoreDataManager.shared.cards(from: deck)
+        let tnewCards = CoreDataManager.shared.getNewCards(from: deck)
+        let treviewCards = CoreDataManager.shared.getReviewCards(from: deck)
+        let trelearnCards = CoreDataManager.shared.getRelearnCards(from: deck)
         
-        newCards = cards.filter { card in
-            let learningRecords = CoreDataManager.shared.learningRecords(from: card)
-            return learningRecords.isEmpty
-        }
-        
-        reviewCards = cards.filter { card in
-            guard let review = card.latestLearningRecord else { return false }
-            return (review.dueDate! <= Date() &&
-                    review.status == .correct &&
-                    (review.state == .learn || review.state == .review))
-        }
-        
-        relearnCards = cards.filter { card in
-            guard let review = card.latestLearningRecord else { return false }
-            return (review.dueDate! <= Date() &&
-                    review.status == .incorrect &&
-                    (review.state == .relearn || review.state == .learn))
+        for cardOrder in cardTypeOrder {
+            switch cardOrder {
+            case .new:
+                cardCollections.append(tnewCards)
+            case .relearn:
+                cardCollections.append(trelearnCards)
+            case .review:
+                cardCollections.append(treviewCards)
+            case .notToday:
+                break
+            }
         }
     }
     
     func nextCard() -> CDCard? {
         let cards = getCurrentCardCollection()
-        let hasNextCard = currentIndex.cardIndex + 1 < cards.count
+        let hasNextCard = currentMatrix.cardIndex + 1 < cards.count
         
         if hasNextCard {
-            currentIndex.cardIndex += 1
+            currentMatrix.cardIndex += 1
             return getCurrentCard()
         } else {
             if hasNextCardCollection {
-                let nextCollectionIndex = currentIndex.collectionIndex + 1
+                let nextCollectionIndex = currentMatrix.collectionIndex + 1
                 let hasCard = hasCard(at: nextCollectionIndex)
                 
                 if hasCard {
-                    currentIndex.collectionIndex += 1
-                    currentIndex.cardIndex = 0
+                    currentMatrix.collectionIndex += 1
+                    currentMatrix.cardIndex = 0
                     return getCurrentCard()
                     
                 } else {
@@ -96,17 +92,12 @@ class ShowCardsViewControllerViewModel: ClozeViewProtocol {
     }
     
     func hasNextCard() -> Bool {
-        // 1. 檢查 現在的collection有沒有下一張卡片
-        // 2. 現在的collection沒有卡片 -> 檢查有沒有下一個collection
-        // 3. 有下一個collection -> 檢查裡面有沒有卡片
-        // 4. 有卡便回傳true
-        
         let cards = getCurrentCardCollection()
-        let hasNextCard = currentIndex.cardIndex + 1 < cards.count
+        let hasNextCard = currentMatrix.cardIndex + 1 < cards.count
         
         if !hasNextCard {
             if hasNextCardCollection {
-                let nextCollectionIndex = currentIndex.collectionIndex + 1
+                let nextCollectionIndex = currentMatrix.collectionIndex + 1
                 let hasCard = hasCard(at: nextCollectionIndex)
                 
                 return hasCard
@@ -120,7 +111,7 @@ class ShowCardsViewControllerViewModel: ClozeViewProtocol {
     }
     
     func hasCard(at collectionIndex: Int) -> Bool {
-        let hasCollection = collectionIndex < cardsOrder.count
+        let hasCollection = collectionIndex < cardTypeOrder.count
         
         if hasCollection {
             let currentCardCollection = getCurrentCardCollection()
@@ -132,14 +123,14 @@ class ShowCardsViewControllerViewModel: ClozeViewProtocol {
     }
     
     func getCurrentCard() -> CDCard? {
-        let hasCollection = currentIndex.collectionIndex < cardsOrder.count
+        let hasCollection = currentMatrix.collectionIndex < cardTypeOrder.count
         
         if hasCollection {
             let currentCards = getCurrentCardCollection()
-            let hasCardIndex = currentIndex.cardIndex < currentCards.count
+            let hasCardIndex = currentMatrix.cardIndex < currentCards.count
             
             if hasCardIndex {
-                let card = currentCards[currentIndex.cardIndex]
+                let card = currentCards[currentMatrix.cardIndex]
                 return card
             }
         }
@@ -148,22 +139,9 @@ class ShowCardsViewControllerViewModel: ClozeViewProtocol {
     }
     
     func getCurrentCardCollection() -> [CDCard] {
-        let order = cardsOrder[currentIndex.collectionIndex]
+        let collection = cardCollections[currentMatrix.collectionIndex]
         
-        let currentCards: [CDCard]
-        
-        switch order {
-        case .relearn:
-            currentCards = relearnCards
-        case .new:
-            currentCards = newCards
-        case .review:
-            currentCards = reviewCards
-        case .notToday:
-            currentCards = []
-        }
-        
-        return currentCards
+        return collection
     }
     
     func getCurrentSubview() -> any ShowCardsSubviewDelegate {
@@ -198,67 +176,36 @@ class ShowCardsViewControllerViewModel: ClozeViewProtocol {
         let learningRecord = CoreDataManager.shared.createLearningRecord(lastCard: card, deck: deck, isAnswerCorrect: isAnswerCorrect)
 
         CoreDataManager.shared.addLearningReocrd(learningRecord, to: card)
-
-
-        updateCurrentCard(card)
-        moveCardToNextCollection(isAnswerCorrect: isAnswerCorrect)
     }
     
-    func updateCurrentCard(_ card: CDCard) {
-        let order = cardsOrder[currentIndex.collectionIndex]
+    func moveCardToNextCollection(isAnswerCorrect: Bool) {
+        let order = cardTypeOrder[currentMatrix.collectionIndex]
+        let moveCard = cardCollections[order.rawValue].remove(at: currentMatrix.cardIndex)
         
-        switch order {
-        case .review:
-            reviewCards[currentIndex.cardIndex] = card
-        case .relearn:
-            relearnCards[currentIndex.cardIndex] = card
-        case .new:
-            newCards[currentIndex.cardIndex] = card
-        case .notToday:
-            break
+        if isAnswerCorrect {
+            storageCards.append(moveCard)
+        } else {
+            addCardToCollection(moveCard, type: .relearn)
         }
     }
-        
-    func moveCardToNextCollection(isAnswerCorrect: Bool) {
-        
-        let order = cardsOrder[currentIndex.collectionIndex]
-        
-        switch order {
-        case .review:
-            let result = reviewCards.remove(at: currentIndex.cardIndex)
-            if isAnswerCorrect {
-                redoCards.append(result)
-            } else {
-                relearnCards.append(result)
+    
+    func addCardToCollection(_ card: CDCard, type: CardType) {
+        for (i, cardType) in cardTypeOrder.enumerated() {
+            if type == cardType {
+                cardCollections[i].append(card)
             }
-            
-        case .relearn:
-            let result = relearnCards.remove(at: currentIndex.cardIndex)
-            
-            if isAnswerCorrect {
-                redoCards.append(result)
-            } else {
-                relearnCards.append(result)
-            }
-            
-        case .new:
-            let result = newCards.remove(at: currentIndex.cardIndex)
-            
-            if isAnswerCorrect {
-                redoCards.append(result)
-            } else {
-                relearnCards.append(result)
-            }
-            
-        case .notToday:
-            break
         }
     }
     
 }
 
-extension ShowCardsViewControllerViewModel {
+extension ShowCardsViewControllerViewModel: ClozeViewProtocol {    
     func tap(from view: ClozeView, _ sender: UITapGestureRecognizer) {
+        if let textField = UIResponder.currentFirst() as? UITextField {
+            textField.resignFirstResponder()
+            return
+        }
+        
         guard let tapAction = tapAction else { return }
         tapAction(sender)
     }

@@ -19,10 +19,6 @@ struct ClozeViewViewModel {
         self.card = card
     }
 
-    func setClozeText() {
-        
-    }
-
     func getQuestionText() -> String? {
         guard let cloze = card.note?.noteType?.cloze else { return nil }
         guard let text = cloze.contextText?.text else { return nil }

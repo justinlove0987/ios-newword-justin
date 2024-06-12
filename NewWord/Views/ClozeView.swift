@@ -14,8 +14,6 @@ protocol ClozeViewProtocol: AnyObject {
 class ClozeView: UIView, NibOwnerLoadable {
     
     enum CardStateType: Int, CaseIterable {
-//        case questionTextField
-//        case answerTextField
         case question
         case answer
     }
@@ -76,14 +74,12 @@ class ClozeView: UIView, NibOwnerLoadable {
 
         customInputView.textField.delegate = self
 
-        contextTextTextView.keyboardDismissMode = .interactive
-
-//        tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
-//        contextTextTextView.addGestureRecognizer(tap!)
+        tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+        contextTextTextView.addGestureRecognizer(tap!)
     }
 
     @objc func tapAction(_ sender: UITapGestureRecognizer) {
-        customInputView.textField.resignFirstResponder()
+        delegate?.tap(from: self, sender)
     }
 
     func setupAfterSubviewInHierarchy() {
@@ -104,10 +100,6 @@ class ClozeView: UIView, NibOwnerLoadable {
     }
 
     private func updateUI() {
-        if let responder = UIResponder.currentFirst() as? UITextField {
-            responder.resignFirstResponder()
-        }
-
         switch currentState {
         case .question:
             break
@@ -117,10 +109,7 @@ class ClozeView: UIView, NibOwnerLoadable {
             let answerText = viewModel?.getAnswerText(from: text)
 
             contextTextTextView.text = answerText
-//        case .questionTextField:
-//            <#code#>
-//        case .answerTextField:
-//            <#code#>
+
         }
     }
 }
