@@ -26,7 +26,9 @@ class ExploreViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        let notes = CoreDataManager.shared.createFakeCloze()
+        var notes = CoreDataManager.shared.createFakeCloze()
+        let bNotes = CoreDataManager.shared.creaetFakeSentenceCloze()
+        notes += bNotes
 
         var snapshot = dataSource.snapshot()
 
@@ -77,7 +79,7 @@ class ExploreViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Int, CDNote>()
         NoteManager.shared.addFakeNotes()
         
-//        let notes = CoreDataManager.shared.creaetFakeSentenceCloze()
+
         let notes = CoreDataManager.shared.createFakeCloze()
 
         snapshot.appendSections([0])

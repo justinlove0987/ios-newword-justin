@@ -113,8 +113,8 @@ class ShowCardsViewController: UIViewController {
     
     private func setupProperty() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
-        lastShowingSubview.addGestureRecognizer(tap)
-        
+        self.view.addGestureRecognizer(tap)
+
         let collectionCounts = viewModel.getCollectionCounts()
         updateLabels(collectionCounts: collectionCounts)
         

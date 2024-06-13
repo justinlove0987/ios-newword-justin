@@ -315,8 +315,6 @@ extension CoreDataManager {
         return learningRecord
     }
     
-    
-    
     func createLearningRecord(lastCard: CDCard, deck: CDDeck, isAnswerCorrect: Bool) -> CDLearningRecord {
         let today: Date = Date()
 
@@ -410,7 +408,6 @@ extension CoreDataManager {
 extension CoreDataManager {
 
     func addStartCard(graduatingInterval: Int, easyInterval: Int, learningStpes: Double) -> CDStartCard {
-
         let startCard = CDStartCard(context: persistentContainer.viewContext)
 
         startCard.graduatingInterval = Int64(graduatingInterval)

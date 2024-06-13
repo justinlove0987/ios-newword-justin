@@ -7,8 +7,6 @@
 
 import UIKit
 
-// TODO: - 如果下一個card collection沒有的話要繼續找下下一個card collection
-
 class ShowCardsViewControllerViewModel {
     
     enum CardType: Int {
@@ -42,8 +40,10 @@ class ShowCardsViewControllerViewModel {
     var deck: CDDeck?
 
     var tapAction: ((UITapGestureRecognizer) -> ())?
-    
     var answerStackViewShouldHidden: ((Bool) -> ())?
+    
+
+    // MARK: - Helpers
 
     func setupCards() {
         guard let deck else { return }
@@ -204,21 +204,21 @@ class ShowCardsViewControllerViewModel {
         var new = 0
         var review = 0
         var relearn = 0
-        
-        for order in cardTypeOrder {
+
+        for (i,order) in cardTypeOrder.enumerated() {
             switch order {
             case .new:
-                new = cardCollections[order.rawValue].count
+                new = cardCollections[i].count
             case .relearn:
-                relearn = cardCollections[order.rawValue].count
+                relearn = cardCollections[i].count
             case .review:
-                review = cardCollections[order.rawValue].count
+                review = cardCollections[i].count
             case .notToday:
                 break
             }
         }
-        
-        return (new, review, relearn)
+
+        return (new: new, relearn: relearn, review: review)
     }
     
 }

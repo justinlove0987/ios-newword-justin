@@ -53,7 +53,6 @@ struct ClozeViewViewModel {
 
     func getAnswerText(from text: String) -> String? {
         guard let clozeText = getClozeText() else { return nil }
-        var text = text
 
         let newText = text.replacingOccurrences(of: dummyText, with: clozeText)
 
