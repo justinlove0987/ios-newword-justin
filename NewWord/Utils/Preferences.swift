@@ -10,5 +10,5 @@ import Foundation
 
 struct Preference {
     static let fontSize: CGFloat = 20
-    static let spacing: CGFloat = 10
+    static let spacing: CGFloat = 8
 }

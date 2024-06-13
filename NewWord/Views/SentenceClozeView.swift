@@ -48,10 +48,6 @@ class SentenceClozeView: UIView, NibOwnerLoadable {
         chineseLabel.text =  viewModel.getCurrentClozeChinese()?.chinese
     }
 
-    private func setupDataSource() {
-
-    }
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()

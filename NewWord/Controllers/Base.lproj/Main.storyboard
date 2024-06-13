@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pSA-EX-MVA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pSA-EX-MVA">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -861,30 +861,18 @@
                                     <action selector="segmentedControlValueChanged:" destination="g7p-P2-eTT" eventType="valueChanged" id="BtN-8M-30a"/>
                                 </connections>
                             </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zg3-Tp-Fxh">
+                                <rect key="frame" x="0.0" y="110" width="393" height="708"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="g7p-P2-eTT" id="RkU-Mc-4aR"/>
+                                    <outlet property="delegate" destination="g7p-P2-eTT" id="r5D-u6-2X2"/>
+                                </connections>
+                            </tableView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YTl-XJ-gP8">
                                 <rect key="frame" x="20" y="130" width="353" height="668"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <mutableString key="text">OpenAI has recently unveiled GPT-4o, its latest large language model and the successor to GPT-4 Turbo. This innovative model stands out by accepting prompts in various formats, including text, audio, images, and video, all within a single interface. The "o" in GPT-4o represents "omni," reflecting its ability to handle multiple content types simultaneously, a significant advancement from previous models that required separate interfaces for different media.
-
-OpenAI 最近推出了 GPT-4o，這是其最新的大型語言模型，也是 GPT-4 Turbo 的繼任者。這個創新模型的突出之處在於它能夠接受各種格式的提示，包括文字、聲音、圖像和影片，所有這些都在一個單一的界面內。GPT-4o 中的「o」代表「omni」，反映了它能夠同時處理多種內容類型的能力，這是與之前需要為不同媒體使用單獨界面的模型相比的重大進步。
-
- 
-
-GPT-4o brings several improvements over its predecessor, GPT-4 Turbo. The model can now consider tone of voice, enabling more emotionally appropriate responses. Additionally, the reduced latency allows for near-real-time conversations, making it suitable for applications like live translations. GPT-4o's integrated vision capabilities enable it to describe and analyze content from camera feeds or computer screens, opening up new possibilities for interactive experiences and accessibility features for visually impaired users.
-
-GPT-4o 在其前身 GPT-4 Turbo 的基礎上帶來了幾項改進。該模型現在可以考慮語調，從而產生更適當情緒的回應。此外，延遲時間的縮短使其能夠進行近乎即時的對話，這使其適用於即時翻譯等應用。GPT-4o 集成的視覺功能使其能夠描述和分析來自攝影機和電腦螢幕的內容，為互動體驗和視障用戶的無障礙功能開闢了新的可能。
-
- 
-
-In terms of performance, GPT-4o has demonstrated impressive results in various benchmarks, often outperforming other top models like Claude 3 Opus and Gemini Pro 1.5. The model's multimodal training approach shows promise in enhancing its problem-solving abilities, extensive world knowledge, and code generation capabilities. As GPT-4o becomes more widely available, it has the potential to revolutionize how we interact with AI in both personal and professional contexts.
-
-在性能方面，GPT-4o 在各種基準測試中展示了令人印象深刻的結果，通常優於其他頂級模型，如 Claude 3 Opus 和 Gemini Pro 1.5。該模型的多模態訓練方法在提高其解決問題的能力、廣泛的世界知識和代碼生成能力方面顯出極大的潛力。隨著 GPT-4o 變得更加普及，它有可能革新我們在個人和專業領域與 AI 互動的方式。
-
- 
-
-While GPT-4o represents a significant leap forward, it is not without limitations and risks. Like other generative AI models, its output can be imperfect, particularly when interpreting images, videos, or transcribing speech with technical terms or strong accents. There are also concerns about the potential misuse of GPT-4o's audio capabilities in creating more convincing deepfake scams. As OpenAI continues to refine and optimize this new architecture, addressing these challenges will be crucial to ensure the model's safe and effective deployment.
-
-儘管 GPT-4o 代表了重大的躍進，但它並非沒有局限性和風險。與其他生成式 AI 模型一樣，它的輸出可能並不完美，尤其是在解釋圖像、影片或製作包含技術術語或強烈口音的語音逐字稿時。人們還擔心 GPT-4o 的語音功能可能被濫用，用於創造可信度更高的 deepfake 詐騙。隨著 OpenAI 繼續完善和優化這種新架構，解決這些挑戰將是確保該模型安全有效部署的關鍵。</mutableString>
+                                <string key="text">The AI technology, developed internally by Walmart, allows employees to scan items like bananas to determine their ripeness. A digital dashboard then uses generative AI to suggest the best course of action, such as changing the price, returning the product to the vendor, or donating it. This eliminates the need for human decision-making in the absence of informed advice, enabling associates to take proactive steps to reduce waste in stores.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -893,16 +881,21 @@ While GPT-4o represents a significant leap forward, it is not without limitation
                         <viewLayoutGuide key="safeArea" id="LrW-po-FBd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="LrW-po-FBd" firstAttribute="bottom" secondItem="zg3-Tp-Fxh" secondAttribute="bottom" id="DPO-RG-UbE"/>
+                            <constraint firstItem="zg3-Tp-Fxh" firstAttribute="top" secondItem="VUj-fs-Qfk" secondAttribute="bottom" id="EYk-Cr-bJn"/>
                             <constraint firstItem="YTl-XJ-gP8" firstAttribute="top" secondItem="VUj-fs-Qfk" secondAttribute="bottom" constant="20" id="GoF-Bc-GLl"/>
                             <constraint firstItem="LrW-po-FBd" firstAttribute="trailing" secondItem="VUj-fs-Qfk" secondAttribute="trailing" constant="10" id="HV2-mx-qHm"/>
                             <constraint firstItem="VUj-fs-Qfk" firstAttribute="top" secondItem="LrW-po-FBd" secondAttribute="top" constant="20" id="J9R-h9-4Hk"/>
                             <constraint firstItem="LrW-po-FBd" firstAttribute="trailing" secondItem="YTl-XJ-gP8" secondAttribute="trailing" constant="20" id="No0-mV-eL0"/>
                             <constraint firstItem="LrW-po-FBd" firstAttribute="bottom" secondItem="YTl-XJ-gP8" secondAttribute="bottom" constant="20" id="guQ-BI-HKN"/>
+                            <constraint firstItem="zg3-Tp-Fxh" firstAttribute="leading" secondItem="LrW-po-FBd" secondAttribute="leading" id="hyo-0W-MJS"/>
                             <constraint firstItem="YTl-XJ-gP8" firstAttribute="leading" secondItem="LrW-po-FBd" secondAttribute="leading" constant="20" id="lmJ-bL-oax"/>
+                            <constraint firstItem="LrW-po-FBd" firstAttribute="trailing" secondItem="zg3-Tp-Fxh" secondAttribute="trailing" id="rF9-yS-XM7"/>
                             <constraint firstItem="VUj-fs-Qfk" firstAttribute="leading" secondItem="LrW-po-FBd" secondAttribute="leading" constant="10" id="yxn-I5-kfi"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="tableView" destination="zg3-Tp-Fxh" id="KJn-o9-MIW"/>
                         <outlet property="textView" destination="YTl-XJ-gP8" id="5gD-SZ-hSU"/>
                     </connections>
                 </viewController>
@@ -930,14 +923,14 @@ While GPT-4o represents a significant leap forward, it is not without limitation
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchCell" id="SmP-Rv-EfC" customClass="SearchCell" customModule="NewWord" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="53"/>
+                                        <rect key="frame" x="0.0" y="50" width="393" height="53.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SmP-Rv-EfC" id="o7v-7g-vaC">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="53"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="53.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7S-8H-M8e">
-                                                    <rect key="frame" x="40" y="16" width="42" height="21"/>
+                                                    <rect key="frame" x="40" y="16" width="42" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
