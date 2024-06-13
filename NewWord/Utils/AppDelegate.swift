@@ -36,8 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate {
     func initializeDataManager() {
-        _ = DeckManager.shared
-        _ = CardManager.shared
+        _ = CoreDataManager.shared
     }
 }
 

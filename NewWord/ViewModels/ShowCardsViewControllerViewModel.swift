@@ -42,6 +42,8 @@ class ShowCardsViewControllerViewModel {
     var deck: CDDeck?
 
     var tapAction: ((UITapGestureRecognizer) -> ())?
+    
+    var answerStackViewShouldHidden: ((Bool) -> ())?
 
     func setupCards() {
         guard let deck else { return }
@@ -185,7 +187,6 @@ class ShowCardsViewControllerViewModel {
         
         if isAnswerCorrect {
             storageCards.append(moveCard)
-            let counts = cardCollections.map { $0.count }
         } else {
             addCardToCollection(moveCard, type: .relearn)
         }
@@ -222,14 +223,23 @@ class ShowCardsViewControllerViewModel {
     
 }
 
-extension ShowCardsViewControllerViewModel: ClozeViewProtocol {    
+extension ShowCardsViewControllerViewModel: ClozeViewProtocol {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let action = answerStackViewShouldHidden else { return false }
+        
+        textField.resignFirstResponder()
+        action(false)
+        
+        return true
+    }
+    
     func tap(from view: ClozeView, _ sender: UITapGestureRecognizer) {
         if let textField = UIResponder.currentFirst() as? UITextField {
             textField.resignFirstResponder()
             return
         }
         
-        guard let tapAction = tapAction else { return }
-        tapAction(sender)
+        guard let action = tapAction else { return }
+        action(sender)
     }
 }

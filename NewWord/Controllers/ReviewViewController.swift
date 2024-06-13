@@ -30,7 +30,6 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        updateDataSource()
     }
 
     // MARK: - Helpers
@@ -142,6 +141,8 @@ extension ReviewViewController: UITableViewDelegate {
             
             return vc
         }
+        
+        vc.view.layoutIfNeeded()
         
         navigationController?.pushViewController(vc, animated: true)
     }

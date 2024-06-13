@@ -9,6 +9,7 @@ import UIKit
 
 protocol ClozeViewProtocol: AnyObject {
     func tap(from view: ClozeView, _ sender: UITapGestureRecognizer)
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
 }
 
 class ClozeView: UIView, NibOwnerLoadable {
@@ -109,6 +110,7 @@ class ClozeView: UIView, NibOwnerLoadable {
             let answerText = viewModel?.getAnswerText(from: text)
 
             contextTextTextView.text = answerText
+            customInputView.isHidden = true
 
         }
     }
@@ -172,13 +174,9 @@ extension ClozeView {
 extension ClozeView: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let text = contextTextTextView.text else { return true }
-
-        let answerText = viewModel?.getAnswerText(from: text)
-
-        contextTextTextView.text = answerText
-
-        textField.resignFirstResponder()
+        nextState()
+        
+        _ = delegate?.textFieldShouldReturn(textField)
 
         return true
     }

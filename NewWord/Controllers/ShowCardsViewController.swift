@@ -19,9 +19,15 @@ protocol ShowCardsSubviewDelegate: UIView {
     func nextState()
 
     func setupAfterSubviewInHierarchy()
+    
+    func isFinalState() -> Bool
 }
 
 extension ShowCardsSubviewDelegate {
+    
+    func isFinalState() -> Bool {
+        return currentState.rawValue + 1 == CardStateType.allCases.count
+    }
 
     func hasNextState() -> Bool {
         let rawValue = currentState.rawValue
@@ -45,49 +51,22 @@ extension ShowCardsSubviewDelegate {
 }
 
 class ShowCardsViewController: UIViewController {
-
-    enum AnswerState {
-        case question
-        case answer
-    }
-
+    
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var newLabel: UILabel!
     @IBOutlet weak var relearnLabel: UILabel!
     @IBOutlet weak var reviewLabel: UILabel!
-    @IBOutlet weak var answerStackView: UIStackView!
-    var deck: CDDeck
+    @IBOutlet weak var rateStackView: UIStackView!
+    @IBOutlet weak var answerTypeStackView: UIStackView!
     
-    var currentAnswerState: AnswerState = .question
+    var deck: CDDeck
     
     private var viewModel = ShowCardsViewControllerViewModel()
 
-    var tapAction: ((UITapGestureRecognizer) -> ())?
-
     private var lastShowingSubview: any ShowCardsSubviewDelegate = NoCardView() {
         willSet {
-
-            if let oldClozeView = lastShowingSubview as? ClozeView {
-                oldClozeView.customInputView.textField.resignFirstResponder()
-            }
-
-            lastShowingSubview.removeFromSuperview()
-
-            self.view.addSubview(newValue)
-            newValue.translatesAutoresizingMaskIntoConstraints = false
-
-            NSLayoutConstraint.activate([
-                newValue.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-                newValue.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-                newValue.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-                newValue.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-            ])
-
-            view.layoutIfNeeded()
-
-            newValue.setupAfterSubviewInHierarchy()
+            layout(newSubview: newValue)
         }
-
     }
 
     // MARK: - Lifecycles
@@ -109,63 +88,66 @@ class ShowCardsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+    
+    // MARK: - Helpers
 
     private func setup() {
-        tapAction = { sender in
-            self.tapHelper(sender)
-        }
-
+        setupViewModel()
+        setupProperty()
+    }
+    
+    private func setupViewModel() {
         viewModel.deck = deck
         viewModel.setupCards()
-        viewModel.tapAction = tapAction
+        
+        viewModel.tapAction = { sender in
+            self.tapHelper(sender)
+        }
+        
+        viewModel.answerStackViewShouldHidden = { shouldHidden in
+            self.answerTypeStackView.isHidden = shouldHidden
+        }
+        
         lastShowingSubview = viewModel.getCurrentSubview()
-
+    }
+    
+    private func setupProperty() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         lastShowingSubview.addGestureRecognizer(tap)
         
         let collectionCounts = viewModel.getCollectionCounts()
         updateLabels(collectionCounts: collectionCounts)
+        
+        answerTypeStackView.isHidden = true
+    }
+    
+    private func layout(newSubview: any ShowCardsSubviewDelegate) {
+        if let oldClozeView = lastShowingSubview as? ClozeView {
+            oldClozeView.customInputView.textField.resignFirstResponder()
+        }
 
+        lastShowingSubview.removeFromSuperview()
+
+        self.view.addSubview(newSubview)
+        
+        newSubview.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            newSubview.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            newSubview.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            newSubview.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+            newSubview.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+        ])
+        
+        view.layoutIfNeeded()
+        
+        newSubview.setupAfterSubviewInHierarchy()
+        
+        updateAnswerStateView(isFinalState: newSubview.isFinalState())
     }
 
     @objc func tap(_ sender: UITapGestureRecognizer) {
         tapHelper(sender)
-    }
-
-    @IBAction func correctAction(_ sender: UIButton) {
-        let hasNextState = lastShowingSubview.hasNextState()
-        
-        if hasNextState {
-            lastShowingSubview.nextState()
-        } else {
-            viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: true)
-            viewModel.moveCard(isAnswerCorrect: true)
-            
-            lastShowingSubview = viewModel.getCurrentSubview()
-            let collectionCounts = viewModel.getCollectionCounts()
-            updateLabels(collectionCounts: collectionCounts)
-        }
-    }
-
-    @IBAction func incorrectAction(_ sender: UIButton) {
-        let hasNextState = lastShowingSubview.hasNextState()
-        
-        if hasNextState {
-            lastShowingSubview.nextState()
-        } else {
-            viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: true)
-            viewModel.moveCard(isAnswerCorrect: true)
-            
-            lastShowingSubview = viewModel.getCurrentSubview()
-            let collectionCounts = viewModel.getCollectionCounts()
-            updateLabels(collectionCounts: collectionCounts)
-        }
-
-    }
-    
-    func isTouchOnRightSide(of view: UIView, at point: CGPoint) -> Bool {
-        let midX = view.bounds.midX
-        return point.x > midX
     }
 
     private func tapHelper(_ sender: UITapGestureRecognizer) {
@@ -173,14 +155,12 @@ class ShowCardsViewController: UIViewController {
 
         if hasNextState {
             lastShowingSubview.nextState()
+            updateAnswerStateView(isFinalState: lastShowingSubview.isFinalState())
 
         } else {
             let isAnswerCorrect = isTouchOnRightSide(of: contentView, at: sender.location(in: self.view))
             
-            viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: isAnswerCorrect)
-            viewModel.moveCard(isAnswerCorrect: isAnswerCorrect)
-            let collectionCounts = viewModel.getCollectionCounts()
-            updateLabels(collectionCounts: collectionCounts)
+            showAnswer(with: isAnswerCorrect)
 
             guard let _ = viewModel.getCardAfterMovingCard() else {
                 lastShowingSubview = NoCardView()
@@ -191,10 +171,39 @@ class ShowCardsViewController: UIViewController {
         }
     }
     
+    private func showAnswer(with isAnswerCorrect: Bool) {
+        viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: isAnswerCorrect)
+        viewModel.moveCard(isAnswerCorrect: isAnswerCorrect)
+        
+        lastShowingSubview = viewModel.getCurrentSubview()
+        let collectionCounts = viewModel.getCollectionCounts()
+        updateLabels(collectionCounts: collectionCounts)
+    }
+    
     private func updateLabels(collectionCounts: (new: Int, relearn: Int, review: Int)) {
         newLabel.text = "\(collectionCounts.new)"
         relearnLabel.text = "\(collectionCounts.relearn)"
         reviewLabel.text = "\(collectionCounts.review)"
+    }
+    
+    private func updateAnswerStateView(isFinalState: Bool) {
+        answerTypeStackView.isHidden = !isFinalState
+    }
+    
+    private func isTouchOnRightSide(of view: UIView, at point: CGPoint) -> Bool {
+        let midX = view.bounds.midX
+        return point.x > midX
+    }
+    
+    
+    // MARK: - Actions
+
+    @IBAction func correctAction(_ sender: UIButton) {
+        showAnswer(with: true)
+    }
+
+    @IBAction func incorrectAction(_ sender: UIButton) {
+        showAnswer(with: false)
     }
 
 }
