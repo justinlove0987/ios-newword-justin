@@ -864,7 +864,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YTl-XJ-gP8">
                                 <rect key="frame" x="20" y="130" width="353" height="668"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <string key="text">OpenAI has recently unveiled GPT-4o, its latest large language model and the successor to GPT-4 Turbo. This innovative model stands out by accepting prompts in various formats, including text, audio, images, and video, all within a single interface. The "o" in GPT-4o represents "omni," reflecting its ability to handle multiple content types simultaneously, a significant advancement from previous models that required separate interfaces for different media.
+                                <mutableString key="text">OpenAI has recently unveiled GPT-4o, its latest large language model and the successor to GPT-4 Turbo. This innovative model stands out by accepting prompts in various formats, including text, audio, images, and video, all within a single interface. The "o" in GPT-4o represents "omni," reflecting its ability to handle multiple content types simultaneously, a significant advancement from previous models that required separate interfaces for different media.
 
 OpenAI 最近推出了 GPT-4o，這是其最新的大型語言模型，也是 GPT-4 Turbo 的繼任者。這個創新模型的突出之處在於它能夠接受各種格式的提示，包括文字、聲音、圖像和影片，所有這些都在一個單一的界面內。GPT-4o 中的「o」代表「omni」，反映了它能夠同時處理多種內容類型的能力，這是與之前需要為不同媒體使用單獨界面的模型相比的重大進步。
 
@@ -884,25 +884,7 @@ In terms of performance, GPT-4o has demonstrated impressive results in various b
 
 While GPT-4o represents a significant leap forward, it is not without limitations and risks. Like other generative AI models, its output can be imperfect, particularly when interpreting images, videos, or transcribing speech with technical terms or strong accents. There are also concerns about the potential misuse of GPT-4o's audio capabilities in creating more convincing deepfake scams. As OpenAI continues to refine and optimize this new architecture, addressing these challenges will be crucial to ensure the model's safe and effective deployment.
 
-儘管 GPT-4o 代表了重大的躍進，但它並非沒有局限性和風險。與其他生成式 AI 模型一樣，它的輸出可能並不完美，尤其是在解釋圖像、影片或製作包含技術術語或強烈口音的語音逐字稿時。人們還擔心 GPT-4o 的語音功能可能被濫用，用於創造可信度更高的 deepfake 詐騙。隨著 OpenAI 繼續完善和優化這種新架構，解決這些挑戰將是確保該模型安全有效部署的關鍵。
-
- 
-
-The release of GPT-4o aligns with OpenAI's mission to develop artificial general intelligence (AGI) and its business model of creating increasingly powerful AI systems. As the first generation of this new model architecture, GPT-4o presents ample opportunities for the company to learn and optimize in the coming months. Users can expect improvements in speed and output quality over time, along with the emergence of novel use cases and applications.
-
-GPT-4o 的發布符合 OpenAI 開發通用人工智慧 (AGI) 的使命以及其創建越來越強大的 AI 系統的商業模式。作為這種新模型架構的第一代，GPT-4o 為該公司在未來幾個月內學習和優化提供了充足的機會。用戶可以期待速度和輸出品質隨著時間的推移而提升，以及新的使用案例和應用的出現。
-
- 
-
-The launch of GPT-4o coincides with the declining interest in virtual assistants like Siri, Alexa, and Google Assistant. OpenAI's focus on making AI more conversational and interactive could potentially revitalize this space and bring forth a new wave of AI-driven experiences. The model's lower cost compared to GPT-4 Turbo, coupled with its enhanced capabilities, positions GPT-4o as a game-changer in the AI industry.
-
-GPT-4o 的推出恰逢人們對 Siri、Alexa 和 Google Assistant 等虛擬助手的興趣下降之際。OpenAI 致力於使 AI 更具對話性和交互性，這可能會重振該領域，帶來新一波 AI 驅動的體驗。與 GPT-4 Turbo 相比，該模型的成本更低，再加上其增強的功能，使 GPT-4o 成為 AI 行業的遊戲規則改變者。
-
- 
-
-As GPT-4o becomes more accessible, it is essential for individuals and professionals to familiarize themselves with the technology and its potential applications. OpenAI offers resources such as the AI Fundamentals skill track and hands-on courses on working with the OpenAI API to help users navigate this exciting new frontier in artificial intelligence.
-
-隨著 GPT-4o 變得更加易於獲取，個人和專業人士必須熟悉該技術及其潛在應用。OpenAI 提供了資源，如 AI 基礎技能追蹤和使用 OpenAI API 的相關實踐課程，以幫助用戶探索人工智慧的這個令人興奮的新疆土。</string>
+儘管 GPT-4o 代表了重大的躍進，但它並非沒有局限性和風險。與其他生成式 AI 模型一樣，它的輸出可能並不完美，尤其是在解釋圖像、影片或製作包含技術術語或強烈口音的語音逐字稿時。人們還擔心 GPT-4o 的語音功能可能被濫用，用於創造可信度更高的 deepfake 詐騙。隨著 OpenAI 繼續完善和優化這種新架構，解決這些挑戰將是確保該模型安全有效部署的關鍵。</mutableString>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -948,14 +930,14 @@ As GPT-4o becomes more accessible, it is essential for individuals and professio
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchCell" id="SmP-Rv-EfC" customClass="SearchCell" customModule="NewWord" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="53.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="393" height="53"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SmP-Rv-EfC" id="o7v-7g-vaC">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="53.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="53"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7S-8H-M8e">
-                                                    <rect key="frame" x="40" y="16" width="42" height="21.666666666666671"/>
+                                                    <rect key="frame" x="40" y="16" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

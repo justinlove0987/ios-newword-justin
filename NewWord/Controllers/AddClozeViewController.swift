@@ -32,14 +32,43 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
 }
 
 extension AddClozeViewController: ContextRevisionInputAccessoryViewDelegate {
-    func didTapCleanChineseButton() {
+    func didTapseperateParagraphWithSingleLineActionButton(_ sender: UIView) {
+        guard let text = textView.text else { return }
+        
+        let newText = separateParagraphsWithSingleLine(text: text)
+        textView.text = newText
+        textView.resignFirstResponder()
+    }
+    
+    func didAddNewLineAfterPeriodsButton(_ sender: UIView) {
+        guard let text = textView.text else { return }
+        
+        let newText = addNewlineAfterPeriods(text: text)
+        textView.text = newText
+        textView.resignFirstResponder()
+    }
+    
+    func didTapCleanChineseButton(_ sender: UIView) {
         let text = textView.text!
         let newText = removeChineseParagraphs(from: text)
         textView.text = newText
         textView.resignFirstResponder()
     }
+    
+    func separateParagraphsWithSingleLine(text: String) -> String {
+        let pattern = "\n+"
+        let regex = try! NSRegularExpression(pattern: pattern, options: [])
+        let range = NSRange(location: 0, length: text.utf16.count)
+        let newText = regex.stringByReplacingMatches(in: text, options: [], range: range, withTemplate: "\n")
+        return newText
+    }
+    
+    private func addNewlineAfterPeriods(text: String) -> String {
+        let newText = text.replacingOccurrences(of: ". ", with: ".\n")
+        return newText
+    }
 
-    func removeChineseParagraphs(from text: String) -> String {
+    private func removeChineseParagraphs(from text: String) -> String {
         // 定義正則表達式來匹配包含中文字符的段落
         let pattern = ".*[\\u4e00-\\u9fff]+.*"
 

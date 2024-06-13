@@ -17,30 +17,59 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AuE-wV-tAt">
                     <rect key="frame" x="0.0" y="3" width="393" height="50"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EwM-pr-dIJ">
-                            <rect key="frame" x="10" y="8" width="316" height="34.333333333333336"/>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eEn-NB-SfU">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dKR-ai-GzH">
-                                    <rect key="frame" x="0.0" y="0.0" width="153" height="34.333333333333336"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="去除中文"/>
-                                    <connections>
-                                        <action selector="cleanChineseAction:" destination="-1" eventType="touchUpInside" id="77T-1l-MSk"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UoO-Qp-WlK">
-                                    <rect key="frame" x="163" y="0.0" width="153" height="34.333333333333336"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="filled" title="遇到句號（.)分行"/>
-                                </button>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EwM-pr-dIJ">
+                                    <rect key="frame" x="20" y="8" width="612" height="34"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dKR-ai-GzH">
+                                            <rect key="frame" x="0.0" y="0.0" width="197.33333333333334" height="34"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="filled" title="去除中文"/>
+                                            <connections>
+                                                <action selector="cleanChineseAction:" destination="-1" eventType="touchUpInside" id="77T-1l-MSk"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UoO-Qp-WlK">
+                                            <rect key="frame" x="207.33333333333331" y="0.0" width="197.33333333333331" height="34"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="filled" title="遇到句號（.)分行"/>
+                                            <connections>
+                                                <action selector="breakLineAction:" destination="-1" eventType="touchUpInside" id="Pgw-OZ-W46"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qXF-EP-zP2">
+                                            <rect key="frame" x="414.66666666666669" y="0.0" width="197.33333333333331" height="34"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="filled" title="段落與段落間只空一行"/>
+                                            <connections>
+                                                <action selector="breakLineAction:" destination="-1" eventType="touchUpInside" id="BAa-ga-mY3"/>
+                                                <action selector="seperateParagraphWithSingleLineAction:" destination="-1" eventType="touchUpInside" id="BWh-ME-d78"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
                             </subviews>
-                        </stackView>
+                            <constraints>
+                                <constraint firstItem="EwM-pr-dIJ" firstAttribute="leading" secondItem="eEn-NB-SfU" secondAttribute="leading" constant="20" id="1bp-Vr-DsO"/>
+                                <constraint firstItem="EwM-pr-dIJ" firstAttribute="top" secondItem="VWE-Ij-Ivk" secondAttribute="top" constant="8" id="30j-pm-uDM"/>
+                                <constraint firstItem="EwM-pr-dIJ" firstAttribute="leading" secondItem="VWE-Ij-Ivk" secondAttribute="leading" constant="20" id="ElF-9a-uYq"/>
+                                <constraint firstItem="EwM-pr-dIJ" firstAttribute="centerY" secondItem="eEn-NB-SfU" secondAttribute="centerY" id="Wng-PG-Imy"/>
+                                <constraint firstItem="EwM-pr-dIJ" firstAttribute="trailing" secondItem="VWE-Ij-Ivk" secondAttribute="trailing" id="ZpQ-ea-B6V"/>
+                                <constraint firstItem="EwM-pr-dIJ" firstAttribute="bottom" secondItem="VWE-Ij-Ivk" secondAttribute="bottom" id="vg5-Ij-GLr"/>
+                            </constraints>
+                            <viewLayoutGuide key="contentLayoutGuide" id="VWE-Ij-Ivk"/>
+                            <viewLayoutGuide key="frameLayoutGuide" id="tXY-lV-V6C"/>
+                        </scrollView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstItem="EwM-pr-dIJ" firstAttribute="leading" secondItem="AuE-wV-tAt" secondAttribute="leading" constant="10" id="0Gw-lA-HVT"/>
                         <constraint firstAttribute="height" constant="50" id="EFW-Vn-XDu"/>
-                        <constraint firstItem="EwM-pr-dIJ" firstAttribute="centerY" secondItem="AuE-wV-tAt" secondAttribute="centerY" id="tnr-12-8R0"/>
+                        <constraint firstItem="eEn-NB-SfU" firstAttribute="leading" secondItem="AuE-wV-tAt" secondAttribute="leading" id="Mbp-4t-1hN"/>
+                        <constraint firstItem="eEn-NB-SfU" firstAttribute="top" secondItem="AuE-wV-tAt" secondAttribute="top" id="gOf-SK-cp6"/>
+                        <constraint firstAttribute="bottom" secondItem="eEn-NB-SfU" secondAttribute="bottom" id="vcz-Ok-HI7"/>
+                        <constraint firstAttribute="trailing" secondItem="eEn-NB-SfU" secondAttribute="trailing" id="zXJ-pb-L9A"/>
                     </constraints>
                 </view>
             </subviews>

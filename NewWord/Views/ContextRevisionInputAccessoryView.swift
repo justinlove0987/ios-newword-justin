@@ -8,7 +8,10 @@
 import UIKit
 
 protocol ContextRevisionInputAccessoryViewDelegate: AnyObject {
-    func didTapCleanChineseButton()
+    func didTapCleanChineseButton(_ sender: UIView)
+    func didAddNewLineAfterPeriodsButton(_ sender: UIView)
+    
+    func didTapseperateParagraphWithSingleLineActionButton(_ sender: UIView)
 }
 
 class ContextRevisionInputAccessoryView: UIView, NibOwnerLoadable {
@@ -30,7 +33,17 @@ class ContextRevisionInputAccessoryView: UIView, NibOwnerLoadable {
     }
     
     @IBAction func cleanChineseAction(_ sender: UIButton) {
-        delegate?.didTapCleanChineseButton()
+        delegate?.didTapCleanChineseButton(self)
     }
+    
+    @IBAction func breakLineAction(_ sender: UIButton) {
+        delegate?.didAddNewLineAfterPeriodsButton(self)
+    }
+    
+    
+    @IBAction func seperateParagraphWithSingleLineAction(_ sender: UIButton) {
+        delegate?.didTapseperateParagraphWithSingleLineActionButton(self)
+    }
+    
     
 }
