@@ -49,12 +49,6 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
         tableView.register(ContextCell.self, forCellReuseIdentifier: "ContextCell")
         tableView.isHidden = true
 
-
-//        currentText =
-//        """
-//        Don't forget about quotation marks: "They highlight speech or quotations."
-//"""
-
         currentText =
         """
 When we think about punctuation, we often remember the basics: the period, the comma, and the question mark. However, there's so much more! Consider the exclamation mark—wow! It adds excitement, doesn't it? Additionally, the colon: a punctuation mark that introduces lists or explanations.
