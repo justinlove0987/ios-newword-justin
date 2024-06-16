@@ -111,8 +111,6 @@ struct AddClozeViewControllerViewModel {
         }
 
         sentences = result
-        
-        print(newResult)
 
         return newResult
     }
@@ -157,7 +155,7 @@ struct AddClozeViewControllerViewModel {
                     return
                 }
                 
-                if endsWithExactlyThreeDots(text: currentWord) {
+                if matchesAnyPattern(in: currentWord) {
                     newCurrentSentence.append(ClozeWord(position: (sentenceCounts, newCurrentSentence.count), text: currentWord))
                     currentSentence.append(currentWord)
                     currentWord = ""
@@ -182,6 +180,34 @@ struct AddClozeViewControllerViewModel {
         } else {
             currentCharIndex += 1
         }
+    }
+    
+    func matchesAnyPattern(in text: String) -> Bool {
+        let patterns: [String] = ["(?<!\\.)\\.\\.\\.$",
+                                  "\\b(Mr|Mrs|Ms|Dr|Prof|St|Jr|Sr|Ltd|Inc|Co|Corp|Gen|Col|Sgt|Lt|Mt|Fr|Rev|Hon)\\."]
+        
+        for pattern in patterns {
+            do {
+                let regex = try NSRegularExpression(pattern: pattern)
+                let range = NSRange(location: 0, length: text.utf16.count)
+                if regex.firstMatch(in: text, options: [], range: range) != nil {
+                    return true
+                }
+            } catch {
+                print("Invalid regex pattern: \(pattern)")
+            }
+        }
+        return false
+    }
+    
+    func returnPatterns(_ text: String) -> Bool {
+        
+        if endsWithExactlyThreeDots(text: text) {
+            return true
+        }
+        
+        
+        return false
     }
     
     func endsWithExactlyThreeDots(text: String) -> Bool {

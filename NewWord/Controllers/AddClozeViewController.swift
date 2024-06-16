@@ -54,9 +54,35 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
 
         currentText =
         """
-Master Li smiled warmly, his eyes twinkling with pride. "Remember, young Jack," he said gently, "life is a journey of discovery and growth. Embrace each moment with an open heart, and you will find the answers you seek."
+In... the bustling town of Punctuatia, lived an eccentric scholar named Dr. Punctuation. One sunny day, his apprentice, Lily, asked, "Dr. Punctuation, can you teach me about punctuation?"
 
-And so, under the canopy of stars and the watchful gaze of Master Li, Jack embarked on his journey with newfound wisdom and clarity, ready to embrace life's challenges with courage and grace.
+Dr. Punctuation smiled, "Of course, Lily! Let's start with the basics. A period (.) ends a sentence, like this: 'The sun rises.' A comma (,) separates items in a list: 'I bought apples, oranges, and bananas.'"
+
+Lily asked, "What about semicolons and colons?"
+
+"Good question!" Dr. Punctuation replied. "A semicolon (;) links related clauses: 'She writes; he reads.' A colon (:) introduces a list or explanation: 'I need the following: paper, pen, and ink.'"
+
+Lily's eyes widened. "What about exclamation marks and question marks?"
+
+"Exclamation marks (!) show excitement: 'Wow!' Question marks (?) indicate a query: 'How are you?'" Dr. Punctuation explained.
+
+"Don't forget about quotation marks and apostrophes," Lily added.
+
+"Correct! Quotation marks (' ' or " ") enclose direct speech: 'He said, "Hello."' Apostrophes (') show possession: 'Lily's book,' or contractions: 'don't,'" he elaborated.
+
+"And parentheses?" Lily asked.
+
+"Parentheses (()) add extra information: 'He gave me a gift (a book),'" Dr. Punctuation noted. "Brackets ([]) add editorial comments: 'She [the teacher] was kind.'"
+
+"Hyphens and dashes?" Lily continued.
+
+"Hyphens (-) join words: 'well-known author.' Dashes (—) add emphasis: 'She was happy—really happy,'" he said.
+
+Lily grinned, "Thanks, Dr. Punctuation! I think I've got it now."
+
+"You're welcome, Lily," he chuckled. "Practice makes perfect!"
+
+And so, Lily learned the art of punctuation, one mark at a time.
 """
         dataSource = viewModel.splitTextIntoSentences(text: currentText)
 

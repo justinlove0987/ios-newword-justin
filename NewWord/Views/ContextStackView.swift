@@ -29,14 +29,14 @@ class ContextStackView: UIStackView {
 
             for split in splits {
                 let label = ContextLabel()
-                label.clozeWord = cloze
-                label.isSelected = cloze.selected
 
                 if isPunctuation(split) {
                     label.labelType = .punctuation
 
                 } else {
                     label.labelType = .word
+                    label.clozeWord = cloze
+                    label.isSelected = cloze.selected
                 }
 
                 label.text = split
