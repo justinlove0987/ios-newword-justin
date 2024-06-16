@@ -51,13 +51,9 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
 
         currentText =
         """
-When we think about punctuation, we often remember the basics: the period, the comma, and the question mark. However, there's so much more! Consider the exclamation mark—wow! It adds excitement, doesn't it? Additionally, the colon: a punctuation mark that introduces lists or explanations.
+Master Li smiled warmly, his eyes twinkling with pride. "Remember, young Jack," he said gently, "life is a journey of discovery and growth. Embrace each moment with an open heart, and you will find the answers you seek."
 
-Think about parentheses (they're quite handy) or brackets [useful for adding information]. Then there's the semicolon; it connects related ideas. Don't forget about quotation marks: "They highlight speech or quotations."
-
-In academic writing, you'll encounter the dash—an elegant way to interject thoughts. Plus, the ellipsis... it creates suspense. Finally, remember the apostrophe's role in contractions and possession, and the hyphen in compound words like well-known.
-
-All these marks—yes, all of them—help us write clearly, expressively, and precisely!
+And so, under the canopy of stars and the watchful gaze of Master Li, Jack embarked on his journey with newfound wisdom and clarity, ready to embrace life's challenges with courage and grace.
 """
         dataSource = viewModel.splitTextIntoSentences(text: currentText)
 

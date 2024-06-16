@@ -121,19 +121,17 @@ struct AddClozeViewControllerViewModel {
                     currentCharIndex += 1
                     return
                 }
-                                
-                let shouldGoToNewLine = textEndsWithAnyAndValidCount(text: currentWord, checks: [".", "!", "?"])
                 
-                if shouldGoToNewLine {
+                if endsWithExactlyThreeDots(text: currentWord) {
+                    currentSentence.append(currentWord)
+                    currentWord = ""
+                    currentCharIndex += 1
+                } else {
                     currentSentence.append(currentWord)
                     sentences.append(currentSentence)
                     currentWord = ""
                     currentSentence = []
                     currentCharIndex += 2
-                } else {
-                    currentSentence.append(currentWord)
-                    currentWord = ""
-                    currentCharIndex += 1
                 }
                 
             } else {
@@ -145,22 +143,10 @@ struct AddClozeViewControllerViewModel {
         }
     }
     
-    func textEndsWithAnyAndValidCount(text: String, checks: [String]) -> Bool {
-        for check in checks {
-            if text.hasSuffix(check) {
-                if check.count == 1 {
-                    let char = Character(check)
-                    let charCount = text.reduce(0) { $1 == char ? $0 + 1 : $0 }
-                    if charCount == 1 {
-                        return true
-                    }
-                } else {
-                    return true
-                }
-            }
-        }
-        return false
+    func endsWithExactlyThreeDots(text: String) -> Bool {
+        return text.hasSuffix("...") && text.suffix(4) != "...."
     }
+    
     func getTextSize(_ text: String) -> CGSize {
         return text.size(withAttributes: [.font: UIFont.systemFont(ofSize: Preference.fontSize)])
     }

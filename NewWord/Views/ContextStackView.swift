@@ -63,19 +63,19 @@ class ContextStackView: UIStackView {
     }
 
     func splitTextIntoWordsAndPunctuation(text: String) -> [String] {
-        let pattern = "[\\w']+|[.,!?;:()\"'\\[\\]]"
-
+        let pattern = "[\\w']+|[.,!?;:()\"'\\[\\]—-]"
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
-
+        
         let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
-
+        
         var result: [String] = []
+        
         for match in matches {
             if let range = Range(match.range, in: text) {
                 result.append(String(text[range]))
             }
         }
-
+        
         return result
     }
 

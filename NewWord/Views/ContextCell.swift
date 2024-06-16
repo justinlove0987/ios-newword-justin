@@ -23,7 +23,6 @@ class ContextCell: UITableViewCell {
             return
         }
 
-
         let verticalStackView = createVerticalStackView()
 
         let maximumWidth: CGFloat = 375
@@ -36,7 +35,6 @@ class ContextCell: UITableViewCell {
             let currentWord = sentence[wordIndex]
             let size = getTextSize(currentWord)
             let width = size.width
-
 
             if currentTotalWidth + width + Preference.spacing > maximumWidth {
                 currentTotalWidth = 0
