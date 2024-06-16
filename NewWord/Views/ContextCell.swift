@@ -11,28 +11,85 @@ class ContextCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
+    
+    func configureCell(with sentence: [String]) {
+        let hasWord =  sentence.count > 0
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
-
-    func configureCell(with words: [String]) {
-        let stackView = setupStackView()
-
-        for word in words {
-            let label = createLabel(with: word)
-            stackView.addArrangedSubview(label)
+        guard hasWord else {
+            let label = ContextStackView(text: "", frame: .zero)
+            let verticalStackView = createVerticalStackView()
+            verticalStackView.addArrangedSubview(label)
+            return
         }
 
-        configureStackViewLayoutPriority(stackView)
+
+        let verticalStackView = createVerticalStackView()
+
+        let maximumWidth: CGFloat = 375
+
+        var currentTotalWidth: CGFloat = 0.0
+        var wordIndex = 0
+        var horizontalStackView = createHorizontalStackView()
+
+        while wordIndex < sentence.count {
+            let currentWord = sentence[wordIndex]
+            let size = getTextSize(currentWord)
+            let width = size.width
+
+
+            if currentTotalWidth + width + Preference.spacing > maximumWidth {
+                currentTotalWidth = 0
+                let dummyView = UIView()
+                horizontalStackView.addArrangedSubview(dummyView)
+                verticalStackView.addArrangedSubview(horizontalStackView)
+                horizontalStackView = createHorizontalStackView()
+
+            } else {
+                currentTotalWidth += width
+                currentTotalWidth += Preference.spacing
+                wordIndex += 1
+
+                let stackView = ContextStackView(text: currentWord, frame: .zero)
+                horizontalStackView.addArrangedSubview(stackView)
+            }
+        }
+        
+        let hasSubviews = horizontalStackView.arrangedSubviews.count > 0
+
+        if hasSubviews {
+            let dummyView = UIView()
+            horizontalStackView.addArrangedSubview(dummyView)
+            verticalStackView.addArrangedSubview(horizontalStackView)
+        }
+
+        configureStackViewLayoutPriority(verticalStackView)
+
     }
 
-    private func setupStackView() -> UIStackView {
+    private func createVerticalStackView() -> UIStackView {
         contentView.subviews.forEach { $0.removeFromSuperview() }
 
+        let verticalStackView = UIStackView()
+        verticalStackView.axis = .vertical
+        verticalStackView.distribution = .fillEqually
+        verticalStackView.alignment = .fill
+        verticalStackView.spacing = 0
+        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
+
+        contentView.addSubview(verticalStackView)
+
+        NSLayoutConstraint.activate([
+            verticalStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            verticalStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            verticalStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            verticalStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ])
+
+        return verticalStackView
+    }
+
+    private func createHorizontalStackView() -> UIStackView {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.distribution = .fill
@@ -40,24 +97,12 @@ class ContextCell: UITableViewCell {
         stack.spacing = Preference.spacing
         stack.translatesAutoresizingMaskIntoConstraints = false
 
-        contentView.addSubview(stack)
-
-        NSLayoutConstraint.activate([
-            stack.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        ])
-
         return stack
     }
 
-
     private func createLabel(with text: String) -> UILabel {
-        let label = UILabel()
+        let label = ContextLabel()
         label.text = text
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: Preference.fontSize)
         return label
     }
 
@@ -76,6 +121,16 @@ class ContextCell: UITableViewCell {
                 priority -= 1
             }
         }
+    }
+
+    func getTextSize(_ text: String) -> CGSize {
+        return text.size(withAttributes: [.font: UIFont.systemFont(ofSize: Preference.fontSize)])
+    }
+
+
+    func isPunctuation(_ text: String) -> Bool {
+        let punctuationRegex = try! NSRegularExpression(pattern: "^\\p{P}*$", options: [])
+        return punctuationRegex.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) != nil
     }
 
 }

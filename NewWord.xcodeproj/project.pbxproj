@@ -66,6 +66,8 @@
 		D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */; };
 		D0A86A662C1B55390022DFDD /* AddClozeViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A86A652C1B55390022DFDD /* AddClozeViewControllerViewModel.swift */; };
 		D0A86A682C1B5FA00022DFDD /* ContextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A86A672C1B5FA00022DFDD /* ContextCell.swift */; };
+		D0D6E0E92C1CB38500C1F95E /* ContextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D6E0E82C1CB38500C1F95E /* ContextLabel.swift */; };
+		D0D6E0EB2C1DE92C00C1F95E /* ContextStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D6E0EA2C1DE92C00C1F95E /* ContextStackView.swift */; };
 		D0D8D5F62C0F0920001BB415 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8D5F52C0F0920001BB415 /* String+Extension.swift */; };
 		D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC42BB66A05008644DC /* AppDelegate.swift */; };
 		D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */; };
@@ -137,6 +139,8 @@
 		D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibOwnerLoadable.swift; sourceTree = "<group>"; };
 		D0A86A652C1B55390022DFDD /* AddClozeViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClozeViewControllerViewModel.swift; sourceTree = "<group>"; };
 		D0A86A672C1B5FA00022DFDD /* ContextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextCell.swift; sourceTree = "<group>"; };
+		D0D6E0E82C1CB38500C1F95E /* ContextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextLabel.swift; sourceTree = "<group>"; };
+		D0D6E0EA2C1DE92C00C1F95E /* ContextStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextStackView.swift; sourceTree = "<group>"; };
 		D0D8D5F52C0F0920001BB415 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		D0DA5AC12BB66A05008644DC /* NewWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DA5AC42BB66A05008644DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -204,6 +208,8 @@
 				2A17DAFB2C158C3B00919642 /* InputAccessoryView.xib */,
 				D03107D12C16F2AA00EEF772 /* LearningRecordCell.swift */,
 				D03107D22C16F2AA00EEF772 /* LearningRecordCell.xib */,
+				D0D6E0E82C1CB38500C1F95E /* ContextLabel.swift */,
+				D0D6E0EA2C1DE92C00C1F95E /* ContextStackView.swift */,
 				D0A86A672C1B5FA00022DFDD /* ContextCell.swift */,
 			);
 			path = Views;
@@ -400,6 +406,7 @@
 				2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */,
 				D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */,
 				D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */,
+				D0D6E0E92C1CB38500C1F95E /* ContextLabel.swift in Sources */,
 				D032145B2BD63C2200512263 /* Preferences.swift in Sources */,
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
 				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
@@ -424,6 +431,7 @@
 				2A7B6CD52C0810030017BB5C /* NotificationName+Extension.swift in Sources */,
 				2A38F8C12BE48F88003F058F /* ExploreViewController.swift in Sources */,
 				2AE025F62BF4983A006EC021 /* NoteManager.swift in Sources */,
+				D0D6E0EB2C1DE92C00C1F95E /* ContextStackView.swift in Sources */,
 				2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */,
 				2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */,
 				D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */,
