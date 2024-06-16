@@ -8,11 +8,13 @@
 import UIKit
 
 class ContextStackView: UIStackView {
+    
+    typealias ClozeWord = AddClozeViewControllerViewModel.ClozeWord
 
     var text: String
 
-    init(text: String, frame: CGRect) {
-        self.text = text
+    init(cloze: ClozeWord, frame: CGRect) {
+        self.text = cloze.text
         super.init(frame: frame)
 
         axis = .horizontal
@@ -23,10 +25,12 @@ class ContextStackView: UIStackView {
         let hasText = text.count > 0
 
         if hasText {
-            let splits = splitTextIntoWordsAndPunctuation(text: text)
+            let splits = splitTextIntoWordsAndPunctuation(text: cloze.text)
 
             for split in splits {
                 let label = ContextLabel()
+                label.clozeWord = cloze
+                label.isSelected = cloze.selected
 
                 if isPunctuation(split) {
                     label.labelType = .punctuation

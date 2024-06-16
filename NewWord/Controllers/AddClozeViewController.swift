@@ -15,8 +15,10 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
     @IBOutlet weak var tableView: UITableView!
 
     private var viewModel: AddClozeViewControllerViewModel!
+    
+    typealias ClozeWord = AddClozeViewControllerViewModel.ClozeWord
 
-    var dataSource: [[String]] = [] {
+    var dataSource: [[ClozeWord]] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -43,6 +45,7 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
         setupViewModel()
         setupInputView()
         setupTableView()
+        setupNotifications()
     }
 
     private func setupTableView() {
@@ -71,6 +74,10 @@ And so, under the canopy of stars and the watchful gaze of Master Li, Jack embar
         textView.inputAccessoryView = view
         textView.becomeFirstResponder()
     }
+    
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateDataSource(_:)), name: .didTapContextLabel, object: nil)
+    }
 
     // MARK: - Actions
 
@@ -83,6 +90,14 @@ And so, under the canopy of stars and the watchful gaze of Master Li, Jack embar
         if !shouldShowTextView {
             textView.resignFirstResponder()
         }
+    }
+    
+    @objc func handleUpdateDataSource(_ sender: Notification) {
+        guard let clozeWordCallBack = sender.object as? ClozeWord else { return }
+        
+        let position = clozeWordCallBack.position
+        
+        dataSource[position.sentenceIndex][position.wordIndex].selected = clozeWordCallBack.selected
     }
 
 }

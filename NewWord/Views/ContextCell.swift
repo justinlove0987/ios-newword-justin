@@ -8,16 +8,18 @@
 import UIKit
 
 class ContextCell: UITableViewCell {
+    
+    typealias ClozeWord = AddClozeViewControllerViewModel.ClozeWord
 
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    func configureCell(with sentence: [String]) {
+    func configureCell(with sentence: [ClozeWord]) {
         let hasWord =  sentence.count > 0
 
         guard hasWord else {
-            let label = ContextStackView(text: "", frame: .zero)
+            let label = ContextStackView(cloze: ClozeWord(position: (-1, -1), text: ""), frame: .zero)
             let verticalStackView = createVerticalStackView()
             verticalStackView.addArrangedSubview(label)
             return
@@ -33,7 +35,7 @@ class ContextCell: UITableViewCell {
 
         while wordIndex < sentence.count {
             let currentWord = sentence[wordIndex]
-            let size = getTextSize(currentWord)
+            let size = getTextSize(currentWord.text)
             let width = size.width
 
             if currentTotalWidth + width + Preference.spacing > maximumWidth {
@@ -48,7 +50,7 @@ class ContextCell: UITableViewCell {
                 currentTotalWidth += Preference.spacing
                 wordIndex += 1
 
-                let stackView = ContextStackView(text: currentWord, frame: .zero)
+                let stackView = ContextStackView(cloze: currentWord, frame: .zero)
                 horizontalStackView.addArrangedSubview(stackView)
             }
         }

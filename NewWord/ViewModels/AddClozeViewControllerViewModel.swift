@@ -8,21 +8,40 @@
 import UIKit
 
 struct AddClozeViewControllerViewModel {
+    
+    struct ClozeWord {
+        enum WordType {
+            case none
+            case cloze
+            case multiCloze
+        }
+        
+        var selected: Bool = false
+        
+        let type: WordType = .none
+        
+        let position: (sentenceIndex: Int, wordIndex: Int)
+        
+        let text: String
+    }
 
     var context: String
     let contextSize: CGSize
 
     var sentences: [[String]] = []
     
-    mutating func splitTextIntoSentences(text: String) -> [[String]] {
+    mutating func splitTextIntoSentences(text: String) -> [[ClozeWord]] {
+        var newResult: [[ClozeWord]] = []
         var result: [[String]] = []
+        var newCurrentSentence: [ClozeWord] = []
         var currentSentence: [String] = []
         var currentWord = ""
         var newlineCount = 0
 
         let punctuationMarks: Set<Character> = [".", "!", "?"]
-            
+        
         let chars = Array(text)
+        var sentenceCounts = 0
         var charIndex = 0
         
         while charIndex < text.count {
@@ -32,6 +51,7 @@ struct AddClozeViewControllerViewModel {
                 let hasWord = !currentWord.isEmpty
                 
                 if hasWord {
+                    newCurrentSentence.append(ClozeWord(position: (sentenceCounts, newCurrentSentence.count), text: currentWord))
                     currentSentence.append(currentWord)
                     currentWord = ""
                 }
@@ -41,29 +61,33 @@ struct AddClozeViewControllerViewModel {
                 } else {
                     newlineCount = 0
                 }
-                
-                if currentChar == "\n" {
-                    
-                }
 
                 if newlineCount >= 2 {
                     if !currentSentence.isEmpty {
+                        newResult.append(newCurrentSentence)
                         result.append(currentSentence)
+                        newCurrentSentence = []
                         currentSentence = []
+                        sentenceCounts += 1
                     }
                     
+                    newResult.append([])
                     result.append([])
                     newlineCount = 0
+                    sentenceCounts += 1
                 }
                 
                 charIndex += 1
                 
             } else if punctuationMarks.contains(currentChar) {
                 appendWordAndCheckNextCharacter(
-                    sentences: &result,
+                    newResult: &newResult,
+                    result: &result,
+                    newCurrentSentence: &newCurrentSentence,
                     currentSentence: &currentSentence,
                     currentWord: &currentWord,
                     currentCharIndex: &charIndex,
+                    sentenceCounts: &sentenceCounts,
                     chars: chars)
             }
             else {
@@ -76,23 +100,31 @@ struct AddClozeViewControllerViewModel {
         }
         
         if !currentWord.isEmpty {
+            newCurrentSentence.append(ClozeWord(position: (sentenceCounts, newCurrentSentence.count), text: currentWord))
             currentSentence.append(currentWord)
         }
         
         if !currentSentence.isEmpty {
+            newResult.append(newCurrentSentence)
             result.append(currentSentence)
+            sentenceCounts += 1
         }
 
         sentences = result
+        
+        print(newResult)
 
-        return result
+        return newResult
     }
     
     func appendWordAndCheckNextCharacter(
-        sentences: inout [[String]],
+        newResult: inout [[ClozeWord]],
+        result: inout [[String]],
+        newCurrentSentence: inout [ClozeWord],
         currentSentence: inout [String],
         currentWord: inout String,
         currentCharIndex: inout Int,
+        sentenceCounts: inout Int,
         chars: [String.Element]) {
         
         currentWord.append(chars[currentCharIndex])
@@ -108,10 +140,13 @@ struct AddClozeViewControllerViewModel {
                 currentCharIndex += 1
                 
                 appendWordAndCheckNextCharacter(
-                    sentences: &sentences,
+                    newResult: &newResult,
+                    result: &result,
+                    newCurrentSentence: &newCurrentSentence,
                     currentSentence: &currentSentence,
                     currentWord: &currentWord,
                     currentCharIndex: &currentCharIndex,
+                    sentenceCounts: &sentenceCounts,
                     chars: chars)
                 
             } else if nextCharIsWhiteSpace {
@@ -123,15 +158,21 @@ struct AddClozeViewControllerViewModel {
                 }
                 
                 if endsWithExactlyThreeDots(text: currentWord) {
+                    newCurrentSentence.append(ClozeWord(position: (sentenceCounts, newCurrentSentence.count), text: currentWord))
                     currentSentence.append(currentWord)
                     currentWord = ""
                     currentCharIndex += 1
+                    
                 } else {
+                    newCurrentSentence.append(ClozeWord(position: (sentenceCounts, newCurrentSentence.count), text: currentWord))
                     currentSentence.append(currentWord)
-                    sentences.append(currentSentence)
+                    newResult.append(newCurrentSentence)
+                    result.append(currentSentence)
                     currentWord = ""
                     currentSentence = []
+                    newCurrentSentence = []
                     currentCharIndex += 2
+                    sentenceCounts += 1
                 }
                 
             } else {

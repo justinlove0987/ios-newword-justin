@@ -7,13 +7,23 @@
 
 import UIKit
 
+protocol ContextLabelDelegate: AnyObject {
+    func didSelectLabel(_ label: ContextLabel, at position: (sentenceIndex: Int, wordIndex: Int))
+}
+
 class ContextLabel: UILabel {
+    
+    typealias ClozeWord = AddClozeViewControllerViewModel.ClozeWord
 
     enum LabelType {
         case word
         case punctuation
         case newline
     }
+    
+    var clozeWord: ClozeWord?
+    
+    var delegate: ContextLabelDelegate?
 
     var isSelected: Bool = false {
         didSet {
@@ -57,6 +67,12 @@ class ContextLabel: UILabel {
 
     @objc func tapAction(_ sender: UITapGestureRecognizer) {
         isSelected.toggle()
+        
+        guard var clozeWord else { return }
+        
+        clozeWord.selected = isSelected
+        
+        NotificationCenter.default.post(name: .didTapContextLabel, object: clozeWord)
     }
 }
 

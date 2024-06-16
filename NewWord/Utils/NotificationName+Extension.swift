@@ -9,4 +9,5 @@ import Foundation
 
 extension Notification.Name {
     static let deckDidUpdate = Notification.Name("deckDidUpdate")
+    static let didTapContextLabel = Notification.Name("didTapContextLabel")
 }
