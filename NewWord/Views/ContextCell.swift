@@ -38,7 +38,7 @@ class ContextCell: UITableViewCell {
             let size = getTextSize(currentWord.text)
             let width = size.width
 
-            if currentTotalWidth + width + Preference.spacing > maximumWidth {
+            if currentTotalWidth + width + Preference.spacing + 3 > maximumWidth {
                 currentTotalWidth = 0
                 let dummyView = UIView()
                 horizontalStackView.addArrangedSubview(dummyView)

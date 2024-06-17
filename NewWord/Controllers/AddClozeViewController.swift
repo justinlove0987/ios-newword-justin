@@ -54,6 +54,8 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
         tableView.register(ContextCell.self, forCellReuseIdentifier: "ContextCell")
         tableView.isHidden = true
 
+//        currentText = "There is a dog? And There is a cat."
+
         currentText =
         """
 In... the bustling town of Punctuatia, lived an eccentric scholar named Dr. Punctuation. One sunny day, his apprentice, Lily, asked, "Dr. Punctuation, can you teach me about punctuation?"
@@ -129,7 +131,7 @@ And so, Lily learned the art of punctuation, one mark at a time.
         if isSelected {
             guard let clozeNumber = dataSource[position.sentenceIndex][position.wordIndex].clozeNumber else { return }
             clozeNumbers.removeAll { $0 == clozeNumber }
-            
+
         } else {
             var newClozeNumber = clozeNumbers.count + 1
             
@@ -143,7 +145,7 @@ And so, Lily learned the art of punctuation, one mark at a time.
         }
         
         dataSource[position.sentenceIndex][position.wordIndex].selected = clozeWordCallBack.selected
-        
+
         let text = viewModel.convertSentencesToText(sentences: dataSource)
         textView.text = text
     }
@@ -156,11 +158,27 @@ extension AddClozeViewController: ContextRevisionInputAccessoryViewDelegate {
     func didTapTotalAction(_ sender: UIView) {
         guard let text = textView.text else { return }
 
-        var newText = addNewlineAfterPeriods(text: text)
-        newText = removeChineseParagraphs(from: newText)
-        newText = separateParagraphsWithSingleLine(text: newText)
+        let clozeWords = viewModel.splitTextIntoSentences(text: text)
 
-        currentText = newText
+        let newClozeWords = clozeWords.map { clozeWords in
+            clozeWords.map { clozword in
+                var clozeWord = clozword
+                let result = viewModel.extractNumberAndCoreWord(from: clozword.text)
+
+                if let result {
+                    let number = result.0
+                    let newText = result.1
+                    
+                    clozeWord.clozeNumber = number
+                    clozeWord.selected = true
+                    clozeWord.text = newText
+                }
+
+                return clozeWord
+            }
+        }
+
+        dataSource = newClozeWords
 
         textView.resignFirstResponder()
     }

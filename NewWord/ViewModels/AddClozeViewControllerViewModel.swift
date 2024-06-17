@@ -25,7 +25,7 @@ struct AddClozeViewControllerViewModel {
         
         let position: (sentenceIndex: Int, wordIndex: Int)
         
-        let text: String
+        var text: String
     }
 
     var context: String
@@ -61,13 +61,9 @@ struct AddClozeViewControllerViewModel {
         return text
     }
     
-    
-    
     mutating func splitTextIntoSentences(text: String) -> [[ClozeWord]] {
         var newResult: [[ClozeWord]] = []
-        var result: [[String]] = []
         var newCurrentSentence: [ClozeWord] = []
-        var currentSentence: [String] = []
         var currentWord = ""
         var newlineCount = 0
 
@@ -85,7 +81,6 @@ struct AddClozeViewControllerViewModel {
                 
                 if hasWord {
                     newCurrentSentence.append(ClozeWord(position: (sentenceCounts, newCurrentSentence.count), text: currentWord))
-                    currentSentence.append(currentWord)
                     currentWord = ""
                 }
                 
@@ -96,16 +91,13 @@ struct AddClozeViewControllerViewModel {
                 }
 
                 if newlineCount >= 2 {
-                    if !currentSentence.isEmpty {
+                    if !newCurrentSentence.isEmpty {
                         newResult.append(newCurrentSentence)
-                        result.append(currentSentence)
                         newCurrentSentence = []
-                        currentSentence = []
                         sentenceCounts += 1
                     }
                     
                     newResult.append([])
-                    result.append([])
                     newlineCount = 0
                     sentenceCounts += 1
                 }
@@ -115,9 +107,7 @@ struct AddClozeViewControllerViewModel {
             } else if punctuationMarks.contains(currentChar) {
                 appendWordAndCheckNextCharacter(
                     newResult: &newResult,
-                    result: &result,
                     newCurrentSentence: &newCurrentSentence,
-                    currentSentence: &currentSentence,
                     currentWord: &currentWord,
                     currentCharIndex: &charIndex,
                     sentenceCounts: &sentenceCounts,
@@ -127,6 +117,7 @@ struct AddClozeViewControllerViewModel {
                 if newlineCount > 0 {
                     newlineCount = 0
                 }
+
                 currentWord.append(currentChar)
                 charIndex += 1
             }
@@ -134,12 +125,10 @@ struct AddClozeViewControllerViewModel {
         
         if !currentWord.isEmpty {
             newCurrentSentence.append(ClozeWord(position: (sentenceCounts, newCurrentSentence.count), text: currentWord))
-            currentSentence.append(currentWord)
         }
         
-        if !currentSentence.isEmpty {
+        if !newCurrentSentence.isEmpty {
             newResult.append(newCurrentSentence)
-            result.append(currentSentence)
             sentenceCounts += 1
         }
 
@@ -148,9 +137,7 @@ struct AddClozeViewControllerViewModel {
     
     func appendWordAndCheckNextCharacter(
         newResult: inout [[ClozeWord]],
-        result: inout [[String]],
         newCurrentSentence: inout [ClozeWord],
-        currentSentence: inout [String],
         currentWord: inout String,
         currentCharIndex: inout Int,
         sentenceCounts: inout Int,
@@ -170,9 +157,7 @@ struct AddClozeViewControllerViewModel {
                 
                 appendWordAndCheckNextCharacter(
                     newResult: &newResult,
-                    result: &result,
                     newCurrentSentence: &newCurrentSentence,
-                    currentSentence: &currentSentence,
                     currentWord: &currentWord,
                     currentCharIndex: &currentCharIndex,
                     sentenceCounts: &sentenceCounts,
@@ -182,23 +167,24 @@ struct AddClozeViewControllerViewModel {
                 let nextCharIsNewLine = nextChar.isNewline
                 
                 guard !nextCharIsNewLine else {
-                    currentCharIndex += 1
+                    newCurrentSentence.append(ClozeWord(position: (sentenceCounts, newCurrentSentence.count), text: currentWord))
+                    newResult.append(newCurrentSentence)
+                    currentWord = ""
+                    newCurrentSentence = []
+                    currentCharIndex += 2
+                    sentenceCounts += 1
                     return
                 }
                 
                 if matchesAnyPattern(in: currentWord) {
                     newCurrentSentence.append(ClozeWord(position: (sentenceCounts, newCurrentSentence.count), text: currentWord))
-                    currentSentence.append(currentWord)
                     currentWord = ""
                     currentCharIndex += 1
                     
                 } else {
                     newCurrentSentence.append(ClozeWord(position: (sentenceCounts, newCurrentSentence.count), text: currentWord))
-                    currentSentence.append(currentWord)
                     newResult.append(newCurrentSentence)
-                    result.append(currentSentence)
                     currentWord = ""
-                    currentSentence = []
                     newCurrentSentence = []
                     currentCharIndex += 2
                     sentenceCounts += 1
@@ -231,26 +217,11 @@ struct AddClozeViewControllerViewModel {
         return false
     }
     
-    func returnPatterns(_ text: String) -> Bool {
-        
-        if endsWithExactlyThreeDots(text: text) {
-            return true
-        }
-        
-        
-        return false
-    }
-    
-    func endsWithExactlyThreeDots(text: String) -> Bool {
-        return text.hasSuffix("...") && text.suffix(4) != "...."
-    }
-    
     func getTextSize(_ text: String) -> CGSize {
         return text.size(withAttributes: [.font: UIFont.systemFont(ofSize: Preference.fontSize)])
     }
     
     func formatClozeText(input: String, clozeID: Int) -> String {
-        // Regular expression to match leading and trailing punctuation
         let punctuationPattern = "^([^\\w]*)([\\w]+)([^\\w]*)$"
         
         guard let regex = try? NSRegularExpression(pattern: punctuationPattern, options: []) else {
@@ -259,19 +230,40 @@ struct AddClozeViewControllerViewModel {
         
         let range = NSRange(location: 0, length: input.utf16.count)
         if let match = regex.firstMatch(in: input, options: [], range: range) {
-            // Extract leading punctuation, core word, and trailing punctuation
             let leadingPunctuation = (match.range(at: 1).location != NSNotFound) ? String(input[Range(match.range(at: 1), in: input)!]) : ""
             let coreWord = (match.range(at: 2).location != NSNotFound) ? String(input[Range(match.range(at: 2), in: input)!]) : input
             let trailingPunctuation = (match.range(at: 3).location != NSNotFound) ? String(input[Range(match.range(at: 3), in: input)!]) : ""
-            
-            // Format the core word with cloze notation
+
             let formattedWord = "{{C\(clozeID):\(coreWord)}}"
-            
-            // Combine leading punctuation, formatted word, and trailing punctuation
+
             return "\(leadingPunctuation)\(formattedWord)\(trailingPunctuation)"
         }
-        
-        // If no match, return the input as is
+
         return input
+    }
+
+    func extractNumberAndCoreWord(from input: String) -> (Int, String)? {
+        let clozePattern = "\\{\\{C(\\d+):(.*?)\\}\\}"
+
+        guard let regex = try? NSRegularExpression(pattern: clozePattern, options: []) else {
+            return nil
+        }
+
+        let range = NSRange(location: 0, length: input.utf16.count)
+        if let match = regex.firstMatch(in: input, options: [], range: range) {
+            if let numberRange = Range(match.range(at: 1), in: input),
+               let coreWordRange = Range(match.range(at: 2), in: input) {
+                let numberString = String(input[numberRange])
+                let coreWord = String(input[coreWordRange])
+
+                if let number = Int(numberString) {
+                    let surroundingText = input.replacingOccurrences(of: "\\{\\{C\\d+:(.*?)\\}\\}", with: coreWord, options: .regularExpression, range: input.range(of: input))
+
+                    return (number, surroundingText)
+                }
+            }
+        }
+
+        return nil
     }
 }
