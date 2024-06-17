@@ -17,6 +17,8 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
     private var viewModel: AddClozeViewControllerViewModel!
     
     typealias ClozeWord = AddClozeViewControllerViewModel.ClozeWord
+    
+    var clozeNumbers: [Int] = []
 
     var dataSource: [[ClozeWord]] = [] {
         didSet {
@@ -122,8 +124,28 @@ And so, Lily learned the art of punctuation, one mark at a time.
         guard let clozeWordCallBack = sender.object as? ClozeWord else { return }
         
         let position = clozeWordCallBack.position
+        let isSelected = dataSource[position.sentenceIndex][position.wordIndex].selected
+        
+        if isSelected {
+            guard let clozeNumber = dataSource[position.sentenceIndex][position.wordIndex].clozeNumber else { return }
+            clozeNumbers.removeAll { $0 == clozeNumber }
+            
+        } else {
+            var newClozeNumber = clozeNumbers.count + 1
+            
+            while clozeNumbers.contains(newClozeNumber) {
+                newClozeNumber += 1
+            }
+            
+            clozeNumbers.append(newClozeNumber)
+            
+            dataSource[position.sentenceIndex][position.wordIndex].clozeNumber = newClozeNumber
+        }
         
         dataSource[position.sentenceIndex][position.wordIndex].selected = clozeWordCallBack.selected
+        
+        let text = viewModel.convertSentencesToText(sentences: dataSource)
+        textView.text = text
     }
 
 }
@@ -235,5 +257,4 @@ extension AddClozeViewController: UITableViewDataSource {
 
         return cell
     }
-
 }

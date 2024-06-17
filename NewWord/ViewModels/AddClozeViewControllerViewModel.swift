@@ -10,15 +10,18 @@ import UIKit
 struct AddClozeViewControllerViewModel {
     
     struct ClozeWord {
+        
         enum WordType {
             case none
             case cloze
             case multiCloze
         }
         
+        var type: WordType = .none
+        
         var selected: Bool = false
         
-        let type: WordType = .none
+        var clozeNumber: Int?
         
         let position: (sentenceIndex: Int, wordIndex: Int)
         
@@ -29,6 +32,36 @@ struct AddClozeViewControllerViewModel {
     let contextSize: CGSize
 
     var sentences: [[String]] = []
+    
+    mutating func convertSentencesToText(sentences: [[ClozeWord]]) -> String {
+        var text: String = ""
+        
+        for i in 0..<sentences.count {
+            let currentSentence = sentences[i]
+            let isFirstSentence = i == 0
+            
+            if !isFirstSentence {
+                text.append("\n")
+            }
+            
+            for word in currentSentence {
+                var wordText = word.text
+                
+                if word.selected {
+                    if let clozeNumber = word.clozeNumber {
+                        wordText = formatClozeText(input: wordText, clozeID: clozeNumber)
+                    }
+                }
+                
+                text.append(wordText)
+                text.append(" ")
+            }
+        }
+        
+        return text
+    }
+    
+    
     
     mutating func splitTextIntoSentences(text: String) -> [[ClozeWord]] {
         var newResult: [[ClozeWord]] = []
@@ -109,8 +142,6 @@ struct AddClozeViewControllerViewModel {
             result.append(currentSentence)
             sentenceCounts += 1
         }
-
-        sentences = result
 
         return newResult
     }
@@ -216,5 +247,31 @@ struct AddClozeViewControllerViewModel {
     
     func getTextSize(_ text: String) -> CGSize {
         return text.size(withAttributes: [.font: UIFont.systemFont(ofSize: Preference.fontSize)])
+    }
+    
+    func formatClozeText(input: String, clozeID: Int) -> String {
+        // Regular expression to match leading and trailing punctuation
+        let punctuationPattern = "^([^\\w]*)([\\w]+)([^\\w]*)$"
+        
+        guard let regex = try? NSRegularExpression(pattern: punctuationPattern, options: []) else {
+            return input
+        }
+        
+        let range = NSRange(location: 0, length: input.utf16.count)
+        if let match = regex.firstMatch(in: input, options: [], range: range) {
+            // Extract leading punctuation, core word, and trailing punctuation
+            let leadingPunctuation = (match.range(at: 1).location != NSNotFound) ? String(input[Range(match.range(at: 1), in: input)!]) : ""
+            let coreWord = (match.range(at: 2).location != NSNotFound) ? String(input[Range(match.range(at: 2), in: input)!]) : input
+            let trailingPunctuation = (match.range(at: 3).location != NSNotFound) ? String(input[Range(match.range(at: 3), in: input)!]) : ""
+            
+            // Format the core word with cloze notation
+            let formattedWord = "{{C\(clozeID):\(coreWord)}}"
+            
+            // Combine leading punctuation, formatted word, and trailing punctuation
+            return "\(leadingPunctuation)\(formattedWord)\(trailingPunctuation)"
+        }
+        
+        // If no match, return the input as is
+        return input
     }
 }
