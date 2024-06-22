@@ -22,7 +22,6 @@ class ContextLabel: UILabel {
     }
     
     var clozeWord: ClozeWord?
-    
     var delegate: ContextLabelDelegate?
 
     var isSelected: Bool = false {

@@ -30,7 +30,7 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
         didSet {
             textView.text = currentText
             viewModel.context = currentText
-            dataSource = viewModel.splitTextIntoSentences(text: currentText)
+            dataSource = viewModel.convertTextIntoSentences(text: currentText)
         }
     }
 
@@ -53,8 +53,6 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
     private func setupTableView() {
         tableView.register(ContextCell.self, forCellReuseIdentifier: "ContextCell")
         tableView.isHidden = true
-
-//        currentText = "There is a dog? And There is a cat."
 
         currentText =
         """
@@ -88,7 +86,7 @@ Lily grinned, "Thanks, Dr. Punctuation! I think I've got it now."
 
 And so, Lily learned the art of punctuation, one mark at a time.
 """
-        dataSource = viewModel.splitTextIntoSentences(text: currentText)
+        dataSource = viewModel.convertTextIntoSentences(text: currentText)
 
     }
 
@@ -121,7 +119,46 @@ And so, Lily learned the art of punctuation, one mark at a time.
             textView.resignFirstResponder()
         }
     }
-    
+
+
+    @IBAction func confirmAction(_ sender: UIButton) {
+        saveCloze()
+    }
+
+    private func saveCloze() {
+        guard let text = textView.text else { return }
+
+        let context = CoreDataManager.shared.createContext(text)
+        let firstDeck = CoreDataManager.shared.getDecks().first!
+
+        for sentence in dataSource {
+            for word in sentence {
+                let isClozed = word.selected
+
+                if isClozed {
+                    let number = word.clozeNumber ?? 0
+                    let word = word.text
+
+                    let cloze = CoreDataManager.shared.createCloze(number: number, hint: "", clozeWord: word)
+
+                    cloze.contextText = context
+                    cloze.contextId = context.id
+
+                    let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: 1)
+                    noteType.cloze = cloze
+
+                    let note = CoreDataManager.shared.createNote(noteType: noteType)
+
+                    CoreDataManager.shared.addCard(to: firstDeck, with: note)
+                }
+            }
+        }
+
+        CoreDataManager.shared.save()
+
+        navigationController?.popViewController(animated: true)
+    }
+
     @objc func handleUpdateDataSource(_ sender: Notification) {
         guard let clozeWordCallBack = sender.object as? ClozeWord else { return }
         
@@ -149,7 +186,6 @@ And so, Lily learned the art of punctuation, one mark at a time.
         let text = viewModel.convertSentencesToText(sentences: dataSource)
         textView.text = text
     }
-
 }
 
 // MARK: - ContextRevisionInputAccessoryViewDelegate
@@ -158,7 +194,7 @@ extension AddClozeViewController: ContextRevisionInputAccessoryViewDelegate {
     func didTapTotalAction(_ sender: UIView) {
         guard let text = textView.text else { return }
 
-        let clozeWords = viewModel.splitTextIntoSentences(text: text)
+        let clozeWords = viewModel.convertTextIntoSentences(text: text)
 
         let newClozeWords = clozeWords.map { clozeWords in
             clozeWords.map { clozword in

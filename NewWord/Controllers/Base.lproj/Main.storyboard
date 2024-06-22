@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="g7p-P2-eTT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pSA-EX-MVA">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
@@ -852,7 +852,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VUj-fs-Qfk">
-                                <rect key="frame" x="10" y="79" width="373" height="32"/>
+                                <rect key="frame" x="10" y="109" width="373" height="32"/>
                                 <segments>
                                     <segment title="修改文本"/>
                                     <segment title="挑選單字"/>
@@ -862,7 +862,7 @@
                                 </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zg3-Tp-Fxh">
-                                <rect key="frame" x="0.0" y="110" width="393" height="708"/>
+                                <rect key="frame" x="0.0" y="140" width="393" height="678"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="g7p-P2-eTT" id="RkU-Mc-4aR"/>
@@ -870,22 +870,32 @@
                                 </connections>
                             </tableView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="YTl-XJ-gP8">
-                                <rect key="frame" x="20" y="130" width="353" height="668"/>
+                                <rect key="frame" x="20" y="160" width="353" height="638"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">The AI technology, developed internally by Walmart, allows employees to scan items like bananas to determine their ripeness. A digital dashboard then uses generative AI to suggest the best course of action, such as changing the price, returning the product to the vendor, or donating it. This eliminates the need for human decision-making in the absence of informed advice, enabling associates to take proactive steps to reduce waste in stores.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nux-2h-s5V">
+                                <rect key="frame" x="319.33333333333331" y="59" width="58.666666666666686" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="確定"/>
+                                <connections>
+                                    <action selector="confirmAction:" destination="g7p-P2-eTT" eventType="touchUpInside" id="Jba-8d-VIw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LrW-po-FBd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Nux-2h-s5V" secondAttribute="trailing" constant="15" id="26S-M3-1am"/>
+                            <constraint firstItem="Nux-2h-s5V" firstAttribute="top" secondItem="LrW-po-FBd" secondAttribute="top" id="2Mi-Zh-Hvb"/>
                             <constraint firstItem="LrW-po-FBd" firstAttribute="bottom" secondItem="zg3-Tp-Fxh" secondAttribute="bottom" id="DPO-RG-UbE"/>
                             <constraint firstItem="zg3-Tp-Fxh" firstAttribute="top" secondItem="VUj-fs-Qfk" secondAttribute="bottom" id="EYk-Cr-bJn"/>
                             <constraint firstItem="YTl-XJ-gP8" firstAttribute="top" secondItem="VUj-fs-Qfk" secondAttribute="bottom" constant="20" id="GoF-Bc-GLl"/>
                             <constraint firstItem="LrW-po-FBd" firstAttribute="trailing" secondItem="VUj-fs-Qfk" secondAttribute="trailing" constant="10" id="HV2-mx-qHm"/>
-                            <constraint firstItem="VUj-fs-Qfk" firstAttribute="top" secondItem="LrW-po-FBd" secondAttribute="top" constant="20" id="J9R-h9-4Hk"/>
+                            <constraint firstItem="VUj-fs-Qfk" firstAttribute="top" secondItem="LrW-po-FBd" secondAttribute="top" constant="50" id="J9R-h9-4Hk"/>
                             <constraint firstItem="LrW-po-FBd" firstAttribute="trailing" secondItem="YTl-XJ-gP8" secondAttribute="trailing" constant="20" id="No0-mV-eL0"/>
                             <constraint firstItem="LrW-po-FBd" firstAttribute="bottom" secondItem="YTl-XJ-gP8" secondAttribute="bottom" constant="20" id="guQ-BI-HKN"/>
                             <constraint firstItem="zg3-Tp-Fxh" firstAttribute="leading" secondItem="LrW-po-FBd" secondAttribute="leading" id="hyo-0W-MJS"/>
@@ -923,14 +933,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchCell" id="SmP-Rv-EfC" customClass="SearchCell" customModule="NewWord" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="53"/>
+                                        <rect key="frame" x="0.0" y="50" width="393" height="53.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SmP-Rv-EfC" id="o7v-7g-vaC">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="53"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="53.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7S-8H-M8e">
-                                                    <rect key="frame" x="40" y="16" width="42" height="21"/>
+                                                    <rect key="frame" x="40" y="16" width="42" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

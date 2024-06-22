@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="CDAdvanced" representedClassName="CDAdvanced" syncable="YES" codeGenerationType="class">
         <attribute name="easyBonus" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="startingEase" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -13,8 +13,11 @@
         <relationship name="note" maxCount="1" deletionRule="Nullify" destinationEntity="CDNote" inverseName="card" inverseEntity="CDNote"/>
     </entity>
     <entity name="CDCloze" representedClassName="CDCloze" syncable="YES" codeGenerationType="class">
-        <attribute name="contextTextId" attributeType="String"/>
+        <attribute name="clozeWord" optional="YES" attributeType="String"/>
+        <attribute name="contextId" attributeType="String"/>
+        <attribute name="hint" optional="YES" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
+        <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="contextText" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDClozeContext" inverseName="cloze" inverseEntity="CDClozeContext"/>
         <relationship name="noteType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNoteType" inverseName="cloze" inverseEntity="CDNoteType"/>
     </entity>

@@ -61,7 +61,7 @@ struct AddClozeViewControllerViewModel {
         return text
     }
     
-    mutating func splitTextIntoSentences(text: String) -> [[ClozeWord]] {
+    mutating func convertTextIntoSentences(text: String) -> [[ClozeWord]] {
         var newResult: [[ClozeWord]] = []
         var newCurrentSentence: [ClozeWord] = []
         var currentWord = ""

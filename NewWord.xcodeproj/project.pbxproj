@@ -46,6 +46,7 @@
 		D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4ED2BB9DA3C00CA5CAF /* Word.swift */; };
 		D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EF2BB9DA6000CA5CAF /* Article.swift */; };
 		D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */; };
+		D02E46F72C272CC500418781 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02E46F62C272CC500418781 /* UserDefaultsManager.swift */; };
 		D03107CC2C16EE6200EEF772 /* CardInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03107CB2C16EE6200EEF772 /* CardInformationViewController.swift */; };
 		D03107D32C16F2AA00EEF772 /* LearningRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03107D22C16F2AA00EEF772 /* LearningRecordCell.xib */; };
 		D03107D42C16F2AA00EEF772 /* LearningRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03107D12C16F2AA00EEF772 /* LearningRecordCell.swift */; };
@@ -119,6 +120,7 @@
 		D020A4ED2BB9DA3C00CA5CAF /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		D020A4EF2BB9DA6000CA5CAF /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTextField.swift; sourceTree = "<group>"; };
+		D02E46F62C272CC500418781 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		D03107CB2C16EE6200EEF772 /* CardInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInformationViewController.swift; sourceTree = "<group>"; };
 		D03107D12C16F2AA00EEF772 /* LearningRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecordCell.swift; sourceTree = "<group>"; };
 		D03107D22C16F2AA00EEF772 /* LearningRecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LearningRecordCell.xib; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				2A7B6CD42C0810030017BB5C /* NotificationName+Extension.swift */,
 				D0D8D5F52C0F0920001BB415 /* String+Extension.swift */,
 				D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */,
+				D02E46F62C272CC500418781 /* UserDefaultsManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */,
 				D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */,
 				2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */,
+				D02E46F72C272CC500418781 /* UserDefaultsManager.swift in Sources */,
 				2AE025FA2BF4AB60006EC021 /* DataManager.swift in Sources */,
 				2A17DAFA2C157C7F00919642 /* ClozeViewViewModel.swift in Sources */,
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
