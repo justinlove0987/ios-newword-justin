@@ -85,13 +85,15 @@ class ShowCardsViewController: UIViewController {
         setup()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupUserdefaults()
     }
-    
+
     // MARK: - Helpers
 
     private func setup() {
+        setupUserdefaults()
         setupViewModel()
         setupProperty()
     }
@@ -120,7 +122,11 @@ class ShowCardsViewController: UIViewController {
         
         answerTypeStackView.isHidden = true
     }
-    
+
+    private func setupUserdefaults() {
+        UserDefaultsManager.shared.clozeMode = .read
+    }
+
     private func layout(newSubview: any ShowCardsSubviewDelegate) {
         if let oldClozeView = lastShowingSubview as? ClozeView {
             oldClozeView.customInputView.textField.resignFirstResponder()

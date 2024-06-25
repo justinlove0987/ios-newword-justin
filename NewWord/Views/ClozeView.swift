@@ -27,9 +27,12 @@ class ClozeView: UIView, NibOwnerLoadable {
 
     @IBOutlet weak var customInputView: InputAccessoryView!
     @IBOutlet weak var contextTextTextView: UITextView!
+    @IBOutlet weak var tableView: UITableView!
     
     private var card: CDCard?
-    private var viewModel: ClozeViewViewModel?
+    private var viewModel: ClozeViewViewModel
+    private var context: String?
+    private var clzoe: String?
 
     var delegate: ClozeViewProtocol?
 
@@ -37,21 +40,29 @@ class ClozeView: UIView, NibOwnerLoadable {
 
     var tap: UITapGestureRecognizer?
 
-    init(card: CDCard, viewModel: ClozeViewViewModel) {
+    init(card: CDCard) {
+        self.card = card
+        self.viewModel = ClozeViewViewModel()
+        self.viewModel.card = card
+        
         super.init(frame: .zero)
         commonInit()
-        self.card = card
-        self.viewModel = viewModel
         setup()
     }
     
     override init(frame: CGRect) {
+        self.viewModel = ClozeViewViewModel()
+        self.viewModel.card = card
+        
         super.init(frame: frame)
         commonInit()
         setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
+        self.viewModel = ClozeViewViewModel()
+        self.viewModel.card = card
+        
         super.init(coder: aDecoder)
         commonInit()
         setup()
@@ -68,7 +79,7 @@ class ClozeView: UIView, NibOwnerLoadable {
     }
 
     private func setup() {
-        contextTextTextView.text = viewModel?.getQuestionText()
+        contextTextTextView.text = viewModel.getQuestionText()
         addSubview(customInputView)
         customInputView.translatesAutoresizingMaskIntoConstraints = false
         setupKeyboardHiding()
@@ -107,7 +118,7 @@ class ClozeView: UIView, NibOwnerLoadable {
         case .answer:
             guard let text = contextTextTextView.text else { return }
 
-            let answerText = viewModel?.getAnswerText(from: text)
+            let answerText = viewModel.getAnswerText(from: text)
 
             contextTextTextView.text = answerText
             customInputView.isHidden = true

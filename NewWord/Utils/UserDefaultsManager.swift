@@ -18,24 +18,23 @@ class UserDefaultsManager {
 
     static let shared = UserDefaultsManager()
 
-
     private init() {}
 
     enum ClozeMode: Int {
-        case test
-        case revise
+        case create
+        case read
     }
 
-    var _clozeMode: Int {
+    var clozeMode: ClozeMode {
         get {
-            return defaults.integer(forKey: Keys.clozeMode)
+            let rawValue = defaults.integer(forKey: Keys.clozeMode)
+            let clozeMode = ClozeMode(rawValue: rawValue)!
+
+            return clozeMode
         }
         set {
+            let rawValue = newValue.rawValue
             defaults.set(newValue, forKey: Keys.clozeMode)
         }
-    }
-
-    var clozeMode: ClozeMode? {
-        return ClozeMode(rawValue: _clozeMode)
     }
 }

@@ -48,6 +48,7 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
         setupInputView()
         setupTableView()
         setupNotifications()
+        setupUserdefaults()
     }
 
     private func setupTableView() {
@@ -105,6 +106,10 @@ And so, Lily learned the art of punctuation, one mark at a time.
     
     private func setupNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleUpdateDataSource(_:)), name: .didTapContextLabel, object: nil)
+    }
+
+    private func setupUserdefaults() {
+        UserDefaultsManager.shared.clozeMode = .create
     }
 
     // MARK: - Actions

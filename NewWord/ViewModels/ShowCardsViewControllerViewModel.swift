@@ -149,9 +149,10 @@ class ShowCardsViewControllerViewModel {
     }
     
     func getCurrentSubview() -> any ShowCardsSubviewDelegate {
-        guard let card = getCurrentCard() else { return NoCardView() }
-        
-        let noteType = card.note!.noteType!
+        guard let card = getCurrentCard(),
+              let noteType = card.note?.noteType else {
+            return NoCardView()
+        }
         
         let subview: any ShowCardsSubviewDelegate
         
@@ -159,13 +160,15 @@ class ShowCardsViewControllerViewModel {
         case .sentenceCloze(_):
             let viewModel = SentenceClozeViewModel(card: card)
             subview = SentenceClozeView(viewModel: viewModel, card: card)
+
         case .prononciation:
             subview = PronounciationView()
+
         case .cloze:
-            let viewModel = ClozeViewViewModel(card: card)
-            let clozeView = ClozeView(card: card, viewModel: viewModel)
+            let clozeView = ClozeView(card: card)
             clozeView.delegate = self
             subview = clozeView
+
         default:
             subview = NoCardView()
         }

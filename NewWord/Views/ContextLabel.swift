@@ -28,6 +28,11 @@ class ContextLabel: UILabel {
         didSet {
             if isSelected {
                 backgroundColor = .blue
+
+                if UserDefaultsManager.shared.clozeMode == .read {
+                    text = "     "
+                }
+
             } else {
                 backgroundColor = .clear
             }
@@ -53,11 +58,14 @@ class ContextLabel: UILabel {
         textAlignment = .left
         font = UIFont.systemFont(ofSize: Preference.fontSize)
 
+
         switch labelType {
         case .word:
-            isUserInteractionEnabled = true
-            let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
-            self.addGestureRecognizer(tap)
+            if UserDefaultsManager.shared.clozeMode == .create {
+                isUserInteractionEnabled = true
+                let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+                self.addGestureRecognizer(tap)
+            }
 
         case .punctuation, .newline:
             isUserInteractionEnabled = false
@@ -72,6 +80,10 @@ class ContextLabel: UILabel {
         clozeWord.selected = isSelected
         
         NotificationCenter.default.post(name: .didTapContextLabel, object: clozeWord)
+    }
+
+    func convertToWhitespaces(input: String) -> String {
+        return String(repeating: " ", count: input.count)
     }
 }
 
