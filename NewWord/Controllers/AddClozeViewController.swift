@@ -139,7 +139,8 @@ And so, Lily learned the art of punctuation, one mark at a time.
 
                 if isClozed {
                     let number = word.clozeNumber ?? 0
-                    let word = word.text
+                    var word = word.text
+                    word = viewModel.removePunctuation(from: word)
 
                     let cloze = CoreDataManager.shared.createCloze(number: number, hint: "", clozeWord: word)
 

@@ -282,27 +282,91 @@ struct ClozeViewControllerViewModel {
         }
     }
 
-    func findMarkerRange(number: Int, text: String) -> NSRange? {
+    func removeMarkerAndReplaceWithWhitespace(number: Int, text: String) -> (text: String, range: NSRange?) {
         // 使用正則表達式來匹配指定標記
         let pattern = "\\{\\{C\(number):([^}]*)\\}\\}"
 
-        // 使用NSRegularExpression來處理正則表達式匹配
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: [])
-
+            
             // 查找符合正則表達式的匹配結果
             let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
 
-            // 返回第一個匹配結果的範圍
-            if let match = matches.first {
-                return match.range
+            // 如果沒有找到匹配結果，返回原文本和nil
+            guard let match = matches.first else {
+                return (text, nil)
             }
 
-            // 如果沒有找到匹配結果，返回nil
-            return nil
+            // 獲取匹配的範圍
+            let matchRange = match.range
+
+            if let range = Range(matchRange, in: text) {
+                // 獲取匹配的標記文本
+                let matchedText = text[range]
+                
+                // 獲取標記內的文本
+                if let innerRange = matchedText.range(of: "\\{\\{C\(number):(.*?)\\}\\}", options: .regularExpression) {
+                    let innerText = matchedText[innerRange].dropFirst(4 + "\(number)".count).dropLast(2)
+                    
+                    // 獲取圖形空格字符替換標記內的文本
+                    let whitespace = String(repeating: "?", count: innerText.count)
+                    
+                    // 計算新的範圍的開始位置
+                    let startIndex = text.distance(from: text.startIndex, to: range.lowerBound)
+                    
+                    // 獲取刪除標記後的文本
+                    var output = text
+                    output.replaceSubrange(range, with: whitespace)
+                    
+                    // 計算新的範圍
+                    let newRange = NSRange(location: startIndex, length: whitespace.count)
+                    return (output, newRange)
+                }
+            }
+
+            return (text, nil)
         } catch {
             print("正則表達式錯誤: \(error)")
-            return nil
+            return (text, nil)
         }
     }
+    
+    
+    func replaceRangeWithWord(text: String, range: NSRange, word: String) -> (text: String, range: NSRange?) {
+        // 確保NSRange是有效的
+        guard let rangeInText = Range(range, in: text) else {
+            return (text, nil)
+        }
+        
+        // 替換範圍內的文本為新的單詞
+        var newText = text
+        newText.replaceSubrange(rangeInText, with: word)
+        
+        // 計算新範圍的位置
+        let newRange = NSRange(location: range.location, length: word.count)
+        
+        return (newText, newRange)
+    }
+    
+    func removePunctuation(from text: String) -> String {
+        // 定義一個字符集合，包含所有標點符號
+        let punctuationCharacterSet = CharacterSet.punctuationCharacters
+        
+        // 遍歷字符串，移除所有屬於標點符號字符集合中的字符
+        let filteredText = text.unicodeScalars.filter { !punctuationCharacterSet.contains($0) }
+        
+        // 將過濾後的字符轉換回字符串
+        return String(String.UnicodeScalarView(filteredText))
+    }
+    
+    func applyAttributes(to text: String, range: NSRange, attributes: [NSAttributedString.Key: Any]) -> NSAttributedString? {
+        // 轉換成NSMutableAttributedString以便進行屬性設置
+        let attributedText = NSMutableAttributedString(string: text)
+        
+        // 將屬性應用於指定的範圍
+        attributedText.addAttributes(attributes, range: range)
+        
+        return attributedText
+    }
+
 }

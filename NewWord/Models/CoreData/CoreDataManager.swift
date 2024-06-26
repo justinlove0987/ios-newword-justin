@@ -562,6 +562,10 @@ extension CoreDataManager {
 
         return Int(number)
     }
+    
+    func getCloze(from card: CDCard) -> CDCloze? {
+        return card.note?.noteType?.cloze
+    }
 }
 
 // MARK: - Helpers

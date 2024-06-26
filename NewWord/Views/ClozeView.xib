@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -35,7 +35,7 @@
                     </connections>
                 </tableView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="23C-78-fxq">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="748"/>
+                    <rect key="frame" x="20" y="0.0" width="353" height="748"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                     <color key="textColor" systemColor="labelColor"/>
@@ -50,8 +50,8 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="hNE-jz-vON" secondAttribute="bottom" constant="70" id="Cdd-Os-Igb"/>
                 <constraint firstAttribute="bottom" secondItem="AHN-Ek-V99" secondAttribute="bottom" id="Dtz-gQ-NJh"/>
                 <constraint firstItem="AHN-Ek-V99" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="JoV-y8-3mg"/>
-                <constraint firstItem="23C-78-fxq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="O2I-CU-2mG"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="23C-78-fxq" secondAttribute="trailing" id="VCl-I8-cvi"/>
+                <constraint firstItem="23C-78-fxq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="O2I-CU-2mG"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="23C-78-fxq" secondAttribute="trailing" constant="20" id="VCl-I8-cvi"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="23C-78-fxq" secondAttribute="bottom" constant="70" id="Z1D-l0-g3c"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="AHN-Ek-V99" secondAttribute="trailing" id="fsh-Es-Eb7"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="hNE-jz-vON" secondAttribute="trailing" id="hX5-Ye-nHB"/>

@@ -129,7 +129,29 @@ class ClozeView: UIView, NibOwnerLoadable {
             customTextView.trailingAnchor.constraint(equalTo: contextTextView.trailingAnchor),
         ])
 
-        if let range = clozeViewModel?.findMarkerRange(number: number, text: text) {
+        if let textAndRange = clozeViewModel?.removeMarkerAndReplaceWithWhitespace(number: number, text: text),
+           let range = textAndRange.range {
+            
+            // 創建屬性字典
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 18, weight: .medium),
+                .foregroundColor: UIColor.white
+            ]
+
+            // 創建 attributed string
+            let attributedString = NSMutableAttributedString(string: textAndRange.text, attributes: attributes)
+            
+            attributedString.addAttributes([.foregroundColor: UIColor.blue], range: range)
+
+            // 設置其他屬性
+            customTextView.isEditable = false
+            customTextView.isScrollEnabled = true
+            customTextView.backgroundColor = .clear
+            
+            // 設置 customTextView 的 attributedText
+            customTextView.attributedText = attributedString
+            
+//            customTextView.text = textAndRange.text
             customTextView.highlightedRange = range
         }
     }
@@ -202,7 +224,22 @@ class ClozeView: UIView, NibOwnerLoadable {
         case .question:
             break
         case .answer:
-            guard let _ = contextTextView.text else { return }
+            guard let card = card,
+                  let context = customTextView.text,
+                  let highlightedRange = customTextView.highlightedRange,
+                  let cloze = CoreDataManager.shared.getCloze(from: card),
+                  let word = cloze.clozeWord else {
+                return
+            }
+            
+            let textAndRnage = clozeViewModel?.replaceRangeWithWord(text: context, range: highlightedRange, word: word)
+            
+            customTextView.text = textAndRnage?.text
+            
+            if let range = textAndRnage?.range {
+                customTextView.highlightedRange = range
+            }
+            
             customInputView.isHidden = true
 
         }
