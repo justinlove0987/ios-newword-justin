@@ -26,43 +26,36 @@ class ClozeView: UIView, NibOwnerLoadable {
     }
 
     @IBOutlet weak var customInputView: InputAccessoryView!
-    @IBOutlet weak var contextTextTextView: UITextView!
+    @IBOutlet weak var contextTextView: UITextView!
     @IBOutlet weak var tableView: UITableView!
-    
+
+    private var customTextView: CustomTextView!
+
     private var card: CDCard?
-    private var viewModel: ClozeViewViewModel
-    private var context: String?
+    private var clozeViewModel: ClozeViewControllerViewModel?
     private var clzoe: String?
+
+    private var dataSource: [[ClozeWord]] = []
 
     var delegate: ClozeViewProtocol?
 
     var inputViewTopAnchor: NSLayoutConstraint!
 
-    var tap: UITapGestureRecognizer?
-
-    init(card: CDCard) {
+    init?(card: CDCard) {
         self.card = card
-        self.viewModel = ClozeViewViewModel()
-        self.viewModel.card = card
-        
+        self.clozeViewModel = ClozeViewControllerViewModel()
         super.init(frame: .zero)
         commonInit()
         setup()
     }
     
     override init(frame: CGRect) {
-        self.viewModel = ClozeViewViewModel()
-        self.viewModel.card = card
-        
         super.init(frame: frame)
         commonInit()
         setup()
     }
 
     required init?(coder aDecoder: NSCoder) {
-        self.viewModel = ClozeViewViewModel()
-        self.viewModel.card = card
-        
         super.init(coder: aDecoder)
         commonInit()
         setup()
@@ -79,18 +72,111 @@ class ClozeView: UIView, NibOwnerLoadable {
     }
 
     private func setup() {
-        contextTextTextView.text = viewModel.getQuestionText()
+        setupTextView()
+        setupInputView()
+        setupKeyboardHiding()
+        setupGestureRecongnizer()
+    }
+
+    private func setupTextView() {
+        guard let card = card,
+              let context = CoreDataManager.shared.getContext(from: card),
+              let number = CoreDataManager.shared.getClozeNumber(from: card),
+              let text = clozeViewModel?.retainMarker(number: number, text: context) else {
+            return
+        }
+
+        setupCumstomTextView(number: number, text: text)
+
+        contextTextView.isHidden = true
+    }
+
+    private func setupInputView() {
         addSubview(customInputView)
         customInputView.translatesAutoresizingMaskIntoConstraints = false
-        setupKeyboardHiding()
-
         customInputView.textField.delegate = self
+    }
 
-        tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
-        contextTextTextView.addGestureRecognizer(tap!)
+    private func setupCumstomTextView(number: Int, text: String) {
+        let attributedString = NSMutableAttributedString(string: text)
+
+        // 創建一個 Text Storage 和 Layout Manager
+        let textStorage = NSTextStorage(attributedString: attributedString)
+        let layoutManager = NSLayoutManager()
+        textStorage.addLayoutManager(layoutManager)
+
+        // 創建一個 Text Container 並配置它
+        let textContainer = NSTextContainer(size: CGSize(width: contextTextView.frame.width, height: contextTextView.frame.height))
+        textContainer.lineFragmentPadding = 0
+        layoutManager.addTextContainer(textContainer)
+
+        // 創建一個自定義 UITextView 並配置它
+        customTextView = CustomTextView(frame: contextTextView.frame, textContainer: textContainer)
+        customTextView.isEditable = false
+        customTextView.isScrollEnabled = true
+        customTextView.backgroundColor = .clear
+        customTextView.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        customTextView.textColor = .white
+
+        self.addSubview(customTextView)
+
+        customTextView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            customTextView.topAnchor.constraint(equalTo: contextTextView.topAnchor),
+            customTextView.bottomAnchor.constraint(equalTo: contextTextView.bottomAnchor),
+            customTextView.leadingAnchor.constraint(equalTo: contextTextView.leadingAnchor),
+            customTextView.trailingAnchor.constraint(equalTo: contextTextView.trailingAnchor),
+        ])
+
+        if let range = clozeViewModel?.findMarkerRange(number: number, text: text) {
+            customTextView.highlightedRange = range
+        }
+    }
+
+    private func setupTableView() {
+        guard let card = card,
+              let context = CoreDataManager.shared.getContext(from: card),
+              let number = CoreDataManager.shared.getClozeNumber(from: card) else {
+            return
+        }
+
+        tableView.register(ContextCell.self, forCellReuseIdentifier: "ContextCell")
+
+        let sentences = clozeViewModel!.convertTextIntoSentences(text: context)
+
+
+        let newClozeWords = sentences.map { sentence in
+            sentence.map { word in
+                var word = word
+
+                if let result = clozeViewModel!.extractNumberAndCoreWord(from: word.text) {
+
+                    let newText = result.1
+                    let extractedNumber = result.0
+
+                    if number == extractedNumber {
+                        word.clozeNumber = extractedNumber
+                        word.selected = true
+                    }
+
+                    word.text = newText
+                }
+
+                return word
+            }
+        }
+
+        dataSource = newClozeWords
+    }
+
+    private func setupGestureRecongnizer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+        customTextView.addGestureRecognizer(tap)
     }
 
     @objc func tapAction(_ sender: UITapGestureRecognizer) {
+
         delegate?.tap(from: self, sender)
     }
 
@@ -116,11 +202,7 @@ class ClozeView: UIView, NibOwnerLoadable {
         case .question:
             break
         case .answer:
-            guard let text = contextTextTextView.text else { return }
-
-            let answerText = viewModel.getAnswerText(from: text)
-
-            contextTextTextView.text = answerText
+            guard let _ = contextTextView.text else { return }
             customInputView.isHidden = true
 
         }
@@ -194,4 +276,22 @@ extension ClozeView: UITextFieldDelegate {
 
 }
 
+extension ClozeView: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataSource.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ContextCell", for: indexPath) as! ContextCell
+
+        cell.configureCell(with: dataSource[indexPath.row])
+
+        return cell
+    }
+}
+
+// MARK: - ShowCardsSubviewDelegate
+
 extension ClozeView: ShowCardsSubviewDelegate {}
+
+

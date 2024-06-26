@@ -8,8 +8,6 @@
 import UIKit
 
 class ContextStackView: UIStackView {
-    
-    typealias ClozeWord = AddClozeViewControllerViewModel.ClozeWord
 
     var text: String
 
@@ -29,6 +27,7 @@ class ContextStackView: UIStackView {
 
             for split in splits {
                 let label = ContextLabel()
+                label.text = split
 
                 if isPunctuation(split) {
                     label.labelType = .punctuation
@@ -39,7 +38,6 @@ class ContextStackView: UIStackView {
                     label.isSelected = cloze.selected
                 }
 
-                label.text = split
                 addArrangedSubview(label)
             }
         } else {

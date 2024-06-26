@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClozeView" customModule="NewWord" customModuleProvider="target">
             <connections>
-                <outlet property="contextTextTextView" destination="23C-78-fxq" id="eLV-bA-tie"/>
+                <outlet property="contextTextView" destination="23C-78-fxq" id="eLV-bA-tie"/>
                 <outlet property="customInputView" destination="AHN-Ek-V99" id="YAW-0W-56D"/>
                 <outlet property="tableView" destination="hNE-jz-vON" id="0ER-s4-epL"/>
             </connections>
@@ -20,6 +20,20 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHN-Ek-V99" customClass="InputAccessoryView" customModule="NewWord" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="802" width="393" height="50"/>
+                    <color key="backgroundColor" systemColor="systemGreenColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="aFN-AW-LjI"/>
+                    </constraints>
+                </view>
+                <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hNE-jz-vON">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="748"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="LRe-mQ-iXv"/>
+                    </connections>
+                </tableView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="23C-78-fxq">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="748"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -28,22 +42,12 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHN-Ek-V99" customClass="InputAccessoryView" customModule="NewWord" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="802" width="393" height="50"/>
-                    <color key="backgroundColor" systemColor="systemGreenColor"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="aFN-AW-LjI"/>
-                    </constraints>
-                </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hNE-jz-vON">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="802"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="hNE-jz-vON" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="2Iw-fF-F19"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="hNE-jz-vON" secondAttribute="bottom" constant="70" id="Cdd-Os-Igb"/>
                 <constraint firstAttribute="bottom" secondItem="AHN-Ek-V99" secondAttribute="bottom" id="Dtz-gQ-NJh"/>
                 <constraint firstItem="AHN-Ek-V99" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="JoV-y8-3mg"/>
                 <constraint firstItem="23C-78-fxq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="O2I-CU-2mG"/>
@@ -52,7 +56,6 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="AHN-Ek-V99" secondAttribute="trailing" id="fsh-Es-Eb7"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="hNE-jz-vON" secondAttribute="trailing" id="hX5-Ye-nHB"/>
                 <constraint firstItem="23C-78-fxq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mgp-OK-Jek"/>
-                <constraint firstItem="AHN-Ek-V99" firstAttribute="top" secondItem="hNE-jz-vON" secondAttribute="bottom" id="tI1-oF-x19"/>
                 <constraint firstItem="hNE-jz-vON" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="utP-zh-NXW"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -67,7 +70,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

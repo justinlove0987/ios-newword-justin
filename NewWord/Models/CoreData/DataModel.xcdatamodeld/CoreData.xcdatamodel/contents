@@ -18,13 +18,13 @@
         <attribute name="hint" optional="YES" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="contextText" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDClozeContext" inverseName="cloze" inverseEntity="CDClozeContext"/>
+        <relationship name="context" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDClozeContext" inverseName="cloze" inverseEntity="CDClozeContext"/>
         <relationship name="noteType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNoteType" inverseName="cloze" inverseEntity="CDNoteType"/>
     </entity>
     <entity name="CDClozeContext" representedClassName="CDClozeContext" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="text" optional="YES" attributeType="String"/>
-        <relationship name="cloze" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDCloze" inverseName="contextText" inverseEntity="CDCloze"/>
+        <relationship name="cloze" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDCloze" inverseName="context" inverseEntity="CDCloze"/>
     </entity>
     <entity name="CDDeck" representedClassName="CDDeck" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="String"/>

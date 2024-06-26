@@ -274,10 +274,10 @@ extension CoreDataManager {
         let cloze = createCloze(number: 1, hint: "", clozeWord: "")
         let text = "The mass movement for Palestine returned to Washington, DC on Sat., June 8—forming a two-mile-long “red line” around the White House with a crowd that {{C\(cloze.id!):numbered}} in the tens of thousands. As discussed in a prior interview with The Real News, organizers of “The People’s Red Line” are seeking an immediate, permanent end to US aid to Israel. Jaisal Noor reports for TRNN from the streets of DC.The mass movement for Palestine returned to Washington, DC on Sat., June 8—forming a two-mile-long “red line” around the White House with a crowd that numbered in the tens of thousands. As discussed in a prior interview with The Real News, organizers of “The People’s Red Line” are seeking an immediate, permanent end to US aid to Israel. Jaisal Noor reports for TRNN from the streets of DC.The mass movement for Palestine returned to Washington, DC on Sat., June 8—forming a two-mile-long “red line” around the White House with a crowd that numbered in the tens of thousands. As discussed in a prior interview with The Real News, organizers of “The People’s Red Line” are seeking an immediate, permanent end to US aid to Israel. Jaisal Noor reports for TRNN from the streets of DC.The mass movement for Palestine returned to Washington, DC on Sat., June 8—forming a two-mile-long “red line” around the White House with a crowd that numbered in the tens of thousands. As discussed in a prior interview with The Real News, organizers of “The People’s Red Line” are seeking an immediate, permanent end to US aid to Israel. Jaisal Noor reports for TRNN from the streets of DC.The mass movement for Palestine returned to Washington, DC on Sat., June 8—forming a two-mile-long “red line” around the White House with a crowd that numbered in the tens of thousands. As discussed in a prior interview with The Real News, organizers of “The People’s Red Line” are seeking an immediate, permanent end to US aid to Israel. Jaisal Noor reports for TRNN from the streets of DC.The mass movement for Palestine returned to Washington, DC on Sat., June 8—forming a two-mile-long “red line” around the White House with a crowd that numbered in the tens of thousands. As discussed in a prior interview with The Real News, organizers of “The People’s Red Line” are seeking an immediate, permanent end to US aid to Israel. Jaisal Noor reports for TRNN from the streets of DC."
 
-        let contextText = createContext(text)
+        let context = createContext(text)
 
-        cloze.contextId = contextText.id
-        cloze.contextText = contextText
+        cloze.contextId = context.id
+        cloze.context = context
         
         let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: 1)
         noteType.cloze = cloze
@@ -549,6 +549,18 @@ extension CoreDataManager {
         context.text = text
 
         return context
+    }
+
+    func getContext(from card: CDCard) -> String? {
+        guard let text = card.note?.noteType?.cloze?.context?.text else { return nil }
+
+        return text
+    }
+
+    func getClozeNumber(from card: CDCard) -> Int? {
+        guard let number = card.note?.noteType?.cloze?.number else { return nil }
+
+        return Int(number)
     }
 }
 

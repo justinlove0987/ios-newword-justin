@@ -19,7 +19,7 @@ struct ClozeViewViewModel {
         guard let card else { return nil }
 
         guard let cloze = card.note?.noteType?.cloze else { return nil }
-        guard let text = cloze.contextText?.text else { return nil }
+        guard let text = cloze.context?.text else { return nil }
         guard let id = cloze.id else { return nil }
         
         let newText = text.replacingOccurrences(of: "\\{\\{C\(id):\\w+\\}\\}", with: dummyText, options: .regularExpression)
@@ -30,7 +30,7 @@ struct ClozeViewViewModel {
     func getClozeText() -> String? {
         guard let card else { return nil }
         guard let cloze = card.note?.noteType?.cloze else { return nil }
-        guard let text = cloze.contextText?.text else { return nil }
+        guard let text = cloze.context?.text else { return nil }
         guard let id = cloze.id else { return nil }
 
         let pattern = "\\{\\{C\(id):([^\\}]+)\\}\\}"

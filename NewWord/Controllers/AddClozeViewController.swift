@@ -14,9 +14,7 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var tableView: UITableView!
 
-    private var viewModel: AddClozeViewControllerViewModel!
-    
-    typealias ClozeWord = AddClozeViewControllerViewModel.ClozeWord
+    private var viewModel: ClozeViewControllerViewModel!
     
     var clozeNumbers: [Int] = []
 
@@ -29,7 +27,6 @@ class AddClozeViewController: UIViewController, StoryboardGenerated {
     private var currentText: String = "" {
         didSet {
             textView.text = currentText
-            viewModel.context = currentText
             dataSource = viewModel.convertTextIntoSentences(text: currentText)
         }
     }
@@ -93,7 +90,7 @@ And so, Lily learned the art of punctuation, one mark at a time.
 
     private func setupViewModel() {
         guard let text = textView.text else { return }
-        viewModel = AddClozeViewControllerViewModel(context: text, contextSize: view.frame.size)
+        viewModel = ClozeViewControllerViewModel()
     }
 
     private func setupInputView() {
@@ -146,7 +143,7 @@ And so, Lily learned the art of punctuation, one mark at a time.
 
                     let cloze = CoreDataManager.shared.createCloze(number: number, hint: "", clozeWord: word)
 
-                    cloze.contextText = context
+                    cloze.context = context
                     cloze.contextId = context.id
 
                     let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: 1)

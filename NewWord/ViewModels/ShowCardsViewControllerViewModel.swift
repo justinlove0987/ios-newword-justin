@@ -165,7 +165,7 @@ class ShowCardsViewControllerViewModel {
             subview = PronounciationView()
 
         case .cloze:
-            let clozeView = ClozeView(card: card)
+            guard let clozeView = ClozeView(card: card) else { return NoCardView() }
             clozeView.delegate = self
             subview = clozeView
 

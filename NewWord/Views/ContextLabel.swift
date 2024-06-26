@@ -12,8 +12,6 @@ protocol ContextLabelDelegate: AnyObject {
 }
 
 class ContextLabel: UILabel {
-    
-    typealias ClozeWord = AddClozeViewControllerViewModel.ClozeWord
 
     enum LabelType {
         case word
@@ -57,7 +55,6 @@ class ContextLabel: UILabel {
     private func updateUI() {
         textAlignment = .left
         font = UIFont.systemFont(ofSize: Preference.fontSize)
-
 
         switch labelType {
         case .word:

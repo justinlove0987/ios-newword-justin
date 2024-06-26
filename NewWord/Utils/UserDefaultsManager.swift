@@ -34,7 +34,7 @@ class UserDefaultsManager {
         }
         set {
             let rawValue = newValue.rawValue
-            defaults.set(newValue, forKey: Keys.clozeMode)
+            defaults.set(rawValue, forKey: Keys.clozeMode)
         }
     }
 }

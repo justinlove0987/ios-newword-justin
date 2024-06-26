@@ -7,29 +7,7 @@
 
 import UIKit
 
-struct AddClozeViewControllerViewModel {
-    
-    struct ClozeWord {
-        
-        enum WordType {
-            case none
-            case cloze
-            case multiCloze
-        }
-        
-        var type: WordType = .none
-        
-        var selected: Bool = false
-        
-        var clozeNumber: Int?
-        
-        let position: (sentenceIndex: Int, wordIndex: Int)
-        
-        var text: String
-    }
-
-    var context: String
-    let contextSize: CGSize
+struct ClozeViewControllerViewModel {
 
     var sentences: [[String]] = []
     
@@ -217,10 +195,6 @@ struct AddClozeViewControllerViewModel {
         return false
     }
     
-    func getTextSize(_ text: String) -> CGSize {
-        return text.size(withAttributes: [.font: UIFont.systemFont(ofSize: Preference.fontSize)])
-    }
-    
     func formatClozeText(input: String, clozeID: Int) -> String {
         let punctuationPattern = "^([^\\w]*)([\\w]+)([^\\w]*)$"
         
@@ -265,5 +239,70 @@ struct AddClozeViewControllerViewModel {
         }
 
         return nil
+    }
+
+    func retainMarker(number: Int, text: String) -> String {
+        // 使用正則表達式來匹配需要保留的標記
+        let retainPattern = "\\{\\{C\(number):([^}]*)\\}\\}"
+
+        // 使用NSRegularExpression來處理正則表達式匹配
+        do {
+            let regex = try NSRegularExpression(pattern: "\\{\\{C\\d+:([^}]*)\\}\\}", options: [])
+
+            // 查找符合正則表達式的匹配結果
+            let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
+
+            // 初始化一個可變的輸出文本
+            var output = text
+
+            // 反向迭代匹配結果，以避免在替換時改變索引
+            for match in matches.reversed() {
+                if let range = Range(match.range, in: text) {
+                    // 獲取匹配的文本內容
+                    let matchedText = text[range]
+
+                    // 判斷是否為要保留的標記
+                    let innerPattern = retainPattern
+                    if let innerRegex = try? NSRegularExpression(pattern: innerPattern, options: []),
+                       innerRegex.firstMatch(in: String(matchedText), options: [], range: NSRange(location: 0, length: matchedText.utf16.count)) == nil {
+                        // 如果不是要保留的標記，則移除標記並保留其內部內容
+                        if let innerContentRange = matchedText.range(of: "\\{\\{C\\d+:(.*?)\\}\\}", options: .regularExpression) {
+                            let innerContent = matchedText[innerContentRange].dropFirst(4).dropLast(2)
+                            let cleanContent = innerContent.replacingOccurrences(of: ".*:", with: "", options: .regularExpression)
+                            output.replaceSubrange(range, with: String(cleanContent))
+                        }
+                    }
+                }
+            }
+
+            return output
+        } catch {
+            print("正則表達式錯誤: \(error)")
+            return text
+        }
+    }
+
+    func findMarkerRange(number: Int, text: String) -> NSRange? {
+        // 使用正則表達式來匹配指定標記
+        let pattern = "\\{\\{C\(number):([^}]*)\\}\\}"
+
+        // 使用NSRegularExpression來處理正則表達式匹配
+        do {
+            let regex = try NSRegularExpression(pattern: pattern, options: [])
+
+            // 查找符合正則表達式的匹配結果
+            let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
+
+            // 返回第一個匹配結果的範圍
+            if let match = matches.first {
+                return match.range
+            }
+
+            // 如果沒有找到匹配結果，返回nil
+            return nil
+        } catch {
+            print("正則表達式錯誤: \(error)")
+            return nil
+        }
     }
 }

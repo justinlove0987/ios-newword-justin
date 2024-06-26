@@ -8,8 +8,6 @@
 import UIKit
 
 class ContextCell: UITableViewCell {
-    
-    typealias ClozeWord = AddClozeViewControllerViewModel.ClozeWord
 
     override func awakeFromNib() {
         super.awakeFromNib()
