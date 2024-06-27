@@ -40,8 +40,6 @@ class CustomTextView: UITextView {
 
                 // 調整 boundingRect 的位置
                 let adjustedRect = boundingRect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
-                
-//                adjustedRect = adjustedRect.intersection(boundingRect)
 
                 // 設置背景顏色和圓角
                 let path = UIBezierPath(roundedRect: adjustedRect.insetBy(dx: -2, dy: -2), cornerRadius: 5)
