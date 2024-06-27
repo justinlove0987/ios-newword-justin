@@ -33,6 +33,9 @@
 		2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA328C72BEDF509001D83C2 /* DeckManager.swift */; };
 		2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */; };
 		2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AB8CC0A2BF5AA1D00BFFD4A /* SentenceClozeView.xib */; };
+		2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */; };
+		2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */; };
+		2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */; };
 		2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */; };
 		2AE025F42BF49686006EC021 /* CardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE025F32BF49686006EC021 /* CardManager.swift */; };
 		2AE025F62BF4983A006EC021 /* NoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE025F52BF4983A006EC021 /* NoteManager.swift */; };
@@ -109,6 +112,9 @@
 		2AA328C72BEDF509001D83C2 /* DeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckManager.swift; sourceTree = "<group>"; };
 		2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewController.swift; sourceTree = "<group>"; };
 		2AB8CC0A2BF5AA1D00BFFD4A /* SentenceClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SentenceClozeView.xib; sourceTree = "<group>"; };
+		2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSelectionCell.swift; sourceTree = "<group>"; };
+		2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSelectionCell.xib; sourceTree = "<group>"; };
+		2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDeckViewController.swift; sourceTree = "<group>"; };
 		2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeView.swift; sourceTree = "<group>"; };
 		2AE025F32BF49686006EC021 /* CardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardManager.swift; sourceTree = "<group>"; };
 		2AE025F52BF4983A006EC021 /* NoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteManager.swift; sourceTree = "<group>"; };
@@ -218,6 +224,8 @@
 				D0D6E0EA2C1DE92C00C1F95E /* ContextStackView.swift */,
 				D0A86A672C1B5FA00022DFDD /* ContextCell.swift */,
 				D0B2E3FB2C2BB15F0047B2F5 /* CustomTextView.swift */,
+				2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */,
+				2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -249,6 +257,7 @@
 				2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */,
 				2A38F8C02BE48F88003F058F /* ExploreViewController.swift */,
 				2A38F8C22BE48FB2003F058F /* SearchViewController.swift */,
+				2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */,
 				2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */,
 				2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */,
 				2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */,
@@ -382,6 +391,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */,
 				D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */,
 				2A17DAF62C1579D700919642 /* ClozeView.xib in Resources */,
 				2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */,
@@ -408,6 +418,7 @@
 				D0E8848B2BC93C3600C78B97 /* NoteType.swift in Sources */,
 				2A7B6CD12C080A900017BB5C /* StoryboardGenerated.swift in Sources */,
 				2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */,
+				2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */,
 				2A5D7B062C0EEBA600B2F021 /* AddClozeViewController.swift in Sources */,
 				2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */,
 				D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */,
@@ -431,6 +442,7 @@
 				2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */,
 				D02E46F72C272CC500418781 /* UserDefaultsManager.swift in Sources */,
 				2AE025FA2BF4AB60006EC021 /* DataManager.swift in Sources */,
+				2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */,
 				2A17DAFA2C157C7F00919642 /* ClozeViewViewModel.swift in Sources */,
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
 				D09262C32C098A4400CA90BA /* CDLapses+Extension.swift in Sources */,

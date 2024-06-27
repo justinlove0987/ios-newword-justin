@@ -43,16 +43,32 @@ class SearchViewController: UIViewController, StoryboardGenerated {
     }
     
     private func updateDataSource() {
-        cards = CoreDataManager.shared.getCards()
+        let decks = CoreDataManager.shared.getDecks()
+        
+        filteredCards = decks.flatMap { deck in
+            return CoreDataManager.shared.cards(from: deck)
+        }
         
         var snapshot: NSDiffableDataSourceSnapshot<Int, CDCard> = .init()
         
         snapshot.appendSections([0])
-        snapshot.appendItems(cards, toSection: 0)
+        snapshot.appendItems(filteredCards, toSection: 0)
         
         dataSource.apply(snapshot)
     }
-
+    
+    
+    @IBAction func deckAction(_ sender: UIButton) {
+        let controller = SearchDeckViewController()
+        
+        controller.callback = { [weak self] decks in
+            self?.filteredCards = decks.flatMap { deck in
+                return CoreDataManager.shared.cards(from: deck)
+            }
+        }
+        
+        navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
 // MARK: - UISearchBarDelegate
@@ -61,7 +77,6 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
     }
-
 }
 
 // MARK: - UITableViewDelegate
@@ -71,7 +86,7 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controller = CardInformationViewController.instantiate()
         
-        controller.card = cards[indexPath.row]
+        controller.card = filteredCards[indexPath.row]
         
         navigationController?.pushViewController(controller, animated: true)
         

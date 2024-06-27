@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="SearchSelectionCell" customModule="NewWord" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="puh-UF-c5G">
+                        <rect key="frame" x="20" y="11.666666666666663" width="19.333333333333329" height="21"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="deck name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6pQ-73-UpI">
+                        <rect key="frame" x="59.333333333333336" y="10" width="83.666666666666657" height="24"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="6pQ-73-UpI" firstAttribute="leading" secondItem="puh-UF-c5G" secondAttribute="trailing" constant="20" id="0y7-dx-dJm"/>
+                    <constraint firstItem="puh-UF-c5G" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Ddw-4O-u3L"/>
+                    <constraint firstItem="6pQ-73-UpI" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Eqa-Vo-Kst"/>
+                    <constraint firstAttribute="bottom" secondItem="6pQ-73-UpI" secondAttribute="bottom" constant="10" id="G6x-CF-71p"/>
+                    <constraint firstAttribute="bottom" secondItem="puh-UF-c5G" secondAttribute="bottom" constant="10" id="lJc-OJ-zAH"/>
+                    <constraint firstItem="6pQ-73-UpI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="sSC-xr-WQj"/>
+                    <constraint firstItem="puh-UF-c5G" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="scB-il-Fwx"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="checkmarkImageView" destination="puh-UF-c5G" id="bYX-KT-zFC"/>
+                <outlet property="deckNameLabel" destination="6pQ-73-UpI" id="vww-zN-GSs"/>
+            </connections>
+            <point key="canvasLocation" x="62.595419847328245" y="19.718309859154932"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="square" catalog="system" width="128" height="114"/>
+    </resources>
+</document>
