@@ -24,11 +24,12 @@ class SearchViewController: UIViewController, StoryboardGenerated {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDataSource()
+        updateDataSource()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateDataSource()
+
     }
     
     private func setupDataSource() {
@@ -40,20 +41,20 @@ class SearchViewController: UIViewController, StoryboardGenerated {
         })
         
         tableView.dataSource = dataSource
-    }
-    
-    private func updateDataSource() {
+
         let decks = CoreDataManager.shared.getDecks()
-        
+
         filteredCards = decks.flatMap { deck in
             return CoreDataManager.shared.cards(from: deck)
         }
-        
+    }
+    
+    private func updateDataSource() {
         var snapshot: NSDiffableDataSourceSnapshot<Int, CDCard> = .init()
         
         snapshot.appendSections([0])
-        snapshot.appendItems(filteredCards, toSection: 0)
-        
+        snapshot.appendItems(self.filteredCards, toSection: 0)
+
         dataSource.apply(snapshot)
     }
     
@@ -62,9 +63,13 @@ class SearchViewController: UIViewController, StoryboardGenerated {
         let controller = SearchDeckViewController()
         
         controller.callback = { [weak self] decks in
-            self?.filteredCards = decks.flatMap { deck in
+            guard let self = self else { return }
+
+            self.filteredCards = decks.flatMap { deck in
                 return CoreDataManager.shared.cards(from: deck)
             }
+
+            self.updateDataSource()
         }
         
         navigationController?.pushViewController(controller, animated: true)

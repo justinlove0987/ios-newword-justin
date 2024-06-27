@@ -17,7 +17,7 @@ class SearchSelectionCell: UITableViewCell {
     override var isSelected: Bool {
         didSet {
             let imageName = isSelected ? "checkmark.square.fill" : "square"
-            
+
             checkmarkImageView.image = UIImage(systemName: imageName)
         }
     }
