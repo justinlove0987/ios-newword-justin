@@ -110,8 +110,8 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
     }
     
     @IBAction func addClozeAction(_ sender: UIButton) {
-        let controller = AddClozeViewController.instantiate()
-        
+        let controller = NewAddClozeViewController.instantiate()
+
         navigationController?.pushViewController(controller, animated: true)
     }
     

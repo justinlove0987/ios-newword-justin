@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pSA-EX-MVA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pSA-EX-MVA">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -843,6 +843,66 @@
             </objects>
             <point key="canvasLocation" x="3454" y="717"/>
         </scene>
+        <!--New Add Cloze View Controller-->
+        <scene sceneID="nCC-Bo-CqO">
+            <objects>
+                <viewController storyboardIdentifier="NewAddClozeViewController" id="Q3G-wX-9Sl" customClass="NewAddClozeViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C6T-Th-Jot">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dkh-Qa-fXZ">
+                                <rect key="frame" x="298" y="79" width="75" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Button"/>
+                                <connections>
+                                    <action selector="saveAction:" destination="Q3G-wX-9Sl" eventType="touchUpInside" id="Z6j-2k-5IX"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="N4a-cY-sVJ">
+                                <rect key="frame" x="131" y="79" width="131" height="32"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentedAction:" destination="Q3G-wX-9Sl" eventType="valueChanged" id="m3j-Lw-6xj"/>
+                                </connections>
+                            </segmentedControl>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rvU-6I-nmn">
+                                <rect key="frame" x="15" y="114" width="363" height="704"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <mutableString key="text">在現代社會，健康的生活方式變得越來越重要。飲食均衡、適當運動和充足的睡眠都是維持健康的關鍵。許多人在繁忙的工作和生活中往往忽視了這些基本的健康原則。要保持健康，首先需要有意識地安排時間進行運動，無論是簡單的散步還是強度較高的運動，都能有效提高體力和免疫力。同時，飲食方面也應該多加注意，減少高糖、高脂肪的食物攝取，多吃蔬菜水果，保持營養均衡。最後，充足的睡眠對於恢復精力和維持心理健康至關重要。只有在這些方面都做得好，才能真正擁有健康的生活。
+
+Environmental sustainability has become a crucial issue in today's world. With the increasing awareness of climate change and its impacts, more and more people are advocating for eco-friendly practices. Recycling, reducing plastic use, and conserving energy are some of the ways individuals can contribute to a greener planet. Governments and corporations also play a significant role by implementing policies that promote sustainability and investing in renewable energy sources. It is essential for everyone to take responsibility for the environment, ensuring a healthy and sustainable future for generations to come.
+
+旅行は、異なる文化や人々と触れ合う絶好の機会です。新しい場所を訪れることで、その土地の歴史や伝統を学び、視野を広げることができます。また、旅行はストレスを解消し、日常生活の喧騒から離れる良い方法でもあります。計画的に旅をすることで、貴重な体験を得ることができ、思い出に残る素晴らしい時間を過ごすことができます。旅行の準備をするときは、目的地の情報を十分に調べ、安全で快適な旅を楽しむための対策を講じることが重要です。</mutableString>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="g4f-Hp-tTQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="g4f-Hp-tTQ" firstAttribute="bottom" secondItem="rvU-6I-nmn" secondAttribute="bottom" id="6tN-0J-cDz"/>
+                            <constraint firstItem="rvU-6I-nmn" firstAttribute="leading" secondItem="g4f-Hp-tTQ" secondAttribute="leading" constant="15" id="KVS-Fd-gqe"/>
+                            <constraint firstItem="dkh-Qa-fXZ" firstAttribute="top" secondItem="g4f-Hp-tTQ" secondAttribute="top" constant="20" id="MBn-iI-z2H"/>
+                            <constraint firstItem="N4a-cY-sVJ" firstAttribute="centerX" secondItem="C6T-Th-Jot" secondAttribute="centerX" id="Yia-M1-o5k"/>
+                            <constraint firstItem="g4f-Hp-tTQ" firstAttribute="trailing" secondItem="dkh-Qa-fXZ" secondAttribute="trailing" constant="20" id="Zvg-fM-GZ3"/>
+                            <constraint firstItem="N4a-cY-sVJ" firstAttribute="top" secondItem="g4f-Hp-tTQ" secondAttribute="top" constant="20" id="e02-gx-AUp"/>
+                            <constraint firstItem="rvU-6I-nmn" firstAttribute="top" secondItem="dkh-Qa-fXZ" secondAttribute="bottom" id="fMy-Ky-SY3"/>
+                            <constraint firstItem="rvU-6I-nmn" firstAttribute="trailing" secondItem="g4f-Hp-tTQ" secondAttribute="trailing" constant="-15" id="fgT-Tu-mgj"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="rvU-6I-nmn" id="hQb-ML-AzK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PJJ-uU-EPO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3465" y="1408"/>
+        </scene>
         <!--Add Cloze View Controller-->
         <scene sceneID="FUc-lo-w6H">
             <objects>
@@ -1144,10 +1204,10 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemCyanColor">
-            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
