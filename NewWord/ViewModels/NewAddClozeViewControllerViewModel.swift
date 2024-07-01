@@ -35,13 +35,19 @@ struct NewAddClozeViewControllerViewModel {
         return maxClozeNumber!
     }
     
-    func saveCloze(_ text: String) {
+    mutating func saveCloze(_ text: String) {
         var text = text
         
         let firstDeck = CoreDataManager.shared.getDecks().first!
         
-        for cloze in clozes {
+        for i in 0..<clozes.count {
+            let cloze = clozes[i]
+            
             text = convertToContext(text, cloze)
+            
+            print(text)
+            
+            updateNSRange(to: cloze, offset: 6)
         }
         
         let context = CoreDataManager.shared.createContext(text)
@@ -62,7 +68,7 @@ struct NewAddClozeViewControllerViewModel {
         CoreDataManager.shared.save()
     }
     
-    func convertToContext(_ text: String, _ cloze: NewAddCloze) -> String {
+    mutating func convertToContext(_ text: String, _ cloze: NewAddCloze) -> String {
         let attributedText = NSMutableAttributedString(string: text)
         let frontCharacter = NSAttributedString(string: "{{C")
         let middleColon = NSAttributedString(string: "\(cloze.number):")
@@ -77,5 +83,19 @@ struct NewAddClozeViewControllerViewModel {
         attributedText.insert(frontCharacter, at: frontIndex)
         
         return attributedText.string
+    }
+    
+    mutating func updateNSRange(to compareCloze: NewAddCloze, offset: Int) {
+        
+        for i in 0..<clozes.count {
+            let currentCloze = clozes[i]
+            
+            if compareCloze.range.location < currentCloze.range.location {
+                let location = currentCloze.range.location
+                let length = currentCloze.range.length
+                
+                clozes[i].range = NSRange(location: location + offset, length: length)
+            }
+        }
     }
 }

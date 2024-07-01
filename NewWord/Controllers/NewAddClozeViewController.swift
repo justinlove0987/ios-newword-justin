@@ -11,7 +11,7 @@ import NaturalLanguage
 struct NewAddCloze {
     let number: Int
     let cloze: String
-    let range: NSRange
+    var range: NSRange
 }
 
 class NewAddClozeViewController: UIViewController, StoryboardGenerated {
