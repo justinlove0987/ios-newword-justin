@@ -20,6 +20,7 @@
 		2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */; };
 		2A5D7B062C0EEBA600B2F021 /* AddClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */; };
 		2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */; };
+		2A67688B2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688A2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift */; };
 		2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */; };
 		2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */; };
 		2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */; };
@@ -103,6 +104,7 @@
 		2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClozeViewController.swift; sourceTree = "<group>"; };
 		2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWord+Extension.swift"; sourceTree = "<group>"; };
+		2A67688A2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAddClozeViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecord.swift; sourceTree = "<group>"; };
 		2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextRevisionInputAccessoryView.xib; sourceTree = "<group>"; };
 		2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextRevisionInputAccessoryView.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */,
 				2A17DAF92C157C7F00919642 /* ClozeViewViewModel.swift */,
 				D0A86A652C1B55390022DFDD /* ClozeViewControllerViewModel.swift */,
+				2A67688A2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */,
 				2A2176852C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift in Sources */,
 				D03107D42C16F2AA00EEF772 /* LearningRecordCell.swift in Sources */,
+				2A67688B2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift in Sources */,
 				D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */,
 				D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */,
 				D09262C12C09808400CA90BA /* CDCard+Extension.swift in Sources */,
