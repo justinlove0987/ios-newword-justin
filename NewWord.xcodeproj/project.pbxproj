@@ -21,6 +21,7 @@
 		2A5D7B062C0EEBA600B2F021 /* AddClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */; };
 		2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */; };
 		2A67688B2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688A2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift */; };
+		2A67688D2C3322590040C89F /* AddClozeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688C2C3322590040C89F /* AddClozeTextView.swift */; };
 		2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */; };
 		2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */; };
 		2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */; };
@@ -105,6 +106,7 @@
 		2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClozeViewController.swift; sourceTree = "<group>"; };
 		2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWord+Extension.swift"; sourceTree = "<group>"; };
 		2A67688A2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAddClozeViewControllerViewModel.swift; sourceTree = "<group>"; };
+		2A67688C2C3322590040C89F /* AddClozeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClozeTextView.swift; sourceTree = "<group>"; };
 		2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecord.swift; sourceTree = "<group>"; };
 		2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextRevisionInputAccessoryView.xib; sourceTree = "<group>"; };
 		2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextRevisionInputAccessoryView.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */,
 				2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */,
 				2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */,
+				2A67688C2C3322590040C89F /* AddClozeTextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
 				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
+				2A67688D2C3322590040C89F /* AddClozeTextView.swift in Sources */,
 				D09262BD2C097F3D00CA90BA /* CDNoteType+Extension.swift in Sources */,
 				D0D8D5F62C0F0920001BB415 /* String+Extension.swift in Sources */,
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
