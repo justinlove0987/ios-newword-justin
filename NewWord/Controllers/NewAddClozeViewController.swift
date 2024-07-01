@@ -87,11 +87,32 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
 
         if let characterIndex = customTextView.characterIndex(at: location),
            let wordRange = customTextView.wordRange(at: characterIndex) {
-            customTextView.highlightRange(wordRange)
+
+            // 獲取點擊的單字
+            let word = (customTextView.text as NSString).substring(with: wordRange)
+            print("Tapped word: \(word)")
+
+            // 判斷點擊的單字是否有藍色背景
+            if customTextView.hasBlueBackground(at: wordRange) {
+                print("The word has a blue background.")
+            } else {
+                print("The word does not have a blue background.")
+            }
+
+            // 在單字前插入"1"
+            let mutableAttributedString = NSMutableAttributedString(attributedString: customTextView.attributedText)
+            mutableAttributedString.insert(NSAttributedString(string: "1"), at: wordRange.location)
+            customTextView.attributedText = mutableAttributedString
+
+            // 更新highlight範圍包括"1"
+            let updatedWordRange = NSRange(location: wordRange.location, length: wordRange.length + 1)
+
+
+            customTextView.highlightRange(updatedWordRange)
         }
 
         // 檢查是否有文字被反白選中
-        if let selectedRange = customTextView.selectedTextRange {
+        if let _ = customTextView.selectedTextRange {
             // 取消文字的反白選中狀態
             customTextView.selectedTextRange = nil
         }
@@ -172,6 +193,11 @@ class AddClozeTextView: UITextView {
         highlightedRange = range
         textStorage.addAttribute(.backgroundColor, value: UIColor.blue, range: range)
         setNeedsDisplay()
+    }
+
+    func hasBlueBackground(at range: NSRange) -> Bool {
+        let attribute = textStorage.attribute(.backgroundColor, at: range.location, effectiveRange: nil) as? UIColor
+        return attribute == UIColor.blue
     }
 }
 
