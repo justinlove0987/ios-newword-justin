@@ -74,6 +74,19 @@ class AddClozeTextView: UITextView {
         let attribute = textStorage.attribute(.backgroundColor, at: range.location, effectiveRange: nil) as? UIColor
         return attribute == UIColor.blue
     }
+    
+    func insertAttributedString(at location: Int, with textToInsert: String, backgroundColor: UIColor, font: UIFont) {
+        
+        let mutableAttributedString = NSMutableAttributedString(attributedString: self.attributedText)
+        let attributedStringToInsert = NSMutableAttributedString(string: textToInsert,
+                                                                 attributes: [
+                                                                    .backgroundColor: backgroundColor,
+                                                                    .font: font
+                                                                 ])
+        
+        mutableAttributedString.insert(attributedStringToInsert, at: location)
+        self.attributedText = mutableAttributedString
+    }
 }
 
 extension UITextView {
@@ -86,5 +99,15 @@ extension UITextView {
         tokenizer.string = text
         let wordRange = tokenizer.tokenRange(for: swiftRange)
         return NSRange(wordRange, in: text)
+    }
+}
+
+extension NSAttributedString.Key {
+    static let increasedSpacing = NSAttributedString.Key("IncreasedSpacingAttribute")
+}
+
+extension NSMutableAttributedString {
+    func addIncreasedSpacingAttribute(range: NSRange) {
+        self.addAttribute(.increasedSpacing, value: true, range: range)
     }
 }
