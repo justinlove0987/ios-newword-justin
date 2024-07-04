@@ -42,10 +42,11 @@ struct NewAddClozeViewControllerViewModel {
         
         for i in 0..<clozes.count {
             let cloze = clozes[i]
+            let offset = 6+String(cloze.number).count
             
             text = convertToContext(text, cloze)
             
-            updateNSRange(with: cloze, offset: 6)
+            updateNSRange(with: cloze, offset: offset)
         }
         
         let context = CoreDataManager.shared.createContext(text)
@@ -68,16 +69,13 @@ struct NewAddClozeViewControllerViewModel {
     
     mutating func convertToContext(_ text: String, _ cloze: NewAddCloze) -> String {
         let attributedText = NSMutableAttributedString(string: text)
-        let frontCharacter = NSAttributedString(string: "{{C")
-        let middleColon = NSAttributedString(string: ":")
+        let frontCharacter = NSAttributedString(string: "{{C\(cloze.number):")
         let backCharacter = NSAttributedString(string: "}}")
 
         let backIndex = cloze.range.location + cloze.range.length
         let frontIndex = cloze.range.location
-        let middleColonIndex = frontIndex + String(cloze.number).count
         
         attributedText.insert(backCharacter, at: backIndex)
-        attributedText.insert(middleColon, at: middleColonIndex)
         attributedText.insert(frontCharacter, at: frontIndex)
         
         return attributedText.string

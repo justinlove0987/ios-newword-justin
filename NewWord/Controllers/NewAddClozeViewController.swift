@@ -68,13 +68,13 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         
         customTextView = AddClozeTextView(frame: textView.frame, textContainer: textContainer)
         customTextView.isEditable = false
-//        customTextView.isScrollEnabled = true
         customTextView.backgroundColor = .clear
-        customTextView.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        customTextView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         customTextView.textColor = .white
         customTextView.translatesAutoresizingMaskIntoConstraints = false
         customTextView.addGestureRecognizer(tapGesture)
         customTextView.delegate = self
+        customTextView.isScrollEnabled = true
         
         self.view.addSubview(customTextView)
         
@@ -113,28 +113,16 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             // 獲取點擊的單字
             let word = (customTextView.text as NSString).substring(with: wordRange)
             
-            // 判斷點擊的單字是否有藍色背景
-            //            if customTextView.hasBlueBackground(at: wordRange) {
-            //                print("The word has a blue background.")
-            //            } else {
-            //                print("The word does not have a blue background.")
-            //            }
-            
             let clozeNumber = viewModel.getClozeNumber()
+            let offset = 1
+            let updateRange = NSRange(location: wordRange.location+offset, length: wordRange.length)
+            let newCloze = NewAddCloze(number: clozeNumber, cloze: word, range: updateRange)
             
-            customTextView.insertAttributedString(at: wordRange.location, with: String(clozeNumber), backgroundColor: UIColor.clozeBlueNumber, font: UIFont.systemFont(ofSize: 14, weight: .medium))
-            customTextView.insertNumberLabel(at: wordRange.location, with: String(clozeNumber), backgroundColor: UIColor.clozeBlueNumber, font: UIFont.systemFont(ofSize: 14, weight: .medium))
-
-            let highlightWordRange = NSRange(location: wordRange.location + String(clozeNumber).count, length: wordRange.length)
-            let totalWordRange = NSRange(location: wordRange.location, length: wordRange.length+String(clozeNumber).count)
-            
-            let newCloze = NewAddCloze(number: clozeNumber, cloze: word, range: totalWordRange)
-            let offset = String(clozeNumber).count
+            customTextView.highlightClozeWord(wordRange)
+            customTextView.insertNumberImageView(at: wordRange.location, with: String(clozeNumber))
             
             viewModel.appendCloze(newCloze)
             viewModel.updateNSRange(with: newCloze, offset: offset)
-            
-            customTextView.highlightRanges(highlightWordRange)
         }
         
         // 檢查是否有文字被反白選中

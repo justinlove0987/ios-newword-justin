@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A034F7D2C3682C800AEDA65 /* CustomNumberTag.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A034F7C2C3682C800AEDA65 /* CustomNumberTag.xib */; };
+		2A034F7F2C36858C00AEDA65 /* NumberTagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034F7E2C36858C00AEDA65 /* NumberTagLabel.swift */; };
 		2A17DAF62C1579D700919642 /* ClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A17DAF52C1579D700919642 /* ClozeView.xib */; };
 		2A17DAF82C1579E400919642 /* ClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A17DAF72C1579E400919642 /* ClozeView.swift */; };
 		2A17DAFA2C157C7F00919642 /* ClozeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A17DAF92C157C7F00919642 /* ClozeViewViewModel.swift */; };
@@ -92,6 +94,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A034F7C2C3682C800AEDA65 /* CustomNumberTag.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomNumberTag.xib; sourceTree = "<group>"; };
+		2A034F7E2C36858C00AEDA65 /* NumberTagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTagLabel.swift; sourceTree = "<group>"; };
 		2A17DAF52C1579D700919642 /* ClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClozeView.xib; sourceTree = "<group>"; };
 		2A17DAF72C1579E400919642 /* ClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClozeView.swift; sourceTree = "<group>"; };
 		2A17DAF92C157C7F00919642 /* ClozeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClozeViewViewModel.swift; sourceTree = "<group>"; };
@@ -242,6 +246,8 @@
 				2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */,
 				2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */,
 				2A67688C2C3322590040C89F /* AddClozeTextView.swift */,
+				2A034F7C2C3682C800AEDA65 /* CustomNumberTag.xib */,
+				2A034F7E2C36858C00AEDA65 /* NumberTagLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -411,6 +417,7 @@
 			files = (
 				2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */,
 				D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */,
+				2A034F7D2C3682C800AEDA65 /* CustomNumberTag.xib in Resources */,
 				2A17DAF62C1579D700919642 /* ClozeView.xib in Resources */,
 				2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */,
 				2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */,
@@ -432,6 +439,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A034F7F2C36858C00AEDA65 /* NumberTagLabel.swift in Sources */,
 				D0DA5AC92BB66A05008644DC /* MainViewController.swift in Sources */,
 				2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */,
 				2A791A702C10D29700C26FFB /* SearchCell.swift in Sources */,
