@@ -68,7 +68,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         
         customTextView = AddClozeTextView(frame: textView.frame, textContainer: textContainer)
         customTextView.isEditable = false
-        customTextView.isScrollEnabled = true
+//        customTextView.isScrollEnabled = true
         customTextView.backgroundColor = .clear
         customTextView.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         customTextView.textColor = .white
@@ -123,7 +123,8 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             let clozeNumber = viewModel.getClozeNumber()
             
             customTextView.insertAttributedString(at: wordRange.location, with: String(clozeNumber), backgroundColor: UIColor.clozeBlueNumber, font: UIFont.systemFont(ofSize: 14, weight: .medium))
-            
+            customTextView.insertNumberLabel(at: wordRange.location, with: String(clozeNumber), backgroundColor: UIColor.clozeBlueNumber, font: UIFont.systemFont(ofSize: 14, weight: .medium))
+
             let highlightWordRange = NSRange(location: wordRange.location + String(clozeNumber).count, length: wordRange.length)
             let totalWordRange = NSRange(location: wordRange.location, length: wordRange.length+String(clozeNumber).count)
             
@@ -133,7 +134,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             viewModel.appendCloze(newCloze)
             viewModel.updateNSRange(with: newCloze, offset: offset)
             
-            customTextView.highlightRange(highlightWordRange)
+            customTextView.highlightRanges(highlightWordRange)
         }
         
         // 檢查是否有文字被反白選中
