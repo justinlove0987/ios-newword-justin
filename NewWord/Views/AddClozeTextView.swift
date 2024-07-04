@@ -32,21 +32,24 @@ class AddClozeTextView: UITextView {
     }
 
     func insertNumberImageView(at location: Int, with textToInsert: String) {
-        let path =  UIBezierPath(roundedRect: self.bounds, byRoundingCorners: .topLeft, cornerRadii: CGSize(width: 3, height: 3))
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = path.cgPath
+
         
         // 創建自定義 UILabel
         let label = NumberTagLabel()
         label.text = "\(textToInsert)"
         label.font = self.font
-        label.layer.mask = maskLayer
         label.backgroundColor = UIColor.clozeBlueNumber
         label.sizeToFit()
         label.setupContentLabel()
 
+        let path =  UIBezierPath(roundedRect: label.bounds, byRoundingCorners: .topLeft, cornerRadii: CGSize(width: 3, height: 3))
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+
+        label.layer.mask = maskLayer
+
         // 將 UILabel 渲染為圖像
-        let labelImage = imageFromLabel(label)
+        let labelImage = label.asImage()
 
         // 創建帶有圖像的文本附件
         let attachment = NSTextAttachment()
@@ -60,6 +63,8 @@ class AddClozeTextView: UITextView {
         
         textStorage.insert(attachmentString, at: location)
 
+        setNeedsLayout()
+        layoutIfNeeded()
     }
 
     func imageFromLabel(_ label: UILabel) -> UIImage {
@@ -69,10 +74,6 @@ class AddClozeTextView: UITextView {
         UIGraphicsEndImageContext()
         
         let returnImage = image ?? UIImage()
-        
-        if let image {
-            print("foo - \(image)")
-        }
         
         return returnImage
     }
@@ -99,4 +100,27 @@ extension NSMutableAttributedString {
     func addIncreasedSpacingAttribute(range: NSRange) {
         self.addAttribute(.increasedSpacing, value: true, range: range)
     }
+}
+
+
+extension UIView {
+
+    func asImage() -> UIImage {
+        if #available(iOS 10.0, *) {
+            let renderer = UIGraphicsImageRenderer(bounds: bounds)
+            return renderer.image { rendererContext in
+                layer.render(in: rendererContext.cgContext)
+            }
+        } else {
+            UIGraphicsBeginImageContext(self.frame.size)
+            self.layer.render(in:UIGraphicsGetCurrentContext()!)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return UIImage(cgImage: image!.cgImage!)
+        }
+    }
+}
+
+class CustomTextAttachment: NSTextAttachment {
+    var attachedView: UIView?
 }

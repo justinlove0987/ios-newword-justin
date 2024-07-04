@@ -23,7 +23,8 @@ class NumberTagLabel: UILabel {
         contentLabel.textAlignment = .center
         contentLabel.textColor = .clozeBlueText
         contentLabel.frame = self.bounds
-        
+        contentLabel.backgroundColor = UIColor.clozeBlueNumber
+
         self.text = String(repeating: " ", count: self.text?.count ?? 0)
         
     }
