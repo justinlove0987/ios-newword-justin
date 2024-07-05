@@ -14,6 +14,7 @@ class UserDefaultsManager {
 
     private enum Keys {
         static let clozeMode = "ClozeMode"
+        static let preferredFontSize = "clozeContextFontSize"
     }
 
     static let shared = UserDefaultsManager()
@@ -35,6 +36,16 @@ class UserDefaultsManager {
         set {
             let rawValue = newValue.rawValue
             defaults.set(rawValue, forKey: Keys.clozeMode)
+        }
+    }
+    
+    var preferredFontSize: CGFloat {
+        get {
+            return defaults.double(forKey: Keys.preferredFontSize)
+        }
+        
+        set {
+            defaults.setValue(newValue, forKey: Keys.preferredFontSize)
         }
     }
 }

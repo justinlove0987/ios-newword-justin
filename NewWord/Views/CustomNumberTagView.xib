@@ -20,10 +20,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tKe-sX-2rk">
-                    <rect key="frame" x="0.0" y="0.0" width="225.33333333333334" height="267"/>
+                    <rect key="frame" x="0.0" y="0.0" width="225" height="267"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="900" verticalCompressionResistancePriority="900" text="42" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Y4-cb-1BJ" userLabel="Number Label">
-                            <rect key="frame" x="5" y="0.0" width="215.33333333333334" height="267"/>
+                            <rect key="frame" x="4" y="0.0" width="217" height="267"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
@@ -32,14 +32,14 @@
                     </subviews>
                     <color key="backgroundColor" name="cloze_blue_number"/>
                     <constraints>
-                        <constraint firstItem="7Y4-cb-1BJ" firstAttribute="leading" secondItem="tKe-sX-2rk" secondAttribute="leading" constant="5" id="VSB-XE-5fe"/>
-                        <constraint firstAttribute="trailing" secondItem="7Y4-cb-1BJ" secondAttribute="trailing" constant="5" id="eIN-5Y-wvD"/>
+                        <constraint firstItem="7Y4-cb-1BJ" firstAttribute="leading" secondItem="tKe-sX-2rk" secondAttribute="leading" constant="4" id="VSB-XE-5fe"/>
+                        <constraint firstAttribute="trailing" secondItem="7Y4-cb-1BJ" secondAttribute="trailing" constant="4" id="eIN-5Y-wvD"/>
                         <constraint firstItem="7Y4-cb-1BJ" firstAttribute="top" secondItem="tKe-sX-2rk" secondAttribute="top" id="jEe-JM-FMW"/>
                         <constraint firstAttribute="bottom" secondItem="7Y4-cb-1BJ" secondAttribute="bottom" id="mCt-cn-D6w"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="09v-vd-TR1" userLabel="Spacing View">
-                    <rect key="frame" x="225.33333333333334" y="0.0" width="64.666666666666657" height="267"/>
+                    <rect key="frame" x="225" y="0.0" width="65" height="267"/>
                     <color key="backgroundColor" name="cloze_blue_text"/>
                 </view>
             </subviews>

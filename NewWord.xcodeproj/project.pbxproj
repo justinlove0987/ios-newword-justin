@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2A034F7D2C3682C800AEDA65 /* CustomNumberTagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A034F7C2C3682C800AEDA65 /* CustomNumberTagView.xib */; };
-		2A034F7F2C36858C00AEDA65 /* NumberTagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034F7E2C36858C00AEDA65 /* NumberTagLabel.swift */; };
 		2A034F812C37CCB600AEDA65 /* CustomNumberTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034F802C37CCB600AEDA65 /* CustomNumberTagView.swift */; };
 		2A17DAF62C1579D700919642 /* ClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A17DAF52C1579D700919642 /* ClozeView.xib */; };
 		2A17DAF82C1579E400919642 /* ClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A17DAF72C1579E400919642 /* ClozeView.swift */; };
@@ -96,7 +95,6 @@
 
 /* Begin PBXFileReference section */
 		2A034F7C2C3682C800AEDA65 /* CustomNumberTagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomNumberTagView.xib; sourceTree = "<group>"; };
-		2A034F7E2C36858C00AEDA65 /* NumberTagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTagLabel.swift; sourceTree = "<group>"; };
 		2A034F802C37CCB600AEDA65 /* CustomNumberTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNumberTagView.swift; sourceTree = "<group>"; };
 		2A17DAF52C1579D700919642 /* ClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClozeView.xib; sourceTree = "<group>"; };
 		2A17DAF72C1579E400919642 /* ClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClozeView.swift; sourceTree = "<group>"; };
@@ -250,7 +248,6 @@
 				2A67688C2C3322590040C89F /* AddClozeTextView.swift */,
 				2A034F802C37CCB600AEDA65 /* CustomNumberTagView.swift */,
 				2A034F7C2C3682C800AEDA65 /* CustomNumberTagView.xib */,
-				2A034F7E2C36858C00AEDA65 /* NumberTagLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -442,7 +439,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A034F7F2C36858C00AEDA65 /* NumberTagLabel.swift in Sources */,
 				2A034F812C37CCB600AEDA65 /* CustomNumberTagView.swift in Sources */,
 				D0DA5AC92BB66A05008644DC /* MainViewController.swift in Sources */,
 				2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */,

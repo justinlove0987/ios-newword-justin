@@ -25,7 +25,9 @@ class CustomNumberTagView: UIView, NibOwnerLoadable {
     }
     
     func setup() {
-        numberLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        let font = UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize - 5,
+                                     weight: .medium)
+        numberLabel.font = font
         numberLabel.textAlignment = .center
         numberLabel.textColor = UIColor.clozeBlueText
     }

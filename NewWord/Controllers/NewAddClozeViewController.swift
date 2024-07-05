@@ -69,7 +69,8 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         customTextView = AddClozeTextView(frame: textView.frame, textContainer: textContainer)
         customTextView.isEditable = false
         customTextView.backgroundColor = .clear
-        customTextView.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+        customTextView.font = UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize,
+                                                weight: .medium)
         customTextView.textColor = .white
         customTextView.translatesAutoresizingMaskIntoConstraints = false
         customTextView.addGestureRecognizer(tapGesture)
