@@ -111,6 +111,17 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         if let characterIndex = customTextView.characterIndex(at: location),
            let wordRange = customTextView.wordRange(at: characterIndex) {
             
+            if viewModel.containsCloze(wordRange) {
+                let updatedRange = NSRange(location: wordRange.location-1, length: wordRange.length)
+                
+                customTextView.deHightlightCloze(wordRange)
+                customTextView.removeNumberImageView(at: updatedRange.location)
+                
+                viewModel.removeCloze(wordRange)
+                viewModel.updateNSRange(with: updatedRange, offset: -1)
+                return
+            }
+            
             // 獲取點擊的單字
             let word = (customTextView.text as NSString).substring(with: wordRange)
             
@@ -123,7 +134,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             customTextView.insertNumberImageView(at: wordRange.location, with: String(clozeNumber))
             
             viewModel.appendCloze(newCloze)
-            viewModel.updateNSRange(with: newCloze, offset: offset)
+            viewModel.updateNSRange(with: newCloze.range, offset: offset)
         }
         
         // 檢查是否有文字被反白選中

@@ -46,7 +46,7 @@ struct NewAddClozeViewControllerViewModel {
             
             text = convertToContext(text, cloze)
             
-            updateNSRange(with: cloze, offset: offset)
+            updateNSRange(with: cloze.range, offset: offset)
         }
         
         let context = CoreDataManager.shared.createContext(text)
@@ -67,6 +67,34 @@ struct NewAddClozeViewControllerViewModel {
         CoreDataManager.shared.save()
     }
     
+    func containsCloze(_ range: NSRange) -> Bool {
+        for i in 0..<clozes.count {
+            let currentCloze = clozes[i]
+            
+            let clozeExists = currentCloze.range == range
+            
+            if clozeExists {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    mutating func removeCloze(_ range: NSRange) {
+        
+        for i in 0..<clozes.count {
+            let currentCloze = clozes[i]
+            
+            let findCloze = currentCloze.range == range
+            
+            if findCloze {
+                clozes.remove(at: i)
+                break
+            }
+        }
+    }
+    
     mutating func convertToContext(_ text: String, _ cloze: NewAddCloze) -> String {
         let attributedText = NSMutableAttributedString(string: text)
         let frontCharacter = NSAttributedString(string: "{{C\(cloze.number):")
@@ -81,12 +109,11 @@ struct NewAddClozeViewControllerViewModel {
         return attributedText.string
     }
     
-    mutating func updateNSRange(with compareCloze: NewAddCloze, offset: Int) {
-        
+    mutating func updateNSRange(with comparedNSRange: NSRange, offset: Int) {
         for i in 0..<clozes.count {
             let currentCloze = clozes[i]
             
-            if compareCloze.range.location < currentCloze.range.location {
+            if comparedNSRange.location < currentCloze.range.location {
                 let location = currentCloze.range.location
                 let length = currentCloze.range.length
                 

@@ -25,6 +25,10 @@ class AddClozeTextView: UITextView {
     func highlightClozeWord(_ range: NSRange) {
         textStorage.addAttribute(.backgroundColor, value: UIColor.clozeBlueText, range: range)
     }
+    
+    func deHightlightCloze(_ range: NSRange) {
+        textStorage.removeAttribute(.backgroundColor, range: range)
+    }
 
     func hasBlueBackground(at range: NSRange) -> Bool {
         let attribute = textStorage.attribute(.backgroundColor, at: range.location, effectiveRange: nil) as? UIColor
@@ -67,6 +71,10 @@ class AddClozeTextView: UITextView {
 
         setNeedsLayout()
         layoutIfNeeded()
+    }
+    
+    func removeNumberImageView(at location: Int) {
+        textStorage.deleteCharacters(in: NSRange(location: location, length: 1))
     }
 
     func imageFromLabel(_ label: UILabel) -> UIImage {
