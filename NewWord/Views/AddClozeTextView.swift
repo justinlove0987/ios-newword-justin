@@ -32,24 +32,26 @@ class AddClozeTextView: UITextView {
     }
 
     func insertNumberImageView(at location: Int, with textToInsert: String) {
-
-        
         // 創建自定義 UILabel
-        let label = NumberTagLabel()
-        label.text = "\(textToInsert)"
-        label.font = self.font
-        label.backgroundColor = UIColor.clozeBlueNumber
-        label.sizeToFit()
-        label.setupContentLabel()
-
-        let path =  UIBezierPath(roundedRect: label.bounds, byRoundingCorners: .topLeft, cornerRadii: CGSize(width: 3, height: 3))
+        let view = CustomNumberTagView()
+        view.numberLabel.text = "\(textToInsert)"
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            view.heightAnchor.constraint(equalToConstant: self.font!.lineHeight + 1)
+        ])
+        
+        view.layoutIfNeeded()
+        
+        let path =  UIBezierPath(roundedRect: view.bounds, byRoundingCorners: .topLeft, cornerRadii: CGSize(width: 3, height: 3))
         let maskLayer = CAShapeLayer()
         maskLayer.path = path.cgPath
 
-        label.layer.mask = maskLayer
-
+        view.layer.mask = maskLayer
+        
         // 將 UILabel 渲染為圖像
-        let labelImage = label.asImage()
+        let labelImage = view.asImage()
 
         // 創建帶有圖像的文本附件
         let attachment = NSTextAttachment()

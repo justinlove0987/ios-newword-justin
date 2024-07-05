@@ -18,6 +18,8 @@ class NumberTagLabel: UILabel {
     func setupContentLabel() {
         self.addSubview(contentLabel)
         
+        self.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        
         contentLabel.text = self.text
         contentLabel.font = UIFont.systemFont(ofSize: self.font.pointSize - 7, weight: .medium)
         contentLabel.textAlignment = .center
@@ -26,6 +28,12 @@ class NumberTagLabel: UILabel {
         contentLabel.backgroundColor = UIColor.clozeBlueNumber
 
         self.text = String(repeating: " ", count: self.text?.count ?? 0)
+        let path =  UIBezierPath(roundedRect: self.bounds, byRoundingCorners: .topLeft, cornerRadii: CGSize(width: 3, height: 3))
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+
+        self.layer.mask = maskLayer
+        self.backgroundColor = UIColor.clozeBlueNumber
         
     }
     
