@@ -65,8 +65,9 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         
         // 創建一個自定義 UITextView 並配置它
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        
+
         customTextView = AddClozeTextView(frame: textView.frame, textContainer: textContainer)
+        customTextView.increaseLineSpacing(in: customTextView, lineSpacing: 10)
         customTextView.isEditable = false
         customTextView.backgroundColor = .clear
         customTextView.font = UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize,
@@ -76,7 +77,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         customTextView.addGestureRecognizer(tapGesture)
         customTextView.delegate = self
         customTextView.isScrollEnabled = true
-        
+
         self.view.addSubview(customTextView)
         
         NSLayoutConstraint.activate([
@@ -119,12 +120,12 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             
             if viewModel.containsCloze(wordRange) {
                 let updatedRange = NSRange(location: wordRange.location-1, length: wordRange.length)
-                
-                customTextView.deHightlightCloze(wordRange)
+
                 customTextView.removeNumberImageView(at: updatedRange.location)
                 
                 viewModel.removeCloze(wordRange)
                 viewModel.updateNSRange(with: updatedRange, offset: -1)
+                customTextView.highlightedRanges = viewModel.getNSRanges()
                 return
             }
             
@@ -137,15 +138,14 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             let offset = 1
             let updateRange = NSRange(location: wordRange.location+offset, length: wordRange.length)
             let newCloze = NewAddCloze(number: clozeNumber, cloze: word, range: updateRange)
-            
-            customTextView.highlightClozeWord(wordRange)
+
             customTextView.insertNumberImageView(at: wordRange.location, with: String(clozeNumber))
             
             viewModel.appendCloze(newCloze)
             viewModel.updateNSRange(with: newCloze.range, offset: offset)
-        }
-        
 
+            customTextView.highlightedRanges = viewModel.getNSRanges()
+        }
     }
 }
 

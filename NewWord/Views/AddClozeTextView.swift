@@ -10,10 +10,15 @@ import NaturalLanguage
 
 class AddClozeTextView: UITextView {
 
-    var highlightedRanges: [NSRange] = []
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    var highlightedRanges: [NSRange] = [] {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setNeedsDisplay() // 重新繪製
     }
 
     func characterIndex(at point: CGPoint) -> Int? {
@@ -22,10 +27,6 @@ class AddClozeTextView: UITextView {
         return characterIndex
     }
 
-    func highlightClozeWord(_ range: NSRange) {
-        textStorage.addAttribute(.backgroundColor, value: UIColor.clozeBlueText, range: range)
-    }
-    
     func deHightlightCloze(_ range: NSRange) {
         textStorage.removeAttribute(.backgroundColor, range: range)
     }
@@ -43,7 +44,7 @@ class AddClozeTextView: UITextView {
         view.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            view.heightAnchor.constraint(equalToConstant: self.font!.lineHeight + 1)
+            view.heightAnchor.constraint(equalToConstant: self.font!.lineHeight)
         ])
         
         view.layoutIfNeeded()
@@ -86,6 +87,41 @@ class AddClozeTextView: UITextView {
         let returnImage = image ?? UIImage()
         
         return returnImage
+    }
+
+    func increaseLineSpacing(in textView: UITextView, lineSpacing: CGFloat) {
+        guard let text = textView.text else { return }
+
+        let attributedString = NSMutableAttributedString(string: text)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = lineSpacing
+
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
+
+        textView.attributedText = attributedString
+    }
+
+    override func draw(_ rect: CGRect) {
+        guard let font = self.font else { return }
+
+        let context = UIGraphicsGetCurrentContext()
+        context?.saveGState()
+
+        UIColor.clozeBlueText.setFill()
+
+        for range in highlightedRanges {
+            layoutManager.enumerateEnclosingRects(forGlyphRange: range, withinSelectedGlyphRange: range, in: textContainer) { rect, _ in
+                var adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
+
+                adjustedRect.size.height = font.ascender - font.descender
+                adjustedRect.origin.y += (font.lineHeight - adjustedRect.size.height) / 2
+                context?.fill(adjustedRect)
+            }
+        }
+
+        context?.restoreGState()
+
+        super.draw(rect)
     }
 }
 

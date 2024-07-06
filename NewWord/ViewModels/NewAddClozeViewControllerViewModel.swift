@@ -10,8 +10,6 @@ import Foundation
 
 struct NewAddClozeViewControllerViewModel {
     
-    var clozeNumbers: Set<Int> = .init()
-    
     var clozes: [NewAddCloze] = []
     
     mutating func getClozeNumber() -> Int {
@@ -128,5 +126,9 @@ struct NewAddClozeViewControllerViewModel {
     func isWhitespace(_ string: String) -> Bool {
         let whitespaceCharacterSet = CharacterSet.whitespacesAndNewlines
         return string.trimmingCharacters(in: whitespaceCharacterSet).isEmpty
+    }
+
+    func getNSRanges() -> [NSRange] {
+        return clozes.map { $0.range }
     }
 }
