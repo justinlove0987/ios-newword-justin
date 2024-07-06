@@ -15,8 +15,9 @@ struct NewAddClozeViewControllerViewModel {
     var clozes: [NewAddCloze] = []
     
     mutating func getClozeNumber() -> Int {
+        let clozeNumbers = clozes.map { $0.number }
+
         if clozeNumbers.isEmpty {
-            clozeNumbers.insert(1)
             return 1
         }
         
@@ -29,8 +30,6 @@ struct NewAddClozeViewControllerViewModel {
                 maxClozeNumber! += 1
             }
         }
-        
-        clozeNumbers.insert(maxClozeNumber!)
         
         return maxClozeNumber!
     }
@@ -124,5 +123,10 @@ struct NewAddClozeViewControllerViewModel {
     
     mutating func appendCloze(_ cloze: NewAddCloze) {
         clozes.append(cloze)
+    }
+
+    func isWhitespace(_ string: String) -> Bool {
+        let whitespaceCharacterSet = CharacterSet.whitespacesAndNewlines
+        return string.trimmingCharacters(in: whitespaceCharacterSet).isEmpty
     }
 }

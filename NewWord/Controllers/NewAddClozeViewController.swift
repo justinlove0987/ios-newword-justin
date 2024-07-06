@@ -102,6 +102,12 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     }
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
+        // 檢查是否有文字被反白選中
+        if let _ = customTextView.selectedTextRange {
+            // 取消文字的反白選中狀態
+            customTextView.selectedTextRange = nil
+        }
+
         guard let customTextView = gesture.view as? AddClozeTextView else { return }
         var location = gesture.location(in: customTextView)
         
@@ -124,7 +130,9 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             
             // 獲取點擊的單字
             let word = (customTextView.text as NSString).substring(with: wordRange)
-            
+
+            guard !viewModel.isWhitespace(word) else { return }
+
             let clozeNumber = viewModel.getClozeNumber()
             let offset = 1
             let updateRange = NSRange(location: wordRange.location+offset, length: wordRange.length)
@@ -137,11 +145,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             viewModel.updateNSRange(with: newCloze.range, offset: offset)
         }
         
-        // 檢查是否有文字被反白選中
-        if let _ = customTextView.selectedTextRange {
-            // 取消文字的反白選中狀態
-            customTextView.selectedTextRange = nil
-        }
+
     }
 }
 
