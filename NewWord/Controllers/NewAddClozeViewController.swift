@@ -7,6 +7,7 @@
 
 import UIKit
 import NaturalLanguage
+import Translation
 
 struct NewAddCloze {
     let number: Int
