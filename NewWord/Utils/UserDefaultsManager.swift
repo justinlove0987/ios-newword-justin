@@ -13,8 +13,9 @@ class UserDefaultsManager {
     private let defaults = UserDefaults.standard
 
     private enum Keys {
-        static let clozeMode = "ClozeMode"
+        static let clozeMode = "clozeMode"
         static let preferredFontSize = "clozeContextFontSize"
+        static let preferredLineSpacing = "preferredLineSpacing"
     }
 
     static let shared = UserDefaultsManager()
@@ -46,6 +47,16 @@ class UserDefaultsManager {
         
         set {
             defaults.setValue(newValue, forKey: Keys.preferredFontSize)
+        }
+    }
+
+    var preferredLineSpacing: CGFloat {
+        get {
+            return defaults.double(forKey: Keys.preferredLineSpacing)
+        }
+
+        set {
+            defaults.setValue(newValue, forKey: Keys.preferredLineSpacing)
         }
     }
 }

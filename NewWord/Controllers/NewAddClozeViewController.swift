@@ -46,7 +46,6 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         textView.addGestureRecognizer(tapGesture)
         textView.isHidden = true
-        // textView.text = "a1 b2 c3 d4 e5 f6 g7 h8 i9 j10 k11"
 //        textView.text = "dog cat."
     }
     
@@ -67,7 +66,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
 
         customTextView = AddClozeTextView(frame: textView.frame, textContainer: textContainer)
-        customTextView.increaseLineSpacing(in: customTextView, lineSpacing: 10)
+        customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
         customTextView.isEditable = false
         customTextView.backgroundColor = .clear
         customTextView.font = UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize,
@@ -146,6 +145,8 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
 
             customTextView.highlightedRanges = viewModel.getNSRanges()
         }
+
+        customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
     }
 }
 

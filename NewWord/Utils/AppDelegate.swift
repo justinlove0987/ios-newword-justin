@@ -41,6 +41,10 @@ extension AppDelegate {
         if UserDefaultsManager.shared.preferredFontSize == 0 {
             UserDefaultsManager.shared.preferredFontSize = 18
         }
+
+        if UserDefaultsManager.shared.preferredLineSpacing == 0 {
+            UserDefaultsManager.shared.preferredLineSpacing = 5
+        }
     }
 }
 
