@@ -6,7 +6,8 @@
 //
 
 import Foundation
-
+import MLKitTranslate
+import OpenCC
 
 struct NewAddClozeViewControllerViewModel {
     
@@ -130,5 +131,40 @@ struct NewAddClozeViewControllerViewModel {
 
     func getNSRanges() -> [NSRange] {
         return clozes.map { $0.range }
+    }
+    
+    func translateEnglishToChinese(_ text: String, completion: @escaping (Result<String, Error>) -> Void) {
+        let options = TranslatorOptions(sourceLanguage: .english, targetLanguage: .chinese)
+        let englishChineseTranslator = Translator.translator(options: options)
+        
+        let conditions = ModelDownloadConditions(
+            allowsCellularAccess: false,
+            allowsBackgroundDownloading: true
+        )
+        
+        englishChineseTranslator.downloadModelIfNeeded(with: conditions) { error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            englishChineseTranslator.translate(text) { translatedText, error in
+                if let error = error {
+                    completion(.failure(error))
+                } else if let translatedText = translatedText {
+                    completion(.success(translatedText))
+                } else {
+                    let unknownError = NSError(domain: "TranslationError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unknown error occurred"])
+                    completion(.failure(unknownError))
+                }
+            }
+        }
+    }
+    
+    func convertSimplifiedToTraditional(_ text: String) -> String {
+        let converter = try! ChineseConverter(options: [.traditionalize])
+        let convertedText = converter.convert(text)
+
+        return convertedText
     }
 }

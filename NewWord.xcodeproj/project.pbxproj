@@ -34,6 +34,7 @@
 		2A7B6CD52C0810030017BB5C /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CD42C0810030017BB5C /* NotificationName+Extension.swift */; };
 		2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */; };
 		2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */; };
+		2A9C8AF62C3BBE3500D839D8 /* OpenCC in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9C8AF52C3BBE3500D839D8 /* OpenCC */; };
 		2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA328C72BEDF509001D83C2 /* DeckManager.swift */; };
 		2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */; };
 		2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AB8CC0A2BF5AA1D00BFFD4A /* SentenceClozeView.xib */; };
@@ -91,6 +92,7 @@
 		D0DA5AD12BB66A07008644DC /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D0DA5AD02BB66A07008644DC /* Base */; };
 		D0E8848B2BC93C3600C78B97 /* NoteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848A2BC93C3600C78B97 /* NoteType.swift */; };
 		D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848C2BC93CB800C78B97 /* Deck.swift */; };
+		F4585BCB73BD69E0C16EFAFF /* Pods_NewWord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF08CC624E685BDE681839E2 /* Pods_NewWord.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -135,6 +137,9 @@
 		2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultViewController.swift; sourceTree = "<group>"; };
 		2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultCell.swift; sourceTree = "<group>"; };
 		2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchClozeResultCell.xib; sourceTree = "<group>"; };
+		960A30FE64A5F2F51621C559 /* Pods-NewWord.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewWord.release.xcconfig"; path = "Target Support Files/Pods-NewWord/Pods-NewWord.release.xcconfig"; sourceTree = "<group>"; };
+		9A11A9D5682428780EFDAD65 /* Pods-NewWord.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewWord.debug.xcconfig"; path = "Target Support Files/Pods-NewWord/Pods-NewWord.debug.xcconfig"; sourceTree = "<group>"; };
+		CF08CC624E685BDE681839E2 /* Pods_NewWord.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewWord.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentence.swift; sourceTree = "<group>"; };
 		D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewModel.swift; sourceTree = "<group>"; };
 		D00A72EE2BFDEC5A0064F325 /* NoCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoCardView.xib; sourceTree = "<group>"; };
@@ -187,6 +192,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A9C8AF62C3BBE3500D839D8 /* OpenCC in Frameworks */,
+				F4585BCB73BD69E0C16EFAFF /* Pods_NewWord.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +209,14 @@
 				2AE025F52BF4983A006EC021 /* NoteManager.swift */,
 			);
 			path = DataManager;
+			sourceTree = "<group>";
+		};
+		5AD4D158825235628AF01500 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CF08CC624E685BDE681839E2 /* Pods_NewWord.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D0058CE72BBA713B00D2BB25 /* ViewModels */ = {
@@ -332,6 +347,8 @@
 			children = (
 				D0DA5AC32BB66A05008644DC /* NewWord */,
 				D0DA5AC22BB66A05008644DC /* Products */,
+				EF12AC8CB5F6515BBCAE4458 /* Pods */,
+				5AD4D158825235628AF01500 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -357,6 +374,15 @@
 			path = NewWord;
 			sourceTree = "<group>";
 		};
+		EF12AC8CB5F6515BBCAE4458 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9A11A9D5682428780EFDAD65 /* Pods-NewWord.debug.xcconfig */,
+				960A30FE64A5F2F51621C559 /* Pods-NewWord.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -364,15 +390,21 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0DA5AD52BB66A07008644DC /* Build configuration list for PBXNativeTarget "NewWord" */;
 			buildPhases = (
+				19811AA1265ACE08E10AB326 /* [CP] Check Pods Manifest.lock */,
 				D0DA5ABD2BB66A05008644DC /* Sources */,
 				D0DA5ABE2BB66A05008644DC /* Frameworks */,
 				D0DA5ABF2BB66A05008644DC /* Resources */,
+				15151E0090990AF87B5EDCFA /* [CP] Embed Pods Frameworks */,
+				0769B3F6161D34F6B609B69A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = NewWord;
+			packageProductDependencies = (
+				2A9C8AF52C3BBE3500D839D8 /* OpenCC */,
+			);
 			productName = NewWord;
 			productReference = D0DA5AC12BB66A05008644DC /* NewWord.app */;
 			productType = "com.apple.product-type.application";
@@ -401,6 +433,9 @@
 				Base,
 			);
 			mainGroup = D0DA5AB82BB66A05008644DC;
+			packageReferences = (
+				2A9C8AF42C3BBE3500D839D8 /* XCRemoteSwiftPackageReference "SwiftyOpenCC" */,
+			);
 			productRefGroup = D0DA5AC22BB66A05008644DC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -433,6 +468,65 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0769B3F6161D34F6B609B69A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewWord/Pods-NewWord-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewWord/Pods-NewWord-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewWord/Pods-NewWord-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		15151E0090990AF87B5EDCFA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewWord/Pods-NewWord-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewWord/Pods-NewWord-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewWord/Pods-NewWord-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		19811AA1265ACE08E10AB326 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NewWord-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D0DA5ABD2BB66A05008644DC /* Sources */ = {
@@ -655,12 +749,14 @@
 		};
 		D0DA5AD62BB66A07008644DC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A11A9D5682428780EFDAD65 /* Pods-NewWord.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5H3B76C82P;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NewWord/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -668,7 +764,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -684,12 +780,14 @@
 		};
 		D0DA5AD72BB66A07008644DC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 960A30FE64A5F2F51621C559 /* Pods-NewWord.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5H3B76C82P;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NewWord/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -697,7 +795,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -733,6 +831,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2A9C8AF42C3BBE3500D839D8 /* XCRemoteSwiftPackageReference "SwiftyOpenCC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ddddxxx/SwiftyOpenCC";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2A9C8AF52C3BBE3500D839D8 /* OpenCC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A9C8AF42C3BBE3500D839D8 /* XCRemoteSwiftPackageReference "SwiftyOpenCC" */;
+			productName = OpenCC;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */ = {

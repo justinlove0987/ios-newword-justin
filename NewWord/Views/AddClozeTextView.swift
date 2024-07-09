@@ -105,20 +105,62 @@ class AddClozeTextView: UITextView {
         context?.saveGState()
 
         UIColor.clozeBlueText.setFill()
-
+        
         for range in highlightedRanges {
-            layoutManager.enumerateEnclosingRects(forGlyphRange: range, withinSelectedGlyphRange: range, in: textContainer) { rect, _ in
-                var adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
+            layoutManager.enumerateLineFragments(forGlyphRange: range) { rect, usedRect, textContainer, glyphRange, stop in
+                // Ensure we only draw the part of the line within the specified range
+                let intersectionRange = NSIntersectionRange(glyphRange, range)
+                self.layoutManager.enumerateEnclosingRects(forGlyphRange: intersectionRange, withinSelectedGlyphRange: intersectionRange, in: self.textContainer) { rect, _ in
+                    var adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
 
-                adjustedRect.size.height = font.ascender - font.descender
-                adjustedRect.origin.y += (font.lineHeight - adjustedRect.size.height) / 2
-                context?.fill(adjustedRect)
+                    adjustedRect.size.height = font.ascender - font.descender
+                    adjustedRect.origin.y += (font.lineHeight - adjustedRect.size.height) / 2
+                    context?.fill(adjustedRect)
+                }
             }
         }
 
         context?.restoreGState()
 
         super.draw(rect)
+    }
+    
+    // Function to get the sentence containing the tapped character
+    func sentenceContainingCharacter(at characterIndex: Int) -> String? {
+        guard let text = self.text else { return nil }
+        
+        // Use NLTokenizer to find the sentence range
+        let tokenizer = NLTokenizer(unit: .sentence)
+        tokenizer.string = text
+        let stringIndex = text.index(text.startIndex, offsetBy: characterIndex)
+        let sentenceRange = tokenizer.tokenRange(at: stringIndex)
+        
+        return String(text[sentenceRange])
+    }
+    
+    func sentenceRangeContainingCharacter(at characterIndex: Int) -> NSRange? {
+        guard let text = self.text else { return nil }
+        
+        // Use NLTokenizer to find the sentence range
+        let tokenizer = NLTokenizer(unit: .sentence)
+        tokenizer.string = text
+        let stringIndex = text.index(text.startIndex, offsetBy: characterIndex)
+        let sentenceRange = tokenizer.tokenRange(at: stringIndex)
+        
+        var nsRange = NSRange(sentenceRange, in: text)
+        
+        print(sentenceRange,nsRange)
+        
+        // Trim trailing whitespace characters
+        if let trimmedRange = text.rangeOfCharacter(from: .whitespaces, options: .backwards, range: sentenceRange)?.upperBound {
+            let distance = text.distance(from: sentenceRange.lowerBound, to: trimmedRange)
+            nsRange = NSRange(location: nsRange.location, length: distance)
+        }
+        
+        print(nsRange)
+
+        
+        return NSRange(sentenceRange, in: text)
     }
 }
 

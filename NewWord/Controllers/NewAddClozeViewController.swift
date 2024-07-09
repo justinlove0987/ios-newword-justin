@@ -7,7 +7,7 @@
 
 import UIKit
 import NaturalLanguage
-import Translation
+import MLKitTranslate
 
 struct NewAddCloze {
     let number: Int
@@ -17,11 +17,28 @@ struct NewAddCloze {
 
 class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     
+    // MARK: - Properties
+    
+    enum SelectMode: Int, CaseIterable {
+        case word
+        case sentence
+    }
+    
     static var storyboardName: String = K.Storyboard.main
     
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var translateLabel: UILabel!
+    @IBOutlet weak var hintLabel: UILabel!
+    @IBOutlet weak var selectModeButton: UIButton!
+    
     private var customTextView: AddClozeTextView!
     private var viewModel: NewAddClozeViewControllerViewModel!
+    
+    private var selectMode: SelectMode = .word {
+        didSet {
+            updateSelectModeUI()
+        }
+    }
     
     // MARK: - Lifecycles
     
@@ -47,7 +64,6 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         textView.addGestureRecognizer(tapGesture)
         textView.isHidden = true
-//        textView.text = "dog cat."
     }
     
     private func setupCumstomTextView() {
@@ -65,7 +81,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         
         // 創建一個自定義 UITextView 並配置它
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-
+        
         customTextView = AddClozeTextView(frame: textView.frame, textContainer: textContainer)
         customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
         customTextView.isEditable = false
@@ -77,7 +93,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         customTextView.addGestureRecognizer(tapGesture)
         customTextView.delegate = self
         customTextView.isScrollEnabled = true
-
+        
         self.view.addSubview(customTextView)
         
         NSLayoutConstraint.activate([
@@ -86,6 +102,13 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             customTextView.leadingAnchor.constraint(equalTo: textView.leadingAnchor),
             customTextView.trailingAnchor.constraint(equalTo: textView.trailingAnchor),
         ])
+        
+        customTextView.text = """
+A dog. 
+Firstly, it enhances mental stimulation and keeps the brain active, reducing the risk of cognitive decline as one ages. Secondly, reading improves vocabulary and language skills, providing a richer understanding of words and phrases.
+
+Additionally, books can serve as a great source of knowledge, exposing readers to different cultures, ideas, and perspectives. They also offer a form of escapism, allowing individuals to immerse themselves in different worlds and stories, which can be both relaxing and enjoyable. Moreover, reading can improve focus and concentration, as it requires the reader to pay attention to the narrative and details within the text. Overall, incorporating reading into one's daily routine can lead to significant intellectual and emotional growth.
+"""
     }
     
     // MARK: - Actions
@@ -102,51 +125,104 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func selectModeAction(_ sender: UIButton) {
+        let currentSelectModeRawValue = selectMode.rawValue
+        let isLastMode = currentSelectModeRawValue + 1 ==  SelectMode.allCases.count
+        
+        if isLastMode {
+            selectMode = SelectMode(rawValue: 0)!
+        } else {
+            selectMode = SelectMode(rawValue: currentSelectModeRawValue + 1)!
+        }
+    }
+    
+    private func updateSelectModeUI() {
+        switch selectMode {
+        case .word:
+            selectModeButton.setTitle("Word", for: .normal)
+        case .sentence:
+            selectModeButton.setTitle("Sentence", for: .normal)
+        }
+    }
+    
+    
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         // 檢查是否有文字被反白選中
         if let _ = customTextView.selectedTextRange {
             // 取消文字的反白選中狀態
             customTextView.selectedTextRange = nil
         }
-
+        
         guard let customTextView = gesture.view as? AddClozeTextView else { return }
         var location = gesture.location(in: customTextView)
         
         location.x -= customTextView.textContainerInset.left
         location.y -= customTextView.textContainerInset.top
         
-        if let characterIndex = customTextView.characterIndex(at: location),
-           let wordRange = customTextView.wordRange(at: characterIndex) {
+        if let characterIndex = customTextView.characterIndex(at: location) {
             
-            if viewModel.containsCloze(wordRange) {
-                let updatedRange = NSRange(location: wordRange.location-1, length: wordRange.length)
-
-                customTextView.removeNumberImageView(at: updatedRange.location)
-                
-                viewModel.removeCloze(wordRange)
-                viewModel.updateNSRange(with: updatedRange, offset: -1)
-                customTextView.highlightedRanges = viewModel.getNSRanges()
-                return
+            var range: NSRange?
+            
+            if selectMode == .word {
+                if let wordRange = customTextView.wordRange(at: characterIndex) {
+                    range = wordRange
+                }
+            } else {
+                if let sentenceRange =  customTextView.sentenceRangeContainingCharacter(at: characterIndex) {
+                    range = sentenceRange
+                }
             }
             
-            // 獲取點擊的單字
-            let word = (customTextView.text as NSString).substring(with: wordRange)
-
-            guard !viewModel.isWhitespace(word) else { return }
-
-            let clozeNumber = viewModel.getClozeNumber()
-            let offset = 1
-            let updateRange = NSRange(location: wordRange.location+offset, length: wordRange.length)
-            let newCloze = NewAddCloze(number: clozeNumber, cloze: word, range: updateRange)
-
-            customTextView.insertNumberImageView(at: wordRange.location, with: String(clozeNumber))
+            guard let range = range else { return }
             
-            viewModel.appendCloze(newCloze)
-            viewModel.updateNSRange(with: newCloze.range, offset: offset)
-
-            customTextView.highlightedRanges = viewModel.getNSRanges()
+            clozeWord(range: range)
         }
-
+        
+    }
+    
+    private func clozeWord(range: NSRange) {
+        if viewModel.containsCloze(range) {
+            let updatedRange = NSRange(location: range.location-1, length: range.length)
+            
+            customTextView.removeNumberImageView(at: updatedRange.location)
+            viewModel.removeCloze(range)
+            viewModel.updateNSRange(with: updatedRange, offset: -1)
+            customTextView.highlightedRanges = viewModel.getNSRanges()
+            return
+        }
+        
+        // 獲取點擊的單字
+        let text = (customTextView.text as NSString).substring(with: range)
+        
+        print("foo - \(range) \(text)")
+        
+        viewModel.translateEnglishToChinese(text) { result in
+            switch result {
+            case .success(let translatedSimplifiedText):
+                let traditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
+                
+                self.translateLabel.text = traditionalText
+                self.hintLabel.text = traditionalText
+                
+            case .failure(_):
+                break
+            }
+        }
+        
+        guard !viewModel.isWhitespace(text) else { return }
+        
+        let clozeNumber = viewModel.getClozeNumber()
+        let offset = 1
+        let updateRange = NSRange(location: range.location+offset, length: range.length)
+        let newCloze = NewAddCloze(number: clozeNumber, cloze: text, range: updateRange)
+        
+        customTextView.insertNumberImageView(at: range.location, with: String(clozeNumber))
+        
+        viewModel.appendCloze(newCloze)
+        viewModel.updateNSRange(with: newCloze.range, offset: offset)
+        
+        customTextView.highlightedRanges = viewModel.getNSRanges()
+        
         customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
     }
 }
@@ -162,7 +238,7 @@ extension NewAddClozeViewController: UITextViewDelegate {
             let start = textView.offset(from: textView.beginningOfDocument, to: selectedRange.start)
             let end = textView.offset(from: textView.beginningOfDocument, to: selectedRange.end)
             let selectedText = (textView.text as NSString).substring(with: NSRange(location: start, length: end - start))
-
+            
         }
     }
 }
