@@ -148,19 +148,22 @@ class AddClozeTextView: UITextView {
         let sentenceRange = tokenizer.tokenRange(at: stringIndex)
         
         var nsRange = NSRange(sentenceRange, in: text)
-        
-        print(sentenceRange,nsRange)
-        
-        // Trim trailing whitespace characters
-        if let trimmedRange = text.rangeOfCharacter(from: .whitespaces, options: .backwards, range: sentenceRange)?.upperBound {
-            let distance = text.distance(from: sentenceRange.lowerBound, to: trimmedRange)
-            nsRange = NSRange(location: nsRange.location, length: distance)
-        }
-        
-        print(nsRange)
 
-        
-        return NSRange(sentenceRange, in: text)
+        var sentence = Array(text[sentenceRange])
+        var i = sentence.count - 1
+
+        while i > 0 {
+            let lastWord = sentence[i]
+
+            if lastWord.isWhitespace || lastWord.isNewline {
+                i -= 1
+                nsRange.length -= 1
+            } else {
+                break
+            }
+        }
+
+        return nsRange
     }
 }
 

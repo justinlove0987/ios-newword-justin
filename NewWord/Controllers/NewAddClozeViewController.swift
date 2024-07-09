@@ -102,13 +102,6 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             customTextView.leadingAnchor.constraint(equalTo: textView.leadingAnchor),
             customTextView.trailingAnchor.constraint(equalTo: textView.trailingAnchor),
         ])
-        
-        customTextView.text = """
-A dog. 
-Firstly, it enhances mental stimulation and keeps the brain active, reducing the risk of cognitive decline as one ages. Secondly, reading improves vocabulary and language skills, providing a richer understanding of words and phrases.
-
-Additionally, books can serve as a great source of knowledge, exposing readers to different cultures, ideas, and perspectives. They also offer a form of escapism, allowing individuals to immerse themselves in different worlds and stories, which can be both relaxing and enjoyable. Moreover, reading can improve focus and concentration, as it requires the reader to pay attention to the narrative and details within the text. Overall, incorporating reading into one's daily routine can lead to significant intellectual and emotional growth.
-"""
     }
     
     // MARK: - Actions
@@ -193,9 +186,7 @@ Additionally, books can serve as a great source of knowledge, exposing readers t
         
         // 獲取點擊的單字
         let text = (customTextView.text as NSString).substring(with: range)
-        
-        print("foo - \(range) \(text)")
-        
+
         viewModel.translateEnglishToChinese(text) { result in
             switch result {
             case .success(let translatedSimplifiedText):
