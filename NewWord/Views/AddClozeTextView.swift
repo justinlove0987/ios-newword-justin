@@ -21,14 +21,37 @@ class AddClozeTextView: UITextView {
         setNeedsDisplay() // 重新繪製
     }
 
+    override func draw(_ rect: CGRect) {
+        guard let font = self.font else { return }
+
+        let context = UIGraphicsGetCurrentContext()
+        context?.saveGState()
+
+        UIColor.clozeBlueText.setFill()
+
+        for range in highlightedRanges {
+            layoutManager.enumerateLineFragments(forGlyphRange: range) { rect, usedRect, textContainer, glyphRange, stop in
+                // Ensure we only draw the part of the line within the specified range
+                let intersectionRange = NSIntersectionRange(glyphRange, range)
+                self.layoutManager.enumerateEnclosingRects(forGlyphRange: intersectionRange, withinSelectedGlyphRange: intersectionRange, in: self.textContainer) { rect, _ in
+                    var adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
+
+                    adjustedRect.size.height = font.ascender - font.descender
+                    adjustedRect.origin.y += (font.lineHeight - adjustedRect.size.height) / 2
+                    context?.fill(adjustedRect)
+                }
+            }
+        }
+
+        context?.restoreGState()
+
+        super.draw(rect)
+    }
+
     func characterIndex(at point: CGPoint) -> Int? {
         let glyphIndex = layoutManager.glyphIndex(for: point, in: textContainer)
         let characterIndex = layoutManager.characterIndexForGlyph(at: glyphIndex)
         return characterIndex
-    }
-
-    func deHightlightCloze(_ range: NSRange) {
-        textStorage.removeAttribute(.backgroundColor, range: range)
     }
 
     func hasBlueBackground(at range: NSRange) -> Bool {
@@ -78,17 +101,6 @@ class AddClozeTextView: UITextView {
         textStorage.deleteCharacters(in: NSRange(location: location, length: 1))
     }
 
-    func imageFromLabel(_ label: UILabel) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(label.bounds.size, false, 0.0)
-        label.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        let returnImage = image ?? UIImage()
-        
-        return returnImage
-    }
-
     func increaseLineSpacing(_ lineSpacing: CGFloat) {
         guard let text = self.text else { return }
 
@@ -96,33 +108,6 @@ class AddClozeTextView: UITextView {
         paragraphStyle.lineSpacing = lineSpacing
 
         textStorage.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: text.count))
-    }
-
-    override func draw(_ rect: CGRect) {
-        guard let font = self.font else { return }
-
-        let context = UIGraphicsGetCurrentContext()
-        context?.saveGState()
-
-        UIColor.clozeBlueText.setFill()
-        
-        for range in highlightedRanges {
-            layoutManager.enumerateLineFragments(forGlyphRange: range) { rect, usedRect, textContainer, glyphRange, stop in
-                // Ensure we only draw the part of the line within the specified range
-                let intersectionRange = NSIntersectionRange(glyphRange, range)
-                self.layoutManager.enumerateEnclosingRects(forGlyphRange: intersectionRange, withinSelectedGlyphRange: intersectionRange, in: self.textContainer) { rect, _ in
-                    var adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
-
-                    adjustedRect.size.height = font.ascender - font.descender
-                    adjustedRect.origin.y += (font.lineHeight - adjustedRect.size.height) / 2
-                    context?.fill(adjustedRect)
-                }
-            }
-        }
-
-        context?.restoreGState()
-
-        super.draw(rect)
     }
     
     func sentenceRangeContainingCharacter(at characterIndex: Int) -> NSRange? {
@@ -135,7 +120,7 @@ class AddClozeTextView: UITextView {
         
         var nsRange = NSRange(sentenceRange, in: text)
 
-        var sentence = Array(text[sentenceRange])
+        let sentence = Array(text[sentenceRange])
         var i = sentence.count - 1
         var j = 0
 
