@@ -174,6 +174,9 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     }
     
     private func clozeWord(range: NSRange) {
+
+
+
         if viewModel.containsCloze(range) {
             let updatedRange = NSRange(location: range.location-1, length: range.length)
             
@@ -184,7 +187,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             return
         }
         
-        // 獲取點擊的單字
+        // 獲取點擊的文字
         let text = (customTextView.text as NSString).substring(with: range)
 
         viewModel.translateEnglishToChinese(text) { result in

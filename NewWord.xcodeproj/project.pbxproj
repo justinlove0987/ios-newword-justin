@@ -90,6 +90,7 @@
 		D0DA5ACC2BB66A05008644DC /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D0DA5ACB2BB66A05008644DC /* Base */; };
 		D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DA5ACD2BB66A07008644DC /* Assets.xcassets */; };
 		D0DA5AD12BB66A07008644DC /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D0DA5AD02BB66A07008644DC /* Base */; };
+		D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */; };
 		D0E8848B2BC93C3600C78B97 /* NoteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848A2BC93C3600C78B97 /* NoteType.swift */; };
 		D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848C2BC93CB800C78B97 /* Deck.swift */; };
 		F4585BCB73BD69E0C16EFAFF /* Pods_NewWord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF08CC624E685BDE681839E2 /* Pods_NewWord.framework */; };
@@ -183,6 +184,7 @@
 		D0DA5ACD2BB66A07008644DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0DA5AD02BB66A07008644DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0DA5AD22BB66A07008644DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		D0E8848A2BC93C3600C78B97 /* NoteType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteType.swift; sourceTree = "<group>"; };
 		D0E8848C2BC93CB800C78B97 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -324,6 +326,7 @@
 				D0D8D5F52C0F0920001BB415 /* String+Extension.swift */,
 				D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */,
 				D02E46F62C272CC500418781 /* UserDefaultsManager.swift */,
+				D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */,
 				2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */,
 				D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */,
+				D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */,
 				2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */,
 				D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */,
 				2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */,

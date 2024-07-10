@@ -11,4 +11,11 @@ extension String {
     var containsChineseCharacters: Bool {
         return self.range(of: "\\p{Han}", options: .regularExpression) != nil
     }
+
+    func startsWithObjectReplacementCharacter() -> Bool {
+        if let firstCharacter = self.first, firstCharacter.unicodeScalars.first?.value == 0xFFFC {
+            return true
+        }
+        return false
+    }
 }

@@ -125,23 +125,9 @@ class AddClozeTextView: UITextView {
         super.draw(rect)
     }
     
-    // Function to get the sentence containing the tapped character
-    func sentenceContainingCharacter(at characterIndex: Int) -> String? {
-        guard let text = self.text else { return nil }
-        
-        // Use NLTokenizer to find the sentence range
-        let tokenizer = NLTokenizer(unit: .sentence)
-        tokenizer.string = text
-        let stringIndex = text.index(text.startIndex, offsetBy: characterIndex)
-        let sentenceRange = tokenizer.tokenRange(at: stringIndex)
-        
-        return String(text[sentenceRange])
-    }
-    
     func sentenceRangeContainingCharacter(at characterIndex: Int) -> NSRange? {
         guard let text = self.text else { return nil }
-        
-        // Use NLTokenizer to find the sentence range
+
         let tokenizer = NLTokenizer(unit: .sentence)
         tokenizer.string = text
         let stringIndex = text.index(text.startIndex, offsetBy: characterIndex)
@@ -151,6 +137,7 @@ class AddClozeTextView: UITextView {
 
         var sentence = Array(text[sentenceRange])
         var i = sentence.count - 1
+        var j = 0
 
         while i > 0 {
             let lastWord = sentence[i]
@@ -163,8 +150,24 @@ class AddClozeTextView: UITextView {
             }
         }
 
+
+        while j < sentence.count {
+            let firstWord = String(sentence[j])
+
+            // 檢查第一個字是不是物件替代字符
+            if firstWord.startsWithObjectReplacementCharacter() {
+                j += 1
+                nsRange.location += 1
+                nsRange.length -= 1
+            } else {
+                break
+            }
+        }
+
         return nsRange
     }
+
+    
 }
 
 extension UITextView {
@@ -178,37 +181,4 @@ extension UITextView {
         let wordRange = tokenizer.tokenRange(for: swiftRange)
         return NSRange(wordRange, in: text)
     }
-}
-
-extension NSAttributedString.Key {
-    static let increasedSpacing = NSAttributedString.Key("IncreasedSpacingAttribute")
-}
-
-extension NSMutableAttributedString {
-    func addIncreasedSpacingAttribute(range: NSRange) {
-        self.addAttribute(.increasedSpacing, value: true, range: range)
-    }
-}
-
-
-extension UIView {
-
-    func asImage() -> UIImage {
-        if #available(iOS 10.0, *) {
-            let renderer = UIGraphicsImageRenderer(bounds: bounds)
-            return renderer.image { rendererContext in
-                layer.render(in: rendererContext.cgContext)
-            }
-        } else {
-            UIGraphicsBeginImageContext(self.frame.size)
-            self.layer.render(in:UIGraphicsGetCurrentContext()!)
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return UIImage(cgImage: image!.cgImage!)
-        }
-    }
-}
-
-class CustomTextAttachment: NSTextAttachment {
-    var attachedView: UIView?
 }
