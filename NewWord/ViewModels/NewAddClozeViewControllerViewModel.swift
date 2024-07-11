@@ -5,17 +5,47 @@
 //  Created by 曾柏楊 on 2024/7/1.
 //
 
-import Foundation
+import UIKit
 import MLKitTranslate
 import OpenCC
 
 struct NewAddClozeViewControllerViewModel {
     
+    typealias CharacterIndex = Int
+    
+    
+    struct CharacterGradientColor {
+        
+        struct Element: Comparable {
+            let color: UIColor
+            let location: Int
+            let length: Int
+            let heightFraction: Double = 0.0
+            
+            static func < (lhs: Element, rhs: Element) -> Bool {
+                if lhs.location == rhs.location {
+                    return lhs.length < rhs.length
+                }
+                return lhs.location < rhs.location
+            }
+        }
+        
+        var index: Int = 0
+        
+        var elements: [Int: [Element]] {
+            didSet {
+                for key in elements.keys {
+                    elements[key]?.sort()
+                }
+            }
+        }
+    }
+    
     var clozes: [NewAddCloze] = []
     
     mutating func getClozeNumber() -> Int {
         let clozeNumbers = clozes.map { $0.number }
-
+        
         if clozeNumbers.isEmpty {
             return 1
         }
@@ -61,7 +91,7 @@ struct NewAddClozeViewControllerViewModel {
             
             CoreDataManager.shared.addCard(to: firstDeck, with: note)
         }
-
+        
         CoreDataManager.shared.save()
     }
     
@@ -97,7 +127,7 @@ struct NewAddClozeViewControllerViewModel {
         let attributedText = NSMutableAttributedString(string: text)
         let frontCharacter = NSAttributedString(string: "{{C\(cloze.number):")
         let backCharacter = NSAttributedString(string: "}}")
-
+        
         let backIndex = cloze.range.location + cloze.range.length
         let frontIndex = cloze.range.location
         
@@ -123,14 +153,84 @@ struct NewAddClozeViewControllerViewModel {
     mutating func appendCloze(_ cloze: NewAddCloze) {
         clozes.append(cloze)
     }
-
+    
     func isWhitespace(_ string: String) -> Bool {
         let whitespaceCharacterSet = CharacterSet.whitespacesAndNewlines
         return string.trimmingCharacters(in: whitespaceCharacterSet).isEmpty
     }
-
+    
     func getNSRanges() -> [NSRange] {
         return clozes.map { $0.range }
+    }
+    
+    func getFlatRangeIndices() -> [CharacterIndex: [CharacterGradientColor.Element]] {
+        var result: [CharacterIndex: [CharacterGradientColor.Element]] = [:]
+        
+        for i in 0..<clozes.count {
+            let current = clozes[i]
+            let nsRange = current.range
+            
+            for i in 0..<nsRange.length {
+                let location = nsRange.location
+                let index = location + i
+                
+                let newElement = CharacterGradientColor.Element(color: .red, location: location, length: nsRange.length)
+                
+                if result[index] != nil {
+                    result[index]!.append(newElement)
+                } else {
+                    result[index] = [newElement]
+                }
+            }
+        }
+        
+        return result
+    }
+    
+    // { characterPosition: [CharacterColor] }
+    func createChracterGradientInformation() {
+        var ranges = getFlatRangeIndices()
+        
+        let newMap = ranges.map { (key, value) in
+            var elements = value
+            var overlappingCount = 0
+            var remainingHeightFraction: Double = 1.0
+            
+            elements.sort()
+            
+            for i in 0..<elements.count {
+                let current = elements[i]
+                
+                let hasNext = i + 1 < elements.count
+                
+                if hasNext {
+                    let next = elements[i+1]
+                    let isOverlapping = current.location == next.location
+                    
+                    if isOverlapping {
+                        overlappingCount += 1
+                    }
+                }
+            }
+            
+            return [key: value]
+        }
+    }
+    
+    private func countOverlapping(currentIndex: Int, elements: [CharacterGradientColor.Element], count: inout Int) {
+        let current = elements[currentIndex]
+        
+        let hasNext = currentIndex + 1 < elements.count
+        
+        if hasNext {
+            let next = elements[currentIndex+1]
+            let isOverlapping = current.location == next.location
+            
+            if isOverlapping {
+                count += 1
+                countOverlapping(currentIndex: currentIndex+1, elements: elements, count: &count)
+            }
+        }
     }
     
     func translateEnglishToChinese(_ text: String, completion: @escaping (Result<String, Error>) -> Void) {
@@ -164,7 +264,8 @@ struct NewAddClozeViewControllerViewModel {
     func convertSimplifiedToTraditional(_ text: String) -> String {
         let converter = try! ChineseConverter(options: [.traditionalize])
         let convertedText = converter.convert(text)
-
+        
         return convertedText
     }
+    
 }

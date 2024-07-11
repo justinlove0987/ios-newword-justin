@@ -159,24 +159,67 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             if selectMode == .word {
                 if let wordRange = customTextView.wordRange(at: characterIndex) {
                     range = wordRange
+                    
+                    guard let range = range else { return }
+                    
+                    if viewModel.containsCloze(range) {
+                        let updatedRange = NSRange(location: range.location-1, length: range.length)
+                        
+                        customTextView.removeNumberImageView(at: updatedRange.location)
+                        viewModel.removeCloze(range)
+                        viewModel.updateNSRange(with: updatedRange, offset: -1)
+                        customTextView.highlightedRanges = viewModel.getNSRanges()
+                        return
+                    }
+                    
+                    // 獲取點擊的文字
+                    let text = (customTextView.text as NSString).substring(with: range)
+
+                    viewModel.translateEnglishToChinese(text) { result in
+                        switch result {
+                        case .success(let translatedSimplifiedText):
+                            let traditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
+                            
+                            self.translateLabel.text = traditionalText
+                            self.hintLabel.text = traditionalText
+                            
+                        case .failure(_):
+                            break
+                        }
+                    }
+                    
+                    guard !viewModel.isWhitespace(text) else { return }
+                    
+                    let clozeNumber = viewModel.getClozeNumber()
+                    let offset = 1
+                    let updateRange = NSRange(location: range.location+offset, length: range.length)
+                    let newCloze = NewAddCloze(number: clozeNumber, cloze: text, range: updateRange)
+                    
+                    customTextView.insertNumberImageView(at: range.location, with: String(clozeNumber), scale: 0.8)
+                    
+                    viewModel.appendCloze(newCloze)
+                    viewModel.updateNSRange(with: newCloze.range, offset: offset)
+                    
+                    customTextView.highlightedCoverRanges = [newCloze.range]
+                    
+                    customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
+                    
+                    
                 }
             } else {
                 if let sentenceRange =  customTextView.sentenceRangeContainingCharacter(at: characterIndex) {
                     range = sentenceRange
+                    
+                    guard let range = range else { return }
+                    
+                    clozeWord(range: range)
                 }
             }
-            
-            guard let range = range else { return }
-            
-            clozeWord(range: range)
         }
         
     }
     
     private func clozeWord(range: NSRange) {
-
-
-
         if viewModel.containsCloze(range) {
             let updatedRange = NSRange(location: range.location-1, length: range.length)
             

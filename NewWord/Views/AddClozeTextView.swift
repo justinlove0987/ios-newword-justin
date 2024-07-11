@@ -15,6 +15,12 @@ class AddClozeTextView: UITextView {
             setNeedsDisplay()
         }
     }
+    
+    var highlightedCoverRanges: [NSRange] = [] {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -42,6 +48,19 @@ class AddClozeTextView: UITextView {
                 }
             }
         }
+        
+        UIColor.red.setFill()
+        for range in highlightedCoverRanges {
+            layoutManager.enumerateLineFragments(forGlyphRange: range) { rect, usedRect, textContainer, glyphRange, stop in
+                let intersectionRange = NSIntersectionRange(glyphRange, range)
+                self.layoutManager.enumerateEnclosingRects(forGlyphRange: intersectionRange, withinSelectedGlyphRange: intersectionRange, in: self.textContainer) { rect, _ in
+                    var adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
+                    adjustedRect.size.height = (font.ascender - font.descender) * 0.8
+                    adjustedRect.origin.y += font.lineHeight * 0.2
+                    context?.fill(adjustedRect)
+                }
+            }
+        }
 
         context?.restoreGState()
 
@@ -59,15 +78,17 @@ class AddClozeTextView: UITextView {
         return attribute == UIColor.blue
     }
 
-    func insertNumberImageView(at location: Int, with textToInsert: String) {
+    func insertNumberImageView(at location: Int, with textToInsert: String , scale: Double = 1.0) {
         // 創建自定義 UILabel
         let view = CustomNumberTagView()
         view.numberLabel.text = "\(textToInsert)"
         
+        view.numberLabel.font = UIFont.systemFont(ofSize: view.numberLabel.font.pointSize * scale)
+        
         view.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            view.heightAnchor.constraint(equalToConstant: self.font!.lineHeight)
+            view.heightAnchor.constraint(equalToConstant: self.font!.lineHeight*scale)
         ])
         
         view.layoutIfNeeded()
