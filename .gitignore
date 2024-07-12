@@ -1,0 +1,468 @@
+NewWord.xcworkspace/contents.xcworkspacedata
+NewWord.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+NewWord.xcworkspace/xcshareddata/swiftpm/Package.resolved
+NewWord.xcworkspace/xcuserdata/justin.tseng.xcuserdatad/UserInterfaceState.xcuserstate
+NewWord.xcworkspace/xcuserdata/justin.tseng.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+Pods/Manifest.lock
+Pods/GoogleDataTransport/LICENSE
+Pods/GoogleDataTransport/README.md
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/GDTCCTCompressionHelper.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/GDTCCTNanopbHelpers.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/GDTCCTUploader.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/GDTCCTUploadOperation.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/GDTCOREvent+GDTCCTSupport.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/GDTCOREvent+GDTMetricsSupport.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/GDTCORMetrics+GDTCCTSupport.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Private/GDTCCTCompressionHelper.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Private/GDTCCTNanopbHelpers.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Private/GDTCCTUploader.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Private/GDTCCTUploadOperation.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Private/GDTCOREvent+GDTMetricsSupport.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Private/GDTCORMetrics+GDTCCTSupport.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Protogen/nanopb/cct.nanopb.c
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Protogen/nanopb/cct.nanopb.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Protogen/nanopb/client_metrics.nanopb.c
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Protogen/nanopb/client_metrics.nanopb.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Protogen/nanopb/compliance.nanopb.c
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Protogen/nanopb/compliance.nanopb.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Protogen/nanopb/external_prequest_context.nanopb.c
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Protogen/nanopb/external_prequest_context.nanopb.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Protogen/nanopb/external_privacy_context.nanopb.c
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Protogen/nanopb/external_privacy_context.nanopb.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCCTLibrary/Public/GDTCOREvent+GDTCCTSupport.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORAssert.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORClock.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORConsoleLogger.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORDirectorySizeTracker.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCOREndpoints.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCOREvent.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORFlatFileStorage+Promises.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORFlatFileStorage.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORLifecycle.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORLogSourceMetrics.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORMetrics.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORMetricsController.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORMetricsMetadata.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORPlatform.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORProductData.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORReachability.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORRegistrar.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORStorageEventSelector.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORStorageMetadata.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORTransformer.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORTransport.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORUploadBatch.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/GDTCORUploadCoordinator.m
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Internal/GDTCORAssert.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Internal/GDTCORDirectorySizeTracker.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Internal/GDTCOREventDropReason.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Internal/GDTCORLifecycle.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Internal/GDTCORMetricsControllerProtocol.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Internal/GDTCORPlatform.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Internal/GDTCORReachability.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Internal/GDTCORRegistrar.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Internal/GDTCORStorageEventSelector.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Internal/GDTCORStorageProtocol.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Internal/GDTCORStorageSizeBytes.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Internal/GDTCORUploader.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCOREndpoints_Private.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCOREvent_Private.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORFlatFileStorage+Promises.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORFlatFileStorage.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORLogSourceMetrics.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORMetrics.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORMetricsController.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORMetricsMetadata.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORReachability_Private.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORRegistrar_Private.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORStorageMetadata.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORTransformer.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORTransformer_Private.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORTransport_Private.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORUploadBatch.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Private/GDTCORUploadCoordinator.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCORClock.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCORConsoleLogger.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCOREndpoints.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCOREvent.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCOREventDataObject.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCOREventTransformer.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCORProductData.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCORTargets.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GDTCORTransport.h
+Pods/GoogleDataTransport/GoogleDataTransport/GDTCORLibrary/Public/GoogleDataTransport/GoogleDataTransport.h
+Pods/GoogleDataTransport/GoogleDataTransport/Resources/PrivacyInfo.xcprivacy
+Pods/GoogleMLKit/MLKitCore/NOTICES
+Pods/GoogleMLKit/MLKitCore/Sources/MLKit.h
+Pods/GoogleMLKit/MLKitCore/Sources/module.modulemap
+Pods/GoogleToolboxForMac/GTMDefines.h
+Pods/GoogleToolboxForMac/LICENSE
+Pods/GoogleToolboxForMac/README.md
+Pods/GoogleToolboxForMac/DebugUtils/GTMDebugSelectorValidation.h
+Pods/GoogleToolboxForMac/DebugUtils/GTMDebugThreadValidation.h
+Pods/GoogleToolboxForMac/DebugUtils/GTMMethodCheck.h
+Pods/GoogleToolboxForMac/Foundation/GTMLogger.h
+Pods/GoogleToolboxForMac/Foundation/GTMLogger.m
+Pods/GoogleToolboxForMac/Foundation/GTMNSData+zlib.h
+Pods/GoogleToolboxForMac/Foundation/GTMNSData+zlib.m
+Pods/GoogleToolboxForMac/Foundation/GTMNSDictionary+URLArguments.h
+Pods/GoogleToolboxForMac/Foundation/GTMNSDictionary+URLArguments.m
+Pods/GoogleToolboxForMac/Foundation/GTMNSString+URLArguments.h
+Pods/GoogleToolboxForMac/Foundation/GTMNSString+URLArguments.m
+Pods/GoogleToolboxForMac/Foundation/GTMStringEncoding.h
+Pods/GoogleToolboxForMac/Foundation/GTMStringEncoding.m
+Pods/GoogleUtilities/LICENSE
+Pods/GoogleUtilities/README.md
+Pods/GoogleUtilities/GoogleUtilities/Environment/GULAppEnvironmentUtil.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/GULHeartbeatDateStorage.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/GULHeartbeatDateStorageUserDefaults.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/GULSecureCoding.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/NetworkInfo/GULNetworkInfo.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULAppEnvironmentUtil.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULHeartbeatDateStorable.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULHeartbeatDateStorage.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULHeartbeatDateStorageUserDefaults.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainStorage.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULKeychainUtils.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULNetworkInfo.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULSecureCoding.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/GULURLSessionDataResponse.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/Public/GoogleUtilities/NSURLSession+GULPromises.h
+Pods/GoogleUtilities/GoogleUtilities/Environment/SecureStorage/GULKeychainStorage.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/SecureStorage/GULKeychainUtils.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/URLSessionPromiseWrapper/GULURLSessionDataResponse.m
+Pods/GoogleUtilities/GoogleUtilities/Environment/URLSessionPromiseWrapper/NSURLSession+GULPromises.m
+Pods/GoogleUtilities/GoogleUtilities/Logger/GULLogger.m
+Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/GULLogger.h
+Pods/GoogleUtilities/GoogleUtilities/Logger/Public/GoogleUtilities/GULLoggerLevel.h
+Pods/GoogleUtilities/GoogleUtilities/UserDefaults/GULUserDefaults.m
+Pods/GoogleUtilities/GoogleUtilities/UserDefaults/Public/GoogleUtilities/GULUserDefaults.h
+Pods/GoogleUtilities/third_party/IsAppEncrypted/IsAppEncrypted.m
+Pods/GoogleUtilities/third_party/IsAppEncrypted/Public/IsAppEncrypted.h
+Pods/GoogleUtilitiesComponents/LICENSE
+Pods/GoogleUtilitiesComponents/README.md
+Pods/GoogleUtilitiesComponents/GoogleUtilitiesComponents/Sources/GULCCComponent.m
+Pods/GoogleUtilitiesComponents/GoogleUtilitiesComponents/Sources/GULCCComponentContainer.m
+Pods/GoogleUtilitiesComponents/GoogleUtilitiesComponents/Sources/GULCCComponentType.m
+Pods/GoogleUtilitiesComponents/GoogleUtilitiesComponents/Sources/GULCCDependency.m
+Pods/GoogleUtilitiesComponents/GoogleUtilitiesComponents/Sources/Private/GULCCComponentContainerInternal.h
+Pods/GoogleUtilitiesComponents/GoogleUtilitiesComponents/Sources/Public/GULCCComponent.h
+Pods/GoogleUtilitiesComponents/GoogleUtilitiesComponents/Sources/Public/GULCCComponentContainer.h
+Pods/GoogleUtilitiesComponents/GoogleUtilitiesComponents/Sources/Public/GULCCComponentType.h
+Pods/GoogleUtilitiesComponents/GoogleUtilitiesComponents/Sources/Public/GULCCDependency.h
+Pods/GoogleUtilitiesComponents/GoogleUtilitiesComponents/Sources/Public/GULCCLibrary.h
+Pods/GTMSessionFetcher/LICENSE
+Pods/GTMSessionFetcher/README.md
+Pods/GTMSessionFetcher/Source/GTMSessionFetcher.h
+Pods/GTMSessionFetcher/Source/GTMSessionFetcher.m
+Pods/GTMSessionFetcher/Source/GTMSessionFetcherLogging.h
+Pods/GTMSessionFetcher/Source/GTMSessionFetcherLogging.m
+Pods/GTMSessionFetcher/Source/GTMSessionFetcherService.h
+Pods/GTMSessionFetcher/Source/GTMSessionFetcherService.m
+Pods/GTMSessionFetcher/Source/GTMSessionUploadFetcher.h
+Pods/GTMSessionFetcher/Source/GTMSessionUploadFetcher.m
+Pods/Headers/Private/GoogleMLKit/MLKit.h
+Pods/Headers/Public/GoogleMLKit/MLKit.h
+Pods/MLKitCommon/CHANGELOG.md
+Pods/MLKitCommon/NOTICES
+Pods/MLKitCommon/README.md
+Pods/MLKitCommon/Frameworks/MLKitCommon.framework/MLKitCommon
+Pods/MLKitCommon/Frameworks/MLKitCommon.framework/Headers/MLKCustomRemoteModel.h
+Pods/MLKitCommon/Frameworks/MLKitCommon.framework/Headers/MLKitCommon.h
+Pods/MLKitCommon/Frameworks/MLKitCommon.framework/Headers/MLKLocalModel.h
+Pods/MLKitCommon/Frameworks/MLKitCommon.framework/Headers/MLKModelDownloadConditions.h
+Pods/MLKitCommon/Frameworks/MLKitCommon.framework/Headers/MLKModelDownloadNotifications.h
+Pods/MLKitCommon/Frameworks/MLKitCommon.framework/Headers/MLKModelManager.h
+Pods/MLKitCommon/Frameworks/MLKitCommon.framework/Headers/MLKRemoteModel.h
+Pods/MLKitCommon/Frameworks/MLKitCommon.framework/Headers/MLKRemoteModelSource.h
+Pods/MLKitCommon/Frameworks/MLKitCommon.framework/Modules/module.modulemap
+Pods/MLKitNaturalLanguage/NOTICES
+Pods/MLKitNaturalLanguage/Frameworks/MLKitNaturalLanguage.framework/MLKitNaturalLanguage
+Pods/MLKitNaturalLanguage/Frameworks/MLKitNaturalLanguage.framework/Modules/module.modulemap
+Pods/MLKitTranslate/CHANGELOG.md
+Pods/MLKitTranslate/NOTICES
+Pods/MLKitTranslate/README.md
+Pods/MLKitTranslate/Frameworks/MLKitTranslate.framework/MLKitTranslate
+Pods/MLKitTranslate/Frameworks/MLKitTranslate.framework/Headers/MLKitTranslate.h
+Pods/MLKitTranslate/Frameworks/MLKitTranslate.framework/Headers/MLKModelManager+Translate.h
+Pods/MLKitTranslate/Frameworks/MLKitTranslate.framework/Headers/MLKTranslateLanguage.h
+Pods/MLKitTranslate/Frameworks/MLKitTranslate.framework/Headers/MLKTranslateRemoteModel.h
+Pods/MLKitTranslate/Frameworks/MLKitTranslate.framework/Headers/MLKTranslator.h
+Pods/MLKitTranslate/Frameworks/MLKitTranslate.framework/Headers/MLKTranslatorOptions.h
+Pods/MLKitTranslate/Frameworks/MLKitTranslate.framework/Modules/module.modulemap
+Pods/MLKitTranslate/Resources/MLKitTranslate_resource/generated_rapid_response_client_defaults.json
+Pods/MLKitTranslate/Resources/MLKitTranslate_resource/profiles_r29.json
+Pods/nanopb/LICENSE.txt
+Pods/nanopb/pb.h
+Pods/nanopb/pb_common.c
+Pods/nanopb/pb_common.h
+Pods/nanopb/pb_decode.c
+Pods/nanopb/pb_decode.h
+Pods/nanopb/pb_encode.c
+Pods/nanopb/pb_encode.h
+Pods/nanopb/README.md
+Pods/Pods.xcodeproj/project.pbxproj
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/GoogleDataTransport-GoogleDataTransport_Privacy.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/GoogleDataTransport.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/GoogleMLKit.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/GoogleToolboxForMac.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/GoogleUtilities.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/GoogleUtilitiesComponents.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/GTMSessionFetcher.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/MLKitCommon.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/MLKitNaturalLanguage.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/MLKitTranslate-MLKitTranslate_resource.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/MLKitTranslate.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/nanopb.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/Pods-NewWord.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/PromisesObjC.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/Protobuf-Protobuf_Privacy.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/Protobuf.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/SSZipArchive-SSZipArchive.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/SSZipArchive.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/justin.tseng.xcuserdatad/xcschemes/xcschememanagement.plist
+Pods/PromisesObjC/LICENSE
+Pods/PromisesObjC/README.md
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+All.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Always.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Any.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Async.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Await.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Catch.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Delay.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Do.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Race.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Recover.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Reduce.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Retry.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Testing.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Then.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Timeout.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Validate.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise+Wrap.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromise.m
+Pods/PromisesObjC/Sources/FBLPromises/FBLPromiseError.m
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+All.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Always.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Any.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Async.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Await.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Catch.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Delay.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Do.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Race.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Recover.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Reduce.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Retry.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Testing.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Then.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Timeout.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Validate.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise+Wrap.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromise.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromiseError.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromisePrivate.h
+Pods/PromisesObjC/Sources/FBLPromises/include/FBLPromises.h
+Pods/Protobuf/LICENSE
+Pods/Protobuf/PrivacyInfo.xcprivacy
+Pods/Protobuf/README.md
+Pods/Protobuf/objectivec/GPBAny.pbobjc.h
+Pods/Protobuf/objectivec/GPBAny.pbobjc.m
+Pods/Protobuf/objectivec/GPBApi.pbobjc.h
+Pods/Protobuf/objectivec/GPBApi.pbobjc.m
+Pods/Protobuf/objectivec/GPBArray.h
+Pods/Protobuf/objectivec/GPBArray.m
+Pods/Protobuf/objectivec/GPBArray_PackagePrivate.h
+Pods/Protobuf/objectivec/GPBBootstrap.h
+Pods/Protobuf/objectivec/GPBCodedInputStream.h
+Pods/Protobuf/objectivec/GPBCodedInputStream.m
+Pods/Protobuf/objectivec/GPBCodedInputStream_PackagePrivate.h
+Pods/Protobuf/objectivec/GPBCodedOutputStream.h
+Pods/Protobuf/objectivec/GPBCodedOutputStream.m
+Pods/Protobuf/objectivec/GPBCodedOutputStream_PackagePrivate.h
+Pods/Protobuf/objectivec/GPBDescriptor.h
+Pods/Protobuf/objectivec/GPBDescriptor.m
+Pods/Protobuf/objectivec/GPBDescriptor_PackagePrivate.h
+Pods/Protobuf/objectivec/GPBDictionary.h
+Pods/Protobuf/objectivec/GPBDictionary.m
+Pods/Protobuf/objectivec/GPBDictionary_PackagePrivate.h
+Pods/Protobuf/objectivec/GPBDuration.pbobjc.h
+Pods/Protobuf/objectivec/GPBDuration.pbobjc.m
+Pods/Protobuf/objectivec/GPBEmpty.pbobjc.h
+Pods/Protobuf/objectivec/GPBEmpty.pbobjc.m
+Pods/Protobuf/objectivec/GPBExtensionInternals.h
+Pods/Protobuf/objectivec/GPBExtensionInternals.m
+Pods/Protobuf/objectivec/GPBExtensionRegistry.h
+Pods/Protobuf/objectivec/GPBExtensionRegistry.m
+Pods/Protobuf/objectivec/GPBFieldMask.pbobjc.h
+Pods/Protobuf/objectivec/GPBFieldMask.pbobjc.m
+Pods/Protobuf/objectivec/GPBMessage.h
+Pods/Protobuf/objectivec/GPBMessage.m
+Pods/Protobuf/objectivec/GPBMessage_PackagePrivate.h
+Pods/Protobuf/objectivec/GPBProtocolBuffers.h
+Pods/Protobuf/objectivec/GPBProtocolBuffers_RuntimeSupport.h
+Pods/Protobuf/objectivec/GPBRootObject.h
+Pods/Protobuf/objectivec/GPBRootObject.m
+Pods/Protobuf/objectivec/GPBRootObject_PackagePrivate.h
+Pods/Protobuf/objectivec/GPBRuntimeTypes.h
+Pods/Protobuf/objectivec/GPBSourceContext.pbobjc.h
+Pods/Protobuf/objectivec/GPBSourceContext.pbobjc.m
+Pods/Protobuf/objectivec/GPBStruct.pbobjc.h
+Pods/Protobuf/objectivec/GPBStruct.pbobjc.m
+Pods/Protobuf/objectivec/GPBTimestamp.pbobjc.h
+Pods/Protobuf/objectivec/GPBTimestamp.pbobjc.m
+Pods/Protobuf/objectivec/GPBType.pbobjc.h
+Pods/Protobuf/objectivec/GPBType.pbobjc.m
+Pods/Protobuf/objectivec/GPBUnknownField.h
+Pods/Protobuf/objectivec/GPBUnknownField.m
+Pods/Protobuf/objectivec/GPBUnknownField_PackagePrivate.h
+Pods/Protobuf/objectivec/GPBUnknownFieldSet.h
+Pods/Protobuf/objectivec/GPBUnknownFieldSet.m
+Pods/Protobuf/objectivec/GPBUnknownFieldSet_PackagePrivate.h
+Pods/Protobuf/objectivec/GPBUtilities.h
+Pods/Protobuf/objectivec/GPBUtilities.m
+Pods/Protobuf/objectivec/GPBUtilities_PackagePrivate.h
+Pods/Protobuf/objectivec/GPBWellKnownTypes.h
+Pods/Protobuf/objectivec/GPBWellKnownTypes.m
+Pods/Protobuf/objectivec/GPBWireFormat.h
+Pods/Protobuf/objectivec/GPBWireFormat.m
+Pods/Protobuf/objectivec/GPBWrappers.pbobjc.h
+Pods/Protobuf/objectivec/GPBWrappers.pbobjc.m
+Pods/Protobuf/objectivec/google/protobuf/Any.pbobjc.h
+Pods/Protobuf/objectivec/google/protobuf/Api.pbobjc.h
+Pods/Protobuf/objectivec/google/protobuf/Duration.pbobjc.h
+Pods/Protobuf/objectivec/google/protobuf/Empty.pbobjc.h
+Pods/Protobuf/objectivec/google/protobuf/FieldMask.pbobjc.h
+Pods/Protobuf/objectivec/google/protobuf/SourceContext.pbobjc.h
+Pods/Protobuf/objectivec/google/protobuf/Struct.pbobjc.h
+Pods/Protobuf/objectivec/google/protobuf/Timestamp.pbobjc.h
+Pods/Protobuf/objectivec/google/protobuf/Type.pbobjc.h
+Pods/Protobuf/objectivec/google/protobuf/Wrappers.pbobjc.h
+Pods/SSZipArchive/LICENSE.txt
+Pods/SSZipArchive/README.md
+Pods/SSZipArchive/SSZipArchive/SSZipArchive.h
+Pods/SSZipArchive/SSZipArchive/SSZipArchive.m
+Pods/SSZipArchive/SSZipArchive/SSZipCommon.h
+Pods/SSZipArchive/SSZipArchive/include/ZipArchive.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz_compat.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_compat.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz_crypt.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_crypt.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz_crypt_apple.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_os.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_os.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz_os_posix.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_buf.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_buf.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_mem.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_mem.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_os.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_os_posix.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_pkcrypt.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_pkcrypt.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_split.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_split.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_wzaes.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_wzaes.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_zlib.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_strm_zlib.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz_zip.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_zip.h
+Pods/SSZipArchive/SSZipArchive/minizip/mz_zip_rw.c
+Pods/SSZipArchive/SSZipArchive/minizip/mz_zip_rw.h
+Pods/SSZipArchive/SSZipArchive/Supporting Files/PrivacyInfo.xcprivacy
+Pods/Target Support Files/GoogleDataTransport/GoogleDataTransport-dummy.m
+Pods/Target Support Files/GoogleDataTransport/GoogleDataTransport-Info.plist
+Pods/Target Support Files/GoogleDataTransport/GoogleDataTransport-umbrella.h
+Pods/Target Support Files/GoogleDataTransport/GoogleDataTransport.debug.xcconfig
+Pods/Target Support Files/GoogleDataTransport/GoogleDataTransport.modulemap
+Pods/Target Support Files/GoogleDataTransport/GoogleDataTransport.release.xcconfig
+Pods/Target Support Files/GoogleDataTransport/ResourceBundle-GoogleDataTransport_Privacy-GoogleDataTransport-Info.plist
+Pods/Target Support Files/GoogleMLKit/GoogleMLKit.debug.xcconfig
+Pods/Target Support Files/GoogleMLKit/GoogleMLKit.release.xcconfig
+Pods/Target Support Files/GoogleToolboxForMac/GoogleToolboxForMac-dummy.m
+Pods/Target Support Files/GoogleToolboxForMac/GoogleToolboxForMac-Info.plist
+Pods/Target Support Files/GoogleToolboxForMac/GoogleToolboxForMac-prefix.pch
+Pods/Target Support Files/GoogleToolboxForMac/GoogleToolboxForMac-umbrella.h
+Pods/Target Support Files/GoogleToolboxForMac/GoogleToolboxForMac.debug.xcconfig
+Pods/Target Support Files/GoogleToolboxForMac/GoogleToolboxForMac.modulemap
+Pods/Target Support Files/GoogleToolboxForMac/GoogleToolboxForMac.release.xcconfig
+Pods/Target Support Files/GoogleUtilities/GoogleUtilities-dummy.m
+Pods/Target Support Files/GoogleUtilities/GoogleUtilities-Info.plist
+Pods/Target Support Files/GoogleUtilities/GoogleUtilities-umbrella.h
+Pods/Target Support Files/GoogleUtilities/GoogleUtilities.debug.xcconfig
+Pods/Target Support Files/GoogleUtilities/GoogleUtilities.modulemap
+Pods/Target Support Files/GoogleUtilities/GoogleUtilities.release.xcconfig
+Pods/Target Support Files/GoogleUtilities/ResourceBundle-GoogleUtilities_Privacy-GoogleUtilities-Info.plist
+Pods/Target Support Files/GoogleUtilitiesComponents/GoogleUtilitiesComponents-dummy.m
+Pods/Target Support Files/GoogleUtilitiesComponents/GoogleUtilitiesComponents-Info.plist
+Pods/Target Support Files/GoogleUtilitiesComponents/GoogleUtilitiesComponents-umbrella.h
+Pods/Target Support Files/GoogleUtilitiesComponents/GoogleUtilitiesComponents.debug.xcconfig
+Pods/Target Support Files/GoogleUtilitiesComponents/GoogleUtilitiesComponents.modulemap
+Pods/Target Support Files/GoogleUtilitiesComponents/GoogleUtilitiesComponents.release.xcconfig
+Pods/Target Support Files/GTMSessionFetcher/GTMSessionFetcher-dummy.m
+Pods/Target Support Files/GTMSessionFetcher/GTMSessionFetcher-Info.plist
+Pods/Target Support Files/GTMSessionFetcher/GTMSessionFetcher-prefix.pch
+Pods/Target Support Files/GTMSessionFetcher/GTMSessionFetcher-umbrella.h
+Pods/Target Support Files/GTMSessionFetcher/GTMSessionFetcher.debug.xcconfig
+Pods/Target Support Files/GTMSessionFetcher/GTMSessionFetcher.modulemap
+Pods/Target Support Files/GTMSessionFetcher/GTMSessionFetcher.release.xcconfig
+Pods/Target Support Files/MLKitCommon/MLKitCommon.debug.xcconfig
+Pods/Target Support Files/MLKitCommon/MLKitCommon.release.xcconfig
+Pods/Target Support Files/MLKitNaturalLanguage/MLKitNaturalLanguage.debug.xcconfig
+Pods/Target Support Files/MLKitNaturalLanguage/MLKitNaturalLanguage.release.xcconfig
+Pods/Target Support Files/MLKitTranslate/MLKitTranslate.debug.xcconfig
+Pods/Target Support Files/MLKitTranslate/MLKitTranslate.release.xcconfig
+Pods/Target Support Files/MLKitTranslate/ResourceBundle-MLKitTranslate_resource-MLKitTranslate-Info.plist
+Pods/Target Support Files/nanopb/nanopb-dummy.m
+Pods/Target Support Files/nanopb/nanopb-Info.plist
+Pods/Target Support Files/nanopb/nanopb-prefix.pch
+Pods/Target Support Files/nanopb/nanopb-umbrella.h
+Pods/Target Support Files/nanopb/nanopb.debug.xcconfig
+Pods/Target Support Files/nanopb/nanopb.modulemap
+Pods/Target Support Files/nanopb/nanopb.release.xcconfig
+Pods/Target Support Files/nanopb/ResourceBundle-nanopb_Privacy-nanopb-Info.plist
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-acknowledgements.markdown
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-acknowledgements.plist
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-dummy.m
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-frameworks-Debug-input-files.xcfilelist
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-frameworks-Debug-output-files.xcfilelist
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-frameworks-Release-input-files.xcfilelist
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-frameworks-Release-output-files.xcfilelist
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-frameworks.sh
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-Info.plist
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-resources-Debug-input-files.xcfilelist
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-resources-Debug-output-files.xcfilelist
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-resources-Release-input-files.xcfilelist
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-resources-Release-output-files.xcfilelist
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-resources.sh
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord-umbrella.h
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord.debug.xcconfig
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord.modulemap
+Pods/Target Support Files/Pods-NewWord/Pods-NewWord.release.xcconfig
+Pods/Target Support Files/PromisesObjC/PromisesObjC-dummy.m
+Pods/Target Support Files/PromisesObjC/PromisesObjC-Info.plist
+Pods/Target Support Files/PromisesObjC/PromisesObjC-umbrella.h
+Pods/Target Support Files/PromisesObjC/PromisesObjC.debug.xcconfig
+Pods/Target Support Files/PromisesObjC/PromisesObjC.modulemap
+Pods/Target Support Files/PromisesObjC/PromisesObjC.release.xcconfig
+Pods/Target Support Files/PromisesObjC/ResourceBundle-FBLPromises_Privacy-PromisesObjC-Info.plist
+Pods/Target Support Files/Protobuf/Protobuf-dummy.m
+Pods/Target Support Files/Protobuf/Protobuf-Info.plist
+Pods/Target Support Files/Protobuf/Protobuf-prefix.pch
+Pods/Target Support Files/Protobuf/Protobuf-umbrella.h
+Pods/Target Support Files/Protobuf/Protobuf.debug.xcconfig
+Pods/Target Support Files/Protobuf/Protobuf.modulemap
+Pods/Target Support Files/Protobuf/Protobuf.release.xcconfig
+Pods/Target Support Files/Protobuf/ResourceBundle-Protobuf_Privacy-Protobuf-Info.plist
+Pods/Target Support Files/SSZipArchive/ResourceBundle-SSZipArchive-SSZipArchive-Info.plist
+Pods/Target Support Files/SSZipArchive/SSZipArchive-dummy.m
+Pods/Target Support Files/SSZipArchive/SSZipArchive-Info.plist
+Pods/Target Support Files/SSZipArchive/SSZipArchive-prefix.pch
+Pods/Target Support Files/SSZipArchive/SSZipArchive-umbrella.h
+Pods/Target Support Files/SSZipArchive/SSZipArchive.debug.xcconfig
+Pods/Target Support Files/SSZipArchive/SSZipArchive.modulemap
+Pods/Target Support Files/SSZipArchive/SSZipArchive.release.xcconfig
