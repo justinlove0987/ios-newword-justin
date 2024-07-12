@@ -9,6 +9,12 @@ import UIKit
 import NaturalLanguage
 
 class AddClozeTextView: UITextView {
+    
+    var newColorRanges: [[NewAddClozeViewControllerViewModel.CharacterIndex : [NewAddClozeViewControllerViewModel.CharacterGradientColor.Element]]] = [] {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
 
     var highlightedRanges: [NSRange] = [] {
         didSet {
@@ -33,32 +39,69 @@ class AddClozeTextView: UITextView {
         let context = UIGraphicsGetCurrentContext()
         context?.saveGState()
 
-        UIColor.clozeBlueText.setFill()
-
-        for range in highlightedRanges {
-            layoutManager.enumerateLineFragments(forGlyphRange: range) { rect, usedRect, textContainer, glyphRange, stop in
-                // Ensure we only draw the part of the line within the specified range
-                let intersectionRange = NSIntersectionRange(glyphRange, range)
-                self.layoutManager.enumerateEnclosingRects(forGlyphRange: intersectionRange, withinSelectedGlyphRange: intersectionRange, in: self.textContainer) { rect, _ in
-                    var adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
-
-                    adjustedRect.size.height = font.ascender - font.descender
-                    adjustedRect.origin.y += (font.lineHeight - adjustedRect.size.height) / 2
-                    context?.fill(adjustedRect)
-                }
-            }
-        }
+//        UIColor.clozeBlueText.setFill()
+//
+//        for range in highlightedRanges {
+//            layoutManager.enumerateLineFragments(forGlyphRange: range) { rect, usedRect, textContainer, glyphRange, stop in
+//                // Ensure we only draw the part of the line within the specified range
+//                let intersectionRange = NSIntersectionRange(glyphRange, range)
+//                self.layoutManager.enumerateEnclosingRects(forGlyphRange: intersectionRange, withinSelectedGlyphRange: intersectionRange, in: self.textContainer) { rect, _ in
+//                    var adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
+//
+//                    adjustedRect.size.height = font.ascender - font.descender
+//                    adjustedRect.origin.y += (font.lineHeight - adjustedRect.size.height) / 2
+//                    context?.fill(adjustedRect)
+//                }
+//            }
+//        }
         
-        UIColor.red.setFill()
-        for range in highlightedCoverRanges {
-            layoutManager.enumerateLineFragments(forGlyphRange: range) { rect, usedRect, textContainer, glyphRange, stop in
-                let intersectionRange = NSIntersectionRange(glyphRange, range)
-                self.layoutManager.enumerateEnclosingRects(forGlyphRange: intersectionRange, withinSelectedGlyphRange: intersectionRange, in: self.textContainer) { rect, _ in
-                    var adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
-                    adjustedRect.size.height = (font.ascender - font.descender) * 0.8
-                    adjustedRect.origin.y += font.lineHeight * 0.2
-                    context?.fill(adjustedRect)
+//        UIColor.red.setFill()
+//        for range in highlightedCoverRanges {
+//            layoutManager.enumerateLineFragments(forGlyphRange: range) { rect, usedRect, textContainer, glyphRange, stop in
+//                let intersectionRange = NSIntersectionRange(glyphRange, range)
+//                self.layoutManager.enumerateEnclosingRects(forGlyphRange: intersectionRange, withinSelectedGlyphRange: intersectionRange, in: self.textContainer) { rect, _ in
+//                    var adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
+//                    adjustedRect.size.height = (font.ascender - font.descender) * 0.8
+//                    adjustedRect.origin.y += font.lineHeight * 0.2
+//                    context?.fill(adjustedRect)
+//                }
+//            }
+//        }
+        
+        
+        for newColorRange in newColorRanges {
+            for (key,value) in newColorRange {
+                
+                var positionRatio: Double = 0
+                
+                for i in 0..<value.count {
+                    let element = value[i]
+                    let isNotFirstElement = i != 0
+                    
+                    if isNotFirstElement {
+                        positionRatio += element.heightFraction
+                    }
+                    
+                    element.color.setFill()
+                    
+                    let range = NSRange(location: key, length: 1)
+                    layoutManager.enumerateLineFragments(forGlyphRange: range) { rect, usedRect, textContainer, glyphRange, stop in
+                        let intersectionRange = NSIntersectionRange(glyphRange, range)
+                        self.layoutManager.enumerateEnclosingRects(forGlyphRange: intersectionRange, withinSelectedGlyphRange: intersectionRange, in: self.textContainer) { rect, _ in
+                            var adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
+                            adjustedRect.size.height = (font.ascender - font.descender) * element.heightFraction
+                            
+                            if isNotFirstElement {
+                                adjustedRect.origin.y += font.lineHeight * (1 - positionRatio)
+                            }
+                            
+                            adjustedRect.origin.x -= 0.5 // Expand slightly to the left
+                            adjustedRect.size.width += 1.0 // Expand the width
+                            context?.fill(adjustedRect)
+                        }
+                    }
                 }
+                
             }
         }
 

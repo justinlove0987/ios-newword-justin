@@ -13,6 +13,7 @@ struct NewAddCloze {
     let number: Int
     let cloze: String
     var range: NSRange
+    let color: UIColor
 }
 
 class NewAddClozeViewController: UIViewController, StoryboardGenerated {
@@ -162,50 +163,51 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
                     
                     guard let range = range else { return }
                     
-                    if viewModel.containsCloze(range) {
-                        let updatedRange = NSRange(location: range.location-1, length: range.length)
-                        
-                        customTextView.removeNumberImageView(at: updatedRange.location)
-                        viewModel.removeCloze(range)
-                        viewModel.updateNSRange(with: updatedRange, offset: -1)
-                        customTextView.highlightedRanges = viewModel.getNSRanges()
-                        return
-                    }
+                    clozeWord(range: range)
                     
-                    // 獲取點擊的文字
-                    let text = (customTextView.text as NSString).substring(with: range)
-
-                    viewModel.translateEnglishToChinese(text) { result in
-                        switch result {
-                        case .success(let translatedSimplifiedText):
-                            let traditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
-                            
-                            self.translateLabel.text = traditionalText
-                            self.hintLabel.text = traditionalText
-                            
-                        case .failure(_):
-                            break
-                        }
-                    }
-                    
-                    guard !viewModel.isWhitespace(text) else { return }
-                    
-                    let clozeNumber = viewModel.getClozeNumber()
-                    let offset = 1
-                    let updateRange = NSRange(location: range.location+offset, length: range.length)
-                    let newCloze = NewAddCloze(number: clozeNumber, cloze: text, range: updateRange)
-                    
-                    customTextView.insertNumberImageView(at: range.location, with: String(clozeNumber), scale: 0.8)
-                    
-                    viewModel.appendCloze(newCloze)
-                    viewModel.updateNSRange(with: newCloze.range, offset: offset)
-                    
-                    customTextView.highlightedCoverRanges = [newCloze.range]
-                    
-                    customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
-                    
-                    
+//                    if viewModel.containsCloze(range) {
+//                        let updatedRange = NSRange(location: range.location-1, length: range.length)
+//                        
+//                        customTextView.removeNumberImageView(at: updatedRange.location)
+//                        viewModel.removeCloze(range)
+//                        viewModel.updateNSRange(with: updatedRange, offset: -1)
+//                        customTextView.highlightedRanges = viewModel.getNSRanges()
+//                        return
+//                    }
+//                    
+//                    // 獲取點擊的文字
+//                    let text = (customTextView.text as NSString).substring(with: range)
+//
+//                    viewModel.translateEnglishToChinese(text) { result in
+//                        switch result {
+//                        case .success(let translatedSimplifiedText):
+//                            let traditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
+//                            
+//                            self.translateLabel.text = traditionalText
+//                            self.hintLabel.text = traditionalText
+//                            
+//                        case .failure(_):
+//                            break
+//                        }
+//                    }
+//                    
+//                    guard !viewModel.isWhitespace(text) else { return }
+//                    
+//                    let clozeNumber = viewModel.getClozeNumber()
+//                    let offset = 1
+//                    let updateRange = NSRange(location: range.location+offset, length: range.length)
+//                    let newCloze = NewAddCloze(number: clozeNumber, cloze: text, range: updateRange)
+//                    
+//                    customTextView.insertNumberImageView(at: range.location, with: String(clozeNumber), scale: 0.8)
+//                    
+//                    viewModel.appendCloze(newCloze)
+//                    viewModel.updateNSRange(with: newCloze.range, offset: offset)
+//                    
+//                    customTextView.highlightedCoverRanges = [newCloze.range]
+//                    
+//                    customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
                 }
+                
             } else {
                 if let sentenceRange =  customTextView.sentenceRangeContainingCharacter(at: characterIndex) {
                     range = sentenceRange
@@ -251,7 +253,14 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         let clozeNumber = viewModel.getClozeNumber()
         let offset = 1
         let updateRange = NSRange(location: range.location+offset, length: range.length)
-        let newCloze = NewAddCloze(number: clozeNumber, cloze: text, range: updateRange)
+        
+        var newCloze: NewAddCloze
+        
+        if selectMode == .sentence {
+            newCloze = NewAddCloze(number: clozeNumber, cloze: text, range: updateRange, color: UIColor.clozeBlueText)
+        } else {
+            newCloze = NewAddCloze(number: clozeNumber, cloze: text, range: updateRange, color: .red)
+        }
         
         customTextView.insertNumberImageView(at: range.location, with: String(clozeNumber))
         
@@ -259,6 +268,9 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         viewModel.updateNSRange(with: newCloze.range, offset: offset)
         
         customTextView.highlightedRanges = viewModel.getNSRanges()
+        
+        let information = viewModel.createChracterGradientInformation()
+        customTextView.newColorRanges = information
         
         customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
     }

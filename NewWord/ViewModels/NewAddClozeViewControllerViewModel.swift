@@ -20,7 +20,7 @@ struct NewAddClozeViewControllerViewModel {
             let color: UIColor
             let location: Int
             let length: Int
-            let heightFraction: Double = 0.0
+            var heightFraction: Double = 0.0
             
             static func < (lhs: Element, rhs: Element) -> Bool {
                 if lhs.location == rhs.location {
@@ -174,7 +174,7 @@ struct NewAddClozeViewControllerViewModel {
                 let location = nsRange.location
                 let index = location + i
                 
-                let newElement = CharacterGradientColor.Element(color: .red, location: location, length: nsRange.length)
+                let newElement = CharacterGradientColor.Element(color: current.color, location: location, length: nsRange.length)
                 
                 if result[index] != nil {
                     result[index]!.append(newElement)
@@ -188,33 +188,55 @@ struct NewAddClozeViewControllerViewModel {
     }
     
     // { characterPosition: [CharacterColor] }
-    func createChracterGradientInformation() {
-        var ranges = getFlatRangeIndices()
+    func createChracterGradientInformation() -> [[CharacterIndex: [CharacterGradientColor.Element]]] {
+        let ranges = getFlatRangeIndices()
         
         let newMap = ranges.map { (key, value) in
             var elements = value
-            var overlappingCount = 0
+            
             var remainingHeightFraction: Double = 1.0
+            var currentIndex = 0
             
             elements.sort()
             
-            for i in 0..<elements.count {
-                let current = elements[i]
+            while currentIndex < elements.count {
+                var overlappingCount = 0
                 
-                let hasNext = i + 1 < elements.count
+                countOverlapping(currentIndex: currentIndex, elements: elements, count: &overlappingCount)
                 
-                if hasNext {
-                    let next = elements[i+1]
-                    let isOverlapping = current.location == next.location
+                let hasOverLapping = overlappingCount > 0
+                
+                if hasOverLapping {
+                    let fraction = remainingHeightFraction / Double((overlappingCount+1))
                     
-                    if isOverlapping {
-                        overlappingCount += 1
+                    for _ in 0..<overlappingCount {
+                        elements[currentIndex].heightFraction = fraction
+                        remainingHeightFraction -= fraction
+                        
+                        currentIndex += 1
                     }
+                    
+                } else {
+                    let isLastOne = currentIndex + 1 == elements.count
+                    
+                    if isLastOne {
+                        elements[currentIndex].heightFraction = remainingHeightFraction
+                    } else {
+                        let fraction = remainingHeightFraction*0.1
+                        elements[currentIndex].heightFraction = remainingHeightFraction
+                        remainingHeightFraction -= fraction
+                    }
+                    
+                    currentIndex += 1
                 }
             }
             
-            return [key: value]
+            return [key: elements]
         }
+        
+        
+        
+        return newMap
     }
     
     private func countOverlapping(currentIndex: Int, elements: [CharacterGradientColor.Element], count: inout Int) {

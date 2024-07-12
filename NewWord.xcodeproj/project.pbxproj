@@ -322,10 +322,10 @@
 				D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */,
 				2A7B6CD02C080A900017BB5C /* StoryboardGenerated.swift */,
 				2A7B6CD22C080B440017BB5C /* Constants.swift */,
+				D02E46F62C272CC500418781 /* UserDefaultsManager.swift */,
 				2A7B6CD42C0810030017BB5C /* NotificationName+Extension.swift */,
 				D0D8D5F52C0F0920001BB415 /* String+Extension.swift */,
 				D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */,
-				D02E46F62C272CC500418781 /* UserDefaultsManager.swift */,
 				D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */,
 			);
 			path = Utils;
