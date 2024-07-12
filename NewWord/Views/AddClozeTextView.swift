@@ -121,7 +121,15 @@ class AddClozeTextView: UITextView {
         return attribute == UIColor.blue
     }
 
-    func insertNumberImageView(at location: Int, with textToInsert: String , scale: Double = 1.0) {
+    func insertNumberImageView(at location: Int, existClozes: [NewAddCloze], with textToInsert: String , scale: Double = 1.0) {
+        for cloze in existClozes {
+            let currentLocation = cloze.range.location
+
+            guard currentLocation != location else {
+                return
+            }
+        }
+
         // 創建自定義 UILabel
         let view = CustomNumberTagView()
         view.numberLabel.text = "\(textToInsert)"

@@ -24,7 +24,7 @@ struct NewAddClozeViewControllerViewModel {
             
             static func < (lhs: Element, rhs: Element) -> Bool {
                 if lhs.location == rhs.location {
-                    return lhs.length < rhs.length
+                    return lhs.length > rhs.length
                 }
                 return lhs.location < rhs.location
             }
@@ -62,7 +62,22 @@ struct NewAddClozeViewControllerViewModel {
         
         return maxClozeNumber!
     }
-    
+
+    func getUpdatedRange(range: NSRange, offset: Int) -> NSRange {
+        let location = range.location
+
+        for cloze in clozes {
+            let currentLocation = cloze.range.location
+            let isSameLocation = location == currentLocation
+
+            if isSameLocation {
+                return range
+            }
+        }
+
+        return NSRange(location: range.location+offset, length: range.length)
+    }
+
     mutating func saveCloze(_ text: String) {
         var text = text
         
@@ -74,7 +89,7 @@ struct NewAddClozeViewControllerViewModel {
             
             text = convertToContext(text, cloze)
             
-            updateNSRange(with: cloze.range, offset: offset)
+            updateClozeNSRanges(with: cloze.range, offset: offset)
         }
         
         let context = CoreDataManager.shared.createContext(text)
@@ -137,19 +152,42 @@ struct NewAddClozeViewControllerViewModel {
         return attributedText.string
     }
     
-    mutating func updateNSRange(with comparedNSRange: NSRange, offset: Int) {
+    mutating func updateClozeNSRanges(with newNSRange: NSRange, offset: Int) {
         for i in 0..<clozes.count {
             let currentCloze = clozes[i]
-            
-            if comparedNSRange.location < currentCloze.range.location {
-                let location = currentCloze.range.location
-                let length = currentCloze.range.length
-                
-                clozes[i].range = NSRange(location: location + offset, length: length)
+
+            if newNSRange.location == currentCloze.range.location {
+                return
+            }
+        }
+
+        for i in 0..<clozes.count {
+            let currentCloze = clozes[i]
+            let newLocation = newNSRange.location
+            let currentLocation = currentCloze.range.location
+            let currentLength = currentCloze.range.length
+
+            if newLocation < currentLocation {
+                clozes[i].range = NSRange(location: currentLocation + offset, length: currentLength)
+
+            } else if newLocation > currentLocation && newLocation <= currentLocation + currentLength {
+                clozes[i].range = NSRange(location: currentLocation, length: currentLength+offset)
             }
         }
     }
-    
+
+    func createNewCloze(number: Int, cloze: String, range: NSRange, selectMode: NewAddClozeViewController.SelectMode) -> NewAddCloze {
+        var newCloze: NewAddCloze
+
+        if selectMode == .sentence {
+            newCloze = NewAddCloze(number: number, cloze: cloze, range: range, color: UIColor.clozeBlueText)
+        } else {
+            newCloze = NewAddCloze(number: number, cloze: cloze, range: range, color: .red)
+        }
+
+        return newCloze
+    }
+
     mutating func appendCloze(_ cloze: NewAddCloze) {
         clozes.append(cloze)
     }
@@ -184,6 +222,7 @@ struct NewAddClozeViewControllerViewModel {
             }
         }
         
+
         return result
     }
     
