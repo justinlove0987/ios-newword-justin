@@ -103,8 +103,6 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             customTextView.leadingAnchor.constraint(equalTo: textView.leadingAnchor),
             customTextView.trailingAnchor.constraint(equalTo: textView.trailingAnchor),
         ])
-
-//        customTextView.text = "What is that?"
     }
     
     // MARK: - Actions
@@ -156,7 +154,6 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         location.y -= customTextView.textContainerInset.top
         
         if let characterIndex = customTextView.characterIndex(at: location) {
-            
             var range: NSRange?
             
             if selectMode == .word {
@@ -221,9 +218,13 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
         viewModel.appendCloze(newCloze)
 
-        let information = viewModel.calculateColoredTextHeightFraction()
-        customTextView.newColorRanges = information
-        
+        let coloredText = viewModel.calculateColoredTextHeightFraction()
+        customTextView.newColorRanges = coloredText
+
+        let coloredMarks = viewModel.createColoredMarks(coloredText)
+
+        customTextView.renewTagImages(coloredMarks)
+
         customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
     }
 }

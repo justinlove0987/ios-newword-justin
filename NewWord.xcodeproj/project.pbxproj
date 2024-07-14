@@ -53,6 +53,8 @@
 		D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */; };
 		D00A72EF2BFDEC5A0064F325 /* NoCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00A72EE2BFDEC5A0064F325 /* NoCardView.xib */; };
 		D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A72F02BFDEDA00064F325 /* NoCardView.swift */; };
+		D01961102C43BEA70040735E /* CustomTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D019610F2C43BEA70040735E /* CustomTagView.swift */; };
+		D01961122C43BEB20040735E /* CustomTagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01961112C43BEB20040735E /* CustomTagView.xib */; };
 		D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */; };
 		D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4ED2BB9DA3C00CA5CAF /* Word.swift */; };
 		D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EF2BB9DA6000CA5CAF /* Article.swift */; };
@@ -79,6 +81,7 @@
 		D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */; };
 		D0A86A662C1B55390022DFDD /* ClozeViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A86A652C1B55390022DFDD /* ClozeViewControllerViewModel.swift */; };
 		D0A86A682C1B5FA00022DFDD /* ContextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A86A672C1B5FA00022DFDD /* ContextCell.swift */; };
+		D0AF303E2C43CB6500DF71CD /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF303D2C43CB6500DF71CD /* TagLabel.swift */; };
 		D0B2E3F82C2AA53E0047B2F5 /* ClozeWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2E3F72C2AA53E0047B2F5 /* ClozeWord.swift */; };
 		D0B2E3FC2C2BB15F0047B2F5 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2E3FB2C2BB15F0047B2F5 /* CustomTextView.swift */; };
 		D0D6E0E92C1CB38500C1F95E /* ContextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D6E0E82C1CB38500C1F95E /* ContextLabel.swift */; };
@@ -145,6 +148,8 @@
 		D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewModel.swift; sourceTree = "<group>"; };
 		D00A72EE2BFDEC5A0064F325 /* NoCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoCardView.xib; sourceTree = "<group>"; };
 		D00A72F02BFDEDA00064F325 /* NoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCardView.swift; sourceTree = "<group>"; };
+		D019610F2C43BEA70040735E /* CustomTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTagView.swift; sourceTree = "<group>"; };
+		D01961112C43BEB20040735E /* CustomTagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTagView.xib; sourceTree = "<group>"; };
 		D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		D020A4ED2BB9DA3C00CA5CAF /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		D020A4EF2BB9DA6000CA5CAF /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
@@ -171,6 +176,7 @@
 		D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibOwnerLoadable.swift; sourceTree = "<group>"; };
 		D0A86A652C1B55390022DFDD /* ClozeViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClozeViewControllerViewModel.swift; sourceTree = "<group>"; };
 		D0A86A672C1B5FA00022DFDD /* ContextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextCell.swift; sourceTree = "<group>"; };
+		D0AF303D2C43CB6500DF71CD /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		D0B2E3F72C2AA53E0047B2F5 /* ClozeWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClozeWord.swift; sourceTree = "<group>"; };
 		D0B2E3FB2C2BB15F0047B2F5 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		D0D6E0E82C1CB38500C1F95E /* ContextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextLabel.swift; sourceTree = "<group>"; };
@@ -265,6 +271,9 @@
 				2A67688C2C3322590040C89F /* AddClozeTextView.swift */,
 				2A034F802C37CCB600AEDA65 /* CustomNumberTagView.swift */,
 				2A034F7C2C3682C800AEDA65 /* CustomNumberTagView.xib */,
+				D019610F2C43BEA70040735E /* CustomTagView.swift */,
+				D01961112C43BEB20040735E /* CustomTagView.xib */,
+				D0AF303D2C43CB6500DF71CD /* TagLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -456,6 +465,7 @@
 				2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */,
 				D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */,
 				2A034F7D2C3682C800AEDA65 /* CustomNumberTagView.xib in Resources */,
+				D01961122C43BEB20040735E /* CustomTagView.xib in Resources */,
 				2A17DAF62C1579D700919642 /* ClozeView.xib in Resources */,
 				2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */,
 				2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */,
@@ -552,6 +562,7 @@
 				D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */,
 				D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */,
 				D0D6E0E92C1CB38500C1F95E /* ContextLabel.swift in Sources */,
+				D01961102C43BEA70040735E /* CustomTagView.swift in Sources */,
 				D032145B2BD63C2200512263 /* Preferences.swift in Sources */,
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
 				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
@@ -598,6 +609,7 @@
 				2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
 				D0B2E3FC2C2BB15F0047B2F5 /* CustomTextView.swift in Sources */,
+				D0AF303E2C43CB6500DF71CD /* TagLabel.swift in Sources */,
 				D0A86A662C1B55390022DFDD /* ClozeViewControllerViewModel.swift in Sources */,
 				D0A86A682C1B5FA00022DFDD /* ContextCell.swift in Sources */,
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,

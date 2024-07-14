@@ -9,8 +9,11 @@ import UIKit
 import NaturalLanguage
 
 class AddClozeTextView: UITextView {
-    
-    var newColorRanges: NewAddClozeViewControllerViewModel.ColoredText = .init(coloredCharacters: [:]) {
+
+    typealias ColoredText = NewAddClozeViewControllerViewModel.ColoredText
+    typealias ColoredMark = NewAddClozeViewControllerViewModel.ColoredMark
+
+    var newColorRanges: ColoredText = .init(coloredCharacters: [:]) {
         didSet {
             setNeedsDisplay()
         }
@@ -99,8 +102,8 @@ class AddClozeTextView: UITextView {
         
         // 創建自定義 UILabel
         let view = CustomNumberTagView()
+
         view.numberLabel.text = "\(textToInsert)"
-        
         view.numberLabel.font = UIFont.systemFont(ofSize: view.numberLabel.font.pointSize * scale)
         
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -110,7 +113,7 @@ class AddClozeTextView: UITextView {
         ])
         
         view.layoutIfNeeded()
-        
+
         let path =  UIBezierPath(roundedRect: view.bounds, byRoundingCorners: .topLeft, cornerRadii: CGSize(width: 3, height: 3))
         let maskLayer = CAShapeLayer()
         maskLayer.path = path.cgPath
@@ -135,7 +138,35 @@ class AddClozeTextView: UITextView {
         setNeedsLayout()
         layoutIfNeeded()
     }
-    
+
+    func renewTagImages(_ coloredMarks: [ColoredMark]) {
+        for colorMark in coloredMarks {
+            let tagView = CustomTagView(coloredMark: colorMark, lineHeight: self.font!.lineHeight)
+
+            tagView.translatesAutoresizingMaskIntoConstraints = false
+
+            NSLayoutConstraint.activate([
+                tagView.heightAnchor.constraint(equalToConstant: self.font!.lineHeight)
+            ])
+
+            tagView.layoutIfNeeded()
+
+            let image = tagView.asImage()
+
+            let attachment = NSTextAttachment()
+            attachment.image = image
+
+            attachment.bounds = CGRect(x: 0, y: self.font?.descender ?? 0, width: image.size.width, height: image.size.height)
+
+            let attachmentString = NSAttributedString(attachment: attachment)
+            let replaceRange = NSRange(location: colorMark.characterIndex, length: 1)
+
+            textStorage.replaceCharacters(in: replaceRange, with: attachmentString)
+
+            setNeedsLayout()
+        }
+    }
+
     func removeNumberImageView(at location: Int) {
         textStorage.deleteCharacters(in: NSRange(location: location, length: 1))
     }
