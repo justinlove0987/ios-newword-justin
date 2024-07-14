@@ -11,31 +11,46 @@ import OpenCC
 
 struct NewAddClozeViewControllerViewModel {
     
-    typealias CharacterIndex = Int
+    typealias CharacterLocation = Int
     
-    
-    struct CharacterGradientColor {
+    struct ColorSegment: Comparable {
+        let color: UIColor
+        let clozeLocation: Int
+        let clozeLength: Int
+        var heightFraction: Double = 0.0
         
-        struct Element: Comparable {
-            let color: UIColor
-            let location: Int
-            let length: Int
-            var heightFraction: Double = 0.0
+        static func < (lhs: ColorSegment, rhs: ColorSegment) -> Bool {
+            if lhs.clozeLocation == rhs.clozeLocation {
+                return lhs.clozeLength > rhs.clozeLength
+            }
+            return lhs.clozeLocation < rhs.clozeLocation
+        }
+    }
+    
+    struct ColoredMark {
+        let characterIndex: Int
+        var colorSegments: [ColorSegment]
+    }
+    
+    struct ColoredText {
+        
+        struct CharacterIndex: Hashable {
+            let index: Int
+            let isFirstIndex: Bool = false
             
-            static func < (lhs: Element, rhs: Element) -> Bool {
-                if lhs.location == rhs.location {
-                    return lhs.length > rhs.length
-                }
-                return lhs.location < rhs.location
+            func hash(into hasher: inout Hasher) {
+                hasher.combine(index)
+            }
+
+            static func == (lhs: CharacterIndex, rhs: CharacterIndex) -> Bool {
+                return lhs.index == rhs.index
             }
         }
         
-        var index: Int = 0
-        
-        var elements: [Int: [Element]] {
+        var coloredCharacters: [CharacterIndex: [ColorSegment]] {
             didSet {
-                for key in elements.keys {
-                    elements[key]?.sort()
+                for key in coloredCharacters.keys {
+                    coloredCharacters[key]?.sort()
                 }
             }
         }
@@ -201,47 +216,50 @@ struct NewAddClozeViewControllerViewModel {
         return clozes.map { $0.range }
     }
     
-    func getFlatRangeIndices() -> [CharacterIndex: [CharacterGradientColor.Element]] {
-        var result: [CharacterIndex: [CharacterGradientColor.Element]] = [:]
+    func createColoredText() -> ColoredText {
+        var result = ColoredText(coloredCharacters: [:])
         
         for i in 0..<clozes.count {
             let current = clozes[i]
             let nsRange = current.range
+            let location = nsRange.location
             
             for i in 0..<nsRange.length {
-                let location = nsRange.location
                 let index = location + i
                 
-                let newElement = CharacterGradientColor.Element(color: current.color, location: location, length: nsRange.length)
+                let newSegment = ColorSegment(color: current.color, 
+                                              clozeLocation: location,
+                                              clozeLength: nsRange.length)
                 
-                if result[index] != nil {
-                    result[index]!.append(newElement)
+                let characterindex = ColoredText.CharacterIndex(index: index)
+                
+                if result.coloredCharacters[characterindex] != nil {
+                    result.coloredCharacters[characterindex]!.append(newSegment)
                 } else {
-                    result[index] = [newElement]
+                    result.coloredCharacters[characterindex] = [newSegment]
                 }
             }
         }
-        
 
         return result
     }
     
-    // { characterPosition: [CharacterColor] }
-    func createChracterGradientInformation() -> [[CharacterIndex: [CharacterGradientColor.Element]]] {
-        let ranges = getFlatRangeIndices()
+    func calculateColoredTextHeightFraction() -> ColoredText {
+        let coloredText = createColoredText()
+        var newColoredText: ColoredText = .init(coloredCharacters: [:])
         
-        let newMap = ranges.map { (key, value) in
-            var elements = value
+        for (characterIndex, colorSegments) in coloredText.coloredCharacters {
+            var colorSegments = colorSegments
             
             var remainingHeightFraction: Double = 1.0
             var currentIndex = 0
             
-            elements.sort()
+            colorSegments.sort()
             
-            while currentIndex < elements.count {
+            while currentIndex < colorSegments.count {
                 var overlappingCount = 0
                 
-                countOverlapping(currentIndex: currentIndex, elements: elements, count: &overlappingCount)
+                countOverlapping(currentIndex: currentIndex, elements: colorSegments, count: &overlappingCount)
                 
                 let hasOverLapping = overlappingCount > 0
                 
@@ -249,20 +267,20 @@ struct NewAddClozeViewControllerViewModel {
                     let fraction = remainingHeightFraction / Double((overlappingCount+1))
                     
                     for _ in 0..<overlappingCount {
-                        elements[currentIndex].heightFraction = fraction
+                        colorSegments[currentIndex].heightFraction = fraction
                         remainingHeightFraction -= fraction
                         
                         currentIndex += 1
                     }
                     
                 } else {
-                    let isLastOne = currentIndex + 1 == elements.count
+                    let isLastOne = currentIndex + 1 == colorSegments.count
                     
                     if isLastOne {
-                        elements[currentIndex].heightFraction = remainingHeightFraction
+                        colorSegments[currentIndex].heightFraction = remainingHeightFraction
                     } else {
                         let fraction = remainingHeightFraction*0.1
-                        elements[currentIndex].heightFraction = remainingHeightFraction
+                        colorSegments[currentIndex].heightFraction = remainingHeightFraction
                         remainingHeightFraction -= fraction
                     }
                     
@@ -270,22 +288,34 @@ struct NewAddClozeViewControllerViewModel {
                 }
             }
             
-            return [key: elements]
+            newColoredText.coloredCharacters[characterIndex] = colorSegments
         }
         
-        
-        
-        return newMap
+        return newColoredText
     }
     
-    private func countOverlapping(currentIndex: Int, elements: [CharacterGradientColor.Element], count: inout Int) {
+    private func getMarkGradientBackGroundColor(_ coloredText: ColoredText) -> [ColoredMark] {
+        var result: [ColoredMark] = []
+        
+        for (characterIndex, colorSegments) in coloredText.coloredCharacters {
+            if characterIndex.isFirstIndex {
+                let coloredMark = ColoredMark(characterIndex: characterIndex.index, colorSegments: colorSegments)
+                
+                result.append(coloredMark)
+            }
+        }
+        
+        return result
+    }
+    
+    private func countOverlapping(currentIndex: Int, elements: [ColorSegment], count: inout Int) {
         let current = elements[currentIndex]
         
         let hasNext = currentIndex + 1 < elements.count
         
         if hasNext {
             let next = elements[currentIndex+1]
-            let isOverlapping = current.location == next.location
+            let isOverlapping = current.clozeLocation == next.clozeLocation
             
             if isOverlapping {
                 count += 1

@@ -221,10 +221,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
         viewModel.appendCloze(newCloze)
 
-
-        // customTextView.highlightedRanges = viewModel.getNSRanges()
-
-        let information = viewModel.createChracterGradientInformation()
+        let information = viewModel.calculateColoredTextHeightFraction()
         customTextView.newColorRanges = information
         
         customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
