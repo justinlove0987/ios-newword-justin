@@ -47,13 +47,7 @@ struct NewAddClozeViewControllerViewModel {
             }
         }
         
-        var coloredCharacters: [CharacterIndex: [ColorSegment]] {
-            didSet {
-                for key in coloredCharacters.keys {
-                    coloredCharacters[key]?.sort()
-                }
-            }
-        }
+        var coloredCharacters: [CharacterIndex: [ColorSegment]]
     }
     
     var clozes: [NewAddCloze] = []
