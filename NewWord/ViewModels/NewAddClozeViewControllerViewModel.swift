@@ -101,14 +101,16 @@ struct NewAddClozeViewControllerViewModel {
     
     mutating func removeAllTags(in text: String) -> String {
         var text = text
-        
-        for i in 0..<clozes.count {
-            let cloze = clozes[i]
+        let uniqueClozes = getUniqueLocationClozes()
+                
+        for i in 0..<uniqueClozes.count {
+            let currentCloze = clozes[i]
             let offset = -1
-            let tagLocation = cloze.range.location-1
+            let tagLocation = currentCloze.range.location-1
+            
             let tagRange = NSRange(location: tagLocation, length: 1)
             
-            if let tagIndex = cloze.getTagIndex(in: text) {
+            if let tagIndex = currentCloze.getTagIndex(in: text) {
                 text.remove(at: tagIndex)
                 updateClozeNSRanges(with: tagRange, offset: offset)
             }
@@ -243,6 +245,23 @@ struct NewAddClozeViewControllerViewModel {
 
     mutating func appendCloze(_ cloze: NewAddCloze) {
         clozes.append(cloze)
+    }
+    
+    func getUniqueLocationClozes() -> [NewAddCloze] {
+        var uniqueLocations: Set<Int> = .init()
+        var targetClozes: [NewAddCloze] = []
+        
+        for i in 0..<clozes.count {
+            let currentCloze = clozes[i]
+            let location = currentCloze.range.location
+            
+            if !uniqueLocations.contains(location) {
+                targetClozes.append(currentCloze)
+                uniqueLocations.insert(location)
+            }
+        }
+        
+        return targetClozes
     }
     
     func isWhitespace(_ string: String) -> Bool {
