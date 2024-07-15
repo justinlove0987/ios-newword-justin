@@ -41,7 +41,6 @@ class ShowCardsViewControllerViewModel {
 
     var tapAction: ((UITapGestureRecognizer) -> ())?
     var answerStackViewShouldHidden: ((Bool) -> ())?
-    
 
     // MARK: - Helpers
 

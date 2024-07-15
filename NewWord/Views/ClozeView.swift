@@ -33,17 +33,18 @@ class ClozeView: UIView, NibOwnerLoadable {
 
     private var card: CDCard?
     private var clozeViewModel: ClozeViewControllerViewModel?
-    private var clzoe: String?
+    private var cloze: String?
 
     private var dataSource: [[ClozeWord]] = []
 
     var delegate: ClozeViewProtocol?
 
     var inputViewTopAnchor: NSLayoutConstraint!
+    
+    // MARK: - Lifecycles
 
     init?(card: CDCard) {
         self.card = card
-        self.clozeViewModel = ClozeViewControllerViewModel()
         super.init(frame: .zero)
         commonInit()
         setup()
@@ -61,10 +62,6 @@ class ClozeView: UIView, NibOwnerLoadable {
         setup()
     }
 
-    private func commonInit() {
-        loadNibContent()
-    }
-
     deinit {
         customInputView.textField.resignFirstResponder()
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -72,10 +69,17 @@ class ClozeView: UIView, NibOwnerLoadable {
     }
 
     private func setup() {
+        setupViewModel()
         setupTextView()
+        layoutTextView()
         setupInputView()
         setupKeyboardHiding()
         setupGestureRecongnizer()
+    }
+    
+    private func setupViewModel() {
+        self.clozeViewModel = ClozeViewControllerViewModel()
+        self.clozeViewModel?.card = card
     }
 
     private func setupTextView() {
@@ -87,37 +91,10 @@ class ClozeView: UIView, NibOwnerLoadable {
         }
 
         setupCumstomTextView(number: number, text: text)
-
         contextTextView.isHidden = true
     }
-
-    private func setupInputView() {
-        addSubview(customInputView)
-        customInputView.translatesAutoresizingMaskIntoConstraints = false
-        customInputView.textField.delegate = self
-    }
-
-    private func setupCumstomTextView(number: Int, text: String) {
-        let attributedString = NSMutableAttributedString(string: text)
-
-        // 創建一個 Text Storage 和 Layout Manager
-        let textStorage = NSTextStorage(attributedString: attributedString)
-        let layoutManager = NSLayoutManager()
-        textStorage.addLayoutManager(layoutManager)
-
-        // 創建一個 Text Container 並配置它
-        let textContainer = NSTextContainer(size: CGSize(width: contextTextView.frame.width, height: contextTextView.frame.height))
-        textContainer.lineFragmentPadding = 0
-        layoutManager.addTextContainer(textContainer)
-
-        // 創建一個自定義 UITextView 並配置它
-        customTextView = CustomTextView(frame: contextTextView.frame, textContainer: textContainer)
-        customTextView.isEditable = false
-        customTextView.isScrollEnabled = true
-        customTextView.backgroundColor = .clear
-        customTextView.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        customTextView.textColor = .white
-
+    
+    private func layoutTextView() {
         self.addSubview(customTextView)
 
         customTextView.translatesAutoresizingMaskIntoConstraints = false
@@ -128,32 +105,36 @@ class ClozeView: UIView, NibOwnerLoadable {
             customTextView.leadingAnchor.constraint(equalTo: contextTextView.leadingAnchor),
             customTextView.trailingAnchor.constraint(equalTo: contextTextView.trailingAnchor),
         ])
+    }
 
-        if let textAndRange = clozeViewModel?.removeMarkerAndReplaceWithWhitespace(number: number, text: text),
-           let range = textAndRange.range {
-            
-            // 創建屬性字典
-            let attributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 18, weight: .medium),
-                .foregroundColor: UIColor.white
-            ]
+    private func setupInputView() {
+        addSubview(customInputView)
+        customInputView.translatesAutoresizingMaskIntoConstraints = false
+        customInputView.textField.delegate = self
+    }
 
-            // 創建 attributed string
-            let attributedString = NSMutableAttributedString(string: textAndRange.text, attributes: attributes)
-            
-            attributedString.addAttributes([.foregroundColor: UIColor.blue], range: range)
+    private func setupCumstomTextView(number: Int, text: String) {
+        let attributedString = NSMutableAttributedString(string: text)
+        let textStorage = NSTextStorage(attributedString: attributedString)
+        let layoutManager = NSLayoutManager()
+        
+        textStorage.addLayoutManager(layoutManager)
 
-            // 設置其他屬性
-            customTextView.isEditable = false
-            customTextView.isScrollEnabled = true
-            customTextView.backgroundColor = .clear
-            
-            // 設置 customTextView 的 attributedText
-            customTextView.attributedText = attributedString
-            
-//            customTextView.text = textAndRange.text
-            customTextView.highlightedRange = range
+        let textContainer = NSTextContainer(size: CGSize(width: contextTextView.frame.width, height: contextTextView.frame.height))
+        textContainer.lineFragmentPadding = 0
+        layoutManager.addTextContainer(textContainer)
+
+        customTextView = CustomTextView(frame: contextTextView.frame, textContainer: textContainer)
+        
+        guard let clozeRange = clozeViewModel?.getClozeRange(),
+              let context = clozeViewModel?.getContext() else {
+            return
         }
+        
+        customTextView.text = context
+        customTextView.configureText()
+        customTextView.highlightRange(clozeRange)
+        customTextView.highlightedRange = clozeRange
     }
 
     private func setupTableView() {
@@ -198,7 +179,6 @@ class ClozeView: UIView, NibOwnerLoadable {
     }
 
     @objc func tapAction(_ sender: UITapGestureRecognizer) {
-
         delegate?.tap(from: self, sender)
     }
 
@@ -243,6 +223,10 @@ class ClozeView: UIView, NibOwnerLoadable {
             customInputView.isHidden = true
 
         }
+    }
+    
+    private func commonInit() {
+        loadNibContent()
     }
 }
 

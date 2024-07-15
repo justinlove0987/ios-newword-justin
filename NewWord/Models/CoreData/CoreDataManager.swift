@@ -16,7 +16,6 @@ class CoreDataManager {
     let persistentContainer: NSPersistentContainer
 
     private init() {
-
         persistentContainer = NSPersistentContainer(name: "DataModel")
         persistentContainer.loadPersistentStores { description, error in
             if let error = error {

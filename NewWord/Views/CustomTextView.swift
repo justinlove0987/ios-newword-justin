@@ -54,4 +54,23 @@ class CustomTextView: UITextView {
 
         super.draw(rect)
     }
+    
+    func configureText() {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 18, weight: .medium),
+            .foregroundColor: UIColor.white
+        ]
+
+        let attributedString = NSMutableAttributedString(string: self.text, attributes: attributes)
+        
+        self.isEditable = false
+        self.isScrollEnabled = true
+        self.backgroundColor = .clear
+        self.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        self.attributedText = attributedString
+    }
+    
+    func highlightRange(_ range: NSRange) {
+        self.textStorage.addAttributes([.foregroundColor: UIColor.blue], range: range)
+    }
 }

@@ -11,9 +11,19 @@ import MLKitTranslate
 
 struct NewAddCloze {
     let number: Int
-    let cloze: String
+    let text: String
     var range: NSRange
     let color: UIColor
+    
+    func getTagIndex(in text: String) -> String.Index? {
+        let location = range.location - 1
+
+        if let stringIndex = text.index(text.startIndex, offsetBy: location, limitedBy: text.endIndex) {
+            return stringIndex
+        }
+        
+        return nil
+    }
 }
 
 class NewAddClozeViewController: UIViewController, StoryboardGenerated {
@@ -112,8 +122,9 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     }
     
     @IBAction func saveAction(_ sender: Any) {
-        guard let text = customTextView.text else { return }
+        guard var text = customTextView.text else { return }
         
+        text = viewModel.removeAllTags(in: text)
         viewModel.saveCloze(text)
         
         navigationController?.popViewController(animated: true)
@@ -138,7 +149,6 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             selectModeButton.setTitle("Sentence", for: .normal)
         }
     }
-    
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         // 檢查是否有文字被反白選中

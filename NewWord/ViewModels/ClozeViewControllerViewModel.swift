@@ -8,8 +8,9 @@
 import UIKit
 
 struct ClozeViewControllerViewModel {
-
     var sentences: [[String]] = []
+    
+    var card: CDCard?
     
     mutating func convertSentencesToText(sentences: [[ClozeWord]]) -> String {
         var text: String = ""
@@ -367,6 +368,30 @@ struct ClozeViewControllerViewModel {
         attributedText.addAttributes(attributes, range: range)
         
         return attributedText
+    }
+    
+    func getContext() -> String? {
+        guard let card = card,
+              let note = card.note,
+              let noteType = note.noteType,
+              let cloze = noteType.cloze,
+              let context = cloze.context?.text else {
+            return nil
+        }
+        
+        return context
+    }
+    
+    func getClozeRange() -> NSRange? {
+        guard let card = card,
+              let note = card.note,
+              let noteType = note.noteType,
+              let cloze = noteType.cloze,
+              let context = cloze.context?.text else {
+            return nil
+        }
+        
+        return NSRange(location: Int(cloze.location), length: Int(cloze.length))
     }
 
 }

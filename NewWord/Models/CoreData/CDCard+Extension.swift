@@ -15,7 +15,6 @@ public class CDCard: NSManagedObject {
 
 }
 
-
 extension CDCard {
     
     var totalTime: Double {

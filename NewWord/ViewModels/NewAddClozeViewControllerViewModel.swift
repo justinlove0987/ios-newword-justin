@@ -46,7 +46,6 @@ struct NewAddClozeViewControllerViewModel {
     }
     
     struct ColoredText {
-        
         struct CharacterIndex: Hashable {
             let index: Int
             var isFirstIndex: Bool = false
@@ -99,30 +98,43 @@ struct NewAddClozeViewControllerViewModel {
 
         return NSRange(location: range.location+offset, length: range.length)
     }
-
-    mutating func saveCloze(_ text: String) {
+    
+    mutating func removeAllTags(in text: String) -> String {
         var text = text
-        
-        let firstDeck = CoreDataManager.shared.getDecks().first!
         
         for i in 0..<clozes.count {
             let cloze = clozes[i]
-            let offset = 6+String(cloze.number).count
+            let offset = -1
+            let tagLocation = cloze.range.location-1
+            let tagRange = NSRange(location: tagLocation, length: 1)
             
-            text = convertToContext(text, cloze)
-            
-            updateClozeNSRanges(with: cloze.range, offset: offset)
+            if let tagIndex = cloze.getTagIndex(in: text) {
+                text.remove(at: tagIndex)
+                updateClozeNSRanges(with: tagRange, offset: offset)
+            }
         }
         
+        return text
+    }
+
+    mutating func saveCloze(_ text: String) {
+        let firstDeck = CoreDataManager.shared.getDecks().first!
         let context = CoreDataManager.shared.createContext(text)
         
-        for cloze in clozes {
-            let cloze = CoreDataManager.shared.createCloze(number: cloze.number, hint: "", clozeWord: cloze.cloze)
-            cloze.context = context
-            cloze.contextId = context.id
+        for i in 0..<clozes.count {
+            let currentCloze = clozes[i]
+            guard let word = textInRange(text: text, range: currentCloze.range) else { continue }
+            
+            let newCloze = CoreDataManager.shared.createCloze(number: currentCloze.number, hint: "", clozeWord: currentCloze.text)
+            
+            newCloze.context = context
+            newCloze.contextId = context.id
+            newCloze.clozeWord = word
+            newCloze.location = Int64(currentCloze.range.location)
+            newCloze.length = Int64(currentCloze.range.length)
             
             let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: 1)
-            noteType.cloze = cloze
+            noteType.cloze = newCloze
             
             let note = CoreDataManager.shared.createNote(noteType: noteType)
             
@@ -130,6 +142,11 @@ struct NewAddClozeViewControllerViewModel {
         }
         
         CoreDataManager.shared.save()
+    }
+    
+    func textInRange(text: String, range: NSRange) -> String? {
+        guard let rangeInString = Range(range, in: text) else { return nil }
+        return String(text[rangeInString])
     }
     
     func containsCloze(_ range: NSRange) -> Bool {
@@ -175,8 +192,8 @@ struct NewAddClozeViewControllerViewModel {
 
     mutating func convertToContext(_ text: String, _ cloze: NewAddCloze) -> String {
         let attributedText = NSMutableAttributedString(string: text)
-        let frontCharacter = NSAttributedString(string: "{{C\(cloze.number):")
-        let backCharacter = NSAttributedString(string: "}}")
+        let frontCharacter = NSAttributedString(string: "{C\(cloze.number)")
+        let backCharacter = NSAttributedString(string: "C\(cloze.number)}")
         
         let backIndex = cloze.range.location + cloze.range.length
         let frontIndex = cloze.range.location
@@ -187,6 +204,7 @@ struct NewAddClozeViewControllerViewModel {
         return attributedText.string
     }
     
+    /// 在加入cloze前update就不須理會新的cloze是否在array中
     mutating func updateClozeNSRanges(with newNSRange: NSRange, offset: Int) {
         for i in 0..<clozes.count {
             let currentCloze = clozes[i]
@@ -215,9 +233,9 @@ struct NewAddClozeViewControllerViewModel {
         var newCloze: NewAddCloze
 
         if selectMode == .sentence {
-            newCloze = NewAddCloze(number: number, cloze: cloze, range: range, color: UIColor.clozeBlueText)
+            newCloze = NewAddCloze(number: number, text: cloze, range: range, color: UIColor.clozeBlueText)
         } else {
-            newCloze = NewAddCloze(number: number, cloze: cloze, range: range, color: .red)
+            newCloze = NewAddCloze(number: number, text: cloze, range: range, color: .red)
         }
 
         return newCloze
