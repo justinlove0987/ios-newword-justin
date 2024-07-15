@@ -26,16 +26,12 @@ class ClozeView: UIView, NibOwnerLoadable {
     }
 
     @IBOutlet weak var customInputView: InputAccessoryView!
-    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var contentView: UIView!
-    
+
     private var customTextView: CustomTextView!
 
     private var card: CDCard?
     private var clozeViewModel: ClozeViewControllerViewModel?
-    private var cloze: String?
-
-    private var dataSource: [[ClozeWord]] = []
     
     var inputViewTopAnchor: NSLayoutConstraint!
 
@@ -126,42 +122,6 @@ class ClozeView: UIView, NibOwnerLoadable {
         customTextView.highlightedRange = clozeRange
     }
 
-    private func setupTableView() {
-        guard let card = card,
-              let context = CoreDataManager.shared.getContext(from: card),
-              let number = CoreDataManager.shared.getClozeNumber(from: card) else {
-            return
-        }
-
-        tableView.register(ContextCell.self, forCellReuseIdentifier: "ContextCell")
-
-        let sentences = clozeViewModel!.convertTextIntoSentences(text: context)
-
-
-        let newClozeWords = sentences.map { sentence in
-            sentence.map { word in
-                var word = word
-
-                if let result = clozeViewModel!.extractNumberAndCoreWord(from: word.text) {
-
-                    let newText = result.1
-                    let extractedNumber = result.0
-
-                    if number == extractedNumber {
-                        word.clozeNumber = extractedNumber
-                        word.selected = true
-                    }
-
-                    word.text = newText
-                }
-
-                return word
-            }
-        }
-
-        dataSource = newClozeWords
-    }
-
     private func setupGestureRecongnizer() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
         customTextView.addGestureRecognizer(tap)
@@ -210,7 +170,6 @@ class ClozeView: UIView, NibOwnerLoadable {
             }
             
             customInputView.isHidden = true
-
         }
     }
     
@@ -275,7 +234,6 @@ extension ClozeView {
 // MARK: - UITextFieldDelegate
 
 extension ClozeView: UITextFieldDelegate {
-
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         nextState()
         
@@ -284,20 +242,6 @@ extension ClozeView: UITextFieldDelegate {
         return true
     }
 
-}
-
-extension ClozeView: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ContextCell", for: indexPath) as! ContextCell
-
-        cell.configureCell(with: dataSource[indexPath.row])
-
-        return cell
-    }
 }
 
 // MARK: - ShowCardsSubviewDelegate
