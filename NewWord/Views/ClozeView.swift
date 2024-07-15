@@ -26,9 +26,9 @@ class ClozeView: UIView, NibOwnerLoadable {
     }
 
     @IBOutlet weak var customInputView: InputAccessoryView!
-    @IBOutlet weak var contextTextView: UITextView!
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var contentView: UIView!
+    
     private var customTextView: CustomTextView!
 
     private var card: CDCard?
@@ -36,10 +36,10 @@ class ClozeView: UIView, NibOwnerLoadable {
     private var cloze: String?
 
     private var dataSource: [[ClozeWord]] = []
+    
+    var inputViewTopAnchor: NSLayoutConstraint!
 
     var delegate: ClozeViewProtocol?
-
-    var inputViewTopAnchor: NSLayoutConstraint!
     
     // MARK: - Lifecycles
 
@@ -81,18 +81,6 @@ class ClozeView: UIView, NibOwnerLoadable {
         self.clozeViewModel = ClozeViewControllerViewModel()
         self.clozeViewModel?.card = card
     }
-
-    private func setupTextView() {
-        guard let card = card,
-              let context = CoreDataManager.shared.getContext(from: card),
-              let number = CoreDataManager.shared.getClozeNumber(from: card),
-              let text = clozeViewModel?.retainMarker(number: number, text: context) else {
-            return
-        }
-
-        setupCumstomTextView(number: number, text: text)
-        contextTextView.isHidden = true
-    }
     
     private func layoutTextView() {
         self.addSubview(customTextView)
@@ -100,10 +88,10 @@ class ClozeView: UIView, NibOwnerLoadable {
         customTextView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            customTextView.topAnchor.constraint(equalTo: contextTextView.topAnchor),
-            customTextView.bottomAnchor.constraint(equalTo: contextTextView.bottomAnchor),
-            customTextView.leadingAnchor.constraint(equalTo: contextTextView.leadingAnchor),
-            customTextView.trailingAnchor.constraint(equalTo: contextTextView.trailingAnchor),
+            customTextView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            customTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            customTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            customTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
     }
 
@@ -113,18 +101,19 @@ class ClozeView: UIView, NibOwnerLoadable {
         customInputView.textField.delegate = self
     }
 
-    private func setupCumstomTextView(number: Int, text: String) {
+    private func setupTextView() {
+        guard let text = clozeViewModel?.getContext() else { return }
         let attributedString = NSMutableAttributedString(string: text)
         let textStorage = NSTextStorage(attributedString: attributedString)
         let layoutManager = NSLayoutManager()
         
         textStorage.addLayoutManager(layoutManager)
 
-        let textContainer = NSTextContainer(size: CGSize(width: contextTextView.frame.width, height: contextTextView.frame.height))
+        let textContainer = NSTextContainer(size: CGSize(width: contentView.frame.width, height: contentView.frame.height))
         textContainer.lineFragmentPadding = 0
         layoutManager.addTextContainer(textContainer)
 
-        customTextView = CustomTextView(frame: contextTextView.frame, textContainer: textContainer)
+        customTextView = CustomTextView(frame: contentView.frame, textContainer: textContainer)
         
         guard let clozeRange = clozeViewModel?.getClozeRange(),
               let context = clozeViewModel?.getContext() else {

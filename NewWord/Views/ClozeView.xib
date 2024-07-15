@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -10,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClozeView" customModule="NewWord" customModuleProvider="target">
             <connections>
-                <outlet property="contextTextView" destination="23C-78-fxq" id="eLV-bA-tie"/>
+                <outlet property="contentView" destination="2bf-hv-7qa" id="3fY-dp-lDg"/>
                 <outlet property="customInputView" destination="AHN-Ek-V99" id="YAW-0W-56D"/>
                 <outlet property="tableView" destination="hNE-jz-vON" id="0ER-s4-epL"/>
             </connections>
@@ -34,28 +35,24 @@
                         <outlet property="dataSource" destination="-1" id="LRe-mQ-iXv"/>
                     </connections>
                 </tableView>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="23C-78-fxq">
-                    <rect key="frame" x="20" y="0.0" width="353" height="748"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                    <color key="textColor" systemColor="labelColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                </textView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2bf-hv-7qa">
+                    <rect key="frame" x="20" y="79" width="353" height="669"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="hNE-jz-vON" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="2Iw-fF-F19"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="2bf-hv-7qa" secondAttribute="bottom" constant="70" id="AQk-Ri-Vq4"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="hNE-jz-vON" secondAttribute="bottom" constant="70" id="Cdd-Os-Igb"/>
                 <constraint firstAttribute="bottom" secondItem="AHN-Ek-V99" secondAttribute="bottom" id="Dtz-gQ-NJh"/>
+                <constraint firstItem="2bf-hv-7qa" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Ea6-iM-G52"/>
                 <constraint firstItem="AHN-Ek-V99" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="JoV-y8-3mg"/>
-                <constraint firstItem="23C-78-fxq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="O2I-CU-2mG"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="23C-78-fxq" secondAttribute="trailing" constant="20" id="VCl-I8-cvi"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="23C-78-fxq" secondAttribute="bottom" constant="70" id="Z1D-l0-g3c"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="2bf-hv-7qa" secondAttribute="trailing" constant="20" id="Osh-HQ-8K4"/>
+                <constraint firstItem="2bf-hv-7qa" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="evP-gy-A4i"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="AHN-Ek-V99" secondAttribute="trailing" id="fsh-Es-Eb7"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="hNE-jz-vON" secondAttribute="trailing" id="hX5-Ye-nHB"/>
-                <constraint firstItem="23C-78-fxq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mgp-OK-Jek"/>
                 <constraint firstItem="hNE-jz-vON" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="utP-zh-NXW"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -63,9 +60,6 @@
         </view>
     </objects>
     <resources>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
