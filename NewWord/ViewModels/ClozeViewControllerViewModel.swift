@@ -386,8 +386,7 @@ struct ClozeViewControllerViewModel {
         guard let card = card,
               let note = card.note,
               let noteType = note.noteType,
-              let cloze = noteType.cloze,
-              let context = cloze.context?.text else {
+              let cloze = noteType.cloze else {
             return nil
         }
         

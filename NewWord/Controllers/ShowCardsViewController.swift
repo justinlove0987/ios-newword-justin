@@ -17,8 +17,6 @@ protocol ShowCardsSubviewDelegate: UIView {
     func hasNextState() -> Bool
     
     func nextState()
-
-    func setupAfterSubviewInHierarchy()
     
     func isFinalState() -> Bool
 }
@@ -46,8 +44,6 @@ extension ShowCardsSubviewDelegate {
         
         currentState = nextState
     }
-
-    func setupAfterSubviewInHierarchy() {}
 }
 
 class ShowCardsViewController: UIViewController {
@@ -146,8 +142,6 @@ class ShowCardsViewController: UIViewController {
         ])
         
         view.layoutIfNeeded()
-        
-        newSubview.setupAfterSubviewInHierarchy()
         
         updateAnswerStateView(isFinalState: newSubview.isFinalState())
     }

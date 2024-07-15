@@ -32,6 +32,7 @@ class ClozeView: UIView, NibOwnerLoadable {
 
     private var card: CDCard?
     private var clozeViewModel: ClozeViewControllerViewModel?
+    private var isFirsTimeGetSuperViewSafeAreaInset = true
     
     var inputViewTopAnchor: NSLayoutConstraint!
 
@@ -56,6 +57,18 @@ class ClozeView: UIView, NibOwnerLoadable {
         super.init(coder: aDecoder)
         commonInit()
         setup()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        guard let superview else { return }
+        let hasSuperviewSafeAreaTopInsets = superview.safeAreaInsets.top != 0
+        
+        if isFirsTimeGetSuperViewSafeAreaInset && hasSuperviewSafeAreaTopInsets  {
+            layoutInputView()
+            isFirsTimeGetSuperViewSafeAreaInset = false
+        }
     }
 
     deinit {
@@ -131,10 +144,10 @@ class ClozeView: UIView, NibOwnerLoadable {
         delegate?.tap(from: self, sender)
     }
 
-    func setupAfterSubviewInHierarchy() {
+    func layoutInputView() {
         guard let superview = superview else { return }
 
-        inputViewTopAnchor = customInputView.topAnchor.constraint(equalTo: topAnchor, constant: self.frame.maxY - self.customInputView.frame.height - superview.safeAreaInsets.top)
+        inputViewTopAnchor = customInputView.topAnchor.constraint(equalTo: topAnchor, constant: self.frame.maxY - self.customInputView.frame.height  - superview.safeAreaInsets.top)
 
         NSLayoutConstraint.activate([
             customInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
