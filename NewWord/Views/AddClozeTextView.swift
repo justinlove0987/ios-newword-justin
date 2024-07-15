@@ -134,9 +134,7 @@ class AddClozeTextView: UITextView {
         let attachmentString = NSAttributedString(attachment: attachment)
         
         textStorage.insert(attachmentString, at: location)
-        
         setNeedsLayout()
-        layoutIfNeeded()
     }
 
     func renewTagImages(_ coloredMarks: [ColoredMark]) {

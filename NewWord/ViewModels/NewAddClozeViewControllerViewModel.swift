@@ -147,10 +147,9 @@ struct NewAddClozeViewControllerViewModel {
     }
     
     mutating func removeCloze(_ range: NSRange) {
-        
         for i in 0..<clozes.count {
             let currentCloze = clozes[i]
-            
+
             let findCloze = currentCloze.range == range
             
             if findCloze {
@@ -159,7 +158,21 @@ struct NewAddClozeViewControllerViewModel {
             }
         }
     }
-    
+
+    func hasDuplicateClozeLocations(with range: NSRange) -> Bool {
+        for i in 0..<clozes.count {
+            let currentCloze = clozes[i]
+            let currentLocation = currentCloze.range.location
+            let hasDuplicates = range.location == currentLocation
+
+            if hasDuplicates {
+                return true
+            }
+        }
+
+        return false
+    }
+
     mutating func convertToContext(_ text: String, _ cloze: NewAddCloze) -> String {
         let attributedText = NSMutableAttributedString(string: text)
         let frontCharacter = NSAttributedString(string: "{{C\(cloze.number):")
@@ -225,7 +238,7 @@ struct NewAddClozeViewControllerViewModel {
     
     func createColoredText() -> ColoredText {
         var result = ColoredText(coloredCharacters: [:])
-        
+
         for i in 0..<clozes.count {
             let current = clozes[i]
             let nsRange = current.range
@@ -235,15 +248,23 @@ struct NewAddClozeViewControllerViewModel {
                 let index = location + i
                 let isFirstIndex = location == index
 
-                let newSegment = ColorSegment(color: current.color, 
+                let newSegment = ColorSegment(color: current.color,
                                               clozeLocation: location,
                                               clozeLength: nsRange.length, tagNumber: current.number)
                 
                 var characterindex = ColoredText.CharacterIndex(index: index)
-                characterindex.isFirstIndex = isFirstIndex
+
+                characterindex.isFirstIndex = location == index
 
                 if result.coloredCharacters[characterindex] != nil {
                     result.coloredCharacters[characterindex]!.append(newSegment)
+
+                    if isFirstIndex  {
+                        let value = result.coloredCharacters[characterindex]!
+                        result.coloredCharacters.removeValue(forKey: characterindex)
+                        result.coloredCharacters[characterindex] = value
+                    }
+
                 } else {
                     result.coloredCharacters[characterindex] = [newSegment]
                 }
@@ -305,9 +326,6 @@ struct NewAddClozeViewControllerViewModel {
                     currentIndex += 1
                 }
             }
-
-
-
 
             newColoredText.coloredCharacters[characterIndex] = colorSegments
         }

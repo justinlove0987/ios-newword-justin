@@ -175,17 +175,25 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
                 }
             }
         }
-        
     }
     
     private func clozeWord(range: NSRange) {
         if viewModel.containsCloze(range) {
-            let updatedRange = NSRange(location: range.location-1, length: range.length)
-            
-            customTextView.removeNumberImageView(at: updatedRange.location)
             viewModel.removeCloze(range)
-            viewModel.updateClozeNSRanges(with: updatedRange, offset: -1)
-            customTextView.highlightedRanges = viewModel.getNSRanges()
+
+            if !viewModel.hasDuplicateClozeLocations(with: range) {
+                let updatedRange = NSRange(location: range.location-1, length: range.length)
+                customTextView.removeNumberImageView(at: updatedRange.location)
+                viewModel.updateClozeNSRanges(with: updatedRange, offset: -1)
+            }
+
+            let coloredText = viewModel.calculateColoredTextHeightFraction()
+            let coloredMarks = viewModel.createColoredMarks(coloredText)
+
+            customTextView.newColorRanges = coloredText
+            customTextView.renewTagImages(coloredMarks)
+            customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
+
             return
         }
         
@@ -212,19 +220,16 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
 
         let offset = 1
         let updateRange = viewModel.getUpdatedRange(range: range, offset: offset)
-
         let newCloze = viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, selectMode: selectMode)
 
         viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
         viewModel.appendCloze(newCloze)
 
         let coloredText = viewModel.calculateColoredTextHeightFraction()
-        customTextView.newColorRanges = coloredText
-
         let coloredMarks = viewModel.createColoredMarks(coloredText)
-
+        
+        customTextView.newColorRanges = coloredText
         customTextView.renewTagImages(coloredMarks)
-
         customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
     }
 }
