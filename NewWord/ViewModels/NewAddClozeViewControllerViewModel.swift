@@ -21,7 +21,7 @@ struct NewAddClozeViewControllerViewModel {
         var tagNumber: Int?
 
         var isTag: Bool {
-            guard let tagIndex else { return false }
+            guard tagIndex != nil else { return false }
 
             return true
         }
@@ -101,9 +101,9 @@ struct NewAddClozeViewControllerViewModel {
     
     mutating func removeAllTags(in text: String) -> String {
         var text = text
-        let uniqueClozes = getUniqueLocationClozes()
-                
-        for i in 0..<uniqueClozes.count {
+        let uniqueClozeIndices = getUniqueLocationClozeIndices()
+
+        for i in uniqueClozeIndices {
             let currentCloze = clozes[i]
             let offset = -1
             let tagLocation = currentCloze.range.location-1
@@ -247,21 +247,21 @@ struct NewAddClozeViewControllerViewModel {
         clozes.append(cloze)
     }
     
-    func getUniqueLocationClozes() -> [NewAddCloze] {
+    func getUniqueLocationClozeIndices() -> [Int] {
         var uniqueLocations: Set<Int> = .init()
-        var targetClozes: [NewAddCloze] = []
-        
+        var indices: [Int] = []
+
         for i in 0..<clozes.count {
             let currentCloze = clozes[i]
             let location = currentCloze.range.location
             
             if !uniqueLocations.contains(location) {
-                targetClozes.append(currentCloze)
+                indices.append(i)
                 uniqueLocations.insert(location)
             }
         }
         
-        return targetClozes
+        return indices
     }
     
     func isWhitespace(_ string: String) -> Bool {

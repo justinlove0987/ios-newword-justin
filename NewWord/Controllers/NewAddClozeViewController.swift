@@ -151,9 +151,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     }
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
-        // 檢查是否有文字被反白選中
         if let _ = customTextView.selectedTextRange {
-            // 取消文字的反白選中狀態
             customTextView.selectedTextRange = nil
         }
         
