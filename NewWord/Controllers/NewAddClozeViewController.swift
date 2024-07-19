@@ -130,6 +130,15 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func settingAction(_ sender: UIButton) {
+        
+        
+        let controller = TagSettingViewController.instantiate()
+        
+        navigationController?.present(controller, animated: true)
+    }
+    
+    
     @IBAction func selectModeAction(_ sender: UIButton) {
         let currentSelectModeRawValue = selectMode.rawValue
         let isLastMode = currentSelectModeRawValue + 1 ==  SelectMode.allCases.count

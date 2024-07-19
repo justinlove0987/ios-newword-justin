@@ -853,23 +853,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dkh-Qa-fXZ">
-                                <rect key="frame" x="298" y="79" width="75" height="34.333333333333343"/>
+                                <rect key="frame" x="314.33333333333331" y="79" width="58.666666666666686" height="34.333333333333343"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="確定"/>
                                 <connections>
                                     <action selector="saveAction:" destination="Q3G-wX-9Sl" eventType="touchUpInside" id="Z6j-2k-5IX"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="N4a-cY-sVJ">
-                                <rect key="frame" x="131" y="79" width="131" height="32"/>
-                                <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
-                                </segments>
-                                <connections>
-                                    <action selector="segmentedAction:" destination="Q3G-wX-9Sl" eventType="valueChanged" id="m3j-Lw-6xj"/>
-                                </connections>
-                            </segmentedControl>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rvU-6I-nmn">
                                 <rect key="frame" x="15" y="165" width="363" height="618.66666666666663"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -948,24 +938,31 @@ Environmental sustainability has become a crucial issue in today's world. With t
                                     </button>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mTE-pj-Wm7">
+                                <rect key="frame" x="235.66666666666666" y="79" width="58.666666666666657" height="34.333333333333343"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="設定"/>
+                                <connections>
+                                    <action selector="settingAction:" destination="Q3G-wX-9Sl" eventType="touchUpInside" id="wdA-eT-Tuu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="g4f-Hp-tTQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="mTE-pj-Wm7" firstAttribute="centerY" secondItem="dkh-Qa-fXZ" secondAttribute="centerY" id="7Dc-Wc-IMI"/>
                             <constraint firstItem="rvU-6I-nmn" firstAttribute="top" secondItem="fqA-fm-8y1" secondAttribute="bottom" id="K9n-z8-QpH"/>
                             <constraint firstItem="rvU-6I-nmn" firstAttribute="leading" secondItem="g4f-Hp-tTQ" secondAttribute="leading" constant="15" id="KVS-Fd-gqe"/>
                             <constraint firstItem="HdE-4v-QW0" firstAttribute="bottom" secondItem="g4f-Hp-tTQ" secondAttribute="bottom" id="M2q-AM-fUo"/>
                             <constraint firstItem="dkh-Qa-fXZ" firstAttribute="top" secondItem="g4f-Hp-tTQ" secondAttribute="top" constant="20" id="MBn-iI-z2H"/>
                             <constraint firstItem="g4f-Hp-tTQ" firstAttribute="trailing" secondItem="fqA-fm-8y1" secondAttribute="trailing" id="XGD-fv-7Gh"/>
-                            <constraint firstItem="N4a-cY-sVJ" firstAttribute="centerX" secondItem="C6T-Th-Jot" secondAttribute="centerX" id="Yia-M1-o5k"/>
                             <constraint firstItem="g4f-Hp-tTQ" firstAttribute="trailing" secondItem="HdE-4v-QW0" secondAttribute="trailing" id="Z9c-0L-2NA"/>
                             <constraint firstItem="g4f-Hp-tTQ" firstAttribute="trailing" secondItem="dkh-Qa-fXZ" secondAttribute="trailing" constant="20" id="Zvg-fM-GZ3"/>
-                            <constraint firstItem="dkh-Qa-fXZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="N4a-cY-sVJ" secondAttribute="trailing" constant="8" symbolic="YES" id="aIB-xP-Fpc"/>
                             <constraint firstItem="HdE-4v-QW0" firstAttribute="leading" secondItem="g4f-Hp-tTQ" secondAttribute="leading" id="acH-Zz-CjS"/>
-                            <constraint firstItem="N4a-cY-sVJ" firstAttribute="top" secondItem="g4f-Hp-tTQ" secondAttribute="top" constant="20" id="e02-gx-AUp"/>
                             <constraint firstItem="rvU-6I-nmn" firstAttribute="trailing" secondItem="g4f-Hp-tTQ" secondAttribute="trailing" constant="-15" id="fgT-Tu-mgj"/>
                             <constraint firstItem="HdE-4v-QW0" firstAttribute="top" secondItem="rvU-6I-nmn" secondAttribute="bottom" id="hvR-Uf-EJc"/>
                             <constraint firstItem="fqA-fm-8y1" firstAttribute="top" secondItem="dkh-Qa-fXZ" secondAttribute="bottom" id="qdt-Mc-hYu"/>
+                            <constraint firstItem="dkh-Qa-fXZ" firstAttribute="leading" secondItem="mTE-pj-Wm7" secondAttribute="trailing" constant="20" id="vpj-RW-cBi"/>
                             <constraint firstItem="fqA-fm-8y1" firstAttribute="leading" secondItem="g4f-Hp-tTQ" secondAttribute="leading" id="wf8-Jv-YxE"/>
                         </constraints>
                     </view>
@@ -979,6 +976,36 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PJJ-uU-EPO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3464.8854961832058" y="1407.7464788732395"/>
+        </scene>
+        <!--Tag Setting View Controller-->
+        <scene sceneID="ngK-nX-R88">
+            <objects>
+                <viewController storyboardIdentifier="TagSettingViewController" id="jOE-1t-lqB" customClass="TagSettingViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rKp-fi-ffr">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zXV-pE-uLt">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ob4-CG-WrV"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zXV-pE-uLt" firstAttribute="top" secondItem="ob4-CG-WrV" secondAttribute="top" id="6YA-4A-1R1"/>
+                            <constraint firstItem="ob4-CG-WrV" firstAttribute="bottom" secondItem="zXV-pE-uLt" secondAttribute="bottom" id="8kV-l1-oOP"/>
+                            <constraint firstItem="ob4-CG-WrV" firstAttribute="trailing" secondItem="zXV-pE-uLt" secondAttribute="trailing" id="HA4-a5-U7o"/>
+                            <constraint firstItem="zXV-pE-uLt" firstAttribute="leading" secondItem="ob4-CG-WrV" secondAttribute="leading" id="HZ8-vv-H44"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="zXV-pE-uLt" id="M0H-HB-6dL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Awd-sH-OXu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4208" y="1408"/>
         </scene>
         <!--Add Cloze View Controller-->
         <scene sceneID="FUc-lo-w6H">
@@ -1281,16 +1308,16 @@ Environmental sustainability has become a crucial issue in today's world. With t
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemCyanColor">
-            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemTealColor">
-            <color red="0.18823529410000001" green="0.69019607839999997" blue="0.78039215689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

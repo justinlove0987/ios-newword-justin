@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A02EF292C4A386500E21A6E /* TagTestingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A02EF272C4A386500E21A6E /* TagTestingCell.swift */; };
+		2A02EF2A2C4A386500E21A6E /* TagTestingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A02EF282C4A386500E21A6E /* TagTestingCell.xib */; };
 		2A034F7D2C3682C800AEDA65 /* CustomNumberTagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A034F7C2C3682C800AEDA65 /* CustomNumberTagView.xib */; };
 		2A034F812C37CCB600AEDA65 /* CustomNumberTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034F802C37CCB600AEDA65 /* CustomNumberTagView.swift */; };
 		2A17DAF62C1579D700919642 /* ClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A17DAF52C1579D700919642 /* ClozeView.xib */; };
@@ -42,6 +44,7 @@
 		2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */; };
 		2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */; };
 		2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */; };
+		2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */; };
 		2AE025F42BF49686006EC021 /* CardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE025F32BF49686006EC021 /* CardManager.swift */; };
 		2AE025F62BF4983A006EC021 /* NoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE025F52BF4983A006EC021 /* NoteManager.swift */; };
 		2AE025F82BF49C6F006EC021 /* notes.json in Resources */ = {isa = PBXBuildFile; fileRef = 2AE025F72BF49C6F006EC021 /* notes.json */; };
@@ -100,6 +103,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A02EF272C4A386500E21A6E /* TagTestingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTestingCell.swift; sourceTree = "<group>"; };
+		2A02EF282C4A386500E21A6E /* TagTestingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagTestingCell.xib; sourceTree = "<group>"; };
 		2A034F7C2C3682C800AEDA65 /* CustomNumberTagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomNumberTagView.xib; sourceTree = "<group>"; };
 		2A034F802C37CCB600AEDA65 /* CustomNumberTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNumberTagView.swift; sourceTree = "<group>"; };
 		2A17DAF52C1579D700919642 /* ClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClozeView.xib; sourceTree = "<group>"; };
@@ -134,6 +139,7 @@
 		2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSelectionCell.xib; sourceTree = "<group>"; };
 		2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDeckViewController.swift; sourceTree = "<group>"; };
 		2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeView.swift; sourceTree = "<group>"; };
+		2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSettingViewController.swift; sourceTree = "<group>"; };
 		2AE025F32BF49686006EC021 /* CardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardManager.swift; sourceTree = "<group>"; };
 		2AE025F52BF4983A006EC021 /* NoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteManager.swift; sourceTree = "<group>"; };
 		2AE025F72BF49C6F006EC021 /* notes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = notes.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
@@ -274,6 +280,8 @@
 				D019610F2C43BEA70040735E /* CustomTagView.swift */,
 				D01961112C43BEB20040735E /* CustomTagView.xib */,
 				D0AF303D2C43CB6500DF71CD /* TagLabel.swift */,
+				2A02EF272C4A386500E21A6E /* TagTestingCell.swift */,
+				2A02EF282C4A386500E21A6E /* TagTestingCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -315,6 +323,7 @@
 				2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */,
 				D0696DD62C31094600FE4FE1 /* NewAddClozeViewController.swift */,
 				D03107CB2C16EE6200EEF772 /* CardInformationViewController.swift */,
+				2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -475,6 +484,7 @@
 				2A17DAFC2C158C3B00919642 /* InputAccessoryView.xib in Resources */,
 				D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */,
 				D00A72EF2BFDEC5A0064F325 /* NoCardView.xib in Resources */,
+				2A02EF2A2C4A386500E21A6E /* TagTestingCell.xib in Resources */,
 				D03107D32C16F2AA00EEF772 /* LearningRecordCell.xib in Resources */,
 				D0DA5ACC2BB66A05008644DC /* Base in Resources */,
 			);
@@ -555,6 +565,7 @@
 				2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */,
 				2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */,
 				2A5D7B062C0EEBA600B2F021 /* AddClozeViewController.swift in Sources */,
+				2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */,
 				2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */,
 				D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */,
 				D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */,
@@ -567,6 +578,7 @@
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
 				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
+				2A02EF292C4A386500E21A6E /* TagTestingCell.swift in Sources */,
 				2A67688D2C3322590040C89F /* AddClozeTextView.swift in Sources */,
 				D09262BD2C097F3D00CA90BA /* CDNoteType+Extension.swift in Sources */,
 				D0D8D5F62C0F0920001BB415 /* String+Extension.swift in Sources */,
