@@ -12,8 +12,10 @@ class TagTestingCell: UITableViewCell {
     @IBOutlet var secondButtons: [UIButton]!
     @IBOutlet var thirdButtons: [UIButton]!
     @IBOutlet var forthButtons: [UIView]!
-    
     @IBOutlet weak var forthStackView: UIStackView!
+    
+    
+    @IBOutlet var fifthViews: [UIView]!
     
     private var isOpen = true
     
@@ -164,5 +166,11 @@ class TagTestingCell: UITableViewCell {
                 
             }
         }
+    }
+    
+    
+    @IBAction func firstButtonAction(_ sender: UIButton) {
+        
+        animate3(fifthViews)
     }
 }
