@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pSA-EX-MVA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gOg-bx-wyz">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -23,7 +23,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1064.885496183206" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="4811.4503816793895" y="776.76056338028172"/>
         </scene>
         <!--Review View Controller-->
         <scene sceneID="gZK-6a-Dpi">
@@ -34,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="NZU-q5-NZz">
-                                <rect key="frame" x="19.666666666666657" y="59" width="353.66666666666674" height="213"/>
+                                <rect key="frame" x="19.666666666666657" y="103" width="353.66666666666674" height="213"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="DPq-g1-34L">
                                         <rect key="frame" x="0.0" y="0.0" width="353.66666666666669" height="96.666666666666671"/>
@@ -65,7 +65,7 @@
                                 </subviews>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ceV-BR-XvJ">
-                                <rect key="frame" x="20" y="292" width="353" height="451.66666666666674"/>
+                                <rect key="frame" x="20" y="336" width="353" height="358.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeckCell" id="COU-0U-ZFe" customClass="DeckCell" customModule="NewWord" customModuleProvider="target">
@@ -136,28 +136,12 @@
                                     <outlet property="delegate" destination="q0q-gF-HWm" id="9Kz-0f-Oy9"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yo1-Xi-2Bs">
-                                <rect key="frame" x="273" y="763.66666666666663" width="100" height="34.333333333333371"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="新增Deck"/>
-                                <connections>
-                                    <action selector="addDeckAction:" destination="q0q-gF-HWm" eventType="touchUpInside" id="M19-t5-z4M"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbz-OJ-oNV">
-                                <rect key="frame" x="142.33333333333334" y="763.66666666666663" width="110.66666666666666" height="34.333333333333371"/>
+                                <rect key="frame" x="326" y="714.66666666666663" width="47" height="34.333333333333371"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="新增克漏字"/>
+                                <buttonConfiguration key="configuration" style="filled" image="plus" catalog="system"/>
                                 <connections>
                                     <action selector="addClozeAction:" destination="q0q-gF-HWm" eventType="touchUpInside" id="GM8-I7-bkg"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xWv-Wg-tyK">
-                                <rect key="frame" x="55.333333333333343" y="763.66666666666663" width="75" height="34.333333333333371"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="gray" title="Button"/>
-                                <connections>
-                                    <action selector="deleteAllEntities:" destination="q0q-gF-HWm" eventType="touchUpInside" id="aw6-sn-d7N"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -165,29 +149,26 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="NZU-q5-NZz" firstAttribute="width" secondItem="1TZ-B0-l4z" secondAttribute="width" multiplier="0.9" id="3kp-lV-1pG"/>
-                            <constraint firstItem="yo1-Xi-2Bs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qT2-jy-IAt" secondAttribute="leading" symbolic="YES" id="5Wa-hX-ypW"/>
-                            <constraint firstItem="yo1-Xi-2Bs" firstAttribute="leading" secondItem="cbz-OJ-oNV" secondAttribute="trailing" constant="20" id="Art-vt-afg"/>
-                            <constraint firstItem="cbz-OJ-oNV" firstAttribute="leading" secondItem="xWv-Wg-tyK" secondAttribute="trailing" constant="12" id="BVu-qy-UOa"/>
-                            <constraint firstItem="xWv-Wg-tyK" firstAttribute="centerY" secondItem="cbz-OJ-oNV" secondAttribute="centerY" id="IYT-Vg-cZ0"/>
+                            <constraint firstItem="cbz-OJ-oNV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qT2-jy-IAt" secondAttribute="leading" symbolic="YES" id="GQe-eG-y9n"/>
+                            <constraint firstItem="qT2-jy-IAt" firstAttribute="bottom" secondItem="cbz-OJ-oNV" secondAttribute="bottom" constant="20" id="HdQ-V0-Yv9"/>
                             <constraint firstItem="NZU-q5-NZz" firstAttribute="top" secondItem="qT2-jy-IAt" secondAttribute="top" id="KEV-Nc-bj0"/>
-                            <constraint firstItem="qT2-jy-IAt" firstAttribute="trailing" secondItem="yo1-Xi-2Bs" secondAttribute="trailing" constant="20" id="VTf-u9-ycU"/>
-                            <constraint firstItem="yo1-Xi-2Bs" firstAttribute="top" secondItem="ceV-BR-XvJ" secondAttribute="bottom" constant="20" id="Xm9-a3-nAF"/>
+                            <constraint firstItem="cbz-OJ-oNV" firstAttribute="top" secondItem="ceV-BR-XvJ" secondAttribute="bottom" constant="20" id="Kkh-ku-Xlj"/>
+                            <constraint firstItem="qT2-jy-IAt" firstAttribute="trailing" secondItem="cbz-OJ-oNV" secondAttribute="trailing" constant="20" id="VEL-jd-roh"/>
                             <constraint firstItem="ceV-BR-XvJ" firstAttribute="leading" secondItem="qT2-jy-IAt" secondAttribute="leading" constant="20" id="ZRj-td-AJF"/>
                             <constraint firstItem="qT2-jy-IAt" firstAttribute="trailing" secondItem="ceV-BR-XvJ" secondAttribute="trailing" constant="20" id="afS-vH-7OU"/>
                             <constraint firstItem="NZU-q5-NZz" firstAttribute="height" secondItem="1TZ-B0-l4z" secondAttribute="height" multiplier="0.25" id="fjh-Qk-Bdb"/>
-                            <constraint firstItem="qT2-jy-IAt" firstAttribute="bottom" secondItem="yo1-Xi-2Bs" secondAttribute="bottom" constant="20" id="fsa-Ig-jxQ"/>
                             <constraint firstItem="ceV-BR-XvJ" firstAttribute="top" secondItem="NZU-q5-NZz" secondAttribute="bottom" constant="20" id="iIA-2o-H8O"/>
-                            <constraint firstItem="cbz-OJ-oNV" firstAttribute="centerY" secondItem="yo1-Xi-2Bs" secondAttribute="centerY" id="m30-ha-miL"/>
                             <constraint firstItem="NZU-q5-NZz" firstAttribute="centerX" secondItem="1TZ-B0-l4z" secondAttribute="centerX" id="pIY-VP-vvz"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="eeu-U7-JpZ"/>
                     <connections>
                         <outlet property="tableView" destination="ceV-BR-XvJ" id="qZl-FU-p01"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H3D-Xg-zbj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1835.8778625954199" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="120" y="1518"/>
         </scene>
         <!--Explore View Controller-->
         <scene sceneID="qYY-gy-4Oa">
@@ -227,7 +208,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yp6-wt-y0s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="717"/>
+            <point key="canvasLocation" x="5552" y="-2"/>
         </scene>
         <!--Revise Deck View Controller-->
         <scene sceneID="6Sg-7o-oin">
@@ -305,7 +286,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xV1-bp-ZsE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="993" y="717"/>
+            <point key="canvasLocation" x="6407" y="-2"/>
         </scene>
         <!--Revise Preset View Controller-->
         <scene sceneID="BKq-dO-AO9">
@@ -713,7 +694,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WMQ-O1-P9q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1835.8778625954199" y="717.6056338028169"/>
+            <point key="canvasLocation" x="7251" y="-2"/>
         </scene>
         <!--Show Cards View Controller-->
         <scene sceneID="kGl-og-tHG">
@@ -800,7 +781,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aT5-2T-Bc1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2675.5725190839694" y="716.90140845070425"/>
+            <point key="canvasLocation" x="8091" y="-2"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Fda-51-NXx">
+            <objects>
+                <viewController id="nbz-d4-gBP" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lmC-Lm-hTh">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="4xs-1u-cdl"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="BuN-56-WcG"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oyh-Od-lEH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2915" y="1585"/>
         </scene>
         <!--Revise Name View Controller-->
         <scene sceneID="MlQ-W8-nRg">
@@ -842,7 +839,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fzs-a2-WMU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3454" y="717"/>
+            <point key="canvasLocation" x="6880.1526717557254" y="716.90140845070425"/>
         </scene>
         <!--New Add Cloze View Controller-->
         <scene sceneID="nCC-Bo-CqO">
@@ -975,7 +972,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PJJ-uU-EPO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3464.8854961832058" y="1407.7464788732395"/>
+            <point key="canvasLocation" x="5316.7938931297704" y="1407.7464788732395"/>
         </scene>
         <!--Tag Setting View Controller-->
         <scene sceneID="ngK-nX-R88">
@@ -1005,7 +1002,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Awd-sH-OXu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4208" y="1408"/>
+            <point key="canvasLocation" x="6060.3053435114498" y="1407.7464788732395"/>
         </scene>
         <!--Add Cloze View Controller-->
         <scene sceneID="FUc-lo-w6H">
@@ -1075,7 +1072,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZD3-Nl-shL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4274" y="717"/>
+            <point key="canvasLocation" x="6125.9541984732823" y="716.90140845070425"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="zm3-m9-kG9">
@@ -1086,14 +1083,14 @@ Environmental sustainability has become a crucial issue in today's world. With t
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="38C-zP-s4j">
-                                <rect key="frame" x="0.0" y="69" width="393" height="56"/>
+                                <rect key="frame" x="0.0" y="113" width="393" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="D0N-pH-E9B" id="Ztm-KJ-vpN"/>
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uTF-hG-Vwz">
-                                <rect key="frame" x="0.0" y="159.33333333333331" width="393" height="658.66666666666674"/>
+                                <rect key="frame" x="0.0" y="203.33333333333331" width="393" height="565.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchCell" id="SmP-Rv-EfC" customClass="SearchCell" customModule="NewWord" customModuleProvider="target">
@@ -1127,7 +1124,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="C7p-tp-65n">
-                                <rect key="frame" x="0.0" y="124.99999999999999" width="393" height="34.333333333333329"/>
+                                <rect key="frame" x="0.0" y="169" width="393" height="34.333333333333343"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IzJ-si-fWz">
                                         <rect key="frame" x="0.0" y="0.0" width="186.66666666666666" height="34.333333333333336"/>
@@ -1164,6 +1161,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                             <constraint firstItem="uTF-hG-Vwz" firstAttribute="top" secondItem="C7p-tp-65n" secondAttribute="bottom" id="r3u-Yg-nzw"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="nyB-Nh-QO5"/>
                     <connections>
                         <outlet property="searchViewController" destination="38C-zP-s4j" id="V5m-dL-Mlt"/>
                         <outlet property="tableView" destination="uTF-hG-Vwz" id="bHy-eM-dGy"/>
@@ -1171,7 +1169,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OX2-Fx-vnb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5072.5190839694651" y="716.90140845070425"/>
+            <point key="canvasLocation" x="1065" y="1518"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hCR-WQ-Hgh">
@@ -1198,7 +1196,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fwn-Qv-Ba0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5052" y="1408"/>
+            <point key="canvasLocation" x="6904.5801526717551" y="1407.7464788732395"/>
         </scene>
         <!--Card Information View Controller-->
         <scene sceneID="HJu-vS-zJl">
@@ -1231,7 +1229,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2BK-0n-8at" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5853" y="717"/>
+            <point key="canvasLocation" x="7706.1068702290077" y="716.90140845070425"/>
         </scene>
         <!--Sentence Cloze View Controller-->
         <scene sceneID="eSo-Y6-juQ">
@@ -1277,12 +1275,13 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="odP-dM-iiF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2630" y="-2"/>
+            <point key="canvasLocation" x="4483.2061068702287" y="-2.1126760563380285"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Item-->
         <scene sceneID="5JH-4G-hQ1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pSA-EX-MVA" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="JrR-K1-RQL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XBk-CJ-Zg3">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -1290,17 +1289,76 @@ Environmental sustainability has become a crucial issue in today's world. With t
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="UBP-WR-7nA"/>
+                        <segue destination="q0q-gF-HWm" kind="relationship" relationship="rootViewController" id="qzn-8T-2bF"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GcJ-PV-h8g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138.1679389312977" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="120" y="777"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="QeR-P8-gmk">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="gOg-bx-wyz" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1ci-ng-wfh">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="pSA-EX-MVA" kind="relationship" relationship="viewControllers" id="nIJ-fd-wI5"/>
+                        <segue destination="9D3-Mg-oHH" kind="relationship" relationship="viewControllers" id="vNs-P6-FUm"/>
+                        <segue destination="3Rn-Rq-84e" kind="relationship" relationship="viewControllers" id="pP3-0s-KO0"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zxv-Hr-eo9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1064.885496183206" y="-2.1126760563380285"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="MGu-Eo-fpj">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9D3-Mg-oHH" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="LRN-Pu-Tdl"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jHa-VO-sgt">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="D0N-pH-E9B" kind="relationship" relationship="rootViewController" id="sAD-xB-NUL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uYT-dz-I1o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1064.885496183206" y="776.76056338028172"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="Ar3-lz-hhe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Rn-Rq-84e" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="vDS-yr-wv6"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SEW-Mj-ubv">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="nbz-d4-gBP" kind="relationship" relationship="rootViewController" id="K9Q-ZO-syV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fHY-t9-Afp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2915.2671755725191" y="776.76056338028172"/>
         </scene>
     </scenes>
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -1308,16 +1366,16 @@ Environmental sustainability has become a crucial issue in today's world. With t
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemCyanColor">
-            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemTealColor">
-            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.18823529410000001" green="0.69019607839999997" blue="0.78039215689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

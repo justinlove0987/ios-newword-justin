@@ -169,8 +169,13 @@ class TagTestingCell: UITableViewCell {
     }
     
     
+    
+    @IBAction func fifthButtonAction(_ sender: UIButton) {
+        animate3(fifthViews)
+    }
+    
     @IBAction func firstButtonAction(_ sender: UIButton) {
         
-        animate3(fifthViews)
+        
     }
 }
