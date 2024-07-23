@@ -10,10 +10,17 @@ import NaturalLanguage
 import MLKitTranslate
 
 struct NewAddCloze {
+    enum TextType {
+        case word
+        case sentence
+        case article
+    }
+    
     let number: Int
     let text: String
     var range: NSRange
     let color: UIColor
+    var textType: TextType = .word
     
     func getTagIndex(in text: String) -> String.Index? {
         let location = range.location - 1
@@ -131,8 +138,6 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     }
     
     @IBAction func settingAction(_ sender: UIButton) {
-        
-        
         let controller = TagSettingViewController.instantiate()
         
         navigationController?.present(controller, animated: true)
@@ -237,7 +242,8 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
 
         let offset = 1
         let updateRange = viewModel.getUpdatedRange(range: range, offset: offset)
-        let newCloze = viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, selectMode: selectMode)
+        let textType = viewModel.getTextType(text)
+        let newCloze = viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, selectMode: selectMode, textType: textType)
 
         viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
         viewModel.appendCloze(newCloze)

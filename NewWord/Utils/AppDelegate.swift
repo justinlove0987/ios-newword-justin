@@ -45,6 +45,29 @@ extension AppDelegate {
         if UserDefaultsManager.shared.preferredLineSpacing == 0 {
             UserDefaultsManager.shared.preferredLineSpacing = 5
         }
+        
+//        let decks = CoreDataManager.shared.getDecks()
+//        
+//        for deck in decks {
+//            CoreDataManager.shared.deleteDeck(deck)
+//        }
+        
+        if !CoreDataManager.shared.deckExists() {
+            CoreDataManager.shared.addDeck(name: "單字複習牌組")
+            CoreDataManager.shared.addDeck(name: "句子複習牌組")
+            
+            let decks = CoreDataManager.shared.getDecks()
+            
+            var items: [CDSelectableItem] = []
+            
+            for deck in decks {
+                guard let id = deck.id else { return }
+                let item = CoreDataManager.shared.createSelectableItem(from: id)
+                items.append(item)
+            }
+            
+            CoreDataManager.shared.addSelectableItemList(items: items, type: .deck)
+        }
     }
 }
 

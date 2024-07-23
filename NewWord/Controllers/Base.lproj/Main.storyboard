@@ -1038,25 +1038,25 @@ Environmental sustainability has become a crucial issue in today's world. With t
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="38C-zP-s4j">
-                                <rect key="frame" x="0.0" y="113" width="393" height="56"/>
+                                <rect key="frame" x="0.0" y="149" width="393" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="D0N-pH-E9B" id="Ztm-KJ-vpN"/>
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uTF-hG-Vwz">
-                                <rect key="frame" x="0.0" y="203.33333333333331" width="393" height="565.66666666666674"/>
+                                <rect key="frame" x="0.0" y="217" width="393" height="552"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchCell" id="SmP-Rv-EfC" customClass="SearchCell" customModule="NewWord" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="52.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="393" height="53.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SmP-Rv-EfC" id="o7v-7g-vaC">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="52.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="53.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7S-8H-M8e">
-                                                    <rect key="frame" x="40" y="16" width="41.333333333333343" height="20.666666666666671"/>
+                                                    <rect key="frame" x="40" y="15.999999999999998" width="41.333333333333343" height="21.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1078,42 +1078,29 @@ Environmental sustainability has become a crucial issue in today's world. With t
                                     <outlet property="delegate" destination="D0N-pH-E9B" id="0OQ-xB-Yv7"/>
                                 </connections>
                             </tableView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="C7p-tp-65n">
-                                <rect key="frame" x="0.0" y="169" width="393" height="34.333333333333343"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IzJ-si-fWz">
-                                        <rect key="frame" x="0.0" y="0.0" width="186.66666666666666" height="34.333333333333336"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="tinted" title="Deck"/>
-                                        <connections>
-                                            <action selector="deckAction:" destination="D0N-pH-E9B" eventType="touchUpInside" id="uuh-zm-Yse"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DjM-jx-Hja" userLabel="Cloze">
-                                        <rect key="frame" x="206.66666666666663" y="0.0" width="186.33333333333337" height="34.333333333333336"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="tinted" title="Cloze"/>
-                                        <connections>
-                                            <action selector="clozeAction:" destination="D0N-pH-E9B" eventType="touchUpInside" id="GDK-CA-Uoz"/>
-                                            <action selector="deckAction:" destination="D0N-pH-E9B" eventType="touchUpInside" id="EoZ-t8-5Sz"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IzJ-si-fWz">
+                                <rect key="frame" x="288.66666666666669" y="103" width="84.333333333333314" height="34"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" image="line.3.horizontal.decrease.circle" catalog="system" title="牌組"/>
+                                <connections>
+                                    <action selector="deckAction:" destination="D0N-pH-E9B" eventType="touchUpInside" id="uuh-zm-Yse"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jph-08-094"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="jph-08-094" firstAttribute="trailing" secondItem="IzJ-si-fWz" secondAttribute="trailing" constant="20" id="16I-r1-K7w"/>
                             <constraint firstItem="38C-zP-s4j" firstAttribute="leading" secondItem="jph-08-094" secondAttribute="leading" id="8yM-DA-Yrn"/>
                             <constraint firstItem="38C-zP-s4j" firstAttribute="trailing" secondItem="jph-08-094" secondAttribute="trailing" id="98g-kE-QFm"/>
-                            <constraint firstItem="jph-08-094" firstAttribute="trailing" secondItem="C7p-tp-65n" secondAttribute="trailing" id="IBJ-24-UHr"/>
-                            <constraint firstItem="C7p-tp-65n" firstAttribute="leading" secondItem="jph-08-094" secondAttribute="leading" id="LQb-2G-0BS"/>
-                            <constraint firstItem="C7p-tp-65n" firstAttribute="top" secondItem="38C-zP-s4j" secondAttribute="bottom" id="Ohj-Sf-mL0"/>
+                            <constraint firstItem="jph-08-094" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IzJ-si-fWz" secondAttribute="trailing" symbolic="YES" id="B3l-cC-ivU"/>
+                            <constraint firstItem="uTF-hG-Vwz" firstAttribute="top" secondItem="38C-zP-s4j" secondAttribute="bottom" constant="12" id="JzA-aT-dIM"/>
+                            <constraint firstItem="IzJ-si-fWz" firstAttribute="top" secondItem="jph-08-094" secondAttribute="top" id="KUT-mE-egk"/>
+                            <constraint firstItem="38C-zP-s4j" firstAttribute="top" secondItem="IzJ-si-fWz" secondAttribute="bottom" constant="12" id="R6h-om-95N"/>
                             <constraint firstItem="jph-08-094" firstAttribute="trailing" secondItem="uTF-hG-Vwz" secondAttribute="trailing" id="Tv1-65-G7f"/>
                             <constraint firstItem="uTF-hG-Vwz" firstAttribute="leading" secondItem="jph-08-094" secondAttribute="leading" id="Wnt-3C-cfS"/>
-                            <constraint firstItem="38C-zP-s4j" firstAttribute="top" secondItem="jph-08-094" secondAttribute="top" constant="10" id="d3A-dw-BcL"/>
                             <constraint firstItem="jph-08-094" firstAttribute="bottom" secondItem="uTF-hG-Vwz" secondAttribute="bottom" id="fqJ-LF-Ukq"/>
-                            <constraint firstItem="uTF-hG-Vwz" firstAttribute="top" secondItem="C7p-tp-65n" secondAttribute="bottom" id="r3u-Yg-nzw"/>
+                            <constraint firstItem="IzJ-si-fWz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jph-08-094" secondAttribute="leading" symbolic="YES" id="oR0-I7-DnL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nyB-Nh-QO5"/>
@@ -1124,7 +1111,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OX2-Fx-vnb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1065" y="1518"/>
+            <point key="canvasLocation" x="1064.885496183206" y="1517.605633802817"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hCR-WQ-Hgh">
@@ -1314,6 +1301,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="gear.circle" catalog="system" width="128" height="123"/>
         <image name="gear.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="line.3.horizontal.decrease.circle" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass.circle" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass.circle.fill" catalog="system" width="128" height="123"/>
         <image name="pencil.circle" catalog="system" width="128" height="123"/>

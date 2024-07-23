@@ -88,6 +88,19 @@ extension CoreDataManager {
         save()
     }
     
+    /// 自動新增 default preset
+    @discardableResult
+    func addDeck(name: String) -> CDDeck {
+        let deck = CDDeck(context: persistentContainer.viewContext)
+        deck.name = name
+        deck.id = UUID().uuidString
+        deck.preset = createDefaultPreset()
+        
+        save()
+
+        return deck
+    }
+    
     func getNewCards(from deck: CDDeck) -> [CDCard] {
         let cards = cards(from: deck)
         
@@ -125,18 +138,6 @@ extension CoreDataManager {
         return relearnCards
     }
     
-    @discardableResult
-    func addDeck(name: String) -> CDDeck {
-        let deck = CDDeck(context: persistentContainer.viewContext)
-        deck.name = name
-        deck.id = UUID().uuidString
-        deck.preset = createDefaultPreset()
-        
-        save()
-
-        return deck
-    }
-    
     func deleteDeck(_ deck: CDDeck) {
         persistentContainer.viewContext.delete(deck)
         
@@ -147,7 +148,6 @@ extension CoreDataManager {
         deck.name = name
         save()
     }
-
 
     func deckExists() -> Bool {
         let fetchRequest: NSFetchRequest<CDDeck> = CDDeck.fetchRequest()
@@ -493,7 +493,9 @@ extension CoreDataManager {
     func words(from sentence: CDSentence) -> [CDWord] {
         let request: NSFetchRequest<CDWord> = CDWord.fetchRequest()
         request.predicate = NSPredicate(format: "sentence = %@", sentence)
+        
         var fetched: [CDWord] = []
+        
         do {
             fetched = try persistentContainer.viewContext.fetch(request)
         } catch let error {
@@ -567,6 +569,64 @@ extension CoreDataManager {
     }
 }
 
+// MARK: - SelectableItemList
+
+extension CoreDataManager {
+    
+    enum SelectableItemListType: String {
+        case deck
+    }
+    
+    func isSelected(from id: String, type: SelectableItemListType) -> Bool {
+        let fetchRequest: NSFetchRequest<CDSelectableItem> = CDSelectableItem.fetchRequest()
+        
+        // 創建謂詞，查找匹配的 SelectableItemList 類型和 relatedId
+        let listPredicate = NSPredicate(format: "list.type == %@", type.rawValue)
+        let relatedIdPredicate = NSPredicate(format: "relatedId == %@", id)
+        
+        // 將謂詞結合起來
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, relatedIdPredicate])
+        fetchRequest.predicate = compoundPredicate
+        
+        do {
+            // 執行請求
+            let items = try persistentContainer.viewContext.fetch(fetchRequest)
+            
+            // 檢查是否有匹配的項目，並返回 isSelected 狀態
+            if let item = items.first {
+                return item.isSelected
+            }
+        } catch {
+            print("Fetch error: \(error)")
+        }
+        
+        return false
+    }
+    
+    func createSelectableItem(from relatedId: String) -> CDSelectableItem {
+        let item = CDSelectableItem(context: persistentContainer.viewContext)
+        
+        item.relatedId = relatedId
+        item.isSelected = true
+        
+        return item
+    }
+    
+    func addSelectableItemList(items: [CDSelectableItem], type: SelectableItemListType) {
+        let list = CDSelectableItemList(context: persistentContainer.viewContext)
+        list.id = UUID().uuidString
+        list.type = SelectableItemListType.deck.rawValue
+        
+        for item in items {
+            item.list = list
+        }
+        
+        save()
+    }
+    
+//    func getD
+}
+
 // MARK: - Helpers
 
 extension CoreDataManager {
@@ -586,3 +646,4 @@ extension CoreDataManager {
         return date.addingTimeInterval(secondInterval)
     }
 }
+

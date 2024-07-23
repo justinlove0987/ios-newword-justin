@@ -8,6 +8,7 @@
 import UIKit
 import MLKitTranslate
 import OpenCC
+import NaturalLanguage
 
 struct NewAddClozeViewControllerViewModel {
     
@@ -120,12 +121,15 @@ struct NewAddClozeViewControllerViewModel {
     }
 
     mutating func saveCloze(_ text: String) {
-        let firstDeck = CoreDataManager.shared.getDecks().first!
         let context = CoreDataManager.shared.createContext(text)
         
         for i in 0..<clozes.count {
             let currentCloze = clozes[i]
-            guard let word = textInRange(text: text, range: currentCloze.range) else { continue }
+            
+            guard let word = textInRange(text: text, range: currentCloze.range),
+                  let deck = getSaveDeck(currentCloze) else {
+                continue
+            }
             
             let newCloze = CoreDataManager.shared.createCloze(number: currentCloze.number, hint: "", clozeWord: currentCloze.text)
             
@@ -140,7 +144,7 @@ struct NewAddClozeViewControllerViewModel {
             
             let note = CoreDataManager.shared.createNote(noteType: noteType)
             
-            CoreDataManager.shared.addCard(to: firstDeck, with: note)
+            CoreDataManager.shared.addCard(to: deck, with: note)
         }
         
         CoreDataManager.shared.save()
@@ -231,13 +235,13 @@ struct NewAddClozeViewControllerViewModel {
         }
     }
 
-    func createNewCloze(number: Int, cloze: String, range: NSRange, selectMode: NewAddClozeViewController.SelectMode) -> NewAddCloze {
+    func createNewCloze(number: Int, cloze: String, range: NSRange, selectMode: NewAddClozeViewController.SelectMode, textType: NewAddCloze.TextType) -> NewAddCloze {
         var newCloze: NewAddCloze
 
         if selectMode == .sentence {
-            newCloze = NewAddCloze(number: number, text: cloze, range: range, color: UIColor.clozeBlueText)
+            newCloze = NewAddCloze(number: number, text: cloze, range: range, color: UIColor.clozeBlueText, textType: textType)
         } else {
-            newCloze = NewAddCloze(number: number, text: cloze, range: range, color: .red)
+            newCloze = NewAddCloze(number: number, text: cloze, range: range, color: .red, textType: textType)
         }
 
         return newCloze
@@ -434,6 +438,49 @@ struct NewAddClozeViewControllerViewModel {
         let convertedText = converter.convert(text)
         
         return convertedText
+    }
+    
+    func getTextType(_ text: String) -> NewAddCloze.TextType {
+        // 去除前後空白字符
+        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // 使用NLTokenizer來進行標記化
+        let tokenizer = NLTokenizer(unit: .word)
+        tokenizer.string = trimmedText
+        var wordCount = 0
+        
+        tokenizer.enumerateTokens(in: trimmedText.startIndex..<trimmedText.endIndex) { tokenRange, _ in
+            wordCount += 1
+            return true
+        }
+        
+        // 根據標記的數量來判斷
+        if wordCount > 1 {
+            return .sentence
+        } else {
+            return .word
+        }
+    }
+    
+    private func getSaveDeck(_ cloze: NewAddCloze) -> CDDeck? {
+        let decks = CoreDataManager.shared.getDecks()
+        var deck: CDDeck? = nil
+        let isWord = cloze.textType == .word
+        
+        if isWord {
+            if let firstDeck = decks.first {
+                deck = firstDeck
+            }
+            
+        } else {
+            if decks.count > 1 {
+                deck = decks[1]
+            }
+        }
+        
+        guard let deck else { return nil }
+        
+        return deck
     }
     
 }

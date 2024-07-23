@@ -33,18 +33,17 @@ class SearchViewController: UIViewController, StoryboardGenerated {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDataSource()
+        setupTableViewDataSource()
         setupSearchDataSource()
         updateDataSource()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         updateDataSource()
     }
     
-    private func setupDataSource() {
+    private func setupTableViewDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
             cell.nameLabel.text = itemIdentifier.title

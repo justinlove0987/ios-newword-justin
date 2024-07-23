@@ -73,6 +73,16 @@
         <relationship name="master" maxCount="1" deletionRule="Nullify" destinationEntity="CDMaster" inverseName="preset" inverseEntity="CDMaster"/>
         <relationship name="startCard" maxCount="1" deletionRule="Nullify" destinationEntity="CDStartCard" inverseName="preset" inverseEntity="CDStartCard"/>
     </entity>
+    <entity name="CDSelectableItem" representedClassName="CDSelectableItem" syncable="YES" codeGenerationType="class">
+        <attribute name="isSelected" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="relatedId" optional="YES" attributeType="String"/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSelectableItemList" inverseName="item" inverseEntity="CDSelectableItemList"/>
+    </entity>
+    <entity name="CDSelectableItemList" representedClassName="CDSelectableItemList" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="item" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDSelectableItem" inverseName="list" inverseEntity="CDSelectableItem"/>
+    </entity>
     <entity name="CDSentence" representedClassName="CDSentence" syncable="YES" codeGenerationType="class">
         <relationship name="sentenceCloze" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentenceCloze" inverseName="sentence" inverseEntity="CDSentenceCloze"/>
         <relationship name="words" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWord" inverseName="sentence" inverseEntity="CDWord"/>
