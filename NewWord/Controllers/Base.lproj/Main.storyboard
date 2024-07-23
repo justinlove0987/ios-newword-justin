@@ -1236,7 +1236,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
         <scene sceneID="5JH-4G-hQ1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pSA-EX-MVA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="複習" id="JrR-K1-RQL"/>
+                    <tabBarItem key="tabBarItem" title="複習" image="pencil.circle" catalog="system" id="JrR-K1-RQL"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XBk-CJ-Zg3">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -1312,6 +1312,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
     </scenes>
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
+        <image name="pencil.circle" catalog="system" width="128" height="123"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
