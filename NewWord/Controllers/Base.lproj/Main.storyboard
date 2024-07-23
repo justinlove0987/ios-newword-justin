@@ -1294,7 +1294,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
         <scene sceneID="Ar3-lz-hhe">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Rn-Rq-84e" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="設定" id="vDS-yr-wv6"/>
+                    <tabBarItem key="tabBarItem" title="設定" image="gear.circle" catalog="system" selectedImage="gear.circle.fill" id="vDS-yr-wv6"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SEW-Mj-ubv">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -1312,6 +1312,8 @@ Environmental sustainability has become a crucial issue in today's world. With t
     </scenes>
     <resources>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
+        <image name="gear.circle" catalog="system" width="128" height="123"/>
+        <image name="gear.circle.fill" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass.circle" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass.circle.fill" catalog="system" width="128" height="123"/>
         <image name="pencil.circle" catalog="system" width="128" height="123"/>
