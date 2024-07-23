@@ -576,7 +576,35 @@ extension CoreDataManager {
     enum SelectableItemListType: String {
         case deck
     }
-    
+
+    func updateSelected(from id: String, type: SelectableItemListType, isSelected: Bool) {
+        let fetchRequest: NSFetchRequest<CDSelectableItem> = CDSelectableItem.fetchRequest()
+
+        // 創建謂詞，查找匹配的 SelectableItemList 類型和 relatedId
+        let listPredicate = NSPredicate(format: "list.type == %@", type.rawValue)
+        let relatedIdPredicate = NSPredicate(format: "relatedId == %@", id)
+
+        // 將謂詞結合起來
+        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, relatedIdPredicate])
+        fetchRequest.predicate = compoundPredicate
+
+        do {
+            // 執行請求
+            let items = try persistentContainer.viewContext.fetch(fetchRequest)
+
+            // 檢查是否有匹配的項目
+            if let item = items.first {
+                // 更新 isSelected 值
+                item.isSelected = isSelected
+
+                // 儲存上下文
+                try persistentContainer.viewContext.save()
+            }
+        } catch {
+            print("Update error: \(error)")
+        }
+    }
+
     func isSelected(from id: String, type: SelectableItemListType) -> Bool {
         let fetchRequest: NSFetchRequest<CDSelectableItem> = CDSelectableItem.fetchRequest()
         

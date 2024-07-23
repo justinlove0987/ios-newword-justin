@@ -65,9 +65,14 @@ class SearchDeckViewController: UIViewController {
 
         for i in 0..<rows.count {
             let row = rows[i]
+
+            guard let id = row.deck.id else { continue }
+
             if row.isSelected {
                 filteredDecks.append(row.deck)
             }
+
+            CoreDataManager.shared.updateSelected(from: id, type: .deck, isSelected: row.isSelected)
         }
 
         callback(filteredDecks)
@@ -88,7 +93,6 @@ extension SearchDeckViewController: UITableViewDataSource, UITableViewDelegate {
         let row = rows[indexPath.row]
         
         cell.isSelected = row.isSelected
-
         cell.updateUI(deck: row.deck)
         
         return cell
