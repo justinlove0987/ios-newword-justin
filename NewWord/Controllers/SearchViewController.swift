@@ -18,31 +18,42 @@ struct SearchClozeDataSource: SearchDataSource {
 }
 
 class SearchViewController: UIViewController, StoryboardGenerated {
-    
+
+    typealias GroupedCards = [SearchClozeDataSource]
+
     static var storyboardName: String = "Main"
     
     @IBOutlet weak var searchViewController: UISearchBar!
-    
     @IBOutlet weak var tableView: UITableView!
     
-    private var filteredCards: [CDCard] = []
-    
-    private var groupedCards: [SearchClozeDataSource] = []
-    
     private var dataSource: UITableViewDiffableDataSource<Int, SearchClozeDataSource>!
-    
+
+    private var groupedCards: GroupedCards = []
+
+    private var searchText: String? = nil {
+        didSet {
+            filterDataSource()
+            updateDataSource()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
         setupTableViewDataSource()
-        setupSearchDataSource()
-        updateDataSource()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        filterDataSource()
         updateDataSource()
     }
-    
+
+    private func setup() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
+        self.view.addGestureRecognizer(tap)
+    }
+
     private func setupTableViewDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
@@ -52,42 +63,72 @@ class SearchViewController: UIViewController, StoryboardGenerated {
         })
         
         tableView.dataSource = dataSource
-
-        let decks = CoreDataManager.shared.getDecks()
-
-        filteredCards = decks.flatMap { deck in
-            return CoreDataManager.shared.cards(from: deck)
-        }
     }
     
-    private func setupSearchDataSource() {
-        let decks = CoreDataManager.shared.getDecks()
-        
-        groupedCards = decks.flatMap { deck in
+    func groupCardsByText(_ decks: [CDDeck]) -> GroupedCards {
+        let groupedCards = decks.flatMap { deck in
             let cards = CoreDataManager.shared.cards(from: deck)
-            
-            let groupedCards = groupCardsByText(cards)
-            
-            return groupedCards
-        }
-    }
-    
-    func groupCardsByText(_ cards: [CDCard]) -> [SearchClozeDataSource] {
-        var groupedCards = [String: [CDCard]]()
+            var groupedCards = [String: [CDCard]]()
 
-        for card in cards {
-            guard let cloze = card.note?.noteType?.cloze,
-                  let text = cloze.clozeWord else {
-                continue
+
+            for card in cards {
+                guard let cloze = card.note?.noteType?.cloze,
+                      let text = cloze.clozeWord else {
+                    continue
+                }
+
+                let key = text
+                groupedCards[key, default: []].append(card)
             }
-            
-            let key = text
-            groupedCards[key, default: []].append(card)
+
+            // 對 groupedCards 的鍵按長度進行排序，如果長度相同則按字母順序排序
+            let sortedKeys = groupedCards.keys.sorted {
+                if $0.count == $1.count {
+                    return $0 < $1
+                } else {
+                    return $0.count < $1.count
+                }
+            }
+
+            return sortedKeys.map { key in
+                SearchClozeDataSource(title: key, cards: groupedCards[key] ?? [])
+            }
         }
 
-        return groupedCards.map { SearchClozeDataSource(title: $0.key, cards: $0.value) }
+        return groupedCards
     }
-    
+
+    private func filterSearchText(_ searhcText: String? ,to groupedCards: GroupedCards) -> GroupedCards {
+        var groupedCards = groupedCards
+
+        if let searchText, !searchText.isEmpty {
+            groupedCards = groupedCards.filter { groupedCards in
+                let searchText = searchText.lowercased()
+                return groupedCards.title.contains(searchText)
+            }
+        }
+
+        return groupedCards
+    }
+
+    private func filterSelectedDecks(_ decks: [CDDeck]) -> [CDDeck] {
+        let decks = decks.filter { deck in
+            guard let id = deck.id else { return false }
+            return CoreDataManager.shared.isSelected(from: id, type: .deck)
+        }
+
+        return decks
+    }
+
+    private func filterDataSource() {
+        var decks = CoreDataManager.shared.getDecks()
+
+        decks = filterSelectedDecks(decks)
+
+        groupedCards = groupCardsByText(decks)
+        groupedCards = filterSearchText(searchText, to: groupedCards)
+    }
+
     private func updateDataSource() {
         var snapshot: NSDiffableDataSourceSnapshot<Int, SearchClozeDataSource> = .init()
         
@@ -96,7 +137,17 @@ class SearchViewController: UIViewController, StoryboardGenerated {
 
         dataSource.apply(snapshot)
     }
-    
+
+    @objc func tap(_ sender: UITapGestureRecognizer) {
+        searchViewController.resignFirstResponder()
+        
+        let location = sender.location(in: tableView)
+
+        if let indexPath = tableView.indexPathForRow(at: location) {
+            tableView(tableView, didSelectRowAt: indexPath)
+        }
+    }
+
     // MARK: - Actions
     
     @IBAction func deckAction(_ sender: UIButton) {
@@ -105,22 +156,11 @@ class SearchViewController: UIViewController, StoryboardGenerated {
         controller.callback = { [weak self] decks in
             guard let self = self else { return }
 
-            groupedCards = decks.flatMap { deck in
-                let cards = CoreDataManager.shared.cards(from: deck)
-                
-                let groupedCards = self.groupCardsByText(cards)
-                
-                return groupedCards
-            }
-            
+            self.filterDataSource()
             self.updateDataSource()
         }
         
         navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    
-    @IBAction func clozeAction(_ sender: UIButton) {
     }
 }
 
@@ -128,7 +168,7 @@ class SearchViewController: UIViewController, StoryboardGenerated {
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        self.searchText = searchText
     }
 }
 
@@ -140,14 +180,17 @@ extension SearchViewController: UITableViewDelegate {
         let currentGroupedCards = groupedCards[indexPath.row]
         
         let controller = SearchClozeResultViewController()
-        
         controller.cards = currentGroupedCards.cards
-        
-//        let controller = CardInformationViewController.instantiate()
-//        
-//        controller.card = filteredCards[indexPath.row]
-//        
+
         navigationController?.pushViewController(controller, animated: true)
         
+    }
+}
+
+extension SearchViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == tableView {
+            searchViewController.resignFirstResponder()
+        }
     }
 }

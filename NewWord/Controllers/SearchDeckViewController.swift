@@ -21,8 +21,6 @@ class SearchDeckViewController: UIViewController {
     var callback: (([CDDeck]) ->())?
     
     private var rows: [Row] = []
-    
-    private var selectedIndices = Set<Int>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,10 +37,6 @@ class SearchDeckViewController: UIViewController {
             
             let isSelected = CoreDataManager.shared.isSelected(from: id, type: .deck)
             let row = Row(isSelected: isSelected, deck: deck)
-            
-            if isSelected {
-                selectedIndices.insert(i)
-            }
             
             rows.append(row)
         }

@@ -11,7 +11,7 @@ class SearchClozeResultViewController: UIViewController {
     
     var cards: [CDCard] = []
     
-    private let tableView: UITableView = UITableView()
+    private let tableView: UITableView = UITableView(frame: .zero, style: .grouped)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +37,9 @@ extension SearchClozeResultViewController: UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentCard = cards[indexPath.row]
-        guard let cloze = currentCard.note?.noteType?.cloze else { fatalError() }
-        
+
+        guard let cloze = CoreDataManager.shared.getCloze(from: currentCard) else { fatalError() }
+
         let cell = tableView.dequeueReusableCell(withIdentifier: SearchClozeResultCell.reuseIdentifier, for: indexPath) as! SearchClozeResultCell
         
         cell.updateUI(cloze)
