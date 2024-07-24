@@ -110,8 +110,11 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
     }
     
     @IBAction func addClozeAction(_ sender: UIButton) {
-        let controller = NewAddClozeViewController.instantiate()
-
+        let controller = ReviseContextViewController.instantiate()
+        
+        controller.modalTransitionStyle = .crossDissolve
+        controller.modalPresentationStyle = .fullScreen
+        controller.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(controller, animated: true)
     }
     

@@ -46,8 +46,9 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var translateLabel: UILabel!
-    @IBOutlet weak var hintLabel: UILabel!
     @IBOutlet weak var selectModeButton: UIButton!
+    @IBOutlet var translationContentView: UIView!
+    @IBOutlet weak var contextContentView: UIView!
     
     private var customTextView: AddClozeTextView!
     private var viewModel: NewAddClozeViewControllerViewModel!
@@ -68,9 +69,17 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     // MARK: - Helpers
     
     private func setup() {
+        setupProperties()
         setupViewModel()
         setupTextView()
         setupCumstomTextView()
+    }
+    
+    private func setupProperties() {
+        translationContentView.clipsToBounds = true
+        translationContentView.layer.cornerRadius = 15
+        contextContentView.clipsToBounds = true
+        contextContentView.layer.cornerRadius = 15
     }
     
     private func setupViewModel() {
@@ -124,17 +133,17 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     
     // MARK: - Actions
     
-    @IBAction func segmentedAction(_ sender: UISegmentedControl) {
-        
+    @IBAction func previousAction(_ sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func saveAction(_ sender: Any) {
+    @IBAction func confirmAction(_ sender: UIBarButtonItem) {
         guard var text = customTextView.text else { return }
         
         text = viewModel.removeAllTags(in: text)
         viewModel.saveCloze(text)
         
-        navigationController?.popViewController(animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func settingAction(_ sender: UIButton) {
@@ -228,7 +237,6 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
                 let traditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
                 
                 self.translateLabel.text = traditionalText
-                self.hintLabel.text = traditionalText
                 
             case .failure(_):
                 break

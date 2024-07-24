@@ -18,6 +18,7 @@
 		2A17DAFE2C158C5A00919642 /* InputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A17DAFD2C158C5A00919642 /* InputAccessoryView.swift */; };
 		2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A18E7B32BE74008005139C8 /* DeckCell.swift */; };
 		2A2176852C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */; };
+		2A24E8D42C50DF39006C1032 /* ReviseContextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */; };
 		2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */; };
 		2A38F8C12BE48F88003F058F /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C02BE48F88003F058F /* ExploreViewController.swift */; };
 		2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C22BE48FB2003F058F /* SearchViewController.swift */; };
@@ -114,6 +115,7 @@
 		2A17DAFD2C158C5A00919642 /* InputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputAccessoryView.swift; sourceTree = "<group>"; };
 		2A18E7B32BE74008005139C8 /* DeckCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckCell.swift; sourceTree = "<group>"; };
 		2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewControllerViewModel.swift; sourceTree = "<group>"; };
+		2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseContextViewController.swift; sourceTree = "<group>"; };
 		2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		2A38F8C02BE48F88003F058F /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		2A38F8C22BE48FB2003F058F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */,
 				2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */,
 				2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */,
+				2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */,
 				D0696DD62C31094600FE4FE1 /* NewAddClozeViewController.swift */,
 				D03107CB2C16EE6200EEF772 /* CardInformationViewController.swift */,
 				2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */,
@@ -334,7 +337,6 @@
 				D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */,
 				D0DA5AC42BB66A05008644DC /* AppDelegate.swift */,
 				D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */,
-				D0DA5ACD2BB66A07008644DC /* Assets.xcassets */,
 				D0DA5ACF2BB66A07008644DC /* LaunchScreen.storyboard */,
 				D032145A2BD63C2200512263 /* Preferences.swift */,
 				D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */,
@@ -345,6 +347,7 @@
 				D0D8D5F52C0F0920001BB415 /* String+Extension.swift */,
 				D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */,
 				D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */,
+				D0DA5ACD2BB66A07008644DC /* Assets.xcassets */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -598,6 +601,7 @@
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
 				D09262C32C098A4400CA90BA /* CDLapses+Extension.swift in Sources */,
 				D078D0982BC9242900F601B2 /* Note.swift in Sources */,
+				2A24E8D42C50DF39006C1032 /* ReviseContextViewController.swift in Sources */,
 				D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */,
 				D03107CC2C16EE6200EEF772 /* CardInformationViewController.swift in Sources */,
 				2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */,
