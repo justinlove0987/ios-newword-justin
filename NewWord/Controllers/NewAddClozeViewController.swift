@@ -50,6 +50,8 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     @IBOutlet var translationContentView: UIView!
     @IBOutlet weak var contextContentView: UIView!
     
+    var inputText: String?
+    
     private var customTextView: AddClozeTextView!
     private var viewModel: NewAddClozeViewControllerViewModel!
     
@@ -66,6 +68,11 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         setup()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setupProperties()
+    }
+    
     // MARK: - Helpers
     
     private func setup() {
@@ -76,10 +83,8 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     }
     
     private func setupProperties() {
-        translationContentView.clipsToBounds = true
-        translationContentView.layer.cornerRadius = 15
-        contextContentView.clipsToBounds = true
-        contextContentView.layer.cornerRadius = 15
+        translationContentView.addDefaultBorder()
+        contextContentView.addDefaultBorder()
     }
     
     private func setupViewModel() {
@@ -94,7 +99,9 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     }
     
     private func setupCumstomTextView() {
-        let attributedString = NSMutableAttributedString(string: textView.text)
+        guard let inputText else { return }
+        
+        let attributedString = NSMutableAttributedString(string: inputText)
         
         // 創建一個 Text Storage 和 Layout Manager
         let textStorage = NSTextStorage(attributedString: attributedString)
@@ -115,7 +122,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         customTextView.backgroundColor = .clear
         customTextView.font = UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize,
                                                 weight: .medium)
-        customTextView.textColor = .white
+        customTextView.textColor = UIColor.title
         customTextView.translatesAutoresizingMaskIntoConstraints = false
         customTextView.addGestureRecognizer(tapGesture)
         customTextView.delegate = self

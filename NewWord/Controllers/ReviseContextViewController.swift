@@ -10,8 +10,6 @@ import UIKit
 class ReviseContextViewController: UIViewController, StoryboardGenerated {
     static var storyboardName: String = K.Storyboard.main
     
-    var text: String?
-    
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var textView: UITextView!
     
@@ -20,9 +18,13 @@ class ReviseContextViewController: UIViewController, StoryboardGenerated {
         setup()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        textView.becomeFirstResponder()
+    }
+    
     private func setup() {
-        contentView.clipsToBounds = true
-        contentView.layer.cornerRadius = 15
+        contentView.addDefaultBorder()
         
         textView.delegate = self
         textView.keyboardDismissMode = .interactive
@@ -37,7 +39,10 @@ class ReviseContextViewController: UIViewController, StoryboardGenerated {
     }
     
     @IBAction func nextAction(_ sender: UIBarButtonItem) {
+        guard let text = textView.text else { return }
+        
         let controller = NewAddClozeViewController.instantiate()
+        controller.inputText = text
         self.navigationController?.pushViewController(controller, animated: true)
     }
 }

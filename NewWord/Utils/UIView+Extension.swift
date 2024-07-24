@@ -23,4 +23,11 @@ extension UIView {
             return UIImage(cgImage: image!.cgImage!)
         }
     }
+    
+    func addDefaultBorder() {
+        self.layer.borderColor = UIColor.border.cgColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 15
+        self.layer.masksToBounds = true
+    }
 }
