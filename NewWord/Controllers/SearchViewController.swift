@@ -25,7 +25,8 @@ class SearchViewController: UIViewController, StoryboardGenerated {
     
     @IBOutlet weak var searchViewController: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var deckFilterButton: UIButton!
+
     private var dataSource: UITableViewDiffableDataSource<Int, SearchClozeDataSource>!
 
     private var groupedCards: GroupedCards = []
@@ -52,13 +53,17 @@ class SearchViewController: UIViewController, StoryboardGenerated {
     private func setup() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tap)
+
+        tableView.register(UINib(nibName: SearchCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: SearchCell.reuseIdentifier)
+
+        deckFilterButton.addDefaultBorder(cornerRadius: 8)
     }
 
     private func setupTableViewDataSource() {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.reuseIdentifier, for: indexPath) as! SearchCell
             cell.nameLabel.text = itemIdentifier.title
-            
+
             return cell
         })
         
@@ -179,7 +184,7 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentGroupedCards = groupedCards[indexPath.row]
         
-        let controller = SearchClozeResultViewController()
+        let controller = SearchClozeResultViewController.instantiate()
         controller.cards = currentGroupedCards.cards
 
         navigationController?.pushViewController(controller, animated: true)

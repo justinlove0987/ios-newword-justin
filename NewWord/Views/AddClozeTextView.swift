@@ -53,7 +53,7 @@ class AddClozeTextView: UITextView {
                     positionRatio += element.heightFraction
                 }
                 
-                element.color.setFill()
+                element.contentColor.setFill()
                 
                 let range = NSRange(location: characterIndex.index, length: 1)
                 
@@ -138,8 +138,8 @@ class AddClozeTextView: UITextView {
     }
 
     func renewTagImages(_ coloredMarks: [ColoredMark]) {
-        for colorMark in coloredMarks {
-            let tagView = CustomTagView(coloredMark: colorMark, lineHeight: self.font!.lineHeight)
+        for coloredMark in coloredMarks {
+            let tagView = CustomTagView(coloredMark: coloredMark, lineHeight: self.font!.lineHeight)
 
             tagView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -148,6 +148,7 @@ class AddClozeTextView: UITextView {
             ])
 
             tagView.layoutIfNeeded()
+            tagView.cornerRadiusCallback?()
 
             let image = tagView.asImage()
 
@@ -157,7 +158,7 @@ class AddClozeTextView: UITextView {
             attachment.bounds = CGRect(x: 0, y: self.font?.descender ?? 0, width: image.size.width, height: image.size.height)
 
             let attachmentString = NSAttributedString(attachment: attachment)
-            let replaceRange = NSRange(location: colorMark.characterIndex, length: 1)
+            let replaceRange = NSRange(location: coloredMark.characterIndex, length: 1)
 
             textStorage.replaceCharacters(in: replaceRange, with: attachmentString)
 

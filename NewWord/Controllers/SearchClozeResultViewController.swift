@@ -7,11 +7,13 @@
 
 import UIKit
 
-class SearchClozeResultViewController: UIViewController {
-    
+class SearchClozeResultViewController: UIViewController, StoryboardGenerated {
+
+    static var storyboardName: String = K.Storyboard.main
+
     var cards: [CDCard] = []
     
-    private let tableView: UITableView = UITableView(frame: .zero, style: .grouped)
+    private let tableView: UITableView = UITableView(frame: .zero, style: .plain)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,10 +21,14 @@ class SearchClozeResultViewController: UIViewController {
     }
     
     private func setup() {
+        navigationController?.navigationBar.tintColor = UIColor.label
+
         view.addSubview(tableView)
-        
+        view.backgroundColor = UIColor.background
+
         tableView.frame = view.bounds
-        
+        tableView.backgroundColor = UIColor.background
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: SearchClozeResultCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: SearchClozeResultCell.reuseIdentifier)

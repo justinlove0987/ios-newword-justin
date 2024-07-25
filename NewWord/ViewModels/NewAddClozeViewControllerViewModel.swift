@@ -13,24 +13,25 @@ import NaturalLanguage
 struct NewAddClozeViewControllerViewModel {
     
     struct ColorSegment: Comparable {
-
-        let color: UIColor
+        
+        let tagColor: UIColor
+        let contentColor: UIColor
         let clozeLocation: Int
         let clozeLength: Int
         var heightFraction: Double = 0.0
-        var tagIndex: Int?
+        var segmentIndex: Int?
         var tagNumber: Int?
 
         var isTag: Bool {
-            guard tagIndex != nil else { return false }
+            guard segmentIndex != nil else { return false }
 
             return true
         }
 
-        var isFirstTag: Bool {
+        var isFirstTagInSegment: Bool {
             guard isTag else { return false }
 
-            return tagIndex == 0
+            return segmentIndex == 0
         }
 
         static func < (lhs: ColorSegment, rhs: ColorSegment) -> Bool {
@@ -229,7 +230,7 @@ struct NewAddClozeViewControllerViewModel {
             if newLocation < currentLocation {
                 clozes[i].range = NSRange(location: currentLocation + offset, length: currentLength)
 
-            } else if newLocation > currentLocation && newLocation <= currentLocation + currentLength {
+            } else if newLocation > currentLocation && newLocation < currentLocation + currentLength {
                 clozes[i].range = NSRange(location: currentLocation, length: currentLength+offset)
             }
         }
@@ -239,9 +240,9 @@ struct NewAddClozeViewControllerViewModel {
         var newCloze: NewAddCloze
 
         if selectMode == .sentence {
-            newCloze = NewAddCloze(number: number, text: cloze, range: range, color: UIColor.clozeBlueText, textType: textType)
+            newCloze = NewAddCloze(number: number, text: cloze, range: range, tagColor: UIColor.clozeBlueNumber, contentColor: UIColor.clozeBlueText, textType: textType)
         } else {
-            newCloze = NewAddCloze(number: number, text: cloze, range: range, color: .red, textType: textType)
+            newCloze = NewAddCloze(number: number, text: cloze, range: range, tagColor: UIColor.purple, contentColor: .red, textType: textType)
         }
 
         return newCloze
@@ -289,7 +290,8 @@ struct NewAddClozeViewControllerViewModel {
                 let index = location + i
                 let isFirstIndex = location == index
 
-                let newSegment = ColorSegment(color: current.color,
+                let newSegment = ColorSegment(tagColor: current.tagColor,
+                                              contentColor: current.contentColor,
                                               clozeLocation: location,
                                               clozeLength: nsRange.length, tagNumber: current.number)
                 
@@ -337,12 +339,12 @@ struct NewAddClozeViewControllerViewModel {
                 if hasOverLapping {
                     let fraction = remainingHeightFraction / Double((overlappingCount+1))
                     
-                    for tagIndex in 0..<overlappingCount {
+                    for segmentIndex in 0..<overlappingCount + 1 {
                         colorSegments[currentIndex].heightFraction = fraction
                         remainingHeightFraction -= fraction
 
                         if characterIndex.isFirstIndex {
-                            colorSegments[currentIndex].tagIndex = tagIndex
+                            colorSegments[currentIndex].segmentIndex = segmentIndex
                         }
 
                         currentIndex += 1
@@ -355,7 +357,7 @@ struct NewAddClozeViewControllerViewModel {
                         colorSegments[currentIndex].heightFraction = remainingHeightFraction
 
                         if characterIndex.isFirstIndex {
-                            colorSegments[currentIndex].tagIndex = 0
+                            colorSegments[currentIndex].segmentIndex = 0
                         }
 
                     } else {

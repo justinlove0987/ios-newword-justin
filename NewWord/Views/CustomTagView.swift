@@ -10,43 +10,74 @@ import UIKit
 class CustomTagView: UIView, NibOwnerLoadable {
 
     @IBOutlet weak var tagStackView: UIStackView!
-    @IBOutlet weak var spacingStackView: UIStackView!
+    @IBOutlet weak var tagFontSpacingStackView: UIStackView!
+    @IBOutlet weak var tagBackSpacingStackView: UIStackView!
+
+    @IBOutlet weak var textFrontSpacingStackView: UIStackView!
 
     var coloredMark: NewAddClozeViewControllerViewModel.ColoredMark?
+
+    var cornerRadiusCallback: (() -> ())?
 
     init(coloredMark: NewAddClozeViewControllerViewModel.ColoredMark, lineHeight: CGFloat) {
         self.coloredMark = coloredMark
         super.init(frame: .zero)
         loadNibContent()
-
         removeSubviews()
 
-        for segment in coloredMark.colorSegments {
+        for i in 0..<coloredMark.colorSegments.count {
+            let segment = coloredMark.colorSegments[i]
             let proportionalHeight = segment.heightFraction*lineHeight*10
 
             if let tagNumber = segment.tagNumber, segment.isTag {
-                let label = TagLabel(customHeight: proportionalHeight)
+                let segmentLabel = TagLabel(customHeight: proportionalHeight)
+                segmentLabel.font = UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize * segment.heightFraction, weight: .medium)
+                segmentLabel.text = "\(tagNumber)"
+                segmentLabel.backgroundColor = segment.tagColor
 
-                label.font = UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize * segment.heightFraction,
-                                               weight: .medium)
+                let tagFrontSpacingView = TagView(customHeight: proportionalHeight)
+                tagFrontSpacingView.backgroundColor = segment.tagColor
 
-                label.text = "\(tagNumber)"
+                let tagBackSpacingView = TagView(customHeight: proportionalHeight)
 
-                label.backgroundColor = segment.color
+                if segment.isFirstTagInSegment {
+                    cornerRadiusCallback = {
+                        tagFrontSpacingView.applyRoundedCorners(corners: [.topLeft], radius: 5)
+                    }
 
-                if segment.isFirstTag {
-                    label.layer.cornerRadius = 5
-                    label.layer.maskedCorners = [.layerMinXMinYCorner]
+                    if i - 1 > 0 {
+                        tagBackSpacingView.backgroundColor = coloredMark.colorSegments[i-1].contentColor
+                    }
                 }
 
-                tagStackView.addArrangedSubview(label)
+                let textFrontSpacingView = TagView(customHeight: proportionalHeight)
+                textFrontSpacingView.backgroundColor = segment.contentColor
+
+                tagStackView.addArrangedSubview(segmentLabel)
+                tagFontSpacingStackView.addArrangedSubview(tagFrontSpacingView)
+                tagBackSpacingStackView.addArrangedSubview(tagBackSpacingView)
+                textFrontSpacingStackView.addArrangedSubview(textFrontSpacingView)
+
 
             } else {
                 let label = TagLabel(customHeight: proportionalHeight)
-                label.backgroundColor = segment.color
+                label.backgroundColor = segment.contentColor
                 label.text = ""
+                
+                let tagFrontSpacingView = TagView(customHeight: proportionalHeight)
+                tagFrontSpacingView.backgroundColor = segment.contentColor
+
+                let tagBackSpacingView = TagView(customHeight: proportionalHeight)
+                tagBackSpacingView.backgroundColor = segment.contentColor
+
+                let textFrontSpacingView = TagView(customHeight: proportionalHeight)
+                textFrontSpacingView.backgroundColor = segment.contentColor
 
                 tagStackView.addArrangedSubview(label)
+                tagFontSpacingStackView.addArrangedSubview(tagFrontSpacingView)
+                tagBackSpacingStackView.addArrangedSubview(tagBackSpacingView)
+                textFrontSpacingStackView.addArrangedSubview(textFrontSpacingView)
+
             }
         }
     }
@@ -54,29 +85,29 @@ class CustomTagView: UIView, NibOwnerLoadable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadNibContent()
-        setup()
+
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         loadNibContent()
-        setup()
-    }
-
-    func setup() {
-
-    }
-
-    func configureUI() {
-        guard let coloredMark else { return }
-
-
     }
 
     private func removeSubviews() {
-        for arrangedSubview in tagStackView.arrangedSubviews {
-            arrangedSubview.removeFromSuperview()
+        for subview in tagStackView.arrangedSubviews {
+            subview.removeFromSuperview()
         }
+
+        for subview in tagFontSpacingStackView.arrangedSubviews {
+            subview.removeFromSuperview()
+        }
+    }
+
+    func addCornerRadius(view: UIView, corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        view.layer.mask = mask
     }
 
 }

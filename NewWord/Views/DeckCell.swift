@@ -9,8 +9,8 @@ import UIKit
 
 class DeckCell: UITableViewCell {
     
+    @IBOutlet weak var innerView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
-    
     @IBOutlet weak var newLabel: UILabel!
     @IBOutlet weak var relearnLabel: UILabel!
     @IBOutlet weak var reviewLabel: UILabel!
@@ -25,7 +25,8 @@ class DeckCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        innerView.addDefaultBorder()
     }
     
     // MARK: - Actions

@@ -20,10 +20,9 @@ class SearchClozeResultCell: UITableViewCell {
     func updateUI(_ cloze: CDCloze) {
         guard let context = cloze.context?.text else { return }
 
-        innerView.clipsToBounds = true
-        innerView.layer.cornerRadius = 15
+        innerView.addDefaultBorder()
 
-        let number = Int(cloze.number)
+        // let number = Int(cloze.number)
         let range = NSRange(location: Int(cloze.location), length: Int(cloze.length))
 
         let attributedString = highlightText(context, in: range)
@@ -41,7 +40,7 @@ class SearchClozeResultCell: UITableViewCell {
         // 設置整體屬性
         let overallAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 17),
-            .foregroundColor: UIColor.white
+            .foregroundColor: UIColor.title
         ]
 
         attributedString.addAttributes(overallAttributes, range: NSRange(location: 0, length: attributedString.length))
@@ -68,18 +67,14 @@ class SearchClozeResultCell: UITableViewCell {
         DispatchQueue.main.async {
             // 獲取範圍起始位置的 UITextPosition
             if let startPosition = textView.position(from: textView.beginningOfDocument, offset: range.location) {
-                let caretRect = textView.caretRect(for: startPosition)
-
-                // 確保 textView 滾動到指定範圍
-                let visibleRect = textView.bounds
-                var targetRect = caretRect
+                var caretRect = textView.caretRect(for: startPosition)
 
                 // 這裡可以進行額外的邊距調整以確保文本完全顯示
                 let inset: CGFloat = 60
-                targetRect = targetRect.inset(by: UIEdgeInsets(top: -inset, left: -inset, bottom: -inset, right: -inset))
+                caretRect = caretRect.inset(by: UIEdgeInsets(top: -inset, left: -inset, bottom: -inset, right: -inset))
 
                 // 滾動到目標範圍
-                textView.scrollRectToVisible(targetRect, animated: false)
+                textView.scrollRectToVisible(caretRect, animated: false)
             } else {
                 print("Invalid position")
             }

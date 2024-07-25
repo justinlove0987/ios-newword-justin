@@ -24,10 +24,17 @@ extension UIView {
         }
     }
     
-    func addDefaultBorder() {
+    func addDefaultBorder(cornerRadius: CGFloat = 15) {
         self.layer.borderColor = UIColor.border.cgColor
         self.layer.borderWidth = 1
-        self.layer.cornerRadius = 15
+        self.layer.cornerRadius = cornerRadius
         self.layer.masksToBounds = true
+    }
+
+    func applyRoundedCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = path.cgPath
+        layer.mask = maskLayer
     }
 }

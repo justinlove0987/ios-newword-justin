@@ -19,7 +19,8 @@ struct NewAddCloze {
     let number: Int
     let text: String
     var range: NSRange
-    let color: UIColor
+    let tagColor: UIColor
+    let contentColor: UIColor
     var textType: TextType = .word
     
     func getTagIndex(in text: String) -> String.Index? {
@@ -99,8 +100,16 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     }
     
     private func setupCumstomTextView() {
-        guard let inputText else { return }
-        
+        guard var inputText else { return }
+
+        inputText = """
+The beauty of language lies in its diversity. English, with its rich vocabulary, offers endless ways to express ideas. It's fascinating how languages evolve and influence each other, creating a vibrant tapestry of communication.
+
+語言的美麗在於其多樣性。英語擁有豐富的詞彙，提供無窮的表達方式。語言的演變和相互影響是迷人的，創造了一個充滿活力的交流圖景。
+
+言語の美しさはその多様性にあります。英語は豊富な語彙を持ち、無限の表現方法を提供します。言語の進化と相互影響は魅力的であり、活気に満ちたコミュニケーションのタペストリーを作り出します。
+"""
+
         let attributedString = NSMutableAttributedString(string: inputText)
         
         // 創建一個 Text Storage 和 Layout Manager
@@ -125,7 +134,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         customTextView.textColor = UIColor.title
         customTextView.translatesAutoresizingMaskIntoConstraints = false
         customTextView.addGestureRecognizer(tapGesture)
-        customTextView.delegate = self
+        // customTextView.delegate = self
         customTextView.isScrollEnabled = true
         
         self.view.addSubview(customTextView)
@@ -269,21 +278,5 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         customTextView.newColorRanges = coloredText
         customTextView.renewTagImages(coloredMarks)
         customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
-    }
-}
-
-// MARK: - UITextViewDelegate
-
-extension NewAddClozeViewController: UITextViewDelegate {
-    // 當文字選擇變化時
-    func textViewDidChangeSelection(_ textView: UITextView) {
-        // 獲取反白的範圍
-        if let selectedRange = textView.selectedTextRange {
-            // 獲取範圍的起始和結束位置
-            let start = textView.offset(from: textView.beginningOfDocument, to: selectedRange.start)
-            let end = textView.offset(from: textView.beginningOfDocument, to: selectedRange.end)
-            let selectedText = (textView.text as NSString).substring(with: NSRange(location: start, length: end - start))
-            
-        }
     }
 }

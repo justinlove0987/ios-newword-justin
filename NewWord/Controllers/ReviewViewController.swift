@@ -13,7 +13,8 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
     // MARK: - Properties
     
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var addButton: UIButton!
+    
     var dataSource: UITableViewDiffableDataSource<Int, CDDeck>!
 
     // MARK: - Lifecycles
@@ -37,6 +38,13 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
     private func setup() {
         setupDataSource()
         setupNotifications()
+        setupProperties()
+    }
+
+    private func setupProperties() {
+        tableView.register(UINib(nibName: DeckCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: DeckCell.reuseIdentifier)
+
+        addButton.addDefaultBorder(cornerRadius: 10)
     }
 
     private func setupDataSource() {
