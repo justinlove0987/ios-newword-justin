@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -833,42 +834,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fqA-fm-8y1">
-                                <rect key="frame" x="19.666666666666657" y="123" width="353.66666666666674" height="72.333333333333314"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="翻譯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74w-3e-5lt">
-                                        <rect key="frame" x="12" y="11.999999999999998" width="34.666666666666664" height="20.333333333333329"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                        <color key="textColor" name="title"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="環境" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLn-mA-zeD">
-                                        <rect key="frame" x="12.000000000000002" y="42.333333333333343" width="30.666666666666671" height="18"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="nLo-8b-8Rb"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" name="title"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" name="content"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="uLn-mA-zeD" secondAttribute="bottom" constant="12" id="GAs-Fj-7gE"/>
-                                    <constraint firstItem="74w-3e-5lt" firstAttribute="top" secondItem="fqA-fm-8y1" secondAttribute="top" constant="12" id="OoF-RL-nh2"/>
-                                    <constraint firstItem="74w-3e-5lt" firstAttribute="leading" secondItem="fqA-fm-8y1" secondAttribute="leading" constant="12" id="PPL-ym-EvN"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="74w-3e-5lt" secondAttribute="trailing" constant="20" symbolic="YES" id="PeU-0H-dyM"/>
-                                    <constraint firstItem="uLn-mA-zeD" firstAttribute="top" secondItem="74w-3e-5lt" secondAttribute="bottom" constant="10" id="bly-o4-D7e"/>
-                                    <constraint firstItem="uLn-mA-zeD" firstAttribute="top" secondItem="74w-3e-5lt" secondAttribute="bottom" constant="9.9999999999999858" id="myu-SB-fOZ"/>
-                                    <constraint firstItem="uLn-mA-zeD" firstAttribute="leading" secondItem="74w-3e-5lt" secondAttribute="leading" id="qwB-iZ-Nsm"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uLn-mA-zeD" secondAttribute="trailing" constant="20" symbolic="YES" id="vrK-YX-EEA"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZd-tC-25L">
-                                <rect key="frame" x="19.666666666666657" y="215.33333333333334" width="353.66666666666674" height="509.33333333333326"/>
+                                <rect key="frame" x="19.666666666666657" y="208.00000000000003" width="353.66666666666674" height="476.66666666666674"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rvU-6I-nmn">
-                                        <rect key="frame" x="20" y="20" width="313.66666666666669" height="469.33333333333331"/>
+                                        <rect key="frame" x="20" y="20" width="313.66666666666669" height="436.66666666666669"/>
                                         <color key="backgroundColor" name="content"/>
                                         <string key="text">在現代社會，健康的生活方式變得越來越重要。飲食均衡、適當運動和充足的睡眠都是維持健康的關鍵。許多人在繁忙的工作和生活中往往忽視了這些基本的健康原則。要保持健康，首先需要有意識地安排時間進行運動，無論是簡單的散步還是強度較高的運動，都能有效提高體力和免疫力。同時，飲食方面也應該多加注意，減少高糖、高脂肪的食物攝取，多吃蔬菜水果，保持營養均衡。最後，充足的睡眠對於恢復精力和維持心理健康至關重要。只有在這些方面都做得好，才能真正擁有健康的生活。
 
@@ -888,33 +858,91 @@ Environmental sustainability has become a crucial issue in today's world. With t
                                     <constraint firstAttribute="bottom" secondItem="rvU-6I-nmn" secondAttribute="bottom" constant="20" id="zif-YQ-ZIS"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HdE-4v-QW0">
-                                <rect key="frame" x="0.0" y="734.66666666666663" width="393" height="34.333333333333371"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fqA-fm-8y1">
+                                <rect key="frame" x="19.666666666666657" y="123" width="353.66666666666674" height="88.666666666666686"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjc-Er-4LP">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="34.333333333333336"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="單字"/>
-                                        <connections>
-                                            <action selector="selectModeAction:" destination="Q3G-wX-9Sl" eventType="touchUpInside" id="bTy-0o-JxH"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="OQ9-NE-zTC">
+                                        <rect key="frame" x="20" y="19.999999999999996" width="313.66666666666669" height="48.666666666666657"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="Uiu-eE-aZ0">
+                                                <rect key="frame" x="0.0" y="0.0" width="313.66666666666669" height="20.333333333333332"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="原文" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ngj-rP-o2g">
+                                                        <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="20.333333333333332"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                        <color key="textColor" name="title"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="環境" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndc-cf-EYI">
+                                                        <rect key="frame" x="48.666666666666657" y="2" width="265" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" name="title"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="firstBaseline" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="bLC-hZ-x53">
+                                                <rect key="frame" x="0.0" y="28.333333333333343" width="313.66666666666669" height="20.333333333333329"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="翻譯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74w-3e-5lt">
+                                                        <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="20.333333333333332"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                        <color key="textColor" name="title"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="environment" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLn-mA-zeD">
+                                                        <rect key="frame" x="48.666666666666657" y="2" width="265" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" name="title"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="uLn-mA-zeD" secondAttribute="trailing" id="igf-ex-ntU"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="bLC-hZ-x53" secondAttribute="trailing" id="SER-8d-nMF"/>
+                                            <constraint firstAttribute="trailing" secondItem="Uiu-eE-aZ0" secondAttribute="trailing" id="vK6-Al-11z"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
-                            </stackView>
+                                <color key="backgroundColor" name="content"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="OQ9-NE-zTC" secondAttribute="bottom" constant="20" id="QC1-C1-qb5"/>
+                                    <constraint firstItem="OQ9-NE-zTC" firstAttribute="top" secondItem="fqA-fm-8y1" secondAttribute="top" constant="20" id="aCx-xH-7fe"/>
+                                    <constraint firstAttribute="trailing" secondItem="OQ9-NE-zTC" secondAttribute="trailing" constant="20" id="bwf-ZX-3DB"/>
+                                    <constraint firstItem="OQ9-NE-zTC" firstAttribute="leading" secondItem="fqA-fm-8y1" secondAttribute="leading" constant="20" id="sG7-aA-lfq"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjc-Er-4LP">
+                                <rect key="frame" x="167.33333333333334" y="704.66666666666663" width="58.666666666666657" height="34.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="單字">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" name="background"/>
+                                        <color key="strokeColor" name="border"/>
+                                    </backgroundConfiguration>
+                                    <color key="baseForegroundColor" name="title"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="selectModeAction:" destination="Q3G-wX-9Sl" eventType="touchUpInside" id="bTy-0o-JxH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="g4f-Hp-tTQ"/>
                         <color key="backgroundColor" name="background"/>
                         <constraints>
-                            <constraint firstItem="HdE-4v-QW0" firstAttribute="bottom" secondItem="g4f-Hp-tTQ" secondAttribute="bottom" id="M2q-AM-fUo"/>
+                            <constraint firstItem="wjc-Er-4LP" firstAttribute="centerX" secondItem="C6T-Th-Jot" secondAttribute="centerX" id="6KF-zY-LcK"/>
                             <constraint firstItem="fqA-fm-8y1" firstAttribute="top" secondItem="g4f-Hp-tTQ" secondAttribute="top" constant="20" id="Oam-Ti-mw6"/>
-                            <constraint firstItem="uZd-tC-25L" firstAttribute="top" secondItem="fqA-fm-8y1" secondAttribute="bottom" constant="20" id="QaL-8p-fuM"/>
-                            <constraint firstItem="g4f-Hp-tTQ" firstAttribute="trailing" secondItem="HdE-4v-QW0" secondAttribute="trailing" id="Z9c-0L-2NA"/>
+                            <constraint firstItem="wjc-Er-4LP" firstAttribute="top" secondItem="uZd-tC-25L" secondAttribute="bottom" constant="20" id="PfO-Yb-8I1"/>
+                            <constraint firstItem="g4f-Hp-tTQ" firstAttribute="bottom" secondItem="wjc-Er-4LP" secondAttribute="bottom" constant="30" id="UoP-oj-u5F"/>
                             <constraint firstItem="fqA-fm-8y1" firstAttribute="width" secondItem="C6T-Th-Jot" secondAttribute="width" multiplier="0.9" id="aKa-Qg-TwO"/>
-                            <constraint firstItem="HdE-4v-QW0" firstAttribute="leading" secondItem="g4f-Hp-tTQ" secondAttribute="leading" id="acH-Zz-CjS"/>
+                            <constraint firstItem="uZd-tC-25L" firstAttribute="top" secondItem="g4f-Hp-tTQ" secondAttribute="top" constant="105" id="hYX-a7-gK6"/>
                             <constraint firstItem="fqA-fm-8y1" firstAttribute="centerX" secondItem="C6T-Th-Jot" secondAttribute="centerX" id="lKF-Yr-G0G"/>
                             <constraint firstItem="uZd-tC-25L" firstAttribute="centerX" secondItem="C6T-Th-Jot" secondAttribute="centerX" id="lpd-57-Vdx"/>
                             <constraint firstItem="uZd-tC-25L" firstAttribute="width" secondItem="C6T-Th-Jot" secondAttribute="width" multiplier="0.9" id="r1k-aR-hZR"/>
-                            <constraint firstItem="HdE-4v-QW0" firstAttribute="top" secondItem="uZd-tC-25L" secondAttribute="bottom" constant="10" id="zSe-Xw-uhN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="詞彙選擇" id="kRG-XS-FhI">
@@ -933,9 +961,10 @@ Environmental sustainability has become a crucial issue in today's world. With t
                     </navigationItem>
                     <connections>
                         <outlet property="contextContentView" destination="uZd-tC-25L" id="68m-1k-3Bq"/>
+                        <outlet property="originalTextLabel" destination="Ndc-cf-EYI" id="mbB-JW-4VX"/>
                         <outlet property="selectModeButton" destination="wjc-Er-4LP" id="gb5-Tl-TVO"/>
                         <outlet property="textView" destination="rvU-6I-nmn" id="hQb-ML-AzK"/>
-                        <outlet property="translateLabel" destination="uLn-mA-zeD" id="8SW-M4-DLz"/>
+                        <outlet property="translatedTextLabel" destination="uLn-mA-zeD" id="8SW-M4-DLz"/>
                         <outlet property="translationContentView" destination="fqA-fm-8y1" id="Qwe-ub-sba"/>
                     </connections>
                 </viewController>
@@ -1216,7 +1245,9 @@ Environmental sustainability has become a crucial issue in today's world. With t
         <scene sceneID="5JH-4G-hQ1">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pSA-EX-MVA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="複習" image="pencil.circle" catalog="system" selectedImage="pencil.circle.fill" id="JrR-K1-RQL"/>
+                    <tabBarItem key="tabBarItem" title="複習" selectedImage="pencil.circle.fill" catalog="system" id="JrR-K1-RQL">
+                        <imageReference key="image" image="pencil.circle" catalog="system" variableValue="0.80000000000000004"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XBk-CJ-Zg3">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -1239,7 +1270,11 @@ Environmental sustainability has become a crucial issue in today's world. With t
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1ci-ng-wfh">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="background"/>
+                        <color key="selectedImageTintColor" name="title"/>
+                        <tabBarAppearance key="scrollEdgeAppearance">
+                            <color key="backgroundColor" name="background"/>
+                        </tabBarAppearance>
                     </tabBar>
                     <connections>
                         <segue destination="pSA-EX-MVA" kind="relationship" relationship="viewControllers" id="nIJ-fd-wI5"/>
@@ -1301,6 +1336,9 @@ Environmental sustainability has become a crucial issue in today's world. With t
         <image name="plus" catalog="system" width="128" height="113"/>
         <namedColor name="background">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="border">
+            <color red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="content">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

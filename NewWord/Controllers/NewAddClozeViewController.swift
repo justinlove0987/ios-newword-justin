@@ -46,7 +46,8 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     static var storyboardName: String = K.Storyboard.main
     
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var translateLabel: UILabel!
+    @IBOutlet weak var originalTextLabel: UILabel!
+    @IBOutlet weak var translatedTextLabel: UILabel!
     @IBOutlet weak var selectModeButton: UIButton!
     @IBOutlet var translationContentView: UIView!
     @IBOutlet weak var contextContentView: UIView!
@@ -84,8 +85,11 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     }
     
     private func setupProperties() {
-        translationContentView.addDefaultBorder()
-        contextContentView.addDefaultBorder()
+        translationContentView.addDefaultBorder(maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
+        contextContentView.addDefaultBorder(maskedCorners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
+
+        contextContentView.layer.zPosition = 0
+        translationContentView.layer.zPosition = 1
     }
     
     private func setupViewModel() {
@@ -103,11 +107,11 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         guard var inputText else { return }
 
         inputText = """
-The beauty of language lies in its diversity. English, with its rich vocabulary, offers endless ways to express ideas. It's fascinating how languages evolve and influence each other, creating a vibrant tapestry of communication.
+Language is a bridge that connects people across cultures. English, with its global presence, serves as a common medium for international dialogue. The power of language to unite and convey meaning is truly remarkable.
 
-語言的美麗在於其多樣性。英語擁有豐富的詞彙，提供無窮的表達方式。語言的演變和相互影響是迷人的，創造了一個充滿活力的交流圖景。
+語言是一座連接不同文化的人們之間的橋樑。英語因其全球性，被視為國際對話的共同媒介。語言能夠團結和傳達意義的力量實在令人驚嘆。
 
-言語の美しさはその多様性にあります。英語は豊富な語彙を持ち、無限の表現方法を提供します。言語の進化と相互影響は魅力的であり、活気に満ちたコミュニケーションのタペストリーを作り出します。
+言語は文化を越えて人々を結ぶ橋です。英語はその国際的な普及によって、国際的な対話の共通の手段として機能しています。言語の統一と意味の伝達の力は本当に驚くべきものです。
 """
 
         let attributedString = NSMutableAttributedString(string: inputText)
@@ -119,31 +123,26 @@ The beauty of language lies in its diversity. English, with its rich vocabulary,
         
         // 創建一個 Text Container 並配置它
         let textContainer = NSTextContainer(size: CGSize(width: textView.frame.width, height: textView.frame.height))
-        textContainer.lineFragmentPadding = 0
         layoutManager.addTextContainer(textContainer)
-        
-        // 創建一個自定義 UITextView 並配置它
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        
+
         customTextView = AddClozeTextView(frame: textView.frame, textContainer: textContainer)
-        customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
+
         customTextView.isEditable = false
         customTextView.backgroundColor = .clear
-        customTextView.font = UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize,
-                                                weight: .medium)
-        customTextView.textColor = UIColor.title
+        customTextView.delegate = self
         customTextView.translatesAutoresizingMaskIntoConstraints = false
         customTextView.addGestureRecognizer(tapGesture)
-        // customTextView.delegate = self
-        customTextView.isScrollEnabled = true
-        
+        customTextView.setProperties()
+
         self.view.addSubview(customTextView)
         
         NSLayoutConstraint.activate([
-            customTextView.topAnchor.constraint(equalTo: textView.topAnchor),
-            customTextView.bottomAnchor.constraint(equalTo: textView.bottomAnchor),
-            customTextView.leadingAnchor.constraint(equalTo: textView.leadingAnchor),
-            customTextView.trailingAnchor.constraint(equalTo: textView.trailingAnchor),
+            customTextView.topAnchor.constraint(equalTo: contextContentView.topAnchor, constant: 20),
+            customTextView.bottomAnchor.constraint(equalTo: contextContentView.bottomAnchor, constant: -20),
+            customTextView.leadingAnchor.constraint(equalTo: contextContentView.leadingAnchor, constant: 20),
+            customTextView.trailingAnchor.constraint(equalTo: contextContentView.trailingAnchor, constant: -20),
         ])
     }
     
@@ -183,20 +182,22 @@ The beauty of language lies in its diversity. English, with its rich vocabulary,
     private func updateSelectModeUI() {
         switch selectMode {
         case .word:
-            selectModeButton.setTitle("Word", for: .normal)
+            selectModeButton.setTitle("單字", for: .normal)
         case .sentence:
-            selectModeButton.setTitle("Sentence", for: .normal)
+            selectModeButton.setTitle("句子", for: .normal)
         }
     }
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
-        if let _ = customTextView.selectedTextRange {
+        guard !customTextView.isTextSelected() else {
             customTextView.selectedTextRange = nil
+            customTextView.setProperties()
+            return
         }
-        
+
         guard let customTextView = gesture.view as? AddClozeTextView else { return }
+
         var location = gesture.location(in: customTextView)
-        
         location.x -= customTextView.textContainerInset.left
         location.y -= customTextView.textContainerInset.top
         
@@ -208,7 +209,7 @@ The beauty of language lies in its diversity. English, with its rich vocabulary,
                     range = wordRange
                     
                     guard let range = range else { return }
-                    
+
                     clozeWord(range: range)
                 }
                 
@@ -223,9 +224,15 @@ The beauty of language lies in its diversity. English, with its rich vocabulary,
             }
         }
     }
-    
+
     private func clozeWord(range: NSRange) {
-        if viewModel.containsCloze(range) {
+        // 獲取點擊的文字
+        let text = (customTextView.text as NSString).substring(with: range)
+        let textWithoutFFFC = text.removeObjectReplacementCharacter()
+
+        guard !text.startsWithObjectReplacementCharacter() else { return }
+        guard !viewModel.isWhitespace(text) else { return }
+        guard !viewModel.containsCloze(range) else {
             viewModel.removeCloze(range)
 
             if !viewModel.hasDuplicateClozeLocations(with: range) {
@@ -239,44 +246,59 @@ The beauty of language lies in its diversity. English, with its rich vocabulary,
 
             customTextView.newColorRanges = coloredText
             customTextView.renewTagImages(coloredMarks)
-            customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
+            customTextView.setProperties()
 
             return
         }
-        
-        // 獲取點擊的文字
-        let text = (customTextView.text as NSString).substring(with: range)
 
-        viewModel.translateEnglishToChinese(text) { result in
+        viewModel.translateEnglishToChinese(textWithoutFFFC) { result in
             switch result {
             case .success(let translatedSimplifiedText):
                 let traditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
-                
-                self.translateLabel.text = traditionalText
-                
+
+                self.originalTextLabel.text = textWithoutFFFC
+                self.translatedTextLabel.text = traditionalText
+                self.originalTextLabel.numberOfLines = 0
+                self.translatedTextLabel.numberOfLines = 0
+
+                UIView.animate(withDuration: 0.3) {
+                    self.view.layoutIfNeeded()
+                }
+
             case .failure(_):
                 break
             }
         }
-        
-        guard !viewModel.isWhitespace(text) else { return }
-        
-        let clozeNumber = viewModel.getClozeNumber()
-        customTextView.insertNumberImageView(at: range.location, existClozes: viewModel.clozes, with: String(clozeNumber))
+
+        let clozeNumber = self.viewModel.getClozeNumber()
+        self.customTextView.insertNumberImageView(at: range.location, existClozes: self.viewModel.clozes, with: String(clozeNumber))
 
         let offset = 1
-        let updateRange = viewModel.getUpdatedRange(range: range, offset: offset)
-        let textType = viewModel.getTextType(text)
-        let newCloze = viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, selectMode: selectMode, textType: textType)
+        let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
+        let textType = self.viewModel.getTextType(text)
+        let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, selectMode: self.selectMode, textType: textType)
 
-        viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
-        viewModel.appendCloze(newCloze)
+        self.viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
+        self.viewModel.appendCloze(newCloze)
 
-        let coloredText = viewModel.calculateColoredTextHeightFraction()
-        let coloredMarks = viewModel.createColoredMarks(coloredText)
-        
+        let coloredText = self.viewModel.calculateColoredTextHeightFraction()
+        let coloredMarks = self.viewModel.createColoredMarks(coloredText)
+
         customTextView.newColorRanges = coloredText
         customTextView.renewTagImages(coloredMarks)
-        customTextView.increaseLineSpacing(UserDefaultsManager.shared.preferredLineSpacing)
+        customTextView.setProperties()
+    }
+}
+
+extension NewAddClozeViewController: UITextViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if scrollView == customTextView {
+            self.originalTextLabel.numberOfLines = 1
+            self.translatedTextLabel.numberOfLines = 1
+
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+        }
     }
 }

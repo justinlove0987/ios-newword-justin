@@ -24,11 +24,12 @@ extension UIView {
         }
     }
     
-    func addDefaultBorder(cornerRadius: CGFloat = 15) {
+    func addDefaultBorder(cornerRadius: CGFloat = 15, maskedCorners: CACornerMask = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]) {
         self.layer.borderColor = UIColor.border.cgColor
         self.layer.borderWidth = 1
         self.layer.cornerRadius = cornerRadius
         self.layer.masksToBounds = true
+        self.layer.maskedCorners = maskedCorners
     }
 
     func applyRoundedCorners(corners: UIRectCorner, radius: CGFloat) {

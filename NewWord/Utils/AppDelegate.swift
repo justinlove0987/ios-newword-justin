@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     func initializeDataManager() {
         _ = CoreDataManager.shared
-        
+
         if UserDefaultsManager.shared.preferredFontSize == 0 {
             UserDefaultsManager.shared.preferredFontSize = 18
         }
