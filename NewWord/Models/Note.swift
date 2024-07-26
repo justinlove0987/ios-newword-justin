@@ -10,7 +10,7 @@ import Foundation
 struct Note: Codable, Hashable {
     
     let id: String
-    let noteType: NoteType
+    let noteType: OldNoteType
     
     static func == (lhs: Note, rhs: Note) -> Bool {
         return lhs.id == rhs.id

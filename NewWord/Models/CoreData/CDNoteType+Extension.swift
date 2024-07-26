@@ -8,32 +8,42 @@
 import Foundation
 import CoreData
 
+enum NoteType: Int {
+    case sentenceCloze
+    case prononciation
+    case cloze
+    case lienteningCloze
+}
+
 @objc(CDNoteType)
 public class CDNoteType: NSManagedObject {
 
 }
 
 extension CDNoteType {
-    enum Content {
+    
+    enum Resource {
+        case cloze(CDCloze)
         case sentenceCloze(CDSentenceCloze)
-        case prononciation
-        case cloze
-
-        enum CodingKeys: String, CodingKey {
-            case sentenceCloze
-            case prononciation
-        }
     }
-
-    var content: Content? {
-        switch rawValue {
-        case 0:
+    
+    var type: NoteType? {
+        guard let type = NoteType(rawValue: Int(rawValue)) else {
+            return nil
+        }
+        
+        return type
+    }
+    
+    var resource: Resource? {
+        switch type {
+        case .sentenceCloze:
             return .sentenceCloze(sentenceCloze!)
-        case 1:
-            return .cloze
+        case .cloze, .lienteningCloze:
+            return .cloze(cloze!)
         default:
             return nil
         }
     }
-
+    
 }

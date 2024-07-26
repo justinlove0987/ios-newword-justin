@@ -27,6 +27,78 @@
             </objects>
             <point key="canvasLocation" x="4811.4503816793895" y="776.76056338028172"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="mlq-3U-gbF">
+            <objects>
+                <viewController id="sMI-pF-2sl" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="x4W-GY-IW0">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YqP-1J-w6K">
+                                <rect key="frame" x="169.33333333333334" y="351.66666666666669" width="54.666666666666657" height="34.333333333333314"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="play.rectangle" catalog="system" symbolScale="large"/>
+                                    <color key="baseForegroundColor" name="title"/>
+                                </buttonConfiguration>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Iu6-7E-kZY">
+                                <rect key="frame" x="39.333333333333343" y="466" width="314.33333333333326" height="56"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="lastBaseline" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="uaS-Pb-VqJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="314.33333333333331" height="24"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="原文" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GRx-Ur-4CQ">
+                                                <rect key="frame" x="0.0" y="0.0" width="41" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                <color key="textColor" name="title"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="apple" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGW-Dm-qER">
+                                                <rect key="frame" x="71.000000000000014" y="2.6666666666666856" width="243.33333333333337" height="20.333333333333332"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" name="title"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="lastBaseline" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="EBH-Be-eR2">
+                                        <rect key="frame" x="0.0" y="32" width="314.33333333333331" height="24"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="翻譯" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tkj-wv-Frq">
+                                                <rect key="frame" x="0.0" y="0.0" width="41" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                <color key="textColor" name="title"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="蘋果" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="66b-Ig-KWD">
+                                                <rect key="frame" x="71.000000000000014" y="2.6666666666666856" width="243.33333333333337" height="20.333333333333332"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" name="title"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="09G-rw-fqt"/>
+                        <color key="backgroundColor" name="background"/>
+                        <constraints>
+                            <constraint firstItem="Iu6-7E-kZY" firstAttribute="width" secondItem="x4W-GY-IW0" secondAttribute="width" multiplier="0.8" id="B4n-i2-PgL"/>
+                            <constraint firstItem="YqP-1J-w6K" firstAttribute="centerX" secondItem="09G-rw-fqt" secondAttribute="centerX" id="PdB-8F-PkU"/>
+                            <constraint firstItem="YqP-1J-w6K" firstAttribute="bottom" secondItem="09G-rw-fqt" secondAttribute="centerY" constant="-50" id="UHa-xK-PA5"/>
+                            <constraint firstItem="Iu6-7E-kZY" firstAttribute="top" secondItem="x4W-GY-IW0" secondAttribute="centerY" constant="40" id="i3A-w9-XV9"/>
+                            <constraint firstItem="Iu6-7E-kZY" firstAttribute="centerX" secondItem="x4W-GY-IW0" secondAttribute="centerX" id="tJn-zn-MEa"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="uFi-4x-cgG"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VyX-Su-kMy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-918" y="2273"/>
+        </scene>
         <!--Review View Controller-->
         <scene sceneID="gZK-6a-Dpi">
             <objects>
@@ -71,6 +143,7 @@
                         <outlet property="addButton" destination="cbz-OJ-oNV" id="18q-K2-wHp"/>
                         <outlet property="tableView" destination="ceV-BR-XvJ" id="qZl-FU-p01"/>
                         <segue destination="tBG-Wb-S5D" kind="show" id="Qsp-UN-Y6N"/>
+                        <segue destination="sMI-pF-2sl" kind="show" id="yXk-wU-XpA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H3D-Xg-zbj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1333,6 +1406,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
         <image name="magnifyingglass.circle.fill" catalog="system" width="128" height="123"/>
         <image name="pencil.circle" catalog="system" width="128" height="123"/>
         <image name="pencil.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="play.rectangle" catalog="system" width="128" height="93"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <namedColor name="background">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

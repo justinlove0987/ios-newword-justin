@@ -57,10 +57,7 @@ class ExploreViewController: UIViewController {
             
             var config = cell.defaultContentConfiguration()
             
-            switch itemIdentifier.noteType!.content {
-            case .sentenceCloze(let data):
-                config.text = data.clozeWord?.text
-                break
+            switch itemIdentifier.noteType?.type {
             case .prononciation:
                 break
             case .cloze:

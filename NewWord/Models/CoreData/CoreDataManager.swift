@@ -564,6 +564,18 @@ extension CoreDataManager {
         return Int(number)
     }
     
+    func getClozeWord(from card: CDCard) -> String? {
+        guard let word = card.note?.noteType?.cloze?.clozeWord else { return nil }
+
+        return word
+    }
+    
+    func getHint(from card: CDCard) -> String? {
+        guard let word = card.note?.noteType?.cloze?.hint else { return nil }
+
+        return word
+    }
+    
     func getCloze(from card: CDCard) -> CDCloze? {
         return card.note?.noteType?.cloze
     }

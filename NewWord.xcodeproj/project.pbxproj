@@ -19,6 +19,8 @@
 		2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A18E7B32BE74008005139C8 /* DeckCell.swift */; };
 		2A2176852C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */; };
 		2A24E8D42C50DF39006C1032 /* ReviseContextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */; };
+		2A24E8D62C537E59006C1032 /* ListeningClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A24E8D52C537E59006C1032 /* ListeningClozeView.swift */; };
+		2A24E8D82C537E66006C1032 /* ListeningClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A24E8D72C537E66006C1032 /* ListeningClozeView.xib */; };
 		2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */; };
 		2A38F8C12BE48F88003F058F /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C02BE48F88003F058F /* ExploreViewController.swift */; };
 		2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C22BE48FB2003F058F /* SearchViewController.swift */; };
@@ -52,6 +54,7 @@
 		2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */; };
 		2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */; };
 		2AED807F2C2E987B001E675A /* SearchClozeResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */; };
+		2AF886902C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */; };
 		D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */; };
 		D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */; };
 		D00A72EF2BFDEC5A0064F325 /* NoCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00A72EE2BFDEC5A0064F325 /* NoCardView.xib */; };
@@ -101,7 +104,7 @@
 		D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DA5ACD2BB66A07008644DC /* Assets.xcassets */; };
 		D0DA5AD12BB66A07008644DC /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D0DA5AD02BB66A07008644DC /* Base */; };
 		D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */; };
-		D0E8848B2BC93C3600C78B97 /* NoteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848A2BC93C3600C78B97 /* NoteType.swift */; };
+		D0E8848B2BC93C3600C78B97 /* OldNoteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848A2BC93C3600C78B97 /* OldNoteType.swift */; };
 		D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848C2BC93CB800C78B97 /* Deck.swift */; };
 		F4585BCB73BD69E0C16EFAFF /* Pods_NewWord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF08CC624E685BDE681839E2 /* Pods_NewWord.framework */; };
 /* End PBXBuildFile section */
@@ -119,6 +122,8 @@
 		2A18E7B32BE74008005139C8 /* DeckCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckCell.swift; sourceTree = "<group>"; };
 		2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseContextViewController.swift; sourceTree = "<group>"; };
+		2A24E8D52C537E59006C1032 /* ListeningClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningClozeView.swift; sourceTree = "<group>"; };
+		2A24E8D72C537E66006C1032 /* ListeningClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListeningClozeView.xib; sourceTree = "<group>"; };
 		2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		2A38F8C02BE48F88003F058F /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		2A38F8C22BE48FB2003F058F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +156,7 @@
 		2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultViewController.swift; sourceTree = "<group>"; };
 		2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultCell.swift; sourceTree = "<group>"; };
 		2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchClozeResultCell.xib; sourceTree = "<group>"; };
+		2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningClozeViewViewModel.swift; sourceTree = "<group>"; };
 		960A30FE64A5F2F51621C559 /* Pods-NewWord.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewWord.release.xcconfig"; path = "Target Support Files/Pods-NewWord/Pods-NewWord.release.xcconfig"; sourceTree = "<group>"; };
 		9A11A9D5682428780EFDAD65 /* Pods-NewWord.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewWord.debug.xcconfig"; path = "Target Support Files/Pods-NewWord/Pods-NewWord.debug.xcconfig"; sourceTree = "<group>"; };
 		CF08CC624E685BDE681839E2 /* Pods_NewWord.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewWord.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,7 +211,7 @@
 		D0DA5AD02BB66A07008644DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0DA5AD22BB66A07008644DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
-		D0E8848A2BC93C3600C78B97 /* NoteType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteType.swift; sourceTree = "<group>"; };
+		D0E8848A2BC93C3600C78B97 /* OldNoteType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldNoteType.swift; sourceTree = "<group>"; };
 		D0E8848C2BC93CB800C78B97 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -249,6 +255,7 @@
 				2A17DAF92C157C7F00919642 /* ClozeViewViewModel.swift */,
 				D0A86A652C1B55390022DFDD /* ClozeViewControllerViewModel.swift */,
 				2A67688A2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift */,
+				2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -293,6 +300,8 @@
 				2A02EF282C4A386500E21A6E /* TagTestingCell.xib */,
 				D04AC2022C51E78E00F91A07 /* SearchCell.swift */,
 				D04AC2032C51E78E00F91A07 /* SearchCell.xib */,
+				2A24E8D52C537E59006C1032 /* ListeningClozeView.swift */,
+				2A24E8D72C537E66006C1032 /* ListeningClozeView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -305,7 +314,7 @@
 				D0E8848C2BC93CB800C78B97 /* Deck.swift */,
 				D04EB75B2BB66EEF009E3A41 /* Card.swift */,
 				D078D0972BC9242900F601B2 /* Note.swift */,
-				D0E8848A2BC93C3600C78B97 /* NoteType.swift */,
+				D0E8848A2BC93C3600C78B97 /* OldNoteType.swift */,
 				D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */,
 				D020A4ED2BB9DA3C00CA5CAF /* Word.swift */,
 				D020A4EF2BB9DA6000CA5CAF /* Article.swift */,
@@ -492,6 +501,7 @@
 				D04AC2072C51EF0300F91A07 /* DeckCell.xib in Resources */,
 				2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */,
 				D0DA5AD12BB66A07008644DC /* Base in Resources */,
+				2A24E8D82C537E66006C1032 /* ListeningClozeView.xib in Resources */,
 				2AED807F2C2E987B001E675A /* SearchClozeResultCell.xib in Resources */,
 				2AE025F82BF49C6F006EC021 /* notes.json in Resources */,
 				D04AC2052C51E78E00F91A07 /* SearchCell.xib in Resources */,
@@ -573,7 +583,7 @@
 				2A034F812C37CCB600AEDA65 /* CustomNumberTagView.swift in Sources */,
 				D0DA5AC92BB66A05008644DC /* MainViewController.swift in Sources */,
 				2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */,
-				D0E8848B2BC93C3600C78B97 /* NoteType.swift in Sources */,
+				D0E8848B2BC93C3600C78B97 /* OldNoteType.swift in Sources */,
 				2A7B6CD12C080A900017BB5C /* StoryboardGenerated.swift in Sources */,
 				2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */,
 				2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */,
@@ -628,9 +638,11 @@
 				2A2176852C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift in Sources */,
 				D03107D42C16F2AA00EEF772 /* LearningRecordCell.swift in Sources */,
 				2A67688B2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift in Sources */,
+				2A24E8D62C537E59006C1032 /* ListeningClozeView.swift in Sources */,
 				D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */,
 				D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */,
 				D09262C12C09808400CA90BA /* CDCard+Extension.swift in Sources */,
+				2AF886902C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift in Sources */,
 				D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */,
 				D04AC2042C51E78E00F91A07 /* SearchCell.swift in Sources */,
 				2A17DAFE2C158C5A00919642 /* InputAccessoryView.swift in Sources */,

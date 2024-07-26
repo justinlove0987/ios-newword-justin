@@ -59,7 +59,7 @@ struct SentenceClozeViewModel {
     func getCurrentClozeChinese() -> CDWord? {
         let noteType = card.note!.noteType
         
-        if case .sentenceCloze(let sentenceCloze) = noteType?.content {
+        if case .sentenceCloze(let sentenceCloze) = noteType?.resource {
             return sentenceCloze.clozeWord!
         }
         
@@ -73,7 +73,7 @@ struct SentenceClozeViewModel {
         var items: [CDWord] = []
         var currentBounds: CGFloat = 0
         
-        if case .sentenceCloze(let sentenceCloze) = noteType?.content {
+        if case .sentenceCloze(let sentenceCloze) = noteType?.resource {
             
             if let sentence = sentenceCloze.sentence,
                let clozeWord = sentenceCloze.clozeWord{

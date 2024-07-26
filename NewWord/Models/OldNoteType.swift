@@ -26,7 +26,7 @@ extension SentenceCloze {
     }
 }
 
-enum NoteType: Codable {
+enum OldNoteType: Codable {
     case sentenceCloze(SentenceCloze)
     case prononciation
 

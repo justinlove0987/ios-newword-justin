@@ -139,8 +139,9 @@ struct NewAddClozeViewControllerViewModel {
             newCloze.clozeWord = word
             newCloze.location = Int64(currentCloze.range.location)
             newCloze.length = Int64(currentCloze.range.length)
+            newCloze.hint = currentCloze.hint
             
-            let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: 1)
+            let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: 3)
             noteType.cloze = newCloze
             
             let note = CoreDataManager.shared.createNote(noteType: noteType)
@@ -236,13 +237,13 @@ struct NewAddClozeViewControllerViewModel {
         }
     }
 
-    func createNewCloze(number: Int, cloze: String, range: NSRange, selectMode: NewAddClozeViewController.SelectMode, textType: NewAddCloze.TextType) -> NewAddCloze {
+    func createNewCloze(number: Int, cloze: String, range: NSRange, selectMode: NewAddClozeViewController.SelectMode, textType: NewAddCloze.TextType, hint: String) -> NewAddCloze {
         var newCloze: NewAddCloze
 
         if selectMode == .sentence {
-            newCloze = NewAddCloze(number: number, text: cloze, range: range, tagColor: UIColor.clozeBlueNumber, contentColor: UIColor.clozeBlueText, textType: textType)
+            newCloze = NewAddCloze(number: number, text: cloze, range: range, tagColor: UIColor.clozeBlueNumber, contentColor: UIColor.clozeBlueText, textType: textType, hint: hint)
         } else {
-            newCloze = NewAddCloze(number: number, text: cloze, range: range, tagColor: UIColor.purple, contentColor: .red, textType: textType)
+            newCloze = NewAddCloze(number: number, text: cloze, range: range, tagColor: UIColor.purple, contentColor: .red, textType: textType, hint: hint)
         }
 
         return newCloze
@@ -412,7 +413,7 @@ struct NewAddClozeViewControllerViewModel {
         let englishChineseTranslator = Translator.translator(options: options)
         
         let conditions = ModelDownloadConditions(
-            allowsCellularAccess: false,
+            allowsCellularAccess: true,
             allowsBackgroundDownloading: true
         )
         

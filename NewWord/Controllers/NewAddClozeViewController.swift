@@ -22,6 +22,7 @@ struct NewAddCloze {
     let tagColor: UIColor
     let contentColor: UIColor
     var textType: TextType = .word
+    let hint: String
     
     func getTagIndex(in text: String) -> String.Index? {
         let location = range.location - 1
@@ -264,29 +265,49 @@ Language is a bridge that connects people across cultures. English, with its glo
                 UIView.animate(withDuration: 0.3) {
                     self.view.layoutIfNeeded()
                 }
+                
+                let clozeNumber = self.viewModel.getClozeNumber()
+                self.customTextView.insertNumberImageView(at: range.location, existClozes: self.viewModel.clozes, with: String(clozeNumber))
+
+                let offset = 1
+                let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
+                let textType = self.viewModel.getTextType(text)
+                let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, selectMode: self.selectMode, textType: textType, hint: traditionalText)
+
+                self.viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
+                self.viewModel.appendCloze(newCloze)
+
+                let coloredText = self.viewModel.calculateColoredTextHeightFraction()
+                let coloredMarks = self.viewModel.createColoredMarks(coloredText)
+
+                self.customTextView.newColorRanges = coloredText
+                self.customTextView.renewTagImages(coloredMarks)
+                self.customTextView.setProperties()
+
 
             case .failure(_):
-                break
+                
+                let clozeNumber = self.viewModel.getClozeNumber()
+                self.customTextView.insertNumberImageView(at: range.location, existClozes: self.viewModel.clozes, with: String(clozeNumber))
+
+                let offset = 1
+                let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
+                let textType = self.viewModel.getTextType(text)
+                let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, selectMode: self.selectMode, textType: textType, hint: "traditionalText")
+
+                self.viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
+                self.viewModel.appendCloze(newCloze)
+
+                let coloredText = self.viewModel.calculateColoredTextHeightFraction()
+                let coloredMarks = self.viewModel.createColoredMarks(coloredText)
+
+                self.customTextView.newColorRanges = coloredText
+                self.customTextView.renewTagImages(coloredMarks)
+                self.customTextView.setProperties()
             }
         }
-
-        let clozeNumber = self.viewModel.getClozeNumber()
-        self.customTextView.insertNumberImageView(at: range.location, existClozes: self.viewModel.clozes, with: String(clozeNumber))
-
-        let offset = 1
-        let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
-        let textType = self.viewModel.getTextType(text)
-        let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, selectMode: self.selectMode, textType: textType)
-
-        self.viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
-        self.viewModel.appendCloze(newCloze)
-
-        let coloredText = self.viewModel.calculateColoredTextHeightFraction()
-        let coloredMarks = self.viewModel.createColoredMarks(coloredText)
-
-        customTextView.newColorRanges = coloredText
-        customTextView.renewTagImages(coloredMarks)
-        customTextView.setProperties()
+        
+        
     }
 }
 
