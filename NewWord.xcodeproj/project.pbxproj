@@ -45,6 +45,8 @@
 		2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */; };
 		2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */; };
 		2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */; };
+		2AC5D8B92C54941B0090AEBB /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC5D8B82C54941B0090AEBB /* PlayButton.swift */; };
+		2AC5D8BB2C54942A0090AEBB /* PlayButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */; };
 		2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */; };
 		2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */; };
 		2AE025F42BF49686006EC021 /* CardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE025F32BF49686006EC021 /* CardManager.swift */; };
@@ -147,6 +149,8 @@
 		2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSelectionCell.swift; sourceTree = "<group>"; };
 		2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSelectionCell.xib; sourceTree = "<group>"; };
 		2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDeckViewController.swift; sourceTree = "<group>"; };
+		2AC5D8B82C54941B0090AEBB /* PlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
+		2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayButton.xib; sourceTree = "<group>"; };
 		2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeView.swift; sourceTree = "<group>"; };
 		2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSettingViewController.swift; sourceTree = "<group>"; };
 		2AE025F32BF49686006EC021 /* CardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardManager.swift; sourceTree = "<group>"; };
@@ -302,6 +306,8 @@
 				D04AC2032C51E78E00F91A07 /* SearchCell.xib */,
 				2A24E8D52C537E59006C1032 /* ListeningClozeView.swift */,
 				2A24E8D72C537E66006C1032 /* ListeningClozeView.xib */,
+				2AC5D8B82C54941B0090AEBB /* PlayButton.swift */,
+				2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -501,6 +507,7 @@
 				D04AC2072C51EF0300F91A07 /* DeckCell.xib in Resources */,
 				2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */,
 				D0DA5AD12BB66A07008644DC /* Base in Resources */,
+				2AC5D8BB2C54942A0090AEBB /* PlayButton.xib in Resources */,
 				2A24E8D82C537E66006C1032 /* ListeningClozeView.xib in Resources */,
 				2AED807F2C2E987B001E675A /* SearchClozeResultCell.xib in Resources */,
 				2AE025F82BF49C6F006EC021 /* notes.json in Resources */,
@@ -641,6 +648,7 @@
 				2A24E8D62C537E59006C1032 /* ListeningClozeView.swift in Sources */,
 				D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */,
 				D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */,
+				2AC5D8B92C54941B0090AEBB /* PlayButton.swift in Sources */,
 				D09262C12C09808400CA90BA /* CDCard+Extension.swift in Sources */,
 				2AF886902C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift in Sources */,
 				D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */,
@@ -815,6 +823,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NewWord/Info.plist;
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -846,6 +855,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NewWord/Info.plist;
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

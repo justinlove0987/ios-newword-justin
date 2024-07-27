@@ -168,7 +168,6 @@ Language is a bridge that connects people across cultures. English, with its glo
         navigationController?.present(controller, animated: true)
     }
     
-    
     @IBAction func selectModeAction(_ sender: UIButton) {
         let currentSelectModeRawValue = selectMode.rawValue
         let isLastMode = currentSelectModeRawValue + 1 ==  SelectMode.allCases.count
