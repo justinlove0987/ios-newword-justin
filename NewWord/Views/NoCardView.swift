@@ -25,6 +25,10 @@ class NoCardView: UIView, NibOwnerLoadable {
         commonInit()
     }
 
+    deinit {
+        print("foo - deinit NoCardView")
+    }
+
     private func commonInit() {
         loadNibContent()
     }

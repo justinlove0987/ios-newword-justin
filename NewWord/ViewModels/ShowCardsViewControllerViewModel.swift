@@ -189,6 +189,8 @@ class ShowCardsViewControllerViewModel {
     }
     
     func moveCard(isAnswerCorrect: Bool) {
+        guard cardCollections[currentMatrix.collectionIndex].count > 0 else { return }
+        
         let moveCard = cardCollections[currentMatrix.collectionIndex].remove(at: currentMatrix.cardIndex)
         
         if isAnswerCorrect {

@@ -57,13 +57,13 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
     @IBOutlet weak var rateStackView: UIStackView!
     @IBOutlet weak var answerTypeStackView: UIStackView!
     
-    var deck: CDDeck?
+    weak var deck: CDDeck?
 
     private var viewModel = ShowCardsViewControllerViewModel()
 
-    private var lastShowingSubview: any ShowCardsSubviewDelegate = NoCardView() {
+    var lastShowingSubview: (any ShowCardsSubviewDelegate)? = NoCardView() {
         willSet {
-            layout(newSubview: newValue)
+            layout(newSubview: newValue ?? NoCardView())
         }
     }
 
@@ -77,6 +77,11 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = UIColor.label
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        lastShowingSubview = nil
     }
 
     override func viewDidLayoutSubviews() {
@@ -106,7 +111,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
         
         lastShowingSubview = viewModel.getCurrentSubview()
     }
-    
+
     private func setupProperties() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tap)
@@ -157,7 +162,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
             oldClozeView.customInputView.textField.resignFirstResponder()
         }
 
-        lastShowingSubview.removeFromSuperview()
+        lastShowingSubview?.removeFromSuperview()
 
         self.view.addSubview(newSubview)
         
@@ -172,7 +177,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
         
         view.layoutIfNeeded()
         
-        updateAnswerStateView(isFinalState: newSubview.isFinalState())
+        updateAnswerStateView(isFinalState: newSubview.isFinalState(), hasNextCard: viewModel.hasNextCard())
     }
 
     @objc func tap(_ sender: UITapGestureRecognizer) {
@@ -180,11 +185,16 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
     }
 
     private func tapHelper(_ sender: UITapGestureRecognizer) {
-        let hasNextState = lastShowingSubview.hasNextState()
+        let hasNextState = lastShowingSubview?.hasNextState()
 
-        if hasNextState {
-            lastShowingSubview.nextState()
-            updateAnswerStateView(isFinalState: lastShowingSubview.isFinalState())
+        if let hasNextState, hasNextState {
+            lastShowingSubview?.nextState()
+
+            guard let isFinalState = lastShowingSubview?.isFinalState() else {
+                return
+            }
+
+            updateAnswerStateView(isFinalState: isFinalState, hasNextCard: viewModel.hasNextCard())
 
         } else {
             let isAnswerCorrect = isTouchOnRightSide(of: contentView, at: sender.location(in: self.view))
@@ -215,9 +225,15 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
         reviewLabel.text = "\(collectionCounts.review)"
     }
     
-    private func updateAnswerStateView(isFinalState: Bool) {
-        answerTypeStackView.isHidden = !isFinalState
-        rateStackView.isHidden = isFinalState
+    private func updateAnswerStateView(isFinalState: Bool, hasNextCard: Bool) {
+        if isFinalState && !hasNextCard {
+            answerTypeStackView.isHidden = true
+            rateStackView.isHidden = false
+        } else  {
+            answerTypeStackView.isHidden = !isFinalState
+            rateStackView.isHidden = isFinalState
+        }
+
     }
     
     private func isTouchOnRightSide(of view: UIView, at point: CGPoint) -> Bool {
@@ -234,6 +250,10 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
 
     @IBAction func incorrectAction(_ sender: UIButton) {
         showAnswer(with: false)
+    }
+    
+    deinit {
+        print("foo - ShowCardsViewController deinit")
     }
 
 }

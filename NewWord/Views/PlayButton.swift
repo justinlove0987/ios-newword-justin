@@ -7,19 +7,13 @@
 
 import UIKit
 
-class PlayButton: UIControl, NibOwnerLoadable {
-    
+class PlayButton: UIView, NibOwnerLoadable {
+
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var overlayView: UIView!
     @IBOutlet weak var overlayViewTrailingConstraint: NSLayoutConstraint!
-    
-    override var isSelected: Bool {
-        didSet {
-            
-        }
-    }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadNibContent()
@@ -36,7 +30,7 @@ class PlayButton: UIControl, NibOwnerLoadable {
         contentView.addDefaultBorder(cornerRadius: 5)
         overlayViewTrailingConstraint.constant = 80
     }
-    
+
     func applyOverlayAnimation(duration: TimeInterval, color: UIColor) {
         imageView.image = UIImage(systemName: "pause.fill")
         self.layoutIfNeeded()
