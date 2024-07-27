@@ -141,20 +141,15 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
 
 extension ReviewViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         guard let deck = dataSource.itemIdentifier(for: indexPath) else { return }
 
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        let vc = storyboard.instantiateViewController(identifier: String(describing: ShowCardsViewController.self)) { coder in
-            
-            let vc = ShowCardsViewController(coder: coder, deck: deck)
-            
-            return vc
-        }
-        
-        vc.view.layoutIfNeeded()
-        
-        navigationController?.pushViewController(vc, animated: true)
+        let controller = ShowCardsViewController.instantiate()
+        controller.deck = deck
+        controller.modalTransitionStyle = .crossDissolve
+        controller.modalPresentationStyle = .fullScreen
+        controller.hidesBottomBarWhenPushed = true
+        controller.view.layoutIfNeeded()
+
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

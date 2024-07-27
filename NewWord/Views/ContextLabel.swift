@@ -27,10 +27,6 @@ class ContextLabel: UILabel {
             if isSelected {
                 backgroundColor = .blue
 
-                if UserDefaultsManager.shared.clozeMode == .read {
-                    text = "     "
-                }
-
             } else {
                 backgroundColor = .clear
             }
@@ -58,11 +54,9 @@ class ContextLabel: UILabel {
 
         switch labelType {
         case .word:
-            if UserDefaultsManager.shared.clozeMode == .create {
-                isUserInteractionEnabled = true
-                let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
-                self.addGestureRecognizer(tap)
-            }
+            isUserInteractionEnabled = true
+            let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction))
+            self.addGestureRecognizer(tap)
 
         case .punctuation, .newline:
             isUserInteractionEnabled = false

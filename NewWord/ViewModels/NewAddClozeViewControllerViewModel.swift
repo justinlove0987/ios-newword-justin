@@ -141,7 +141,7 @@ struct NewAddClozeViewControllerViewModel {
             newCloze.length = Int64(currentCloze.range.length)
             newCloze.hint = currentCloze.hint
             
-            let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: 3)
+            let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: NoteType.lienteningCloze.rawValue)
             noteType.cloze = newCloze
             
             let note = CoreDataManager.shared.createNote(noteType: noteType)

@@ -203,24 +203,14 @@ Language is a bridge that connects people across cultures. English, with its glo
         location.y -= customTextView.textContainerInset.top
         
         if let characterIndex = customTextView.characterIndex(at: location) {
-            var range: NSRange?
-            
-            if selectMode == .word {
+            switch selectMode {
+            case .word:
                 if let wordRange = customTextView.wordRange(at: characterIndex) {
-                    range = wordRange
-                    
-                    guard let range = range else { return }
-
-                    clozeWord(range: range)
+                    clozeWord(range: wordRange)
                 }
-                
-            } else {
+            case .sentence:
                 if let sentenceRange =  customTextView.sentenceRangeContainingCharacter(at: characterIndex) {
-                    range = sentenceRange
-                    
-                    guard let range = range else { return }
-                    
-                    clozeWord(range: range)
+                    clozeWord(range: sentenceRange)
                 }
             }
         }
@@ -255,59 +245,51 @@ Language is a bridge that connects people across cultures. English, with its glo
         viewModel.translateEnglishToChinese(textWithoutFFFC) { result in
             switch result {
             case .success(let translatedSimplifiedText):
-                let traditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
+                let translatedTraditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
 
-                self.originalTextLabel.text = textWithoutFFFC
-                self.translatedTextLabel.text = traditionalText
-                self.originalTextLabel.numberOfLines = 0
-                self.translatedTextLabel.numberOfLines = 0
-
-                UIView.animate(withDuration: 0.3) {
-                    self.view.layoutIfNeeded()
-                }
-                
-                let clozeNumber = self.viewModel.getClozeNumber()
-                self.customTextView.insertNumberImageView(at: range.location, existClozes: self.viewModel.clozes, with: String(clozeNumber))
-
-                let offset = 1
-                let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
-                let textType = self.viewModel.getTextType(text)
-                let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, selectMode: self.selectMode, textType: textType, hint: traditionalText)
-
-                self.viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
-                self.viewModel.appendCloze(newCloze)
-
-                let coloredText = self.viewModel.calculateColoredTextHeightFraction()
-                let coloredMarks = self.viewModel.createColoredMarks(coloredText)
-
-                self.customTextView.newColorRanges = coloredText
-                self.customTextView.renewTagImages(coloredMarks)
-                self.customTextView.setProperties()
+                self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
+                self.updateCloze(with: range, text: text, hint: translatedTraditionalText)
+                self.updateCustomTextView()
 
 
             case .failure(_):
-                
-                let clozeNumber = self.viewModel.getClozeNumber()
-                self.customTextView.insertNumberImageView(at: range.location, existClozes: self.viewModel.clozes, with: String(clozeNumber))
-
-                let offset = 1
-                let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
-                let textType = self.viewModel.getTextType(text)
-                let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, selectMode: self.selectMode, textType: textType, hint: "traditionalText")
-
-                self.viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
-                self.viewModel.appendCloze(newCloze)
-
-                let coloredText = self.viewModel.calculateColoredTextHeightFraction()
-                let coloredMarks = self.viewModel.createColoredMarks(coloredText)
-
-                self.customTextView.newColorRanges = coloredText
-                self.customTextView.renewTagImages(coloredMarks)
-                self.customTextView.setProperties()
+                self.updateCloze(with: range, text: text, hint: "")
+                self.updateCustomTextView()
             }
         }
-        
-        
+    }
+
+    private func updateTranslationLabels(originalText: String, translatedText: String) {
+        self.originalTextLabel.text = originalText
+        self.translatedTextLabel.text = translatedText
+        self.originalTextLabel.numberOfLines = 0
+        self.translatedTextLabel.numberOfLines = 0
+
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    private func updateCloze(with range: NSRange, text: String, hint: String) {
+        let clozeNumber = self.viewModel.getClozeNumber()
+        self.customTextView.insertNumberImageView(at: range.location, existClozes: self.viewModel.clozes, with: String(clozeNumber))
+
+        let offset = 1
+        let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
+        let textType = self.viewModel.getTextType(text)
+        let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, selectMode: self.selectMode, textType: textType, hint: hint)
+
+        self.viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
+        self.viewModel.appendCloze(newCloze)
+    }
+
+    private func updateCustomTextView() {
+        let coloredText = self.viewModel.calculateColoredTextHeightFraction()
+        let coloredMarks = self.viewModel.createColoredMarks(coloredText)
+
+        self.customTextView.newColorRanges = coloredText
+        self.customTextView.renewTagImages(coloredMarks)
+        self.customTextView.setProperties()
     }
 }
 

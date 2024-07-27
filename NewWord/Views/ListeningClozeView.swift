@@ -11,6 +11,8 @@ class ListeningClozeView: UIView, NibOwnerLoadable{
     
     @IBOutlet weak var originalTextLabel: UILabel!
     @IBOutlet weak var translatedTextLabel: UILabel!
+
+    @IBOutlet weak var widthConstraint: NSLayoutConstraint!
     
     private var viewModel: ListeningClozeViewViewModel!
     
@@ -28,16 +30,19 @@ class ListeningClozeView: UIView, NibOwnerLoadable{
         self.card = card
         super.init(frame: .zero)
         loadNibContent()
+        setup()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadNibContent()
+        setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         loadNibContent()
+        setup()
     }
     
     @IBAction func playAction(_ sender: UIButton) {
@@ -48,6 +53,7 @@ class ListeningClozeView: UIView, NibOwnerLoadable{
     
     private func setup() {
         setupViewModel()
+        setupProperties()
     }
     
     private func setupViewModel() {
@@ -58,8 +64,10 @@ class ListeningClozeView: UIView, NibOwnerLoadable{
     private func setupProperties() {
         originalTextLabel.text = viewModel.getOriginalText()
         translatedTextLabel.text = viewModel.getTranslatedText()
+
+        layoutIfNeeded()
     }
-    
+
     private func updateUI() {
         
     }

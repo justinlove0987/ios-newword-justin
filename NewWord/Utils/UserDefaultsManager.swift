@@ -26,19 +26,6 @@ class UserDefaultsManager {
         case create
         case read
     }
-
-    var clozeMode: ClozeMode {
-        get {
-            let rawValue = defaults.integer(forKey: Keys.clozeMode)
-            let clozeMode = ClozeMode(rawValue: rawValue)!
-
-            return clozeMode
-        }
-        set {
-            let rawValue = newValue.rawValue
-            defaults.set(rawValue, forKey: Keys.clozeMode)
-        }
-    }
     
     var preferredFontSize: CGFloat {
         get {

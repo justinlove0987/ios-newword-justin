@@ -46,8 +46,10 @@ extension ShowCardsSubviewDelegate {
     }
 }
 
-class ShowCardsViewController: UIViewController {
-    
+class ShowCardsViewController: UIViewController, StoryboardGenerated {
+
+    static var storyboardName: String = K.Storyboard.main
+
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var newLabel: UILabel!
     @IBOutlet weak var relearnLabel: UILabel!
@@ -55,8 +57,8 @@ class ShowCardsViewController: UIViewController {
     @IBOutlet weak var rateStackView: UIStackView!
     @IBOutlet weak var answerTypeStackView: UIStackView!
     
-    var deck: CDDeck
-    
+    var deck: CDDeck?
+
     private var viewModel = ShowCardsViewControllerViewModel()
 
     private var lastShowingSubview: any ShowCardsSubviewDelegate = NoCardView() {
@@ -66,16 +68,7 @@ class ShowCardsViewController: UIViewController {
     }
 
     // MARK: - Lifecycles
-
-    init?(coder: NSCoder, deck: CDDeck) {
-        self.deck = deck
-        super.init(coder: coder)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -83,15 +76,19 @@ class ShowCardsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupUserdefaults()
+        navigationController?.navigationBar.tintColor = UIColor.label
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setupButtonRadiusCorner()
     }
 
     // MARK: - Helpers
 
     private func setup() {
-        setupUserdefaults()
         setupViewModel()
-        setupProperty()
+        setupProperties()
     }
     
     private func setupViewModel() {
@@ -104,12 +101,13 @@ class ShowCardsViewController: UIViewController {
         
         viewModel.answerStackViewShouldHidden = { shouldHidden in
             self.answerTypeStackView.isHidden = shouldHidden
+            self.rateStackView.isHidden = !shouldHidden
         }
         
         lastShowingSubview = viewModel.getCurrentSubview()
     }
     
-    private func setupProperty() {
+    private func setupProperties() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tap)
 
@@ -117,11 +115,42 @@ class ShowCardsViewController: UIViewController {
         updateLabels(collectionCounts: collectionCounts)
         
         answerTypeStackView.isHidden = true
+        rateStackView.isHidden = false
     }
 
-    private func setupUserdefaults() {
-        UserDefaultsManager.shared.clozeMode = .read
+    private func setupButtonRadiusCorner() {
+        let firstButton = answerTypeStackView.arrangedSubviews.first!
+        let lastButton = answerTypeStackView.arrangedSubviews.last!
+
+        let screenCornerRadius: CGFloat = 44
+        let safeAreaInsetBottom = view.safeAreaInsets.bottom
+
+        let cornerRadius = screenCornerRadius - safeAreaInsetBottom
+
+        firstButton.addDefaultBorder(cornerRadius: cornerRadius, maskedCorners: [.layerMinXMaxYCorner])
+        lastButton.addDefaultBorder(cornerRadius: cornerRadius, maskedCorners: [.layerMaxXMaxYCorner])
+
+        let buttons: [UIView] = [firstButton, lastButton]
+
+        for button in buttons {
+            if let button = button as? UIButton {
+                button.addTarget(self, action: #selector(touchButton(_:)), for: [.touchDown, .touchDragEnter, .touchDragInside])
+            }
+
+            if let button = button as? UIButton {
+                button.addTarget(self, action: #selector(touchCancel(_:)), for: [.touchCancel, .touchDragExit, .touchUpInside, .touchUpOutside, .touchDragOutside])
+            }
+        }
     }
+
+    @objc func touchButton(_ sender: UIButton) {
+        sender.backgroundColor = UIColor.transition
+    }
+
+    @objc func touchCancel(_ sender: UIButton) {
+        sender.backgroundColor = UIColor.background
+    }
+
 
     private func layout(newSubview: any ShowCardsSubviewDelegate) {
         if let oldClozeView = lastShowingSubview as? ClozeView {
@@ -188,6 +217,7 @@ class ShowCardsViewController: UIViewController {
     
     private func updateAnswerStateView(isFinalState: Bool) {
         answerTypeStackView.isHidden = !isFinalState
+        rateStackView.isHidden = isFinalState
     }
     
     private func isTouchOnRightSide(of view: UIView, at point: CGPoint) -> Bool {
