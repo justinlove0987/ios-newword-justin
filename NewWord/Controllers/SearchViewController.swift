@@ -77,7 +77,7 @@ class SearchViewController: UIViewController, StoryboardGenerated {
 
 
             for card in cards {
-                guard let cloze = card.note?.noteType?.cloze,
+                guard let cloze = card.note?.resource?.cloze,
                       let text = cloze.clozeWord else {
                     continue
                 }

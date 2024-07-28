@@ -18,7 +18,7 @@ struct ClozeViewViewModel {
     func getQuestionText() -> String? {
         guard let card else { return nil }
 
-        guard let cloze = card.note?.noteType?.cloze else { return nil }
+        guard let cloze = card.note?.resource?.cloze else { return nil }
         guard let text = cloze.context?.text else { return nil }
         guard let id = cloze.id else { return nil }
         
@@ -29,7 +29,7 @@ struct ClozeViewViewModel {
 
     func getClozeText() -> String? {
         guard let card else { return nil }
-        guard let cloze = card.note?.noteType?.cloze else { return nil }
+        guard let cloze = card.note?.resource?.cloze else { return nil }
         guard let text = cloze.context?.text else { return nil }
         guard let id = cloze.id else { return nil }
 

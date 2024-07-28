@@ -239,7 +239,7 @@ extension CardInformationViewController {
         var lapses: Int
         var averageTime: Double
         var totalTime: Double
-        var noteType: CDNoteType.Resource?
+        var noteType: NoteType?
         var cardId: String?
         var noteId: String?
 
@@ -290,7 +290,7 @@ extension CardInformationViewController {
             self.lapses = card.lapses
             self.averageTime = card.averageTime
             self.totalTime = card.totalTime
-            self.noteType = card.note?.noteType?.resource
+            self.noteType = card.note?.type
             self.cardId = card.id
             self.noteId = card.note?.id
             self.card = card

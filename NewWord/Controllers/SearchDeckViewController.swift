@@ -30,6 +30,9 @@ class SearchDeckViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = UIColor.label
+        
+        view.backgroundColor = .background
+        tableView.backgroundColor = .background
     }
     
     private func setup() {

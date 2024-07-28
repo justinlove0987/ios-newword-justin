@@ -29,6 +29,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" name="background"/>
                 <constraints>
                     <constraint firstItem="6pQ-73-UpI" firstAttribute="leading" secondItem="puh-UF-c5G" secondAttribute="trailing" constant="20" id="0y7-dx-dJm"/>
                     <constraint firstItem="puh-UF-c5G" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Ddw-4O-u3L"/>
@@ -49,6 +50,9 @@
     </objects>
     <resources>
         <image name="square" catalog="system" width="128" height="114"/>
+        <namedColor name="background">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="title">
             <color red="0.090196078431372548" green="0.094117647058823528" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

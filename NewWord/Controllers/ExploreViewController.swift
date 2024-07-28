@@ -26,8 +26,9 @@ class ExploreViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        var notes = CoreDataManager.shared.createFakeCloze()
-        let bNotes = CoreDataManager.shared.creaetFakeSentenceCloze()
+        var notes: [CDNote] = CoreDataManager.shared.createFakeCloze()
+        let bNotes: [CDNote] = CoreDataManager.shared.creaetFakeSentenceCloze()
+        
         notes += bNotes
 
         var snapshot = dataSource.snapshot()
@@ -40,8 +41,10 @@ class ExploreViewController: UIViewController {
     }
 
     private func setupDeck() {
-        currentDeck = CoreDataManager.shared.getDecks().first!
-        deckLabel.text = currentDeck!.name
+        if let firstDeck = CoreDataManager.shared.getDecks().first {
+            currentDeck = firstDeck
+            deckLabel.text = currentDeck?.name
+        }
     }
     
     private func setupTableView() {
@@ -51,18 +54,20 @@ class ExploreViewController: UIViewController {
     }
     
     private func setupDataSouce() {
-        dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
+        
+        dataSource = UITableViewDiffableDataSource<Int, CDNote>(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             
             var config = cell.defaultContentConfiguration()
             
-            switch itemIdentifier.noteType?.type {
+            switch itemIdentifier.type {
             case .prononciation:
                 break
             case .cloze:
-                guard let cloze = itemIdentifier.noteType?.cloze else { fatalError() }
+                guard let cloze = itemIdentifier.resource?.cloze else { fatalError() }
                 config.text = cloze.id
+                
             default:
                 break
             }

@@ -46,6 +46,7 @@
 		2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */; };
 		2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */; };
 		2AC3E5932C5602EB002CC242 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3E5922C5602EB002CC242 /* SettingCell.swift */; };
+		2AC3E5962C563950002CC242 /* CDNote+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3E5942C56394E002CC242 /* CDNote+Extension.swift */; };
 		2AC5D8B92C54941B0090AEBB /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC5D8B82C54941B0090AEBB /* PlayButton.swift */; };
 		2AC5D8BB2C54942A0090AEBB /* PlayButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */; };
 		2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */; };
@@ -84,7 +85,6 @@
 		D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */; };
 		D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */; };
 		D09262BA2C097ECD00CA90BA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262B92C097ECD00CA90BA /* CoreDataManager.swift */; };
-		D09262BD2C097F3D00CA90BA /* CDNoteType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262BC2C097F3D00CA90BA /* CDNoteType+Extension.swift */; };
 		D09262BF2C097FC600CA90BA /* CDLearningRecord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */; };
 		D09262C12C09808400CA90BA /* CDCard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262C02C09808400CA90BA /* CDCard+Extension.swift */; };
 		D09262C32C098A4400CA90BA /* CDLapses+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */; };
@@ -151,6 +151,7 @@
 		2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSelectionCell.xib; sourceTree = "<group>"; };
 		2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDeckViewController.swift; sourceTree = "<group>"; };
 		2AC3E5922C5602EB002CC242 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		2AC3E5942C56394E002CC242 /* CDNote+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDNote+Extension.swift"; path = "/Users/justin.tseng/Desktop/developer/iOS/Me/ios-newword-justin/NewWord/Models/CoreData/CDNote+Extension.swift"; sourceTree = "<absolute>"; };
 		2AC5D8B82C54941B0090AEBB /* PlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayButton.xib; sourceTree = "<group>"; };
 		2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeView.swift; sourceTree = "<group>"; };
@@ -192,7 +193,6 @@
 		D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
 		D09262B72C097D2400CA90BA /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		D09262B92C097ECD00CA90BA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		D09262BC2C097F3D00CA90BA /* CDNoteType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDNoteType+Extension.swift"; sourceTree = "<group>"; };
 		D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDLearningRecord+Extension.swift"; sourceTree = "<group>"; };
 		D09262C02C09808400CA90BA /* CDCard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDCard+Extension.swift"; sourceTree = "<group>"; };
 		D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDLapses+Extension.swift"; sourceTree = "<group>"; };
@@ -385,7 +385,7 @@
 				D09262B92C097ECD00CA90BA /* CoreDataManager.swift */,
 				D09262C02C09808400CA90BA /* CDCard+Extension.swift */,
 				D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */,
-				D09262BC2C097F3D00CA90BA /* CDNoteType+Extension.swift */,
+				2AC3E5942C56394E002CC242 /* CDNote+Extension.swift */,
 				D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */,
 				2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */,
 				D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */,
@@ -600,6 +600,7 @@
 				2A5D7B062C0EEBA600B2F021 /* AddClozeViewController.swift in Sources */,
 				2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */,
 				2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */,
+				2AC3E5962C563950002CC242 /* CDNote+Extension.swift in Sources */,
 				D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */,
 				D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */,
 				2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */,
@@ -613,7 +614,6 @@
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
 				2A02EF292C4A386500E21A6E /* TagTestingCell.swift in Sources */,
 				2A67688D2C3322590040C89F /* AddClozeTextView.swift in Sources */,
-				D09262BD2C097F3D00CA90BA /* CDNoteType+Extension.swift in Sources */,
 				D0D8D5F62C0F0920001BB415 /* String+Extension.swift in Sources */,
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
 				2AC3E5932C5602EB002CC242 /* SettingCell.swift in Sources */,

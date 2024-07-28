@@ -237,13 +237,12 @@ extension CoreDataManager {
 
 // MARK: - Note
 
-
 extension CoreDataManager {
-    func createNote(noteType: CDNoteType) -> CDNote {
+    func createNote(typeRawValue: Int) -> CDNote {
         let note = CDNote(context: persistentContainer.viewContext)
 
         note.id = UUID().uuidString
-        note.noteType = noteType
+        note.typeRawValue = Int64(typeRawValue)
 
         return note
     }
@@ -258,12 +257,9 @@ extension CoreDataManager {
         let words1 = CoreDataManager.shared.createWords(words: sentences[0])
 
         let sentence1 = CoreDataManager.shared.createSentence(words: words1)
-        let sentenceCloze1 = CoreDataManager.shared.createSentenceCloze(clozeword: clozeword1, sentence: sentence1)
+//        let sentenceCloze1 = CoreDataManager.shared.createSentenceCloze(clozeword: clozeword1, sentence: sentence1)
 
-        let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: 0)
-        noteType.sentenceCloze = sentenceCloze1
-
-        let note = CoreDataManager.shared.createNote(noteType: noteType)
+        let note = CoreDataManager.shared.createNote(typeRawValue: NoteType.sentenceCloze.rawValue)
 
         return [note]
     }
@@ -277,26 +273,21 @@ extension CoreDataManager {
 
         cloze.contextId = context.id
         cloze.context = context
-        
-        let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: 1)
-        noteType.cloze = cloze
 
-        let note = CoreDataManager.shared.createNote(noteType: noteType)
+        let note = CoreDataManager.shared.createNote(typeRawValue: NoteType.cloze.rawValue)
         
         return [note]
     }
 }
 
-// MARK: - Note Type
+
+// MARK: - NoteResource
 
 extension CoreDataManager {
-
-    func createNoteNoteType(rawValue: Int) -> CDNoteType {
-        let noteType = CDNoteType(context: persistentContainer.viewContext)
-
-        noteType.rawValue = Int64(rawValue)
-
-        return noteType
+    
+    func createNoteResource() -> CDNoteResource {
+        let resource = CDNoteResource(context: persistentContainer.viewContext)
+        return resource
     }
 }
 
@@ -553,31 +544,31 @@ extension CoreDataManager {
     }
 
     func getContext(from card: CDCard) -> String? {
-        guard let text = card.note?.noteType?.cloze?.context?.text else { return nil }
+        guard let text = card.note?.resource?.cloze?.context?.text else { return nil }
 
         return text
     }
 
     func getClozeNumber(from card: CDCard) -> Int? {
-        guard let number = card.note?.noteType?.cloze?.number else { return nil }
+        guard let number = card.note?.resource?.cloze?.number else { return nil }
 
         return Int(number)
     }
     
     func getClozeWord(from card: CDCard) -> String? {
-        guard let word = card.note?.noteType?.cloze?.clozeWord else { return nil }
+        guard let word = card.note?.resource?.cloze?.clozeWord else { return nil }
 
         return word
     }
     
     func getHint(from card: CDCard) -> String? {
-        guard let word = card.note?.noteType?.cloze?.hint else { return nil }
+        guard let word = card.note?.resource?.cloze?.hint else { return nil }
 
         return word
     }
     
     func getCloze(from card: CDCard) -> CDCloze? {
-        return card.note?.noteType?.cloze
+        return card.note?.resource?.cloze
     }
 }
 

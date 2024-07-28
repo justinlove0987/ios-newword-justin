@@ -130,6 +130,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         customTextView.translatesAutoresizingMaskIntoConstraints = false
         customTextView.addGestureRecognizer(tapGesture)
         customTextView.setProperties()
+        
 
         self.view.addSubview(customTextView)
         
@@ -139,6 +140,8 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             customTextView.leadingAnchor.constraint(equalTo: contextContentView.leadingAnchor, constant: 20),
             customTextView.trailingAnchor.constraint(equalTo: contextContentView.trailingAnchor, constant: -20),
         ])
+        
+        customTextView.contentSize = CGSize(width: customTextView.frame.width, height: customTextView.frame.height + 50)
     }
     
     // MARK: - Actions

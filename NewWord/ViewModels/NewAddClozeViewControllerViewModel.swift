@@ -141,10 +141,11 @@ struct NewAddClozeViewControllerViewModel {
             newCloze.length = Int64(currentCloze.range.length)
             newCloze.hint = currentCloze.hint
             
-            let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: NoteType.lienteningCloze.rawValue)
-            noteType.cloze = newCloze
+            let resource = CoreDataManager.shared.createNoteResource()
+            resource.cloze = newCloze
             
-            let note = CoreDataManager.shared.createNote(noteType: noteType)
+            let note = CoreDataManager.shared.createNote(typeRawValue: NoteType.lienteningCloze.rawValue)
+            note.resource = resource
             
             CoreDataManager.shared.addCard(to: deck, with: note)
         }

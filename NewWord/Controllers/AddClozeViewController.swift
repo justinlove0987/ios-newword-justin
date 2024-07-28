@@ -142,10 +142,7 @@ And so, Lily learned the art of punctuation, one mark at a time.
                     cloze.context = context
                     cloze.contextId = context.id
 
-                    let noteType = CoreDataManager.shared.createNoteNoteType(rawValue: 1)
-                    noteType.cloze = cloze
-
-                    let note = CoreDataManager.shared.createNote(noteType: noteType)
+                    let note = CoreDataManager.shared.createNote(typeRawValue: NoteType.cloze.rawValue)
 
                     CoreDataManager.shared.addCard(to: firstDeck, with: note)
                 }
