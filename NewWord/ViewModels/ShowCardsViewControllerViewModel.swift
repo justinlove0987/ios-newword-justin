@@ -92,6 +92,18 @@ class ShowCardsViewControllerViewModel {
         return nil
     }
     
+    func hasNoCard() -> Bool {
+        var cardCount = 0
+        
+        for cardCollection in cardCollections {
+            for _ in cardCollection {
+                cardCount += 1
+            }
+        }
+        
+        return cardCount > 0
+    }
+    
     func hasNextCard() -> Bool {
         let cards = getCurrentCardCollection()
         let hasNextCard = currentMatrix.cardIndex + 1 < cards.count

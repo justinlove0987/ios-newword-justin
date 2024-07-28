@@ -177,7 +177,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
         
         view.layoutIfNeeded()
         
-        updateAnswerStateView(isFinalState: newSubview.isFinalState(), hasNextCard: viewModel.hasNextCard())
+        updateAnswerStateView(isFinalState: newSubview.isFinalState())
     }
 
     @objc func tap(_ sender: UITapGestureRecognizer) {
@@ -194,7 +194,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
                 return
             }
 
-            updateAnswerStateView(isFinalState: isFinalState, hasNextCard: viewModel.hasNextCard())
+            updateAnswerStateView(isFinalState: isFinalState)
 
         } else {
             let isAnswerCorrect = isTouchOnRightSide(of: contentView, at: sender.location(in: self.view))
@@ -225,15 +225,15 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
         reviewLabel.text = "\(collectionCounts.review)"
     }
     
-    private func updateAnswerStateView(isFinalState: Bool, hasNextCard: Bool) {
-        if isFinalState && !hasNextCard {
+    private func updateAnswerStateView(isFinalState: Bool) {
+        if isFinalState && !viewModel.hasNoCard() {
             answerTypeStackView.isHidden = true
             rateStackView.isHidden = false
-        } else  {
+            
+        } else {
             answerTypeStackView.isHidden = !isFinalState
             rateStackView.isHidden = isFinalState
         }
-
     }
     
     private func isTouchOnRightSide(of view: UIView, at point: CGPoint) -> Bool {
