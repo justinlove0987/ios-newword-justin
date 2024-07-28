@@ -27,6 +27,11 @@ class SearchDeckViewController: UIViewController {
         setup()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.tintColor = UIColor.label
+    }
+    
     private func setup() {
         let decks = CoreDataManager.shared.getDecks()
         
@@ -42,6 +47,9 @@ class SearchDeckViewController: UIViewController {
         }
 
         view.addSubview(tableView)
+        view.backgroundColor = .background
+        
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: SearchSelectionCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: SearchSelectionCell.reuseIdentifier)

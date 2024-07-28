@@ -91,6 +91,8 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
 
         contextContentView.layer.zPosition = 0
         translationContentView.layer.zPosition = 1
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     private func setupViewModel() {
@@ -105,15 +107,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     }
     
     private func setupCumstomTextView() {
-        guard var inputText else { return }
-
-        inputText = """
-Language is a bridge that connects people across cultures. English, with its global presence, serves as a common medium for international dialogue. The power of language to unite and convey meaning is truly remarkable.
-
-語言是一座連接不同文化的人們之間的橋樑。英語因其全球性，被視為國際對話的共同媒介。語言能夠團結和傳達意義的力量實在令人驚嘆。
-
-言語は文化を越えて人々を結ぶ橋です。英語はその国際的な普及によって、国際的な対話の共通の手段として機能しています。言語の統一と意味の伝達の力は本当に驚くべきものです。
-"""
+        guard let inputText else { return }
 
         let attributedString = NSMutableAttributedString(string: inputText)
         
@@ -289,6 +283,15 @@ Language is a bridge that connects people across cultures. English, with its glo
         self.customTextView.newColorRanges = coloredText
         self.customTextView.renewTagImages(coloredMarks)
         self.customTextView.setProperties()
+    }
+    
+    @objc func appDidBecomeActive() {
+        updateCustomTextView()
+    }
+    
+    deinit {
+        // 移除觀察者
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 }
 

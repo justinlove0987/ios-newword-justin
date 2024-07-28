@@ -237,14 +237,18 @@ struct NewAddClozeViewControllerViewModel {
         }
     }
 
-    func createNewCloze(number: Int, cloze: String, range: NSRange, selectMode: NewAddClozeViewController.SelectMode, textType: NewAddCloze.TextType, hint: String) -> NewAddCloze {
+    func createNewCloze(number: Int, 
+                        cloze: String,
+                        range: NSRange,
+                        selectMode: NewAddClozeViewController.SelectMode,
+                        textType: NewAddCloze.TextType,
+                        hint: String) -> NewAddCloze {
+        
         var newCloze: NewAddCloze
-
-        if selectMode == .sentence {
-            newCloze = NewAddCloze(number: number, text: cloze, range: range, tagColor: UIColor.clozeBlueNumber, contentColor: UIColor.clozeBlueText, textType: textType, hint: hint)
-        } else {
-            newCloze = NewAddCloze(number: number, text: cloze, range: range, tagColor: UIColor.purple, contentColor: .red, textType: textType, hint: hint)
-        }
+        let tagColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueNumber : UIColor.tagGreen
+        let cotentColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueText: UIColor.textGreen
+        
+        newCloze = NewAddCloze(number: number, text: cloze, range: range, tagColor: tagColor, contentColor: cotentColor, textType: textType, hint: hint)
 
         return newCloze
     }

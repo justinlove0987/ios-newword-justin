@@ -45,6 +45,7 @@
 		2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */; };
 		2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */; };
 		2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */; };
+		2AC3E5932C5602EB002CC242 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3E5922C5602EB002CC242 /* SettingCell.swift */; };
 		2AC5D8B92C54941B0090AEBB /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC5D8B82C54941B0090AEBB /* PlayButton.swift */; };
 		2AC5D8BB2C54942A0090AEBB /* PlayButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */; };
 		2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */; };
@@ -149,6 +150,7 @@
 		2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSelectionCell.swift; sourceTree = "<group>"; };
 		2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSelectionCell.xib; sourceTree = "<group>"; };
 		2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDeckViewController.swift; sourceTree = "<group>"; };
+		2AC3E5922C5602EB002CC242 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		2AC5D8B82C54941B0090AEBB /* PlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayButton.xib; sourceTree = "<group>"; };
 		2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeView.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				2A24E8D72C537E66006C1032 /* ListeningClozeView.xib */,
 				2AC5D8B82C54941B0090AEBB /* PlayButton.swift */,
 				2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */,
+				2AC3E5922C5602EB002CC242 /* SettingCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				D09262BD2C097F3D00CA90BA /* CDNoteType+Extension.swift in Sources */,
 				D0D8D5F62C0F0920001BB415 /* String+Extension.swift in Sources */,
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
+				2AC3E5932C5602EB002CC242 /* SettingCell.swift in Sources */,
 				2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */,
 				2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */,
 				D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */,

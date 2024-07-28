@@ -12,6 +12,7 @@ class ReviseContextViewController: UIViewController, StoryboardGenerated {
     
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var nextBarButtonItem: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,9 @@ class ReviseContextViewController: UIViewController, StoryboardGenerated {
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleTap))
         textView.addGestureRecognizer(panGesture)
+        
+        nextBarButtonItem.tintColor = UIColor.transition
+        nextBarButtonItem.isEnabled = false
     }
     
     
@@ -52,6 +56,28 @@ extension ReviseContextViewController: UITextViewDelegate {
         if textView.isFirstResponder {
             textView.resignFirstResponder()
         }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentText = textView.text ?? ""
+
+        guard let textRange = Range(range, in: currentText) else {
+            return false
+        }
+        
+        let updatedText = currentText.replacingCharacters(in: textRange, with: text)
+
+        let isEmpty = updatedText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        
+        if isEmpty {
+            nextBarButtonItem.tintColor = UIColor.transition
+            nextBarButtonItem.isEnabled = false
+        } else {
+            nextBarButtonItem.tintColor = UIColor.title
+            nextBarButtonItem.isEnabled = true
+        }
+        
+        return true
     }
     
     @objc func handleTap() {

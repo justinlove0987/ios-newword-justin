@@ -132,6 +132,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="contentView" destination="6JB-gk-gjk" id="1f3-jy-0LY"/>
+                        <outlet property="nextBarButtonItem" destination="wKf-Zq-CE7" id="Qed-mJ-LcN"/>
                         <outlet property="textView" destination="HVZ-yw-NDz" id="dr7-lh-YJp"/>
                         <segue destination="Q3G-wX-9Sl" kind="show" id="XsR-bS-pbq"/>
                     </connections>
@@ -802,17 +803,73 @@
             </objects>
             <point key="canvasLocation" x="-874.04580152671747" y="2272.535211267606"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="Fda-51-NXx">
             <objects>
-                <viewController id="nbz-d4-gBP" sceneMemberID="viewController">
+                <viewController id="nbz-d4-gBP" customClass="SettingsViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lmC-Lm-hTh">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="YAr-hj-uGd">
+                                <rect key="frame" x="20" y="123" width="353" height="646"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingCell" id="A5l-Xh-hd9" customClass="SettingCell" customModule="NewWord" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="353" height="52.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A5l-Xh-hd9" id="aqB-lT-EXF">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="52.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="聯絡我們" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9DP-tt-vs9">
+                                                    <rect key="frame" x="20" y="16" width="69.333333333333329" height="20.666666666666671"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" name="title"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="justin.tseng.developer@gamil.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcD-KO-SnQ">
+                                                    <rect key="frame" x="139" y="19.333333333333332" width="194" height="14.333333333333332"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" name="description"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="9DP-tt-vs9" secondAttribute="bottom" constant="5" id="0Yk-mq-LNu"/>
+                                                <constraint firstItem="9DP-tt-vs9" firstAttribute="top" secondItem="aqB-lT-EXF" secondAttribute="topMargin" constant="5" id="AYO-r9-sJw"/>
+                                                <constraint firstItem="9DP-tt-vs9" firstAttribute="leading" secondItem="aqB-lT-EXF" secondAttribute="leadingMargin" id="DAB-3h-2Ua"/>
+                                                <constraint firstItem="GcD-KO-SnQ" firstAttribute="centerY" secondItem="9DP-tt-vs9" secondAttribute="centerY" id="FpX-aG-j2v"/>
+                                                <constraint firstItem="GcD-KO-SnQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9DP-tt-vs9" secondAttribute="trailing" constant="8" symbolic="YES" id="dCn-xh-0JC"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="GcD-KO-SnQ" secondAttribute="trailing" id="qxK-yM-6jO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="detailLabel" destination="GcD-KO-SnQ" id="P5J-lI-DyN"/>
+                                            <outlet property="nameLabel" destination="9DP-tt-vs9" id="0uV-wJ-yqy"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="nbz-d4-gBP" id="yaf-VG-hzh"/>
+                                    <outlet property="delegate" destination="nbz-d4-gBP" id="hYi-3u-lLA"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="4xs-1u-cdl"/>
                         <color key="backgroundColor" name="background"/>
+                        <constraints>
+                            <constraint firstItem="4xs-1u-cdl" firstAttribute="trailing" secondItem="YAr-hj-uGd" secondAttribute="trailing" constant="20" id="8lg-DF-bdY"/>
+                            <constraint firstItem="4xs-1u-cdl" firstAttribute="bottom" secondItem="YAr-hj-uGd" secondAttribute="bottom" id="ao3-rn-ZBB"/>
+                            <constraint firstItem="YAr-hj-uGd" firstAttribute="top" secondItem="4xs-1u-cdl" secondAttribute="top" constant="20" id="jKc-fL-Rxu"/>
+                            <constraint firstItem="YAr-hj-uGd" firstAttribute="leading" secondItem="4xs-1u-cdl" secondAttribute="leading" constant="20" id="y1d-tO-PVF"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BuN-56-WcG"/>
+                    <connections>
+                        <outlet property="tableView" destination="YAr-hj-uGd" id="9Hg-Gm-yWb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oyh-Od-lEH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -907,8 +964,8 @@ Environmental sustainability has become a crucial issue in today's world. With t
                                                         <color key="textColor" name="title"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="環境" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndc-cf-EYI">
-                                                        <rect key="frame" x="48.666666666666657" y="2" width="265" height="18"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndc-cf-EYI">
+                                                        <rect key="frame" x="48.666666666666657" y="2" width="265" height="0.0"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" name="title"/>
                                                         <nil key="highlightedColor"/>
@@ -924,8 +981,8 @@ Environmental sustainability has become a crucial issue in today's world. With t
                                                         <color key="textColor" name="title"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="environment" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLn-mA-zeD">
-                                                        <rect key="frame" x="48.666666666666657" y="2" width="265" height="18"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLn-mA-zeD">
+                                                        <rect key="frame" x="48.666666666666657" y="2" width="265" height="0.0"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="textColor" name="title"/>
                                                         <nil key="highlightedColor"/>
@@ -1395,10 +1452,10 @@ Environmental sustainability has become a crucial issue in today's world. With t
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemCyanColor">
-            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
