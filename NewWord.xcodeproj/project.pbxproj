@@ -361,10 +361,10 @@
 		D04EB7602BB670DD009E3A41 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D0DA5ACF2BB66A07008644DC /* LaunchScreen.storyboard */,
 				D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */,
 				D0DA5AC42BB66A05008644DC /* AppDelegate.swift */,
 				D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */,
-				D0DA5ACF2BB66A07008644DC /* LaunchScreen.storyboard */,
 				D032145A2BD63C2200512263 /* Preferences.swift */,
 				D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */,
 				2A7B6CD02C080A900017BB5C /* StoryboardGenerated.swift */,

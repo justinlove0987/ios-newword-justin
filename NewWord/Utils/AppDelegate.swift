@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MLKitTranslate
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -13,7 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         initializeDataManager()
-
+        downloadChineseTranslateModel()
+        
         return true
     }
 
@@ -35,8 +37,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate {
+    
+    func downloadChineseTranslateModel() {
+        let chineseModel = TranslateRemoteModel.translateRemoteModel(language: .chinese)
+
+        let progress = ModelManager.modelManager().download(
+            chineseModel,
+            conditions: ModelDownloadConditions(
+                allowsCellularAccess: true,
+                allowsBackgroundDownloading: true
+            )
+        )
+    }
+    
     func initializeDataManager() {
-        
         _ = CoreDataManager.shared
 
         if UserDefaultsManager.shared.preferredFontSize == 0 {
@@ -46,12 +60,6 @@ extension AppDelegate {
         if UserDefaultsManager.shared.preferredLineSpacing == 0 {
             UserDefaultsManager.shared.preferredLineSpacing = 5
         }
-        
-//        let decks = CoreDataManager.shared.getDecks()
-//        
-//        for deck in decks {
-//            CoreDataManager.shared.deleteDeck(deck)
-//        }
         
         if !CoreDataManager.shared.deckExists() {
             CoreDataManager.shared.addDeck(name: "單字複習牌組")
