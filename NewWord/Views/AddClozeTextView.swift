@@ -240,6 +240,7 @@ class AddClozeTextView: UITextView {
         textStorage.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: text.count))
         font = UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize, weight: .medium)
         textColor = UIColor.title
+        contentSize = CGSize(width: self.frame.width, height: self.frame.height + 30)
     }
 }
 

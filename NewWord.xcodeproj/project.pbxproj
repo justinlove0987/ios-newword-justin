@@ -46,7 +46,6 @@
 		2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */; };
 		2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */; };
 		2AC3E5932C5602EB002CC242 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3E5922C5602EB002CC242 /* SettingCell.swift */; };
-		2AC3E5962C563950002CC242 /* CDNote+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3E5942C56394E002CC242 /* CDNote+Extension.swift */; };
 		2AC5D8B92C54941B0090AEBB /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC5D8B82C54941B0090AEBB /* PlayButton.swift */; };
 		2AC5D8BB2C54942A0090AEBB /* PlayButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */; };
 		2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */; };
@@ -74,6 +73,7 @@
 		D03107D32C16F2AA00EEF772 /* LearningRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03107D22C16F2AA00EEF772 /* LearningRecordCell.xib */; };
 		D03107D42C16F2AA00EEF772 /* LearningRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03107D12C16F2AA00EEF772 /* LearningRecordCell.swift */; };
 		D032145B2BD63C2200512263 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D032145A2BD63C2200512263 /* Preferences.swift */; };
+		D0344F602C56B25D00F721BF /* CDNote+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0344F5F2C56B25D00F721BF /* CDNote+Extension.swift */; };
 		D04AC2042C51E78E00F91A07 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04AC2022C51E78E00F91A07 /* SearchCell.swift */; };
 		D04AC2052C51E78E00F91A07 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04AC2032C51E78E00F91A07 /* SearchCell.xib */; };
 		D04AC2072C51EF0300F91A07 /* DeckCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04AC2062C51EF0300F91A07 /* DeckCell.xib */; };
@@ -151,7 +151,6 @@
 		2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSelectionCell.xib; sourceTree = "<group>"; };
 		2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDeckViewController.swift; sourceTree = "<group>"; };
 		2AC3E5922C5602EB002CC242 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
-		2AC3E5942C56394E002CC242 /* CDNote+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CDNote+Extension.swift"; path = "/Users/justin.tseng/Desktop/developer/iOS/Me/ios-newword-justin/NewWord/Models/CoreData/CDNote+Extension.swift"; sourceTree = "<absolute>"; };
 		2AC5D8B82C54941B0090AEBB /* PlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayButton.xib; sourceTree = "<group>"; };
 		2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeView.swift; sourceTree = "<group>"; };
@@ -182,6 +181,7 @@
 		D03107D12C16F2AA00EEF772 /* LearningRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecordCell.swift; sourceTree = "<group>"; };
 		D03107D22C16F2AA00EEF772 /* LearningRecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LearningRecordCell.xib; sourceTree = "<group>"; };
 		D032145A2BD63C2200512263 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		D0344F5F2C56B25D00F721BF /* CDNote+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDNote+Extension.swift"; sourceTree = "<group>"; };
 		D04AC2022C51E78E00F91A07 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		D04AC2032C51E78E00F91A07 /* SearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
 		D04AC2062C51EF0300F91A07 /* DeckCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeckCell.xib; sourceTree = "<group>"; };
@@ -382,10 +382,10 @@
 		D09262BB2C097F2A00CA90BA /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				D0344F5F2C56B25D00F721BF /* CDNote+Extension.swift */,
 				D09262B92C097ECD00CA90BA /* CoreDataManager.swift */,
 				D09262C02C09808400CA90BA /* CDCard+Extension.swift */,
 				D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */,
-				2AC3E5942C56394E002CC242 /* CDNote+Extension.swift */,
 				D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */,
 				2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */,
 				D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */,
@@ -600,7 +600,6 @@
 				2A5D7B062C0EEBA600B2F021 /* AddClozeViewController.swift in Sources */,
 				2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */,
 				2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */,
-				2AC3E5962C563950002CC242 /* CDNote+Extension.swift in Sources */,
 				D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */,
 				D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */,
 				2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */,
@@ -622,6 +621,7 @@
 				D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */,
 				D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */,
 				2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */,
+				D0344F602C56B25D00F721BF /* CDNote+Extension.swift in Sources */,
 				D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */,
 				2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */,
 				2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */,
@@ -748,7 +748,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -805,7 +805,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
