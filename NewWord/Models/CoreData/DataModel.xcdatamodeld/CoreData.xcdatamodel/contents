@@ -13,6 +13,7 @@
         <relationship name="note" maxCount="1" deletionRule="Nullify" destinationEntity="CDNote" inverseName="card" inverseEntity="CDNote"/>
     </entity>
     <entity name="CDCloze" representedClassName="CDCloze" syncable="YES" codeGenerationType="class">
+        <attribute name="clozeAudio" optional="YES" attributeType="Binary"/>
         <attribute name="clozeWord" optional="YES" attributeType="String"/>
         <attribute name="contextId" attributeType="String"/>
         <attribute name="hint" optional="YES" attributeType="String"/>

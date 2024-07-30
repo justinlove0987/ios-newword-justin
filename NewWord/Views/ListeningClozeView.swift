@@ -62,14 +62,9 @@ class ListeningClozeView: UIView, NibOwnerLoadable {
         setup()
     }
 
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        currentPlaybackState = .playing
-    }
-
     deinit {
         print("foo - deinit ListeningClozeView")
-        viewModel.stopSpeaking()
+        SpeechService.shared.stop()
     }
     
     // MARK: - Helpers
@@ -78,11 +73,8 @@ class ListeningClozeView: UIView, NibOwnerLoadable {
         setupViewModel()
         setupPlayButton()
         setupLabels()
-        setupSynthesizer()
-    }
-    
-    private func setupSynthesizer() {
-        viewModel.synthesizer.delegate = self
+        
+        currentPlaybackState = .playing
     }
     
     private func setupViewModel() {
@@ -128,7 +120,7 @@ class ListeningClozeView: UIView, NibOwnerLoadable {
 
         dummyButton.translatesAutoresizingMaskIntoConstraints = false
         dummyButton.backgroundColor = .clear
-        dummyButton.addTarget(self, action: #selector(dummyButtonAction), for: .touchUpInside)
+        dummyButton.addTarget(self, action: #selector(playButtonAction), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
             dummyButton.centerYAnchor.constraint(equalTo: topHalfView.centerYAnchor),
@@ -150,15 +142,49 @@ class ListeningClozeView: UIView, NibOwnerLoadable {
     }
 
     private func updatePlayButtonUI() {
+        guard let card else { return }
+        guard let cloze = CoreDataManager.shared.getCloze(from: card) else { return }
+        
         switch currentPlaybackState {
         case .playing:
-            viewModel.speak(text: originalText, voiceName: "")
+            if let audio = cloze.clozeAudio {
+                SpeechService.shared.speak(audio)
+                
+            } else {
+                if let word = cloze.clozeWord {
+                    SpeechService.shared.download(text: word) { data in
+                        cloze.clozeAudio = data
+                        SpeechService.shared.speak(data)
+                        CoreDataManager.shared.save()
+                    }
+                }
+            }
+            
         case .paused:
-            viewModel.stopSpeaking()
+            SpeechService.shared.stop()
+        }
+        
+        SpeechService.shared.startCallback = { [weak self] in
+            guard let self = self else { return }
+            guard let duration = SpeechService.shared.getDuration(cloze.clozeAudio) else { return }
+            self.playButton.applyOverlayAnimation(duration: duration, color: .border)
+        }
+        
+        SpeechService.shared.finishCallback = { [weak self] in
+            guard let self = self else { return }
+            self.playButton.imageView.image = UIImage(systemName: "play.fill")
+            self.playButton.overlayViewTrailingConstraint.constant = 80
+            self.currentPlaybackState = .paused
+        }
+        
+        SpeechService.shared.stopCallback = { [weak self] in
+            guard let self = self else { return }
+            self.playButton.imageView.image = UIImage(systemName: "play.fill")
+            self.playButton.overlayViewTrailingConstraint.constant = 80
         }
     }
 
-    @objc func dummyButtonAction() {
+    @objc func playButtonAction() {
         switch self.currentPlaybackState {
         case .playing:
             self.currentPlaybackState = .paused

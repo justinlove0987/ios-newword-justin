@@ -233,14 +233,30 @@ class AddClozeTextView: UITextView {
 
     func setProperties() {
         guard let text = self.text else { return }
-
+        
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = UserDefaultsManager.shared.preferredLineSpacing
-
-        textStorage.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: text.count))
+        
+        // 設置字體和段落樣式
+        let attributes: [NSAttributedString.Key: Any] = [
+            .paragraphStyle: paragraphStyle,
+            .font: UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize, weight: .medium),
+            .foregroundColor: UIColor.title
+        ]
+        
         font = UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize, weight: .medium)
         textColor = UIColor.title
-        contentSize = CGSize(width: self.frame.width, height: self.frame.height + 30)
+        textStorage.addAttributes(attributes, range: NSRange(location: 0, length: text.count))
+        
+        // 計算文字大小
+        let size = CGSize(width: self.frame.width, height: CGFloat.greatestFiniteMagnitude)
+        let boundingRect = (text as NSString).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+        
+        // 設置contentSize
+        
+        if boundingRect.height < self.frame.height + 30 {
+            self.contentSize =  CGSize(width: self.frame.width, height: self.frame.height + 30)
+        }
     }
 }
 
