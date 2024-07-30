@@ -65,7 +65,7 @@ class SpeechService: NSObject, AVAudioPlayerDelegate {
         }
     }
     
-    func download(text: String, voiceType: VoiceType = .enUSJourneyDMale, completion: @escaping (Data?) -> Void) {
+    func download(text: String, voiceType: VoiceType = .waveNetMale, completion: @escaping (Data?) -> Void) {
         downloadQueue.async {
             let postData = self.buildPostData(text: text, voiceType: voiceType)
             let headers = ["X-Goog-Api-Key": APIKey, "Content-Type": "application/json; charset=utf-8"]
@@ -98,13 +98,17 @@ class SpeechService: NSObject, AVAudioPlayerDelegate {
         
         let params: [String: Any] = [
             "input": [
-                "text": text
+                "ssml": text
             ],
+            
             "voice": voiceParams,
+            
             "audioConfig": [
                 // All available formats here: https://cloud.google.com/text-to-speech/docs/reference/rest/v1beta1/text/synthesize#audioencoding
                 "audioEncoding": "LINEAR16"
-            ]
+            ],
+            
+            "enableTimePointing": ["SSML_MARK"]
         ]
         
         // Convert the Dictionary to Data

@@ -141,7 +141,13 @@ struct NewAddClozeViewControllerViewModel {
             newCloze.length = Int64(currentCloze.range.length)
             newCloze.hint = currentCloze.hint
             
-            SpeechService.shared.download(text: word) { data in
+            let test =
+            """
+<speak>Hello <mark name="timepoint_1"/> Mark. Good to <mark
+name="timepoint_2"/> see you.</speak>
+"""
+            
+            SpeechService.shared.download(text: test) { data in
                 newCloze.clozeAudio = data
                 CoreDataManager.shared.save()
             }
