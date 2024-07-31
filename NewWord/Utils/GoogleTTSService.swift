@@ -11,10 +11,10 @@ import AVFoundation
 enum VoiceType: String {
     case undefined
     case waveNetMale = "en-US-Wavenet-D"
-    case enUSStandardCFemale = "en-US-Standard-C"
-    case enUSStandardFFemale = "en-US-Standard-F"
     case standardFemale = "en-US-Standard-E"
     case standardMale = "en-US-Standard-D"
+    case enUSStandardCFemale = "en-US-Standard-C"
+    case enUSStandardFFemale = "en-US-Standard-F"
     case enUSJourneyOFemale = "en-US-Journey-O"
     case enUSJourneyFFemale = "en-US-Journey-F"
     case enUSJourneyDMale = "en-US-Journey-D"
@@ -23,11 +23,21 @@ enum VoiceType: String {
 let ttsAPIUrl = "https://texttospeech.googleapis.com/v1beta1/text:synthesize"
 let APIKey = "AIzaSyAu4IIgc3WDKFuq8AGD6g1Rliz83qS5q0k"
 
-class SpeechService: NSObject, AVAudioPlayerDelegate {
-    
+class GoogleTTSService: NSObject {
+
+    enum SynthesisInput: String {
+        case text
+        case ssml
+    }
+
+    enum TimepointType: String {
+        case SSML_MARK
+        case TIMEPOINT_TYPE_UNSPECIFIED
+    }
+
     private let downloadQueue = DispatchQueue(label: "com.yourapp.speechservice.downloadQueue", attributes: .concurrent)
     
-    static let shared = SpeechService()
+    static let shared = GoogleTTSService()
     private(set) var busy: Bool = false
     
     private var player: AVAudioPlayer?
@@ -65,18 +75,28 @@ class SpeechService: NSObject, AVAudioPlayerDelegate {
         }
     }
     
-    func download(text: String, voiceType: VoiceType = .waveNetMale, completion: @escaping (Data?) -> Void) {
+    func download(text: String,
+                  synthiesisInput: SynthesisInput = .text,
+                  timepointType: TimepointType = .TIMEPOINT_TYPE_UNSPECIFIED,
+                  voiceType: VoiceType = .enUSJourneyDMale,
+                  completion: @escaping (Data?) -> Void) {
+
         downloadQueue.async {
-            let postData = self.buildPostData(text: text, voiceType: voiceType)
+            let postData = self.buildPostData(text: text,
+                                              synthiesisInput: synthiesisInput,
+                                              timepointType: timepointType,
+                                              voiceType: voiceType)
+
             let headers = ["X-Goog-Api-Key": APIKey, "Content-Type": "application/json; charset=utf-8"]
             let response = self.makePOSTRequest(url: ttsAPIUrl, postData: postData, headers: headers)
-            
-            // 獲取 `audioContent` 並解碼
+
             guard let audioContent = response["audioContent"] as? String,
                   let audioData = Data(base64Encoded: audioContent) else {
+
                 DispatchQueue.main.async {
                     completion(nil)
                 }
+
                 return
             }
             
@@ -86,7 +106,11 @@ class SpeechService: NSObject, AVAudioPlayerDelegate {
         }
     }
     
-    private func buildPostData(text: String, voiceType: VoiceType) -> Data {
+    private func buildPostData(text: String,
+                               synthiesisInput: SynthesisInput = .text,
+                               timepointType: TimepointType = .TIMEPOINT_TYPE_UNSPECIFIED,
+                               voiceType: VoiceType) -> Data {
+
         var voiceParams: [String: Any] = [
             // All available voices here: https://cloud.google.com/text-to-speech/docs/voices
             "languageCode": "en-US"
@@ -98,7 +122,7 @@ class SpeechService: NSObject, AVAudioPlayerDelegate {
         
         let params: [String: Any] = [
             "input": [
-                "ssml": text
+                synthiesisInput.rawValue: text
             ],
             
             "voice": voiceParams,
@@ -108,7 +132,7 @@ class SpeechService: NSObject, AVAudioPlayerDelegate {
                 "audioEncoding": "LINEAR16"
             ],
             
-            "enableTimePointing": ["SSML_MARK"]
+            "enableTimePointing": [timepointType.rawValue]
         ]
         
         // Convert the Dictionary to Data
@@ -143,16 +167,6 @@ class SpeechService: NSObject, AVAudioPlayerDelegate {
         _ = semaphore.wait(timeout: DispatchTime.distantFuture)
         
         return dict
-    }
-    
-    // Implement AVAudioPlayerDelegate "did finish" callback to cleanup and notify listener of completion.
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        self.player?.delegate = nil
-        self.player = nil
-        self.busy = false
-        
-        self.finishCallback?()
-        self.finishCallback = nil
     }
     
     func getDuration(_ audioData: Data?) -> TimeInterval? {
@@ -203,6 +217,44 @@ class SpeechService: NSObject, AVAudioPlayerDelegate {
                 self.busy = false
             }
         }
+    }
+
+    private func trySSML(voiceType: VoiceType = .waveNetMale, completion: @escaping (Data?) -> Void) {
+        let text =
+            """
+<speak>Hello <mark name="timepoint_1"/> Mark. Good to <mark
+name="timepoint_2"/> see you.</speak>
+"""
+
+        downloadQueue.async {
+            let postData = self.buildPostData(text: text, voiceType: voiceType)
+            let headers = ["X-Goog-Api-Key": APIKey, "Content-Type": "application/json; charset=utf-8"]
+            let response = self.makePOSTRequest(url: ttsAPIUrl, postData: postData, headers: headers)
+
+            // 獲取 `audioContent` 並解碼
+            guard let audioContent = response["audioContent"] as? String,
+                  let audioData = Data(base64Encoded: audioContent) else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+                return
+            }
+
+            DispatchQueue.main.async {
+                completion(audioData)
+            }
+        }
+    }
+}
+
+extension GoogleTTSService: AVAudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        self.player?.delegate = nil
+        self.player = nil
+        self.busy = false
+
+        self.finishCallback?()
+        self.finishCallback = nil
     }
 }
 

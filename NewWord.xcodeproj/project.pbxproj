@@ -88,7 +88,7 @@
 		D09262BF2C097FC600CA90BA /* CDLearningRecord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */; };
 		D09262C12C09808400CA90BA /* CDCard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262C02C09808400CA90BA /* CDCard+Extension.swift */; };
 		D09262C32C098A4400CA90BA /* CDLapses+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */; };
-		D097F1602C58B75D00248E7B /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D097F15F2C58B75D00248E7B /* SpeechService.swift */; };
+		D097F1602C58B75D00248E7B /* GoogleTTSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D097F15F2C58B75D00248E7B /* GoogleTTSService.swift */; };
 		D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A0643E2BFC8E78001AFE08 /* PronounciationView.swift */; };
 		D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A064402BFC913C001AFE08 /* PronounciationView.xib */; };
 		D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */; };
@@ -197,7 +197,7 @@
 		D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDLearningRecord+Extension.swift"; sourceTree = "<group>"; };
 		D09262C02C09808400CA90BA /* CDCard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDCard+Extension.swift"; sourceTree = "<group>"; };
 		D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDLapses+Extension.swift"; sourceTree = "<group>"; };
-		D097F15F2C58B75D00248E7B /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
+		D097F15F2C58B75D00248E7B /* GoogleTTSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleTTSService.swift; sourceTree = "<group>"; };
 		D0A0643E2BFC8E78001AFE08 /* PronounciationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PronounciationView.swift; sourceTree = "<group>"; };
 		D0A064402BFC913C001AFE08 /* PronounciationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PronounciationView.xib; sourceTree = "<group>"; };
 		D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibOwnerLoadable.swift; sourceTree = "<group>"; };
@@ -364,7 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				D0DA5ACF2BB66A07008644DC /* LaunchScreen.storyboard */,
-				D097F15F2C58B75D00248E7B /* SpeechService.swift */,
+				D097F15F2C58B75D00248E7B /* GoogleTTSService.swift */,
 				D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */,
 				D0DA5AC42BB66A05008644DC /* AppDelegate.swift */,
 				D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */,
@@ -674,7 +674,7 @@
 				D09262BA2C097ECD00CA90BA /* CoreDataManager.swift in Sources */,
 				D09262BF2C097FC600CA90BA /* CDLearningRecord+Extension.swift in Sources */,
 				2A7B6CD32C080B440017BB5C /* Constants.swift in Sources */,
-				D097F1602C58B75D00248E7B /* SpeechService.swift in Sources */,
+				D097F1602C58B75D00248E7B /* GoogleTTSService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -64,7 +64,7 @@ class ListeningClozeView: UIView, NibOwnerLoadable {
 
     deinit {
         print("foo - deinit ListeningClozeView")
-        SpeechService.shared.stop()
+        GoogleTTSService.shared.stop()
     }
     
     // MARK: - Helpers
@@ -148,36 +148,36 @@ class ListeningClozeView: UIView, NibOwnerLoadable {
         switch currentPlaybackState {
         case .playing:
             if let audio = cloze.clozeAudio {
-                SpeechService.shared.speak(audio)
+                GoogleTTSService.shared.speak(audio)
                 
             } else {
                 if let word = cloze.clozeWord {
-                    SpeechService.shared.download(text: word) { data in
+                    GoogleTTSService.shared.download(text: word) { data in
                         cloze.clozeAudio = data
-                        SpeechService.shared.speak(data)
+                        GoogleTTSService.shared.speak(data)
                         CoreDataManager.shared.save()
                     }
                 }
             }
             
         case .paused:
-            SpeechService.shared.stop()
+            GoogleTTSService.shared.stop()
         }
         
-        SpeechService.shared.startCallback = { [weak self] in
+        GoogleTTSService.shared.startCallback = { [weak self] in
             guard let self = self else { return }
-            guard let duration = SpeechService.shared.getDuration(cloze.clozeAudio) else { return }
+            guard let duration = GoogleTTSService.shared.getDuration(cloze.clozeAudio) else { return }
             self.playButton.applyOverlayAnimation(duration: duration, color: .border)
         }
         
-        SpeechService.shared.finishCallback = { [weak self] in
+        GoogleTTSService.shared.finishCallback = { [weak self] in
             guard let self = self else { return }
             self.playButton.imageView.image = UIImage(systemName: "play.fill")
             self.playButton.overlayViewTrailingConstraint.constant = 80
             self.currentPlaybackState = .paused
         }
         
-        SpeechService.shared.stopCallback = { [weak self] in
+        GoogleTTSService.shared.stopCallback = { [weak self] in
             guard let self = self else { return }
             self.playButton.imageView.image = UIImage(systemName: "play.fill")
             self.playButton.overlayViewTrailingConstraint.constant = 80
