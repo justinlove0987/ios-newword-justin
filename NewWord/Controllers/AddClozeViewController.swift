@@ -88,7 +88,7 @@ And so, Lily learned the art of punctuation, one mark at a time.
     }
 
     private func setupViewModel() {
-        guard let text = textView.text else { return }
+        guard textView.text != nil else { return }
         viewModel = ClozeViewControllerViewModel()
     }
 

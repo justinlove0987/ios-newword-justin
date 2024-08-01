@@ -204,18 +204,3 @@ extension ListeningClozeView: ShowCardsSubviewDelegate {
         case answer
     }
 }
-
-// MARK: - AVSpeechSynthesizerDelegate
-
-extension ListeningClozeView: AVSpeechSynthesizerDelegate {
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
-        let duration = viewModel.estimatedDuration(for: originalText, rate: 0.35)
-        playButton.applyOverlayAnimation(duration: duration, color: .border)
-    }
-    
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        playButton.imageView.image = UIImage(systemName: "play.fill")
-        playButton.overlayViewTrailingConstraint.constant = 80
-        currentPlaybackState = .paused
-    }
-}

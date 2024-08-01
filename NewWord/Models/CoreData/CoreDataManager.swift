@@ -253,10 +253,10 @@ extension CoreDataManager {
             ["Genius", "is", "one", "percent", "inspiration", "and", "ninety-nine", "percent", "perspiration", "."]
         ]
 
-        let clozeword1 = CoreDataManager.shared.createWord(chinese: "像是我", text: "like")
+        _ = CoreDataManager.shared.createWord(chinese: "像是我", text: "like")
         let words1 = CoreDataManager.shared.createWords(words: sentences[0])
 
-        let sentence1 = CoreDataManager.shared.createSentence(words: words1)
+        _ = CoreDataManager.shared.createSentence(words: words1)
 //        let sentenceCloze1 = CoreDataManager.shared.createSentenceCloze(clozeword: clozeword1, sentence: sentence1)
 
         let note = CoreDataManager.shared.createNote(typeRawValue: NoteType.sentenceCloze.rawValue)

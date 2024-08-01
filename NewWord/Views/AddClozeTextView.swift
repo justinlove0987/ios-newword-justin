@@ -234,6 +234,9 @@ class AddClozeTextView: UITextView {
     func setProperties() {
         guard let text = self.text else { return }
         
+        customTextView.backgroundColor = .clear
+        customTextView.isEditable = false
+        
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = UserDefaultsManager.shared.preferredLineSpacing
         

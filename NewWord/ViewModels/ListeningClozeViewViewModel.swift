@@ -56,29 +56,6 @@ struct ListeningClozeViewViewModel {
         return AVSpeechSynthesisVoice.speechVoices()
     }
 
-    func estimatedDuration(for text: String, rate: Double) -> TimeInterval {
-        // 設定語速範圍
-        let minRate: Double = 0.0
-        let maxRate: Double = 1.0
-
-        // 設定每分鐘的字數 (假設一個標準語速為 200 WPM)
-        let wordsPerMinute: Double = 130
-
-        // 計算每秒鐘的字數
-        let wordsPerSecond = wordsPerMinute / 60.0
-
-        // 計算語速對應的字數每秒
-        let wordsPerSecondAtRate = wordsPerSecond * (rate - minRate) / (maxRate - minRate)
-
-        // 計算文字的單詞數量
-        let wordCount = Double(text.split(separator: " ").count)
-
-        // 計算預估持續時間 (秒)
-        let duration = wordCount / wordsPerSecond
-
-        return duration > 1 ? duration : 1
-    }
-
     func stopSpeaking() {
         synthesizer.stopSpeaking(at: .immediate)
     }

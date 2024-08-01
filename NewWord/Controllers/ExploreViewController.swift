@@ -2,108 +2,85 @@
 //  ExploreViewController.swift
 //  NewWord
 //
-//  Created by 曾柏楊 on 2024/5/3.
+//  Created by 曾柏楊 on 2024/8/1.
 //
 
 import UIKit
 
-class ExploreViewController: UIViewController {
+class ExploreViewController: UIViewController, StoryboardGenerated {
     
-    @IBOutlet weak var deckLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
+    static var storyboardName: String = K.Storyboard.main
     
-    private var currentDeck: CDDeck?
-
-    var dataSource: UITableViewDiffableDataSource<Int,CDNote>!
-
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    private var dataSource: UICollectionViewDiffableDataSource<Int,Int>!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDeck()
-        setupTableView()
-        setupDataSouce()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        var notes: [CDNote] = CoreDataManager.shared.createFakeCloze()
-        let bNotes: [CDNote] = CoreDataManager.shared.creaetFakeSentenceCloze()
-        
-        notes += bNotes
-
-        var snapshot = dataSource.snapshot()
-
-        snapshot.appendItems(notes, toSection: 0)
-
-        dataSource.apply(snapshot)
-
-        tableView.reloadData()
-    }
-
-    private func setupDeck() {
-        if let firstDeck = CoreDataManager.shared.getDecks().first {
-            currentDeck = firstDeck
-            deckLabel.text = currentDeck?.name
-        }
+        setup()
     }
     
-    private func setupTableView() {
-        view.backgroundColor = .orange
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        tableView.delegate = self
+    private func setup() {
+        setupCollectionView()
     }
     
-    private func setupDataSouce() {
-        
-        dataSource = UITableViewDiffableDataSource<Int, CDNote>(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            
-            var config = cell.defaultContentConfiguration()
-            
-            switch itemIdentifier.type {
-            case .prononciation:
-                break
-            case .cloze:
-                guard let cloze = itemIdentifier.resource?.cloze else { fatalError() }
-                config.text = cloze.id
-                
-            default:
-                break
-            }
-            
-            cell.contentConfiguration = config
+    private func setupCollectionView() {
+        collectionView.register(UINib(nibName: ExploreCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: ExploreCell.reuseIdentifier)
+        dataSource = createDataSource()
+        collectionView.dataSource = dataSource
+        collectionView.collectionViewLayout = createCollectionViewLayout()
+        collectionView.delegate = self
+        applyInitialSnapshot()
+    }
+    
+    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, Int> {
+        let dataSource = UICollectionViewDiffableDataSource<Int, Int>(collectionView: collectionView,
+                                                                      cellProvider: { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExploreCell.reuseIdentifier, for: indexPath) as! ExploreCell
             
             return cell
         })
         
-        
-        var snapshot = NSDiffableDataSourceSnapshot<Int, CDNote>()
-        NoteManager.shared.addFakeNotes()
-        
-
-        let notes = CoreDataManager.shared.createFakeCloze()
-
-        snapshot.appendSections([0])
-        snapshot.appendItems(notes, toSection: 0)
-        
-        tableView.dataSource = dataSource
-        dataSource.apply(snapshot)
+        return dataSource
     }
-
+    
+    private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0), // 每個item占用全寬
+            heightDimension: .fractionalHeight(1.0)        // 固定高度為100
+        )
+        
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(0.382)
+        )
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 20  // 可選：設置組之間的間距
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
+        
+        return UICollectionViewCompositionalLayout(section: section)
+    }
+    
+    private func applyInitialSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
+        snapshot.appendSections([0])
+        snapshot.appendItems([0, 1, 2]) // 添加三個項目
+        dataSource.apply(snapshot, animatingDifferences: false)
+    }
 }
 
-extension ExploreViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let currentDeck = currentDeck else { return }
+extension ExploreViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let controller = WordSelectorViewController.instantiate()
         
-        var snapshot = dataSource.snapshot()
-        
-        let note = dataSource.itemIdentifier(for: indexPath)!
-
-        snapshot.deleteItems([note])
-        dataSource.apply(snapshot, animatingDifferences: true)
-
-        CoreDataManager.shared.addCard(to: currentDeck, with: note)
+        navigationController?.pushViewControllerWithCustomTransition(controller)
     }
 }

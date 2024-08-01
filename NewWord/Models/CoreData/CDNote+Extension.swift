@@ -41,7 +41,6 @@ extension CDNote {
         
         switch type {
         case .sentenceCloze:
-            let result = resource
             return .sentenceCloze(resource.sentenceCloze!)
             
         case .cloze, .lienteningCloze:

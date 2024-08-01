@@ -8,6 +8,7 @@
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -25,7 +26,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4811.4503816793895" y="776.76056338028172"/>
+            <point key="canvasLocation" x="5738.1679389312976" y="776.76056338028172"/>
         </scene>
         <!--Review View Controller-->
         <scene sceneID="gZK-6a-Dpi">
@@ -157,10 +158,10 @@
             </objects>
             <point key="canvasLocation" x="1065" y="2273"/>
         </scene>
-        <!--Explore View Controller-->
+        <!--Old Explore View Controller-->
         <scene sceneID="qYY-gy-4Oa">
             <objects>
-                <viewController storyboardIdentifier="ExploreViewController" id="7xn-AJ-4Bs" customClass="ExploreViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OldExploreViewController" id="7xn-AJ-4Bs" customClass="OldExploreViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lDi-zf-wTn">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -683,6 +684,124 @@
             </objects>
             <point key="canvasLocation" x="7251" y="-2"/>
         </scene>
+        <!--Word Selector View Controller-->
+        <scene sceneID="mCp-id-3vV">
+            <objects>
+                <viewController storyboardIdentifier="WordSelectorViewController" id="eIc-Ke-le6" customClass="WordSelectorViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="60r-4l-xue">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummy_explore" translatesAutoresizingMaskIntoConstraints="NO" id="8Bn-6I-6YX">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="123"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAs-7X-Pmi">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="123"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YxS-QY-pEM">
+                                <rect key="frame" x="0.0" y="95" width="393" height="75"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oXC-QM-LWd">
+                                        <rect key="frame" x="12" y="12" width="369" height="51"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Today is a good weather." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETl-nW-RqJ" userLabel="Translated Text Label">
+                                                <rect key="frame" x="0.0" y="0.0" width="369" height="20.333333333333332"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天是個好天氣。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVb-mg-suX" userLabel="Original Text Label">
+                                                <rect key="frame" x="0.0" y="28.333333333333343" width="369" height="22.666666666666671"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9vs-mn-q8I">
+                                        <rect key="frame" x="0.0" y="74" width="393" height="1"/>
+                                        <color key="backgroundColor" name="border"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="Pih-gQ-HpW"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="9vs-mn-q8I" firstAttribute="leading" secondItem="YxS-QY-pEM" secondAttribute="leading" id="2ZO-pA-GvW"/>
+                                    <constraint firstAttribute="trailing" secondItem="oXC-QM-LWd" secondAttribute="trailing" constant="12" id="3H4-xd-P2i"/>
+                                    <constraint firstAttribute="bottom" secondItem="oXC-QM-LWd" secondAttribute="bottom" constant="12" id="3L1-FV-4fD"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="75" id="Oi4-pV-qV1"/>
+                                    <constraint firstItem="oXC-QM-LWd" firstAttribute="leading" secondItem="YxS-QY-pEM" secondAttribute="leading" constant="12" id="PDD-6U-lqW"/>
+                                    <constraint firstItem="oXC-QM-LWd" firstAttribute="top" secondItem="YxS-QY-pEM" secondAttribute="top" constant="12" id="R1q-5x-9zn"/>
+                                    <constraint firstAttribute="bottom" secondItem="9vs-mn-q8I" secondAttribute="bottom" id="Wph-XD-m2u"/>
+                                    <constraint firstAttribute="trailing" secondItem="9vs-mn-q8I" secondAttribute="trailing" id="mbg-rM-110"/>
+                                </constraints>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o7E-Td-Qsh">
+                                <rect key="frame" x="12" y="183" width="369" height="527.66666666666663"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <mutableString key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                        <attributes>
+                                            <color key="NSColor" systemColor="labelColor"/>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="8" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLQ-bd-QaB">
+                                <rect key="frame" x="167.33333333333334" y="722.66666666666663" width="58.666666666666657" height="34.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="單字">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" name="background"/>
+                                        <color key="strokeColor" name="border"/>
+                                    </backgroundConfiguration>
+                                    <color key="baseForegroundColor" name="title"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="selectModeAction:" destination="Q3G-wX-9Sl" eventType="touchUpInside" id="yDC-Hy-qYb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tKW-eH-RXM"/>
+                        <color key="backgroundColor" name="background"/>
+                        <constraints>
+                            <constraint firstItem="dAs-7X-Pmi" firstAttribute="trailing" secondItem="8Bn-6I-6YX" secondAttribute="trailing" id="47P-OF-MDF"/>
+                            <constraint firstItem="tKW-eH-RXM" firstAttribute="bottom" secondItem="nLQ-bd-QaB" secondAttribute="bottom" constant="12" id="7Xn-Ok-ix9"/>
+                            <constraint firstItem="YxS-QY-pEM" firstAttribute="trailing" secondItem="tKW-eH-RXM" secondAttribute="trailing" id="FVL-dg-DRg"/>
+                            <constraint firstItem="dAs-7X-Pmi" firstAttribute="top" secondItem="8Bn-6I-6YX" secondAttribute="top" id="NuW-gv-DPz"/>
+                            <constraint firstItem="tKW-eH-RXM" firstAttribute="top" secondItem="8Bn-6I-6YX" secondAttribute="bottom" constant="-20" id="POk-ob-GBQ"/>
+                            <constraint firstItem="dAs-7X-Pmi" firstAttribute="bottom" secondItem="8Bn-6I-6YX" secondAttribute="bottom" id="QSa-LO-HrR"/>
+                            <constraint firstItem="o7E-Td-Qsh" firstAttribute="top" secondItem="tKW-eH-RXM" secondAttribute="top" constant="80" id="S62-hu-Qys"/>
+                            <constraint firstItem="tKW-eH-RXM" firstAttribute="top" secondItem="YxS-QY-pEM" secondAttribute="top" constant="7.9999999999999858" id="Sve-Ys-VoN"/>
+                            <constraint firstItem="o7E-Td-Qsh" firstAttribute="leading" secondItem="tKW-eH-RXM" secondAttribute="leading" constant="12" id="U21-Mg-4d6"/>
+                            <constraint firstItem="tKW-eH-RXM" firstAttribute="leading" secondItem="YxS-QY-pEM" secondAttribute="leading" id="U48-0r-uuK"/>
+                            <constraint firstItem="tKW-eH-RXM" firstAttribute="trailing" secondItem="o7E-Td-Qsh" secondAttribute="trailing" constant="12" id="fzi-4q-9aP"/>
+                            <constraint firstItem="tKW-eH-RXM" firstAttribute="trailing" secondItem="8Bn-6I-6YX" secondAttribute="trailing" id="h9O-AO-Y28"/>
+                            <constraint firstItem="nLQ-bd-QaB" firstAttribute="centerX" secondItem="60r-4l-xue" secondAttribute="centerX" id="jfA-7i-zAd"/>
+                            <constraint firstItem="dAs-7X-Pmi" firstAttribute="leading" secondItem="8Bn-6I-6YX" secondAttribute="leading" id="kBt-jN-xFb"/>
+                            <constraint firstItem="8Bn-6I-6YX" firstAttribute="top" secondItem="60r-4l-xue" secondAttribute="top" id="u51-wZ-LKg"/>
+                            <constraint firstItem="nLQ-bd-QaB" firstAttribute="top" secondItem="o7E-Td-Qsh" secondAttribute="bottom" constant="12" id="uX9-XH-Nu0"/>
+                            <constraint firstItem="8Bn-6I-6YX" firstAttribute="leading" secondItem="tKW-eH-RXM" secondAttribute="leading" id="ulg-ds-JHW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="4Zv-WG-n4H"/>
+                    <connections>
+                        <outlet property="imageCoverView" destination="dAs-7X-Pmi" id="sQ7-OO-4Vk"/>
+                        <outlet property="imageView" destination="8Bn-6I-6YX" id="c8B-Uu-TO1"/>
+                        <outlet property="textView" destination="o7E-Td-Qsh" id="gIn-Hi-H8R"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="acK-4B-Z3U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1608.3969465648854" y="2272.535211267606"/>
+        </scene>
         <!--Show Cards View Controller-->
         <scene sceneID="kGl-og-tHG">
             <objects>
@@ -801,7 +920,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aT5-2T-Bc1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-874.04580152671747" y="2272.535211267606"/>
+            <point key="canvasLocation" x="-720" y="2273"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="Fda-51-NXx">
@@ -915,7 +1034,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fzs-a2-WMU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6880.1526717557254" y="716.90140845070425"/>
+            <point key="canvasLocation" x="7806.8702290076335" y="716.90140845070425"/>
         </scene>
         <!--詞彙選擇-->
         <scene sceneID="nCC-Bo-CqO">
@@ -1091,7 +1210,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Awd-sH-OXu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6060.3053435114498" y="1407.7464788732395"/>
+            <point key="canvasLocation" x="6987.0229007633588" y="1407.7464788732395"/>
         </scene>
         <!--Add Cloze View Controller-->
         <scene sceneID="FUc-lo-w6H">
@@ -1161,7 +1280,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZD3-Nl-shL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6125.9541984732823" y="716.90140845070425"/>
+            <point key="canvasLocation" x="7052.6717557251905" y="716.90140845070425"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="zm3-m9-kG9">
@@ -1251,7 +1370,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fwn-Qv-Ba0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6904.5801526717551" y="1407.7464788732395"/>
+            <point key="canvasLocation" x="7831.2977099236641" y="1407.7464788732395"/>
         </scene>
         <!--Card Information View Controller-->
         <scene sceneID="HJu-vS-zJl">
@@ -1284,7 +1403,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2BK-0n-8at" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7706.1068702290077" y="716.90140845070425"/>
+            <point key="canvasLocation" x="8632.8244274809149" y="716.90140845070425"/>
         </scene>
         <!--Sentence Cloze View Controller-->
         <scene sceneID="eSo-Y6-juQ">
@@ -1332,6 +1451,54 @@ Environmental sustainability has become a crucial issue in today's world. With t
             </objects>
             <point key="canvasLocation" x="4483.2061068702287" y="-2.1126760563380285"/>
         </scene>
+        <!--探索-->
+        <scene sceneID="e7S-GN-YXW">
+            <objects>
+                <viewController storyboardIdentifier="ExploreViewController" id="iOg-78-dPO" customClass="ExploreViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="y2m-z3-tpj">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pPE-T4-3zC">
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ED9-IX-4MR">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="1bD-jX-3Ut">
+                                        <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="g1F-WB-WOm">
+                                            <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QHX-PM-by9"/>
+                        <color key="backgroundColor" name="background"/>
+                        <constraints>
+                            <constraint firstItem="pPE-T4-3zC" firstAttribute="top" secondItem="QHX-PM-by9" secondAttribute="top" id="3W5-s6-Wez"/>
+                            <constraint firstItem="QHX-PM-by9" firstAttribute="bottom" secondItem="pPE-T4-3zC" secondAttribute="bottom" id="NgT-8F-kmE"/>
+                            <constraint firstItem="QHX-PM-by9" firstAttribute="trailing" secondItem="pPE-T4-3zC" secondAttribute="trailing" id="dRG-dw-D7j"/>
+                            <constraint firstItem="pPE-T4-3zC" firstAttribute="leading" secondItem="QHX-PM-by9" secondAttribute="leading" id="wMf-Dh-hlG"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="探索" id="zA1-5H-urY"/>
+                    <connections>
+                        <outlet property="collectionView" destination="pPE-T4-3zC" id="Xni-9H-FPX"/>
+                        <segue destination="eIc-Ke-le6" kind="show" id="3QX-Z1-UBy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ivL-b7-bFE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1607" y="1518"/>
+        </scene>
         <!--複習-->
         <scene sceneID="5JH-4G-hQ1">
             <objects>
@@ -1351,7 +1518,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GcJ-PV-h8g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="120" y="777"/>
+            <point key="canvasLocation" x="120" y="782"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="QeR-P8-gmk">
@@ -1368,6 +1535,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                         </tabBarAppearance>
                     </tabBar>
                     <connections>
+                        <segue destination="ttf-Oo-cxU" kind="relationship" relationship="viewControllers" id="Sxq-Z5-z0M"/>
                         <segue destination="pSA-EX-MVA" kind="relationship" relationship="viewControllers" id="nIJ-fd-wI5"/>
                         <segue destination="9D3-Mg-oHH" kind="relationship" relationship="viewControllers" id="vNs-P6-FUm"/>
                         <segue destination="3Rn-Rq-84e" kind="relationship" relationship="viewControllers" id="pP3-0s-KO0"/>
@@ -1394,7 +1562,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uYT-dz-I1o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1064.885496183206" y="776.76056338028172"/>
+            <point key="canvasLocation" x="1065" y="782"/>
         </scene>
         <!--設定-->
         <scene sceneID="Ar3-lz-hhe">
@@ -1413,12 +1581,34 @@ Environmental sustainability has become a crucial issue in today's world. With t
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fHY-t9-Afp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2082" y="777"/>
+            <point key="canvasLocation" x="2082" y="782"/>
+        </scene>
+        <!--探索-->
+        <scene sceneID="DT7-ZH-33o">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ttf-Oo-cxU" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="探索" image="books.vertical.circle" catalog="system" selectedImage="books.vertical.circle.fill" id="lpv-hd-TEx"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="umm-i1-ok6">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="iOg-78-dPO" kind="relationship" relationship="rootViewController" id="mf3-R0-5EA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fQV-DF-UmQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1608" y="782"/>
         </scene>
     </scenes>
     <resources>
+        <image name="books.vertical.circle" catalog="system" width="128" height="123"/>
+        <image name="books.vertical.circle.fill" catalog="system" width="128" height="123"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="circle" catalog="system" width="128" height="123"/>
+        <image name="dummy_explore" width="2400" height="1600"/>
         <image name="gear.circle" catalog="system" width="128" height="123"/>
         <image name="gear.circle.fill" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass.circle" catalog="system" width="128" height="123"/>

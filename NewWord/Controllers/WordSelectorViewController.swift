@@ -1,41 +1,13 @@
 //
-//  NewAddClozeViewController.swift
+//  WordSelectorViewController.swift
 //  NewWord
 //
-//  Created by justin on 2024/6/30.
+//  Created by 曾柏楊 on 2024/8/1.
 //
 
 import UIKit
-import NaturalLanguage
-import MLKitTranslate
 
-struct NewAddCloze {
-    enum TextType {
-        case word
-        case sentence
-        case article
-    }
-    
-    let number: Int
-    let text: String
-    var range: NSRange
-    let tagColor: UIColor
-    let contentColor: UIColor
-    var textType: TextType = .word
-    let hint: String
-    
-    func getTagIndex(in text: String) -> String.Index? {
-        let location = range.location - 1
-
-        if let stringIndex = text.index(text.startIndex, offsetBy: location, limitedBy: text.endIndex) {
-            return stringIndex
-        }
-        
-        return nil
-    }
-}
-
-class NewAddClozeViewController: UIViewController, StoryboardGenerated {
+class WordSelectorViewController: UIViewController, StoryboardGenerated {
     
     // MARK: - Properties
     
@@ -46,12 +18,13 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     
     static var storyboardName: String = K.Storyboard.main
     
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageCoverView: UIView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var originalTextLabel: UILabel!
     @IBOutlet weak var translatedTextLabel: UILabel!
     @IBOutlet weak var selectModeButton: UIButton!
     @IBOutlet var translationContentView: UIView!
-    @IBOutlet weak var contextContentView: UIView!
     
     var inputText: String?
     
@@ -64,32 +37,21 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         }
     }
     
-    // MARK: - Lifecycles
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setupProperties()
-    }
-    
-    // MARK: - Helpers
+            }
     
     private func setup() {
         setupProperties()
         setupViewModel()
-        setupTextView()
         setupCumstomTextView()
+        
+        applyBottomToTopFadeGradient(to: imageCoverView, startColor: .background, endColor: .clear)
+
     }
     
     private func setupProperties() {
-        translationContentView.addDefaultBorder(maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
-        contextContentView.addDefaultBorder(maskedCorners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
-
-        contextContentView.layer.zPosition = 0
+        customTextView.layer.zPosition = 0
         translationContentView.layer.zPosition = 1
         
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -97,10 +59,6 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
     
     private func setupViewModel() {
         viewModel = NewAddClozeViewControllerViewModel()
-    }
-    
-    private func setupTextView() {
-        textView.isHidden = true
     }
     
     private func setupCumstomTextView() {
@@ -130,33 +88,14 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         self.view.addSubview(customTextView)
         
         NSLayoutConstraint.activate([
-            customTextView.topAnchor.constraint(equalTo: contextContentView.topAnchor, constant: 20),
-            customTextView.bottomAnchor.constraint(equalTo: contextContentView.bottomAnchor, constant: -20),
-            customTextView.leadingAnchor.constraint(equalTo: contextContentView.leadingAnchor, constant: 20),
-            customTextView.trailingAnchor.constraint(equalTo: contextContentView.trailingAnchor, constant: -20),
+            customTextView.topAnchor.constraint(equalTo: textView.topAnchor),
+            customTextView.bottomAnchor.constraint(equalTo: textView.bottomAnchor),
+            customTextView.leadingAnchor.constraint(equalTo: textView.leadingAnchor),
+            customTextView.trailingAnchor.constraint(equalTo: textView.trailingAnchor)
         ])
     }
     
     // MARK: - Actions
-    
-    @IBAction func previousAction(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func confirmAction(_ sender: UIBarButtonItem) {
-        guard var text = customTextView.text else { return }
-        
-        text = viewModel.removeAllTags(in: text)
-        viewModel.saveCloze(text)
-        
-        navigationController?.popToRootViewController(animated: true)
-    }
-    
-    @IBAction func settingAction(_ sender: UIButton) {
-        let controller = TagSettingViewController.instantiate()
-        
-        navigationController?.present(controller, animated: true)
-    }
     
     @IBAction func selectModeAction(_ sender: UIButton) {
         let currentSelectModeRawValue = selectMode.rawValue
@@ -204,7 +143,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             }
         }
     }
-
+    
     private func clozeWord(range: NSRange) {
         // 獲取點擊的文字
         let text = (customTextView.text as NSString).substring(with: range)
@@ -247,7 +186,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
             }
         }
     }
-
+    
     private func updateTranslationLabels(originalText: String, translatedText: String) {
         self.originalTextLabel.text = originalText
         self.translatedTextLabel.text = translatedText
@@ -281,17 +220,24 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         self.customTextView.setProperties()
     }
     
-    @objc func appDidBecomeActive() {
-        updateCustomTextView()
+    func applyBottomToTopFadeGradient(to view: UIView, startColor: UIColor, endColor: UIColor = .clear) {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        
+        // 設定漸層的顏色，由開始的顏色漸變到透明
+        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+        
+        // 設定漸層的起點和終點，這裡設定為從下至上
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.848)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
+        
+        view.layer.insertSublayer(gradientLayer, at: 0)
     }
-    
-    deinit {
-        // 移除觀察者
-        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-    }
+
 }
 
-extension NewAddClozeViewController: UITextViewDelegate {
+
+extension WordSelectorViewController: UITextViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if scrollView == customTextView {
             self.originalTextLabel.numberOfLines = 1

@@ -373,7 +373,6 @@ struct ClozeViewControllerViewModel {
     func getContext() -> String? {
         guard let card = card,
               let note = card.note,
-              let noteType = note.type,
               let cloze = note.resource?.cloze,
               let context = cloze.context?.text else {
             return nil
@@ -385,7 +384,6 @@ struct ClozeViewControllerViewModel {
     func getClozeRange() -> NSRange? {
         guard let card = card,
               let note = card.note,
-              let noteType = note.type,
               let cloze = note.resource?.cloze else {
             return nil
         }
