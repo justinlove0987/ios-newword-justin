@@ -10,8 +10,8 @@ import NaturalLanguage
 
 class AddClozeTextView: UITextView {
 
-    typealias ColoredText = NewAddClozeViewControllerViewModel.ColoredText
-    typealias ColoredMark = NewAddClozeViewControllerViewModel.ColoredMark
+    typealias ColoredText = WordSelectorViewControllerViewModel.ColoredText
+    typealias ColoredMark = WordSelectorViewControllerViewModel.ColoredMark
 
     var newColorRanges: ColoredText = .init(coloredCharacters: [:]) {
         didSet {
@@ -231,11 +231,27 @@ class AddClozeTextView: UITextView {
         return self.selectedRange.length > 0
     }
 
+    static func createTextView(_ text: String) -> AddClozeTextView {
+        let attributedString = NSMutableAttributedString(string: text)
+
+        let textStorage = NSTextStorage(attributedString: attributedString)
+        let layoutManager = NSLayoutManager()
+        let textContainer = NSTextContainer(size: .zero)
+
+        textStorage.addLayoutManager(layoutManager)
+        layoutManager.addTextContainer(textContainer)
+
+        let textView = AddClozeTextView(frame: .zero, textContainer: textContainer)
+
+        textView.backgroundColor = .clear
+        textView.isEditable = false
+        textView.setProperties()
+
+        return textView
+    }
+
     func setProperties() {
         guard let text = self.text else { return }
-        
-        customTextView.backgroundColor = .clear
-        customTextView.isEditable = false
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = UserDefaultsManager.shared.preferredLineSpacing

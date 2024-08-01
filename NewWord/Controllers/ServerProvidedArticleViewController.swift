@@ -1,183 +1,94 @@
 //
-//  NewAddClozeViewController.swift
+//  WordSelectorViewController.swift
 //  NewWord
 //
-//  Created by justin on 2024/6/30.
+//  Created by 曾柏楊 on 2024/8/1.
 //
 
 import UIKit
-import NaturalLanguage
-import MLKitTranslate
 
-struct NewAddCloze {
-    enum TextType {
-        case word
-        case sentence
-        case article
-    }
-    
-    let number: Int
-    let text: String
-    var range: NSRange
-    let tagColor: UIColor
-    let contentColor: UIColor
-    var textType: TextType = .word
-    let hint: String
-    
-    func getTagIndex(in text: String) -> String.Index? {
-        let location = range.location - 1
+class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated {
 
-        if let stringIndex = text.index(text.startIndex, offsetBy: location, limitedBy: text.endIndex) {
-            return stringIndex
-        }
-        
-        return nil
-    }
-}
-
-class NewAddClozeViewController: UIViewController, StoryboardGenerated {
-    
     // MARK: - Properties
-    
-    enum SelectMode: Int, CaseIterable {
-        case word
-        case sentence
-    }
-    
+
     static var storyboardName: String = K.Storyboard.main
-    
+
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageCoverView: UIView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var originalTextLabel: UILabel!
     @IBOutlet weak var translatedTextLabel: UILabel!
     @IBOutlet weak var selectModeButton: UIButton!
     @IBOutlet var translationContentView: UIView!
-    @IBOutlet weak var contextContentView: UIView!
     
     var inputText: String?
-    
+
     private var customTextView: AddClozeTextView!
-    private var viewModel: NewAddClozeViewControllerViewModel!
-    
-    private var selectMode: SelectMode = .word {
-        didSet {
-            updateSelectModeUI()
-        }
-    }
-    
-    // MARK: - Lifecycles
-    
+    private var viewModel: WordSelectorViewControllerViewModel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setupProperties()
     }
-    
-    // MARK: - Helpers
-    
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+
     private func setup() {
+        setupCumstomTextView()
         setupProperties()
         setupViewModel()
-        setupTextView()
-        setupCumstomTextView()
-    }
-    
-    private func setupProperties() {
-        translationContentView.addDefaultBorder(maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
-        contextContentView.addDefaultBorder(maskedCorners: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner])
 
-        contextContentView.layer.zPosition = 0
+        applyBottomToTopFadeGradient(to: imageCoverView, startColor: .background, endColor: .clear)
+    }
+
+    private func setupProperties() {
+        customTextView.layer.zPosition = 0
         translationContentView.layer.zPosition = 1
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
-    
-    private func setupViewModel() {
-        viewModel = NewAddClozeViewControllerViewModel()
-    }
-    
-    private func setupTextView() {
-        textView.isHidden = true
-    }
-    
-    private func setupCumstomTextView() {
-        guard let inputText else { return }
 
-        let attributedString = NSMutableAttributedString(string: inputText)
-        
-        // 創建一個 Text Storage 和 Layout Manager
-        let textStorage = NSTextStorage(attributedString: attributedString)
-        let layoutManager = NSLayoutManager()
-        textStorage.addLayoutManager(layoutManager)
-        
-        // 創建一個 Text Container 並配置它
-        let textContainer = NSTextContainer(size: CGSize(width: textView.frame.width, height: textView.frame.height))
-        layoutManager.addTextContainer(textContainer)
+    private func setupViewModel() {
+        viewModel = WordSelectorViewControllerViewModel()
+    }
+
+    private func setupCumstomTextView() {
+        inputText = """
+Canada's forests are a vital part of the country's identity and natural heritage. They provide not only economic benefits but also ecological services that are crucial for maintaining the planet's health. As the world grapples with the challenges of climate change and environmental degradation, the conservation of Canada's forests becomes ever more important. By embracing sustainable practices and respecting Indigenous knowledge and rights, Canada can continue to protect and cherish these majestic forests for future generations.
+"""
+        guard let inputText else { return }
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
 
-        customTextView = AddClozeTextView(frame: textView.frame, textContainer: textContainer)
-        
+        customTextView = AddClozeTextView.createTextView(inputText)
         customTextView.delegate = self
         customTextView.translatesAutoresizingMaskIntoConstraints = false
         customTextView.addGestureRecognizer(tapGesture)
-        customTextView.setProperties()
-        
 
         self.view.addSubview(customTextView)
-        
+
         NSLayoutConstraint.activate([
-            customTextView.topAnchor.constraint(equalTo: contextContentView.topAnchor, constant: 20),
-            customTextView.bottomAnchor.constraint(equalTo: contextContentView.bottomAnchor, constant: -20),
-            customTextView.leadingAnchor.constraint(equalTo: contextContentView.leadingAnchor, constant: 20),
-            customTextView.trailingAnchor.constraint(equalTo: contextContentView.trailingAnchor, constant: -20),
+            customTextView.topAnchor.constraint(equalTo: textView.topAnchor),
+            customTextView.bottomAnchor.constraint(equalTo: textView.bottomAnchor),
+            customTextView.leadingAnchor.constraint(equalTo: textView.leadingAnchor),
+            customTextView.trailingAnchor.constraint(equalTo: textView.trailingAnchor)
         ])
     }
-    
+
     // MARK: - Actions
-    
-    @IBAction func previousAction(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func confirmAction(_ sender: UIBarButtonItem) {
-        guard var text = customTextView.text else { return }
-        
-        text = viewModel.removeAllTags(in: text)
-        viewModel.saveCloze(text)
-        
-        navigationController?.popToRootViewController(animated: true)
-    }
-    
-    @IBAction func settingAction(_ sender: UIButton) {
-        let controller = TagSettingViewController.instantiate()
-        
-        navigationController?.present(controller, animated: true)
-    }
-    
+
     @IBAction func selectModeAction(_ sender: UIButton) {
-        let currentSelectModeRawValue = selectMode.rawValue
-        let isLastMode = currentSelectModeRawValue + 1 ==  SelectMode.allCases.count
-        
-        if isLastMode {
-            selectMode = SelectMode(rawValue: 0)!
-        } else {
-            selectMode = SelectMode(rawValue: currentSelectModeRawValue + 1)!
-        }
+        viewModel.changeSelectMode()
+        selectModeButton.setTitle(viewModel.selectMode.title, for: .normal)
     }
-    
-    private func updateSelectModeUI() {
-        switch selectMode {
-        case .word:
-            selectModeButton.setTitle("單字", for: .normal)
-        case .sentence:
-            selectModeButton.setTitle("句子", for: .normal)
-        }
-    }
-    
+
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         guard !customTextView.isTextSelected() else {
             customTextView.selectedTextRange = nil
@@ -190,9 +101,9 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         var location = gesture.location(in: customTextView)
         location.x -= customTextView.textContainerInset.left
         location.y -= customTextView.textContainerInset.top
-        
+
         if let characterIndex = customTextView.characterIndex(at: location) {
-            switch selectMode {
+            switch viewModel.selectMode {
             case .word:
                 if let wordRange = customTextView.wordRange(at: characterIndex) {
                     clozeWord(range: wordRange)
@@ -266,7 +177,7 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         let offset = 1
         let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
         let textType = self.viewModel.getTextType(text)
-        let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, selectMode: self.selectMode, textType: textType, hint: hint)
+        let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, textType: textType, hint: hint)
 
         self.viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
         self.viewModel.appendCloze(newCloze)
@@ -280,18 +191,29 @@ class NewAddClozeViewController: UIViewController, StoryboardGenerated {
         self.customTextView.renewTagImages(coloredMarks)
         self.customTextView.setProperties()
     }
-    
+
     @objc func appDidBecomeActive() {
         updateCustomTextView()
     }
-    
-    deinit {
-        // 移除觀察者
-        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+
+    func applyBottomToTopFadeGradient(to view: UIView, startColor: UIColor, endColor: UIColor = .clear) {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+
+        // 設定漸層的顏色，由開始的顏色漸變到透明
+        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+
+        // 設定漸層的起點和終點，這裡設定為從下至上
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.7)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
+
+        view.layer.insertSublayer(gradientLayer, at: 0)
     }
+
 }
 
-extension NewAddClozeViewController: UITextViewDelegate {
+
+extension ServerProvidedArticleViewController: UITextViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if scrollView == customTextView {
             self.originalTextLabel.numberOfLines = 1

@@ -10,8 +10,22 @@ import MLKitTranslate
 import OpenCC
 import NaturalLanguage
 
-struct NewAddClozeViewControllerViewModel {
-    
+struct WordSelectorViewControllerViewModel {
+
+    enum SelectMode: Int, CaseIterable {
+        case word
+        case sentence
+
+        var title: String {
+            switch self {
+            case .word:
+                return "單字"
+            case .sentence:
+                return "句子"
+            }
+        }
+    }
+
     struct ColorSegment: Comparable {
         
         let tagColor: UIColor
@@ -65,6 +79,7 @@ struct NewAddClozeViewControllerViewModel {
     }
     
     var clozes: [NewAddCloze] = []
+    var selectMode: SelectMode = .word
 
     mutating func getClozeNumber() -> Int {
         let clozeNumbers = clozes.map { $0.number }
@@ -246,7 +261,6 @@ struct NewAddClozeViewControllerViewModel {
     func createNewCloze(number: Int, 
                         cloze: String,
                         range: NSRange,
-                        selectMode: NewAddClozeViewController.SelectMode,
                         textType: NewAddCloze.TextType,
                         hint: String) -> NewAddCloze {
         
@@ -495,5 +509,19 @@ struct NewAddClozeViewControllerViewModel {
         
         return deck
     }
-    
+}
+
+// MARK: SelectMode
+
+extension WordSelectorViewControllerViewModel {
+    mutating func changeSelectMode() {
+        let currentSelectModeRawValue = selectMode.rawValue
+        let isLastMode = currentSelectModeRawValue + 1 ==  SelectMode.allCases.count
+
+        if isLastMode {
+            selectMode = SelectMode(rawValue: 0)!
+        } else {
+            selectMode = SelectMode(rawValue: currentSelectModeRawValue + 1)!
+        }
+    }
 }

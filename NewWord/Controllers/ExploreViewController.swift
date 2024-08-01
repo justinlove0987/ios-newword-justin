@@ -79,7 +79,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
 
 extension ExploreViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let controller = WordSelectorViewController.instantiate()
+        let controller = ServerProvidedArticleViewController.instantiate()
         
         navigationController?.pushViewControllerWithCustomTransition(controller)
     }

@@ -15,11 +15,11 @@ class CustomTagView: UIView, NibOwnerLoadable {
 
     @IBOutlet weak var textFrontSpacingStackView: UIStackView!
 
-    var coloredMark: NewAddClozeViewControllerViewModel.ColoredMark?
+    var coloredMark: WordSelectorViewControllerViewModel.ColoredMark?
 
     var cornerRadiusCallback: (() -> ())?
 
-    init(coloredMark: NewAddClozeViewControllerViewModel.ColoredMark, lineHeight: CGFloat) {
+    init(coloredMark: WordSelectorViewControllerViewModel.ColoredMark, lineHeight: CGFloat) {
         self.coloredMark = coloredMark
         super.init(frame: .zero)
         loadNibContent()

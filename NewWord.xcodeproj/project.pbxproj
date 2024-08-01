@@ -27,7 +27,7 @@
 		2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */; };
 		2A5D7B062C0EEBA600B2F021 /* AddClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */; };
 		2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */; };
-		2A67688B2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688A2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift */; };
+		2A67688B2C3294470040C89F /* WordSelectorViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */; };
 		2A67688D2C3322590040C89F /* AddClozeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688C2C3322590040C89F /* AddClozeTextView.swift */; };
 		2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */; };
 		2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */; };
@@ -61,7 +61,7 @@
 		2AF886902C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */; };
 		2AFF6C9C2C5B5FF100629B26 /* ExploreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AFF6C9B2C5B5FF100629B26 /* ExploreCell.xib */; };
 		2AFF6C9D2C5B5FF100629B26 /* ExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF6C9A2C5B5FF100629B26 /* ExploreCell.swift */; };
-		2AFF6C9F2C5B6F8B00629B26 /* WordSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF6C9E2C5B6F8B00629B26 /* WordSelectorViewController.swift */; };
+		2AFF6C9F2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */; };
 		2AFF6CA12C5B748800629B26 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF6CA02C5B748800629B26 /* UINavigationController+Extension.swift */; };
 		D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */; };
 		D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */; };
@@ -85,7 +85,7 @@
 		D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */; };
 		D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB75B2BB66EEF009E3A41 /* Card.swift */; };
 		D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */; };
-		D0696DD72C31094600FE4FE1 /* NewAddClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0696DD62C31094600FE4FE1 /* NewAddClozeViewController.swift */; };
+		D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */; };
 		D078D0982BC9242900F601B2 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D078D0972BC9242900F601B2 /* Note.swift */; };
 		D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */; };
 		D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */; };
@@ -139,7 +139,7 @@
 		2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClozeViewController.swift; sourceTree = "<group>"; };
 		2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWord+Extension.swift"; sourceTree = "<group>"; };
-		2A67688A2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAddClozeViewControllerViewModel.swift; sourceTree = "<group>"; };
+		2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSelectorViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A67688C2C3322590040C89F /* AddClozeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClozeTextView.swift; sourceTree = "<group>"; };
 		2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecord.swift; sourceTree = "<group>"; };
 		2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextRevisionInputAccessoryView.xib; sourceTree = "<group>"; };
@@ -172,7 +172,7 @@
 		2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningClozeViewViewModel.swift; sourceTree = "<group>"; };
 		2AFF6C9A2C5B5FF100629B26 /* ExploreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCell.swift; sourceTree = "<group>"; };
 		2AFF6C9B2C5B5FF100629B26 /* ExploreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExploreCell.xib; sourceTree = "<group>"; };
-		2AFF6C9E2C5B6F8B00629B26 /* WordSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSelectorViewController.swift; sourceTree = "<group>"; };
+		2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerProvidedArticleViewController.swift; sourceTree = "<group>"; };
 		2AFF6CA02C5B748800629B26 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		960A30FE64A5F2F51621C559 /* Pods-NewWord.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewWord.release.xcconfig"; path = "Target Support Files/Pods-NewWord/Pods-NewWord.release.xcconfig"; sourceTree = "<group>"; };
 		9A11A9D5682428780EFDAD65 /* Pods-NewWord.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewWord.debug.xcconfig"; path = "Target Support Files/Pods-NewWord/Pods-NewWord.debug.xcconfig"; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 		D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vocabulary.swift; sourceTree = "<group>"; };
 		D04EB75B2BB66EEF009E3A41 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewController.swift; sourceTree = "<group>"; };
-		D0696DD62C31094600FE4FE1 /* NewAddClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAddClozeViewController.swift; sourceTree = "<group>"; };
+		D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGeneratedArticleViewController.swift; sourceTree = "<group>"; };
 		D078D0972BC9242900F601B2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
 		D09262B72C097D2400CA90BA /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -272,7 +272,7 @@
 				2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */,
 				2A17DAF92C157C7F00919642 /* ClozeViewViewModel.swift */,
 				D0A86A652C1B55390022DFDD /* ClozeViewControllerViewModel.swift */,
-				2A67688A2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift */,
+				2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */,
 				2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */,
 			);
 			path = ViewModels;
@@ -358,7 +358,6 @@
 				2A38F8C22BE48FB2003F058F /* SearchViewController.swift */,
 				2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */,
 				2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */,
-				2AFF6C9E2C5B6F8B00629B26 /* WordSelectorViewController.swift */,
 				2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */,
 				2A38F8C02BE48F88003F058F /* OldExploreViewController.swift */,
 				2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */,
@@ -367,9 +366,10 @@
 				2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */,
 				2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */,
 				2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */,
-				D0696DD62C31094600FE4FE1 /* NewAddClozeViewController.swift */,
 				D03107CB2C16EE6200EEF772 /* CardInformationViewController.swift */,
 				2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */,
+				2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */,
+				D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -659,17 +659,17 @@
 				D0A6E4E92C52060100E1EF35 /* TagView.swift in Sources */,
 				D0B2E3F82C2AA53E0047B2F5 /* ClozeWord.swift in Sources */,
 				2A38F8C12BE48F88003F058F /* OldExploreViewController.swift in Sources */,
-				2AFF6C9F2C5B6F8B00629B26 /* WordSelectorViewController.swift in Sources */,
+				2AFF6C9F2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift in Sources */,
 				2A7F3C102C5B5A3C0028150D /* ExploreViewController.swift in Sources */,
 				2AE025F62BF4983A006EC021 /* NoteManager.swift in Sources */,
 				D0D6E0EB2C1DE92C00C1F95E /* ContextStackView.swift in Sources */,
 				2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */,
 				2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */,
-				D0696DD72C31094600FE4FE1 /* NewAddClozeViewController.swift in Sources */,
+				D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */,
 				D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */,
 				2A2176852C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift in Sources */,
 				D03107D42C16F2AA00EEF772 /* LearningRecordCell.swift in Sources */,
-				2A67688B2C3294470040C89F /* NewAddClozeViewControllerViewModel.swift in Sources */,
+				2A67688B2C3294470040C89F /* WordSelectorViewControllerViewModel.swift in Sources */,
 				2A24E8D62C537E59006C1032 /* ListeningClozeView.swift in Sources */,
 				D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */,
 				D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */,

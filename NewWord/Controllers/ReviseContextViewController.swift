@@ -45,7 +45,7 @@ class ReviseContextViewController: UIViewController, StoryboardGenerated {
     @IBAction func nextAction(_ sender: UIBarButtonItem) {
         guard let text = textView.text else { return }
         
-        let controller = NewAddClozeViewController.instantiate()
+        let controller = UserGeneratedArticleViewController.instantiate()
         controller.inputText = text
         self.navigationController?.pushViewController(controller, animated: true)
     }
