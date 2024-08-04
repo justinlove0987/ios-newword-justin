@@ -76,7 +76,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.tintColor = UIColor.label
+        navigationController?.navigationBar.tintColor = UIColor.title
     }
 
     override func viewDidDisappear(_ animated: Bool) {
