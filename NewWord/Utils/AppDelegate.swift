@@ -7,6 +7,7 @@
 
 import UIKit
 import MLKitTranslate
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         initializeDataManager()
         downloadChineseTranslateModel()
+        FirebaseApp.configure()
         
         return true
     }

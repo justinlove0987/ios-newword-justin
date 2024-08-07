@@ -21,5 +21,10 @@ class ExploreCell: UICollectionViewCell {
         super.awakeFromNib()
         innerView.addDefaultBorder(cornerRadius: 15)
     }
+    
+    func updateUI(_ article: FSArticle) {
+        titleLabel.text = article.title
+        contentLabel.text = article.content
+    }
 
 }

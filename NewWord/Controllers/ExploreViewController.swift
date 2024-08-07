@@ -13,15 +13,34 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var dataSource: UICollectionViewDiffableDataSource<Int,Int>!
+    private var dataSource: UICollectionViewDiffableDataSource<Int,FSArticle>!
+    
+    private var articles: [FSArticle] = [] {
+        didSet {
+            updateSnapshot()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        fetchArticles()
     }
     
     private func setup() {
         setupCollectionView()
+    }
+    
+    private func fetchArticles() {
+        FirestoreManager.shared.fetchAllArticles { articles in
+            var newArticles: [FSArticle] = []
+            
+            for article in articles {
+                newArticles.append(article)
+            }
+            
+            self.articles = newArticles
+        }
     }
     
     private func setupCollectionView() {
@@ -30,13 +49,14 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         collectionView.dataSource = dataSource
         collectionView.collectionViewLayout = createCollectionViewLayout()
         collectionView.delegate = self
-        applyInitialSnapshot()
+        updateSnapshot()
     }
     
-    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, Int> {
-        let dataSource = UICollectionViewDiffableDataSource<Int, Int>(collectionView: collectionView,
+    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, FSArticle> {
+        let dataSource = UICollectionViewDiffableDataSource<Int, FSArticle>(collectionView: collectionView,
                                                                       cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExploreCell.reuseIdentifier, for: indexPath) as! ExploreCell
+            cell.updateUI(self.articles[indexPath.row])
             
             return cell
         })
@@ -69,12 +89,13 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         return UICollectionViewCompositionalLayout(section: section)
     }
     
-    private func applyInitialSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
+    private func updateSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Int, FSArticle>()
         snapshot.appendSections([0])
-        snapshot.appendItems([0, 1, 2]) // 添加三個項目
+        snapshot.appendItems(articles)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
+    
 }
 
 extension ExploreViewController: UICollectionViewDelegate {
