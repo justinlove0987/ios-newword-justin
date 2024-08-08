@@ -25,6 +25,20 @@ class ExploreCell: UICollectionViewCell {
     func updateUI(_ article: FSArticle) {
         titleLabel.text = article.title
         contentLabel.text = article.content
+        fetchImage(article)
+    }
+
+    func fetchImage(_ article: FSArticle) {
+        FirestoreManager.shared.getImage(for: article.imageId) { result in
+            switch result {
+            case .success(let image):
+                DispatchQueue.main.async {
+                    self.imageView.image = image
+                }
+            case .failure(let error):
+                print("Error getting image: \(error)")
+            }
+        }
     }
 
 }

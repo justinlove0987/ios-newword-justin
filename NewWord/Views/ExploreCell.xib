@@ -22,7 +22,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9MU-z9-qac">
                         <rect key="frame" x="0.0" y="0.0" width="512" height="381"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummy_explore" translatesAutoresizingMaskIntoConstraints="NO" id="6C1-IT-WGw">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loading" translatesAutoresizingMaskIntoConstraints="NO" id="6C1-IT-WGw">
                                 <rect key="frame" x="0.0" y="0.0" width="512" height="381"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qnS-YS-4xF">
@@ -88,7 +88,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="dummy_explore" width="2400" height="1600"/>
+        <image name="loading" width="3000" height="2000"/>
         <namedColor name="description">
             <color red="0.57647058823529407" green="0.59215686274509804" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

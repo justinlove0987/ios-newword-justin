@@ -22,6 +22,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBOutlet var translationContentView: UIView!
     
     var inputText: String?
+    var image: UIImage?
 
     private var customTextView: AddClozeTextView!
     private var viewModel: WordSelectorViewControllerViewModel!
@@ -29,11 +30,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setupProperties()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +53,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     private func setupProperties() {
         customTextView.layer.zPosition = 0
         translationContentView.layer.zPosition = 1
+        imageView.image = image
 
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
@@ -66,29 +63,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     }
 
     private func setupCumstomTextView() {
-        inputText = """
-Canada's Majestic Forests: A National Treasure
-
-Canada is home to some of the most extensive and diverse forests in the world, covering nearly 40% of its land area. These forests are not just a hallmark of the country's natural beauty but also play a crucial role in its economy, culture, and environment. Spanning from the vast boreal forests to temperate rainforests, Canada’s woodlands are a national treasure that require careful stewardship and appreciation.
-
-The Boreal Forest
-The boreal forest, also known as taiga, is Canada's most extensive forest region, covering about 28% of the country's land area. It stretches across the northern part of the country, from Newfoundland and Labrador to the Yukon. This forest type is characterized by its coniferous trees, such as spruce, fir, and pine, which are well adapted to cold climates and poor soil conditions.
-
-The boreal forest is a vital carbon sink, storing vast amounts of carbon and helping to regulate the global climate. It also provides habitat for a wide range of wildlife, including caribou, lynx, and various bird species. The boreal forest is not just a natural wonder but also an essential resource for the timber and pulp and paper industries, which are significant contributors to Canada's economy.
-
-Temperate Rainforests
-Canada's west coast, particularly in British Columbia, is home to some of the world's largest temperate rainforests. These rainforests are characterized by high levels of precipitation and mild temperatures, creating ideal conditions for the growth of towering conifers like Douglas fir, western red cedar, and Sitka spruce. Some of these trees can live for over a thousand years, reaching heights of up to 70 meters.
-
-These ancient forests are not only important for their biodiversity but also for their cultural significance to Indigenous peoples. Many Indigenous communities have relied on these forests for sustenance, materials, and spiritual practices for thousands of years. The temperate rainforests are also popular destinations for ecotourism, attracting visitors with their lush, verdant landscapes and abundant wildlife.
-
-Conservation Efforts
-Despite their vastness, Canada's forests face significant threats from logging, mining, and climate change. Deforestation and habitat loss can have devastating effects on the ecosystems and species that depend on these forests. In response, there have been significant efforts to promote sustainable forestry practices and establish protected areas.
-
-The Canadian government, along with various Indigenous groups and environmental organizations, has been working to conserve these critical habitats. Initiatives like the Canadian Boreal Forest Agreement aim to balance economic interests with the need to protect biodiversity and ecological integrity. Moreover, there is increasing recognition of the rights and knowledge of Indigenous peoples in forest management, which is vital for ensuring the long-term health and sustainability of these ecosystems.
-
-Conclusion
-Canada's forests are a vital part of the country's identity and natural heritage. They provide not only economic benefits but also ecological services that are crucial for maintaining the planet's health. As the world grapples with the challenges of climate change and environmental degradation, the conservation of Canada's forests becomes ever more important. By embracing sustainable practices and respecting Indigenous knowledge and rights, Canada can continue to protect and cherish these majestic forests for future generations.
-"""
         guard let inputText else { return }
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))

@@ -30,7 +30,6 @@
 		2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */; };
 		2A67688B2C3294470040C89F /* WordSelectorViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */; };
 		2A67688D2C3322590040C89F /* AddClozeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688C2C3322590040C89F /* AddClozeTextView.swift */; };
-		2A6BA13B2C635E1200F0DE3F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2A6BA13A2C635E1200F0DE3F /* GoogleService-Info.plist */; };
 		2A6BA13E2C635F2600F0DE3F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA13D2C635F2600F0DE3F /* FirebaseAnalytics */; };
 		2A6BA1402C635F2600F0DE3F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA13F2C635F2600F0DE3F /* FirebaseAuth */; };
 		2A6BA1422C635F2600F0DE3F /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA1412C635F2600F0DE3F /* FirebaseDatabase */; };
@@ -92,6 +91,7 @@
 		D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */; };
 		D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB75B2BB66EEF009E3A41 /* Card.swift */; };
 		D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */; };
+		D05D6A1C2C652645006AC6BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D05D6A1B2C652645006AC6BE /* GoogleService-Info.plist */; };
 		D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */; };
 		D078D0982BC9242900F601B2 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D078D0972BC9242900F601B2 /* Note.swift */; };
 		D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */; };
@@ -148,7 +148,6 @@
 		2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWord+Extension.swift"; sourceTree = "<group>"; };
 		2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSelectorViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A67688C2C3322590040C89F /* AddClozeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClozeTextView.swift; sourceTree = "<group>"; };
-		2A6BA13A2C635E1200F0DE3F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2A6BA1432C63622B00F0DE3F /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecord.swift; sourceTree = "<group>"; };
 		2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextRevisionInputAccessoryView.xib; sourceTree = "<group>"; };
@@ -208,6 +207,7 @@
 		D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vocabulary.swift; sourceTree = "<group>"; };
 		D04EB75B2BB66EEF009E3A41 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewController.swift; sourceTree = "<group>"; };
+		D05D6A1B2C652645006AC6BE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGeneratedArticleViewController.swift; sourceTree = "<group>"; };
 		D078D0972BC9242900F601B2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
@@ -406,8 +406,8 @@
 				D0D8D5F52C0F0920001BB415 /* String+Extension.swift */,
 				D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */,
 				D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */,
-				D0DA5ACD2BB66A07008644DC /* Assets.xcassets */,
 				2AFF6CA02C5B748800629B26 /* UINavigationController+Extension.swift */,
+				D0DA5ACD2BB66A07008644DC /* Assets.xcassets */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -453,7 +453,7 @@
 				D04EB7582BB66ED5009E3A41 /* Models */,
 				D020A4EA2BB9D8E700CA5CAF /* Views */,
 				D04EB7602BB670DD009E3A41 /* Utils */,
-				2A6BA13A2C635E1200F0DE3F /* GoogleService-Info.plist */,
+				D05D6A1B2C652645006AC6BE /* GoogleService-Info.plist */,
 				D0DA5AD22BB66A07008644DC /* Info.plist */,
 			);
 			path = NewWord;
@@ -560,7 +560,7 @@
 				D00A72EF2BFDEC5A0064F325 /* NoCardView.xib in Resources */,
 				2A02EF2A2C4A386500E21A6E /* TagTestingCell.xib in Resources */,
 				2AFF6C9C2C5B5FF100629B26 /* ExploreCell.xib in Resources */,
-				2A6BA13B2C635E1200F0DE3F /* GoogleService-Info.plist in Resources */,
+				D05D6A1C2C652645006AC6BE /* GoogleService-Info.plist in Resources */,
 				D03107D32C16F2AA00EEF772 /* LearningRecordCell.xib in Resources */,
 				D0DA5ACC2BB66A05008644DC /* Base in Resources */,
 			);
