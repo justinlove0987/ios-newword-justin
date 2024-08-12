@@ -6,8 +6,8 @@
 //
 
 import UIKit
-import MLKitTranslate
 import FirebaseCore
+import GoogleTranslateSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,43 +15,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         initializeDataManager()
-        downloadChineseTranslateModel()
         FirebaseApp.configure()
-        
+
         return true
     }
-
-    // MARK: UISceneSession Lifecycle
-
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-
 
 }
 
 extension AppDelegate {
     
-    func downloadChineseTranslateModel() {
-        let chineseModel = TranslateRemoteModel.translateRemoteModel(language: .chinese)
+    func tryTranslation() {
+        let service = GoogleTranslateApiService(apiKey: "AIzaSyAu4IIgc3WDKFuq8AGD6g1Rliz83qS5q0k")
 
-        let progress = ModelManager.modelManager().download(
-            chineseModel,
-            conditions: ModelDownloadConditions(
-                allowsCellularAccess: true,
-                allowsBackgroundDownloading: true
-            )
-        )
+        let english = Locale(identifier: "en")
+        let swedish = Locale(identifier: "zh-TW")
+
+        service.translate("Hello, world!", from: english, to: swedish) { result in
+            switch result {
+            case .success(let translatedText):
+                print("foo - \(translatedText)")
+
+                let result = translatedText.translations.first!.translatedText
+
+
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
-    
+
     func initializeDataManager() {
         _ = CoreDataManager.shared
 

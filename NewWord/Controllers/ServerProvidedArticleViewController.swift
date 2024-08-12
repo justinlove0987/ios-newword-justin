@@ -152,20 +152,13 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             return
         }
 
-        viewModel.translateEnglishToChinese(textWithoutFFFC) { result in
-            switch result {
-            case .success(let translatedSimplifiedText):
-                let translatedTraditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
+        viewModel.translateEnglishToChinese(textWithoutFFFC) { translatedSimplifiedText in
+            let translatedSimplifiedText = translatedSimplifiedText ?? ""
+            let translatedTraditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
 
-                self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
-                self.updateCloze(with: range, text: text, hint: translatedTraditionalText)
-                self.updateCustomTextView()
-
-
-            case .failure(_):
-                self.updateCloze(with: range, text: text, hint: "")
-                self.updateCustomTextView()
-            }
+            self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
+            self.updateCloze(with: range, text: text, hint: translatedTraditionalText)
+            self.updateCustomTextView()
         }
     }
 

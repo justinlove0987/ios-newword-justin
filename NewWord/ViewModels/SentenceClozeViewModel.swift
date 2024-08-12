@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 struct SentenceClozeViewModel {
     
     struct Rows {

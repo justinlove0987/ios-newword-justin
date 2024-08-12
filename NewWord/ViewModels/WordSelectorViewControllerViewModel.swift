@@ -6,9 +6,9 @@
 //
 
 import UIKit
-import MLKitTranslate
 import OpenCC
 import NaturalLanguage
+import SwiftKit
 
 struct WordSelectorViewControllerViewModel {
 
@@ -431,33 +431,28 @@ struct WordSelectorViewControllerViewModel {
             }
         }
     }
-    
-    func translateEnglishToChinese(_ text: String, completion: @escaping (Result<String, Error>) -> Void) {
-        let options = TranslatorOptions(sourceLanguage: .english, targetLanguage: .chinese)
-        let englishChineseTranslator = Translator.translator(options: options)
-        
-        let conditions = ModelDownloadConditions(
-            allowsCellularAccess: true,
-            allowsBackgroundDownloading: true
-        )
-        
-        englishChineseTranslator.downloadModelIfNeeded(with: conditions) { error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            englishChineseTranslator.translate(text) { translatedText, error in
-                if let error = error {
-                    completion(.failure(error))
-                } else if let translatedText = translatedText {
-                    completion(.success(translatedText))
-                } else {
-                    let unknownError = NSError(domain: "TranslationError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Unknown error occurred"])
-                    completion(.failure(unknownError))
+
+    func translateEnglishToChinese(_ text: String, completion: @escaping (String?) -> Void) {
+
+        let english = Locale(identifier: "en")
+        let chinese = Locale(identifier: "zh-TW")
+
+        GoogleCloudTranslationService.shared.translate(text, from: english, to: chinese) { result in
+            switch result {
+            case .success(let translatedResult):
+
+                guard let translatedText = translatedResult.translations.first?.translatedText else {
+                    completion(nil)
+                    return
                 }
+
+                completion(translatedText)
+
+            case .failure(_):
+                completion(nil)
             }
         }
+
     }
     
     func convertSimplifiedToTraditional(_ text: String) -> String {

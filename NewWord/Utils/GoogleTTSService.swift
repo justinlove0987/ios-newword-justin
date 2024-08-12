@@ -20,9 +20,6 @@ enum VoiceType: String {
     case enUSJourneyDMale = "en-US-Journey-D"
 }
 
-let ttsAPIUrl = "https://texttospeech.googleapis.com/v1beta1/text:synthesize"
-let APIKey = "AIzaSyAu4IIgc3WDKFuq8AGD6g1Rliz83qS5q0k"
-
 class GoogleTTSService: NSObject {
 
     enum SynthesisInput: String {
@@ -87,8 +84,8 @@ class GoogleTTSService: NSObject {
                                               timepointType: timepointType,
                                               voiceType: voiceType)
 
-            let headers = ["X-Goog-Api-Key": APIKey, "Content-Type": "application/json; charset=utf-8"]
-            let response = self.makePOSTRequest(url: ttsAPIUrl, postData: postData, headers: headers)
+            let headers = ["X-Goog-Api-Key": K.API.key, "Content-Type": "application/json; charset=utf-8"]
+            let response = self.makePOSTRequest(url: K.API.tts, postData: postData, headers: headers)
 
             guard let audioContent = response["audioContent"] as? String,
                   let audioData = Data(base64Encoded: audioContent) else {
@@ -134,13 +131,11 @@ class GoogleTTSService: NSObject {
             
             "enableTimePointing": [timepointType.rawValue]
         ]
-        
-        // Convert the Dictionary to Data
+
         let data = try! JSONSerialization.data(withJSONObject: params)
         return data
     }
-    
-    // Just a function that makes a POST request.
+
     private func makePOSTRequest(url: String, postData: Data, headers: [String: String] = [:]) -> [String: AnyObject] {
         var dict: [String: AnyObject] = [:]
         
@@ -190,8 +185,8 @@ class GoogleTTSService: NSObject {
         
         DispatchQueue.global(qos: .background).async {
             let postData = self.buildPostData(text: text, voiceType: voiceType)
-            let headers = ["X-Goog-Api-Key": APIKey, "Content-Type": "application/json; charset=utf-8"]
-            let response = self.makePOSTRequest(url: ttsAPIUrl, postData: postData, headers: headers)
+            let headers = ["X-Goog-Api-Key": K.API.key, "Content-Type": "application/json; charset=utf-8"]
+            let response = self.makePOSTRequest(url: K.API.tts, postData: postData, headers: headers)
             
             // Get the `audioContent` (as a base64 encoded string) from the response.
             guard let audioContent = response["audioContent"] as? String else {
@@ -228,8 +223,8 @@ name="timepoint_2"/> see you.</speak>
 
         downloadQueue.async {
             let postData = self.buildPostData(text: text, voiceType: voiceType)
-            let headers = ["X-Goog-Api-Key": APIKey, "Content-Type": "application/json; charset=utf-8"]
-            let response = self.makePOSTRequest(url: ttsAPIUrl, postData: postData, headers: headers)
+            let headers = ["X-Goog-Api-Key": K.API.key, "Content-Type": "application/json; charset=utf-8"]
+            let response = self.makePOSTRequest(url: K.API.tts, postData: postData, headers: headers)
 
             // 獲取 `audioContent` 並解碼
             guard let audioContent = response["audioContent"] as? String,

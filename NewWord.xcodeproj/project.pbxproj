@@ -79,6 +79,7 @@
 		D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4ED2BB9DA3C00CA5CAF /* Word.swift */; };
 		D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EF2BB9DA6000CA5CAF /* Article.swift */; };
 		D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */; };
+		D02BE80E2C67B26F00140DD3 /* GoogleCloudTranslationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BE80D2C67B26F00140DD3 /* GoogleCloudTranslationService.swift */; };
 		D02E46F72C272CC500418781 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02E46F62C272CC500418781 /* UserDefaultsManager.swift */; };
 		D03107CC2C16EE6200EEF772 /* CardInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03107CB2C16EE6200EEF772 /* CardInformationViewController.swift */; };
 		D03107D32C16F2AA00EEF772 /* LearningRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03107D22C16F2AA00EEF772 /* LearningRecordCell.xib */; };
@@ -120,9 +121,9 @@
 		D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0DA5ACD2BB66A07008644DC /* Assets.xcassets */; };
 		D0DA5AD12BB66A07008644DC /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D0DA5AD02BB66A07008644DC /* Base */; };
 		D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */; };
+		D0E4EF9E2C67785E00DA66AC /* GoogleTranslateSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D0E4EF9D2C67785E00DA66AC /* GoogleTranslateSwift */; };
 		D0E8848B2BC93C3600C78B97 /* OldNoteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848A2BC93C3600C78B97 /* OldNoteType.swift */; };
 		D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848C2BC93CB800C78B97 /* Deck.swift */; };
-		F4585BCB73BD69E0C16EFAFF /* Pods_NewWord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF08CC624E685BDE681839E2 /* Pods_NewWord.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -182,9 +183,6 @@
 		2AFF6C9B2C5B5FF100629B26 /* ExploreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExploreCell.xib; sourceTree = "<group>"; };
 		2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerProvidedArticleViewController.swift; sourceTree = "<group>"; };
 		2AFF6CA02C5B748800629B26 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
-		960A30FE64A5F2F51621C559 /* Pods-NewWord.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewWord.release.xcconfig"; path = "Target Support Files/Pods-NewWord/Pods-NewWord.release.xcconfig"; sourceTree = "<group>"; };
-		9A11A9D5682428780EFDAD65 /* Pods-NewWord.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewWord.debug.xcconfig"; path = "Target Support Files/Pods-NewWord/Pods-NewWord.debug.xcconfig"; sourceTree = "<group>"; };
-		CF08CC624E685BDE681839E2 /* Pods_NewWord.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewWord.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentence.swift; sourceTree = "<group>"; };
 		D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewModel.swift; sourceTree = "<group>"; };
 		D00A72EE2BFDEC5A0064F325 /* NoCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoCardView.xib; sourceTree = "<group>"; };
@@ -195,6 +193,7 @@
 		D020A4ED2BB9DA3C00CA5CAF /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		D020A4EF2BB9DA6000CA5CAF /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTextField.swift; sourceTree = "<group>"; };
+		D02BE80D2C67B26F00140DD3 /* GoogleCloudTranslationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCloudTranslationService.swift; sourceTree = "<group>"; };
 		D02E46F62C272CC500418781 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		D03107CB2C16EE6200EEF772 /* CardInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInformationViewController.swift; sourceTree = "<group>"; };
 		D03107D12C16F2AA00EEF772 /* LearningRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecordCell.swift; sourceTree = "<group>"; };
@@ -249,8 +248,8 @@
 			files = (
 				2A6BA1422C635F2600F0DE3F /* FirebaseDatabase in Frameworks */,
 				2A9C8AF62C3BBE3500D839D8 /* OpenCC in Frameworks */,
-				F4585BCB73BD69E0C16EFAFF /* Pods_NewWord.framework in Frameworks */,
 				2A6BA13E2C635F2600F0DE3F /* FirebaseAnalytics in Frameworks */,
+				D0E4EF9E2C67785E00DA66AC /* GoogleTranslateSwift in Frameworks */,
 				2A5D608E2C63663B00252A0C /* FirebaseStorage in Frameworks */,
 				2A6BA1402C635F2600F0DE3F /* FirebaseAuth in Frameworks */,
 				2A6BA1462C63626E00F0DE3F /* FirebaseFirestore in Frameworks */,
@@ -269,14 +268,6 @@
 				2AE025F52BF4983A006EC021 /* NoteManager.swift */,
 			);
 			path = DataManager;
-			sourceTree = "<group>";
-		};
-		5AD4D158825235628AF01500 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CF08CC624E685BDE681839E2 /* Pods_NewWord.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D0058CE72BBA713B00D2BB25 /* ViewModels */ = {
@@ -394,6 +385,7 @@
 			children = (
 				D0DA5ACF2BB66A07008644DC /* LaunchScreen.storyboard */,
 				D097F15F2C58B75D00248E7B /* GoogleTTSService.swift */,
+				D02BE80D2C67B26F00140DD3 /* GoogleCloudTranslationService.swift */,
 				D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */,
 				D0DA5AC42BB66A05008644DC /* AppDelegate.swift */,
 				D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */,
@@ -431,8 +423,6 @@
 			children = (
 				D0DA5AC32BB66A05008644DC /* NewWord */,
 				D0DA5AC22BB66A05008644DC /* Products */,
-				EF12AC8CB5F6515BBCAE4458 /* Pods */,
-				5AD4D158825235628AF01500 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -459,15 +449,6 @@
 			path = NewWord;
 			sourceTree = "<group>";
 		};
-		EF12AC8CB5F6515BBCAE4458 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9A11A9D5682428780EFDAD65 /* Pods-NewWord.debug.xcconfig */,
-				960A30FE64A5F2F51621C559 /* Pods-NewWord.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -475,12 +456,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0DA5AD52BB66A07008644DC /* Build configuration list for PBXNativeTarget "NewWord" */;
 			buildPhases = (
-				19811AA1265ACE08E10AB326 /* [CP] Check Pods Manifest.lock */,
 				D0DA5ABD2BB66A05008644DC /* Sources */,
 				D0DA5ABE2BB66A05008644DC /* Frameworks */,
 				D0DA5ABF2BB66A05008644DC /* Resources */,
-				15151E0090990AF87B5EDCFA /* [CP] Embed Pods Frameworks */,
-				0769B3F6161D34F6B609B69A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -494,6 +472,7 @@
 				2A6BA1412C635F2600F0DE3F /* FirebaseDatabase */,
 				2A6BA1452C63626E00F0DE3F /* FirebaseFirestore */,
 				2A5D608D2C63663B00252A0C /* FirebaseStorage */,
+				D0E4EF9D2C67785E00DA66AC /* GoogleTranslateSwift */,
 			);
 			productName = NewWord;
 			productReference = D0DA5AC12BB66A05008644DC /* NewWord.app */;
@@ -526,6 +505,7 @@
 			packageReferences = (
 				2A9C8AF42C3BBE3500D839D8 /* XCRemoteSwiftPackageReference "SwiftyOpenCC" */,
 				2A6BA13C2C635F2600F0DE3F /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				D0E4EF9C2C67785E00DA66AC /* XCRemoteSwiftPackageReference "GoogleTranslateSwift" */,
 			);
 			productRefGroup = D0DA5AC22BB66A05008644DC /* Products */;
 			projectDirPath = "";
@@ -568,65 +548,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		0769B3F6161D34F6B609B69A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NewWord/Pods-NewWord-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NewWord/Pods-NewWord-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewWord/Pods-NewWord-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		15151E0090990AF87B5EDCFA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NewWord/Pods-NewWord-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NewWord/Pods-NewWord-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewWord/Pods-NewWord-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		19811AA1265ACE08E10AB326 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-NewWord-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		D0DA5ABD2BB66A05008644DC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -650,6 +571,7 @@
 				D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */,
 				D0D6E0E92C1CB38500C1F95E /* ContextLabel.swift in Sources */,
 				D01961102C43BEA70040735E /* CustomTagView.swift in Sources */,
+				D02BE80E2C67B26F00140DD3 /* GoogleCloudTranslationService.swift in Sources */,
 				D032145B2BD63C2200512263 /* Preferences.swift in Sources */,
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
 				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
@@ -865,7 +787,6 @@
 		};
 		D0DA5AD62BB66A07008644DC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9A11A9D5682428780EFDAD65 /* Pods-NewWord.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -900,7 +821,6 @@
 		};
 		D0DA5AD72BB66A07008644DC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 960A30FE64A5F2F51621C559 /* Pods-NewWord.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -973,6 +893,14 @@
 				kind = branch;
 			};
 		};
+		D0E4EF9C2C67785E00DA66AC /* XCRemoteSwiftPackageReference "GoogleTranslateSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielsaidi/GoogleTranslateSwift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1005,6 +933,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A9C8AF42C3BBE3500D839D8 /* XCRemoteSwiftPackageReference "SwiftyOpenCC" */;
 			productName = OpenCC;
+		};
+		D0E4EF9D2C67785E00DA66AC /* GoogleTranslateSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0E4EF9C2C67785E00DA66AC /* XCRemoteSwiftPackageReference "GoogleTranslateSwift" */;
+			productName = GoogleTranslateSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 
