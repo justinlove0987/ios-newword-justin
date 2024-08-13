@@ -94,6 +94,34 @@ class FirestoreManager {
         }
     }
 
+    func uploadArticles(_ articles: [FSArticle], completion: @escaping (Bool) -> Void) {
+        let group = DispatchGroup()
+
+        for article in articles {
+            group.enter()
+            let articleData: [String: Any] = [
+                "title": article.title,
+                "content": article.content,
+                "imageId": article.imageId,
+                // "date": article.date ?? Date() // 確保日期也被包含
+            ]
+
+            db.collection("articles").addDocument(data: articleData) { error in
+                if let error = error {
+                    print("Error uploading article: \(error)")
+                    group.leave()
+                    completion(false)
+                    return
+                }
+                group.leave()
+            }
+        }
+
+        group.notify(queue: .main) {
+            completion(true)
+        }
+    }
+
     func getImage(for id: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
         let storage = Storage.storage()
         let storageRef = storage.reference()

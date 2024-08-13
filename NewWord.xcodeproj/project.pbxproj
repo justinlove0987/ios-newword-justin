@@ -124,6 +124,7 @@
 		D0E4EF9E2C67785E00DA66AC /* GoogleTranslateSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D0E4EF9D2C67785E00DA66AC /* GoogleTranslateSwift */; };
 		D0E8848B2BC93C3600C78B97 /* OldNoteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848A2BC93C3600C78B97 /* OldNoteType.swift */; };
 		D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848C2BC93CB800C78B97 /* Deck.swift */; };
+		D0EE06FD2C6A4CFD000B5BC8 /* ChatGPTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EE06FC2C6A4CFD000B5BC8 /* ChatGPTService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -239,6 +240,7 @@
 		D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		D0E8848A2BC93C3600C78B97 /* OldNoteType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldNoteType.swift; sourceTree = "<group>"; };
 		D0E8848C2BC93CB800C78B97 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		D0EE06FC2C6A4CFD000B5BC8 /* ChatGPTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,7 +350,6 @@
 				D020A4EF2BB9DA6000CA5CAF /* Article.swift */,
 				2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */,
 				D09262BB2C097F2A00CA90BA /* CoreData */,
-				2A6BA1432C63622B00F0DE3F /* FirestoreManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -400,6 +401,7 @@
 				D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */,
 				2AFF6CA02C5B748800629B26 /* UINavigationController+Extension.swift */,
 				D0DA5ACD2BB66A07008644DC /* Assets.xcassets */,
+				D0EE06FC2C6A4CFD000B5BC8 /* ChatGPTService.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -413,6 +415,7 @@
 				D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */,
 				D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */,
 				2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */,
+				2A6BA1432C63622B00F0DE3F /* FirestoreManager.swift */,
 				D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -616,6 +619,7 @@
 				2A2176852C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift in Sources */,
 				D03107D42C16F2AA00EEF772 /* LearningRecordCell.swift in Sources */,
 				2A67688B2C3294470040C89F /* WordSelectorViewControllerViewModel.swift in Sources */,
+				D0EE06FD2C6A4CFD000B5BC8 /* ChatGPTService.swift in Sources */,
 				2A24E8D62C537E59006C1032 /* ListeningClozeView.swift in Sources */,
 				D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */,
 				D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */,

@@ -25,7 +25,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         super.viewDidLoad()
         setup()
         fetchArticles()
-//        uploadArticle()
+//         uploadArticles()
     }
     
     private func setup() {
@@ -44,26 +44,21 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         }
     }
 
-    private func uploadArticle() {
+    private func uploadArticles() {
+        let articles: [FSArticle] = [
+            FSArticle(
+                title: "The Influence of Impressionism on Modern Art",
+                content: """
+        Impressionism, a 19th-century art movement, continues to influence modern art. Artists like Claude Monet and Pierre-Auguste Renoir broke away from traditional artistic conventions by focusing on light and color rather than precise detail. Their use of loose brushwork and vibrant colors challenged the norms of academic painting. Today, the principles of Impressionism can be seen in various contemporary art forms, from digital art to photography. The movement’s emphasis on capturing a moment's essence rather than its exact representation has paved the way for artists to explore new creative avenues.
+        """,
+                imageId: UUID().uuidString
+            )
+        ]
 
-        let article = FSArticle(title: "The Role of Nutrition in Mental Health: A Comprehensive Overview", content: """
-Nutrition plays a significant role in mental health, influencing mood, cognitive function, and overall psychological well-being. Research has increasingly shown that dietary patterns and specific nutrients can impact mental health outcomes and contribute to the management of various mental health conditions.
-
-Certain nutrients, such as omega-3 fatty acids, found in fish and flaxseeds, are known to support brain function and reduce symptoms of depression. Omega-3s help maintain the integrity of cell membranes and have anti-inflammatory effects that can positively impact mood regulation.
-
-B vitamins, including folate, B6, and B12, are essential for neurotransmitter synthesis and brain health. Deficiencies in these vitamins have been linked to mood disorders and cognitive decline, highlighting the importance of a balanced diet rich in these nutrients.
-
-Antioxidants, such as vitamins C and E, found in fruits and vegetables, protect the brain from oxidative stress and inflammation, which are associated with mental health issues. A diet high in antioxidants may contribute to improved cognitive function and emotional resilience.
-
-Additionally, the gut-brain connection underscores the influence of gut health on mental well-being. Probiotics and prebiotics, which support a healthy gut microbiome, can affect mood and cognitive function, emphasizing the importance of a balanced diet for overall mental health.
-
-Maintaining a well-rounded diet with a variety of nutrients is crucial for supporting mental health. Adopting healthy eating habits, combined with other lifestyle factors such as regular exercise and adequate sleep, can contribute to improved mental well-being and overall quality of life.
-""", imageId: UUID().uuidString)
-
-
-
-        FirestoreManager.shared.uploadArticle(article) { _ in
-            self.fetchArticles()
+        FirestoreManager.shared.uploadArticles(articles) { uploaded in
+            if uploaded {
+                print("foo - uploaded")
+            }
         }
     }
 
