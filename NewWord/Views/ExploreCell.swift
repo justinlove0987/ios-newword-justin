@@ -14,8 +14,10 @@ class ExploreCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
-    
+    @IBOutlet weak var uploadedDateLabel: UILabel!
     @IBOutlet weak var innerView: UIView!
+    
+    var imageDidSetCallback: ((UIImage) -> ())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,7 +27,13 @@ class ExploreCell: UICollectionViewCell {
     func updateUI(_ article: FSArticle) {
         titleLabel.text = article.title
         contentLabel.text = article.content
-        fetchImage(article)
+        uploadedDateLabel.text = article.formattedUploadedDate
+        
+        if let image = article.image {
+            self.imageView.image = image
+        } else {
+            fetchImage(article)
+        }
     }
 
     func fetchImage(_ article: FSArticle) {
@@ -34,9 +42,10 @@ class ExploreCell: UICollectionViewCell {
             case .success(let image):
                 DispatchQueue.main.async {
                     self.imageView.image = image
+                    self.imageDidSetCallback?(image)
                 }
-            case .failure(let error):
-                print("Error getting image: \(error)")
+            case .failure(_):
+                self.imageView.image = UIImage(named: "loading")!
             }
         }
     }

@@ -15,14 +15,15 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var imageCoverView: UIView!
+    
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var originalTextLabel: UILabel!
     @IBOutlet weak var translatedTextLabel: UILabel!
     @IBOutlet weak var selectModeButton: UIButton!
     @IBOutlet var translationContentView: UIView!
     
-    var inputText: String?
-    var image: UIImage?
+    var article: FSArticle?
 
     private var customTextView: AddClozeTextView!
     private var viewModel: WordSelectorViewControllerViewModel!
@@ -34,8 +35,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         navigationController?.navigationBar.tintColor = UIColor.title
+        customTextView.setProperties()
     }
 
     deinit {
@@ -53,7 +54,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     private func setupProperties() {
         customTextView.layer.zPosition = 0
         translationContentView.layer.zPosition = 1
-        imageView.image = image
+        imageView.image = article?.image
+        customTextView.text = article?.text
 
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
@@ -63,11 +65,11 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     }
 
     private func setupCumstomTextView() {
-        guard let inputText else { return }
+        guard let text = article?.content else { return }
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
 
-        customTextView = AddClozeTextView.createTextView(inputText)
+        customTextView = AddClozeTextView.createTextView(text)
         customTextView.delegate = self
         customTextView.translatesAutoresizingMaskIntoConstraints = false
         customTextView.addGestureRecognizer(tapGesture)
@@ -212,9 +214,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
 
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
-
 }
-
 
 extension ServerProvidedArticleViewController: UITextViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
