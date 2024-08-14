@@ -34,9 +34,7 @@ extension AppDelegate {
             switch result {
             case .success(let translatedText):
                 print("foo - \(translatedText)")
-
-                let result = translatedText.translations.first!.translatedText
-
+//                let result = translatedText.translations.first!.translatedText
 
             case .failure(let error):
                 print(error)

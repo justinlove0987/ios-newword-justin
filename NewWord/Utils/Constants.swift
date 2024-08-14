@@ -15,7 +15,7 @@ struct K {
     struct API {
         private init() {}
 
-        static let key = "AIzaSyAu4IIgc3WDKFuq8AGD6g1Rliz83qS5q0k"
+        static let key = "AIzaSyAuFuO1TYS2wsLINj2ZCcr-5zQB9RKf7yY"
         static let tts = "https://texttospeech.googleapis.com/v1beta1/text:synthesize"
     }
 
