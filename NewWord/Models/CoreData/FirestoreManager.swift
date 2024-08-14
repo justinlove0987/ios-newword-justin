@@ -66,13 +66,17 @@ class FirestoreManager {
         
         guard let title = data?["title"] as? String,
               let content = data?["content"] as? String,
-              let imageUrl = data?["imageId"] as? String else {
+              let imageUrl = data?["imageId"] as? String,
+              let timestamp = data?["uploadedDate"] as? Timestamp else {
             return nil
         }
         
+        let uploadedDate = timestamp.dateValue()
+        
         let article = FSArticle(title: title,
                                 content: content,
-                                imageId: imageUrl)
+                                imageId: imageUrl,
+                                uploadedDate: uploadedDate)
         
         return article
     }
@@ -103,7 +107,7 @@ class FirestoreManager {
                 "title": article.title,
                 "content": article.content,
                 "imageId": article.imageId,
-                // "date": article.date ?? Date() // 確保日期也被包含
+                "uploadedDate": article.uploadedDate
             ]
 
             db.collection("articles").addDocument(data: articleData) { error in
@@ -172,4 +176,16 @@ struct FSArticle: Hashable {
     let title: String
     let content: String
     let imageId: String
+    let uploadedDate: Date
+    var image: UIImage? = nil
+    
+    var formattedUploadedDate: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        return dateFormatter.string(from: uploadedDate)
+    }
+    
+    var text: String {
+        return "\(title)\n\n\(content)"
+    }
 }

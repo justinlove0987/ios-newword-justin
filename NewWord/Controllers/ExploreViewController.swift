@@ -17,6 +17,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     
     private var articles: [FSArticle] = [] {
         didSet {
+            articles.sort { $0.uploadedDate > $1.uploadedDate }
             updateSnapshot()
         }
     }
@@ -40,6 +41,8 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
                 newArticles.append(article)
             }
             
+            print("foo - \(newArticles)")
+            
             self.articles = newArticles
         }
     }
@@ -47,11 +50,22 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     private func uploadArticles() {
         let articles: [FSArticle] = [
             FSArticle(
-                title: "The Influence of Impressionism on Modern Art",
+                title: "The Impact of Climate Change on Global Agriculture",
                 content: """
-        Impressionism, a 19th-century art movement, continues to influence modern art. Artists like Claude Monet and Pierre-Auguste Renoir broke away from traditional artistic conventions by focusing on light and color rather than precise detail. Their use of loose brushwork and vibrant colors challenged the norms of academic painting. Today, the principles of Impressionism can be seen in various contemporary art forms, from digital art to photography. The movement’s emphasis on capturing a moment's essence rather than its exact representation has paved the way for artists to explore new creative avenues.
-        """,
-                imageId: UUID().uuidString
+                Climate change is increasingly affecting global agriculture, posing challenges to food security and rural livelihoods. Rising temperatures, shifting precipitation patterns, and more frequent extreme weather events are disrupting crop yields and livestock production, leading to potential food shortages and increased prices.
+
+                One of the most significant impacts of climate change on agriculture is the alteration of growing seasons. In many regions, warmer temperatures are causing crops to mature more quickly, which can lead to lower yields as plants have less time to develop. Additionally, changes in rainfall patterns are creating drought conditions in some areas, while others may experience excessive rainfall, both of which can damage crops and reduce productivity.
+
+                Climate change also exacerbates the spread of pests and diseases. Warmer temperatures and increased humidity provide favorable conditions for the proliferation of insects, fungi, and bacteria that can devastate crops. This presents a particular challenge for farmers who must adapt to new threats and implement more resilient agricultural practices.
+
+                Livestock production is similarly affected by climate change. Heat stress can reduce the productivity of animals, impacting milk production, growth rates, and reproduction. Furthermore, the availability of feed and water resources may be compromised by changing environmental conditions, leading to increased costs and reduced output.
+
+                To address these challenges, researchers and policymakers are advocating for the adoption of climate-smart agricultural practices. These include the development of drought-resistant crop varieties, improved water management techniques, and the diversification of farming systems to enhance resilience. Additionally, efforts to reduce greenhouse gas emissions from agriculture, such as improving soil health and promoting sustainable land use practices, are crucial for mitigating the long-term impacts of climate change on global food systems.
+
+                As the global population continues to grow, ensuring the sustainability and resilience of agriculture in the face of climate change is essential for maintaining food security and supporting rural communities worldwide.
+                """,
+                imageId: UUID().uuidString,
+                uploadedDate: Date()
             )
         ]
 
@@ -79,8 +93,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
             let currentArticle = self.articles[indexPath.row]
 
             cell.updateUI(currentArticle)
-
-            
+            cell.imageDidSetCallback = { self.articles[indexPath.row].image = $0 }
 
             return cell
         })
@@ -119,16 +132,13 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         snapshot.appendItems(articles)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
-    
 }
 
 extension ExploreViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = ServerProvidedArticleViewController.instantiate()
-        let cell = collectionView.cellForItem(at: indexPath) as! ExploreCell
 
-        controller.inputText = articles[indexPath.row].content
-        controller.image = cell.imageView.image
+        controller.article = articles[indexPath.row]
 
         navigationController?.pushViewControllerWithCustomTransition(controller)
     }

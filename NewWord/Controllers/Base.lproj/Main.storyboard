@@ -722,7 +722,7 @@
                                                 <color key="textColor" name="description"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Today is a good weather." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETl-nW-RqJ" userLabel="Translated Text Label">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="It's good weather today." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETl-nW-RqJ" userLabel="Translated Text Label">
                                                 <rect key="frame" x="0.0" y="28.333333333333343" width="369" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="title"/>
@@ -776,13 +776,13 @@
                             <constraint firstItem="agN-tp-BvZ" firstAttribute="bottom" secondItem="8Bn-6I-6YX" secondAttribute="bottom" id="3MU-y1-QqZ"/>
                             <constraint firstItem="tKW-eH-RXM" firstAttribute="trailing" secondItem="agN-tp-BvZ" secondAttribute="trailing" id="6c4-ay-gHl"/>
                             <constraint firstItem="tKW-eH-RXM" firstAttribute="bottom" secondItem="nLQ-bd-QaB" secondAttribute="bottom" constant="12" id="7Xn-Ok-ix9"/>
+                            <constraint firstItem="o7E-Td-Qsh" firstAttribute="top" secondItem="tKW-eH-RXM" secondAttribute="top" constant="100" id="7sa-9f-beW"/>
                             <constraint firstItem="tKW-eH-RXM" firstAttribute="trailing" secondItem="YxS-QY-pEM" secondAttribute="trailing" id="AEq-Py-Y7w"/>
                             <constraint firstItem="agN-tp-BvZ" firstAttribute="leading" secondItem="tKW-eH-RXM" secondAttribute="leading" id="GMF-uQ-66C"/>
                             <constraint firstItem="tKW-eH-RXM" firstAttribute="top" secondItem="8Bn-6I-6YX" secondAttribute="bottom" constant="-35" id="POk-ob-GBQ"/>
                             <constraint firstItem="tKW-eH-RXM" firstAttribute="trailing" secondItem="o7E-Td-Qsh" secondAttribute="trailing" constant="12" id="XSq-Og-k1y"/>
                             <constraint firstItem="nLQ-bd-QaB" firstAttribute="top" secondItem="o7E-Td-Qsh" secondAttribute="bottom" constant="12" id="YcQ-a2-ATM"/>
                             <constraint firstItem="YxS-QY-pEM" firstAttribute="leading" secondItem="tKW-eH-RXM" secondAttribute="leading" id="YsD-vb-D95"/>
-                            <constraint firstItem="o7E-Td-Qsh" firstAttribute="top" secondItem="tKW-eH-RXM" secondAttribute="top" constant="100" id="fDB-1I-E4g"/>
                             <constraint firstItem="tKW-eH-RXM" firstAttribute="trailing" secondItem="8Bn-6I-6YX" secondAttribute="trailing" id="h9O-AO-Y28"/>
                             <constraint firstItem="nLQ-bd-QaB" firstAttribute="centerX" secondItem="60r-4l-xue" secondAttribute="centerX" id="jfA-7i-zAd"/>
                             <constraint firstItem="YxS-QY-pEM" firstAttribute="top" secondItem="tKW-eH-RXM" secondAttribute="top" constant="12" id="kUy-PA-Ug5"/>
