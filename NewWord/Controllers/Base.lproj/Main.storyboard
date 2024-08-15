@@ -693,7 +693,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o7E-Td-Qsh">
-                                <rect key="frame" x="12" y="203.00000000000003" width="369" height="507.66666666666674"/>
+                                <rect key="frame" x="12" y="203" width="369" height="512"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <attributedString key="attributedText">
                                     <fragment>
@@ -755,38 +755,54 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLQ-bd-QaB">
-                                <rect key="frame" x="167.33333333333334" y="722.66666666666663" width="58.666666666666657" height="34.333333333333371"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="單字">
-                                    <backgroundConfiguration key="background">
-                                        <color key="backgroundColor" name="background"/>
-                                        <color key="strokeColor" name="border"/>
-                                    </backgroundConfiguration>
-                                    <color key="baseForegroundColor" name="title"/>
-                                </buttonConfiguration>
+                                <rect key="frame" x="181" y="727" width="31" height="30"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="單字">
+                                    <color key="titleColor" name="title"/>
+                                </state>
                                 <connections>
                                     <action selector="selectModeAction:" destination="eIc-Ke-le6" eventType="touchUpInside" id="AbI-QE-GEy"/>
                                     <action selector="selectModeAction:" destination="Q3G-wX-9Sl" eventType="touchUpInside" id="yDC-Hy-qYb"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wKG-Rq-Fzl">
-                                <rect key="frame" x="104" y="722.66666666666663" width="43.333333333333343" height="34.333333333333371"/>
+                                <rect key="frame" x="93.333333333333314" y="724" width="67.666666666666686" height="36"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Og9-Kn-gWA">
-                                        <rect key="frame" x="0.0" y="0.0" width="43.333333333333336" height="34.333333333333336"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="play" catalog="system"/>
-                                        <connections>
-                                            <action selector="playButtonAction:" destination="eIc-Ke-le6" eventType="touchUpInside" id="4nA-4f-9ua"/>
-                                        </connections>
-                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ifP-pM-XD9">
+                                        <rect key="frame" x="0.0" y="0.0" width="67.666666666666671" height="36"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8hL-p9-g9m">
+                                        <rect key="frame" x="6.9999999999999964" y="7" width="53.666666666666657" height="22"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Og9-Kn-gWA">
+                                                <rect key="frame" x="0.0" y="0.0" width="15" height="22"/>
+                                                <color key="tintColor" name="title"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="play.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="playButtonAction:" destination="eIc-Ke-le6" eventType="touchUpInside" id="4nA-4f-9ua"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="文章" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9D-hp-css">
+                                                <rect key="frame" x="23" y="0.0" width="30.666666666666671" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" name="title"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" name="background"/>
                                 <constraints>
-                                    <constraint firstItem="Og9-Kn-gWA" firstAttribute="top" secondItem="wKG-Rq-Fzl" secondAttribute="top" id="Hda-xx-u8J"/>
-                                    <constraint firstAttribute="trailing" secondItem="Og9-Kn-gWA" secondAttribute="trailing" id="NkY-cg-4Eq"/>
-                                    <constraint firstAttribute="bottom" secondItem="Og9-Kn-gWA" secondAttribute="bottom" id="XaM-qM-7Ct"/>
-                                    <constraint firstItem="Og9-Kn-gWA" firstAttribute="leading" secondItem="wKG-Rq-Fzl" secondAttribute="leading" id="pLL-FR-Aoa"/>
+                                    <constraint firstItem="ifP-pM-XD9" firstAttribute="top" secondItem="wKG-Rq-Fzl" secondAttribute="top" id="51s-Tb-J8r"/>
+                                    <constraint firstAttribute="trailing" secondItem="ifP-pM-XD9" secondAttribute="trailing" id="Bhm-9e-R3W"/>
+                                    <constraint firstAttribute="bottom" secondItem="8hL-p9-g9m" secondAttribute="bottom" constant="7" id="Efb-kj-DZ3"/>
+                                    <constraint firstAttribute="trailing" secondItem="8hL-p9-g9m" secondAttribute="trailing" constant="7" id="QhK-9t-3GM"/>
+                                    <constraint firstAttribute="bottom" secondItem="ifP-pM-XD9" secondAttribute="bottom" id="bjr-hb-D0t"/>
+                                    <constraint firstItem="8hL-p9-g9m" firstAttribute="leading" secondItem="wKG-Rq-Fzl" secondAttribute="leading" constant="7" id="fPU-9y-wqt"/>
+                                    <constraint firstItem="ifP-pM-XD9" firstAttribute="leading" secondItem="wKG-Rq-Fzl" secondAttribute="leading" id="lap-W5-qb5"/>
+                                    <constraint firstItem="8hL-p9-g9m" firstAttribute="top" secondItem="wKG-Rq-Fzl" secondAttribute="top" constant="7" id="z4L-mJ-WfF"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -826,6 +842,8 @@
                         <outlet property="imageCoverView" destination="agN-tp-BvZ" id="nKf-G1-PdJ"/>
                         <outlet property="imageView" destination="8Bn-6I-6YX" id="c8B-Uu-TO1"/>
                         <outlet property="originalTextLabel" destination="gVb-mg-suX" id="eBr-bp-du9"/>
+                        <outlet property="playAudioView" destination="wKG-Rq-Fzl" id="c4H-MY-Rfq"/>
+                        <outlet property="playButton" destination="Og9-Kn-gWA" id="TXs-We-0HZ"/>
                         <outlet property="selectModeButton" destination="nLQ-bd-QaB" id="DN5-Go-wfq"/>
                         <outlet property="textView" destination="o7E-Td-Qsh" id="gIn-Hi-H8R"/>
                         <outlet property="translatedTextLabel" destination="ETl-nW-RqJ" id="IVG-Ga-C4I"/>
@@ -969,20 +987,20 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingCell" id="A5l-Xh-hd9" customClass="SettingCell" customModule="NewWord" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="353" height="53.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="353" height="53"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A5l-Xh-hd9" id="aqB-lT-EXF">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="53.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="53"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="聯絡我們" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9DP-tt-vs9">
-                                                    <rect key="frame" x="20" y="16" width="69.333333333333329" height="21.666666666666671"/>
+                                                    <rect key="frame" x="20" y="16" width="69.333333333333329" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="title"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="justin.tseng.developer@gamil.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcD-KO-SnQ">
-                                                    <rect key="frame" x="139" y="19.666666666666668" width="194" height="14.333333333333332"/>
+                                                    <rect key="frame" x="139" y="19.333333333333332" width="194" height="14.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" name="description"/>
                                                     <nil key="highlightedColor"/>
@@ -1649,7 +1667,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
         <image name="magnifyingglass.circle.fill" catalog="system" width="128" height="123"/>
         <image name="pencil.circle" catalog="system" width="128" height="123"/>
         <image name="pencil.circle.fill" catalog="system" width="128" height="123"/>
-        <image name="play" catalog="system" width="117" height="128"/>
+        <image name="play.fill" catalog="system" width="117" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="background">

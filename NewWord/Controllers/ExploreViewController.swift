@@ -25,25 +25,34 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        fetchArticles()
+        
         
 //        let title = "Test"
 //        
 //        let content = """
-//        The sun dipped below the horizon, casting a golden hue over the tranquil sea. Gentle waves lapped at the shore, creating a soothing rhythm that matched the peaceful evening.
+//        Nestled within the heart of the vibrant metropolis, there existed a small café that had become a sanctuary for those seeking respite from the relentless pace of city life. The café, with its rustic wooden façade and large glass windows, exuded a charm that was both inviting and timeless. As patrons stepped inside, they were greeted by the rich aroma of freshly ground coffee beans, a scent that instantly soothed the senses and promised comfort in every sip. The décor was an eclectic mix of vintage furniture and modern art, creating an atmosphere that was both cozy and intellectually stimulating. Soft, cushioned chairs were scattered around wooden tables, each adorned with a small vase of fresh flowers that added a splash of color to the earthy tones of the room.
+//
+//        The walls were lined with shelves filled with books, from classic literature to contemporary novels, offering something for every type of reader. In one corner, an old record player quietly spun vinyl records, filling the space with the soothing sounds of jazz and blues, a perfect backdrop to the murmur of conversations and the occasional clink of a spoon against a ceramic cup. The café was a haven for artists, writers, and thinkers, a place where ideas flowed as freely as the coffee. Many found inspiration here, penning poetry on napkins or sketching in notebooks, their creativity fueled by the tranquil environment.
 //        """
 //        
 //        let text = "\(title)\n\n\(content)"
 //        
 //        GoogleTTSService.shared.downloadSSML(text) { result in
-//            guard let result else { return }
+//            guard let result else {
+//                print("foo - download ssml failed")
+//                return
+//            }
 //            guard let audioData = result.audioData else { return }
 //            
 //            FirestoreManager.shared.uploadAudio(audioId: result.audioId, audioData: audioData) { isDownloadSuccessful, url in
-//                let article = FSArticle(title: "Test", content: text, imageId: UUID().uuidString, uploadedDate: Date(), ttsSynthesisResult: result)
+//                print("foo upload audio \(isDownloadSuccessful)")
+//                
+//                let article = FSArticle(title: "Test", content: content, imageId: UUID().uuidString, uploadedDate: Date(), ttsSynthesisResult: result)
 //                
 //                FirestoreManager.shared.uploadArticle(article) { isDownloadSuccessful in
+//                    print("foo - upload article \(isDownloadSuccessful)")
 //                    
+                            self.fetchArticles()
 //                }
 //            }
 //        }

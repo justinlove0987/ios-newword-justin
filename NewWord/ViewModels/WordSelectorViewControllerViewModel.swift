@@ -129,7 +129,7 @@ struct WordSelectorViewControllerViewModel {
             
             if let tagIndex = currentCloze.getTagIndex(in: text) {
                 text.remove(at: tagIndex)
-                updateClozeNSRanges(with: tagRange, offset: offset)
+                updateTagNSRanges(with: tagRange, offset: offset)
             }
         }
         
@@ -233,8 +233,25 @@ struct WordSelectorViewControllerViewModel {
         return attributedText.string
     }
     
+    func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: inout FSArticle?) {
+        guard var copyArticle = article else { return }
+        guard let result = copyArticle.ttsSynthesisResult else { return }
+        
+        for i in 0..<result.timepoints.count {
+            let timepoint = result.timepoints[i]
+            
+            guard let range = timepoint.range else { continue }
+            
+            let isGreaterThanTagPosition = range.location >= tagPosition
+            
+            if isGreaterThanTagPosition {
+                article!.ttsSynthesisResult!.timepoints[i].range!.location += adjustmentOffset
+            }
+        }
+    }
+    
     /// 在加入cloze前update就不須理會新的cloze是否在array中
-    mutating func updateClozeNSRanges(with newNSRange: NSRange, offset: Int) {
+    mutating func updateTagNSRanges(with newNSRange: NSRange, offset: Int) {
         for i in 0..<clozes.count {
             let currentCloze = clozes[i]
 
@@ -503,6 +520,20 @@ struct WordSelectorViewControllerViewModel {
         guard let deck else { return nil }
         
         return deck
+    }
+    
+    func rangeForMarkName(in article: FSArticle, markName: String) -> NSRange? {
+        guard let ttsSynthesisResult = article.ttsSynthesisResult else {
+            return nil
+        }
+        
+        for timepoint in ttsSynthesisResult.timepoints {
+            if timepoint.markName == markName {
+                return timepoint.range
+            }
+        }
+        
+        return nil
     }
 }
 

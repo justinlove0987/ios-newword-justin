@@ -9,13 +9,25 @@ import Foundation
 import AVFoundation
 
 protocol AudioPlayerDelegate: AnyObject {
-    func audioPlayer(_ player: AudioPlayer, didUpdateToRange range: NSRange)
+    func audioPlayer(_ player: AudioPlayer, didUpdateToMarkName markName: String)
+    func audioPlayerDidPause(_ player: AudioPlayer)
+    func audioPlayerDidStop(_ player: AudioPlayer)
+    func audioPlayerDidStartPlaying(_ player: AudioPlayer) // 新增方法
+}
+
+enum AudioPlayerState {
+    case notPlayed
+    case playing
+    case paused
 }
 
 class AudioPlayer {
     private var audioPlayer: AVAudioPlayer?
     
     weak var delegate: AudioPlayerDelegate?
+    
+    // 表示音頻播放器的當前狀態
+    private(set) var state: AudioPlayerState = .notPlayed
     
     // 有audioData，載入音頻文件
     var audioData: Data? {
@@ -36,17 +48,23 @@ class AudioPlayer {
     // 播放音頻
     func play() {
         audioPlayer?.play()
+        state = .playing
+        delegate?.audioPlayerDidStartPlaying(self) // 通知代理音頻開始播放
     }
 
     // 停止音頻
     func stop() {
         audioPlayer?.stop()
         audioPlayer?.currentTime = 0 // 重置播放時間到開始位置
+        state = .notPlayed
+        delegate?.audioPlayerDidStop(self) // 通知代理音頻已停止
     }
 
     // 暫停音頻
     func pause() {
         audioPlayer?.pause()
+        state = .paused
+        delegate?.audioPlayerDidPause(self) // 通知代理音頻已暫停
     }
 
     // 調整音量 (0.0 - 1.0)
@@ -65,6 +83,7 @@ class AudioPlayer {
         let text = article.text
         
         audioPlayer?.play()
+        state = .playing
         
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
             guard let self = self, let player = self.audioPlayer else {
@@ -83,7 +102,7 @@ class AudioPlayer {
                     if let nsRange = timepoint.range, let range = Range(nsRange, in: text) {
                         // let substring = text[range]
                         
-                        delegate?.audioPlayer(self, didUpdateToRange: nsRange)
+                        delegate?.audioPlayer(self, didUpdateToMarkName: timepoint.markName)
                         
                     } else {
                         print("Invalid range")

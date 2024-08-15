@@ -176,7 +176,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
             if !viewModel.hasDuplicateClozeLocations(with: range) {
                 let updatedRange = NSRange(location: range.location-1, length: range.length)
                 customTextView.removeNumberImageView(at: updatedRange.location)
-                viewModel.updateClozeNSRanges(with: updatedRange, offset: -1)
+                viewModel.updateTagNSRanges(with: updatedRange, offset: -1)
             }
 
             let coloredText = viewModel.calculateColoredTextHeightFraction()
@@ -225,7 +225,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
         let textType = self.viewModel.getTextType(text)
         let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, textType: textType, hint: hint)
 
-        self.viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
+        self.viewModel.updateTagNSRanges(with: updateRange, offset: offset)
         self.viewModel.appendCloze(newCloze)
     }
 

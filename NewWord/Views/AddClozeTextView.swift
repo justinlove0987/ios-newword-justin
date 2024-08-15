@@ -36,6 +36,18 @@ class AddClozeTextView: UITextView {
         let context = UIGraphicsGetCurrentContext()
         context?.saveGState()
 
+        // 使用新的函數繪製使用者選擇的顏色區域
+        drawUserSelectedColorRanges(in: context)
+        drawHighlightBackground(for: highlightRangeDuringPlayback, with: .yellow, in: context)
+
+        context?.restoreGState()
+
+        super.draw(rect)
+    }
+    
+    func drawUserSelectedColorRanges(in context: CGContext?) {
+        guard let font = self.font else { return }
+
         for (characterIndex, colorSegment) in userSelectedColorRanges.coloredCharacters {
             var positionRatio: Double = 0
 
@@ -47,13 +59,12 @@ class AddClozeTextView: UITextView {
                     positionRatio += element.heightFraction
                 }
 
-                 element.contentColor.setFill()
+                element.contentColor.setFill()
 
                 let range = NSRange(location: characterIndex.index, length: 1)
 
                 layoutManager.enumerateLineFragments(forGlyphRange: range) { rect, usedRect, textContainer, glyphRange, stop in
                     let intersectionRange = NSIntersectionRange(glyphRange, range)
-
 
                     self.layoutManager.enumerateEnclosingRects(forGlyphRange: intersectionRange, withinSelectedGlyphRange: intersectionRange, in: self.textContainer) { rect, _ in
                         var adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
@@ -63,30 +74,35 @@ class AddClozeTextView: UITextView {
                             adjustedRect.origin.y += font.lineHeight * (1 - positionRatio)
                         }
 
-                        adjustedRect.origin.x -= 1 // Expand slightly to the left
-                        adjustedRect.size.width += 1 // Expand the width
-                        
-                        // Fill background color
+                        adjustedRect.origin.x -= 1 // 向左擴展一點
+                        adjustedRect.size.width += 1 // 擴展寬度
+
                         context?.fill(adjustedRect)
-                        
-                        // Set background color
-                        let backgroundColor = UIColor.yellow // You can change this to your desired background color
-                        backgroundColor.setFill()
-                        
-                        // Fill text color on top
-                        context?.fill(adjustedRect)
-                        
-                        
-                        
-                        // context?.fill(adjustedRect)
                     }
                 }
             }
         }
+    }
+    
+    func drawHighlightBackground(for range: NSRange?, with color: UIColor, in context: CGContext?) {
+        guard let range = range, let font = self.font else { return }
+        
+        color.setFill()
 
-        context?.restoreGState()
+        layoutManager.enumerateLineFragments(forGlyphRange: range) { rect, usedRect, textContainer, glyphRange, stop in
+            let intersectionRange = NSIntersectionRange(glyphRange, range)
 
-        super.draw(rect)
+            self.layoutManager.enumerateEnclosingRects(forGlyphRange: intersectionRange, withinSelectedGlyphRange: intersectionRange, in: self.textContainer) { rect, _ in
+                var adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
+                adjustedRect.size.height = font.lineHeight
+
+                adjustedRect.origin.x -= 1 // 向左擴展一點
+                adjustedRect.size.width += 1 // 擴展寬度
+
+                // 填充背景顏色
+                context?.fill(adjustedRect)
+            }
+        }
     }
 
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {

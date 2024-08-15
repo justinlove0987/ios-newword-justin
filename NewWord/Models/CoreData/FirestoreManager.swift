@@ -219,7 +219,7 @@ class FirestoreManager {
         let storageRef = Storage.storage().reference().child("audios/\(audioId).m4a")
         
         // 下載音頻數據
-        storageRef.getData(maxSize: 10 * 1024 * 1024) { data, error in
+        storageRef.getData(maxSize: 20 * 1024 * 1024) { data, error in
             if let error = error {
                 print("Error downloading audio: \(error.localizedDescription)")
                 completion(false, nil)

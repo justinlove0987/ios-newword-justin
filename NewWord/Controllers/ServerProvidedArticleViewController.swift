@@ -23,6 +23,9 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBOutlet weak var selectModeButton: UIButton!
     @IBOutlet var translationContentView: UIView!
     
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var playAudioView: UIView!
+    
     var article: FSArticle?
 
     private var customTextView: AddClozeTextView!
@@ -30,6 +33,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     
     private var player: AudioPlayer = AudioPlayer()
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -58,6 +62,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         translationContentView.layer.zPosition = 1
         imageView.image = article?.image
         customTextView.text = article?.text
+        
+        playAudioView.addDefaultBorder(cornerRadius: 5)
         player.delegate = self
 
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -108,13 +114,22 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         guard let article else { return }
         guard let ttsSynthesisResult =  article.ttsSynthesisResult else { return }
         
-        FirestoreManager.shared.downloadAudio(audioId: ttsSynthesisResult.audioId) { isDownloadSuccessful, audioData in
-            guard let audioData else { return }
+        switch player.state {
+        case .notPlayed:
+            FirestoreManager.shared.downloadAudio(audioId: ttsSynthesisResult.audioId) { isDownloadSuccessful, audioData in
+                guard let audioData else { return }
+                
+                self.player.audioData = audioData
+                self.player.playAudioWithMarks(article)
+            }
+        case .playing:
+            player.pause()
             
-            self.player.audioData = audioData
-            self.player.playAudioWithMarks(article)
-            
+        case .paused:
+            player.play()
         }
+        
+        
     }
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
@@ -134,17 +149,17 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             switch viewModel.selectMode {
             case .word:
                 if let wordRange = customTextView.wordRange(at: characterIndex) {
-                    clozeWord(range: wordRange)
+                    tagWord(range: wordRange)
                 }
             case .sentence:
                 if let sentenceRange =  customTextView.sentenceRangeContainingCharacter(at: characterIndex) {
-                    clozeWord(range: sentenceRange)
+                    tagWord(range: sentenceRange)
                 }
             }
         }
     }
 
-    private func clozeWord(range: NSRange) {
+    private func tagWord(range: NSRange) {
         // 獲取點擊的文字
         let text = (customTextView.text as NSString).substring(with: range)
         let textWithoutFFFC = text.removeObjectReplacementCharacter()
@@ -157,7 +172,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             if !viewModel.hasDuplicateClozeLocations(with: range) {
                 let updatedRange = NSRange(location: range.location-1, length: range.length)
                 customTextView.removeNumberImageView(at: updatedRange.location)
-                viewModel.updateClozeNSRanges(with: updatedRange, offset: -1)
+                viewModel.updateTagNSRanges(with: updatedRange, offset: -1)
+                viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: -1, article: &article)
             }
 
             let coloredText = viewModel.calculateColoredTextHeightFraction()
@@ -175,7 +191,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             let translatedTraditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
 
             self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
-            self.updateCloze(with: range, text: text, hint: translatedTraditionalText)
+            self.updateTag(with: range, text: text, hint: translatedTraditionalText)
             self.updateCustomTextView()
         }
     }
@@ -191,7 +207,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         }
     }
 
-    private func updateCloze(with range: NSRange, text: String, hint: String) {
+    private func updateTag(with range: NSRange, text: String, hint: String) {
         let clozeNumber = self.viewModel.getClozeNumber()
         self.customTextView.insertNumberImageView(at: range.location, existClozes: self.viewModel.clozes, with: String(clozeNumber))
 
@@ -200,7 +216,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         let textType = self.viewModel.getTextType(text)
         let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, textType: textType, hint: hint)
 
-        self.viewModel.updateClozeNSRanges(with: updateRange, offset: offset)
+        self.viewModel.updateTagNSRanges(with: updateRange, offset: offset)
+        self.viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: offset, article: &article)
         self.viewModel.appendCloze(newCloze)
     }
 
@@ -248,7 +265,23 @@ extension ServerProvidedArticleViewController: UITextViewDelegate {
 }
 
 extension ServerProvidedArticleViewController: AudioPlayerDelegate {
-    func audioPlayer(_ player: AudioPlayer, didUpdateToRange range: NSRange) {
-        print("foo - \(range)")
+    func audioPlayerDidStartPlaying(_ player: AudioPlayer) {
+        playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+    }
+    
+    func audioPlayerDidPause(_ player: AudioPlayer) {
+        playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+    }
+    
+    func audioPlayerDidStop(_ player: AudioPlayer) {
+        
+    }
+    
+    func audioPlayer(_ player: AudioPlayer, didUpdateToMarkName markName: String) {
+        guard let article else { return }
+        
+        let range = viewModel.rangeForMarkName(in: article, markName: markName)
+        
+        customTextView.highlightRangeDuringPlayback = range
     }
 }

@@ -11,14 +11,20 @@ import NaturalLanguage
 
 enum VoiceType: String {
     case undefined
-    case waveNetMale = "en-US-Wavenet-D"
-    case standardFemale = "en-US-Standard-E"
-    case standardMale = "en-US-Standard-D"
+    case enUSWavenetDMale = "en-US-Wavenet-D"
+    case enUSStandardE = "en-US-Standard-E"
+    case enUSStandardDMale = "en-US-Standard-D"
     case enUSStandardCFemale = "en-US-Standard-C"
     case enUSStandardFFemale = "en-US-Standard-F"
     case enUSJourneyOFemale = "en-US-Journey-O"
     case enUSJourneyFFemale = "en-US-Journey-F"
     case enUSJourneyDMale = "en-US-Journey-D"
+    case enUSStudioOFemale = "en-US-Studio-O"
+    case enUSNeural2JMale = "en-US-Neural2-J"
+    case enUSNewsNMale = "en-US-News-N"
+    case enUSWavenetFFemale = "en-US-Wavenet-F"
+    case enUSWavenetHFemale = "en-US-Wavenet-H"
+    case enUSCasualKMale = "en-US-Casual-K"
 }
 
 class GoogleTTSService: NSObject {
@@ -107,7 +113,8 @@ class GoogleTTSService: NSObject {
     private func buildPostData(text: String,
                                synthiesisInput: SynthesisInput = .text,
                                timepointType: TimepointType = .TIMEPOINT_TYPE_UNSPECIFIED,
-                               voiceType: VoiceType) -> Data {
+                               voiceType: VoiceType,
+                               rate: Double = 1.0) -> Data {
 
         var voiceParams: [String: Any] = [
             // All available voices here: https://cloud.google.com/text-to-speech/docs/voices
@@ -127,7 +134,10 @@ class GoogleTTSService: NSObject {
             
             "audioConfig": [
                 // All available formats here: https://cloud.google.com/text-to-speech/docs/reference/rest/v1beta1/text/synthesize#audioencoding
-                "audioEncoding": "LINEAR16"
+                "audioEncoding": "LINEAR16",
+                
+                // Adjust the speaking rate
+                "speakingRate": rate
             ],
             
             "enableTimePointing": [timepointType.rawValue]
@@ -221,7 +231,11 @@ class GoogleTTSService: NSObject {
         }
     }
 
-    func downloadSSML(_ text: String, voiceType: VoiceType = .waveNetMale, completion: @escaping (TTSSynthesisResult?) -> Void) {
+    func downloadSSML(_ text: String,
+                      voiceType: VoiceType = .enUSCasualKMale,
+                      rate: Double = 0.8,
+                      completion: @escaping (TTSSynthesisResult?) -> Void) {
+        
         var text = addMarksToText(text)
         text = wrapWithSpeakTags(text)
         
@@ -229,7 +243,8 @@ class GoogleTTSService: NSObject {
             let postData = self.buildPostData(text: text,
                                               synthiesisInput: .ssml,
                                               timepointType: .SSML_MARK,
-                                              voiceType: voiceType)
+                                              voiceType: voiceType,
+                                              rate: rate)
             
             let headers = ["X-Goog-Api-Key": K.API.key, "Content-Type": "application/json; charset=utf-8"]
             let response = self.makePOSTRequest(url: K.API.tts, postData: postData, headers: headers)
@@ -342,13 +357,13 @@ extension GoogleTTSService: AVAudioPlayerDelegate {
 
 struct TTSSynthesisResult: Hashable {
     let audioId: String
-    let timepoints: [TimepointInfo]
+    var timepoints: [TimepointInfo]
     
     var audioData: Data?
 }
 
 struct TimepointInfo: Hashable {
-    let range: NSRange?
+    var range: NSRange?
     let markName: String
     let timeSeconds: Double
 }
