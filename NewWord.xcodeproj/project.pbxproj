@@ -21,6 +21,7 @@
 		2A24E8D42C50DF39006C1032 /* ReviseContextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */; };
 		2A24E8D62C537E59006C1032 /* ListeningClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A24E8D52C537E59006C1032 /* ListeningClozeView.swift */; };
 		2A24E8D82C537E66006C1032 /* ListeningClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A24E8D72C537E66006C1032 /* ListeningClozeView.xib */; };
+		2A2683772C6DA4DD00FFF81D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2683762C6DA4DD00FFF81D /* AudioPlayer.swift */; };
 		2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */; };
 		2A38F8C12BE48F88003F058F /* OldExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C02BE48F88003F058F /* OldExploreViewController.swift */; };
 		2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C22BE48FB2003F058F /* SearchViewController.swift */; };
@@ -142,6 +143,7 @@
 		2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseContextViewController.swift; sourceTree = "<group>"; };
 		2A24E8D52C537E59006C1032 /* ListeningClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningClozeView.swift; sourceTree = "<group>"; };
 		2A24E8D72C537E66006C1032 /* ListeningClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListeningClozeView.xib; sourceTree = "<group>"; };
+		2A2683762C6DA4DD00FFF81D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		2A38F8C02BE48F88003F058F /* OldExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldExploreViewController.swift; sourceTree = "<group>"; };
 		2A38F8C22BE48FB2003F058F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 				D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */,
 				2AFF6CA02C5B748800629B26 /* UINavigationController+Extension.swift */,
 				D0DA5ACD2BB66A07008644DC /* Assets.xcassets */,
+				2A2683762C6DA4DD00FFF81D /* AudioPlayer.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				2A24E8D42C50DF39006C1032 /* ReviseContextViewController.swift in Sources */,
 				D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */,
 				D03107CC2C16EE6200EEF772 /* CardInformationViewController.swift in Sources */,
+				2A2683772C6DA4DD00FFF81D /* AudioPlayer.swift in Sources */,
 				2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */,
 				2A7B6CD52C0810030017BB5C /* NotificationName+Extension.swift in Sources */,
 				D0A6E4E92C52060100E1EF35 /* TagView.swift in Sources */,

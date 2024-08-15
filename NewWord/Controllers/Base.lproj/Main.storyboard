@@ -769,6 +769,26 @@
                                     <action selector="selectModeAction:" destination="Q3G-wX-9Sl" eventType="touchUpInside" id="yDC-Hy-qYb"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wKG-Rq-Fzl">
+                                <rect key="frame" x="104" y="722.66666666666663" width="43.333333333333343" height="34.333333333333371"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Og9-Kn-gWA">
+                                        <rect key="frame" x="0.0" y="0.0" width="43.333333333333336" height="34.333333333333336"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="play" catalog="system"/>
+                                        <connections>
+                                            <action selector="playButtonAction:" destination="eIc-Ke-le6" eventType="touchUpInside" id="4nA-4f-9ua"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="background"/>
+                                <constraints>
+                                    <constraint firstItem="Og9-Kn-gWA" firstAttribute="top" secondItem="wKG-Rq-Fzl" secondAttribute="top" id="Hda-xx-u8J"/>
+                                    <constraint firstAttribute="trailing" secondItem="Og9-Kn-gWA" secondAttribute="trailing" id="NkY-cg-4Eq"/>
+                                    <constraint firstAttribute="bottom" secondItem="Og9-Kn-gWA" secondAttribute="bottom" id="XaM-qM-7Ct"/>
+                                    <constraint firstItem="Og9-Kn-gWA" firstAttribute="leading" secondItem="wKG-Rq-Fzl" secondAttribute="leading" id="pLL-FR-Aoa"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tKW-eH-RXM"/>
                         <color key="backgroundColor" name="background"/>
@@ -783,10 +803,12 @@
                             <constraint firstItem="tKW-eH-RXM" firstAttribute="trailing" secondItem="o7E-Td-Qsh" secondAttribute="trailing" constant="12" id="XSq-Og-k1y"/>
                             <constraint firstItem="nLQ-bd-QaB" firstAttribute="top" secondItem="o7E-Td-Qsh" secondAttribute="bottom" constant="12" id="YcQ-a2-ATM"/>
                             <constraint firstItem="YxS-QY-pEM" firstAttribute="leading" secondItem="tKW-eH-RXM" secondAttribute="leading" id="YsD-vb-D95"/>
+                            <constraint firstItem="wKG-Rq-Fzl" firstAttribute="centerY" secondItem="nLQ-bd-QaB" secondAttribute="centerY" id="boa-U8-6D3"/>
                             <constraint firstItem="tKW-eH-RXM" firstAttribute="trailing" secondItem="8Bn-6I-6YX" secondAttribute="trailing" id="h9O-AO-Y28"/>
                             <constraint firstItem="nLQ-bd-QaB" firstAttribute="centerX" secondItem="60r-4l-xue" secondAttribute="centerX" id="jfA-7i-zAd"/>
                             <constraint firstItem="YxS-QY-pEM" firstAttribute="top" secondItem="tKW-eH-RXM" secondAttribute="top" constant="12" id="kUy-PA-Ug5"/>
                             <constraint firstItem="agN-tp-BvZ" firstAttribute="top" secondItem="60r-4l-xue" secondAttribute="top" id="l5v-wj-Ex0"/>
+                            <constraint firstItem="nLQ-bd-QaB" firstAttribute="leading" secondItem="wKG-Rq-Fzl" secondAttribute="trailing" constant="20" id="qvc-lD-aSu"/>
                             <constraint firstItem="o7E-Td-Qsh" firstAttribute="leading" secondItem="tKW-eH-RXM" secondAttribute="leading" constant="12" id="rhh-XA-S7b"/>
                             <constraint firstItem="8Bn-6I-6YX" firstAttribute="top" secondItem="60r-4l-xue" secondAttribute="top" id="u51-wZ-LKg"/>
                             <constraint firstItem="8Bn-6I-6YX" firstAttribute="leading" secondItem="tKW-eH-RXM" secondAttribute="leading" id="ulg-ds-JHW"/>
@@ -947,20 +969,20 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingCell" id="A5l-Xh-hd9" customClass="SettingCell" customModule="NewWord" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="353" height="53"/>
+                                        <rect key="frame" x="0.0" y="50" width="353" height="53.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A5l-Xh-hd9" id="aqB-lT-EXF">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="53"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="53.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="聯絡我們" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9DP-tt-vs9">
-                                                    <rect key="frame" x="20" y="16" width="69.333333333333329" height="21"/>
+                                                    <rect key="frame" x="20" y="16" width="69.333333333333329" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="title"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="justin.tseng.developer@gamil.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcD-KO-SnQ">
-                                                    <rect key="frame" x="139" y="19.333333333333332" width="194" height="14.333333333333332"/>
+                                                    <rect key="frame" x="139" y="19.666666666666668" width="194" height="14.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" name="description"/>
                                                     <nil key="highlightedColor"/>
@@ -1627,6 +1649,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
         <image name="magnifyingglass.circle.fill" catalog="system" width="128" height="123"/>
         <image name="pencil.circle" catalog="system" width="128" height="123"/>
         <image name="pencil.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="play" catalog="system" width="117" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="background">

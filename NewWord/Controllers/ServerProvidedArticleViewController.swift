@@ -27,6 +27,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
 
     private var customTextView: AddClozeTextView!
     private var viewModel: WordSelectorViewControllerViewModel!
+    
+    private var player: AudioPlayer = AudioPlayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +58,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         translationContentView.layer.zPosition = 1
         imageView.image = article?.image
         customTextView.text = article?.text
+        player.delegate = self
 
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
@@ -100,7 +103,20 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         viewModel.changeSelectMode()
         selectModeButton.setTitle(viewModel.selectMode.title, for: .normal)
     }
-
+    
+    @IBAction func playButtonAction(_ sender: UIButton) {
+        guard let article else { return }
+        guard let ttsSynthesisResult =  article.ttsSynthesisResult else { return }
+        
+        FirestoreManager.shared.downloadAudio(audioId: ttsSynthesisResult.audioId) { isDownloadSuccessful, audioData in
+            guard let audioData else { return }
+            
+            self.player.audioData = audioData
+            self.player.playAudioWithMarks(article)
+            
+        }
+    }
+    
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         guard !customTextView.isTextSelected() else {
             customTextView.selectedTextRange = nil
@@ -147,7 +163,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             let coloredText = viewModel.calculateColoredTextHeightFraction()
             let coloredMarks = viewModel.createColoredMarks(coloredText)
 
-            customTextView.newColorRanges = coloredText
+            customTextView.userSelectedColorRanges = coloredText
             customTextView.renewTagImages(coloredMarks)
             customTextView.setProperties()
 
@@ -192,7 +208,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         let coloredText = self.viewModel.calculateColoredTextHeightFraction()
         let coloredMarks = self.viewModel.createColoredMarks(coloredText)
 
-        self.customTextView.newColorRanges = coloredText
+        self.customTextView.userSelectedColorRanges = coloredText
         self.customTextView.renewTagImages(coloredMarks)
         self.customTextView.setProperties()
     }
@@ -216,6 +232,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     }
 }
 
+// MARK: - UITextViewDelegate
+
 extension ServerProvidedArticleViewController: UITextViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if scrollView == customTextView {
@@ -226,5 +244,11 @@ extension ServerProvidedArticleViewController: UITextViewDelegate {
                 self.view.layoutIfNeeded()
             }
         }
+    }
+}
+
+extension ServerProvidedArticleViewController: AudioPlayerDelegate {
+    func audioPlayer(_ player: AudioPlayer, didUpdateToRange range: NSRange) {
+        print("foo - \(range)")
     }
 }

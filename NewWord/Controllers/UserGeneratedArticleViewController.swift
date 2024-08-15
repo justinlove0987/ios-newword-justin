@@ -182,7 +182,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
             let coloredText = viewModel.calculateColoredTextHeightFraction()
             let coloredMarks = viewModel.createColoredMarks(coloredText)
 
-            customTextView.newColorRanges = coloredText
+            customTextView.userSelectedColorRanges = coloredText
             customTextView.renewTagImages(coloredMarks)
             customTextView.setProperties()
 
@@ -233,7 +233,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
         let coloredText = self.viewModel.calculateColoredTextHeightFraction()
         let coloredMarks = self.viewModel.createColoredMarks(coloredText)
 
-        self.customTextView.newColorRanges = coloredText
+        self.customTextView.userSelectedColorRanges = coloredText
         self.customTextView.renewTagImages(coloredMarks)
         self.customTextView.setProperties()
     }

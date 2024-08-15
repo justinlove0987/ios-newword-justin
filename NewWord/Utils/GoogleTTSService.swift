@@ -44,11 +44,6 @@ class GoogleTTSService: NSObject {
     var stopCallback: (() -> ())?
     var startCallback: (() ->())?
     
-    var text = """
-    The sun dipped below the horizon, casting a golden hue over the tranquil sea. Gentle waves lapped at the shore, creating a soothing rhythm that matched the peaceful evening.
-    """
-
-    
     func speak(_ audioData: Data?) {
         guard !self.busy else {
             print("Speech Service busy!")
@@ -181,53 +176,52 @@ class GoogleTTSService: NSObject {
         return nil
     }
     
-    func playAudioWithMarks() {
-        downloadSSML { result in
-            guard let result else { return }
+    func playAudioWithMarks(_ article: FSArticle) {
+        guard let result = article.ttsSynthesisResult else { return }
+        guard let audioData = result.audioData else { return }
+        
+        let text = article.content
+        
+        do {
+            self.player = try AVAudioPlayer(data: audioData)
+            self.player?.play()
             
-            do {
-                self.player = try AVAudioPlayer(data: result.audioData)
-                self.player?.play()
+            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+                guard let self = self, let player = self.player else {
+                    timer.invalidate()
+                    return
+                }
                 
-                Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
-                    guard let self = self, let player = self.player else {
-                        timer.invalidate()
-                        return
-                    }
+                let currentTimeInSeconds = roundToOneDecimalPlace(player.currentTime)
+                
+                for timepoint in result.timepoints {
                     
-                    let currentTimeInSeconds = roundToOneDecimalPlace(player.currentTime)
+                    let markName = timepoint.markName
+                    let markTime = roundToOneDecimalPlace(timepoint.timeSeconds)
                     
-                    for timepoint in result.timepoints {
-                        
-                        let markName = timepoint.markName
-                        let markTime = roundToOneDecimalPlace(timepoint.timeSeconds)
-                        
-                        if markTime == currentTimeInSeconds && !currentTimeInSeconds.isZero  {
-                            if let nsRange = timepoint.range, let range = Range(nsRange, in: self.text) {
-                                let substring = text[range]
-                                print("Selected text: \(substring) \(nsRange) \(currentTimeInSeconds)")
-                            } else {
-                                print("Invalid range")
-                            }
+                    if markTime == currentTimeInSeconds && !currentTimeInSeconds.isZero  {
+                        if let nsRange = timepoint.range, let range = Range(nsRange, in: text) {
+                            let substring = text[range]
+                            print("Selected text: \(substring) \(nsRange) \(currentTimeInSeconds)")
+                        } else {
+                            print("Invalid range")
                         }
-                    }
-                    
-                    // 如果音頻播放結束則停止計時器
-                    if !player.isPlaying {
-                        timer.invalidate()
                     }
                 }
                 
-                
-            } catch {
-                
+                // 如果音頻播放結束則停止計時器
+                if !player.isPlaying {
+                    timer.invalidate()
+                }
             }
             
+            
+        } catch {
             
         }
     }
 
-    func downloadSSML(voiceType: VoiceType = .waveNetMale, completion: @escaping (TTSSynthesisResult?) -> Void) {
+    func downloadSSML(_ text: String, voiceType: VoiceType = .waveNetMale, completion: @escaping (TTSSynthesisResult?) -> Void) {
         var text = addMarksToText(text)
         text = wrapWithSpeakTags(text)
         
@@ -272,8 +266,7 @@ class GoogleTTSService: NSObject {
                 }
             }
             
-            // 封裝到 TTSSynthesisResult 結構體中
-            let result = TTSSynthesisResult(audioData: audioData, timepoints: timepoints)
+            let result = TTSSynthesisResult(audioId: UUID().uuidString, timepoints: timepoints, audioData: audioData)
             DispatchQueue.main.async {
                 completion(result)
             }
@@ -347,12 +340,14 @@ extension GoogleTTSService: AVAudioPlayerDelegate {
     }
 }
 
-struct TTSSynthesisResult {
-    let audioData: Data
+struct TTSSynthesisResult: Hashable {
+    let audioId: String
     let timepoints: [TimepointInfo]
+    
+    var audioData: Data?
 }
 
-struct TimepointInfo {
+struct TimepointInfo: Hashable {
     let range: NSRange?
     let markName: String
     let timeSeconds: Double

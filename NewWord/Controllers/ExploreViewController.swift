@@ -26,9 +26,27 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         super.viewDidLoad()
         setup()
         fetchArticles()
-//        uploadArticles()
         
-        //        GoogleTTSService.shared.playAudioWithMarks()
+//        let title = "Test"
+//        
+//        let content = """
+//        The sun dipped below the horizon, casting a golden hue over the tranquil sea. Gentle waves lapped at the shore, creating a soothing rhythm that matched the peaceful evening.
+//        """
+//        
+//        let text = "\(title)\n\n\(content)"
+//        
+//        GoogleTTSService.shared.downloadSSML(text) { result in
+//            guard let result else { return }
+//            guard let audioData = result.audioData else { return }
+//            
+//            FirestoreManager.shared.uploadAudio(audioId: result.audioId, audioData: audioData) { isDownloadSuccessful, url in
+//                let article = FSArticle(title: "Test", content: text, imageId: UUID().uuidString, uploadedDate: Date(), ttsSynthesisResult: result)
+//                
+//                FirestoreManager.shared.uploadArticle(article) { isDownloadSuccessful in
+//                    
+//                }
+//            }
+//        }
         
     }
     

@@ -12,8 +12,14 @@ class AddClozeTextView: UITextView {
 
     typealias ColoredText = WordSelectorViewControllerViewModel.ColoredText
     typealias ColoredMark = WordSelectorViewControllerViewModel.ColoredMark
+    
+    var highlightRangeDuringPlayback: NSRange? {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
 
-    var newColorRanges: ColoredText = .init(coloredCharacters: [:]) {
+    var userSelectedColorRanges: ColoredText = .init(coloredCharacters: [:]) {
         didSet {
             setNeedsDisplay()
         }
@@ -30,7 +36,7 @@ class AddClozeTextView: UITextView {
         let context = UIGraphicsGetCurrentContext()
         context?.saveGState()
 
-        for (characterIndex, colorSegment) in newColorRanges.coloredCharacters {
+        for (characterIndex, colorSegment) in userSelectedColorRanges.coloredCharacters {
             var positionRatio: Double = 0
 
             for i in 0..<colorSegment.count {
@@ -41,7 +47,7 @@ class AddClozeTextView: UITextView {
                     positionRatio += element.heightFraction
                 }
 
-                element.contentColor.setFill()
+                 element.contentColor.setFill()
 
                 let range = NSRange(location: characterIndex.index, length: 1)
 
@@ -59,9 +65,21 @@ class AddClozeTextView: UITextView {
 
                         adjustedRect.origin.x -= 1 // Expand slightly to the left
                         adjustedRect.size.width += 1 // Expand the width
+                        
+                        // Fill background color
                         context?.fill(adjustedRect)
+                        
+                        // Set background color
+                        let backgroundColor = UIColor.yellow // You can change this to your desired background color
+                        backgroundColor.setFill()
+                        
+                        // Fill text color on top
+                        context?.fill(adjustedRect)
+                        
+                        
+                        
+                        // context?.fill(adjustedRect)
                     }
-
                 }
             }
         }
