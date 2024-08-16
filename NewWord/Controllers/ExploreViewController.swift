@@ -152,7 +152,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
-    func fetchImage(at indexPath: IndexPath) {
+    private func fetchImage(at indexPath: IndexPath) {
         FirestoreManager.shared.getImage(for: self.articles[indexPath.row].imageId) { result in
             switch result {
             case .success(let image):
