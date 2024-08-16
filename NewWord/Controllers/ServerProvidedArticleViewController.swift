@@ -54,7 +54,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     private func setupProperties() {
         customTextView.layer.zPosition = 0
         translationContentView.layer.zPosition = 1
-        imageView.image = article?.image
+        imageView.image = article?.fetchedImage
         customTextView.text = article?.text
         
         articlePlayButtonView.playButton.addTarget(self, action: #selector(playArticle), for: .touchUpInside)

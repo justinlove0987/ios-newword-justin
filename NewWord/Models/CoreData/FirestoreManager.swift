@@ -311,7 +311,7 @@ struct FSArticle: Hashable {
     let uploadedDate: Date
     var ttsSynthesisResult: TTSSynthesisResult? = nil
     
-    var image: UIImage? = nil
+    var fetchedImage: UIImage?
     
     var formattedUploadedDate: String {
         let dateFormatter = DateFormatter()
@@ -321,5 +321,9 @@ struct FSArticle: Hashable {
     
     var text: String {
         return "\(title)\n\n\(content)"
+    }
+    
+    var hasImage: Bool {
+        return fetchedImage != nil
     }
 }

@@ -108,7 +108,11 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
             let currentArticle = self.articles[indexPath.row]
             
             cell.updateUI(currentArticle)
-            cell.imageDidSetCallback = { self.articles[indexPath.row].image = $0 }
+            cell.imageView.image = currentArticle.hasImage ? currentArticle.fetchedImage : UIImage(named: "loading")
+            
+            if !currentArticle.hasImage {
+                self.fetchImage(at: indexPath)
+            }
             
             return cell
         })
@@ -146,6 +150,22 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         snapshot.appendSections([0])
         snapshot.appendItems(articles)
         dataSource.apply(snapshot, animatingDifferences: false)
+    }
+    
+    func fetchImage(at indexPath: IndexPath) {
+        FirestoreManager.shared.getImage(for: self.articles[indexPath.row].imageId) { result in
+            switch result {
+            case .success(let image):
+                self.articles[indexPath.row].fetchedImage = image
+                
+            case .failure(_):
+                self.articles[indexPath.row].fetchedImage = UIImage(named: "loading")
+            }
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
 }
 
