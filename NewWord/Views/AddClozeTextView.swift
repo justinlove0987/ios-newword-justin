@@ -8,7 +8,7 @@
 import UIKit
 import NaturalLanguage
 
-class AddClozeTextView: UITextView {
+class AddClozeTextView: UITextView, UITextViewDelegate {
 
     typealias ColoredText = WordSelectorViewControllerViewModel.ColoredText
     typealias ColoredMark = WordSelectorViewControllerViewModel.ColoredMark
@@ -29,16 +29,26 @@ class AddClozeTextView: UITextView {
         super.layoutSubviews()
         setNeedsDisplay() // 重新繪製
     }
+    
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
+        self.delegate = self
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.delegate = self
+    }
 
     override func draw(_ rect: CGRect) {
-        guard let font = self.font else { return }
+        guard self.font != nil else { return }
 
         let context = UIGraphicsGetCurrentContext()
         context?.saveGState()
 
         // 使用新的函數繪製使用者選擇的顏色區域
         drawUserSelectedColorRanges(in: context)
-        drawHighlightBackground(for: highlightRangeDuringPlayback, with: .yellow, in: context)
+        drawHighlightBackground(for: highlightRangeDuringPlayback, with: UIColor.deepSlateBlue, in: context)
 
         context?.restoreGState()
 
@@ -325,3 +335,5 @@ extension UITextView {
         return NSRange(wordRange, in: text)
     }
 }
+
+

@@ -30,9 +30,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
 //        let title = "Test"
 //        
 //        let content = """
-//        Nestled within the heart of the vibrant metropolis, there existed a small café that had become a sanctuary for those seeking respite from the relentless pace of city life. The café, with its rustic wooden façade and large glass windows, exuded a charm that was both inviting and timeless. As patrons stepped inside, they were greeted by the rich aroma of freshly ground coffee beans, a scent that instantly soothed the senses and promised comfort in every sip. The décor was an eclectic mix of vintage furniture and modern art, creating an atmosphere that was both cozy and intellectually stimulating. Soft, cushioned chairs were scattered around wooden tables, each adorned with a small vase of fresh flowers that added a splash of color to the earthy tones of the room.
-//
-//        The walls were lined with shelves filled with books, from classic literature to contemporary novels, offering something for every type of reader. In one corner, an old record player quietly spun vinyl records, filling the space with the soothing sounds of jazz and blues, a perfect backdrop to the murmur of conversations and the occasional clink of a spoon against a ceramic cup. The café was a haven for artists, writers, and thinkers, a place where ideas flowed as freely as the coffee. Many found inspiration here, penning poetry on napkins or sketching in notebooks, their creativity fueled by the tranquil environment.
+//        Ukraine, a nation with roots stretching back millennia, is not just a country but a testament to resilience, culture, and innovation. This Eastern European land, often known for its rich black soil and the tragic Chernobyl disaster, harbors secrets that continue to fascinate the world.
 //        """
 //        
 //        let text = "\(title)\n\n\(content)"
@@ -47,7 +45,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
 //            FirestoreManager.shared.uploadAudio(audioId: result.audioId, audioData: audioData) { isDownloadSuccessful, url in
 //                print("foo upload audio \(isDownloadSuccessful)")
 //                
-//                let article = FSArticle(title: "Test", content: content, imageId: UUID().uuidString, uploadedDate: Date(), ttsSynthesisResult: result)
+//                let article = FSArticle(title: title, content: content, imageId: UUID().uuidString, uploadedDate: Date(), ttsSynthesisResult: result)
 //                
 //                FirestoreManager.shared.uploadArticle(article) { isDownloadSuccessful in
 //                    print("foo - upload article \(isDownloadSuccessful)")

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ArticlePlayButtonView" customModule="NewWord" customModuleProvider="target">
+            <connections>
+                <outlet property="loadingView" destination="WKn-Kb-RDh" id="poP-8U-4Cn"/>
+                <outlet property="playButton" destination="YW8-pB-VDj" id="e6A-LE-kgL"/>
+                <outlet property="titleLabel" destination="M3n-jr-fWJ" id="wcC-de-JPb"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="6Fa-Tu-XBS">
+            <rect key="frame" x="0.0" y="0.0" width="67" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WKn-Kb-RDh">
+                    <rect key="frame" x="0.0" y="0.0" width="67" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pBh-BD-8t8">
+                    <rect key="frame" x="7" y="7" width="53" height="36"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YW8-pB-VDj">
+                            <rect key="frame" x="0.0" y="0.0" width="14.333333333333334" height="36"/>
+                            <color key="tintColor" name="title"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="play.fill" catalog="system"/>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" ambiguous="YES" text="文章" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3n-jr-fWJ">
+                            <rect key="frame" x="22.333333333333329" y="0.0" width="30.666666666666671" height="36"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" name="title"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="36B-sZ-zZr"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="pBh-BD-8t8" secondAttribute="trailing" constant="7" id="6C4-RJ-VOh"/>
+                <constraint firstItem="WKn-Kb-RDh" firstAttribute="leading" secondItem="6Fa-Tu-XBS" secondAttribute="leading" id="ARy-nG-v97"/>
+                <constraint firstAttribute="bottom" secondItem="WKn-Kb-RDh" secondAttribute="bottom" id="MyG-PM-ne0"/>
+                <constraint firstItem="pBh-BD-8t8" firstAttribute="top" secondItem="6Fa-Tu-XBS" secondAttribute="top" constant="7" id="UIM-ck-TDq"/>
+                <constraint firstItem="WKn-Kb-RDh" firstAttribute="top" secondItem="6Fa-Tu-XBS" secondAttribute="top" id="cbT-UV-mLJ"/>
+                <constraint firstItem="pBh-BD-8t8" firstAttribute="leading" secondItem="6Fa-Tu-XBS" secondAttribute="leading" constant="7" id="hTj-ow-pQG"/>
+                <constraint firstAttribute="bottom" secondItem="pBh-BD-8t8" secondAttribute="bottom" constant="7" id="luY-Lb-JVN"/>
+                <constraint firstAttribute="trailing" secondItem="WKn-Kb-RDh" secondAttribute="trailing" id="mNa-qf-xXw"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-300.76335877862596" y="-408.45070422535213"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="play.fill" catalog="system" width="117" height="128"/>
+        <namedColor name="title">
+            <color red="0.090196078431372548" green="0.094117647058823528" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

@@ -11,6 +11,8 @@
 		2A02EF2A2C4A386500E21A6E /* TagTestingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A02EF282C4A386500E21A6E /* TagTestingCell.xib */; };
 		2A034F7D2C3682C800AEDA65 /* CustomNumberTagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A034F7C2C3682C800AEDA65 /* CustomNumberTagView.xib */; };
 		2A034F812C37CCB600AEDA65 /* CustomNumberTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034F802C37CCB600AEDA65 /* CustomNumberTagView.swift */; };
+		2A0D41F12C6EF1D0000B1B3B /* ArticlePlayButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A0D41F02C6EF1D0000B1B3B /* ArticlePlayButtonView.xib */; };
+		2A0D41F32C6EF2C3000B1B3B /* ArticlePlayButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0D41F22C6EF2C3000B1B3B /* ArticlePlayButtonView.swift */; };
 		2A17DAF62C1579D700919642 /* ClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A17DAF52C1579D700919642 /* ClozeView.xib */; };
 		2A17DAF82C1579E400919642 /* ClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A17DAF72C1579E400919642 /* ClozeView.swift */; };
 		2A17DAFA2C157C7F00919642 /* ClozeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A17DAF92C157C7F00919642 /* ClozeViewViewModel.swift */; };
@@ -133,6 +135,8 @@
 		2A02EF282C4A386500E21A6E /* TagTestingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagTestingCell.xib; sourceTree = "<group>"; };
 		2A034F7C2C3682C800AEDA65 /* CustomNumberTagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomNumberTagView.xib; sourceTree = "<group>"; };
 		2A034F802C37CCB600AEDA65 /* CustomNumberTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNumberTagView.swift; sourceTree = "<group>"; };
+		2A0D41F02C6EF1D0000B1B3B /* ArticlePlayButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticlePlayButtonView.xib; sourceTree = "<group>"; };
+		2A0D41F22C6EF2C3000B1B3B /* ArticlePlayButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticlePlayButtonView.swift; sourceTree = "<group>"; };
 		2A17DAF52C1579D700919642 /* ClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClozeView.xib; sourceTree = "<group>"; };
 		2A17DAF72C1579E400919642 /* ClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClozeView.swift; sourceTree = "<group>"; };
 		2A17DAF92C157C7F00919642 /* ClozeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClozeViewViewModel.swift; sourceTree = "<group>"; };
@@ -334,6 +338,8 @@
 				2AC3E5922C5602EB002CC242 /* SettingCell.swift */,
 				2AFF6C9A2C5B5FF100629B26 /* ExploreCell.swift */,
 				2AFF6C9B2C5B5FF100629B26 /* ExploreCell.xib */,
+				2A0D41F22C6EF2C3000B1B3B /* ArticlePlayButtonView.swift */,
+				2A0D41F02C6EF1D0000B1B3B /* ArticlePlayButtonView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -527,6 +533,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A0D41F12C6EF1D0000B1B3B /* ArticlePlayButtonView.xib in Resources */,
 				2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */,
 				D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */,
 				2A034F7D2C3682C800AEDA65 /* CustomNumberTagView.xib in Resources */,
@@ -589,6 +596,7 @@
 				2AC3E5932C5602EB002CC242 /* SettingCell.swift in Sources */,
 				2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */,
 				2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */,
+				2A0D41F32C6EF2C3000B1B3B /* ArticlePlayButtonView.swift in Sources */,
 				D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */,
 				D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */,
 				2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */,

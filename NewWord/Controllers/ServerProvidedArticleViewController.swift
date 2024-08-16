@@ -16,23 +16,19 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var imageCoverView: UIView!
     
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var originalTextLabel: UILabel!
     @IBOutlet weak var translatedTextLabel: UILabel!
-    @IBOutlet weak var selectModeButton: UIButton!
     @IBOutlet var translationContentView: UIView!
     
-    @IBOutlet weak var playButton: UIButton!
-    @IBOutlet weak var playAudioView: UIView!
+    @IBOutlet weak var articlePlayButtonView: ArticlePlayButtonView!
+    @IBOutlet weak var selectModeButton: UIButton!
     
     var article: FSArticle?
 
     private var customTextView: AddClozeTextView!
     private var viewModel: WordSelectorViewControllerViewModel!
-    
     private var player: AudioPlayer = AudioPlayer()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,8 +59,12 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         imageView.image = article?.image
         customTextView.text = article?.text
         
-        playAudioView.addDefaultBorder(cornerRadius: 5)
+        articlePlayButtonView.playButton.addTarget(self, action: #selector(playArticle), for: .touchUpInside)
+        
+        articlePlayButtonView.addDefaultBorder(cornerRadius: 5)
+        selectModeButton.addDefaultBorder(cornerRadius: 5)
         player.delegate = self
+        
 
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
@@ -110,23 +110,34 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         selectModeButton.setTitle(viewModel.selectMode.title, for: .normal)
     }
     
-    @IBAction func playButtonAction(_ sender: UIButton) {
+    @objc func playArticle(_ sender: UIButton) {
         guard let article else { return }
         guard let ttsSynthesisResult =  article.ttsSynthesisResult else { return }
         
         switch player.state {
         case .notPlayed:
-            FirestoreManager.shared.downloadAudio(audioId: ttsSynthesisResult.audioId) { isDownloadSuccessful, audioData in
-                guard let audioData else { return }
-                
-                self.player.audioData = audioData
+            let audioDataExists = self.player.audioData != nil
+            
+            if audioDataExists {
+                self.player.setupAudioPlayer()
                 self.player.playAudioWithMarks(article)
+                
+            } else {
+                FirestoreManager.shared.downloadAudio(audioId: ttsSynthesisResult.audioId) { isDownloadSuccessful, audioData in
+                    guard let audioData else { return }
+                    
+                    self.player.audioData = audioData
+                    self.player.setupAudioPlayer()
+                    self.player.playAudioWithMarks(article)
+                }
+
             }
+            
         case .playing:
             player.pause()
             
         case .paused:
-            player.play()
+            player.playAudioWithMarks(article)
         }
         
         
@@ -262,19 +273,32 @@ extension ServerProvidedArticleViewController: UITextViewDelegate {
             }
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
+    
 }
 
+// MARK: - AudioPlayerDelegate
+
 extension ServerProvidedArticleViewController: AudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AudioPlayer) {
+        articlePlayButtonView.playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        customTextView.highlightRangeDuringPlayback = nil
+    }
+    
     func audioPlayerDidStartPlaying(_ player: AudioPlayer) {
-        playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        articlePlayButtonView.playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
     }
     
     func audioPlayerDidPause(_ player: AudioPlayer) {
-        playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        articlePlayButtonView.playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
     }
     
     func audioPlayerDidStop(_ player: AudioPlayer) {
-        
+        articlePlayButtonView.playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        customTextView.highlightRangeDuringPlayback = nil
     }
     
     func audioPlayer(_ player: AudioPlayer, didUpdateToMarkName markName: String) {
