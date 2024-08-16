@@ -234,7 +234,7 @@ struct WordSelectorViewControllerViewModel {
     }
     
     func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: inout FSArticle?) {
-        guard var copyArticle = article else { return }
+        guard let copyArticle = article else { return }
         guard let result = copyArticle.ttsSynthesisResult else { return }
         
         for i in 0..<result.timepoints.count {

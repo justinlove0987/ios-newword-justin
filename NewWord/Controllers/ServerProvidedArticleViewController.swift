@@ -181,10 +181,12 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             viewModel.removeCloze(range)
 
             if !viewModel.hasDuplicateClozeLocations(with: range) {
+                let adjustmentOffset = -1
                 let updatedRange = NSRange(location: range.location-1, length: range.length)
                 customTextView.removeNumberImageView(at: updatedRange.location)
-                viewModel.updateTagNSRanges(with: updatedRange, offset: -1)
-                viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: -1, article: &article)
+                viewModel.updateTagNSRanges(with: updatedRange, offset: adjustmentOffset)
+                viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: &article)
+                customTextView.updateCurrentHighlightWordRange(comparedRange: range, adjustmentOffset: adjustmentOffset)
             }
 
             let coloredText = viewModel.calculateColoredTextHeightFraction()
@@ -204,6 +206,12 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
             self.updateTag(with: range, text: text, hint: translatedTraditionalText)
             self.updateCustomTextView()
+            
+            if !self.viewModel.hasDuplicateClozeLocations(with: range) {
+                let adjustmentOffset = 1
+                self.viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: &self.article)
+                self.customTextView.updateCurrentHighlightWordRange(comparedRange: range, adjustmentOffset: adjustmentOffset)
+            }
         }
     }
 
@@ -226,9 +234,9 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
         let textType = self.viewModel.getTextType(text)
         let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, textType: textType, hint: hint)
-
+        
+        
         self.viewModel.updateTagNSRanges(with: updateRange, offset: offset)
-        self.viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: offset, article: &article)
         self.viewModel.appendCloze(newCloze)
     }
 

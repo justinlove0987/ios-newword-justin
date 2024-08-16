@@ -321,6 +321,17 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
             self.contentSize =  CGSize(width: self.frame.width, height: self.frame.height + 30)
         }
     }
+    
+    func updateCurrentHighlightWordRange(comparedRange: NSRange, adjustmentOffset: Int) {
+        guard let highlightRangeDuringPlayback else { return }
+        
+        let isLocationGreater = highlightRangeDuringPlayback.location >= comparedRange.location
+        let newLocation = highlightRangeDuringPlayback.location + adjustmentOffset
+        
+        self.highlightRangeDuringPlayback = NSRange(location: newLocation, length: highlightRangeDuringPlayback.length)
+        
+        self.setNeedsDisplay()
+    }
 }
 
 extension UITextView {

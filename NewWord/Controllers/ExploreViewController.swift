@@ -27,10 +27,18 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         setup()
         
         
-//        let title = "Test"
+//        let title = "Ukraine: A Land of Surprising History and Unyielding Spirit!"
 //        
 //        let content = """
 //        Ukraine, a nation with roots stretching back millennia, is not just a country but a testament to resilience, culture, and innovation. This Eastern European land, often known for its rich black soil and the tragic Chernobyl disaster, harbors secrets that continue to fascinate the world.
+//
+//        Did you know that Ukraine is home to the world’s first constitution? Drafted in 1710 by Hetman Pylyp Orlyk, this pioneering document laid down the rights of citizens and the government long before other nations caught up. Ukraine's legacy of democracy continued with the Zaporizhzhya Sich, a Cossack-run society from the 16th century, hailed as one of the earliest examples of democratic governance.
+//
+//        But Ukraine's influence isn't limited to governance. Its cultural contributions are just as remarkable. Take, for instance, the world's oldest map, etched into a mammoth bone, discovered in Mezhyrichchia, Ukraine. Or the Ukrainian lullaby that inspired George Gershwin's famous "Summertime." Even space exploration has a Ukrainian twist, with the first song ever sung in space being performed by Ukrainian cosmonaut Pavlo Popovych.
+//
+//        However, Ukraine's story isn't just about its past; it's also about its indomitable spirit today. Despite the ongoing conflict, Ukrainians continue to show the world their strength, creativity, and dedication to freedom. Whether it's in the face of foreign invasions or in the efforts to rebuild and innovate, Ukraine stands as a beacon of courage.
+//
+//        From the vast Carpathian Mountains to the bustling city streets of Kyiv, Ukraine is a land full of surprises, where history and modernity blend seamlessly. This nation, with its deep cultural roots and unwavering resolve, is not just surviving but thriving, proving to the world that Ukraine is indeed an amazing and unbreakable people.
 //        """
 //        
 //        let text = "\(title)\n\n\(content)"
