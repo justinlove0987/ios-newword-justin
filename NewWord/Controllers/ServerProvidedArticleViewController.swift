@@ -15,12 +15,10 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var imageCoverView: UIView!
-    
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var originalTextLabel: UILabel!
     @IBOutlet weak var translatedTextLabel: UILabel!
     @IBOutlet var translationContentView: UIView!
-    
     @IBOutlet weak var articlePlayButtonView: ArticlePlayButtonView!
     @IBOutlet weak var selectModeButton: UIButton!
     
@@ -50,7 +48,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         setupProperties()
         setupViewModel()
 
-        applyBottomToTopFadeGradient(to: imageCoverView, startColor: .background, endColor: .clear)
+
     }
 
     private func setupProperties() {
@@ -60,11 +58,24 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         customTextView.text = article?.text
         
         articlePlayButtonView.playButton.addTarget(self, action: #selector(playArticle), for: .touchUpInside)
-        
+
+        applyBottomToTopFadeGradient(to: imageCoverView, startColor: .background, endColor: .clear)
+
         articlePlayButtonView.addDefaultBorder(cornerRadius: 5)
         selectModeButton.addDefaultBorder(cornerRadius: 5)
+
         player.delegate = self
         
+        downloadAudio { isDownloadSuccessful, audioData in
+            if isDownloadSuccessful {
+                guard let audioData else { return }
+                self.player.audioData = audioData
+                self.player.setupAudioPlayer()
+
+            } else {
+                self.articlePlayButtonView.isHidden = true
+            }
+        }
 
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
@@ -123,14 +134,17 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
                 self.player.playAudioWithMarks(article)
                 
             } else {
-                FirestoreManager.shared.downloadAudio(audioId: ttsSynthesisResult.audioId) { isDownloadSuccessful, audioData in
-                    guard let audioData else { return }
-                    
-                    self.player.audioData = audioData
-                    self.player.setupAudioPlayer()
-                    self.player.playAudioWithMarks(article)
-                }
+                downloadAudio { isDownloadSuccessful, audioData in
+                    if isDownloadSuccessful {
+                        guard let audioData else { return }
+                        self.player.audioData = audioData
+                        self.player.setupAudioPlayer()
+                        self.player.playAudioWithMarks(article)
 
+                    } else {
+                        self.articlePlayButtonView.isHidden = true
+                    }
+                }
             }
             
         case .playing:
@@ -235,7 +249,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         let textType = self.viewModel.getTextType(text)
         let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, textType: textType, hint: hint)
         
-        
         self.viewModel.updateTagNSRanges(with: updateRange, offset: offset)
         self.viewModel.appendCloze(newCloze)
     }
@@ -265,6 +278,17 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 0.0)
 
         view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+
+    private func downloadAudio(completion: ((_ isDownloadSuccessful: Bool, _ audioData: Data?) -> Void)? = nil) {
+        guard let article = article, let ttsSynthesisResult = article.ttsSynthesisResult else {
+            completion?(false, nil)
+            return
+        }
+
+        FirestoreManager.shared.downloadAudio(audioId: ttsSynthesisResult.audioId) { isDownloadSuccessful, audioData in
+            completion?(isDownloadSuccessful, audioData)
+        }
     }
 }
 

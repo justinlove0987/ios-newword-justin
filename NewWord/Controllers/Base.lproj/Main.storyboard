@@ -755,10 +755,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="6KQ-ks-URk">
-                                <rect key="frame" x="196.66666666666666" y="707" width="124.66666666666666" height="50"/>
+                                <rect key="frame" x="134" y="707" width="125" height="50"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wKG-Rq-Fzl" customClass="ArticlePlayButtonView" customModule="NewWord" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="67.666666666666671" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="68" height="50"/>
                                         <color key="backgroundColor" name="background"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="67.670000000000002" placeholder="YES" id="O9M-0e-7tZ"/>
@@ -766,7 +766,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLQ-bd-QaB">
-                                        <rect key="frame" x="79.666666666666657" y="0.0" width="45" height="50"/>
+                                        <rect key="frame" x="80" y="0.0" width="45" height="50"/>
                                         <inset key="contentEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="單字">
@@ -799,7 +799,7 @@
                             <constraint firstItem="o7E-Td-Qsh" firstAttribute="leading" secondItem="tKW-eH-RXM" secondAttribute="leading" constant="12" id="rhh-XA-S7b"/>
                             <constraint firstItem="8Bn-6I-6YX" firstAttribute="top" secondItem="60r-4l-xue" secondAttribute="top" id="u51-wZ-LKg"/>
                             <constraint firstItem="8Bn-6I-6YX" firstAttribute="leading" secondItem="tKW-eH-RXM" secondAttribute="leading" id="ulg-ds-JHW"/>
-                            <constraint firstItem="6KQ-ks-URk" firstAttribute="leading" secondItem="tKW-eH-RXM" secondAttribute="centerX" id="wMd-Ph-5aO"/>
+                            <constraint firstItem="6KQ-ks-URk" firstAttribute="centerX" secondItem="tKW-eH-RXM" secondAttribute="centerX" id="wMd-Ph-5aO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UCv-hw-Rdh">
@@ -958,20 +958,20 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingCell" id="A5l-Xh-hd9" customClass="SettingCell" customModule="NewWord" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="353" height="53.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="353" height="53"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A5l-Xh-hd9" id="aqB-lT-EXF">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="53.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="53"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="聯絡我們" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9DP-tt-vs9">
-                                                    <rect key="frame" x="20" y="16" width="69.333333333333329" height="21.666666666666671"/>
+                                                    <rect key="frame" x="20" y="16" width="69.333333333333329" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="title"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="justin.tseng.developer@gamil.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcD-KO-SnQ">
-                                                    <rect key="frame" x="139" y="19.666666666666668" width="194" height="14.333333333333332"/>
+                                                    <rect key="frame" x="139" y="19.333333333333332" width="194" height="14.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" name="description"/>
                                                     <nil key="highlightedColor"/>

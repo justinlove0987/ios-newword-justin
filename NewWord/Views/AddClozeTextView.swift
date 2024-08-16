@@ -326,11 +326,13 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
         guard let highlightRangeDuringPlayback else { return }
         
         let isLocationGreater = highlightRangeDuringPlayback.location >= comparedRange.location
-        let newLocation = highlightRangeDuringPlayback.location + adjustmentOffset
-        
-        self.highlightRangeDuringPlayback = NSRange(location: newLocation, length: highlightRangeDuringPlayback.length)
-        
-        self.setNeedsDisplay()
+
+        if isLocationGreater {
+            let newLocation = highlightRangeDuringPlayback.location + adjustmentOffset
+
+            self.highlightRangeDuringPlayback = NSRange(location: newLocation, length: highlightRangeDuringPlayback.length)
+            self.setNeedsDisplay()
+        }
     }
 }
 
