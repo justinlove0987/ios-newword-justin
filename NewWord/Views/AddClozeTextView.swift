@@ -12,7 +12,7 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
 
     typealias ColoredText = WordSelectorViewControllerViewModel.ColoredText
     typealias ColoredMark = WordSelectorViewControllerViewModel.ColoredMark
-    
+
     var highlightRangeDuringPlayback: NSRange? {
         didSet {
             setNeedsDisplay()
@@ -29,7 +29,7 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
         super.layoutSubviews()
         setNeedsDisplay() // 重新繪製
     }
-    
+
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         self.delegate = self
@@ -54,7 +54,7 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
 
         super.draw(rect)
     }
-    
+
     func drawUserSelectedColorRanges(in context: CGContext?) {
         guard let font = self.font else { return }
 
@@ -93,10 +93,10 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
             }
         }
     }
-    
+
     func drawHighlightBackground(for range: NSRange?, with color: UIColor, in context: CGContext?) {
         guard let range = range, let font = self.font else { return }
-        
+
         color.setFill()
 
         layoutManager.enumerateLineFragments(forGlyphRange: range) { rect, usedRect, textContainer, glyphRange, stop in
@@ -296,35 +296,35 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
 
     func setProperties() {
         guard let text = self.text else { return }
-        
+
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = UserDefaultsManager.shared.preferredLineSpacing
-        
+
         // 設置字體和段落樣式
         let attributes: [NSAttributedString.Key: Any] = [
             .paragraphStyle: paragraphStyle,
             .font: UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize, weight: .medium),
             .foregroundColor: UIColor.title
         ]
-        
+
         font = UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize, weight: .medium)
         textColor = UIColor.title
         textStorage.addAttributes(attributes, range: NSRange(location: 0, length: text.count))
-        
+
         // 計算文字大小
         let size = CGSize(width: self.frame.width, height: CGFloat.greatestFiniteMagnitude)
         let boundingRect = (text as NSString).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-        
+
         // 設置contentSize
-        
+
         if boundingRect.height < self.frame.height + 30 {
             self.contentSize =  CGSize(width: self.frame.width, height: self.frame.height + 30)
         }
     }
-    
+
     func updateCurrentHighlightWordRange(comparedRange: NSRange, adjustmentOffset: Int) {
         guard let highlightRangeDuringPlayback else { return }
-        
+
         let isLocationGreater = highlightRangeDuringPlayback.location >= comparedRange.location
 
         if isLocationGreater {
@@ -334,114 +334,63 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
             self.setNeedsDisplay()
         }
     }
-    
+
     func addDottedUnderline(in range: NSRange) {
         textStorage.addAttribute(.underlineStyle, value: NSUnderlineStyle.thick.rawValue, range: range)
     }
-    
+
+    private var animationLayers: [CAShapeLayer] = []
     private var animationLayer: CAShapeLayer?
     private var fakeLayer: CAShapeLayer?
     private var gradientLayer: CAGradientLayer?
-    
+
+
     var underlineColor: UIColor = .blue
-    var underlineHeight: CGFloat = 2
+    var underlineHeight: CGFloat = 4
     var underlineOffset: CGFloat = 0.0
-    var dashPattern: [NSNumber] = [4, 2]
-    var underlineView: UIView?
-    
+    var dashPattern: [NSNumber] = [4, 4]
+
     func addDashedUnderline(in range: NSRange) {
-        guard let font = self.font else { return }
+        guard self.font != nil else { return }
 
         let layoutManager = self.layoutManager
         let textContainer = self.textContainer
-        let textStorage = self.textStorage
 
         layoutManager.ensureLayout(for: textContainer)
 
         let glyphRange = layoutManager.glyphRange(forCharacterRange: range, actualCharacterRange: nil)
-        
-        layoutManager.enumerateLineFragments(forGlyphRange: glyphRange) { rect, usedRect, textContainer, glyphRange, _ in
-            let underlineY = usedRect.maxY + self.underlineOffset
+
+        layoutManager.enumerateLineFragments(forGlyphRange: glyphRange) { rect, usedRect, _, glyphRange, _ in
+
+            // 計算每行的字符範圍
+            let characterRange = layoutManager.characterRange(forGlyphRange: glyphRange, actualGlyphRange: nil)
+            let lineRange = NSIntersectionRange(characterRange, range)
+
+            // 如果這一行確實在 NSRange 的範圍內
+            guard lineRange.length > 0 else { return }
+
+            // 確保虛線只繪製在有效範圍內
+            let startX = layoutManager.boundingRect(forGlyphRange: layoutManager.glyphRange(forCharacterRange: NSRange(location: lineRange.location, length: 1), actualCharacterRange: nil), in: textContainer).minX
+            let endX = layoutManager.boundingRect(forGlyphRange: layoutManager.glyphRange(forCharacterRange: NSRange(location: NSMaxRange(lineRange) - 1, length: 1), actualCharacterRange: nil), in: textContainer).maxX
+
+            let underlineY = rect.origin.y + rect.size.height + self.underlineOffset + self.underlineHeight / 2
 
             let path = UIBezierPath()
-            path.move(to: CGPoint(x: usedRect.origin.x, y: underlineY))
-            path.addLine(to: CGPoint(x: usedRect.maxX, y: underlineY))
+            path.move(to: CGPoint(x: startX, y: underlineY))
+            path.addLine(to: CGPoint(x: endX, y: underlineY))
 
             let shapeLayer = CAShapeLayer()
             shapeLayer.path = path.cgPath
             shapeLayer.strokeColor = self.underlineColor.cgColor
             shapeLayer.lineWidth = self.underlineHeight
             shapeLayer.lineDashPattern = self.dashPattern
-            shapeLayer.lineCap = .round
 
             self.layer.addSublayer(shapeLayer)
             self.animationLayer = shapeLayer
 
-            self.addDashAnimation(to: shapeLayer)
         }
     }
 
-    private func addDashAnimation(to layer: CAShapeLayer) {
-        let dashAnimation = CABasicAnimation(keyPath: "lineDashPhase")
-        dashAnimation.fromValue = 0
-        dashAnimation.toValue = dashPattern.reduce(0) { $0 + $1.intValue }
-        dashAnimation.duration = 0.75
-        dashAnimation.repeatCount = .infinity
-
-        layer.add(dashAnimation, forKey: "lineDashPhase")
-    }
-    
-    
-    
-    func addDashedUnderlineWord1(in range: NSRange) {
-        guard self.font != nil else { return }
-
-        // 獲取textStorage的layoutManager
-        let layoutManager = self.layoutManager
-        let textContainer = self.textContainer
-
-        layoutManager.ensureLayout(for: textContainer)
-
-        // 獲取範圍內的字符框架
-        let glyphRange = layoutManager.glyphRange(forCharacterRange: range, actualCharacterRange: nil)
-
-        // 計算範圍內的字元框架
-        layoutManager.enumerateEnclosingRects(forGlyphRange: glyphRange, withinSelectedGlyphRange: glyphRange, in: textContainer) { rect, stop in
-            
-            let underlineY = rect.origin.y + rect.size.height + self.underlineOffset
-            
-            let path = UIBezierPath()
-            path.move(to: CGPoint(x: rect.origin.x, y: underlineY))
-            path.addLine(to: CGPoint(x: rect.maxX, y: underlineY))
-            
-            let shapeLayer = CAShapeLayer()
-            
-            shapeLayer.path = path.cgPath
-            shapeLayer.strokeColor = self.underlineColor.cgColor
-            shapeLayer.lineWidth = self.underlineHeight
-            shapeLayer.lineDashPattern = self.dashPattern
-            shapeLayer.lineCap = .round
-            // shapeLayer.zPosition = -1
-            
-            let gradientLayer = CAGradientLayer()
-            gradientLayer.frame = CGRect(x: rect.origin.x, y: underlineY, width: rect.size.width, height: self.underlineHeight)
-//            gradientLayer.colors = [UIColor.red.cgColor, UIColor.blue.cgColor]
-            
-//            gradientLayer.mask = shapeLayer
-//            gradientLayer.masksToBounds = true
-            
-//            gradientLayer.mask = fakeShapeLayer
-
-//            self.layer.addSublayer(shapeLayer)
-            self.layer.addSublayer(gradientLayer)
-            
-//            self.animationLayer = shapeLayer
-            self.gradientLayer = gradientLayer
-            
-//            self.addTransitionAnimation(to: gradientLayer)
-        }
-    }
-    
     func addDashedUnderlineWord(in range: NSRange) {
         guard self.font != nil else { return }
 
@@ -456,7 +405,7 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
 
         // 計算範圍內的字元框架
         layoutManager.enumerateEnclosingRects(forGlyphRange: glyphRange, withinSelectedGlyphRange: glyphRange, in: textContainer) { rect, stop in
-            
+
             let underlineY = rect.origin.y + rect.size.height + self.underlineOffset
 
             // 創建 UIView 作為虛線下劃線
@@ -467,45 +416,121 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
             let path = UIBezierPath()
             path.move(to: CGPoint(x: 0, y: self.underlineHeight / 2))
             path.addLine(to: CGPoint(x: rect.size.width, y: self.underlineHeight / 2))
-            
+
             shapeLayer.path = path.cgPath
-            shapeLayer.strokeColor = UIColor.clear.cgColor // 虛線顏色
+            shapeLayer.strokeColor = UIColor.red.cgColor // 虛線顏色
             shapeLayer.lineWidth = self.underlineHeight
             shapeLayer.lineDashPattern = self.dashPattern
-            
-//            underlineView.layer.addSublayer(shapeLayer)
+
+            underlineView.layer.addSublayer(shapeLayer)
+
+            self.gradientSet.append([self.gradientOne, self.gradientTwo])
+            self.gradientSet.append([self.gradientTwo, self.gradientOne])
+//            self.gradientSet.append([self.gradientThree, self.gradientOne])
 
             // 創建 CAGradientLayer 用來添加漸層顏色
             let gradientLayer = CAGradientLayer()
+
             gradientLayer.frame = underlineView.bounds
-            gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
-            gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
-            gradientLayer.cornerRadius = underlineView.bounds.height / 2
-            
-            self.gradientLayer = gradientLayer
-            
-            //            gradientLayer.mask = shapeLayer
-            
+            gradientLayer.colors = self.gradientSet[self.currentGradient]
+//            gradientLayer.colors = [UIColor.clear.cgColor, UIColor.red.cgColor, UIColor.clear.cgColor]
+            gradientLayer.startPoint = CGPoint(x:0, y:0.5)
+            gradientLayer.endPoint = CGPoint(x:1, y:0.5)
+            gradientLayer.drawsAsynchronously = true
+            gradientLayer.mask = shapeLayer
+
             underlineView.layer.addSublayer(gradientLayer)
-            
-            
-            
+            self.gradientLayer = gradientLayer
+
             // 把 UIView 添加到當前視圖中
             self.addSubview(underlineView)
-//            self.underlineView = underlineView
-            
-            self.addTransitionAnimation(to: gradientLayer)
-            
+
             // 設置 UIView 的層級，以確保它在文本上方
-//            self.bringSubviewToFront(underlineView)
+            self.bringSubviewToFront(underlineView)
+
+            // 創建 CAGradientLayer 用來添加漸層顏色
+            let movingGradientLayer = CAGradientLayer()
+
+            movingGradientLayer.frame = CGRect(x: 0, y: 0, width: underlineView.bounds.width / 2, height: underlineView.bounds.height)
+            movingGradientLayer.colors = [UIColor.clear.cgColor, UIColor.red.cgColor, UIColor.clear.cgColor]
+            movingGradientLayer.startPoint = CGPoint(x:0, y:0.5)
+            movingGradientLayer.endPoint = CGPoint(x:1, y:0.5)
+            movingGradientLayer.drawsAsynchronously = true
+//            movingGradientLayer.mask = shapeLayer
+//            underlineView.layer.addSublayer(movingGradientLayer)
+
+            self.animateGradient(to: gradientLayer)
+//            self.animateGradient(layer: movingGradientLayer, viewWidth: rect.size.width)
         }
     }
-    
+
     private func addTransitionAnimation(to layer: CAGradientLayer) {
         let group = makeAnimationGroup()
         group.beginTime = 0.0
         print("Animation Group: \(group)")
         layer.add(group, forKey: "backgroundColor")
+    }
+
+    private func tryAnimation(to layer: CAShapeLayer) {
+        let group = testAnimationGroup()
+        group.beginTime = 0.0
+        group.repeatCount = .infinity
+        group.isRemovedOnCompletion = false
+        print("Animation Group: \(group)")
+        layer.add(group, forKey: "backgroundColor")
+    }
+
+    let gradient = CAGradientLayer()
+    var gradientSet = [[CGColor]]()
+    var currentGradient: Int = 0
+    
+//    let gradientOne = UIColor(red: 239 / 255.0, green: 241 / 255.0, blue: 241 / 255.0, alpha: 1).cgColor
+//    let gradientTwo = UIColor(red: 201 / 255.0, green: 201 / 255.0, blue: 201 / 255.0, alpha: 1).cgColor
+//    let gradientThree = UIColor.green.cgColor
+    let gradientOne = UIColor(red: 48/255, green: 62/255, blue: 103/255, alpha: 1).cgColor
+    let gradientTwo = UIColor(red: 244/255, green: 88/255, blue: 53/255, alpha: 1).cgColor
+//    let gradientThree = UIColor(red: 196/255, green: 70/255, blue: 107/255, alpha: 1).cgColor
+
+    func animateGradient(to layer: CAGradientLayer) {
+        let gradientChangeAnimation = CABasicAnimation(keyPath: "colors")
+
+        gradientChangeAnimation.fillMode = .forwards
+        gradientChangeAnimation.delegate = self
+        gradientChangeAnimation.duration = 1
+
+        gradientChangeAnimation.fromValue = gradientSet[currentGradient]
+
+        if currentGradient < gradientSet.count - 1 {
+            currentGradient += 1
+        } else {
+            currentGradient = 0
+        }
+
+        gradientChangeAnimation.toValue = gradientSet[currentGradient]
+
+
+        gradientChangeAnimation.isRemovedOnCompletion = false
+
+        layer.add(gradientChangeAnimation, forKey: "colorChange")
+    }
+
+    func animateGradient(layer: CAGradientLayer, viewWidth: CGFloat) {
+        let animation = CABasicAnimation(keyPath: "position.x")
+        animation.fromValue = 0
+        animation.toValue = viewWidth
+        animation.duration = 2.0
+        animation.repeatCount = .infinity
+
+        layer.add(animation, forKey: "animateGradient")
+    }
+
+    func moveFirstElementToLast(in layers: inout [CAShapeLayer]) {
+        // 確保陣列不為空
+        guard !layers.isEmpty else { return }
+
+        // 移動第一個元素到最後一個位置
+        let firstElement = layers.removeFirst()
+        layers.append(firstElement)
     }
 }
 
@@ -525,3 +550,15 @@ extension UITextView {
 // MARK: - SkeletonLoadable
 
 extension AddClozeTextView: SkeletonLoadable {}
+
+// MARK: - CAAnimationDelegate
+
+extension AddClozeTextView: CAAnimationDelegate {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        guard let gradientLayer else { return }
+
+        if flag {
+            animateGradient(to: gradientLayer)
+        }
+    }
+}
