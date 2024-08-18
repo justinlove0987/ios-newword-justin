@@ -334,6 +334,179 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
             self.setNeedsDisplay()
         }
     }
+    
+    func addDottedUnderline(in range: NSRange) {
+        textStorage.addAttribute(.underlineStyle, value: NSUnderlineStyle.thick.rawValue, range: range)
+    }
+    
+    private var animationLayer: CAShapeLayer?
+    private var fakeLayer: CAShapeLayer?
+    private var gradientLayer: CAGradientLayer?
+    
+    var underlineColor: UIColor = .blue
+    var underlineHeight: CGFloat = 2
+    var underlineOffset: CGFloat = 0.0
+    var dashPattern: [NSNumber] = [4, 2]
+    var underlineView: UIView?
+    
+    func addDashedUnderline(in range: NSRange) {
+        guard let font = self.font else { return }
+
+        let layoutManager = self.layoutManager
+        let textContainer = self.textContainer
+        let textStorage = self.textStorage
+
+        layoutManager.ensureLayout(for: textContainer)
+
+        let glyphRange = layoutManager.glyphRange(forCharacterRange: range, actualCharacterRange: nil)
+        
+        layoutManager.enumerateLineFragments(forGlyphRange: glyphRange) { rect, usedRect, textContainer, glyphRange, _ in
+            let underlineY = usedRect.maxY + self.underlineOffset
+
+            let path = UIBezierPath()
+            path.move(to: CGPoint(x: usedRect.origin.x, y: underlineY))
+            path.addLine(to: CGPoint(x: usedRect.maxX, y: underlineY))
+
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.path = path.cgPath
+            shapeLayer.strokeColor = self.underlineColor.cgColor
+            shapeLayer.lineWidth = self.underlineHeight
+            shapeLayer.lineDashPattern = self.dashPattern
+            shapeLayer.lineCap = .round
+
+            self.layer.addSublayer(shapeLayer)
+            self.animationLayer = shapeLayer
+
+            self.addDashAnimation(to: shapeLayer)
+        }
+    }
+
+    private func addDashAnimation(to layer: CAShapeLayer) {
+        let dashAnimation = CABasicAnimation(keyPath: "lineDashPhase")
+        dashAnimation.fromValue = 0
+        dashAnimation.toValue = dashPattern.reduce(0) { $0 + $1.intValue }
+        dashAnimation.duration = 0.75
+        dashAnimation.repeatCount = .infinity
+
+        layer.add(dashAnimation, forKey: "lineDashPhase")
+    }
+    
+    
+    
+    func addDashedUnderlineWord1(in range: NSRange) {
+        guard self.font != nil else { return }
+
+        // 獲取textStorage的layoutManager
+        let layoutManager = self.layoutManager
+        let textContainer = self.textContainer
+
+        layoutManager.ensureLayout(for: textContainer)
+
+        // 獲取範圍內的字符框架
+        let glyphRange = layoutManager.glyphRange(forCharacterRange: range, actualCharacterRange: nil)
+
+        // 計算範圍內的字元框架
+        layoutManager.enumerateEnclosingRects(forGlyphRange: glyphRange, withinSelectedGlyphRange: glyphRange, in: textContainer) { rect, stop in
+            
+            let underlineY = rect.origin.y + rect.size.height + self.underlineOffset
+            
+            let path = UIBezierPath()
+            path.move(to: CGPoint(x: rect.origin.x, y: underlineY))
+            path.addLine(to: CGPoint(x: rect.maxX, y: underlineY))
+            
+            let shapeLayer = CAShapeLayer()
+            
+            shapeLayer.path = path.cgPath
+            shapeLayer.strokeColor = self.underlineColor.cgColor
+            shapeLayer.lineWidth = self.underlineHeight
+            shapeLayer.lineDashPattern = self.dashPattern
+            shapeLayer.lineCap = .round
+            // shapeLayer.zPosition = -1
+            
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.frame = CGRect(x: rect.origin.x, y: underlineY, width: rect.size.width, height: self.underlineHeight)
+//            gradientLayer.colors = [UIColor.red.cgColor, UIColor.blue.cgColor]
+            
+//            gradientLayer.mask = shapeLayer
+//            gradientLayer.masksToBounds = true
+            
+//            gradientLayer.mask = fakeShapeLayer
+
+//            self.layer.addSublayer(shapeLayer)
+            self.layer.addSublayer(gradientLayer)
+            
+//            self.animationLayer = shapeLayer
+            self.gradientLayer = gradientLayer
+            
+//            self.addTransitionAnimation(to: gradientLayer)
+        }
+    }
+    
+    func addDashedUnderlineWord(in range: NSRange) {
+        guard self.font != nil else { return }
+
+        // 獲取textStorage的layoutManager
+        let layoutManager = self.layoutManager
+        let textContainer = self.textContainer
+
+        layoutManager.ensureLayout(for: textContainer)
+
+        // 獲取範圍內的字符框架
+        let glyphRange = layoutManager.glyphRange(forCharacterRange: range, actualCharacterRange: nil)
+
+        // 計算範圍內的字元框架
+        layoutManager.enumerateEnclosingRects(forGlyphRange: glyphRange, withinSelectedGlyphRange: glyphRange, in: textContainer) { rect, stop in
+            
+            let underlineY = rect.origin.y + rect.size.height + self.underlineOffset
+
+            // 創建 UIView 作為虛線下劃線
+            let underlineView = UIView(frame: CGRect(x: rect.origin.x, y: underlineY, width: rect.size.width, height: self.underlineHeight))
+
+            // 創建 CAShapeLayer 用來繪製虛線
+            let shapeLayer = CAShapeLayer()
+            let path = UIBezierPath()
+            path.move(to: CGPoint(x: 0, y: self.underlineHeight / 2))
+            path.addLine(to: CGPoint(x: rect.size.width, y: self.underlineHeight / 2))
+            
+            shapeLayer.path = path.cgPath
+            shapeLayer.strokeColor = UIColor.clear.cgColor // 虛線顏色
+            shapeLayer.lineWidth = self.underlineHeight
+            shapeLayer.lineDashPattern = self.dashPattern
+            
+//            underlineView.layer.addSublayer(shapeLayer)
+
+            // 創建 CAGradientLayer 用來添加漸層顏色
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.frame = underlineView.bounds
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+            gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+            gradientLayer.cornerRadius = underlineView.bounds.height / 2
+            
+            self.gradientLayer = gradientLayer
+            
+            //            gradientLayer.mask = shapeLayer
+            
+            underlineView.layer.addSublayer(gradientLayer)
+            
+            
+            
+            // 把 UIView 添加到當前視圖中
+            self.addSubview(underlineView)
+//            self.underlineView = underlineView
+            
+            self.addTransitionAnimation(to: gradientLayer)
+            
+            // 設置 UIView 的層級，以確保它在文本上方
+//            self.bringSubviewToFront(underlineView)
+        }
+    }
+    
+    private func addTransitionAnimation(to layer: CAGradientLayer) {
+        let group = makeAnimationGroup()
+        group.beginTime = 0.0
+        print("Animation Group: \(group)")
+        layer.add(group, forKey: "backgroundColor")
+    }
 }
 
 extension UITextView {
@@ -349,4 +522,6 @@ extension UITextView {
     }
 }
 
+// MARK: - SkeletonLoadable
 
+extension AddClozeTextView: SkeletonLoadable {}
