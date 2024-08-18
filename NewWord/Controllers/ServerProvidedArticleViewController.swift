@@ -174,13 +174,13 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             switch viewModel.selectMode {
             case .word:
                 if let wordRange = customTextView.wordRange(at: characterIndex) {
-                    
                     customTextView.addDashedUnderlineWord(in: wordRange)
                     // tagWord(range: wordRange)
                 }
             case .sentence:
                 if let sentenceRange =  customTextView.sentenceRangeContainingCharacter(at: characterIndex) {
                     customTextView.addDashedUnderline(in: sentenceRange)
+                    
                     // tagWord(range: sentenceRange)
                 }
             }
