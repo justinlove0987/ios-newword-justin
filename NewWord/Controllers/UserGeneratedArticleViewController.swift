@@ -170,7 +170,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
 
         guard !text.startsWithObjectReplacementCharacter() else { return }
         guard !viewModel.isWhitespace(text) else { return }
-        guard !viewModel.containsCloze(range) else {
+        guard !viewModel.containsTag(range) else {
             viewModel.removeCloze(range)
 
             if !viewModel.hasDuplicateClozeLocations(with: range) {

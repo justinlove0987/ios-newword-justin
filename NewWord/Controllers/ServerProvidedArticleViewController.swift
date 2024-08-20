@@ -133,7 +133,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     
     @objc func playArticle(_ sender: UIButton) {
         guard let article else { return }
-        guard let ttsSynthesisResult =  article.ttsSynthesisResult else { return }
+        // guard let ttsSynthesisResult =  article.ttsSynthesisResult else { return }
         
         switch player.state {
         case .notPlayed:
@@ -206,18 +206,19 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             viewModel.translateEnglishToChinese(textWithoutFFFC) { translatedSimplifiedText in
                 let translatedSimplifiedText = translatedSimplifiedText ?? ""
                 let translatedTraditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
-                let hasDuplicate = self.viewModel.hasDuplicateClozeLocations(with: selectedRange)
+                let containsTag = self.viewModel.containsTag(selectedRange)
                 
                 self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
                 
                 textView.removeAllDashedUnderlines()
                 textView.addDashedUnderline(in: selectedRange, forWord: isWord)
-                triggerImpactFeedback()
                 
                 self.viewModel.selectMode = isWord ? .word : .sentence
                 self.viewModel.currentSelectedRange = selectedRange
                 
-                self.updatePracticeModeSelector(hasDuplicate: hasDuplicate)
+                self.updatePracticeModeSelector(containsTag: containsTag)
+                
+                triggerImpactFeedback()
             }
         }
     }
@@ -229,22 +230,19 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
 
         guard !text.startsWithObjectReplacementCharacter() else { return }
         guard !viewModel.isWhitespace(text) else { return }
-        guard !viewModel.containsCloze(range) else {
+        
+        if viewModel.containsTag(range) {
             viewModel.removeCloze(range)
+            
+            let adjustmentOffset = -1
+            let updatedRange = NSRange(location: range.location-1, length: range.length)
 
             if !viewModel.hasDuplicateClozeLocations(with: range) {
-                let adjustmentOffset = -1
-                let updatedRange = NSRange(location: range.location-1, length: range.length)
-                
                 customTextView.removeNumberImageView(at: updatedRange.location)
                 viewModel.updateTagNSRanges(with: updatedRange, offset: adjustmentOffset)
                 viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: &article)
                 viewModel.currentSelectedRange = updatedRange
                 customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
-                customTextView.removeAllDashedUnderlines()
-                customTextView.addDashedUnderline(in: updatedRange, forWord: self.viewModel.selectMode == .word)
-                updatePracticeModeSelector(hasDuplicate: self.viewModel.hasDuplicateClozeLocations(with: updatedRange))
-                triggerImpactFeedback()
             }
 
             let coloredText = viewModel.calculateColoredTextHeightFraction()
@@ -253,6 +251,18 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             customTextView.userSelectedColorRanges = coloredText
             customTextView.renewTagImages(coloredMarks)
             customTextView.configureProperties()
+            
+            if viewModel.hasDuplicateClozeLocations(with: range) {
+                customTextView.removeAllDashedUnderlines()
+                customTextView.addDashedUnderline(in: range, forWord: self.viewModel.selectMode == .word)
+                updatePracticeModeSelector(containsTag: self.viewModel.containsTag(range)) // 有duplicate就要用原本的range
+            } else {
+                customTextView.removeAllDashedUnderlines()
+                customTextView.addDashedUnderline(in: updatedRange, forWord: self.viewModel.selectMode == .word)
+                updatePracticeModeSelector(containsTag: self.viewModel.containsTag(updatedRange))
+            }
+            
+            triggerImpactFeedback()
 
             return
         }
@@ -274,10 +284,16 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
                 self.customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
                 self.customTextView.removeAllDashedUnderlines()
                 self.customTextView.addDashedUnderline(in: updatedRange, forWord: self.viewModel.selectMode == .word)
-                self.updatePracticeModeSelector(hasDuplicate: self.viewModel.hasDuplicateClozeLocations(with: updatedRange))
+                self.updatePracticeModeSelector(containsTag: self.viewModel.hasDuplicateClozeLocations(with: updatedRange))
                 
-                triggerImpactFeedback()
+            } else {
+                self.customTextView.removeAllDashedUnderlines()
+                self.customTextView.addDashedUnderline(in: range, forWord: self.viewModel.selectMode == .word)
+                self.updatePracticeModeSelector(containsTag: self.viewModel.containsTag(range))
+                
             }
+            
+            triggerImpactFeedback()
         }
     }
 
@@ -314,12 +330,12 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         self.customTextView.configureProperties()
     }
     
-    private func updatePracticeModeSelector(hasDuplicate: Bool) {
+    private func updatePracticeModeSelector(containsTag: Bool) {
         pacticeModelSelectorView.practiceButton.tintColor = viewModel.selectMode == .word ? UIColor.tagGreen : UIColor.tagBlue
         
         let image: UIImage
         
-        if hasDuplicate {
+        if containsTag {
             image = UIImage(systemName: "xmark.circle.fill")!
         } else {
             image = UIImage(systemName: "bookmark.circle.fill")!

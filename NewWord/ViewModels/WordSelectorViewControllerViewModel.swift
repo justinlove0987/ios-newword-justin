@@ -181,7 +181,7 @@ struct WordSelectorViewControllerViewModel {
         return String(text[rangeInString])
     }
     
-    func containsCloze(_ range: NSRange) -> Bool {
+    func containsTag(_ range: NSRange) -> Bool {
         for i in 0..<clozes.count {
             let currentCloze = clozes[i]
             
