@@ -36,7 +36,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = UIColor.title
-        customTextView.setProperties()
+        customTextView.configureProperties()
     }
 
     deinit {
@@ -47,8 +47,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         setupCumstomTextView()
         setupProperties()
         setupViewModel()
-
-
     }
 
     private func setupProperties() {
@@ -153,14 +151,12 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         case .paused:
             player.playAudioWithMarks(article)
         }
-        
-        
     }
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         guard !customTextView.isTextSelected() else {
             customTextView.selectedTextRange = nil
-            customTextView.setProperties()
+            customTextView.configureProperties()
             return
         }
 
@@ -173,16 +169,33 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         if let characterIndex = customTextView.characterIndex(at: location) {
             switch viewModel.selectMode {
             case .word:
-                if let wordRange = customTextView.wordRange(at: characterIndex) {
-                    customTextView.addDashedUnderlineWord(in: wordRange)
-                    // tagWord(range: wordRange)
-                }
+                handleTextSelection(at: characterIndex, in: customTextView, isWord: true)
             case .sentence:
-                if let sentenceRange =  customTextView.sentenceRangeContainingCharacter(at: characterIndex) {
-                    customTextView.addDashedUnderline(in: sentenceRange)
-                    
-                    // tagWord(range: sentenceRange)
-                }
+                handleTextSelection(at: characterIndex, in: customTextView, isWord: false)
+            }
+        }
+    }
+
+    private func handleTextSelection(at characterIndex: Int, in textView: AddClozeTextView, isWord: Bool) {
+        let range = isWord ? textView.wordRange(at: characterIndex) : textView.sentenceRangeContainingCharacter(at: characterIndex)
+        
+        guard let selectedRange = range else { return }
+
+        // 獲取點擊的文字
+        let text = (textView.text as NSString).substring(with: selectedRange)
+        let textWithoutFFFC = text.removeObjectReplacementCharacter()
+        
+        if !textWithoutFFFC.isBlank {
+            viewModel.translateEnglishToChinese(textWithoutFFFC) { translatedSimplifiedText in
+                let translatedSimplifiedText = translatedSimplifiedText ?? ""
+                let translatedTraditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
+                
+                self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
+                
+                textView.removeAllDashedUnderlines()
+                textView.addDashedUnderline(in: selectedRange, forWord: isWord)
+                textView.triggerImpactFeedback()
+                // tagWord(range: selectedRange)
             }
         }
     }
@@ -211,7 +224,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
 
             customTextView.userSelectedColorRanges = coloredText
             customTextView.renewTagImages(coloredMarks)
-            customTextView.setProperties()
+            customTextView.configureProperties()
 
             return
         }
@@ -262,7 +275,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
 
         self.customTextView.userSelectedColorRanges = coloredText
         self.customTextView.renewTagImages(coloredMarks)
-        self.customTextView.setProperties()
+        self.customTextView.configureProperties()
     }
 
     @objc func appDidBecomeActive() {
@@ -308,11 +321,10 @@ extension ServerProvidedArticleViewController: UITextViewDelegate {
             }
         }
     }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        textView.selectedRange = NSRange(location: 0, length: 0)
     }
-    
 }
 
 // MARK: - AudioPlayerDelegate

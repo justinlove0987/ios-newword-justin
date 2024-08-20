@@ -12,6 +12,10 @@ import NaturalLanguage
 fileprivate let objectReplacementCharacter = "\u{FFFC}"
 
 extension String {
+    var isBlank: Bool {
+           return self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+       }
+    
     var containsChineseCharacters: Bool {
         return self.range(of: "\\p{Han}", options: .regularExpression) != nil
     }

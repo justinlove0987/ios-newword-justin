@@ -138,7 +138,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         guard !customTextView.isTextSelected() else {
             customTextView.selectedTextRange = nil
-            customTextView.setProperties()
+            customTextView.configureProperties()
             return
         }
 
@@ -184,7 +184,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
 
             customTextView.userSelectedColorRanges = coloredText
             customTextView.renewTagImages(coloredMarks)
-            customTextView.setProperties()
+            customTextView.configureProperties()
 
             return
         }
@@ -235,7 +235,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
 
         self.customTextView.userSelectedColorRanges = coloredText
         self.customTextView.renewTagImages(coloredMarks)
-        self.customTextView.setProperties()
+        self.customTextView.configureProperties()
     }
     
     @objc func appDidBecomeActive() {

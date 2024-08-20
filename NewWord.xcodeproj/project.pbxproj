@@ -48,6 +48,7 @@
 		2A7B6CD52C0810030017BB5C /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CD42C0810030017BB5C /* NotificationName+Extension.swift */; };
 		2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */; };
 		2A7F3C102C5B5A3C0028150D /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F3C0F2C5B5A3C0028150D /* ExploreViewController.swift */; };
+		2A89D86A2C7435AC00DDBFF0 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89D8692C7435AC00DDBFF0 /* UITextView+Extension.swift */; };
 		2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */; };
 		2A9C8AF62C3BBE3500D839D8 /* OpenCC in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9C8AF52C3BBE3500D839D8 /* OpenCC */; };
 		2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA328C72BEDF509001D83C2 /* DeckManager.swift */; };
@@ -168,6 +169,7 @@
 		2A7B6CD42C0810030017BB5C /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseNameViewController.swift; sourceTree = "<group>"; };
 		2A7F3C0F2C5B5A3C0028150D /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
+		2A89D8692C7435AC00DDBFF0 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevisePresetViewController.swift; sourceTree = "<group>"; };
 		2AA328C72BEDF509001D83C2 /* DeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckManager.swift; sourceTree = "<group>"; };
 		2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewController.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 				D0DA5ACD2BB66A07008644DC /* Assets.xcassets */,
 				2A2683762C6DA4DD00FFF81D /* AudioPlayer.swift */,
 				2A1A5DA22C719D6600B94037 /* SkeletonLoadable.swift */,
+				2A89D8692C7435AC00DDBFF0 /* UITextView+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				D02E46F72C272CC500418781 /* UserDefaultsManager.swift in Sources */,
 				2AE025FA2BF4AB60006EC021 /* DataManager.swift in Sources */,
 				2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */,
+				2A89D86A2C7435AC00DDBFF0 /* UITextView+Extension.swift in Sources */,
 				2A17DAFA2C157C7F00919642 /* ClozeViewViewModel.swift in Sources */,
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
 				D09262C32C098A4400CA90BA /* CDLapses+Extension.swift in Sources */,
