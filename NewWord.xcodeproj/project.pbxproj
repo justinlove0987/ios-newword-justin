@@ -49,6 +49,8 @@
 		2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */; };
 		2A7F3C102C5B5A3C0028150D /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7F3C0F2C5B5A3C0028150D /* ExploreViewController.swift */; };
 		2A89D86A2C7435AC00DDBFF0 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89D8692C7435AC00DDBFF0 /* UITextView+Extension.swift */; };
+		2A89D86C2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A89D86B2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib */; };
+		2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */; };
 		2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */; };
 		2A9C8AF62C3BBE3500D839D8 /* OpenCC in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9C8AF52C3BBE3500D839D8 /* OpenCC */; };
 		2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA328C72BEDF509001D83C2 /* DeckManager.swift */; };
@@ -170,6 +172,8 @@
 		2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseNameViewController.swift; sourceTree = "<group>"; };
 		2A7F3C0F2C5B5A3C0028150D /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		2A89D8692C7435AC00DDBFF0 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
+		2A89D86B2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeModeSelectorView.xib; sourceTree = "<group>"; };
+		2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeSelectorView.swift; sourceTree = "<group>"; };
 		2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevisePresetViewController.swift; sourceTree = "<group>"; };
 		2AA328C72BEDF509001D83C2 /* DeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckManager.swift; sourceTree = "<group>"; };
 		2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewController.swift; sourceTree = "<group>"; };
@@ -344,6 +348,8 @@
 				2AFF6C9B2C5B5FF100629B26 /* ExploreCell.xib */,
 				2A0D41F22C6EF2C3000B1B3B /* ArticlePlayButtonView.swift */,
 				2A0D41F02C6EF1D0000B1B3B /* ArticlePlayButtonView.xib */,
+				2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */,
+				2A89D86B2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -556,6 +562,7 @@
 				D04AC2052C51E78E00F91A07 /* SearchCell.xib in Resources */,
 				2A17DAFC2C158C3B00919642 /* InputAccessoryView.xib in Resources */,
 				D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */,
+				2A89D86C2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib in Resources */,
 				D00A72EF2BFDEC5A0064F325 /* NoCardView.xib in Resources */,
 				2A02EF2A2C4A386500E21A6E /* TagTestingCell.xib in Resources */,
 				2AFF6C9C2C5B5FF100629B26 /* ExploreCell.xib in Resources */,
@@ -649,6 +656,7 @@
 				D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */,
 				D04AC2042C51E78E00F91A07 /* SearchCell.swift in Sources */,
 				2A17DAFE2C158C5A00919642 /* InputAccessoryView.swift in Sources */,
+				2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */,
 				2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
 				D0B2E3FC2C2BB15F0047B2F5 /* CustomTextView.swift in Sources */,

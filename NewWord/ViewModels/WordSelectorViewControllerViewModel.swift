@@ -79,7 +79,10 @@ struct WordSelectorViewControllerViewModel {
     }
     
     var clozes: [NewAddCloze] = []
+    
     var selectMode: SelectMode = .word
+    
+    var currentSelectedRange: NSRange?
 
     mutating func getClozeNumber() -> Int {
         let clozeNumbers = clozes.map { $0.number }
@@ -282,7 +285,7 @@ struct WordSelectorViewControllerViewModel {
                         hint: String) -> NewAddCloze {
         
         var newCloze: NewAddCloze
-        let tagColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueNumber : UIColor.tagGreen
+        let tagColor: UIColor = selectMode == .sentence ? UIColor.tagBlue : UIColor.tagGreen
         let cotentColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueText: UIColor.textGreen
         
         newCloze = NewAddCloze(number: number, text: cloze, range: range, tagColor: tagColor, contentColor: cotentColor, textType: textType, hint: hint)
@@ -535,6 +538,7 @@ struct WordSelectorViewControllerViewModel {
         
         return nil
     }
+    
 }
 
 // MARK: SelectMode

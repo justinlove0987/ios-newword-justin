@@ -93,12 +93,12 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
     private func setupCumstomTextView() {
         guard let inputText else { return }
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(singleTap(_:)))
 
         customTextView = AddClozeTextView.createTextView(inputText)
         customTextView.delegate = self
         customTextView.translatesAutoresizingMaskIntoConstraints = false
-        customTextView.addGestureRecognizer(tapGesture)
+//        customTextView.addGestureRecognizer(tapGesture)
 
         self.view.addSubview(customTextView)
         

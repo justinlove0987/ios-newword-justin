@@ -30,8 +30,8 @@ class ReviseContextViewController: UIViewController, StoryboardGenerated {
         textView.delegate = self
         textView.keyboardDismissMode = .interactive
         
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handleTap))
-        textView.addGestureRecognizer(panGesture)
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(singleTap))
+//        textView.addGestureRecognizer(panGesture)
         
         nextBarButtonItem.tintColor = UIColor.transition
         nextBarButtonItem.isEnabled = false

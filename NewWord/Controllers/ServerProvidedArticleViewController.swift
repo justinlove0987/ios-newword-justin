@@ -20,11 +20,14 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBOutlet weak var translatedTextLabel: UILabel!
     @IBOutlet var translationContentView: UIView!
     @IBOutlet weak var articlePlayButtonView: ArticlePlayButtonView!
+    
+    @IBOutlet weak var bottomPanelStackView: UIStackView!
     @IBOutlet weak var selectModeButton: UIButton!
     
     var article: FSArticle?
 
     private var customTextView: AddClozeTextView!
+    private let pacticeModelSelectorView: PracticeModeSelectorView = PracticeModeSelectorView()
     private var viewModel: WordSelectorViewControllerViewModel!
     private var player: AudioPlayer = AudioPlayer()
     
@@ -58,9 +61,13 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         articlePlayButtonView.playButton.addTarget(self, action: #selector(playArticle), for: .touchUpInside)
 
         applyBottomToTopFadeGradient(to: imageCoverView, startColor: .background, endColor: .clear)
+        
+        bottomPanelStackView.addArrangedSubview(pacticeModelSelectorView)
 
         articlePlayButtonView.addDefaultBorder(cornerRadius: 5)
-        selectModeButton.addDefaultBorder(cornerRadius: 5)
+        pacticeModelSelectorView.addDefaultBorder(cornerRadius: 5)
+        pacticeModelSelectorView.delegate = self
+        // selectModeButton.addDefaultBorder(cornerRadius: 5)
 
         player.delegate = self
         
@@ -83,14 +90,20 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     }
 
     private func setupCumstomTextView() {
-        guard let text = article?.content else { return }
-
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        guard let text = article?.text else { return }
 
         customTextView = AddClozeTextView.createTextView(text)
         customTextView.delegate = self
         customTextView.translatesAutoresizingMaskIntoConstraints = false
-        customTextView.addGestureRecognizer(tapGesture)
+        
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTap(_:)))
+        doubleTapGesture.numberOfTapsRequired = 2
+        customTextView.addGestureRecognizer(doubleTapGesture)
+        
+        let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(singleTap(_:)))
+        singleTapGesture.numberOfTapsRequired = 1
+        singleTapGesture.require(toFail: doubleTapGesture)
+        customTextView.addGestureRecognizer(singleTapGesture)
 
         self.view.addSubview(customTextView)
 
@@ -103,7 +116,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     }
 
     // MARK: - Actions
-
 
     @IBAction func confirmAction(_ sender: UIBarButtonItem) {
         guard var text = customTextView.text else { return }
@@ -147,13 +159,23 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             
         case .playing:
             player.pause()
+            triggerImpactFeedback()
             
         case .paused:
             player.playAudioWithMarks(article)
+            triggerImpactFeedback()
         }
     }
     
-    @objc func handleTap(_ gesture: UITapGestureRecognizer) {
+    @objc func singleTap(_ gesture: UITapGestureRecognizer) {
+        handleTapGesture(gesture, isWordSelection: true)
+    }
+
+    @objc func doubleTap(_ gesture: UITapGestureRecognizer) {
+        handleTapGesture(gesture, isWordSelection: false)
+    }
+
+    private func handleTapGesture(_ gesture: UITapGestureRecognizer, isWordSelection: Bool) {
         guard !customTextView.isTextSelected() else {
             customTextView.selectedTextRange = nil
             customTextView.configureProperties()
@@ -167,12 +189,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         location.y -= customTextView.textContainerInset.top
 
         if let characterIndex = customTextView.characterIndex(at: location) {
-            switch viewModel.selectMode {
-            case .word:
-                handleTextSelection(at: characterIndex, in: customTextView, isWord: true)
-            case .sentence:
-                handleTextSelection(at: characterIndex, in: customTextView, isWord: false)
-            }
+            handleTextSelection(at: characterIndex, in: customTextView, isWord: isWordSelection)
         }
     }
 
@@ -189,17 +206,22 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             viewModel.translateEnglishToChinese(textWithoutFFFC) { translatedSimplifiedText in
                 let translatedSimplifiedText = translatedSimplifiedText ?? ""
                 let translatedTraditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
+                let hasDuplicate = self.viewModel.hasDuplicateClozeLocations(with: selectedRange)
                 
                 self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
                 
                 textView.removeAllDashedUnderlines()
                 textView.addDashedUnderline(in: selectedRange, forWord: isWord)
-                textView.triggerImpactFeedback()
-                // tagWord(range: selectedRange)
+                triggerImpactFeedback()
+                
+                self.viewModel.selectMode = isWord ? .word : .sentence
+                self.viewModel.currentSelectedRange = selectedRange
+                
+                self.updatePracticeModeSelector(hasDuplicate: hasDuplicate)
             }
         }
     }
-
+    
     private func tagWord(range: NSRange) {
         // 獲取點擊的文字
         let text = (customTextView.text as NSString).substring(with: range)
@@ -213,10 +235,16 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             if !viewModel.hasDuplicateClozeLocations(with: range) {
                 let adjustmentOffset = -1
                 let updatedRange = NSRange(location: range.location-1, length: range.length)
+                
                 customTextView.removeNumberImageView(at: updatedRange.location)
                 viewModel.updateTagNSRanges(with: updatedRange, offset: adjustmentOffset)
                 viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: &article)
-                customTextView.updateCurrentHighlightWordRange(comparedRange: range, adjustmentOffset: adjustmentOffset)
+                viewModel.currentSelectedRange = updatedRange
+                customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
+                customTextView.removeAllDashedUnderlines()
+                customTextView.addDashedUnderline(in: updatedRange, forWord: self.viewModel.selectMode == .word)
+                updatePracticeModeSelector(hasDuplicate: self.viewModel.hasDuplicateClozeLocations(with: updatedRange))
+                triggerImpactFeedback()
             }
 
             let coloredText = viewModel.calculateColoredTextHeightFraction()
@@ -239,8 +267,16 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             
             if !self.viewModel.hasDuplicateClozeLocations(with: range) {
                 let adjustmentOffset = 1
+                let updatedRange = NSRange(location: range.location+adjustmentOffset, length: range.length)
+                
                 self.viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: &self.article)
-                self.customTextView.updateCurrentHighlightWordRange(comparedRange: range, adjustmentOffset: adjustmentOffset)
+                self.viewModel.currentSelectedRange = updatedRange
+                self.customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
+                self.customTextView.removeAllDashedUnderlines()
+                self.customTextView.addDashedUnderline(in: updatedRange, forWord: self.viewModel.selectMode == .word)
+                self.updatePracticeModeSelector(hasDuplicate: self.viewModel.hasDuplicateClozeLocations(with: updatedRange))
+                
+                triggerImpactFeedback()
             }
         }
     }
@@ -276,6 +312,20 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         self.customTextView.userSelectedColorRanges = coloredText
         self.customTextView.renewTagImages(coloredMarks)
         self.customTextView.configureProperties()
+    }
+    
+    private func updatePracticeModeSelector(hasDuplicate: Bool) {
+        pacticeModelSelectorView.practiceButton.tintColor = viewModel.selectMode == .word ? UIColor.tagGreen : UIColor.tagBlue
+        
+        let image: UIImage
+        
+        if hasDuplicate {
+            image = UIImage(systemName: "xmark.circle.fill")!
+        } else {
+            image = UIImage(systemName: "bookmark.circle.fill")!
+        }
+        
+        pacticeModelSelectorView.practiceButton.setImage(image, for: .normal)
     }
 
     @objc func appDidBecomeActive() {
@@ -354,5 +404,14 @@ extension ServerProvidedArticleViewController: AudioPlayerDelegate {
         let range = viewModel.rangeForMarkName(in: article, markName: markName)
         
         customTextView.highlightRangeDuringPlayback = range
+    }
+}
+
+extension ServerProvidedArticleViewController: PracticeModeSelectorViewDelegate {
+    func practiceModeSelectorViewDidTapPracticeButton(_ selectorView: PracticeModeSelectorView) {
+        guard let currentSelectedRange = viewModel.currentSelectedRange else { return }
+        
+        tagWord(range: currentSelectedRange)
+        
     }
 }

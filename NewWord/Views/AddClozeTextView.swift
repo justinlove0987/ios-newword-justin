@@ -356,7 +356,7 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
         }
     }
 
-    func updateCurrentHighlightWordRange(comparedRange: NSRange, adjustmentOffset: Int) {
+    func updateHighlightRangeDuringPlayback(comparedRange: NSRange, adjustmentOffset: Int) {
         guard let highlightRangeDuringPlayback else { return }
 
         let isLocationGreater = highlightRangeDuringPlayback.location >= comparedRange.location
@@ -461,11 +461,6 @@ extension AddClozeTextView {
         // self.animateGradient(to: gradientLayer)
     }
     
-    func triggerImpactFeedback() {
-        let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-        feedbackGenerator.impactOccurred()
-    }
-    
     func removeAllDashedUnderlines() {
         // 遍歷所有子視圖
         for subview in self.subviews {
@@ -475,7 +470,7 @@ extension AddClozeTextView {
         }
     }
 
-    func animateGradient(to layer: CAGradientLayer) {
+    private func animateGradient(to layer: CAGradientLayer) {
         let gradientChangeAnimation = CABasicAnimation(keyPath: "colors")
 
         gradientChangeAnimation.fillMode = .forwards
@@ -497,15 +492,8 @@ extension AddClozeTextView {
 
         layer.add(gradientChangeAnimation, forKey: "colorChange")
     }
-
-    func moveFirstElementToLast(in layers: inout [CAShapeLayer]) {
-        // 確保陣列不為空
-        guard !layers.isEmpty else { return }
-
-        // 移動第一個元素到最後一個位置
-        let firstElement = layers.removeFirst()
-        layers.append(firstElement)
-    }
+    
+    
 }
 
 // MARK: - SkeletonLoadable
@@ -522,4 +510,9 @@ extension AddClozeTextView: CAAnimationDelegate {
             animateGradient(to: gradientLayer)
         }
     }
+}
+
+func triggerImpactFeedback() {
+    let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+    feedbackGenerator.impactOccurred()
 }
