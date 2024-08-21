@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2A02EF292C4A386500E21A6E /* TagTestingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A02EF272C4A386500E21A6E /* TagTestingCell.swift */; };
 		2A02EF2A2C4A386500E21A6E /* TagTestingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A02EF282C4A386500E21A6E /* TagTestingCell.xib */; };
+		2A034E832C75879C00668F02 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034E822C75879C00668F02 /* Tag.swift */; };
+		2A034E852C75902D00668F02 /* TranslationPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034E842C75902D00668F02 /* TranslationPair.swift */; };
 		2A034F7D2C3682C800AEDA65 /* CustomNumberTagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A034F7C2C3682C800AEDA65 /* CustomNumberTagView.xib */; };
 		2A034F812C37CCB600AEDA65 /* CustomNumberTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A034F802C37CCB600AEDA65 /* CustomNumberTagView.swift */; };
 		2A0D41F12C6EF1D0000B1B3B /* ArticlePlayButtonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A0D41F02C6EF1D0000B1B3B /* ArticlePlayButtonView.xib */; };
@@ -137,6 +139,8 @@
 /* Begin PBXFileReference section */
 		2A02EF272C4A386500E21A6E /* TagTestingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagTestingCell.swift; sourceTree = "<group>"; };
 		2A02EF282C4A386500E21A6E /* TagTestingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagTestingCell.xib; sourceTree = "<group>"; };
+		2A034E822C75879C00668F02 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		2A034E842C75902D00668F02 /* TranslationPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationPair.swift; sourceTree = "<group>"; };
 		2A034F7C2C3682C800AEDA65 /* CustomNumberTagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomNumberTagView.xib; sourceTree = "<group>"; };
 		2A034F802C37CCB600AEDA65 /* CustomNumberTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNumberTagView.swift; sourceTree = "<group>"; };
 		2A0D41F02C6EF1D0000B1B3B /* ArticlePlayButtonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArticlePlayButtonView.xib; sourceTree = "<group>"; };
@@ -368,6 +372,8 @@
 				D020A4EF2BB9DA6000CA5CAF /* Article.swift */,
 				2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */,
 				D09262BB2C097F2A00CA90BA /* CoreData */,
+				2A034E822C75879C00668F02 /* Tag.swift */,
+				2A034E842C75902D00668F02 /* TranslationPair.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -596,6 +602,7 @@
 				D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */,
 				D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */,
 				D0D6E0E92C1CB38500C1F95E /* ContextLabel.swift in Sources */,
+				2A034E852C75902D00668F02 /* TranslationPair.swift in Sources */,
 				D01961102C43BEA70040735E /* CustomTagView.swift in Sources */,
 				D02BE80E2C67B26F00140DD3 /* GoogleCloudTranslationService.swift in Sources */,
 				D032145B2BD63C2200512263 /* Preferences.swift in Sources */,
@@ -666,6 +673,7 @@
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
 				2A17DAF82C1579E400919642 /* ClozeView.swift in Sources */,
 				D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */,
+				2A034E832C75879C00668F02 /* Tag.swift in Sources */,
 				2AE025F42BF49686006EC021 /* CardManager.swift in Sources */,
 				D09262BA2C097ECD00CA90BA /* CoreDataManager.swift in Sources */,
 				D09262BF2C097FC600CA90BA /* CDLearningRecord+Extension.swift in Sources */,

@@ -8,32 +8,6 @@
 import UIKit
 import NaturalLanguage
 
-struct NewAddCloze {
-    enum TextType {
-        case word
-        case sentence
-        case article
-    }
-    
-    let number: Int
-    let text: String
-    var range: NSRange
-    let tagColor: UIColor
-    let contentColor: UIColor
-    var textType: TextType = .word
-    let hint: String
-    
-    func getTagIndex(in text: String) -> String.Index? {
-        let location = range.location - 1
-
-        if let stringIndex = text.index(text.startIndex, offsetBy: location, limitedBy: text.endIndex) {
-            return stringIndex
-        }
-        
-        return nil
-    }
-}
-
 class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated {
     
     // MARK: - Properties
@@ -166,11 +140,11 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
 
     private func clozeWord(range: NSRange) {
         let text = (customTextView.text as NSString).substring(with: range)
-        let textWithoutFFFC = text.removeObjectReplacementCharacter()
+        // let textWithoutFFFC = text.removeObjectReplacementCharacter()
 
         guard !text.startsWithObjectReplacementCharacter() else { return }
         guard !viewModel.isWhitespace(text) else { return }
-        guard !viewModel.containsTag(range) else {
+        guard !viewModel.containsTag(textType: .article, tagType: .listenAndTranslate, range: range) else {
             viewModel.removeCloze(range)
 
             if !viewModel.hasDuplicateClozeLocations(with: range) {
@@ -218,12 +192,12 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
 
     private func updateCloze(with range: NSRange, text: String, hint: String) {
         let clozeNumber = self.viewModel.getClozeNumber()
-        self.customTextView.insertNumberImageView(at: range.location, existClozes: self.viewModel.clozes, with: String(clozeNumber))
+        self.customTextView.insertNumberImageView(at: range.location, existClozes: self.viewModel.tags, with: String(clozeNumber))
 
         let offset = 1
         let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
         let textType = self.viewModel.getTextType(text)
-        let newCloze = self.viewModel.createNewCloze(number: clozeNumber, cloze: text, range: updateRange, textType: textType, hint: hint)
+        let newCloze = self.viewModel.createNewTag(number: clozeNumber, cloze: text, range: updateRange, textType: textType, hint: hint)
 
         self.viewModel.updateTagNSRanges(with: updateRange, offset: offset)
         self.viewModel.appendCloze(newCloze)

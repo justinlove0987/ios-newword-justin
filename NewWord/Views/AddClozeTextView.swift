@@ -156,7 +156,7 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
         return characterIndex
     }
 
-    func insertNumberImageView(at location: Int, existClozes: [NewAddCloze], with textToInsert: String , scale: Double = 1.0) {
+    func insertNumberImageView(at location: Int, existClozes: [Tag], with textToInsert: String , scale: Double = 1.0) {
         for cloze in existClozes {
             let currentLocation = cloze.range.location
 
