@@ -35,7 +35,7 @@
 		2A5D7B062C0EEBA600B2F021 /* AddClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */; };
 		2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */; };
 		2A67688B2C3294470040C89F /* WordSelectorViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */; };
-		2A67688D2C3322590040C89F /* AddClozeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688C2C3322590040C89F /* AddClozeTextView.swift */; };
+		2A67688D2C3322590040C89F /* AddTagTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688C2C3322590040C89F /* AddTagTextView.swift */; };
 		2A6BA13E2C635F2600F0DE3F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA13D2C635F2600F0DE3F /* FirebaseAnalytics */; };
 		2A6BA1402C635F2600F0DE3F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA13F2C635F2600F0DE3F /* FirebaseAuth */; };
 		2A6BA1422C635F2600F0DE3F /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA1412C635F2600F0DE3F /* FirebaseDatabase */; };
@@ -164,7 +164,7 @@
 		2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClozeViewController.swift; sourceTree = "<group>"; };
 		2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWord+Extension.swift"; sourceTree = "<group>"; };
 		2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSelectorViewControllerViewModel.swift; sourceTree = "<group>"; };
-		2A67688C2C3322590040C89F /* AddClozeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClozeTextView.swift; sourceTree = "<group>"; };
+		2A67688C2C3322590040C89F /* AddTagTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagTextView.swift; sourceTree = "<group>"; };
 		2A6BA1432C63622B00F0DE3F /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecord.swift; sourceTree = "<group>"; };
 		2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextRevisionInputAccessoryView.xib; sourceTree = "<group>"; };
@@ -332,7 +332,7 @@
 				2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */,
 				2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */,
 				2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */,
-				2A67688C2C3322590040C89F /* AddClozeTextView.swift */,
+				2A67688C2C3322590040C89F /* AddTagTextView.swift */,
 				2A034F802C37CCB600AEDA65 /* CustomNumberTagView.swift */,
 				2A034F7C2C3682C800AEDA65 /* CustomNumberTagView.xib */,
 				D019610F2C43BEA70040735E /* CustomTagView.swift */,
@@ -610,7 +610,7 @@
 				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
 				2A02EF292C4A386500E21A6E /* TagTestingCell.swift in Sources */,
-				2A67688D2C3322590040C89F /* AddClozeTextView.swift in Sources */,
+				2A67688D2C3322590040C89F /* AddTagTextView.swift in Sources */,
 				D0D8D5F62C0F0920001BB415 /* String+Extension.swift in Sources */,
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
 				2AC3E5932C5602EB002CC242 /* SettingCell.swift in Sources */,

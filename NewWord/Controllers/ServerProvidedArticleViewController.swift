@@ -26,7 +26,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     
     var article: FSArticle?
 
-    private var customTextView: AddClozeTextView!
+    private var customTextView: AddTagTextView!
     private let pacticeModelSelectorView: PracticeModeSelectorView = PracticeModeSelectorView()
     private var viewModel: WordSelectorViewControllerViewModel!
     private var player: AudioPlayer = AudioPlayer()
@@ -92,7 +92,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     private func setupCumstomTextView() {
         guard let text = article?.text else { return }
 
-        customTextView = AddClozeTextView.createTextView(text)
+        customTextView = AddTagTextView.createTextView(text)
         customTextView.delegate = self
         customTextView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -183,7 +183,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             return
         }
 
-        guard let customTextView = gesture.view as? AddClozeTextView else { return }
+        guard let customTextView = gesture.view as? AddTagTextView else { return }
 
         var location = gesture.location(in: customTextView)
         location.x -= customTextView.textContainerInset.left
@@ -194,7 +194,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         }
     }
 
-    private func handleTextSelection(at characterIndex: Int, in textView: AddClozeTextView, isWord: Bool) {
+    private func handleTextSelection(at characterIndex: Int, in textView: AddTagTextView, isWord: Bool) {
         let range = isWord ? textView.wordRange(at: characterIndex) : textView.sentenceRangeContainingCharacter(at: characterIndex)
         
         guard let selectedRange = range else { return }

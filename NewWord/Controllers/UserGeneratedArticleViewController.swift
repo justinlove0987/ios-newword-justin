@@ -23,7 +23,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
     
     var inputText: String?
     
-    private var customTextView: AddClozeTextView!
+    private var customTextView: AddTagTextView!
     private var viewModel: WordSelectorViewControllerViewModel!
     
     // MARK: - Lifecycles
@@ -69,7 +69,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
 
 //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(singleTap(_:)))
 
-        customTextView = AddClozeTextView.createTextView(inputText)
+        customTextView = AddTagTextView.createTextView(inputText)
         customTextView.delegate = self
         customTextView.translatesAutoresizingMaskIntoConstraints = false
 //        customTextView.addGestureRecognizer(tapGesture)
@@ -116,7 +116,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
             return
         }
 
-        guard let customTextView = gesture.view as? AddClozeTextView else { return }
+        guard let customTextView = gesture.view as? AddTagTextView else { return }
 
         var location = gesture.location(in: customTextView)
         location.x -= customTextView.textContainerInset.left

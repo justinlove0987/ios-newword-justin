@@ -8,16 +8,12 @@
 import UIKit
 import NaturalLanguage
 
-class AddClozeTextView: UITextView, UITextViewDelegate {
+class AddTagTextView: UITextView, UITextViewDelegate {
 
     typealias ColoredText = WordSelectorViewControllerViewModel.ColoredText
     typealias ColoredMark = WordSelectorViewControllerViewModel.ColoredMark
     
-    var article: FSArticle? {
-        didSet {
-            
-        }
-    }
+    var article: FSArticle?
 
     var highlightRangeDuringPlayback: NSRange? {
         didSet {
@@ -281,7 +277,7 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
         return self.selectedRange.length > 0
     }
 
-    static func createTextView(_ text: String) -> AddClozeTextView {
+    static func createTextView(_ text: String) -> AddTagTextView {
         let attributedString = NSMutableAttributedString(string: text)
 
         let textStorage = NSTextStorage(attributedString: attributedString)
@@ -291,7 +287,7 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
         textStorage.addLayoutManager(layoutManager)
         layoutManager.addTextContainer(textContainer)
 
-        let textView = AddClozeTextView(frame: .zero, textContainer: textContainer)
+        let textView = AddTagTextView(frame: .zero, textContainer: textContainer)
 
         textView.backgroundColor = .clear
         textView.isEditable = false
@@ -317,11 +313,18 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
         // 設定標題的段落樣式（不縮排）
         let titleParagraphStyle = NSMutableParagraphStyle()
         titleParagraphStyle.lineSpacing = UserDefaultsManager.shared.preferredLineSpacing
+//        titleParagraphStyle.alignment = .center // 置中對齊
 
         // 設定內容的段落樣式（縮排）
         let contentParagraphStyle = NSMutableParagraphStyle()
         contentParagraphStyle.lineSpacing = UserDefaultsManager.shared.preferredLineSpacing
         contentParagraphStyle.firstLineHeadIndent = UserDefaultsManager.shared.preferredFontSize * 1.75
+        
+        // 設定標題字體（粗體並增大2點）
+        let titleFontSize = UserDefaultsManager.shared.preferredFontSize + 2
+        let titleFont = UIFont(name: "TimesNewRomanPS-BoldItalicMT", size: titleFontSize) ??
+        UIFont.systemFont(ofSize: titleFontSize,
+                          weight: .medium)
 
         var font = UIFont(name: "TimesNewRomanPSMT", size: UserDefaultsManager.shared.preferredFontSize) ?? UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize, weight: .medium)
 
@@ -337,7 +340,7 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
         let titleRange = NSRange(location: 0, length: title.count)
         textStorage.addAttribute(.paragraphStyle, value: titleParagraphStyle, range: titleRange)
         textStorage.addAttribute(.foregroundColor, value: UIColor.title, range: titleRange)
-        textStorage.addAttribute(.font, value: font, range: titleRange)
+        textStorage.addAttribute(.font, value: titleFont, range: titleRange)
 
         // 設定內容屬性
         let contentStartIndex = title.count + 1 // +1 是為了跳過換行符
@@ -387,7 +390,7 @@ class AddClozeTextView: UITextView, UITextViewDelegate {
 
 // MARK: - Dashed Underline
 
-extension AddClozeTextView {
+extension AddTagTextView {
     
     func addDashedUnderline(in range: NSRange, forWord: Bool = false) {
         guard self.font != nil else { return }
@@ -498,11 +501,11 @@ extension AddClozeTextView {
 
 // MARK: - SkeletonLoadable
 
-extension AddClozeTextView: SkeletonLoadable {}
+extension AddTagTextView: SkeletonLoadable {}
 
 // MARK: - CAAnimationDelegate
 
-extension AddClozeTextView: CAAnimationDelegate {
+extension AddTagTextView: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         guard let gradientLayer else { return }
 
