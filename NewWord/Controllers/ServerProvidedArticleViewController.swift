@@ -67,7 +67,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         articlePlayButtonView.addDefaultBorder(cornerRadius: 5)
         pacticeModelSelectorView.addDefaultBorder(cornerRadius: 5)
         pacticeModelSelectorView.delegate = self
-        // selectModeButton.addDefaultBorder(cornerRadius: 5)
+        pacticeModelSelectorView.practiceButton.isHidden = true
 
         player.delegate = self
         
@@ -220,6 +220,10 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             self.viewModel.currentSelectedRange = selectedRange
             
             self.updatePracticeModeSelector(containsTag: containsTag)
+            
+            UIView.animate(withDuration: 0.3) {
+                self.pacticeModelSelectorView.practiceButton.isHidden = false
+            }
             
             triggerImpactFeedback()
         }
