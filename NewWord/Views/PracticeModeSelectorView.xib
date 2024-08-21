@@ -60,7 +60,7 @@
                             </subviews>
                         </stackView>
                     </subviews>
-                    <color key="backgroundColor" name="transition"/>
+                    <color key="backgroundColor" name="content"/>
                     <constraints>
                         <constraint firstItem="JOz-Pq-V3p" firstAttribute="leading" secondItem="9il-UL-qde" secondAttribute="leading" id="0RS-hy-unt"/>
                         <constraint firstItem="JOz-Pq-V3p" firstAttribute="top" secondItem="9il-UL-qde" secondAttribute="top" id="604-rM-7oX"/>
@@ -85,14 +85,14 @@
         <image name="bookmark.circle.fill" catalog="system" width="128" height="123"/>
         <image name="play.fill" catalog="system" width="117" height="128"/>
         <image name="textformat.size.larger" catalog="system" width="128" height="128"/>
+        <namedColor name="content">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="tag_green">
             <color red="0.60784313725490191" green="0.83921568627450982" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="title">
             <color red="0.090196078431372548" green="0.094117647058823528" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
-        <namedColor name="transition">
-            <color red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

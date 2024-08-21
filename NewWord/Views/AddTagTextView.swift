@@ -384,8 +384,12 @@ class AddTagTextView: UITextView, UITextViewDelegate {
     var gradientSet = [[CGColor]]()
     var currentGradient: Int = 0
 
-    let gradientOne = UIColor(red: 48/255, green: 62/255, blue: 103/255, alpha: 1).cgColor
-    let gradientTwo = UIColor(red: 244/255, green: 88/255, blue: 53/255, alpha: 1).cgColor
+//    let gradientOne = UIColor(red: 48/255, green: 62/255, blue: 103/255, alpha: 1).cgColor
+//    let gradientTwo = UIColor(red: 244/255, green: 88/255, blue: 53/255, alpha: 1).cgColor
+//    let gradientThree = UIColor(red: 244/255, green: 88/255, blue: 53/255, alpha: 1).cgColor
+    let gradientOne = UIColor.red.cgColor
+    let gradientTwo = UIColor.blue.cgColor
+    let gradientThree = UIColor.green.cgColor
 }
 
 // MARK: - Dashed Underline
@@ -404,7 +408,7 @@ extension AddTagTextView {
 
         if forWord {
             layoutManager.enumerateEnclosingRects(forGlyphRange: glyphRange, withinSelectedGlyphRange: glyphRange, in: textContainer) { rect, stop in
-                self.addDashedUnderlineView(for: rect)
+                self.addDashedUnderlineView(for: rect, animated: forWord)
             }
         } else {
             layoutManager.enumerateLineFragments(forGlyphRange: glyphRange) { rect, usedRect, _, glyphRange, _ in
@@ -420,12 +424,12 @@ extension AddTagTextView {
                 lineRect.origin.x = startX
                 lineRect.size.width = endX - startX
                 
-                self.addDashedUnderlineView(for: lineRect)
+                self.addDashedUnderlineView(for: lineRect, animated: forWord)
             }
         }
     }
 
-    private func addDashedUnderlineView(for rect: CGRect) {
+    private func addDashedUnderlineView(for rect: CGRect, animated: Bool) {
         guard let font = self.font else { return }
         
         let adjustedRect = rect.offsetBy(dx: self.textContainerInset.left, dy: self.textContainerInset.top)
@@ -449,7 +453,9 @@ extension AddTagTextView {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = underlineView.bounds
         self.gradientSet.append([self.gradientOne, self.gradientTwo])
-        self.gradientSet.append([self.gradientTwo, self.gradientOne])
+        self.gradientSet.append([self.gradientTwo, self.gradientThree])
+        self.gradientSet.append([self.gradientThree, self.gradientOne])
+        
         gradientLayer.colors = [UIColor.title.cgColor, UIColor.title.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
         gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
@@ -461,7 +467,10 @@ extension AddTagTextView {
 
         self.addSubview(underlineView)
         self.bringSubviewToFront(underlineView)
-        // self.animateGradient(to: gradientLayer)
+        
+        if animated {
+            self.animateGradient(to: gradientLayer)
+        }
     }
     
     func removeAllDashedUnderlines() {
