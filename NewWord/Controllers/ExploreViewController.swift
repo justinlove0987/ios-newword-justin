@@ -173,8 +173,46 @@ extension ExploreViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = ServerProvidedArticleViewController.instantiate()
         
+        controller.addCallback = {
+            self.selectTab(at: 1)
+            
+            if let deck = CoreDataManager.shared.findFirstDeckWithCard() {
+                guard let navigationController = self.tabBarController?.selectedViewController as? UINavigationController else { return }
+                
+                let controller = ShowCardsViewController.instantiate()
+                controller.deck = deck
+                
+                navigationController.pushViewControllerWithCustomTransition(controller)
+                
+                self.navigationController?.popViewController(animated: true)
+                
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+        
         controller.article = articles[indexPath.row]
         
         navigationController?.pushViewControllerWithCustomTransition(controller)
+    }
+    
+    func selectTab(at index: Int, withAnimation animated: Bool = false) {
+        guard let tabBarController = self.tabBarController else { return }
+        guard let count = tabBarController.viewControllers?.count else { return }
+        
+        // 檢查 index 是否在 tabBarController 的範圍內
+        guard index >= 0 && index < count else {
+            print("Index out of range")
+            return
+        }
+        
+        // 切換到指定的 tabBarItem
+        if animated {
+            UIView.transition(with: tabBarController.view, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                tabBarController.selectedIndex = index
+            }, completion: nil)
+        } else {
+            tabBarController.selectedIndex = index
+        }
     }
 }

@@ -94,7 +94,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
         guard var text = customTextView.text else { return }
         
         text = viewModel.removeAllTags(in: text)
-        viewModel.saveCloze(text)
+        viewModel.saveTag(text)
         
         navigationController?.popToRootViewController(animated: true)
     }

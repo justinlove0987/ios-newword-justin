@@ -22,7 +22,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBOutlet weak var articlePlayButtonView: ArticlePlayButtonView!
     
     @IBOutlet weak var bottomPanelStackView: UIStackView!
-    @IBOutlet weak var selectModeButton: UIButton!
     
     var article: FSArticle?
 
@@ -30,6 +29,15 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     private let pacticeModelSelectorView: PracticeModeSelectorView = PracticeModeSelectorView()
     private var viewModel: WordSelectorViewControllerViewModel!
     private var player: AudioPlayer = AudioPlayer()
+    
+    var addCallback: (() ->())?
+    
+    var isRightBarButtonItemVisible: Bool = true {
+           didSet {
+               self.navigationItem.rightBarButtonItem?.isEnabled = self.isRightBarButtonItemVisible
+               self.navigationItem.rightBarButtonItem?.tintColor = self.isRightBarButtonItemVisible ? nil : UIColor.lightGray.withAlphaComponent(0.8)
+           }
+       }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,9 +55,9 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     }
 
     private func setup() {
+        setupViewModel()
         setupCumstomTextView()
         setupProperties()
-        setupViewModel()
     }
 
     private func setupProperties() {
@@ -68,6 +76,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         pacticeModelSelectorView.addDefaultBorder(cornerRadius: 5)
         pacticeModelSelectorView.delegate = self
         pacticeModelSelectorView.practiceButton.isHidden = true
+        
+        isRightBarButtonItemVisible = viewModel.hasAnyTag()
 
         player.delegate = self
         
@@ -117,18 +127,19 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
 
     // MARK: - Actions
 
-    @IBAction func confirmAction(_ sender: UIBarButtonItem) {
+    @IBAction func addAction(_ sender: UIBarButtonItem) {
         guard var text = customTextView.text else { return }
 
         text = viewModel.removeAllTags(in: text)
-        viewModel.saveCloze(text)
+        viewModel.saveTag(text)
+        
+        viewModel.showPracticeAlert(presentViewController: self) {
+            self.navigationController?.popToRootViewController(animated: true)
+            
+        } confirmAction: {
+            self.addCallback?()
+        }
 
-        navigationController?.popToRootViewController(animated: true)
-    }
-    
-    @IBAction func selectModeAction(_ sender: UIButton) {
-        viewModel.changeSelectMode()
-        selectModeButton.setTitle(viewModel.selectMode.title, for: .normal)
     }
     
     @objc func playArticle(_ sender: UIButton) {
@@ -464,6 +475,8 @@ extension ServerProvidedArticleViewController: PracticeModeSelectorViewDelegate 
         guard let currentSelectedRange = viewModel.currentSelectedRange else { return }
         
         tag(range: currentSelectedRange)
+        
+        isRightBarButtonItemVisible = viewModel.hasAnyTag()
         
     }
 }

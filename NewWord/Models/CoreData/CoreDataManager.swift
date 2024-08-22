@@ -181,6 +181,28 @@ extension CoreDataManager {
         save()
     }
     
+    func findFirstDeckWithCard() -> CDDeck? {
+        let fetchReqeust: NSFetchRequest<CDDeck> = CDDeck.fetchRequest()
+
+        do {
+            let decks = try persistentContainer.viewContext.fetch(fetchReqeust)
+            
+            for deck in decks {
+                let cards = cards(from: deck)
+                
+                if !cards.isEmpty {
+                    return deck
+                }
+            }
+            
+            return nil
+            
+        } catch {
+            return nil
+        }
+    }
+
+    
 }
 
 // MARK: - Card

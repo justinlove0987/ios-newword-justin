@@ -143,7 +143,7 @@ struct WordSelectorViewControllerViewModel {
         return text
     }
 
-    mutating func saveCloze(_ text: String) {
+    mutating func saveTag(_ text: String) {
         let context = CoreDataManager.shared.createContext(text)
         
         for i in 0..<tags.count {
@@ -237,6 +237,11 @@ struct WordSelectorViewControllerViewModel {
 
         return false
     }
+    
+    func hasAnyTag() -> Bool {
+        return !tags.isEmpty
+    }
+    
     
     func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: inout FSArticle?) {
         guard let copyArticle = article else { return }
@@ -551,6 +556,28 @@ struct WordSelectorViewControllerViewModel {
         }
         
         return nil
+    }
+    
+    func showPracticeAlert(presentViewController: UIViewController, waitAction: (()->())?, confirmAction: (()->())? ){
+        let alertController = UIAlertController(title: nil, message: "進入練習", preferredStyle: .alert)
+        
+        // "稍等一下" 按鈕
+        let waitAction = UIAlertAction(title: "稍等一下", style: .cancel) { _ in
+            waitAction?()
+        }
+        
+        // "確定" 按鈕
+        let confirmAction = UIAlertAction(title: "確定", style: .default) { _ in
+            // 在這裡處理按下 "確定" 按鈕後的動作
+            confirmAction?()
+        }
+        
+        alertController.addAction(waitAction)
+        alertController.addAction(confirmAction)
+        
+        // 顯示 Alert
+        
+        presentViewController.present(alertController, animated: true)
     }
 }
 
