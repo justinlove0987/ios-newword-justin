@@ -19,12 +19,14 @@ enum VoiceType: String {
     case enUSJourneyOFemale = "en-US-Journey-O"
     case enUSJourneyFFemale = "en-US-Journey-F"
     case enUSJourneyDMale = "en-US-Journey-D"
-    case enUSStudioOFemale = "en-US-Studio-O"
     case enUSNeural2JMale = "en-US-Neural2-J"
     case enUSNewsNMale = "en-US-News-N"
     case enUSWavenetFFemale = "en-US-Wavenet-F"
     case enUSWavenetHFemale = "en-US-Wavenet-H"
     case enUSCasualKMale = "en-US-Casual-K"
+    case enUSStudioOFemale = "en-US-Studio-O"
+    case enUSStudioQMale = "en-US-Studio-Q"
+    case enUSPolyglot1Male = "en-US-Polyglot-1"
 }
 
 class GoogleTTSService: NSObject {
@@ -135,8 +137,10 @@ class GoogleTTSService: NSObject {
             "audioConfig": [
                 // All available formats here: https://cloud.google.com/text-to-speech/docs/reference/rest/v1beta1/text/synthesize#audioencoding
                 "audioEncoding": "LINEAR16",
-                
-                // Adjust the speaking rate
+                "effectsProfileId": [
+                    "small-bluetooth-speaker-class-device"
+                  ],
+                "pitch": 0,
                 "speakingRate": rate
             ],
             
@@ -232,7 +236,7 @@ class GoogleTTSService: NSObject {
     }
 
     func downloadSSML(_ text: String,
-                      voiceType: VoiceType = .enUSCasualKMale,
+                      voiceType: VoiceType = .enUSPolyglot1Male,
                       rate: Double = 0.8,
                       completion: @escaping (TTSSynthesisResult?) -> Void) {
         
@@ -246,7 +250,9 @@ class GoogleTTSService: NSObject {
                                               voiceType: voiceType,
                                               rate: rate)
             
-            let headers = ["X-Goog-Api-Key": K.API.key, "Content-Type": "application/json; charset=utf-8"]
+            let headers = ["X-Goog-Api-Key": K.API.key, 
+                           "Content-Type": "application/json; charset=utf-8"]
+            
             let response = self.makePOSTRequest(url: K.API.tts, postData: postData, headers: headers)
             
             // 獲取 `audioContent` 並解碼

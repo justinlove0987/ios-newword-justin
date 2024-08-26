@@ -27,18 +27,16 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         setup()
         
         
-//        let title = "Ukraine: A Land of Surprising History and Unyielding Spirit!"
+//        let title = "Black Myth: Wukong – A Global Success Story of Chinese Culture in Gaming"
 //        
 //        let content = """
-//        Ukraine, a nation with roots stretching back millennia, is not just a country but a testament to resilience, culture, and innovation. This Eastern European land, often known for its rich black soil and the tragic Chernobyl disaster, harbors secrets that continue to fascinate the world.
+//        This week, the video gaming community was abuzz following the release of the highly anticipated Chinese game, Black Myth: Wukong. The game quickly became a major hit, breaking records on the streaming platform Steam, where it attracted over 2.1 million concurrent players and sold more than 4.5 million copies within just 24 hours of its release.
 //
-//        Did you know that Ukraine is home to the world’s first constitution? Drafted in 1710 by Hetman Pylyp Orlyk, this pioneering document laid down the rights of citizens and the government long before other nations caught up. Ukraine's legacy of democracy continued with the Zaporizhzhya Sich, a Cossack-run society from the 16th century, hailed as one of the earliest examples of democratic governance.
+//        Black Myth: Wukong is an action game that draws inspiration from the classic Chinese novel Journey to the West. Players take on the role of a powerful monkey with supernatural abilities, reminiscent of the legendary character Sun Wukong from the original story. The game is seen as a significant moment for Chinese storytelling in popular media, as it brings traditional Chinese culture to a global audience.
 //
-//        But Ukraine's influence isn't limited to governance. Its cultural contributions are just as remarkable. Take, for instance, the world's oldest map, etched into a mammoth bone, discovered in Mezhyrichchia, Ukraine. Or the Ukrainian lullaby that inspired George Gershwin's famous "Summertime." Even space exploration has a Ukrainian twist, with the first song ever sung in space being performed by Ukrainian cosmonaut Pavlo Popovych.
+//        The game’s success has not been without controversy. Some content creators revealed that a company connected to the game's development sent them a list of topics to avoid while livestreaming, such as "feminist propaganda" and other potentially divisive subjects. This has led to discussions about censorship and freedom of speech, with some creators choosing to ignore the guidelines.
 //
-//        However, Ukraine's story isn't just about its past; it's also about its indomitable spirit today. Despite the ongoing conflict, Ukrainians continue to show the world their strength, creativity, and dedication to freedom. Whether it's in the face of foreign invasions or in the efforts to rebuild and innovate, Ukraine stands as a beacon of courage.
-//
-//        From the vast Carpathian Mountains to the bustling city streets of Kyiv, Ukraine is a land full of surprises, where history and modernity blend seamlessly. This nation, with its deep cultural roots and unwavering resolve, is not just surviving but thriving, proving to the world that Ukraine is indeed an amazing and unbreakable people.
+//        Despite these controversies, the game’s reception has been overwhelmingly positive. It has sparked a sense of national pride in China and has showcased Chinese culture to the world. Black Myth: Wukong stands as a significant achievement in the Chinese video game industry, demonstrating the global appeal of Chinese stories.
 //        """
 //        
 //        let text = "\(title)\n\n\(content)"

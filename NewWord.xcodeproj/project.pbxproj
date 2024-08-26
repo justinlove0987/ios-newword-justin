@@ -74,6 +74,15 @@
 		2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */; };
 		2AED807F2C2E987B001E675A /* SearchClozeResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */; };
 		2AF886902C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */; };
+		2AFC91472C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */; };
+		2AFC914A2C7C4F6F002C2AD1 /* PracticeSequenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */; };
+		2AFC914B2C7C4F6F002C2AD1 /* PracticeSequenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */; };
+		2AFC914D2C7C5720002C2AD1 /* PracticeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */; };
+		2AFC91502C7C5B85002C2AD1 /* PracticeSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AFC914F2C7C5B85002C2AD1 /* PracticeSettingCell.xib */; };
+		2AFC91512C7C5B85002C2AD1 /* PracticeSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC914E2C7C5B85002C2AD1 /* PracticeSettingCell.swift */; };
+		2AFC91542C7C6634002C2AD1 /* PracticeSettingHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AFC91532C7C6634002C2AD1 /* PracticeSettingHeaderView.xib */; };
+		2AFC91552C7C6634002C2AD1 /* PracticeSettingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91522C7C6634002C2AD1 /* PracticeSettingHeaderView.swift */; };
+		2AFC91572C7C6BA3002C2AD1 /* SeparatorFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91562C7C6BA3002C2AD1 /* SeparatorFooterView.swift */; };
 		2AFF6C9C2C5B5FF100629B26 /* ExploreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AFF6C9B2C5B5FF100629B26 /* ExploreCell.xib */; };
 		2AFF6C9D2C5B5FF100629B26 /* ExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF6C9A2C5B5FF100629B26 /* ExploreCell.swift */; };
 		2AFF6C9F2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */; };
@@ -198,6 +207,15 @@
 		2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultCell.swift; sourceTree = "<group>"; };
 		2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchClozeResultCell.xib; sourceTree = "<group>"; };
 		2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningClozeViewViewModel.swift; sourceTree = "<group>"; };
+		2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSequenceViewController.swift; sourceTree = "<group>"; };
+		2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSequenceCell.swift; sourceTree = "<group>"; };
+		2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeSequenceCell.xib; sourceTree = "<group>"; };
+		2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSettingViewController.swift; sourceTree = "<group>"; };
+		2AFC914E2C7C5B85002C2AD1 /* PracticeSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSettingCell.swift; sourceTree = "<group>"; };
+		2AFC914F2C7C5B85002C2AD1 /* PracticeSettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeSettingCell.xib; sourceTree = "<group>"; };
+		2AFC91522C7C6634002C2AD1 /* PracticeSettingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSettingHeaderView.swift; sourceTree = "<group>"; };
+		2AFC91532C7C6634002C2AD1 /* PracticeSettingHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeSettingHeaderView.xib; sourceTree = "<group>"; };
+		2AFC91562C7C6BA3002C2AD1 /* SeparatorFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorFooterView.swift; sourceTree = "<group>"; };
 		2AFF6C9A2C5B5FF100629B26 /* ExploreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCell.swift; sourceTree = "<group>"; };
 		2AFF6C9B2C5B5FF100629B26 /* ExploreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExploreCell.xib; sourceTree = "<group>"; };
 		2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerProvidedArticleViewController.swift; sourceTree = "<group>"; };
@@ -354,6 +372,13 @@
 				2A0D41F02C6EF1D0000B1B3B /* ArticlePlayButtonView.xib */,
 				2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */,
 				2A89D86B2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib */,
+				2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */,
+				2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */,
+				2AFC914E2C7C5B85002C2AD1 /* PracticeSettingCell.swift */,
+				2AFC914F2C7C5B85002C2AD1 /* PracticeSettingCell.xib */,
+				2AFC91522C7C6634002C2AD1 /* PracticeSettingHeaderView.swift */,
+				2AFC91532C7C6634002C2AD1 /* PracticeSettingHeaderView.xib */,
+				2AFC91562C7C6BA3002C2AD1 /* SeparatorFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -401,6 +426,8 @@
 				2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */,
 				2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */,
 				D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */,
+				2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */,
+				2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -554,6 +581,7 @@
 				2A0D41F12C6EF1D0000B1B3B /* ArticlePlayButtonView.xib in Resources */,
 				2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */,
 				D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */,
+				2AFC91502C7C5B85002C2AD1 /* PracticeSettingCell.xib in Resources */,
 				2A034F7D2C3682C800AEDA65 /* CustomNumberTagView.xib in Resources */,
 				D01961122C43BEB20040735E /* CustomTagView.xib in Resources */,
 				2A17DAF62C1579D700919642 /* ClozeView.xib in Resources */,
@@ -563,6 +591,8 @@
 				D0DA5AD12BB66A07008644DC /* Base in Resources */,
 				2AC5D8BB2C54942A0090AEBB /* PlayButton.xib in Resources */,
 				2A24E8D82C537E66006C1032 /* ListeningClozeView.xib in Resources */,
+				2AFC91542C7C6634002C2AD1 /* PracticeSettingHeaderView.xib in Resources */,
+				2AFC914B2C7C4F6F002C2AD1 /* PracticeSequenceCell.xib in Resources */,
 				2AED807F2C2E987B001E675A /* SearchClozeResultCell.xib in Resources */,
 				2AE025F82BF49C6F006EC021 /* notes.json in Resources */,
 				D04AC2052C51E78E00F91A07 /* SearchCell.xib in Resources */,
@@ -602,11 +632,13 @@
 				D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */,
 				D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */,
 				D0D6E0E92C1CB38500C1F95E /* ContextLabel.swift in Sources */,
+				2AFC91512C7C5B85002C2AD1 /* PracticeSettingCell.swift in Sources */,
 				2A034E852C75902D00668F02 /* TranslationPair.swift in Sources */,
 				D01961102C43BEA70040735E /* CustomTagView.swift in Sources */,
 				D02BE80E2C67B26F00140DD3 /* GoogleCloudTranslationService.swift in Sources */,
 				D032145B2BD63C2200512263 /* Preferences.swift in Sources */,
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
+				2AFC91552C7C6634002C2AD1 /* PracticeSettingHeaderView.swift in Sources */,
 				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
 				2A02EF292C4A386500E21A6E /* TagTestingCell.swift in Sources */,
@@ -634,11 +666,14 @@
 				D078D0982BC9242900F601B2 /* Note.swift in Sources */,
 				2A24E8D42C50DF39006C1032 /* ReviseContextViewController.swift in Sources */,
 				2A1A5DA32C719D6600B94037 /* SkeletonLoadable.swift in Sources */,
+				2AFC91572C7C6BA3002C2AD1 /* SeparatorFooterView.swift in Sources */,
 				D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */,
 				D03107CC2C16EE6200EEF772 /* CardInformationViewController.swift in Sources */,
 				2A2683772C6DA4DD00FFF81D /* AudioPlayer.swift in Sources */,
 				2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */,
+				2AFC914D2C7C5720002C2AD1 /* PracticeSettingViewController.swift in Sources */,
 				2A7B6CD52C0810030017BB5C /* NotificationName+Extension.swift in Sources */,
+				2AFC914A2C7C4F6F002C2AD1 /* PracticeSequenceCell.swift in Sources */,
 				D0A6E4E92C52060100E1EF35 /* TagView.swift in Sources */,
 				D0B2E3F82C2AA53E0047B2F5 /* ClozeWord.swift in Sources */,
 				2A38F8C12BE48F88003F058F /* OldExploreViewController.swift in Sources */,
@@ -666,6 +701,7 @@
 				2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */,
 				2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
+				2AFC91472C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift in Sources */,
 				D0B2E3FC2C2BB15F0047B2F5 /* CustomTextView.swift in Sources */,
 				D0AF303E2C43CB6500DF71CD /* TagLabel.swift in Sources */,
 				D0A86A662C1B55390022DFDD /* ClozeViewControllerViewModel.swift in Sources */,
@@ -846,7 +882,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.justin.NewWord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -880,7 +916,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 1.2.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.justin.NewWord;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
