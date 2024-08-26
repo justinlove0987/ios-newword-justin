@@ -27,6 +27,9 @@ class SettingsViewController: UIViewController {
                 Row(title: "隱私權政策", detail: nil)]
         
         
+        if let appVersion = getCurrentAppVersion() {
+            data.append(Row(title: "目前版本", detail: appVersion))
+        }
     }
     
     func openURL(_ urlString: String) {
@@ -77,4 +80,12 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             
         }
     }
+    
+    func getCurrentAppVersion() -> String? {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            return version
+        }
+        return nil
+    }
+
 }
