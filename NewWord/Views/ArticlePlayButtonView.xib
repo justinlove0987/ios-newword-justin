@@ -13,7 +13,6 @@
             <connections>
                 <outlet property="loadingView" destination="WKn-Kb-RDh" id="poP-8U-4Cn"/>
                 <outlet property="playButton" destination="YW8-pB-VDj" id="e6A-LE-kgL"/>
-                <outlet property="titleLabel" destination="M3n-jr-fWJ" id="wcC-de-JPb"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -34,12 +33,10 @@
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" image="play.fill" catalog="system"/>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="文章" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M3n-jr-fWJ">
-                            <rect key="frame" x="23" y="0.0" width="75" height="49"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <color key="textColor" name="title"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="book.pages" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aYH-eT-CBX">
+                            <rect key="frame" x="23" y="-1.6666666666666679" width="75" height="51.666666666666671"/>
+                            <color key="tintColor" name="title"/>
+                        </imageView>
                     </subviews>
                 </stackView>
             </subviews>
@@ -60,6 +57,7 @@
         </view>
     </objects>
     <resources>
+        <image name="book.pages" catalog="system" width="107" height="128"/>
         <image name="play.fill" catalog="system" width="117" height="128"/>
         <namedColor name="content">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
