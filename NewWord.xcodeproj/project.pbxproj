@@ -41,6 +41,10 @@
 		2A6BA1422C635F2600F0DE3F /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA1412C635F2600F0DE3F /* FirebaseDatabase */; };
 		2A6BA1442C63622B00F0DE3F /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6BA1432C63622B00F0DE3F /* FirestoreManager.swift */; };
 		2A6BA1462C63626E00F0DE3F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA1452C63626E00F0DE3F /* FirebaseFirestore */; };
+		2A70454A2C7DB85E00A58672 /* PracticeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045492C7DB85E00A58672 /* PracticeMode.swift */; };
+		2A70454C2C7DBAB000A58672 /* PracticeModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70454B2C7DBAB000A58672 /* PracticeModeViewController.swift */; };
+		2A7045572C7DC35D00A58672 /* RadioButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A7045562C7DC35D00A58672 /* RadioButtonCell.xib */; };
+		2A7045582C7DC35D00A58672 /* RadioButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045552C7DC35D00A58672 /* RadioButtonCell.swift */; };
 		2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */; };
 		2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */; };
 		2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */; };
@@ -175,6 +179,10 @@
 		2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSelectorViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A67688C2C3322590040C89F /* AddTagTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagTextView.swift; sourceTree = "<group>"; };
 		2A6BA1432C63622B00F0DE3F /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		2A7045492C7DB85E00A58672 /* PracticeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeMode.swift; sourceTree = "<group>"; };
+		2A70454B2C7DBAB000A58672 /* PracticeModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeViewController.swift; sourceTree = "<group>"; };
+		2A7045552C7DC35D00A58672 /* RadioButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonCell.swift; sourceTree = "<group>"; };
+		2A7045562C7DC35D00A58672 /* RadioButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RadioButtonCell.xib; sourceTree = "<group>"; };
 		2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecord.swift; sourceTree = "<group>"; };
 		2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextRevisionInputAccessoryView.xib; sourceTree = "<group>"; };
 		2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextRevisionInputAccessoryView.swift; sourceTree = "<group>"; };
@@ -297,6 +305,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A7045482C7DB85100A58672 /* SwiftData */ = {
+			isa = PBXGroup;
+			children = (
+				2A7045492C7DB85E00A58672 /* PracticeMode.swift */,
+			);
+			path = SwiftData;
+			sourceTree = "<group>";
+		};
 		2AA328C02BEDC3ED001D83C2 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,6 +395,8 @@
 				2AFC91522C7C6634002C2AD1 /* PracticeSettingHeaderView.swift */,
 				2AFC91532C7C6634002C2AD1 /* PracticeSettingHeaderView.xib */,
 				2AFC91562C7C6BA3002C2AD1 /* SeparatorFooterView.swift */,
+				2A7045552C7DC35D00A58672 /* RadioButtonCell.swift */,
+				2A7045562C7DC35D00A58672 /* RadioButtonCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -386,6 +404,7 @@
 		D04EB7582BB66ED5009E3A41 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2A7045482C7DB85100A58672 /* SwiftData */,
 				D0B2E3F72C2AA53E0047B2F5 /* ClozeWord.swift */,
 				D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */,
 				D0E8848C2BC93CB800C78B97 /* Deck.swift */,
@@ -428,6 +447,7 @@
 				D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */,
 				2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */,
 				2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */,
+				2A70454B2C7DBAB000A58672 /* PracticeModeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -585,6 +605,7 @@
 				2A034F7D2C3682C800AEDA65 /* CustomNumberTagView.xib in Resources */,
 				D01961122C43BEB20040735E /* CustomTagView.xib in Resources */,
 				2A17DAF62C1579D700919642 /* ClozeView.xib in Resources */,
+				2A7045572C7DC35D00A58672 /* RadioButtonCell.xib in Resources */,
 				2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */,
 				D04AC2072C51EF0300F91A07 /* DeckCell.xib in Resources */,
 				2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */,
@@ -659,6 +680,7 @@
 				D02E46F72C272CC500418781 /* UserDefaultsManager.swift in Sources */,
 				2AE025FA2BF4AB60006EC021 /* DataManager.swift in Sources */,
 				2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */,
+				2A7045582C7DC35D00A58672 /* RadioButtonCell.swift in Sources */,
 				2A89D86A2C7435AC00DDBFF0 /* UITextView+Extension.swift in Sources */,
 				2A17DAFA2C157C7F00919642 /* ClozeViewViewModel.swift in Sources */,
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
@@ -679,9 +701,11 @@
 				2A38F8C12BE48F88003F058F /* OldExploreViewController.swift in Sources */,
 				2AFF6C9F2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift in Sources */,
 				2A7F3C102C5B5A3C0028150D /* ExploreViewController.swift in Sources */,
+				2A70454A2C7DB85E00A58672 /* PracticeMode.swift in Sources */,
 				2AE025F62BF4983A006EC021 /* NoteManager.swift in Sources */,
 				D0D6E0EB2C1DE92C00C1F95E /* ContextStackView.swift in Sources */,
 				2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */,
+				2A70454C2C7DBAB000A58672 /* PracticeModeViewController.swift in Sources */,
 				2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */,
 				D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */,
 				D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */,

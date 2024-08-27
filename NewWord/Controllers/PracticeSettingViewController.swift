@@ -44,6 +44,13 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     }
     
     enum Row: Hashable {
+        
+        enum CellType {
+            case navigation    // 轉跳畫面的 cell
+            case information   // 顯示資訊的 cell
+            case toggleSwitch  // 有 switch 開關的 cell
+        }
+        
         case practiceType
         case firstPracticeLearningPhase
         case firstPracticeGraduationInterval
@@ -53,6 +60,29 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
         case initialEase
         case followPreviousPractice
         case practiceDetails
+        
+        var cellType: CellType {
+            switch self {
+            case .practiceType:
+                return .navigation
+            case .firstPracticeLearningPhase:
+                return .information
+            case .firstPracticeGraduationInterval:
+                return .information
+            case .firstPracticeEasyInterval:
+                return .information
+            case .forgotRelearningPhase:
+                return .information
+            case .forgotGraduationInterval:
+                return .information
+            case .initialEase:
+                return .information
+            case .followPreviousPractice:
+                return .toggleSwitch
+            case .practiceDetails:
+                return .navigation
+            }
+        }
         
         var title: String {
             switch self {
@@ -74,6 +104,29 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
                 return "緊接上一個練習"
             case .practiceDetails:
                 return "練習細節"
+            }
+        }
+        
+        var sfSymbolName: String {
+            switch self {
+            case .practiceType:
+                return "list.bullet"
+            case .firstPracticeLearningPhase:
+                return "graduationcap"
+            case .firstPracticeGraduationInterval:
+                return "calendar"
+            case .firstPracticeEasyInterval:
+                return "clock"
+            case .forgotRelearningPhase:
+                return "arrow.uturn.backward"
+            case .forgotGraduationInterval:
+                return "calendar.badge.clock"
+            case .initialEase:
+                return "dial"
+            case .followPreviousPractice:
+                return "arrow.turn.down.right"
+            case .practiceDetails:
+                return "doc.text.magnifyingglass"
             }
         }
     }
@@ -179,7 +232,21 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
 }
 
 extension PracticeSettingViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let section = sections[indexPath.section]
+        let row = section.rows[indexPath.row]
+        
+        switch row {
+        case .practiceType:
+            let controller = PracticeModeViewController.instantiate()
+            
+            navigationController?.pushViewControllerWithCustomTransition(controller)
+            
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - UICollectionView DataSource
@@ -193,7 +260,7 @@ extension PracticeSettingViewController {
         itemIdentifier: Row
     ) -> UICollectionViewCell? {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeSettingCell.reuseIdentifier, for: indexPath) as! PracticeSettingCell
-        cell.titleLabel.text = itemIdentifier.title
+        cell.configure(row: itemIdentifier)
         return cell
     }
 
@@ -279,7 +346,7 @@ extension PracticeSettingViewController {
     
     // 配置 Header
     private func createHeader(for sectionIndex: Int) -> NSCollectionLayoutBoundarySupplementaryItem? {
-        guard let sectionHeaderTitle = self.sections[sectionIndex].title else { return nil }
+        guard self.sections[sectionIndex].title != nil else { return nil }
         
         let headerSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
