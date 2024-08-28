@@ -27,18 +27,22 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         setup()
         
         
-//        let title = "Ukraine: A Land of Surprising History and Unyielding Spirit!"
+//        let title = "UN Chief Urges Major Polluters to Act Now or Face Global Catastrophe"
 //        
 //        let content = """
-//        Ukraine, a nation with roots stretching back millennia, is not just a country but a testament to resilience, culture, and innovation. This Eastern European land, often known for its rich black soil and the tragic Chernobyl disaster, harbors secrets that continue to fascinate the world.
+//        UN Secretary-General António Guterres has emphatically stated that major polluters must take decisive action to cut emissions to avert a global disaster. Speaking at the Pacific Island Forum Leaders Meeting in Tonga, Guterres highlighted the Pacific as the most vulnerable region, stressing that while small island nations contribute minimally to climate change, they bear the brunt of its effects.
 //
-//        Did you know that Ukraine is home to the world’s first constitution? Drafted in 1710 by Hetman Pylyp Orlyk, this pioneering document laid down the rights of citizens and the government long before other nations caught up. Ukraine's legacy of democracy continued with the Zaporizhzhya Sich, a Cossack-run society from the 16th century, hailed as one of the earliest examples of democratic governance.
+//        Guterres warned that rising sea levels are a pressing global issue, underscoring that "the surging seas are coming for us all." This warning coincides with the release of two critical reports by the UN on the threat posed by rising sea levels to Pacific island nations. The World Meteorological Organization’s report indicates that the South West Pacific faces a trifecta of challenges: accelerating sea level rise, ocean warming, and increased acidification due to carbon dioxide absorption.
 //
-//        But Ukraine's influence isn't limited to governance. Its cultural contributions are just as remarkable. Take, for instance, the world's oldest map, etched into a mammoth bone, discovered in Mezhyrichchia, Ukraine. Or the Ukrainian lullaby that inspired George Gershwin's famous "Summertime." Even space exploration has a Ukrainian twist, with the first song ever sung in space being performed by Ukrainian cosmonaut Pavlo Popovych.
+//        "The sea is taking the heat – literally," Guterres stated, attributing these issues to greenhouse gas emissions from burning fossil fuels. The current forum theme, "transformative resilience," was put to the test as severe weather and an earthquake affected the event's first day. Joseph Sikulu from 350, a climate advocacy group, emphasized the importance of leaders witnessing both the challenges and the resilience of Pacific communities.
 //
-//        However, Ukraine's story isn't just about its past; it's also about its indomitable spirit today. Despite the ongoing conflict, Ukrainians continue to show the world their strength, creativity, and dedication to freedom. Whether it's in the face of foreign invasions or in the efforts to rebuild and innovate, Ukraine stands as a beacon of courage.
+//        During the forum, a parade with banners reading "We are not drowning, we are fighting" and "Sea levels are rising – so are we" highlighted the region's resolve. The UN Climate Action Team’s report reveals that global sea levels are rising at unprecedented rates, with an average increase of 9.4 cm over the past 30 years, and up to 15 cm in the tropical Pacific.
 //
-//        From the vast Carpathian Mountains to the bustling city streets of Kyiv, Ukraine is a land full of surprises, where history and modernity blend seamlessly. This nation, with its deep cultural roots and unwavering resolve, is not just surviving but thriving, proving to the world that Ukraine is indeed an amazing and unbreakable people.
+//        Guterres, who has attended the forum before, noted that despite efforts to combat climate change, financial support mechanisms for vulnerable nations remain inadequate. He visited communities impacted by rising sea levels and criticized the slow response to funding requests for critical infrastructure, such as sea walls.
+//
+//        The Secretary-General also addressed the role of major emitters, including Australia, which has pledged to increase gas extraction despite calls for a fossil fuel phase-out. Guterres urged these nations and the G20, which represents 80% of global emissions, to significantly cut emissions to meet the targets set in the Paris Agreement. He stressed the urgency of reducing global emissions by 43% from 2019 levels by 2030 and 60% by 2035 to avoid catastrophic consequences.
+//
+//        In summary, Guterres called for immediate and substantial action from both governments and corporations to reverse current emission trends and support the most vulnerable nations facing climate change impacts.
 //        """
 //        
 //        let text = "\(title)\n\n\(content)"
@@ -53,7 +57,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
 //            FirestoreManager.shared.uploadAudio(audioId: result.audioId, audioData: audioData) { isDownloadSuccessful, url in
 //                print("foo upload audio \(isDownloadSuccessful)")
 //                
-//                let article = FSArticle(title: title, content: content, imageId: UUID().uuidString, uploadedDate: Date(), ttsSynthesisResult: result)
+//                let article = FSArticle(title: title, content: content, imageId: UUID().uuidString, uploadedDate: Date(), ttsSynthesisResult: result, cefrRawValue: 4)
 //                
 //                FirestoreManager.shared.uploadArticle(article) { isDownloadSuccessful in
 //                    print("foo - upload article \(isDownloadSuccessful)")
@@ -107,7 +111,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
             
             let currentArticle = self.articles[indexPath.row]
             
-            cell.updateUI(currentArticle)
+            cell.configure(currentArticle)
             cell.imageView.image = currentArticle.hasImage ? currentArticle.fetchedImage : UIImage(named: "loading")
             
             if !currentArticle.hasImage {

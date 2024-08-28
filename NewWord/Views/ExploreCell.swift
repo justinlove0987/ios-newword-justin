@@ -17,6 +17,9 @@ class ExploreCell: UICollectionViewCell {
     @IBOutlet weak var uploadedDateLabel: UILabel!
     @IBOutlet weak var innerView: UIView!
     
+    @IBOutlet weak var cefrView: UIView!
+    @IBOutlet weak var cefrLabel: UILabel!
+    
     var imageDidSetCallback: ((UIImage) -> ())?
     
     override func awakeFromNib() {
@@ -24,9 +27,17 @@ class ExploreCell: UICollectionViewCell {
         innerView.addDefaultBorder(cornerRadius: 15)
     }
     
-    func updateUI(_ article: FSArticle) {
+    func configure(_ article: FSArticle) {
         titleLabel.text = article.title
         contentLabel.text = article.content
         uploadedDateLabel.text = article.formattedUploadedDate
+        
+        conifgureCEFRLabel(article)
+    }
+    
+    func conifgureCEFRLabel(_ article: FSArticle) {
+        cefrView.addDefaultBorder(cornerRadius: 5)
+        cefrView.isHidden = article.cefr == nil
+        cefrLabel.text = article.cefr?.title
     }
 }

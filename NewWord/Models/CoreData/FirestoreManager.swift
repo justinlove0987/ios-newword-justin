@@ -101,12 +101,19 @@ class FirestoreManager {
             ttsSynthesisResult = TTSSynthesisResult(audioId: audioId, timepoints: timepoints)
         }
         
+        var cerfRawValue: Int?
+        
+        if let parsedCefr = data?["cerfRawValue"] as? Int {
+            cerfRawValue = parsedCefr
+        }
+        
         let article = FSArticle(
             title: title,
             content: content,
             imageId: imageUrl,
             uploadedDate: uploadedDate,
-            ttsSynthesisResult: ttsSynthesisResult
+            ttsSynthesisResult: ttsSynthesisResult,
+            cefrRawValue: cerfRawValue
         )
         
         return article
@@ -117,7 +124,7 @@ class FirestoreManager {
             "title": article.title,
             "content": article.content,
             "imageId": article.imageId,
-            "uploadedDate": article.uploadedDate
+            "uploadedDate": article.uploadedDate,
         ]
         
         if let ttsResult = article.ttsSynthesisResult {
@@ -140,6 +147,10 @@ class FirestoreManager {
             ]
             
             articleData["ttsSynthesisResult"] = ttsData
+        }
+        
+        if let cefrRawValue = article.cefrRawValue {
+            articleData["cerfRawValue"] = cefrRawValue
         }
 
         db.collection("articles").addDocument(data: articleData) { error in
@@ -304,12 +315,40 @@ class FirestoreManager {
     }
 }
 
+enum CEFR: Int, CaseIterable, Codable {
+    case a1 = 0
+    case a2
+    case b1
+    case b2
+    case c1
+    case c2
+    
+    var title: String {
+        switch self {
+        case .a1:
+            return "A1"
+        case .a2:
+            return "A2"
+        case .b1:
+            return "B1"
+        case .b2:
+            return "B2"
+        case .c1:
+            return "C1"
+        case .c2:
+            return "C2"
+        }
+    }
+}
+
 struct FSArticle: Hashable {
+    
     let title: String
     let content: String
     let imageId: String
     let uploadedDate: Date
     var ttsSynthesisResult: TTSSynthesisResult? = nil
+    var cefrRawValue: Int?
     
     var fetchedImage: UIImage?
     
@@ -325,5 +364,15 @@ struct FSArticle: Hashable {
     
     var hasImage: Bool {
         return fetchedImage != nil
+    }
+    
+    var cefr: CEFR? {
+        guard let cefrRawValue else { return nil }
+        
+        print("foo - \(CEFR(rawValue: cefrRawValue))")
+        
+        let crfr = CEFR(rawValue: cefrRawValue)
+        
+        return crfr
     }
 }

@@ -25,6 +25,7 @@ enum VoiceType: String {
     case enUSWavenetFFemale = "en-US-Wavenet-F"
     case enUSWavenetHFemale = "en-US-Wavenet-H"
     case enUSCasualKMale = "en-US-Casual-K"
+    case enUSPolyglot1Male = "en-US-Polyglot-1"
 }
 
 class GoogleTTSService: NSObject {
@@ -232,7 +233,7 @@ class GoogleTTSService: NSObject {
     }
 
     func downloadSSML(_ text: String,
-                      voiceType: VoiceType = .enUSCasualKMale,
+                      voiceType: VoiceType = .enUSPolyglot1Male,
                       rate: Double = 0.8,
                       completion: @escaping (TTSSynthesisResult?) -> Void) {
         
