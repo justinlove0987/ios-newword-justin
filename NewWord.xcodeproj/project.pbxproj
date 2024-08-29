@@ -32,7 +32,6 @@
 		2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C22BE48FB2003F058F /* SearchViewController.swift */; };
 		2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */; };
 		2A5D608E2C63663B00252A0C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5D608D2C63663B00252A0C /* FirebaseStorage */; };
-		2A5D7B062C0EEBA600B2F021 /* AddClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */; };
 		2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */; };
 		2A67688B2C3294470040C89F /* WordSelectorViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */; };
 		2A67688D2C3322590040C89F /* AddTagTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688C2C3322590040C89F /* AddTagTextView.swift */; };
@@ -161,7 +160,6 @@
 		2A38F8C02BE48F88003F058F /* OldExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldExploreViewController.swift; sourceTree = "<group>"; };
 		2A38F8C22BE48FB2003F058F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClozeViewController.swift; sourceTree = "<group>"; };
 		2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWord+Extension.swift"; sourceTree = "<group>"; };
 		2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSelectorViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A67688C2C3322590040C89F /* AddTagTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagTextView.swift; sourceTree = "<group>"; };
@@ -282,6 +280,7 @@
 		2AA328C02BEDC3ED001D83C2 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
+				2AE025F72BF49C6F006EC021 /* notes.json */,
 				2AE025F92BF4AB60006EC021 /* DataManager.swift */,
 				2AA328C72BEDF509001D83C2 /* DeckManager.swift */,
 				2AE025F32BF49686006EC021 /* CardManager.swift */,
@@ -381,7 +380,6 @@
 		D04EB75F2BB670D3009E3A41 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2AE025F72BF49C6F006EC021 /* notes.json */,
 				D0DA5ACA2BB66A05008644DC /* Main.storyboard */,
 				D0DA5AC82BB66A05008644DC /* MainViewController.swift */,
 				2A7F3C0F2C5B5A3C0028150D /* ExploreViewController.swift */,
@@ -395,7 +393,6 @@
 				2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */,
 				2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */,
 				2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */,
-				2A5D7B052C0EEBA600B2F021 /* AddClozeViewController.swift */,
 				2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */,
 				D03107CB2C16EE6200EEF772 /* CardInformationViewController.swift */,
 				2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */,
@@ -593,7 +590,6 @@
 				2A7B6CD12C080A900017BB5C /* StoryboardGenerated.swift in Sources */,
 				2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */,
 				2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */,
-				2A5D7B062C0EEBA600B2F021 /* AddClozeViewController.swift in Sources */,
 				2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */,
 				2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */,
 				D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */,
