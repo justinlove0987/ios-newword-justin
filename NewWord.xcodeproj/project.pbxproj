@@ -40,6 +40,10 @@
 		2A6BA1422C635F2600F0DE3F /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA1412C635F2600F0DE3F /* FirebaseDatabase */; };
 		2A6BA1442C63622B00F0DE3F /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6BA1432C63622B00F0DE3F /* FirestoreManager.swift */; };
 		2A6BA1462C63626E00F0DE3F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA1452C63626E00F0DE3F /* FirebaseFirestore */; };
+		2A70454A2C7DB85E00A58672 /* PracticeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045492C7DB85E00A58672 /* PracticeMode.swift */; };
+		2A70454C2C7DBAB000A58672 /* PracticeModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70454B2C7DBAB000A58672 /* PracticeModeViewController.swift */; };
+		2A7045572C7DC35D00A58672 /* RadioButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A7045562C7DC35D00A58672 /* RadioButtonCell.xib */; };
+		2A7045582C7DC35D00A58672 /* RadioButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045552C7DC35D00A58672 /* RadioButtonCell.swift */; };
 		2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */; };
 		2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */; };
 		2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */; };
@@ -73,6 +77,15 @@
 		2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */; };
 		2AED807F2C2E987B001E675A /* SearchClozeResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */; };
 		2AF886902C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */; };
+		2AFC91472C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */; };
+		2AFC914A2C7C4F6F002C2AD1 /* PracticeSequenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */; };
+		2AFC914B2C7C4F6F002C2AD1 /* PracticeSequenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */; };
+		2AFC914D2C7C5720002C2AD1 /* PracticeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */; };
+		2AFC91502C7C5B85002C2AD1 /* PracticeSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AFC914F2C7C5B85002C2AD1 /* PracticeSettingCell.xib */; };
+		2AFC91512C7C5B85002C2AD1 /* PracticeSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC914E2C7C5B85002C2AD1 /* PracticeSettingCell.swift */; };
+		2AFC91542C7C6634002C2AD1 /* PracticeSettingHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AFC91532C7C6634002C2AD1 /* PracticeSettingHeaderView.xib */; };
+		2AFC91552C7C6634002C2AD1 /* PracticeSettingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91522C7C6634002C2AD1 /* PracticeSettingHeaderView.swift */; };
+		2AFC91572C7C6BA3002C2AD1 /* SeparatorFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91562C7C6BA3002C2AD1 /* SeparatorFooterView.swift */; };
 		2AFF6C9C2C5B5FF100629B26 /* ExploreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AFF6C9B2C5B5FF100629B26 /* ExploreCell.xib */; };
 		2AFF6C9D2C5B5FF100629B26 /* ExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF6C9A2C5B5FF100629B26 /* ExploreCell.swift */; };
 		2AFF6C9F2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */; };
@@ -164,6 +177,10 @@
 		2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSelectorViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A67688C2C3322590040C89F /* AddTagTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagTextView.swift; sourceTree = "<group>"; };
 		2A6BA1432C63622B00F0DE3F /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		2A7045492C7DB85E00A58672 /* PracticeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeMode.swift; sourceTree = "<group>"; };
+		2A70454B2C7DBAB000A58672 /* PracticeModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeViewController.swift; sourceTree = "<group>"; };
+		2A7045552C7DC35D00A58672 /* RadioButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonCell.swift; sourceTree = "<group>"; };
+		2A7045562C7DC35D00A58672 /* RadioButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RadioButtonCell.xib; sourceTree = "<group>"; };
 		2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecord.swift; sourceTree = "<group>"; };
 		2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextRevisionInputAccessoryView.xib; sourceTree = "<group>"; };
 		2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextRevisionInputAccessoryView.swift; sourceTree = "<group>"; };
@@ -196,6 +213,15 @@
 		2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultCell.swift; sourceTree = "<group>"; };
 		2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchClozeResultCell.xib; sourceTree = "<group>"; };
 		2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningClozeViewViewModel.swift; sourceTree = "<group>"; };
+		2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSequenceViewController.swift; sourceTree = "<group>"; };
+		2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSequenceCell.swift; sourceTree = "<group>"; };
+		2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeSequenceCell.xib; sourceTree = "<group>"; };
+		2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSettingViewController.swift; sourceTree = "<group>"; };
+		2AFC914E2C7C5B85002C2AD1 /* PracticeSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSettingCell.swift; sourceTree = "<group>"; };
+		2AFC914F2C7C5B85002C2AD1 /* PracticeSettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeSettingCell.xib; sourceTree = "<group>"; };
+		2AFC91522C7C6634002C2AD1 /* PracticeSettingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSettingHeaderView.swift; sourceTree = "<group>"; };
+		2AFC91532C7C6634002C2AD1 /* PracticeSettingHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeSettingHeaderView.xib; sourceTree = "<group>"; };
+		2AFC91562C7C6BA3002C2AD1 /* SeparatorFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorFooterView.swift; sourceTree = "<group>"; };
 		2AFF6C9A2C5B5FF100629B26 /* ExploreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCell.swift; sourceTree = "<group>"; };
 		2AFF6C9B2C5B5FF100629B26 /* ExploreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExploreCell.xib; sourceTree = "<group>"; };
 		2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerProvidedArticleViewController.swift; sourceTree = "<group>"; };
@@ -277,6 +303,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A7045482C7DB85100A58672 /* SwiftData */ = {
+			isa = PBXGroup;
+			children = (
+				2A7045492C7DB85E00A58672 /* PracticeMode.swift */,
+			);
+			path = SwiftData;
+			sourceTree = "<group>";
+		};
 		2AA328C02BEDC3ED001D83C2 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,6 +387,15 @@
 				2A0D41F02C6EF1D0000B1B3B /* ArticlePlayButtonView.xib */,
 				2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */,
 				2A89D86B2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib */,
+				2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */,
+				2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */,
+				2AFC914E2C7C5B85002C2AD1 /* PracticeSettingCell.swift */,
+				2AFC914F2C7C5B85002C2AD1 /* PracticeSettingCell.xib */,
+				2AFC91522C7C6634002C2AD1 /* PracticeSettingHeaderView.swift */,
+				2AFC91532C7C6634002C2AD1 /* PracticeSettingHeaderView.xib */,
+				2AFC91562C7C6BA3002C2AD1 /* SeparatorFooterView.swift */,
+				2A7045552C7DC35D00A58672 /* RadioButtonCell.swift */,
+				2A7045562C7DC35D00A58672 /* RadioButtonCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -360,6 +403,7 @@
 		D04EB7582BB66ED5009E3A41 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2A7045482C7DB85100A58672 /* SwiftData */,
 				D0B2E3F72C2AA53E0047B2F5 /* ClozeWord.swift */,
 				D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */,
 				D0E8848C2BC93CB800C78B97 /* Deck.swift */,
@@ -398,6 +442,9 @@
 				2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */,
 				2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */,
 				D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */,
+				2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */,
+				2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */,
+				2A70454B2C7DBAB000A58672 /* PracticeModeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -551,15 +598,19 @@
 				2A0D41F12C6EF1D0000B1B3B /* ArticlePlayButtonView.xib in Resources */,
 				2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */,
 				D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */,
+				2AFC91502C7C5B85002C2AD1 /* PracticeSettingCell.xib in Resources */,
 				2A034F7D2C3682C800AEDA65 /* CustomNumberTagView.xib in Resources */,
 				D01961122C43BEB20040735E /* CustomTagView.xib in Resources */,
 				2A17DAF62C1579D700919642 /* ClozeView.xib in Resources */,
+				2A7045572C7DC35D00A58672 /* RadioButtonCell.xib in Resources */,
 				2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */,
 				D04AC2072C51EF0300F91A07 /* DeckCell.xib in Resources */,
 				2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */,
 				D0DA5AD12BB66A07008644DC /* Base in Resources */,
 				2AC5D8BB2C54942A0090AEBB /* PlayButton.xib in Resources */,
 				2A24E8D82C537E66006C1032 /* ListeningClozeView.xib in Resources */,
+				2AFC91542C7C6634002C2AD1 /* PracticeSettingHeaderView.xib in Resources */,
+				2AFC914B2C7C4F6F002C2AD1 /* PracticeSequenceCell.xib in Resources */,
 				2AED807F2C2E987B001E675A /* SearchClozeResultCell.xib in Resources */,
 				2AE025F82BF49C6F006EC021 /* notes.json in Resources */,
 				D04AC2052C51E78E00F91A07 /* SearchCell.xib in Resources */,
@@ -598,11 +649,13 @@
 				D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */,
 				D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */,
 				D0D6E0E92C1CB38500C1F95E /* ContextLabel.swift in Sources */,
+				2AFC91512C7C5B85002C2AD1 /* PracticeSettingCell.swift in Sources */,
 				2A034E852C75902D00668F02 /* TranslationPair.swift in Sources */,
 				D01961102C43BEA70040735E /* CustomTagView.swift in Sources */,
 				D02BE80E2C67B26F00140DD3 /* GoogleCloudTranslationService.swift in Sources */,
 				D032145B2BD63C2200512263 /* Preferences.swift in Sources */,
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
+				2AFC91552C7C6634002C2AD1 /* PracticeSettingHeaderView.swift in Sources */,
 				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
 				2A02EF292C4A386500E21A6E /* TagTestingCell.swift in Sources */,
@@ -623,6 +676,7 @@
 				D02E46F72C272CC500418781 /* UserDefaultsManager.swift in Sources */,
 				2AE025FA2BF4AB60006EC021 /* DataManager.swift in Sources */,
 				2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */,
+				2A7045582C7DC35D00A58672 /* RadioButtonCell.swift in Sources */,
 				2A89D86A2C7435AC00DDBFF0 /* UITextView+Extension.swift in Sources */,
 				2A17DAFA2C157C7F00919642 /* ClozeViewViewModel.swift in Sources */,
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
@@ -630,19 +684,24 @@
 				D078D0982BC9242900F601B2 /* Note.swift in Sources */,
 				2A24E8D42C50DF39006C1032 /* ReviseContextViewController.swift in Sources */,
 				2A1A5DA32C719D6600B94037 /* SkeletonLoadable.swift in Sources */,
+				2AFC91572C7C6BA3002C2AD1 /* SeparatorFooterView.swift in Sources */,
 				D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */,
 				D03107CC2C16EE6200EEF772 /* CardInformationViewController.swift in Sources */,
 				2A2683772C6DA4DD00FFF81D /* AudioPlayer.swift in Sources */,
 				2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */,
+				2AFC914D2C7C5720002C2AD1 /* PracticeSettingViewController.swift in Sources */,
 				2A7B6CD52C0810030017BB5C /* NotificationName+Extension.swift in Sources */,
+				2AFC914A2C7C4F6F002C2AD1 /* PracticeSequenceCell.swift in Sources */,
 				D0A6E4E92C52060100E1EF35 /* TagView.swift in Sources */,
 				D0B2E3F82C2AA53E0047B2F5 /* ClozeWord.swift in Sources */,
 				2A38F8C12BE48F88003F058F /* OldExploreViewController.swift in Sources */,
 				2AFF6C9F2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift in Sources */,
 				2A7F3C102C5B5A3C0028150D /* ExploreViewController.swift in Sources */,
+				2A70454A2C7DB85E00A58672 /* PracticeMode.swift in Sources */,
 				2AE025F62BF4983A006EC021 /* NoteManager.swift in Sources */,
 				D0D6E0EB2C1DE92C00C1F95E /* ContextStackView.swift in Sources */,
 				2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */,
+				2A70454C2C7DBAB000A58672 /* PracticeModeViewController.swift in Sources */,
 				2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */,
 				D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */,
 				D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */,
@@ -662,6 +721,7 @@
 				2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */,
 				2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
+				2AFC91472C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift in Sources */,
 				D0B2E3FC2C2BB15F0047B2F5 /* CustomTextView.swift in Sources */,
 				D0AF303E2C43CB6500DF71CD /* TagLabel.swift in Sources */,
 				D0A86A662C1B55390022DFDD /* ClozeViewControllerViewModel.swift in Sources */,

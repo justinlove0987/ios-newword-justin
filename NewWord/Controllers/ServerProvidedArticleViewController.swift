@@ -139,7 +139,12 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         } confirmAction: {
             self.addCallback?()
         }
-
+    }
+    
+    @IBAction func settingAction(_ sender: UIBarButtonItem) {
+        let controller = PracticeSequenceViewController.instantiate()
+        
+        self.navigationController?.pushViewControllerWithCustomTransition(controller)
     }
     
     @objc func playArticle(_ sender: UIButton) {

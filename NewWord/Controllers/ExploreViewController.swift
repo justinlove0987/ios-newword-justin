@@ -26,7 +26,6 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         super.viewDidLoad()
         setup()
         
-        
 //        let title = "UN Chief Urges Major Polluters to Act Now or Face Global Catastrophe"
 //        
 //        let content = """
