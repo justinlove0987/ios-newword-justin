@@ -369,8 +369,6 @@ struct FSArticle: Hashable {
     var cefr: CEFR? {
         guard let cefrRawValue else { return nil }
         
-        print("foo - \(CEFR(rawValue: cefrRawValue))")
-        
         let crfr = CEFR(rawValue: cefrRawValue)
         
         return crfr

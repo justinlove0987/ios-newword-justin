@@ -168,10 +168,6 @@ class ShowCardsViewControllerViewModel {
         let subview: any ShowCardsSubviewDelegate
         
         switch noteType {
-        case .sentenceCloze:
-            let viewModel = SentenceClozeViewModel(card: card)
-            subview = SentenceClozeView(viewModel: viewModel, card: card)
-
         case .prononciation:
             subview = PronounciationView()
 
@@ -183,6 +179,8 @@ class ShowCardsViewControllerViewModel {
         case .lienteningCloze:
             guard let clozeView = ListeningClozeView(card: card) else { return NoCardView() }
             subview = clozeView
+        case .sentenceCloze:
+            subview = NoCardView()
         }
         
         return subview

@@ -28,7 +28,6 @@
 		2A24E8D82C537E66006C1032 /* ListeningClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A24E8D72C537E66006C1032 /* ListeningClozeView.xib */; };
 		2A2683772C6DA4DD00FFF81D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2683762C6DA4DD00FFF81D /* AudioPlayer.swift */; };
 		2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */; };
-		2A38F8C12BE48F88003F058F /* OldExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C02BE48F88003F058F /* OldExploreViewController.swift */; };
 		2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C22BE48FB2003F058F /* SearchViewController.swift */; };
 		2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */; };
 		2A5D608E2C63663B00252A0C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5D608D2C63663B00252A0C /* FirebaseStorage */; };
@@ -44,7 +43,11 @@
 		2A70454C2C7DBAB000A58672 /* PracticeModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70454B2C7DBAB000A58672 /* PracticeModeViewController.swift */; };
 		2A7045572C7DC35D00A58672 /* RadioButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A7045562C7DC35D00A58672 /* RadioButtonCell.xib */; };
 		2A7045582C7DC35D00A58672 /* RadioButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045552C7DC35D00A58672 /* RadioButtonCell.swift */; };
-		2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */; };
+		2A70455A2C7FF7AC00A58672 /* ClozeViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045592C7FF7AB00A58672 /* ClozeViewControllerViewModel.swift */; };
+		2A70455C2C7FF94A00A58672 /* ClozeWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70455B2C7FF94900A58672 /* ClozeWord.swift */; };
+		2A70455E2C800BF800A58672 /* PracticeThresholdRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70455D2C800BF800A58672 /* PracticeThresholdRule.swift */; };
+		2A7045612C800C7000A58672 /* PracticeThresholdRuleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045602C800C7000A58672 /* PracticeThresholdRuleManager.swift */; };
+		2A7045632C80265600A58672 /* ModelContainerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045622C80265600A58672 /* ModelContainerProvider.swift */; };
 		2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */; };
 		2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */; };
 		2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */; };
@@ -58,21 +61,14 @@
 		2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */; };
 		2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */; };
 		2A9C8AF62C3BBE3500D839D8 /* OpenCC in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9C8AF52C3BBE3500D839D8 /* OpenCC */; };
-		2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA328C72BEDF509001D83C2 /* DeckManager.swift */; };
 		2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */; };
-		2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AB8CC0A2BF5AA1D00BFFD4A /* SentenceClozeView.xib */; };
 		2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */; };
 		2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */; };
 		2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */; };
 		2AC3E5932C5602EB002CC242 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3E5922C5602EB002CC242 /* SettingCell.swift */; };
 		2AC5D8B92C54941B0090AEBB /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC5D8B82C54941B0090AEBB /* PlayButton.swift */; };
 		2AC5D8BB2C54942A0090AEBB /* PlayButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */; };
-		2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */; };
 		2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */; };
-		2AE025F42BF49686006EC021 /* CardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE025F32BF49686006EC021 /* CardManager.swift */; };
-		2AE025F62BF4983A006EC021 /* NoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE025F52BF4983A006EC021 /* NoteManager.swift */; };
-		2AE025F82BF49C6F006EC021 /* notes.json in Resources */ = {isa = PBXBuildFile; fileRef = 2AE025F72BF49C6F006EC021 /* notes.json */; };
-		2AE025FA2BF4AB60006EC021 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE025F92BF4AB60006EC021 /* DataManager.swift */; };
 		2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */; };
 		2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */; };
 		2AED807F2C2E987B001E675A /* SearchClozeResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */; };
@@ -90,15 +86,11 @@
 		2AFF6C9D2C5B5FF100629B26 /* ExploreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF6C9A2C5B5FF100629B26 /* ExploreCell.swift */; };
 		2AFF6C9F2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */; };
 		2AFF6CA12C5B748800629B26 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF6CA02C5B748800629B26 /* UINavigationController+Extension.swift */; };
-		D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */; };
 		D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */; };
 		D00A72EF2BFDEC5A0064F325 /* NoCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00A72EE2BFDEC5A0064F325 /* NoCardView.xib */; };
 		D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A72F02BFDEDA00064F325 /* NoCardView.swift */; };
 		D01961102C43BEA70040735E /* CustomTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D019610F2C43BEA70040735E /* CustomTagView.swift */; };
 		D01961122C43BEB20040735E /* CustomTagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01961112C43BEB20040735E /* CustomTagView.xib */; };
-		D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */; };
-		D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4ED2BB9DA3C00CA5CAF /* Word.swift */; };
-		D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4EF2BB9DA6000CA5CAF /* Article.swift */; };
 		D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */; };
 		D02BE80E2C67B26F00140DD3 /* GoogleCloudTranslationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BE80D2C67B26F00140DD3 /* GoogleCloudTranslationService.swift */; };
 		D02E46F72C272CC500418781 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02E46F62C272CC500418781 /* UserDefaultsManager.swift */; };
@@ -110,12 +102,8 @@
 		D04AC2042C51E78E00F91A07 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04AC2022C51E78E00F91A07 /* SearchCell.swift */; };
 		D04AC2052C51E78E00F91A07 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04AC2032C51E78E00F91A07 /* SearchCell.xib */; };
 		D04AC2072C51EF0300F91A07 /* DeckCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04AC2062C51EF0300F91A07 /* DeckCell.xib */; };
-		D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */; };
-		D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB75B2BB66EEF009E3A41 /* Card.swift */; };
-		D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */; };
 		D05D6A1C2C652645006AC6BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D05D6A1B2C652645006AC6BE /* GoogleService-Info.plist */; };
 		D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */; };
-		D078D0982BC9242900F601B2 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = D078D0972BC9242900F601B2 /* Note.swift */; };
 		D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */; };
 		D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */; };
 		D09262BA2C097ECD00CA90BA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262B92C097ECD00CA90BA /* CoreDataManager.swift */; };
@@ -127,10 +115,8 @@
 		D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A064402BFC913C001AFE08 /* PronounciationView.xib */; };
 		D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */; };
 		D0A6E4E92C52060100E1EF35 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A6E4E82C52060100E1EF35 /* TagView.swift */; };
-		D0A86A662C1B55390022DFDD /* ClozeViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A86A652C1B55390022DFDD /* ClozeViewControllerViewModel.swift */; };
 		D0A86A682C1B5FA00022DFDD /* ContextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A86A672C1B5FA00022DFDD /* ContextCell.swift */; };
 		D0AF303E2C43CB6500DF71CD /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AF303D2C43CB6500DF71CD /* TagLabel.swift */; };
-		D0B2E3F82C2AA53E0047B2F5 /* ClozeWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2E3F72C2AA53E0047B2F5 /* ClozeWord.swift */; };
 		D0B2E3FC2C2BB15F0047B2F5 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B2E3FB2C2BB15F0047B2F5 /* CustomTextView.swift */; };
 		D0D6E0E92C1CB38500C1F95E /* ContextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D6E0E82C1CB38500C1F95E /* ContextLabel.swift */; };
 		D0D6E0EB2C1DE92C00C1F95E /* ContextStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D6E0EA2C1DE92C00C1F95E /* ContextStackView.swift */; };
@@ -143,8 +129,6 @@
 		D0DA5AD12BB66A07008644DC /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D0DA5AD02BB66A07008644DC /* Base */; };
 		D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */; };
 		D0E4EF9E2C67785E00DA66AC /* GoogleTranslateSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D0E4EF9D2C67785E00DA66AC /* GoogleTranslateSwift */; };
-		D0E8848B2BC93C3600C78B97 /* OldNoteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848A2BC93C3600C78B97 /* OldNoteType.swift */; };
-		D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E8848C2BC93CB800C78B97 /* Deck.swift */; };
 		D0EE06FD2C6A4CFD000B5BC8 /* ChatGPTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EE06FC2C6A4CFD000B5BC8 /* ChatGPTService.swift */; };
 /* End PBXBuildFile section */
 
@@ -170,7 +154,6 @@
 		2A24E8D72C537E66006C1032 /* ListeningClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListeningClozeView.xib; sourceTree = "<group>"; };
 		2A2683762C6DA4DD00FFF81D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
-		2A38F8C02BE48F88003F058F /* OldExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldExploreViewController.swift; sourceTree = "<group>"; };
 		2A38F8C22BE48FB2003F058F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWord+Extension.swift"; sourceTree = "<group>"; };
@@ -181,7 +164,11 @@
 		2A70454B2C7DBAB000A58672 /* PracticeModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeViewController.swift; sourceTree = "<group>"; };
 		2A7045552C7DC35D00A58672 /* RadioButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonCell.swift; sourceTree = "<group>"; };
 		2A7045562C7DC35D00A58672 /* RadioButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RadioButtonCell.xib; sourceTree = "<group>"; };
-		2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningRecord.swift; sourceTree = "<group>"; };
+		2A7045592C7FF7AB00A58672 /* ClozeViewControllerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClozeViewControllerViewModel.swift; sourceTree = "<group>"; };
+		2A70455B2C7FF94900A58672 /* ClozeWord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClozeWord.swift; sourceTree = "<group>"; };
+		2A70455D2C800BF800A58672 /* PracticeThresholdRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeThresholdRule.swift; sourceTree = "<group>"; };
+		2A7045602C800C7000A58672 /* PracticeThresholdRuleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeThresholdRuleManager.swift; sourceTree = "<group>"; };
+		2A7045622C80265600A58672 /* ModelContainerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelContainerProvider.swift; sourceTree = "<group>"; };
 		2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextRevisionInputAccessoryView.xib; sourceTree = "<group>"; };
 		2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextRevisionInputAccessoryView.swift; sourceTree = "<group>"; };
 		2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseDeckViewController.swift; sourceTree = "<group>"; };
@@ -194,21 +181,14 @@
 		2A89D86B2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeModeSelectorView.xib; sourceTree = "<group>"; };
 		2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeSelectorView.swift; sourceTree = "<group>"; };
 		2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevisePresetViewController.swift; sourceTree = "<group>"; };
-		2AA328C72BEDF509001D83C2 /* DeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckManager.swift; sourceTree = "<group>"; };
 		2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewController.swift; sourceTree = "<group>"; };
-		2AB8CC0A2BF5AA1D00BFFD4A /* SentenceClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SentenceClozeView.xib; sourceTree = "<group>"; };
 		2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSelectionCell.swift; sourceTree = "<group>"; };
 		2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSelectionCell.xib; sourceTree = "<group>"; };
 		2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDeckViewController.swift; sourceTree = "<group>"; };
 		2AC3E5922C5602EB002CC242 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		2AC5D8B82C54941B0090AEBB /* PlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayButton.xib; sourceTree = "<group>"; };
-		2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeView.swift; sourceTree = "<group>"; };
 		2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSettingViewController.swift; sourceTree = "<group>"; };
-		2AE025F32BF49686006EC021 /* CardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardManager.swift; sourceTree = "<group>"; };
-		2AE025F52BF4983A006EC021 /* NoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteManager.swift; sourceTree = "<group>"; };
-		2AE025F72BF49C6F006EC021 /* notes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = notes.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
-		2AE025F92BF4AB60006EC021 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultViewController.swift; sourceTree = "<group>"; };
 		2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultCell.swift; sourceTree = "<group>"; };
 		2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchClozeResultCell.xib; sourceTree = "<group>"; };
@@ -226,15 +206,11 @@
 		2AFF6C9B2C5B5FF100629B26 /* ExploreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExploreCell.xib; sourceTree = "<group>"; };
 		2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerProvidedArticleViewController.swift; sourceTree = "<group>"; };
 		2AFF6CA02C5B748800629B26 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
-		D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentence.swift; sourceTree = "<group>"; };
 		D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewModel.swift; sourceTree = "<group>"; };
 		D00A72EE2BFDEC5A0064F325 /* NoCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoCardView.xib; sourceTree = "<group>"; };
 		D00A72F02BFDEDA00064F325 /* NoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCardView.swift; sourceTree = "<group>"; };
 		D019610F2C43BEA70040735E /* CustomTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTagView.swift; sourceTree = "<group>"; };
 		D01961112C43BEB20040735E /* CustomTagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTagView.xib; sourceTree = "<group>"; };
-		D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
-		D020A4ED2BB9DA3C00CA5CAF /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
-		D020A4EF2BB9DA6000CA5CAF /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTextField.swift; sourceTree = "<group>"; };
 		D02BE80D2C67B26F00140DD3 /* GoogleCloudTranslationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCloudTranslationService.swift; sourceTree = "<group>"; };
 		D02E46F62C272CC500418781 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -246,12 +222,8 @@
 		D04AC2022C51E78E00F91A07 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		D04AC2032C51E78E00F91A07 /* SearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
 		D04AC2062C51EF0300F91A07 /* DeckCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeckCell.xib; sourceTree = "<group>"; };
-		D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vocabulary.swift; sourceTree = "<group>"; };
-		D04EB75B2BB66EEF009E3A41 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewController.swift; sourceTree = "<group>"; };
 		D05D6A1B2C652645006AC6BE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGeneratedArticleViewController.swift; sourceTree = "<group>"; };
-		D078D0972BC9242900F601B2 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
 		D09262B72C097D2400CA90BA /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		D09262B92C097ECD00CA90BA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -263,10 +235,8 @@
 		D0A064402BFC913C001AFE08 /* PronounciationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PronounciationView.xib; sourceTree = "<group>"; };
 		D0A064422BFC916C001AFE08 /* NibOwnerLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibOwnerLoadable.swift; sourceTree = "<group>"; };
 		D0A6E4E82C52060100E1EF35 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
-		D0A86A652C1B55390022DFDD /* ClozeViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClozeViewControllerViewModel.swift; sourceTree = "<group>"; };
 		D0A86A672C1B5FA00022DFDD /* ContextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextCell.swift; sourceTree = "<group>"; };
 		D0AF303D2C43CB6500DF71CD /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
-		D0B2E3F72C2AA53E0047B2F5 /* ClozeWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClozeWord.swift; sourceTree = "<group>"; };
 		D0B2E3FB2C2BB15F0047B2F5 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		D0D6E0E82C1CB38500C1F95E /* ContextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextLabel.swift; sourceTree = "<group>"; };
 		D0D6E0EA2C1DE92C00C1F95E /* ContextStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextStackView.swift; sourceTree = "<group>"; };
@@ -280,8 +250,6 @@
 		D0DA5AD02BB66A07008644DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0DA5AD22BB66A07008644DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
-		D0E8848A2BC93C3600C78B97 /* OldNoteType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldNoteType.swift; sourceTree = "<group>"; };
-		D0E8848C2BC93CB800C78B97 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		D0EE06FC2C6A4CFD000B5BC8 /* ChatGPTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -307,29 +275,27 @@
 			isa = PBXGroup;
 			children = (
 				2A7045492C7DB85E00A58672 /* PracticeMode.swift */,
+				2A70455D2C800BF800A58672 /* PracticeThresholdRule.swift */,
 			);
 			path = SwiftData;
 			sourceTree = "<group>";
 		};
-		2AA328C02BEDC3ED001D83C2 /* DataManager */ = {
+		2A70455F2C800C6100A58672 /* SwiftDataManager */ = {
 			isa = PBXGroup;
 			children = (
-				2AE025F72BF49C6F006EC021 /* notes.json */,
-				2AE025F92BF4AB60006EC021 /* DataManager.swift */,
-				2AA328C72BEDF509001D83C2 /* DeckManager.swift */,
-				2AE025F32BF49686006EC021 /* CardManager.swift */,
-				2AE025F52BF4983A006EC021 /* NoteManager.swift */,
+				2A7045622C80265600A58672 /* ModelContainerProvider.swift */,
+				2A7045602C800C7000A58672 /* PracticeThresholdRuleManager.swift */,
 			);
-			path = DataManager;
+			path = SwiftDataManager;
 			sourceTree = "<group>";
 		};
 		D0058CE72BBA713B00D2BB25 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				2A7045592C7FF7AB00A58672 /* ClozeViewControllerViewModel.swift */,
 				D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */,
 				2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */,
 				2A17DAF92C157C7F00919642 /* ClozeViewViewModel.swift */,
-				D0A86A652C1B55390022DFDD /* ClozeViewControllerViewModel.swift */,
 				2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */,
 				2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */,
 			);
@@ -341,12 +307,9 @@
 			children = (
 				2A18E7B32BE74008005139C8 /* DeckCell.swift */,
 				D04AC2062C51EF0300F91A07 /* DeckCell.xib */,
-				D020A4EB2BB9D90500CA5CAF /* CustomCell.swift */,
 				D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */,
 				D0A0643E2BFC8E78001AFE08 /* PronounciationView.swift */,
 				D0A064402BFC913C001AFE08 /* PronounciationView.xib */,
-				2AD2D9A82BF5AE1900AB02D0 /* SentenceClozeView.swift */,
-				2AB8CC0A2BF5AA1D00BFFD4A /* SentenceClozeView.xib */,
 				D00A72F02BFDEDA00064F325 /* NoCardView.swift */,
 				D00A72EE2BFDEC5A0064F325 /* NoCardView.xib */,
 				2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */,
@@ -403,18 +366,10 @@
 		D04EB7582BB66ED5009E3A41 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2A70455F2C800C6100A58672 /* SwiftDataManager */,
 				2A7045482C7DB85100A58672 /* SwiftData */,
-				D0B2E3F72C2AA53E0047B2F5 /* ClozeWord.swift */,
-				D04EB7592BB66EE7009E3A41 /* Vocabulary.swift */,
-				D0E8848C2BC93CB800C78B97 /* Deck.swift */,
-				D04EB75B2BB66EEF009E3A41 /* Card.swift */,
-				D078D0972BC9242900F601B2 /* Note.swift */,
-				D0E8848A2BC93C3600C78B97 /* OldNoteType.swift */,
-				D0058CE52BBA6E6D00D2BB25 /* Sentence.swift */,
-				D020A4ED2BB9DA3C00CA5CAF /* Word.swift */,
-				D020A4EF2BB9DA6000CA5CAF /* Article.swift */,
-				2A74CDE32BCA86EC00F2B8AB /* LearningRecord.swift */,
 				D09262BB2C097F2A00CA90BA /* CoreData */,
+				2A70455B2C7FF94900A58672 /* ClozeWord.swift */,
 				2A034E822C75879C00668F02 /* Tag.swift */,
 				2A034E842C75902D00668F02 /* TranslationPair.swift */,
 			);
@@ -432,7 +387,6 @@
 				2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */,
 				2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */,
 				2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */,
-				2A38F8C02BE48F88003F058F /* OldExploreViewController.swift */,
 				2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */,
 				2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */,
 				2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */,
@@ -456,7 +410,6 @@
 				D0EE06FC2C6A4CFD000B5BC8 /* ChatGPTService.swift */,
 				D097F15F2C58B75D00248E7B /* GoogleTTSService.swift */,
 				D02BE80D2C67B26F00140DD3 /* GoogleCloudTranslationService.swift */,
-				D04EB7612BB67116009E3A41 /* SentenceClozeViewController.swift */,
 				D0DA5AC42BB66A05008644DC /* AppDelegate.swift */,
 				D0DA5AC62BB66A05008644DC /* SceneDelegate.swift */,
 				D032145A2BD63C2200512263 /* Preferences.swift */,
@@ -511,9 +464,8 @@
 		D0DA5AC32BB66A05008644DC /* NewWord */ = {
 			isa = PBXGroup;
 			children = (
-				2AA328C02BEDC3ED001D83C2 /* DataManager */,
-				D0058CE72BBA713B00D2BB25 /* ViewModels */,
 				D04EB75F2BB670D3009E3A41 /* Controllers */,
+				D0058CE72BBA713B00D2BB25 /* ViewModels */,
 				D04EB7582BB66ED5009E3A41 /* Models */,
 				D020A4EA2BB9D8E700CA5CAF /* Views */,
 				D04EB7602BB670DD009E3A41 /* Utils */,
@@ -605,14 +557,12 @@
 				2A7045572C7DC35D00A58672 /* RadioButtonCell.xib in Resources */,
 				2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */,
 				D04AC2072C51EF0300F91A07 /* DeckCell.xib in Resources */,
-				2AB8CC0B2BF5AA1D00BFFD4A /* SentenceClozeView.xib in Resources */,
 				D0DA5AD12BB66A07008644DC /* Base in Resources */,
 				2AC5D8BB2C54942A0090AEBB /* PlayButton.xib in Resources */,
 				2A24E8D82C537E66006C1032 /* ListeningClozeView.xib in Resources */,
 				2AFC91542C7C6634002C2AD1 /* PracticeSettingHeaderView.xib in Resources */,
 				2AFC914B2C7C4F6F002C2AD1 /* PracticeSequenceCell.xib in Resources */,
 				2AED807F2C2E987B001E675A /* SearchClozeResultCell.xib in Resources */,
-				2AE025F82BF49C6F006EC021 /* notes.json in Resources */,
 				D04AC2052C51E78E00F91A07 /* SearchCell.xib in Resources */,
 				2A17DAFC2C158C3B00919642 /* InputAccessoryView.xib in Resources */,
 				D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */,
@@ -635,19 +585,15 @@
 			files = (
 				2A034F812C37CCB600AEDA65 /* CustomNumberTagView.swift in Sources */,
 				D0DA5AC92BB66A05008644DC /* MainViewController.swift in Sources */,
+				2A7045632C80265600A58672 /* ModelContainerProvider.swift in Sources */,
 				2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */,
-				D0E8848B2BC93C3600C78B97 /* OldNoteType.swift in Sources */,
 				2A6BA1442C63622B00F0DE3F /* FirestoreManager.swift in Sources */,
 				2A7B6CD12C080A900017BB5C /* StoryboardGenerated.swift in Sources */,
 				2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */,
 				2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */,
 				2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */,
 				2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */,
-				D020A4EE2BB9DA3C00CA5CAF /* Word.swift in Sources */,
-				D020A4F02BB9DA6000CA5CAF /* Article.swift in Sources */,
 				2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */,
-				D04EB75A2BB66EE7009E3A41 /* Vocabulary.swift in Sources */,
-				D04EB75C2BB66EEF009E3A41 /* Card.swift in Sources */,
 				D0D6E0E92C1CB38500C1F95E /* ContextLabel.swift in Sources */,
 				2AFC91512C7C5B85002C2AD1 /* PracticeSettingCell.swift in Sources */,
 				2A034E852C75902D00668F02 /* TranslationPair.swift in Sources */,
@@ -663,25 +609,22 @@
 				D0D8D5F62C0F0920001BB415 /* String+Extension.swift in Sources */,
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
 				2AC3E5932C5602EB002CC242 /* SettingCell.swift in Sources */,
-				2AA328C82BEDF509001D83C2 /* DeckManager.swift in Sources */,
 				2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */,
 				2A0D41F32C6EF2C3000B1B3B /* ArticlePlayButtonView.swift in Sources */,
-				D04EB7622BB67116009E3A41 /* SentenceClozeViewController.swift in Sources */,
 				D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */,
 				2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */,
 				D0344F602C56B25D00F721BF /* CDNote+Extension.swift in Sources */,
-				D0058CE62BBA6E6D00D2BB25 /* Sentence.swift in Sources */,
 				2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */,
 				2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */,
 				D02E46F72C272CC500418781 /* UserDefaultsManager.swift in Sources */,
-				2AE025FA2BF4AB60006EC021 /* DataManager.swift in Sources */,
 				2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */,
+				2A70455A2C7FF7AC00A58672 /* ClozeViewControllerViewModel.swift in Sources */,
+				2A70455C2C7FF94A00A58672 /* ClozeWord.swift in Sources */,
 				2A7045582C7DC35D00A58672 /* RadioButtonCell.swift in Sources */,
 				2A89D86A2C7435AC00DDBFF0 /* UITextView+Extension.swift in Sources */,
 				2A17DAFA2C157C7F00919642 /* ClozeViewViewModel.swift in Sources */,
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
 				D09262C32C098A4400CA90BA /* CDLapses+Extension.swift in Sources */,
-				D078D0982BC9242900F601B2 /* Note.swift in Sources */,
 				2A24E8D42C50DF39006C1032 /* ReviseContextViewController.swift in Sources */,
 				2A1A5DA32C719D6600B94037 /* SkeletonLoadable.swift in Sources */,
 				2AFC91572C7C6BA3002C2AD1 /* SeparatorFooterView.swift in Sources */,
@@ -692,15 +635,12 @@
 				2AFC914D2C7C5720002C2AD1 /* PracticeSettingViewController.swift in Sources */,
 				2A7B6CD52C0810030017BB5C /* NotificationName+Extension.swift in Sources */,
 				2AFC914A2C7C4F6F002C2AD1 /* PracticeSequenceCell.swift in Sources */,
+				2A7045612C800C7000A58672 /* PracticeThresholdRuleManager.swift in Sources */,
 				D0A6E4E92C52060100E1EF35 /* TagView.swift in Sources */,
-				D0B2E3F82C2AA53E0047B2F5 /* ClozeWord.swift in Sources */,
-				2A38F8C12BE48F88003F058F /* OldExploreViewController.swift in Sources */,
 				2AFF6C9F2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift in Sources */,
 				2A7F3C102C5B5A3C0028150D /* ExploreViewController.swift in Sources */,
 				2A70454A2C7DB85E00A58672 /* PracticeMode.swift in Sources */,
-				2AE025F62BF4983A006EC021 /* NoteManager.swift in Sources */,
 				D0D6E0EB2C1DE92C00C1F95E /* ContextStackView.swift in Sources */,
-				2AD2D9A92BF5AE1900AB02D0 /* SentenceClozeView.swift in Sources */,
 				2A70454C2C7DBAB000A58672 /* PracticeModeViewController.swift in Sources */,
 				2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */,
 				D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */,
@@ -711,31 +651,27 @@
 				D0EE06FD2C6A4CFD000B5BC8 /* ChatGPTService.swift in Sources */,
 				2A24E8D62C537E59006C1032 /* ListeningClozeView.swift in Sources */,
 				D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */,
-				D0E8848D2BC93CB800C78B97 /* Deck.swift in Sources */,
 				2AC5D8B92C54941B0090AEBB /* PlayButton.swift in Sources */,
 				D09262C12C09808400CA90BA /* CDCard+Extension.swift in Sources */,
 				2AF886902C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift in Sources */,
-				D020A4EC2BB9D90500CA5CAF /* CustomCell.swift in Sources */,
 				D04AC2042C51E78E00F91A07 /* SearchCell.swift in Sources */,
 				2A17DAFE2C158C5A00919642 /* InputAccessoryView.swift in Sources */,
 				2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */,
-				2A74CDE42BCA86EC00F2B8AB /* LearningRecord.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
 				2AFC91472C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift in Sources */,
 				D0B2E3FC2C2BB15F0047B2F5 /* CustomTextView.swift in Sources */,
 				D0AF303E2C43CB6500DF71CD /* TagLabel.swift in Sources */,
-				D0A86A662C1B55390022DFDD /* ClozeViewControllerViewModel.swift in Sources */,
 				D0A86A682C1B5FA00022DFDD /* ContextCell.swift in Sources */,
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
 				2A17DAF82C1579E400919642 /* ClozeView.swift in Sources */,
 				D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */,
 				2A034E832C75879C00668F02 /* Tag.swift in Sources */,
-				2AE025F42BF49686006EC021 /* CardManager.swift in Sources */,
 				D09262BA2C097ECD00CA90BA /* CoreDataManager.swift in Sources */,
 				D09262BF2C097FC600CA90BA /* CDLearningRecord+Extension.swift in Sources */,
 				2A7B6CD32C080B440017BB5C /* Constants.swift in Sources */,
 				2AFF6CA12C5B748800629B26 /* UINavigationController+Extension.swift in Sources */,
 				D097F1602C58B75D00248E7B /* GoogleTTSService.swift in Sources */,
+				2A70455E2C800BF800A58672 /* PracticeThresholdRule.swift in Sources */,
 				2AFF6C9D2C5B5FF100629B26 /* ExploreCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -897,7 +833,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -931,7 +867,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
