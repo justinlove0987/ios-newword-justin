@@ -210,7 +210,7 @@ class GoogleTTSService: NSObject {
                 
                 for timepoint in result.timepoints {
                     
-                    let markName = timepoint.markName
+                    // let markName = timepoint.markName
                     let markTime = roundToOneDecimalPlace(timepoint.timeSeconds)
                     
                     if markTime == currentTimeInSeconds && !currentTimeInSeconds.isZero  {

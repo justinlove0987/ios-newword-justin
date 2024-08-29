@@ -26,10 +26,16 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         super.viewDidLoad()
         setup()
         
+//        PracticeThresholdRuleManager.shared.createRule(conditionType: 0, thresholdValue: 0, actionType: 0)
         
-        PracticeThresholdRuleManager.shared.createRule(conditionType: 0, thresholdValue: 0, actionType: 0)
+//        let rules = PracticeThresholdRuleManager.shared.fetchAll()
+//        
+//        for rule in rules {
+//            let rule = PracticeThresholdRuleManager.shared.fetch(byId: rule.id)
+//            print("foo - \(rule?.conditionType)")
+//        }
         
-        let rules = PracticeThresholdRuleManager.shared.fetchAllRules()
+        
         
         
 //        let title = "UN Chief Urges Major Polluters to Act Now or Face Global Catastrophe"

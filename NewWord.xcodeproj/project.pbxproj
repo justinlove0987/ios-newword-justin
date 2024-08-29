@@ -48,6 +48,9 @@
 		2A70455E2C800BF800A58672 /* PracticeThresholdRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70455D2C800BF800A58672 /* PracticeThresholdRule.swift */; };
 		2A7045612C800C7000A58672 /* PracticeThresholdRuleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045602C800C7000A58672 /* PracticeThresholdRuleManager.swift */; };
 		2A7045632C80265600A58672 /* ModelContainerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045622C80265600A58672 /* ModelContainerProvider.swift */; };
+		2A7045662C805B4E00A58672 /* PracticePresetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045652C805B4E00A58672 /* PracticePresetManager.swift */; };
+		2A7045682C805B7A00A58672 /* PracticePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045672C805B7A00A58672 /* PracticePreset.swift */; };
+		2A70456A2C805FD800A58672 /* PracticeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045692C805FD800A58672 /* PracticeMap.swift */; };
 		2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */; };
 		2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */; };
 		2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */; };
@@ -169,6 +172,9 @@
 		2A70455D2C800BF800A58672 /* PracticeThresholdRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeThresholdRule.swift; sourceTree = "<group>"; };
 		2A7045602C800C7000A58672 /* PracticeThresholdRuleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeThresholdRuleManager.swift; sourceTree = "<group>"; };
 		2A7045622C80265600A58672 /* ModelContainerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelContainerProvider.swift; sourceTree = "<group>"; };
+		2A7045652C805B4E00A58672 /* PracticePresetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticePresetManager.swift; sourceTree = "<group>"; };
+		2A7045672C805B7A00A58672 /* PracticePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticePreset.swift; sourceTree = "<group>"; };
+		2A7045692C805FD800A58672 /* PracticeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeMap.swift; sourceTree = "<group>"; };
 		2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextRevisionInputAccessoryView.xib; sourceTree = "<group>"; };
 		2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextRevisionInputAccessoryView.swift; sourceTree = "<group>"; };
 		2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseDeckViewController.swift; sourceTree = "<group>"; };
@@ -276,6 +282,8 @@
 			children = (
 				2A7045492C7DB85E00A58672 /* PracticeMode.swift */,
 				2A70455D2C800BF800A58672 /* PracticeThresholdRule.swift */,
+				2A7045672C805B7A00A58672 /* PracticePreset.swift */,
+				2A7045692C805FD800A58672 /* PracticeMap.swift */,
 			);
 			path = SwiftData;
 			sourceTree = "<group>";
@@ -285,6 +293,7 @@
 			children = (
 				2A7045622C80265600A58672 /* ModelContainerProvider.swift */,
 				2A7045602C800C7000A58672 /* PracticeThresholdRuleManager.swift */,
+				2A7045652C805B4E00A58672 /* PracticePresetManager.swift */,
 			);
 			path = SwiftDataManager;
 			sourceTree = "<group>";
@@ -634,6 +643,7 @@
 				2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */,
 				2AFC914D2C7C5720002C2AD1 /* PracticeSettingViewController.swift in Sources */,
 				2A7B6CD52C0810030017BB5C /* NotificationName+Extension.swift in Sources */,
+				2A7045682C805B7A00A58672 /* PracticePreset.swift in Sources */,
 				2AFC914A2C7C4F6F002C2AD1 /* PracticeSequenceCell.swift in Sources */,
 				2A7045612C800C7000A58672 /* PracticeThresholdRuleManager.swift in Sources */,
 				D0A6E4E92C52060100E1EF35 /* TagView.swift in Sources */,
@@ -641,6 +651,7 @@
 				2A7F3C102C5B5A3C0028150D /* ExploreViewController.swift in Sources */,
 				2A70454A2C7DB85E00A58672 /* PracticeMode.swift in Sources */,
 				D0D6E0EB2C1DE92C00C1F95E /* ContextStackView.swift in Sources */,
+				2A7045662C805B4E00A58672 /* PracticePresetManager.swift in Sources */,
 				2A70454C2C7DBAB000A58672 /* PracticeModeViewController.swift in Sources */,
 				2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */,
 				D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */,
@@ -651,6 +662,7 @@
 				D0EE06FD2C6A4CFD000B5BC8 /* ChatGPTService.swift in Sources */,
 				2A24E8D62C537E59006C1032 /* ListeningClozeView.swift in Sources */,
 				D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */,
+				2A70456A2C805FD800A58672 /* PracticeMap.swift in Sources */,
 				2AC5D8B92C54941B0090AEBB /* PlayButton.swift in Sources */,
 				D09262C12C09808400CA90BA /* CDCard+Extension.swift in Sources */,
 				2AF886902C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift in Sources */,

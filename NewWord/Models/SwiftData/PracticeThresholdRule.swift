@@ -10,6 +10,7 @@ import SwiftData
 
 @Model
 class PracticeThresholdRule: Identifiable {
+//    @Attribute(originalName: "conditionType")
     var id: UUID
     var conditionType: Int
     var thresholdValue: Int
