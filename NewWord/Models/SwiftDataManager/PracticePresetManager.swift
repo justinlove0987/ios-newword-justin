@@ -8,10 +8,9 @@
 
 import UIKit
 import SwiftData
-import SwiftUI
 
 @MainActor
-class PracticePresetManager: ModelContainerProvider<PracticePreset> {
+class PracticePresetManager: ModelManager<PracticePreset> {
     
     static let shared = PracticePresetManager()
     

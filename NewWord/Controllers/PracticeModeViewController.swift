@@ -12,7 +12,7 @@ class PracticeModeViewController: UIViewController, StoryboardGenerated {
     static var storyboardName: String = K.Storyboard.main
     
     struct Row: Hashable {
-        let practiceType: PracticeMode
+        let practiceType: PracticeType
     }
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -32,7 +32,7 @@ class PracticeModeViewController: UIViewController, StoryboardGenerated {
     }
     
     private func setupData() {
-        for mode in PracticeMode.allCases {
+        for mode in PracticeType.allCases {
             rows.append(Row(practiceType: mode))
         }
     }

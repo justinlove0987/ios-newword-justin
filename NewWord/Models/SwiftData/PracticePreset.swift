@@ -9,8 +9,8 @@ import UIKit
 import SwiftData
 
 @Model
-class PracticePreset: Identifiable {
-    
+class PracticePreset: Identifiable, Encodable, Decodable {
+
     var practiceType: Int
     
     var firstPracticeGraduationInterval: Double = 1.0
@@ -24,8 +24,9 @@ class PracticePreset: Identifiable {
     
     var practiceThresholdRules: [PracticeThresholdRule]
     var easyBonus: Double = 1.3
-    var isSynchronizedWithPractice: Bool = false
-    
+    var isSynchronizedWithPracticePreset: Bool = false
+    var synchronizedPracticePreset: PracticePreset? = nil
+
     // 設定初始化方法
     init(practiceType: Int,
          firstPracticeGraduationInterval: Double,
@@ -35,8 +36,8 @@ class PracticePreset: Identifiable {
          forgetPracticeEase: Double,
          practiceThresholdRules: [PracticeThresholdRule],
          easyBonus: Double,
-         isSynchronizedWithPractice: Bool) {
-        
+         isSynchronizedWithPracticePreset: Bool) {
+
         self.practiceType = practiceType
         self.firstPracticeGraduationInterval = firstPracticeGraduationInterval
         self.firstPracticeEasyInterval = firstPracticeEasyInterval
@@ -45,7 +46,55 @@ class PracticePreset: Identifiable {
         self.forgetPracticeEase = forgetPracticeEase
         self.practiceThresholdRules = practiceThresholdRules
         self.easyBonus = easyBonus
-        self.isSynchronizedWithPractice = isSynchronizedWithPractice
+        self.isSynchronizedWithPracticePreset = isSynchronizedWithPracticePreset
     }
-    
+
+    // 自定義編碼和解碼
+    private enum CodingKeys: String, CodingKey {
+        case practiceType
+        case firstPracticeGraduationInterval
+        case firstPracticeEasyInterval
+        case firstPracticeEase
+        case firstPracticeLearningPhase
+        case forgetPracticeInterval
+        case forgetPracticeEase
+        case forgetPracticeRelearningSteps
+        case practiceThresholdRules
+        case easyBonus
+        case isSynchronizedWithPracticePreset
+        case synchronizedPracticePreset
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.practiceType = try container.decode(Int.self, forKey: .practiceType)
+        self.firstPracticeGraduationInterval = try container.decode(Double.self, forKey: .firstPracticeGraduationInterval)
+        self.firstPracticeEasyInterval = try container.decode(Double.self, forKey: .firstPracticeEasyInterval)
+        self.firstPracticeEase = try container.decode(Double.self, forKey: .firstPracticeEase)
+        self.firstPracticeLearningPhase = try container.decode(Double.self, forKey: .firstPracticeLearningPhase)
+        self.forgetPracticeInterval = try container.decode(Double.self, forKey: .forgetPracticeInterval)
+        self.forgetPracticeEase = try container.decode(Double.self, forKey: .forgetPracticeEase)
+        self.forgetPracticeRelearningSteps = try container.decode(Double.self, forKey: .forgetPracticeRelearningSteps)
+        self.practiceThresholdRules = try container.decode([PracticeThresholdRule].self, forKey: .practiceThresholdRules)
+        self.easyBonus = try container.decode(Double.self, forKey: .easyBonus)
+        self.isSynchronizedWithPracticePreset = try container.decode(Bool.self, forKey: .isSynchronizedWithPracticePreset)
+        self.synchronizedPracticePreset = try container.decodeIfPresent(PracticePreset.self, forKey: .synchronizedPracticePreset)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(practiceType, forKey: .practiceType)
+        try container.encode(firstPracticeGraduationInterval, forKey: .firstPracticeGraduationInterval)
+        try container.encode(firstPracticeEasyInterval, forKey: .firstPracticeEasyInterval)
+        try container.encode(firstPracticeEase, forKey: .firstPracticeEase)
+        try container.encode(firstPracticeLearningPhase, forKey: .firstPracticeLearningPhase)
+        try container.encode(forgetPracticeInterval, forKey: .forgetPracticeInterval)
+        try container.encode(forgetPracticeEase, forKey: .forgetPracticeEase)
+        try container.encode(forgetPracticeRelearningSteps, forKey: .forgetPracticeRelearningSteps)
+        try container.encode(practiceThresholdRules, forKey: .practiceThresholdRules)
+        try container.encode(easyBonus, forKey: .easyBonus)
+        try container.encode(isSynchronizedWithPracticePreset, forKey: .isSynchronizedWithPracticePreset)
+        try container.encodeIfPresent(synchronizedPracticePreset, forKey: .synchronizedPracticePreset)
+    }
+
 }

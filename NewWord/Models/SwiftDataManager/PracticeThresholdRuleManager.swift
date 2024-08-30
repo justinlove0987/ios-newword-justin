@@ -7,10 +7,9 @@
 
 import UIKit
 import SwiftData
-import SwiftUI
 
 @MainActor
-class PracticeThresholdRuleManager: ModelContainerProvider<PracticeThresholdRule> {
+class PracticeThresholdRuleManager: ModelManager<PracticeThresholdRule> {
     
     static let shared = PracticeThresholdRuleManager()
     

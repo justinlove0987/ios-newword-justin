@@ -25,18 +25,18 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        
-//        PracticeThresholdRuleManager.shared.createRule(conditionType: 0, thresholdValue: 0, actionType: 0)
-        
-//        let rules = PracticeThresholdRuleManager.shared.fetchAll()
-//        
-//        for rule in rules {
-//            let rule = PracticeThresholdRuleManager.shared.fetch(byId: rule.id)
-//            print("foo - \(rule?.conditionType)")
-//        }
-        
-        
-        
+
+        let practicePreset = PracticePreset(practiceType: 0, firstPracticeGraduationInterval: 0, firstPracticeEasyInterval: 0, firstPracticeEase: 0, forgetPracticeInterval: 0, forgetPracticeEase: 0, practiceThresholdRules: [], easyBonus: 0, isSynchronizedWithPracticePreset: true)
+
+        PracticeThresholdRuleManager.shared.create(model: PracticeThresholdRule(conditionType: 0, thresholdValue: 0, actionType: 0))
+        PracticePresetManager.shared.create(model: practicePreset)
+        PracticeMapManager.shared.create(model: PracticeMap(practicePresetMatrix: [[practicePreset]], practiceRecord: []))
+
+        let result2 = PracticeThresholdRuleManager.shared.fetchAll()
+        let result3 = PracticePresetManager.shared.fetchAll()
+        let result4 = PracticeMapManager.shared.fetchAll()
+
+        print("foo - \(result2) \(result3) \(result4)")
         
 //        let title = "UN Chief Urges Major Polluters to Act Now or Face Global Catastrophe"
 //        
@@ -164,7 +164,11 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         var snapshot = NSDiffableDataSourceSnapshot<Int, FSArticle>()
         snapshot.appendSections([0])
         snapshot.appendItems(articles)
-        dataSource.apply(snapshot, animatingDifferences: false)
+
+        DispatchQueue.main.async {
+            self.dataSource.apply(snapshot, animatingDifferences: false)
+        }
+
     }
     
     private func fetchImage(at indexPath: IndexPath) {

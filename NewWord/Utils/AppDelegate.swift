@@ -69,6 +69,8 @@ extension AppDelegate {
             
             CoreDataManager.shared.addSelectableItemList(items: items, type: .deck)
         }
+
+        _ = PersistentContainerManager.shared
     }
 }
 

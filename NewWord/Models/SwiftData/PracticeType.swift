@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum PracticeMode: Int, CaseIterable {
+enum PracticeType: Int, CaseIterable {
     case listenAndTranslate
     case listenReadChineseAndTypeEnglish
     case listenAndTypeEnglish
