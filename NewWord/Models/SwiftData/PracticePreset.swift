@@ -8,8 +8,13 @@
 import UIKit
 import SwiftData
 
+
+protocol PracticePresetProtocol {
+
+}
+
 @Model
-class PracticePreset: Identifiable, Encodable, Decodable {
+class PracticePreset: Identifiable, Encodable, Decodable, PracticePresetProtocol {
 
     var practiceType: Int
     

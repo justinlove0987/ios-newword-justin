@@ -31,5 +31,21 @@ extension PracticeContext {
     var practiceRecord: [PracticeRecord] {
         return []
     }
+}
 
+
+protocol PracticeProtocol {
+
+}
+
+@Model
+class Practice {
+
+    var id: UUID
+    var presetId: UUID
+
+    init(id: UUID = UUID(), presetId: UUID = UUID()) {
+        self.id = id
+        self.presetId = presetId
+    }
 }

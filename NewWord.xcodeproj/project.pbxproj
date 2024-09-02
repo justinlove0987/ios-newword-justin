@@ -105,6 +105,7 @@
 		D04023332C81A520004BF63B /* PracticeRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04023322C81A520004BF63B /* PracticeRecord.swift */; };
 		D04023352C81A659004BF63B /* PracticeContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04023342C81A659004BF63B /* PracticeContext.swift */; };
 		D04023372C81A74A004BF63B /* PracticeMapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04023362C81A74A004BF63B /* PracticeMapManager.swift */; };
+		D040233D2C847F46004BF63B /* PrracticeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040233C2C847F46004BF63B /* PrracticeManager.swift */; };
 		D04AC2042C51E78E00F91A07 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04AC2022C51E78E00F91A07 /* SearchCell.swift */; };
 		D04AC2052C51E78E00F91A07 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04AC2032C51E78E00F91A07 /* SearchCell.xib */; };
 		D04AC2072C51EF0300F91A07 /* DeckCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04AC2062C51EF0300F91A07 /* DeckCell.xib */; };
@@ -231,6 +232,7 @@
 		D04023322C81A520004BF63B /* PracticeRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeRecord.swift; sourceTree = "<group>"; };
 		D04023342C81A659004BF63B /* PracticeContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeContext.swift; sourceTree = "<group>"; };
 		D04023362C81A74A004BF63B /* PracticeMapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeMapManager.swift; sourceTree = "<group>"; };
+		D040233C2C847F46004BF63B /* PrracticeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrracticeManager.swift; sourceTree = "<group>"; };
 		D04AC2022C51E78E00F91A07 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		D04AC2032C51E78E00F91A07 /* SearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
 		D04AC2062C51EF0300F91A07 /* DeckCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeckCell.xib; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				2A7045602C800C7000A58672 /* PracticeThresholdRuleManager.swift */,
 				2A7045652C805B4E00A58672 /* PracticePresetManager.swift */,
 				D04023362C81A74A004BF63B /* PracticeMapManager.swift */,
+				D040233C2C847F46004BF63B /* PrracticeManager.swift */,
 			);
 			path = SwiftDataManager;
 			sourceTree = "<group>";
@@ -691,6 +694,7 @@
 				D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */,
 				2A034E832C75879C00668F02 /* Tag.swift in Sources */,
 				D09262BA2C097ECD00CA90BA /* CoreDataManager.swift in Sources */,
+				D040233D2C847F46004BF63B /* PrracticeManager.swift in Sources */,
 				D09262BF2C097FC600CA90BA /* CDLearningRecord+Extension.swift in Sources */,
 				2A7B6CD32C080B440017BB5C /* Constants.swift in Sources */,
 				2AFF6CA12C5B748800629B26 /* UINavigationController+Extension.swift in Sources */,
