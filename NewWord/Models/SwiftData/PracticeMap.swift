@@ -11,15 +11,10 @@ import SwiftData
 
 @Model
 class PracticeMap: Identifiable {
-    var id: UUID
-    var practicePresetMatrix: [[PracticePreset]] = []
-    var practiceRecord: [PracticeRecord] = []
+    var practiceMatrix: [[Practice]] = []
 
     // 設定初始化方法
-    init(id: UUID = UUID(), practicePresetMatrix: [[PracticePreset]], practiceRecord: [PracticeRecord]) {
-        self.id = id
-        self.practicePresetMatrix = practicePresetMatrix
-        self.practiceRecord = practiceRecord
+    init(practiceMatrix: [[Practice]]) {
+        self.practiceMatrix = practiceMatrix
     }
-
 }

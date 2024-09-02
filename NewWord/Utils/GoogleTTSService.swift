@@ -265,7 +265,7 @@ class GoogleTTSService: NSObject {
             }
             
             // 解析 timepoints 並封裝到 TimepointInfo 中
-            var timepoints: [TimepointInfo] = []
+            var timepoints: [FSTimepointInfo] = []
             
             if let tpArray = response["timepoints"] as? [[String: Any]] {
                 for tp in tpArray {
@@ -281,7 +281,7 @@ class GoogleTTSService: NSObject {
                             }
                             return nil
                         }()
-                        let timepointInfo = TimepointInfo(range: range, markName: markName, timeSeconds: timeSeconds)
+                        let timepointInfo = FSTimepointInfo(range: range, markName: markName, timeSeconds: timeSeconds)
                         timepoints.append(timepointInfo)
                     }
                 }
@@ -363,12 +363,12 @@ extension GoogleTTSService: AVAudioPlayerDelegate {
 
 struct TTSSynthesisResult: Hashable {
     let audioId: String
-    var timepoints: [TimepointInfo]
+    var timepoints: [FSTimepointInfo]
     
     var audioData: Data?
 }
 
-struct TimepointInfo: Hashable {
+struct FSTimepointInfo: Hashable {
     var range: NSRange?
     let markName: String
     let timeSeconds: Double

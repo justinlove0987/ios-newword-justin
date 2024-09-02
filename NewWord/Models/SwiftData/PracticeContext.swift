@@ -11,23 +11,22 @@ import SwiftData
 
 @Model
 class PracticeContext: Identifiable {
-    var id: UUID
-    var context: String
     var type: Int
-//    var resource:
+    var context: String
+    var resource: PracticeContextResource
     var practiceMaps: [PracticeMap]
 
     // 設定初始化方法
-    init(id: UUID = UUID(), context: String, type: Int, practiceMaps: [PracticeMap]) {
-        self.id = id
-        self.context = context
+    init(type: Int, context: String, resource: PracticeContextResource, practiceMaps: [PracticeMap]) {
         self.type = type
+        self.context = context
+        self.resource = resource
         self.practiceMaps = practiceMaps
     }
 }
 
 extension PracticeContext {
-    var practiceRecord: [PracticeRecord] {
+    var practiceRecord: [DefaultPracticeRecord] {
         return []
     }
 
@@ -42,7 +41,7 @@ extension PracticeContext {
         }
     }
 
-    private func fetchLinkedWord() -> CDWord? {
+    private func fetchLinkedWord() -> Vocabulary? {
         // 根據 context 或其他信息來查找對應的 Word 資源
         return nil // 這裡返回實際的 Word 資源
     }

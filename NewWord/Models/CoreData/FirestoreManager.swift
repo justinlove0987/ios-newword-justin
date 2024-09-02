@@ -80,7 +80,7 @@ class FirestoreManager {
            let audioId = ttsData["audioId"] as? String,
            let timepointsArray = ttsData["timepoints"] as? [[String: Any]] {
             
-            var timepoints: [TimepointInfo] = []
+            var timepoints: [FSTimepointInfo] = []
             
             for timepoint in timepointsArray {
                 let rangeData = timepoint["range"] as? [String: Any]
@@ -90,7 +90,7 @@ class FirestoreManager {
                 let markName = timepoint["markName"] as? String ?? ""
                 let timeSeconds = timepoint["timeSeconds"] as? Double ?? 0.0
                 
-                let timepointInfo = TimepointInfo(
+                let timepointInfo = FSTimepointInfo(
                     range: range,
                     markName: markName,
                     timeSeconds: timeSeconds

@@ -49,12 +49,18 @@
 		2A7045612C800C7000A58672 /* PracticeThresholdRuleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045602C800C7000A58672 /* PracticeThresholdRuleManager.swift */; };
 		2A7045632C80265600A58672 /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045622C80265600A58672 /* ModelManager.swift */; };
 		2A7045662C805B4E00A58672 /* PracticePresetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045652C805B4E00A58672 /* PracticePresetManager.swift */; };
-		2A7045682C805B7A00A58672 /* PracticePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045672C805B7A00A58672 /* PracticePreset.swift */; };
+		2A7045682C805B7A00A58672 /* DefaultPracticePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045672C805B7A00A58672 /* DefaultPracticePreset.swift */; };
 		2A70456A2C805FD800A58672 /* PracticeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045692C805FD800A58672 /* PracticeMap.swift */; };
 		2A70456E2C8559FF00A58672 /* Practice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70456D2C8559FF00A58672 /* Practice.swift */; };
 		2A7045702C8562A400A58672 /* PracticeContextType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70456F2C8562A400A58672 /* PracticeContextType.swift */; };
 		2A7045722C85676400A58672 /* PracticeContextResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045712C85676400A58672 /* PracticeContextResource.swift */; };
 		2A7045742C85680800A58672 /* Vocabulary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045732C85680800A58672 /* Vocabulary.swift */; };
+		2A7045782C85AB5B00A58672 /* PracticePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045772C85AB5B00A58672 /* PracticePreset.swift */; };
+		2A70457A2C85AC3A00A58672 /* PracticeResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045792C85AC3A00A58672 /* PracticeResource.swift */; };
+		2A70457D2C85AFE700A58672 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70457C2C85AFE700A58672 /* Article.swift */; };
+		2A70457F2C85B04700A58672 /* PracticeAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70457E2C85B04700A58672 /* PracticeAudio.swift */; };
+		2A7045812C85B08700A58672 /* PracticeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045802C85B08700A58672 /* PracticeImage.swift */; };
+		2A7045852C85B46C00A58672 /* PracticeRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045842C85B46C00A58672 /* PracticeRecord.swift */; };
 		2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */; };
 		2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */; };
 		2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */; };
@@ -106,7 +112,7 @@
 		D03107D42C16F2AA00EEF772 /* LearningRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03107D12C16F2AA00EEF772 /* LearningRecordCell.swift */; };
 		D032145B2BD63C2200512263 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D032145A2BD63C2200512263 /* Preferences.swift */; };
 		D0344F602C56B25D00F721BF /* CDNote+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0344F5F2C56B25D00F721BF /* CDNote+Extension.swift */; };
-		D04023332C81A520004BF63B /* PracticeRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04023322C81A520004BF63B /* PracticeRecord.swift */; };
+		D04023332C81A520004BF63B /* DefaultPracticeRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04023322C81A520004BF63B /* DefaultPracticeRecord.swift */; };
 		D04023352C81A659004BF63B /* PracticeContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04023342C81A659004BF63B /* PracticeContext.swift */; };
 		D04023372C81A74A004BF63B /* PracticeMapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04023362C81A74A004BF63B /* PracticeMapManager.swift */; };
 		D040233D2C847F46004BF63B /* PrracticeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040233C2C847F46004BF63B /* PrracticeManager.swift */; };
@@ -181,12 +187,18 @@
 		2A7045602C800C7000A58672 /* PracticeThresholdRuleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeThresholdRuleManager.swift; sourceTree = "<group>"; };
 		2A7045622C80265600A58672 /* ModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelManager.swift; sourceTree = "<group>"; };
 		2A7045652C805B4E00A58672 /* PracticePresetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticePresetManager.swift; sourceTree = "<group>"; };
-		2A7045672C805B7A00A58672 /* PracticePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticePreset.swift; sourceTree = "<group>"; };
+		2A7045672C805B7A00A58672 /* DefaultPracticePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPracticePreset.swift; sourceTree = "<group>"; };
 		2A7045692C805FD800A58672 /* PracticeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeMap.swift; sourceTree = "<group>"; };
 		2A70456D2C8559FF00A58672 /* Practice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Practice.swift; sourceTree = "<group>"; };
 		2A70456F2C8562A400A58672 /* PracticeContextType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeContextType.swift; sourceTree = "<group>"; };
 		2A7045712C85676400A58672 /* PracticeContextResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeContextResource.swift; sourceTree = "<group>"; };
 		2A7045732C85680800A58672 /* Vocabulary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vocabulary.swift; sourceTree = "<group>"; };
+		2A7045772C85AB5B00A58672 /* PracticePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticePreset.swift; sourceTree = "<group>"; };
+		2A7045792C85AC3A00A58672 /* PracticeResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeResource.swift; sourceTree = "<group>"; };
+		2A70457C2C85AFE700A58672 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		2A70457E2C85B04700A58672 /* PracticeAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeAudio.swift; sourceTree = "<group>"; };
+		2A7045802C85B08700A58672 /* PracticeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeImage.swift; sourceTree = "<group>"; };
+		2A7045842C85B46C00A58672 /* PracticeRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeRecord.swift; sourceTree = "<group>"; };
 		2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextRevisionInputAccessoryView.xib; sourceTree = "<group>"; };
 		2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextRevisionInputAccessoryView.swift; sourceTree = "<group>"; };
 		2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseDeckViewController.swift; sourceTree = "<group>"; };
@@ -237,7 +249,7 @@
 		D03107D22C16F2AA00EEF772 /* LearningRecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LearningRecordCell.xib; sourceTree = "<group>"; };
 		D032145A2BD63C2200512263 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		D0344F5F2C56B25D00F721BF /* CDNote+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDNote+Extension.swift"; sourceTree = "<group>"; };
-		D04023322C81A520004BF63B /* PracticeRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeRecord.swift; sourceTree = "<group>"; };
+		D04023322C81A520004BF63B /* DefaultPracticeRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPracticeRecord.swift; sourceTree = "<group>"; };
 		D04023342C81A659004BF63B /* PracticeContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeContext.swift; sourceTree = "<group>"; };
 		D04023362C81A74A004BF63B /* PracticeMapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeMapManager.swift; sourceTree = "<group>"; };
 		D040233C2C847F46004BF63B /* PrracticeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrracticeManager.swift; sourceTree = "<group>"; };
@@ -296,16 +308,19 @@
 		2A7045482C7DB85100A58672 /* SwiftData */ = {
 			isa = PBXGroup;
 			children = (
-				2A7045732C85680800A58672 /* Vocabulary.swift */,
-				2A7045492C7DB85E00A58672 /* PracticeType.swift */,
+				D04023342C81A659004BF63B /* PracticeContext.swift */,
 				2A70456F2C8562A400A58672 /* PracticeContextType.swift */,
 				2A7045712C85676400A58672 /* PracticeContextResource.swift */,
-				2A70455D2C800BF800A58672 /* PracticeThresholdRule.swift */,
-				2A7045672C805B7A00A58672 /* PracticePreset.swift */,
-				D04023322C81A520004BF63B /* PracticeRecord.swift */,
 				2A7045692C805FD800A58672 /* PracticeMap.swift */,
-				D04023342C81A659004BF63B /* PracticeContext.swift */,
 				2A70456D2C8559FF00A58672 /* Practice.swift */,
+				2A7045492C7DB85E00A58672 /* PracticeType.swift */,
+				2A7045792C85AC3A00A58672 /* PracticeResource.swift */,
+				2A7045772C85AB5B00A58672 /* PracticePreset.swift */,
+				2A7045842C85B46C00A58672 /* PracticeRecord.swift */,
+				2A7045862C85B52200A58672 /* ContextResource */,
+				2A70457B2C85AFB700A58672 /* Resource */,
+				2A7045822C85B3C800A58672 /* Preset */,
+				2A7045832C85B41A00A58672 /* Record */,
 			);
 			path = SwiftData;
 			sourceTree = "<group>";
@@ -320,6 +335,41 @@
 				D040233C2C847F46004BF63B /* PrracticeManager.swift */,
 			);
 			path = SwiftDataManager;
+			sourceTree = "<group>";
+		};
+		2A70457B2C85AFB700A58672 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				2A70457C2C85AFE700A58672 /* Article.swift */,
+				2A70457E2C85B04700A58672 /* PracticeAudio.swift */,
+				2A7045802C85B08700A58672 /* PracticeImage.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		2A7045822C85B3C800A58672 /* Preset */ = {
+			isa = PBXGroup;
+			children = (
+				2A7045672C805B7A00A58672 /* DefaultPracticePreset.swift */,
+				2A70455D2C800BF800A58672 /* PracticeThresholdRule.swift */,
+			);
+			path = Preset;
+			sourceTree = "<group>";
+		};
+		2A7045832C85B41A00A58672 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				D04023322C81A520004BF63B /* DefaultPracticeRecord.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		2A7045862C85B52200A58672 /* ContextResource */ = {
+			isa = PBXGroup;
+			children = (
+				2A7045732C85680800A58672 /* Vocabulary.swift */,
+			);
+			path = ContextResource;
 			sourceTree = "<group>";
 		};
 		D0058CE72BBA713B00D2BB25 /* ViewModels */ = {
@@ -630,6 +680,7 @@
 				2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */,
 				2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */,
 				D0D6E0E92C1CB38500C1F95E /* ContextLabel.swift in Sources */,
+				2A70457A2C85AC3A00A58672 /* PracticeResource.swift in Sources */,
 				2AFC91512C7C5B85002C2AD1 /* PracticeSettingCell.swift in Sources */,
 				2A034E852C75902D00668F02 /* TranslationPair.swift in Sources */,
 				D01961102C43BEA70040735E /* CustomTagView.swift in Sources */,
@@ -638,9 +689,10 @@
 				D032145B2BD63C2200512263 /* Preferences.swift in Sources */,
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
 				2AFC91552C7C6634002C2AD1 /* PracticeSettingHeaderView.swift in Sources */,
+				2A7045852C85B46C00A58672 /* PracticeRecord.swift in Sources */,
 				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
-				D04023332C81A520004BF63B /* PracticeRecord.swift in Sources */,
+				D04023332C81A520004BF63B /* DefaultPracticeRecord.swift in Sources */,
 				D04023372C81A74A004BF63B /* PracticeMapManager.swift in Sources */,
 				2A02EF292C4A386500E21A6E /* TagTestingCell.swift in Sources */,
 				2A67688D2C3322590040C89F /* AddTagTextView.swift in Sources */,
@@ -667,12 +719,13 @@
 				2A1A5DA32C719D6600B94037 /* SkeletonLoadable.swift in Sources */,
 				2AFC91572C7C6BA3002C2AD1 /* SeparatorFooterView.swift in Sources */,
 				D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */,
+				2A70457D2C85AFE700A58672 /* Article.swift in Sources */,
 				D03107CC2C16EE6200EEF772 /* CardInformationViewController.swift in Sources */,
 				2A2683772C6DA4DD00FFF81D /* AudioPlayer.swift in Sources */,
 				2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */,
 				2AFC914D2C7C5720002C2AD1 /* PracticeSettingViewController.swift in Sources */,
 				2A7B6CD52C0810030017BB5C /* NotificationName+Extension.swift in Sources */,
-				2A7045682C805B7A00A58672 /* PracticePreset.swift in Sources */,
+				2A7045682C805B7A00A58672 /* DefaultPracticePreset.swift in Sources */,
 				2AFC914A2C7C4F6F002C2AD1 /* PracticeSequenceCell.swift in Sources */,
 				2A7045612C800C7000A58672 /* PracticeThresholdRuleManager.swift in Sources */,
 				D0A6E4E92C52060100E1EF35 /* TagView.swift in Sources */,
@@ -683,6 +736,7 @@
 				2A7045662C805B4E00A58672 /* PracticePresetManager.swift in Sources */,
 				2A70454C2C7DBAB000A58672 /* PracticeModeViewController.swift in Sources */,
 				2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */,
+				2A70457F2C85B04700A58672 /* PracticeAudio.swift in Sources */,
 				D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */,
 				2A7045702C8562A400A58672 /* PracticeContextType.swift in Sources */,
 				D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */,
@@ -698,6 +752,7 @@
 				2AF886902C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift in Sources */,
 				D04AC2042C51E78E00F91A07 /* SearchCell.swift in Sources */,
 				2A17DAFE2C158C5A00919642 /* InputAccessoryView.swift in Sources */,
+				2A7045812C85B08700A58672 /* PracticeImage.swift in Sources */,
 				2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
 				2AFC91472C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift in Sources */,
@@ -709,6 +764,7 @@
 				2A17DAF82C1579E400919642 /* ClozeView.swift in Sources */,
 				D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */,
 				2A034E832C75879C00668F02 /* Tag.swift in Sources */,
+				2A7045782C85AB5B00A58672 /* PracticePreset.swift in Sources */,
 				D09262BA2C097ECD00CA90BA /* CoreDataManager.swift in Sources */,
 				D040233D2C847F46004BF63B /* PrracticeManager.swift in Sources */,
 				D09262BF2C097FC600CA90BA /* CDLearningRecord+Extension.swift in Sources */,

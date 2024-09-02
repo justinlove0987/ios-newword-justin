@@ -10,7 +10,7 @@ import UIKit
 import SwiftData
 
 @MainActor
-class PracticePresetManager: ModelManager<PracticePreset> {
+class PracticePresetManager: ModelManager<DefaultPracticePreset> {
     
     static let shared = PracticePresetManager()
     
