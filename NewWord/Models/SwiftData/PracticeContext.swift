@@ -14,8 +14,8 @@ class PracticeContext: Identifiable {
     var id: UUID
     var context: String
     var type: Int
+//    var resource:
     var practiceMaps: [PracticeMap]
-
 
     // 設定初始化方法
     init(id: UUID = UUID(), context: String, type: Int, practiceMaps: [PracticeMap]) {
@@ -27,25 +27,24 @@ class PracticeContext: Identifiable {
 }
 
 extension PracticeContext {
-
     var practiceRecord: [PracticeRecord] {
         return []
     }
-}
 
+    var linkedResource: Any? {
+        guard let type = PracticeContextType(rawValue: type) else { return nil }
+        
+        switch type {
+        case .word:
+            return fetchLinkedWord() // 實現 fetchLinkedWord 來獲取對應的 Word 資源
+        default:
+            return nil
+        }
+    }
 
-protocol PracticeProtocol {
-
-}
-
-@Model
-class Practice {
-
-    var id: UUID
-    var presetId: UUID
-
-    init(id: UUID = UUID(), presetId: UUID = UUID()) {
-        self.id = id
-        self.presetId = presetId
+    private func fetchLinkedWord() -> CDWord? {
+        // 根據 context 或其他信息來查找對應的 Word 資源
+        return nil // 這裡返回實際的 Word 資源
     }
 }
+
