@@ -23,8 +23,8 @@ class Article: Identifiable, Codable {
     init(title: String,
          content: String,
          uploadedDate: Date,
-         audio: PracticeAudio,
-         image: PracticeImage,
+         audio: PracticeAudio? = nil,
+         image: PracticeImage? = nil,
          cefrType: Int? = nil) {
         self.title = title
         self.content = content

@@ -10,6 +10,5 @@ import SwiftData
 
 @Model
 class Vocabulary {
-    
     init() {}
 }

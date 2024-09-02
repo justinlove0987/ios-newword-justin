@@ -18,10 +18,10 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var dataSource: UICollectionViewDiffableDataSource<Int,PracticeSetting>!
-    
-    private var data: [[PracticeSetting]] = []
+    private var dataSource: UICollectionViewDiffableDataSource<Int,Practice>!
 
+    private var practiceMap: PracticeMap?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -31,13 +31,23 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
         setupData()
         setupCollectionView()
     }
-    
+
     private func setupData() {
-        data = [
-            [PracticeSetting(title: "123"), PracticeSetting(title: "123")],
-            [PracticeSetting(title: "123"), PracticeSetting(title: "123"), PracticeSetting(title: "123"), PracticeSetting(title: "123")],
-            [PracticeSetting(title: "123"), PracticeSetting(title: "123"), PracticeSetting(title: "123")]
-        ]
+
+        let type = PracticeType.listenAndTranslate.rawValue
+        let preset = PracticePreset()
+
+        preset.defaultPreset = DefaultPracticePreset()
+
+        let resource = PracticeResource(article: Article(title: "title", content: "content", uploadedDate: Date()))
+
+        let practice = Practice(type: type, preset: preset, resource: resource, records: [])
+        PracticeManager.shared.create(model: practice)
+
+        let practiceMap = PracticeMap(practiceMatrix: [[practice]])
+        PracticeMapManager.shared.create(model: practiceMap)
+
+        self.practiceMap = practiceMap
     }
 
     private func setupCollectionView() {
@@ -49,11 +59,11 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
         updateSnapshot()
     }
 
-    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, PracticeSetting> {
-        let dataSource = UICollectionViewDiffableDataSource<Int, PracticeSetting>(collectionView: collectionView,
+    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, Practice> {
+        let dataSource = UICollectionViewDiffableDataSource<Int, Practice>(collectionView: collectionView,
                                                                             cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeSequenceCell.reuseIdentifier, for: indexPath)
-            
+
             return cell
         })
         
@@ -87,13 +97,15 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
     }
     
     private func updateSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, PracticeSetting>()
-        
-        for i in 0..<data.count {
-            let currentSettings = data[i]
-            
+        guard let practiceMap else { return }
+
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Practice>()
+
+        for i in 0..<practiceMap.practiceMatrix.count {
+            let practices = practiceMap.practiceMatrix[i]
+
             snapshot.appendSections([i])
-            snapshot.appendItems(currentSettings, toSection: i)
+            snapshot.appendItems(practices, toSection: i)
         }
         
         dataSource.apply(snapshot, animatingDifferences: false)

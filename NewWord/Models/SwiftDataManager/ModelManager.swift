@@ -111,7 +111,13 @@ class PersistentContainerManager {
     let container: ModelContainer?
 
     init() {
-        let schema = Schema([PracticeThresholdRule.self, DefaultPracticePreset.self, PracticeMap.self])
+        let schema = Schema([PracticeThresholdRule.self,
+                             PracticePreset.self,
+                             DefaultPracticePreset.self,
+                             PracticeMap.self,
+                             PracticeResource.self,
+                             Practice.self])
+
         let configuration = ModelConfiguration(isStoredInMemoryOnly: false)
 
         container = try? ModelContainer(for: schema, configurations: [configuration])

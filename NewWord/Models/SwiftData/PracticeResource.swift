@@ -10,7 +10,7 @@ import SwiftData
 
 
 @Model
-class PracticeResource: Codable {
+class PracticeResource: Identifiable, Codable {
 
     var article: Article?
 

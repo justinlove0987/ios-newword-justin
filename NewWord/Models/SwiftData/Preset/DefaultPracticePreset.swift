@@ -11,7 +11,7 @@ import SwiftData
 @Model
 class DefaultPracticePreset: Identifiable, Encodable, Decodable {
 
-    var practiceType: Int
+    var practiceType: Int = 0
     
     var firstPracticeGraduationInterval: Double = 1.0
     var firstPracticeEasyInterval: Double = 3.0
@@ -22,12 +22,15 @@ class DefaultPracticePreset: Identifiable, Encodable, Decodable {
     var forgetPracticeEase: Double = 2.3
     var forgetPracticeRelearningSteps: Double = 0.0
     
-    var practiceThresholdRules: [PracticeThresholdRule]
+    var practiceThresholdRules: [PracticeThresholdRule] = []
     var easyBonus: Double = 1.3
     var isSynchronizedWithPracticePreset: Bool = false
     var synchronizedPracticePreset: DefaultPracticePreset? = nil
 
     // 設定初始化方法
+
+    init() {}
+
     init(practiceType: Int,
          firstPracticeGraduationInterval: Double,
          firstPracticeEasyInterval: Double,

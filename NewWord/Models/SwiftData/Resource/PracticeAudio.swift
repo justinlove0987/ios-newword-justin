@@ -42,6 +42,7 @@ class PracticeAudio: Identifiable, Codable {
     }
 }
 
+@Model
 class TimepointInformation: Codable {
     var range: NSRange?
     var markName: String
