@@ -17,7 +17,7 @@ typealias ModelProtocol = PersistentModel & Identifiable
 class ModelManager<Model: ModelProtocol> {
     
     var context: ModelContext? = PersistentContainerManager.shared.container?.mainContext
-    
+
     // 新增記錄
     func create(model: Model) {
         guard let context = context else { return }
@@ -119,28 +119,40 @@ class ModelManager<Model: ModelProtocol> {
         }
     }
     
-    func deleteAllEntities() {
-        for model in PersistentContainerManager.shared.models {
-            deleteAll(ofType: model)
-        }
-    }
+//    func deleteAllEntities() {
+//        for model in PersistentContainerManager.shared.models {
+//            deleteAll(ofType: model)
+//        }
+//    }
     
 }
+
+
+//let container: ModelContainer = {
+//    do {
+//        return try ModelContainer(
+//            for: DefaultPracticePreset.self,
+//            configurations: ModelConfiguration(isStoredInMemoryOnly: false)
+//        )
+//    } catch {
+//        fatalError("Failed to create container")
+//    }
+//}()
 
 class PersistentContainerManager {
 
     static let shared = PersistentContainerManager()
     
     let models: [any PersistentModel.Type] = [
+        DefaultPracticePreset.self,
         Article.self,
         PracticeAudio.self,
         PracticeImage.self,
         PracticeThresholdRule.self,
         PracticePreset.self,
-        DefaultPracticePreset.self,
         PracticeMap.self,
         PracticeResource.self,
-        Practice.self
+        Practice.self,
     ]
 
     let container: ModelContainer?

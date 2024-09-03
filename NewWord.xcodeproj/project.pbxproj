@@ -102,6 +102,7 @@
 		2AFF6CA12C5B748800629B26 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF6CA02C5B748800629B26 /* UINavigationController+Extension.swift */; };
 		D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */; };
 		D00981B62C86C7BE00C1E948 /* PracticeSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00981B52C86C7BE00C1E948 /* PracticeSequence.swift */; };
+		D00981B82C86FB6100C1E948 /* PracticeUserGeneratedContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00981B72C86FB6100C1E948 /* PracticeUserGeneratedContent.swift */; };
 		D00A72EF2BFDEC5A0064F325 /* NoCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00A72EE2BFDEC5A0064F325 /* NoCardView.xib */; };
 		D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A72F02BFDEDA00064F325 /* NoCardView.swift */; };
 		D01961102C43BEA70040735E /* CustomTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D019610F2C43BEA70040735E /* CustomTagView.swift */; };
@@ -241,6 +242,7 @@
 		2AFF6CA02C5B748800629B26 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentenceClozeViewModel.swift; sourceTree = "<group>"; };
 		D00981B52C86C7BE00C1E948 /* PracticeSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSequence.swift; sourceTree = "<group>"; };
+		D00981B72C86FB6100C1E948 /* PracticeUserGeneratedContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeUserGeneratedContent.swift; sourceTree = "<group>"; };
 		D00A72EE2BFDEC5A0064F325 /* NoCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoCardView.xib; sourceTree = "<group>"; };
 		D00A72F02BFDEDA00064F325 /* NoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCardView.swift; sourceTree = "<group>"; };
 		D019610F2C43BEA70040735E /* CustomTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTagView.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				D04023342C81A659004BF63B /* PracticeContext.swift */,
 				2A70456F2C8562A400A58672 /* PracticeContextType.swift */,
 				2A7045712C85676400A58672 /* PracticeContextResource.swift */,
+				D00981B72C86FB6100C1E948 /* PracticeUserGeneratedContent.swift */,
 				2A7045692C805FD800A58672 /* PracticeMap.swift */,
 				D00981B52C86C7BE00C1E948 /* PracticeSequence.swift */,
 				2A70456D2C8559FF00A58672 /* Practice.swift */,
@@ -769,6 +772,7 @@
 				D0AF303E2C43CB6500DF71CD /* TagLabel.swift in Sources */,
 				D0A86A682C1B5FA00022DFDD /* ContextCell.swift in Sources */,
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
+				D00981B82C86FB6100C1E948 /* PracticeUserGeneratedContent.swift in Sources */,
 				2A17DAF82C1579E400919642 /* ClozeView.swift in Sources */,
 				D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */,
 				2A034E832C75879C00668F02 /* Tag.swift in Sources */,

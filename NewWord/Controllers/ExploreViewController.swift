@@ -13,11 +13,11 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var dataSource: UICollectionViewDiffableDataSource<Int,FSArticle>!
-    
-    private var articles: [FSArticle] = [] {
+    private var dataSource: UICollectionViewDiffableDataSource<Int,Article>!
+
+    private var articles: [Article] = [] {
         didSet {
-            articles.sort { $0.uploadedDate > $1.uploadedDate }
+            articles.sort { $0.uploadedDate! > $1.uploadedDate! }
             updateSnapshot()
         }
     }
@@ -25,81 +25,126 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        
-        let result2 = PracticeThresholdRuleManager.shared.fetchAll()
-        let result3 = PracticePresetManager.shared.fetchAll()
-        let result4 = PracticeMapManager.shared.fetchAll()
 
-        print("foo - \(result2) \(result3) \(result4)")
+        let localArticles = ArticleManager.shared.fetchAll()
+
+        print("foo - \(localArticles.count) \(localArticles)")
+
+        if !UserDefaultsManager.shared.hasFetchedDataToday() {
+            self.fetchArticles { serverArticles in
+                self.syncNewServerArticles(with: localArticles, from: serverArticles)
+                self.articles = serverArticles
+
+                UserDefaultsManager.shared.updateLastFetchedDate()
+            }
+
+        } else {
+            self.articles = localArticles
+        }
         
-//        let title = "UN Chief Urges Major Polluters to Act Now or Face Global Catastrophe"
-//        
-//        let content = """
-//        UN Secretary-General António Guterres has emphatically stated that major polluters must take decisive action to cut emissions to avert a global disaster. Speaking at the Pacific Island Forum Leaders Meeting in Tonga, Guterres highlighted the Pacific as the most vulnerable region, stressing that while small island nations contribute minimally to climate change, they bear the brunt of its effects.
-//
-//        Guterres warned that rising sea levels are a pressing global issue, underscoring that "the surging seas are coming for us all." This warning coincides with the release of two critical reports by the UN on the threat posed by rising sea levels to Pacific island nations. The World Meteorological Organization’s report indicates that the South West Pacific faces a trifecta of challenges: accelerating sea level rise, ocean warming, and increased acidification due to carbon dioxide absorption.
-//
-//        "The sea is taking the heat – literally," Guterres stated, attributing these issues to greenhouse gas emissions from burning fossil fuels. The current forum theme, "transformative resilience," was put to the test as severe weather and an earthquake affected the event's first day. Joseph Sikulu from 350, a climate advocacy group, emphasized the importance of leaders witnessing both the challenges and the resilience of Pacific communities.
-//
-//        During the forum, a parade with banners reading "We are not drowning, we are fighting" and "Sea levels are rising – so are we" highlighted the region's resolve. The UN Climate Action Team’s report reveals that global sea levels are rising at unprecedented rates, with an average increase of 9.4 cm over the past 30 years, and up to 15 cm in the tropical Pacific.
-//
-//        Guterres, who has attended the forum before, noted that despite efforts to combat climate change, financial support mechanisms for vulnerable nations remain inadequate. He visited communities impacted by rising sea levels and criticized the slow response to funding requests for critical infrastructure, such as sea walls.
-//
-//        The Secretary-General also addressed the role of major emitters, including Australia, which has pledged to increase gas extraction despite calls for a fossil fuel phase-out. Guterres urged these nations and the G20, which represents 80% of global emissions, to significantly cut emissions to meet the targets set in the Paris Agreement. He stressed the urgency of reducing global emissions by 43% from 2019 levels by 2030 and 60% by 2035 to avoid catastrophic consequences.
-//
-//        In summary, Guterres called for immediate and substantial action from both governments and corporations to reverse current emission trends and support the most vulnerable nations facing climate change impacts.
-//        """
-//        
-//        let text = "\(title)\n\n\(content)"
-//        
-//        GoogleTTSService.shared.downloadSSML(text) { result in
-//            guard let result else {
-//                print("foo - download ssml failed")
-//                return
-//            }
-//            guard let audioData = result.audioData else { return }
-//            
-//            FirestoreManager.shared.uploadAudio(audioId: result.audioId, audioData: audioData) { isDownloadSuccessful, url in
-//                print("foo upload audio \(isDownloadSuccessful)")
-//                
-//                let article = FSArticle(title: title, content: content, imageId: UUID().uuidString, uploadedDate: Date(), ttsSynthesisResult: result, cefrRawValue: 4)
-//                
-//                FirestoreManager.shared.uploadArticle(article) { isDownloadSuccessful in
-//                    print("foo - upload article \(isDownloadSuccessful)")
-//                    
-                            self.fetchArticles()
-//                }
-//            }
-//        }
+        let title = "South Korea’s Deepfake Porn Scandal: A Crisis of Digital Exploitation"
+
+        let content = """
+        Last Saturday, Heejin, a university student, received a chilling Telegram message from an anonymous sender. “Your photos and personal information have been leaked. Let’s discuss.” As she opened the message, she was confronted with a familiar photograph from her school days, now manipulated into explicit and fake content using sophisticated deepfake technology.
+
+        Deepfakes, which typically superimpose a person’s face onto explicit images, are being increasingly generated through artificial intelligence. “I was petrified, I felt so alone,” Heejin recounted to the BBC. Yet, she was far from alone in her distress.
+
+        Two days prior, South Korean journalist Ko Narin had exposed a scandal that would become the most significant of her career. Her investigation revealed that police were probing deepfake porn rings at two major universities, but Ko suspected the issue was more widespread. Her search through social media uncovered numerous Telegram chat groups where users were sharing personal photos and converting them into fake pornography with alarming speed.
+
+        These groups weren’t limited to university students; they extended to high schools and even middle schools. Some groups, referred to as “humiliation rooms” or “friend of friend rooms,” were dedicated to targeting specific individuals. Membership often required posting multiple personal photos and details about the targeted person.
+
+        Ko’s report in the Hankyoreh newspaper has stunned South Korea. The police have announced they are considering investigating Telegram, following France’s lead, where Telegram’s Russian founder faced charges related to app misuse. The South Korean government has pledged stricter penalties and called for better education for young men.
+
+        Telegram has stated it "actively combats harmful content on its platform, including illegal pornography."
+
+        Ko’s investigation revealed the systematic and organized nature of these groups. One group’s guidelines demanded more than four photos of individuals, along with their names, ages, and locations. “I was shocked at how systematic and organized the process was,” Ko said, particularly horrified by a group targeting underage students.
+
+        Women’s rights activists have joined the effort to uncover and address this crisis. By the end of the week, over 500 educational institutions had been identified as targets. The true scale is still unclear, but many victims are believed to be underage, with a significant number of perpetrators being teenagers themselves.
+
+        Heejin’s distress was exacerbated by learning the full extent of the crisis, which led her to question her own actions. “I couldn’t stop thinking did this happen because I uploaded my photos to social media?” She and many others have since removed their online photos or deactivated their accounts, fearing further exploitation.
+
+        Ah-eun, a university student, expressed frustration at having to alter her social media behavior despite no wrongdoing. Some victims have been discouraged by police, who dismissed the cases as difficult and less serious due to the fake nature of the photos.
+
+        The heart of this scandal lies with Telegram, a private, encrypted messaging app. Unlike public websites, Telegram’s private nature and anonymous user base make it a haven for criminal activity. Recent responses from politicians and law enforcement include a promise to investigate Telegram’s role and enforce harsher penalties for offenders.
+
+        The app’s founder, Pavel Durov, was recently charged in France for crimes related to the platform, including facilitating the sharing of child pornography. Critics argue that South Korean authorities have been slow to address the issue, citing previous failures to act on similar crises.
+
+        Park Jihyun, a political advocate for victims of digital sex crimes, has been inundated with calls from terrified parents and students. She and other activists are calling for stricter regulation or even a ban on Telegram in South Korea to protect citizens from digital exploitation.
+
+        The Advocacy Centre for Online Sexual Abuse Victims (ACOSAV) has seen a dramatic increase in underage victims, from 86 in 2023 to 238 in the first eight months of 2024. Park Seonghye, a leader at the center, described the situation as an emergency, likening it to a wartime crisis.
+
+        While Telegram has taken some action to remove harmful content, activists argue that this is insufficient. They believe the root of the issue is entrenched sexism, which manifests through digital platforms. Critics have pointed to President Yoon Suk Yeol’s denial of structural sexism and his reduction of support for victim advocacy groups as contributing factors.
+
+        Lee Myung-hwa, a counselor working with young sex offenders, highlighted the need for education on sexual abuse to prevent reoffending. The government has promised to increase penalties for creators and viewers of deepfake pornography, addressing criticism that current measures are inadequate.
+
+        Despite efforts to shut down the offending chatrooms, new ones are likely to emerge. The creation of a “humiliation room” targeting journalists like Ko has heightened concerns among those involved in the investigation. This anxiety is shared by many young women in South Korea, who now find themselves vigilant and fearful of being targeted.
+        """
+        
+        let text = "\(title)\n\n\(content)"
+        
+        GoogleTTSService.shared.downloadSSML(text) { audioResource in
+            guard let audioResource else {
+                print("foo - download ssml failed")
+                return
+            }
+            guard let audioData = audioResource.data else { return }
+
+            FirestoreManager.shared.uploadAudio(audioId: audioResource.id, audioData: audioData) { isDownloadSuccessful, url in
+                print("foo upload audio \(isDownloadSuccessful)")
+
+                let article = Article(id: UUID().uuidString, title: title, content: content, uploadedDate: Date())
+                article.audioResource = audioResource
+
+                FirestoreManager.shared.uploadArticle(article) { isDownloadSuccessful in
+                    print("foo - upload article \(isDownloadSuccessful)")
+                    
+
+                }
+            }
+        }
         
     }
-    
+
+    func getYesterdayDate() -> Date {
+        let calendar = Calendar.current
+        let today = Date()
+
+        // 使用dateComponents來減去一天
+        let yesterday = calendar.date(byAdding: .day, value: -1, to: today)
+
+        return yesterday!
+    }
+
     private func setup() {
         setupCollectionView()
     }
-    
-    private func fetchArticles() {
+
+    private func fetchArticles(completion: @escaping ([Article]) -> Void) {
         FirestoreManager.shared.fetchAllArticles { articles in
-            var newArticles: [FSArticle] = []
-            
+            var newArticles: [Article] = []
+
             for article in articles {
                 newArticles.append(article)
             }
-            
-            self.articles = newArticles
+
+            completion(newArticles)
         }
     }
-    
-    private func uploadArticles() {
-        let articles: [FSArticle] = []
-        
-        FirestoreManager.shared.uploadArticles(articles) { uploaded in
-            if uploaded {
-                print("foo - uploaded")
-            }
-        }
+
+    private func updateToLocal(artilce: [Article]) {
+
     }
-    
+
+//    private func uploadArticles() {
+//        let articles: [FSArticle] = []
+//        
+//        FirestoreManager.shared.uploadArticles(articles) { uploaded in
+//            if uploaded {
+//                print("foo - uploaded")
+//            }
+//        }
+//    }
+
     private func setupCollectionView() {
         collectionView.register(UINib(nibName: ExploreCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: ExploreCell.reuseIdentifier)
         dataSource = createDataSource()
@@ -109,16 +154,16 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         updateSnapshot()
     }
     
-    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, FSArticle> {
-        let dataSource = UICollectionViewDiffableDataSource<Int, FSArticle>(collectionView: collectionView,
+    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, Article> {
+        let dataSource = UICollectionViewDiffableDataSource<Int, Article>(collectionView: collectionView,
                                                                             cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExploreCell.reuseIdentifier, for: indexPath) as! ExploreCell
             
             let currentArticle = self.articles[indexPath.row]
             
             cell.configure(currentArticle)
-            cell.imageView.image = currentArticle.hasImage ? currentArticle.fetchedImage : UIImage(named: "loading")
-            
+            cell.imageView.image = currentArticle.hasImage ? UIImage(data: currentArticle.imageResource!.data!) : UIImage(named: "loading")
+
             if !currentArticle.hasImage {
                 self.fetchImage(at: indexPath)
             }
@@ -155,7 +200,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     }
     
     private func updateSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, FSArticle>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Article>()
         snapshot.appendSections([0])
         snapshot.appendItems(articles)
 
@@ -166,17 +211,33 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     }
     
     private func fetchImage(at indexPath: IndexPath) {
-        FirestoreManager.shared.getImage(for: self.articles[indexPath.row].imageId) { result in
+        guard let imageId = self.articles[indexPath.row].imageResource?.id else { return }
+
+        FirestoreManager.shared.getImage(for: imageId) { result in
             switch result {
-            case .success(let image):
-                self.articles[indexPath.row].fetchedImage = image
-                
+            case .success(let imageData):
+                self.articles[indexPath.row].imageResource?.data = imageData
+
             case .failure(_):
-                self.articles[indexPath.row].fetchedImage = UIImage(named: "loading")
+                self.articles[indexPath.row].imageResource?.data = UIImage(named: "loading")?.pngData()
             }
             
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+            }
+        }
+    }
+
+    
+
+    private func syncNewServerArticles(with localArticles: [Article], from serverArticles: [Article]) {
+        let localArticleIDs = Set(localArticles.map { $0.id })
+
+        let newArticles = serverArticles.filter { !localArticleIDs.contains($0.id) }
+
+        DispatchQueue.main.async {
+            newArticles.forEach { article in
+                ArticleManager.shared.create(model: article)
             }
         }
     }

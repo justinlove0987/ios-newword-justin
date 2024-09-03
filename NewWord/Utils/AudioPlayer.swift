@@ -83,7 +83,7 @@ class AudioPlayer: NSObject {
         return audioPlayer?.isPlaying ?? false
     }
     
-    func playAudioWithMarks(_ article: FSArticle) {
+    func playAudioWithMarks(_ article: Article) {
         play()
         startPlaybackTimer(with: article)
     }
@@ -101,12 +101,12 @@ class AudioPlayer: NSObject {
     }
     
     // 用於手動觸發計時器邏輯的方法
-    func triggerPlaybackLogic(_ article: FSArticle) {
+    func triggerPlaybackLogic(_ article: Article) {
         handlePlaybackTimer(article: article)
     }
     
     // 啟動計時器
-    private func startPlaybackTimer(with article: FSArticle) {
+    private func startPlaybackTimer(with article: Article) {
         stopPlaybackTimer() // 停止並清除現有的計時器
                 
         playbackTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
@@ -118,30 +118,30 @@ class AudioPlayer: NSObject {
         RunLoop.main.add(playbackTimer!, forMode: RunLoop.Mode.common)
     }
     
-    private func handlePlaybackTimer(article: FSArticle) {
-            guard let player = audioPlayer else { return }
-            guard let result = article.ttsSynthesisResult else { return }
+    private func handlePlaybackTimer(article: Article) {
+        guard let player = audioPlayer else { return }
+        guard let audioResource = article.audioResource else { return }
+        guard let text = article.text else { return }
+        
+        let currentTimeInSeconds = roundToOneDecimalPlace(player.currentTime)
 
-            let text = article.text
-            let currentTimeInSeconds = roundToOneDecimalPlace(player.currentTime)
-            
-            for timepoint in result.timepoints {
-                let markTime = roundToOneDecimalPlace(timepoint.timeSeconds)
-                
-                if markTime == currentTimeInSeconds && !currentTimeInSeconds.isZero  {
-                    if let nsRange = timepoint.range, let _ = Range(nsRange, in: text) {
-                        delegate?.audioPlayer(self, didUpdateToMarkName: timepoint.markName)
-                    } else {
-                        print("Invalid range")
-                    }
+        for timepoint in audioResource.timepoints {
+            let markTime = roundToOneDecimalPlace(timepoint.timeSeconds)
+
+            if markTime == currentTimeInSeconds && !currentTimeInSeconds.isZero  {
+                if let nsRange = timepoint.range, let _ = Range(nsRange, in: text) {
+                    delegate?.audioPlayer(self, didUpdateToMarkName: timepoint.markName)
+                } else {
+                    print("Invalid range")
                 }
             }
-            
-            if !isPlaying() {
-                stopPlaybackTimer()
-            }
         }
-    
+
+        if !isPlaying() {
+            stopPlaybackTimer()
+        }
+    }
+
     func roundToOneDecimalPlace(_ value: Double) -> Double {
         return round(value * 10) / 10
     }

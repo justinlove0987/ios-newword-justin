@@ -22,7 +22,7 @@ class DefaultPracticePreset: Identifiable, Codable {
     var practiceThresholdRules: [PracticeThresholdRule] = []
     var easyBonus: Double = 1.3
     var isSynchronizedWithPracticePreset: Bool = false
-    var synchronizedPracticePreset: DefaultPracticePreset? = nil
+//    var synchronizedPracticePreset: DefaultPracticePreset? = nil
 
     init() {}
 
@@ -50,7 +50,7 @@ class DefaultPracticePreset: Identifiable, Codable {
         self.practiceThresholdRules = practiceThresholdRules
         self.easyBonus = easyBonus
         self.isSynchronizedWithPracticePreset = isSynchronizedWithPracticePreset
-        self.synchronizedPracticePreset = synchronizedPracticePreset
+//        self.synchronizedPracticePreset = synchronizedPracticePreset
     }
 
     // 自定義編碼和解碼
@@ -82,7 +82,7 @@ class DefaultPracticePreset: Identifiable, Codable {
         self.practiceThresholdRules = try container.decode([PracticeThresholdRule].self, forKey: .practiceThresholdRules)
         self.easyBonus = try container.decode(Double.self, forKey: .easyBonus)
         self.isSynchronizedWithPracticePreset = try container.decode(Bool.self, forKey: .isSynchronizedWithPracticePreset)
-        self.synchronizedPracticePreset = try container.decodeIfPresent(DefaultPracticePreset.self, forKey: .synchronizedPracticePreset)
+//        self.synchronizedPracticePreset = try container.decodeIfPresent(DefaultPracticePreset.self, forKey: .synchronizedPracticePreset)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -98,6 +98,6 @@ class DefaultPracticePreset: Identifiable, Codable {
         try container.encode(practiceThresholdRules, forKey: .practiceThresholdRules)
         try container.encode(easyBonus, forKey: .easyBonus)
         try container.encode(isSynchronizedWithPracticePreset, forKey: .isSynchronizedWithPracticePreset)
-        try container.encodeIfPresent(synchronizedPracticePreset, forKey: .synchronizedPracticePreset)
+//        try container.encodeIfPresent(synchronizedPracticePreset, forKey: .synchronizedPracticePreset)
     }
 }

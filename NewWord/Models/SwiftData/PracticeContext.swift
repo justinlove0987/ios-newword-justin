@@ -14,14 +14,14 @@ class PracticeContext: Identifiable {
     var type: Int
     var context: String
     var resource: PracticeContextResource
-    var practiceMaps: [PracticeMap]
+    var practiceMap: PracticeMap
 
     // 設定初始化方法
-    init(type: Int, context: String, resource: PracticeContextResource, practiceMaps: [PracticeMap]) {
+    init(type: Int, context: String, resource: PracticeContextResource, practiceMap: PracticeMap) {
         self.type = type
         self.context = context
         self.resource = resource
-        self.practiceMaps = practiceMaps
+        self.practiceMap = practiceMap
     }
 }
 

@@ -15,3 +15,12 @@ class PracticeManager: ModelManager<Practice> {
     
     private override init() {}
 }
+
+
+@MainActor
+class PracticeContextManager: ModelManager<PracticeContext> {
+
+    static let shared = PracticeContextManager()
+
+    private override init() {}
+}

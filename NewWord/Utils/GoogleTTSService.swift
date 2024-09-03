@@ -238,8 +238,8 @@ class GoogleTTSService: NSObject {
     func downloadSSML(_ text: String,
                       voiceType: VoiceType = .enUSPolyglot1Male,
                       rate: Double = 0.8,
-                      completion: @escaping (TTSSynthesisResult?) -> Void) {
-        
+                      completion: @escaping (PracticeAudio?) -> Void) {
+
         var text = addMarksToText(text)
         text = wrapWithSpeakTags(text)
         
@@ -265,8 +265,8 @@ class GoogleTTSService: NSObject {
             }
             
             // 解析 timepoints 並封裝到 TimepointInfo 中
-            var timepoints: [FSTimepointInfo] = []
-            
+            var timepoints: [TimepointInformation] = []
+
             if let tpArray = response["timepoints"] as? [[String: Any]] {
                 for tp in tpArray {
                     if let markName = tp["markName"] as? String,
@@ -281,13 +281,19 @@ class GoogleTTSService: NSObject {
                             }
                             return nil
                         }()
-                        let timepointInfo = FSTimepointInfo(range: range, markName: markName, timeSeconds: timeSeconds)
-                        timepoints.append(timepointInfo)
+
+                        let timepointInformation = TimepointInformation(location: range?.location,
+                                             length: range?.length,
+                                             markName: markName,
+                                             timeSeconds: timeSeconds)
+
+                        timepoints.append(timepointInformation)
                     }
                 }
             }
             
-            let result = TTSSynthesisResult(audioId: UUID().uuidString, timepoints: timepoints, audioData: audioData)
+            let result = PracticeAudio(data: audioData, timepoints: timepoints)
+            
             DispatchQueue.main.async {
                 completion(result)
             }

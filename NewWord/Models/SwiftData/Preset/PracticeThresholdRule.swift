@@ -9,14 +9,14 @@ import UIKit
 import SwiftData
 
 @Model
-class PracticeThresholdRule: Identifiable, Codable {
-    var id: UUID
+class PracticeThresholdRule: Codable {
+    var id: String
     var conditionType: Int
     var thresholdValue: Int
     var actionType: Int
     
     // 設定初始化方法
-    init(id: UUID = UUID(), conditionType: Int, thresholdValue: Int, actionType: Int) {
+    init(id: String, conditionType: Int, thresholdValue: Int, actionType: Int) {
         self.id = id
         self.conditionType = conditionType
         self.thresholdValue = thresholdValue
@@ -32,7 +32,7 @@ class PracticeThresholdRule: Identifiable, Codable {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(UUID.self, forKey: .id)
+        self.id = try container.decode(String.self, forKey: .id)
         self.conditionType = try container.decode(Int.self, forKey: .conditionType)
         self.thresholdValue = try container.decode(Int.self, forKey: .thresholdValue)
         self.actionType = try container.decode(Int.self, forKey: .actionType)

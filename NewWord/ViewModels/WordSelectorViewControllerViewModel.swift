@@ -143,6 +143,51 @@ struct WordSelectorViewControllerViewModel {
         return text
     }
 
+
+//    @MainActor 
+//    func saveContext(_ text: String) {
+//        let map = PracticeMapManager.shared.fetchAll().first!
+//        let resource = PracticeResource(article: <#T##Article?#>)
+//
+//        // PracticeContext(type: 0, context: <#T##String#>, resource: <#T##PracticeContextResource#>, practiceMap: map)
+//
+//        let context = CoreDataManager.shared.createContext(text)
+//
+//        for i in 0..<tags.count {
+//            let currentCloze = tags[i]
+//
+//            guard let word = textInRange(text: text, range: currentCloze.range),
+//                  let deck = getSaveDeck(currentCloze) else {
+//                continue
+//            }
+//
+//            let newCloze = CoreDataManager.shared.createCloze(number: currentCloze.number, hint: "", clozeWord: currentCloze.text)
+//
+//            newCloze.context = context
+//            newCloze.contextId = context.id
+//            newCloze.clozeWord = word
+//            newCloze.location = Int64(currentCloze.range.location)
+//            newCloze.length = Int64(currentCloze.range.length)
+//            newCloze.hint = currentCloze.translatedText
+//
+//            GoogleTTSService.shared.download(text: word) { data in
+//                newCloze.clozeAudio = data
+//                CoreDataManager.shared.save()
+//            }
+//
+//            let resource = CoreDataManager.shared.createNoteResource()
+//            resource.cloze = newCloze
+//
+//            let note = CoreDataManager.shared.createNote(typeRawValue: NoteType.lienteningCloze.rawValue)
+//            note.resource = resource
+//
+//            CoreDataManager.shared.addCard(to: deck, with: note)
+//        }
+//
+//        CoreDataManager.shared.save()
+//
+//    }
+
     mutating func saveTag(_ text: String) {
         let context = CoreDataManager.shared.createContext(text)
         
@@ -243,19 +288,18 @@ struct WordSelectorViewControllerViewModel {
     }
     
     
-    func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: inout FSArticle?) {
+    func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: Article?) {
         guard let copyArticle = article else { return }
-        guard let result = copyArticle.ttsSynthesisResult else { return }
-        
-        for i in 0..<result.timepoints.count {
-            let timepoint = result.timepoints[i]
+        guard let result = copyArticle.audioResource else { return }
+
+        for timepoint in result.timepoints {
             
             guard let range = timepoint.range else { continue }
-            
+
             let isGreaterThanTagPosition = range.location >= tagPosition
-            
+
             if isGreaterThanTagPosition {
-                article!.ttsSynthesisResult!.timepoints[i].range!.location += adjustmentOffset
+                timepoint.rangeLocation! += adjustmentOffset
             }
         }
     }
@@ -544,12 +588,12 @@ struct WordSelectorViewControllerViewModel {
     
 
     
-    func rangeForMarkName(in article: FSArticle, markName: String) -> NSRange? {
-        guard let ttsSynthesisResult = article.ttsSynthesisResult else {
+    func rangeForMarkName(in article: Article, markName: String) -> NSRange? {
+        guard let audioResource = article.audioResource else {
             return nil
         }
         
-        for timepoint in ttsSynthesisResult.timepoints {
+        for timepoint in audioResource.timepoints {
             if timepoint.markName == markName {
                 return timepoint.range
             }

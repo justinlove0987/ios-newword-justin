@@ -22,7 +22,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBOutlet weak var articlePlayButtonView: ArticlePlayButtonView!
     @IBOutlet weak var bottomPanelStackView: UIStackView!
     
-    var article: FSArticle?
+    var article: Article?
 
     private var customTextView: AddTagTextView!
     private let pacticeModelSelectorView: PracticeModeSelectorView = PracticeModeSelectorView()
@@ -62,7 +62,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     private func setupProperties() {
         customTextView.layer.zPosition = 0
         translationContentView.layer.zPosition = 1
-        imageView.image = article?.fetchedImage
+        imageView.image = article?.imageResource?.image
         customTextView.text = article?.text
         
         articlePlayButtonView.playButton.addTarget(self, action: #selector(playArticle), for: .touchUpInside)
@@ -140,20 +140,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             self.addCallback?()
         }
         
-    }
-    
-    @IBAction func addAction(_ sender: UIBarButtonItem) {
-        guard var text = customTextView.text else { return }
-
-        text = viewModel.removeAllTags(in: text)
-        viewModel.saveTag(text)
-        
-        viewModel.showPracticeAlert(presentViewController: self) {
-            self.navigationController?.popToRootViewController(animated: true)
-            
-        } confirmAction: {
-            self.addCallback?()
-        }
     }
     
     @IBAction func settingAction(_ sender: UIBarButtonItem) {
@@ -295,7 +281,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             if !viewModel.hasDuplicateClozeLocations(with: range) {
                 customTextView.removeNumberImageView(at: updatedRange.location)
                 viewModel.updateTagNSRanges(with: updatedRange, offset: adjustmentOffset)
-                viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: &article)
+                viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: article)
                 viewModel.currentSelectedRange = updatedRange
                 customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
             }
@@ -329,7 +315,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
                 let adjustmentOffset = 1
                 let updatedRange = NSRange(location: range.location+adjustmentOffset, length: range.length)
                 
-                self.viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: &self.article)
+                self.viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: article)
                 self.viewModel.currentSelectedRange = updatedRange
                 self.customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
                 self.customTextView.removeAllDashedUnderlines()
@@ -430,12 +416,12 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     }
 
     private func downloadAudio(completion: ((_ isDownloadSuccessful: Bool, _ audioData: Data?) -> Void)? = nil) {
-        guard let article = article, let ttsSynthesisResult = article.ttsSynthesisResult else {
+        guard let article = article, let audioId = article.audioResource?.id else {
             completion?(false, nil)
             return
         }
 
-        FirestoreManager.shared.downloadAudio(audioId: ttsSynthesisResult.audioId) { isDownloadSuccessful, audioData in
+        FirestoreManager.shared.downloadAudio(audioId: audioId) { isDownloadSuccessful, audioData in
             completion?(isDownloadSuccessful, audioData)
         }
     }

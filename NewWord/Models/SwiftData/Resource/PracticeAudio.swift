@@ -10,19 +10,24 @@ import SwiftData
 
 
 @Model
-class PracticeAudio: Identifiable, Codable {
+class PracticeAudio: Codable {
     
-    var data: Data
-    var timepoints: [TimepointInformation]
+    var id: String
+    var data: Data?
+    var timepoints: [TimepointInformation] = []
 
     // 初始化方法
-    init(data: Data, timepoints: [TimepointInformation] = []) {
+    init(data: Data? = nil,
+         timepoints: [TimepointInformation] = []) {
+
+        self.id = UUID().uuidString
         self.data = data
         self.timepoints = timepoints
     }
 
     // CodingKeys 枚舉，用於定義屬性與 JSON 鍵的對應
     private enum CodingKeys: String, CodingKey {
+        case id
         case data
         case timepoints
     }
@@ -30,6 +35,7 @@ class PracticeAudio: Identifiable, Codable {
     // 解碼方法
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(String.self, forKey: .data)
         self.data = try container.decode(Data.self, forKey: .data)
         self.timepoints = try container.decode([TimepointInformation].self, forKey: .timepoints)
     }
@@ -37,6 +43,7 @@ class PracticeAudio: Identifiable, Codable {
     // 編碼方法
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
         try container.encode(data, forKey: .data)
         try container.encode(timepoints, forKey: .timepoints)
     }
@@ -44,13 +51,15 @@ class PracticeAudio: Identifiable, Codable {
 
 @Model
 class TimepointInformation: Codable {
-    var range: NSRange?
+    var rangeLocation: Int?
+    var rangeLength: Int?
     var markName: String
     var timeSeconds: Double
 
     // 初始化方法
-    init(range: NSRange?, markName: String, timeSeconds: Double) {
-        self.range = range
+    init(location: Int?, length: Int?, markName: String, timeSeconds: Double) {
+        self.rangeLocation = location
+        self.rangeLength = length
         self.markName = markName
         self.timeSeconds = timeSeconds
     }
@@ -66,13 +75,8 @@ class TimepointInformation: Codable {
     // 解碼方法
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let location = try container.decodeIfPresent(Int.self, forKey: .rangeLocation)
-        let length = try container.decodeIfPresent(Int.self, forKey: .rangeLength)
-        if let location = location, let length = length {
-            self.range = NSRange(location: location, length: length)
-        } else {
-            self.range = nil
-        }
+        self.rangeLocation = try container.decodeIfPresent(Int.self, forKey: .rangeLocation)
+        self.rangeLength = try container.decodeIfPresent(Int.self, forKey: .rangeLength)
         self.markName = try container.decode(String.self, forKey: .markName)
         self.timeSeconds = try container.decode(Double.self, forKey: .timeSeconds)
     }
@@ -86,5 +90,14 @@ class TimepointInformation: Codable {
         }
         try container.encode(markName, forKey: .markName)
         try container.encode(timeSeconds, forKey: .timeSeconds)
+    }
+}
+
+extension TimepointInformation {
+    var range: NSRange? {
+        guard let rangeLength,
+              let rangeLocation else { return nil }
+
+        return NSRange(location: rangeLocation, length: rangeLength)
     }
 }

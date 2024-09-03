@@ -27,7 +27,7 @@ class ExploreCell: UICollectionViewCell {
         innerView.addDefaultBorder(cornerRadius: 15)
     }
     
-    func configure(_ article: FSArticle) {
+    func configure(_ article: Article) {
         titleLabel.text = article.title
         contentLabel.text = article.content
         uploadedDateLabel.text = article.formattedUploadedDate
@@ -35,9 +35,9 @@ class ExploreCell: UICollectionViewCell {
         conifgureCEFRLabel(article)
     }
     
-    func conifgureCEFRLabel(_ article: FSArticle) {
+    func conifgureCEFRLabel(_ article: Article) {
         cefrView.addDefaultBorder(cornerRadius: 5)
-        cefrView.isHidden = article.cefr == nil
+        cefrView.isHidden = article.cefrType == nil
         cefrLabel.text = article.cefr?.title
     }
 }

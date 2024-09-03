@@ -23,24 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate {
-    
-    func tryTranslation() {
-        let service = GoogleTranslateApiService(apiKey: "AIzaSyAu4IIgc3WDKFuq8AGD6g1Rliz83qS5q0k")
-
-        let english = Locale(identifier: "en")
-        let swedish = Locale(identifier: "zh-TW")
-
-        service.translate("Hello, world!", from: english, to: swedish) { result in
-            switch result {
-            case .success(let translatedText):
-                print("foo - \(translatedText)")
-//                let result = translatedText.translations.first!.translatedText
-
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
 
     func initializeDataManager() {
         _ = CoreDataManager.shared
@@ -82,33 +64,32 @@ extension AppDelegate {
         
         if practiceMaps.isEmpty {
             let type = PracticeType.listenAndTranslate.rawValue
-            
+
+
             let defaultPracticePreset = DefaultPracticePreset()
-//            DefaultPracticePresetManager.shared.create(model: defaultPracticePreset)
+
+//            let preset = PracticePreset()
+
             
-            let preset = PracticePreset(defaultPreset: defaultPracticePreset)
-//            PracticePresetManager.shared.create(model: preset)
+
             
-            let article = Article(title: "title", content: "content", uploadedDate: Date())
-//            ArticleManager.shared.create(model: article)
-            
-            let resource = PracticeResource(article: article)
+//            let resource = PracticeResource()
 //            PracticeResourceManager.shared.create(model: resource)
-            
-            let practice = Practice(type: type, preset: preset, resource: resource, records: [])
+//            
+//            let practice = Practice(type: type, preset: preset, resource: resource, ugc: nil, records: [])
 //            PracticeManager.shared.create(model: practice)
-
-            let sequence = PracticeSequence(practices: [practice])
-
-            let map = PracticeMap(type: 0, sequences: [sequence])
-
-            PracticeMapManager.shared.create(model: map)
+//
+//            let sequence = PracticeSequence(practices: [practice])
+//
+//            let map = PracticeMap(type: 0, sequences: [sequence])
+//
+//            PracticeMapManager.shared.create(model: map)
 
 //            let map = PracticeMapManager.shared.fetch(byId: practiceMap.id)
             
 //            let resources = PracticeResourceManager.shared.fetchAll()
 
-            print("foo - \(map.sequences.first?.practices.first?.resource)")
+//            print("foo - \(map.sequences.first?.practices.first?.resource)")
 //            print("foo - \(practiceMap.practiceMatrix.first?.first?.resource)")
 //            print("foo - \(map?.practiceMatrix.first)")
 //            print("foo - \(map?.practiceMatrix.first?.first)")

@@ -18,7 +18,8 @@ class FirestoreManager {
 
     private init() {}
     
-    func fetchArticle(articleId: String, completion: @escaping (FSArticle?) -> Void) {
+    @MainActor
+    func fetchArticle(articleId: String, completion: @escaping (Article?) -> Void) {
         db.collection("articles").document(articleId).getDocument { (document, error) in
             guard let document = document, document.exists else {
                 print("Article not found")
@@ -35,7 +36,8 @@ class FirestoreManager {
         }
     }
     
-    func fetchAllArticles(completion: @escaping ([FSArticle]) -> Void) {
+    @MainActor
+    func fetchAllArticles(completion: @escaping ([Article]) -> Void) {
         db.collection("articles").getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error fetching articles: \(error)")
@@ -49,8 +51,8 @@ class FirestoreManager {
                 return
             }
             
-            var articles: [FSArticle] = []
-            
+            var articles: [Article] = []
+
             for document in documents {
                 guard let article = self.parseArticle(from: document) else { continue }
                 
@@ -60,97 +62,107 @@ class FirestoreManager {
             completion(articles)
         }
     }
-    
-    func parseArticle(from document: DocumentSnapshot) -> FSArticle? {
-        let data = document.data()
-        
-        guard let title = data?["title"] as? String,
-              let content = data?["content"] as? String,
-              let imageUrl = data?["imageId"] as? String,
-              let timestamp = data?["uploadedDate"] as? Timestamp else {
+
+
+    func parseArticle(from document: DocumentSnapshot) -> Article? {
+        guard let data = document.data() else {
             return nil
         }
-        
-        let uploadedDate = timestamp.dateValue()
-        
-        // 解析 TTS Synthesis Result
-        var ttsSynthesisResult: TTSSynthesisResult? = nil
-        
-        if let ttsData = data?["ttsSynthesisResult"] as? [String: Any],
-           let audioId = ttsData["audioId"] as? String,
-           let timepointsArray = ttsData["timepoints"] as? [[String: Any]] {
-            
-            var timepoints: [FSTimepointInfo] = []
-            
-            for timepoint in timepointsArray {
-                let rangeData = timepoint["range"] as? [String: Any]
-                let location = rangeData?["location"] as? Int ?? 0
-                let length = rangeData?["length"] as? Int ?? 0
-                let range = NSRange(location: location, length: length)
-                let markName = timepoint["markName"] as? String ?? ""
-                let timeSeconds = timepoint["timeSeconds"] as? Double ?? 0.0
-                
-                let timepointInfo = FSTimepointInfo(
-                    range: range,
-                    markName: markName,
-                    timeSeconds: timeSeconds
-                )
-                timepoints.append(timepointInfo)
+
+        let practiceAudioResource = PracticeAudio()
+        let practiceImageResource = PracticeImage()
+
+        let id = data["id"] as? String
+        let title = data["title"] as? String
+        let content = data["content"] as? String
+        let cefrType = data["cefrType"] as? Int
+
+        let timestamp = data["uploadedDate"] as? Timestamp
+        let uploadedDate = timestamp?.dateValue()
+
+        if let imageResource = data["imageResource"] as? [String: Any] {
+            practiceImageResource.id = imageResource["id"] as? String
+        }
+
+        if let audioResource = data["audioResource"] as? [String: Any] {
+
+            if let id = audioResource["id"] as? String {
+                practiceAudioResource.id = id
             }
-            
-            ttsSynthesisResult = TTSSynthesisResult(audioId: audioId, timepoints: timepoints)
+
+            if let parsingTmepoints = audioResource["timepoints"] as? [[String: Any]] {
+
+                var timepoints: [TimepointInformation] = []
+
+                for timepoint in parsingTmepoints {
+                    let location = timepoint["rangeLocation"] as? Int ?? 0
+                    let length = timepoint["rangeLength"] as? Int ?? 0
+                    let markName = timepoint["markName"] as? String ?? ""
+                    let timeSeconds = timepoint["timeSeconds"] as? Double ?? 0.0
+
+                    let timepointInfo = TimepointInformation(
+                        location: location,
+                        length: length,
+                        markName: markName,
+                        timeSeconds: timeSeconds)
+
+                    timepoints.append(timepointInfo)
+                }
+
+                practiceAudioResource.timepoints = timepoints
+            }
         }
-        
-        var cerfRawValue: Int?
-        
-        if let parsedCefr = data?["cerfRawValue"] as? Int {
-            cerfRawValue = parsedCefr
-        }
-        
-        let article = FSArticle(
-            title: title,
-            content: content,
-            imageId: imageUrl,
-            uploadedDate: uploadedDate,
-            ttsSynthesisResult: ttsSynthesisResult,
-            cefrRawValue: cerfRawValue
-        )
-        
+
+
+        let article = Article(id: id, title: title, content: content, uploadedDate: uploadedDate)
+
+        article.audioResource = practiceAudioResource
+        article.imageResource = practiceImageResource
+        article.cefrType = cefrType
+
         return article
     }
 
-    func uploadArticle(_ article: FSArticle, completion: @escaping (Bool) -> Void) {
+    func uploadArticle(_ article: Article, completion: @escaping (Bool) -> Void) {
         var articleData: [String: Any] = [
-            "title": article.title,
-            "content": article.content,
-            "imageId": article.imageId,
-            "uploadedDate": article.uploadedDate,
+            "title": article.title!,
+            "content": article.content!,
+            "uploadedDate": article.uploadedDate!
         ]
-        
-        if let ttsResult = article.ttsSynthesisResult {
-            let timepointsArray: [[String: Any]] = ttsResult.timepoints.map { timepoint in
+
+        // 處理 imageResource
+        if let imageResource = article.imageResource {
+            articleData["imageId"] = imageResource.id
+        }
+
+        // 處理 audioResource
+        if let audioResource = article.audioResource {
+            var timepointsArray: [[String: Any]] = []
+
+            let timepoints = audioResource.timepoints
+
+            timepointsArray = timepoints.map { timepoint in
                 var rangeDict: [String: Any] = [:]
-                if let range = timepoint.range {
-                    rangeDict["location"] = range.location
-                    rangeDict["length"] = range.length
-                }
+                rangeDict["rangeLocation"] = timepoint.range?.location
+                rangeDict["rangeLength"] = timepoint.range?.length
+
                 return [
                     "range": rangeDict,
                     "markName": timepoint.markName,
                     "timeSeconds": timepoint.timeSeconds
                 ]
             }
-            
-            let ttsData: [String: Any] = [
-                "audioId": ttsResult.audioId,
+
+            let audioResource: [String: Any] = [
+                "audioId": audioResource.id,
                 "timepoints": timepointsArray
             ]
-            
-            articleData["ttsSynthesisResult"] = ttsData
+
+            articleData["audioResource"] = audioResource
         }
-        
-        if let cefrRawValue = article.cefrRawValue {
-            articleData["cerfRawValue"] = cefrRawValue
+
+        if let cefrType = article.cefrType {
+            articleData["cefrType"] = cefrType
         }
 
         db.collection("articles").addDocument(data: articleData) { error in
@@ -159,34 +171,7 @@ class FirestoreManager {
                 completion(false)
                 return
             }
-            completion(true)
-        }
-    }
 
-    func uploadArticles(_ articles: [FSArticle], completion: @escaping (Bool) -> Void) {
-        let group = DispatchGroup()
-
-        for article in articles {
-            group.enter()
-            let articleData: [String: Any] = [
-                "title": article.title,
-                "content": article.content,
-                "imageId": article.imageId,
-                "uploadedDate": article.uploadedDate
-            ]
-
-            db.collection("articles").addDocument(data: articleData) { error in
-                if let error = error {
-                    print("Error uploading article: \(error)")
-                    group.leave()
-                    completion(false)
-                    return
-                }
-                group.leave()
-            }
-        }
-
-        group.notify(queue: .main) {
             completion(true)
         }
     }
@@ -247,7 +232,7 @@ class FirestoreManager {
         }
     }
 
-    func getImage(for id: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
+    func getImage(for id: String, completion: @escaping (Result<Data, Error>) -> Void) {
         let storage = Storage.storage()
         let storageRef = storage.reference()
 
@@ -263,7 +248,7 @@ class FirestoreManager {
                     switch result {
                     case .success(let data):
                         if let image = UIImage(data: data) {
-                            completion(.success(image))
+                            completion(.success(data))
 
                         } else {
                             completion(.failure(NSError(domain: "ImageConversionError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to convert data to image"])))
