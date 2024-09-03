@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gOg-bx-wyz">
     <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -717,13 +716,13 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oXC-QM-LWd">
                                         <rect key="frame" x="12" y="11.999999999999996" width="369" height="48.666666666666657"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap once → word, double-tap → sentence." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVb-mg-suX" userLabel="Original Text Label">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Single-tap a word to show its translation, double-tap a sentence to show its translation." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVb-mg-suX" userLabel="Original Text Label">
                                                 <rect key="frame" x="0.0" y="0.0" width="369" height="20.333333333333332"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="description"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="點單字一下選單字，點句子兩下選句子。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETl-nW-RqJ" userLabel="Translated Text Label">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="單擊單字出現單字翻譯，雙擊句子出現句子翻譯。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETl-nW-RqJ" userLabel="Translated Text Label">
                                                 <rect key="frame" x="0.0" y="28.333333333333343" width="369" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" name="title"/>
@@ -792,20 +791,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UCv-hw-Rdh">
-                        <rightBarButtonItems>
-                            <barButtonItem image="note.text.badge.plus" catalog="system" id="R6Q-Tg-cOo">
-                                <color key="tintColor" name="title"/>
-                                <connections>
-                                    <action selector="addAction:" destination="eIc-Ke-le6" id="J1P-A6-cvO"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="slider.horizontal.3" catalog="system" id="g95-5D-ruE">
-                                <color key="tintColor" name="title"/>
-                                <connections>
-                                    <action selector="settingAction:" destination="eIc-Ke-le6" id="yKK-e7-kY0"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="chevron.left" catalog="system" id="SaH-lL-rJe">
+                            <color key="tintColor" name="title"/>
+                            <connections>
+                                <action selector="backAction:" destination="eIc-Ke-le6" id="hrs-Yp-Q9b"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="slider.horizontal.3" catalog="system" id="g95-5D-ruE">
+                            <color key="tintColor" name="title"/>
+                            <connections>
+                                <action selector="settingAction:" destination="eIc-Ke-le6" id="yKK-e7-kY0"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="articlePlayButtonView" destination="wKG-Rq-Fzl" id="tIX-pp-7nr"/>
@@ -1039,20 +1036,20 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingCell" id="A5l-Xh-hd9" customClass="SettingCell" customModule="NewWord" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="353" height="53.333332061767578"/>
+                                        <rect key="frame" x="0.0" y="50" width="353" height="53"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A5l-Xh-hd9" id="aqB-lT-EXF">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="53.333332061767578"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="53"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="聯絡我們" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9DP-tt-vs9">
-                                                    <rect key="frame" x="20" y="15.999999999999998" width="69.333333333333329" height="21.333333333333329"/>
+                                                    <rect key="frame" x="20" y="16" width="69.333333333333329" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="title"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="justin.tseng.developer@gamil.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcD-KO-SnQ">
-                                                    <rect key="frame" x="139" y="19.666666666666668" width="194" height="14.333333333333332"/>
+                                                    <rect key="frame" x="139" y="19.333333333333332" width="194" height="14.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" name="description"/>
                                                     <nil key="highlightedColor"/>
@@ -1806,13 +1803,13 @@ Environmental sustainability has become a crucial issue in today's world. With t
         <image name="books.vertical.circle" catalog="system" width="128" height="123"/>
         <image name="books.vertical.circle.fill" catalog="system" width="128" height="123"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
+        <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="circle" catalog="system" width="128" height="123"/>
         <image name="dummy_explore" width="2400" height="1600"/>
         <image name="gear.circle" catalog="system" width="128" height="123"/>
         <image name="gear.circle.fill" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass.circle" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass.circle.fill" catalog="system" width="128" height="123"/>
-        <image name="note.text.badge.plus" catalog="system" width="128" height="109"/>
         <image name="pencil.circle" catalog="system" width="128" height="123"/>
         <image name="pencil.circle.fill" catalog="system" width="128" height="123"/>
         <image name="plus" catalog="system" width="128" height="113"/>
@@ -1843,10 +1840,10 @@ Environmental sustainability has become a crucial issue in today's world. With t
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemCyanColor">
-            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

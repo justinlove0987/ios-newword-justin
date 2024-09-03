@@ -20,7 +20,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBOutlet weak var translatedTextLabel: UILabel!
     @IBOutlet var translationContentView: UIView!
     @IBOutlet weak var articlePlayButtonView: ArticlePlayButtonView!
-    
     @IBOutlet weak var bottomPanelStackView: UIStackView!
     
     var article: FSArticle?
@@ -126,7 +125,23 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     }
 
     // MARK: - Actions
+    
+    
+    @IBAction func backAction(_ sender: UIBarButtonItem) {
+        guard var text = customTextView.text else { return }
 
+        text = viewModel.removeAllTags(in: text)
+        viewModel.saveTag(text)
+        
+        viewModel.showPracticeAlert(presentViewController: self) {
+            self.navigationController?.popToRootViewController(animated: true)
+            
+        } confirmAction: {
+            self.addCallback?()
+        }
+        
+    }
+    
     @IBAction func addAction(_ sender: UIBarButtonItem) {
         guard var text = customTextView.text else { return }
 

@@ -76,7 +76,7 @@ extension AppDelegate {
     }
     
     func createDefaultPracticeMap() {
-        PracticeManager.shared.deleteAllEntities()
+//        PracticeManager.shared.deleteAllEntities()
         
         let practiceMaps = PracticeMapManager.shared.fetchAll()
         
