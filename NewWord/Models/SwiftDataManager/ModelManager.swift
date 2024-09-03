@@ -119,25 +119,13 @@ class ModelManager<Model: ModelProtocol> {
         }
     }
     
-//    func deleteAllEntities() {
-//        for model in PersistentContainerManager.shared.models {
-//            deleteAll(ofType: model)
-//        }
-//    }
+    func deleteAllEntities() {
+        for model in PersistentContainerManager.shared.models {
+            deleteAll(ofType: model)
+        }
+    }
     
 }
-
-
-//let container: ModelContainer = {
-//    do {
-//        return try ModelContainer(
-//            for: DefaultPracticePreset.self,
-//            configurations: ModelConfiguration(isStoredInMemoryOnly: false)
-//        )
-//    } catch {
-//        fatalError("Failed to create container")
-//    }
-//}()
 
 class PersistentContainerManager {
 

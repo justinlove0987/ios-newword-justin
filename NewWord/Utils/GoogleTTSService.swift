@@ -238,7 +238,7 @@ class GoogleTTSService: NSObject {
     func downloadSSML(_ text: String,
                       voiceType: VoiceType = .enUSPolyglot1Male,
                       rate: Double = 0.8,
-                      completion: @escaping (PracticeAudio?) -> Void) {
+                      completion: @escaping (FSPracticeAudio?) -> Void) {
 
         var text = addMarksToText(text)
         text = wrapWithSpeakTags(text)
@@ -265,7 +265,7 @@ class GoogleTTSService: NSObject {
             }
             
             // 解析 timepoints 並封裝到 TimepointInfo 中
-            var timepoints: [TimepointInformation] = []
+            var timepoints: [FSTimepointInformation] = []
 
             if let tpArray = response["timepoints"] as? [[String: Any]] {
                 for tp in tpArray {
@@ -282,24 +282,24 @@ class GoogleTTSService: NSObject {
                             return nil
                         }()
 
-                        let timepointInformation = TimepointInformation(location: range?.location,
-                                             length: range?.length,
-                                             markName: markName,
-                                             timeSeconds: timeSeconds)
+                        let timepointInformation = FSTimepointInformation(id: nil,
+                                                                          location: range?.location,
+                                                                          length: range?.length,
+                                                                          markName: markName,
+                                                                          timeSeconds: timeSeconds)
 
                         timepoints.append(timepointInformation)
                     }
                 }
             }
             
-            let result = PracticeAudio(data: audioData, timepoints: timepoints)
-            
+            let result = FSPracticeAudio(id: UUID().uuidString ,data: audioData, timepoints: timepoints)
+
             DispatchQueue.main.async {
                 completion(result)
             }
         }
     }
-    
     
     func addMarksToText(_ text: String) -> String {
         let tokenizer = NLTokenizer(unit: .word)

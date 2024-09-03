@@ -10,42 +10,44 @@ import SwiftData
 
 
 @Model
-class PracticeImage: Codable {
-    
+class PracticeImage: Identifiable, Codable {
+
+    // MARK: - Properties
+
     var id: String?
     var data: Data?
 
-    // 初始化方法
+    // MARK: - Initializer
+
     init(id: String? = nil, data: Data? = nil) {
         self.id = id
         self.data = data
     }
 
-    // CodingKeys 枚舉，用於定義屬性與 JSON 鍵的對應
+    // MARK: - Codable Keys
+
     private enum CodingKeys: String, CodingKey {
         case id
         case data
     }
 
-    // 解碼方法
+    // MARK: - Codable Methods
+
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
         self.data = try container.decode(Data.self, forKey: .data)
     }
 
-    // 編碼方法
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(data, forKey: .data)
     }
-}
 
-extension PracticeImage {
+    // MARK: - Computed Property
     var image: UIImage? {
         guard let data else { return nil }
-        
         return UIImage(data: data)
     }
 }

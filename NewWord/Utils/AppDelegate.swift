@@ -65,29 +65,19 @@ extension AppDelegate {
         if practiceMaps.isEmpty {
             let type = PracticeType.listenAndTranslate.rawValue
 
-
-            let defaultPracticePreset = DefaultPracticePreset()
-
-//            let preset = PracticePreset()
-
+            let preset = PracticePreset(defaultPreset: DefaultPracticePreset())
             
-
-            
-//            let resource = PracticeResource()
+            let resource = PracticeResource()
 //            PracticeResourceManager.shared.create(model: resource)
-//            
-//            let practice = Practice(type: type, preset: preset, resource: resource, ugc: nil, records: [])
-//            PracticeManager.shared.create(model: practice)
-//
-//            let sequence = PracticeSequence(practices: [practice])
-//
-//            let map = PracticeMap(type: 0, sequences: [sequence])
-//
-//            PracticeMapManager.shared.create(model: map)
-
-//            let map = PracticeMapManager.shared.fetch(byId: practiceMap.id)
             
-//            let resources = PracticeResourceManager.shared.fetchAll()
+            let practice = Practice(type: type, preset: preset, resource: resource, ugc: nil, records: [])
+//            PracticeManager.shared.create(model: practice)
+
+            let sequence = PracticeSequence(practices: [practice])
+
+            let map = PracticeMap(type: 0, sequences: [sequence])
+
+            PracticeMapManager.shared.create(model: map)
 
 //            print("foo - \(map.sequences.first?.practices.first?.resource)")
 //            print("foo - \(practiceMap.practiceMatrix.first?.first?.resource)")

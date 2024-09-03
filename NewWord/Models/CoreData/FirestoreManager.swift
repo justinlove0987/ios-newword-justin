@@ -123,7 +123,7 @@ class FirestoreManager {
         return article
     }
 
-    func uploadArticle(_ article: Article, completion: @escaping (Bool) -> Void) {
+    func uploadArticle(_ article: FSPracticeArticle, completion: @escaping (Bool) -> Void) {
         var articleData: [String: Any] = [
             "title": article.title!,
             "content": article.content!,
@@ -132,35 +132,36 @@ class FirestoreManager {
 
         // 處理 imageResource
         if let imageResource = article.imageResource {
-            articleData["imageId"] = imageResource.id
+
+            var resource: [String: Any] = [:]
+            
+            if let imageId = imageResource.id {
+                resource["id"] = imageId
+            }
+
+            articleData["imageResource"] = resource
         }
 
         // 處理 audioResource
         if let audioResource = article.audioResource {
-            var timepointsArray: [[String: Any]] = []
-
-            let timepoints = audioResource.timepoints
-
-            timepointsArray = timepoints.map { timepoint in
-                var rangeDict: [String: Any] = [:]
-                rangeDict["rangeLocation"] = timepoint.range?.location
-                rangeDict["rangeLength"] = timepoint.range?.length
-
-                return [
-                    "range": rangeDict,
+            let timepointsArray = audioResource.timepoints.map { timepoint in
+                [
+                    "range": [
+                        "rangeLocation": timepoint.rangeLocation as Any,
+                        "rangeLength": timepoint.rangeLength as Any
+                    ],
                     "markName": timepoint.markName,
                     "timeSeconds": timepoint.timeSeconds
                 ]
             }
 
-            let audioResource: [String: Any] = [
-                "audioId": audioResource.id,
-                "timepoints": timepointsArray
-            ]
+            var resource: [String: Any] = ["timepoints": timepointsArray]
+            resource["id"] = audioResource.id
 
-            articleData["audioResource"] = audioResource
+            articleData["audioResource"] = resource
         }
 
+        // 處理 cefrType
         if let cefrType = article.cefrType {
             articleData["cefrType"] = cefrType
         }
@@ -171,11 +172,10 @@ class FirestoreManager {
                 completion(false)
                 return
             }
-
             completion(true)
         }
     }
-    
+
     func uploadAudio(audioId: String, audioData: Data, completion: @escaping (_ isDownloadSuccessful: Bool, _ url: String?) -> Void) {
         // 建立 Storage 參考
         let storageRef = Storage.storage().reference().child("audios/\(audioId).m4a")

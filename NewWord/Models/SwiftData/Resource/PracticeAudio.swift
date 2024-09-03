@@ -8,16 +8,16 @@
 import UIKit
 import SwiftData
 
-
 @Model
-class PracticeAudio: Codable {
-    
-    var id: String
+class PracticeAudio: Identifiable, Codable {
+
+    var id: String?
     var data: Data?
     var timepoints: [TimepointInformation] = []
 
     // 初始化方法
-    init(data: Data? = nil,
+    init(id: String? = nil,
+         data: Data? = nil,
          timepoints: [TimepointInformation] = []) {
 
         self.id = UUID().uuidString
@@ -35,8 +35,8 @@ class PracticeAudio: Codable {
     // 解碼方法
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(String.self, forKey: .data)
-        self.data = try container.decode(Data.self, forKey: .data)
+        self.id = try container.decode(String.self, forKey: .id)
+        self.data = try container.decodeIfPresent(Data.self, forKey: .data)
         self.timepoints = try container.decode([TimepointInformation].self, forKey: .timepoints)
     }
 
@@ -50,7 +50,9 @@ class PracticeAudio: Codable {
 }
 
 @Model
-class TimepointInformation: Codable {
+class TimepointInformation: Identifiable, Codable {
+
+    var id: UUID = UUID() // Identifiable 需要的 id 屬性
     var rangeLocation: Int?
     var rangeLength: Int?
     var markName: String
@@ -84,10 +86,8 @@ class TimepointInformation: Codable {
     // 編碼方法
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        if let range = range {
-            try container.encode(range.location, forKey: .rangeLocation)
-            try container.encode(range.length, forKey: .rangeLength)
-        }
+        try container.encode(rangeLocation, forKey: .rangeLocation)
+        try container.encode(rangeLength, forKey: .rangeLength)
         try container.encode(markName, forKey: .markName)
         try container.encode(timeSeconds, forKey: .timeSeconds)
     }
@@ -95,9 +95,7 @@ class TimepointInformation: Codable {
 
 extension TimepointInformation {
     var range: NSRange? {
-        guard let rangeLength,
-              let rangeLocation else { return nil }
-
+        guard let rangeLocation = rangeLocation, let rangeLength = rangeLength else { return nil }
         return NSRange(location: rangeLocation, length: rangeLength)
     }
 }

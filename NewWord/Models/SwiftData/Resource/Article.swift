@@ -10,7 +10,7 @@ import UIKit
 import SwiftData
 
 @Model
-class Article: Codable {
+class Article: Identifiable, Codable {
 
     var id: String?
     var title: String?
@@ -21,20 +21,20 @@ class Article: Codable {
     var cefrType: Int?
 
     // 初始化方法
-    init(id: String?,
-         title: String?,
-         content: String?,
-         uploadedDate: Date?,
-         audio: PracticeAudio? = nil,
-         image: PracticeImage? = nil,
+    init(id: String? = UUID().uuidString,
+         title: String? = nil,
+         content: String? = nil,
+         uploadedDate: Date? = nil,
+         audioResource: PracticeAudio? = nil,
+         imageResource: PracticeImage? = nil,
          cefrType: Int? = nil) {
 
         self.id = id
         self.title = title
         self.content = content
         self.uploadedDate = uploadedDate
-        self.audioResource = audio
-        self.imageResource = image
+        self.audioResource = audioResource
+        self.imageResource = imageResource
         self.cefrType = cefrType
     }
 
@@ -44,8 +44,8 @@ class Article: Codable {
         case title
         case content
         case uploadedDate
-        case audio
-        case image
+        case audioResource
+        case imageResource
         case cefrType
     }
 
@@ -53,11 +53,11 @@ class Article: Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(String.self, forKey: .id)
-        self.title = try container.decode(String.self, forKey: .title)
-        self.content = try container.decode(String.self, forKey: .content)
-        self.uploadedDate = try container.decode(Date.self, forKey: .uploadedDate)
-        self.audioResource = try container.decodeIfPresent(PracticeAudio.self, forKey: .audio)
-        self.imageResource = try container.decodeIfPresent(PracticeImage.self, forKey: .image)
+        self.title = try container.decodeIfPresent(String.self, forKey: .title)
+        self.content = try container.decodeIfPresent(String.self, forKey: .content)
+        self.uploadedDate = try container.decodeIfPresent(Date.self, forKey: .uploadedDate)
+        self.audioResource = try container.decodeIfPresent(PracticeAudio.self, forKey: .audioResource)
+        self.imageResource = try container.decodeIfPresent(PracticeImage.self, forKey: .imageResource)
         self.cefrType = try container.decodeIfPresent(Int.self, forKey: .cefrType)
     }
 
@@ -65,28 +65,26 @@ class Article: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(title, forKey: .title)
-        try container.encode(content, forKey: .content)
-        try container.encode(uploadedDate, forKey: .uploadedDate)
-        try container.encodeIfPresent(audioResource, forKey: .audio)
-        try container.encodeIfPresent(imageResource, forKey: .image)
+        try container.encodeIfPresent(title, forKey: .title)
+        try container.encodeIfPresent(content, forKey: .content)
+        try container.encodeIfPresent(uploadedDate, forKey: .uploadedDate)
+        try container.encodeIfPresent(audioResource, forKey: .audioResource)
+        try container.encodeIfPresent(imageResource, forKey: .imageResource)
         try container.encodeIfPresent(cefrType, forKey: .cefrType)
     }
 }
 
 extension Article {
     var formattedUploadedDate: String? {
+        guard let uploadedDate else { return nil }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy/MM/dd"
-
-        return dateFormatter.string(from: uploadedDate!)
+        return dateFormatter.string(from: uploadedDate)
     }
 
     var text: String? {
-        guard let title else { return nil }
-        guard let content else { return nil }
-
-        return "\(title)\n\n\(String(describing: content))"
+        guard let title, let content else { return nil }
+        return "\(title)\n\n\(content)"
     }
 
     var hasImage: Bool {
@@ -95,9 +93,6 @@ extension Article {
 
     var cefr: CEFR? {
         guard let cefrType else { return nil }
-
-        let cefr = CEFR(rawValue: cefrType)
-
-        return cefr
+        return CEFR(rawValue: cefrType)
     }
 }

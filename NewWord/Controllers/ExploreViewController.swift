@@ -26,9 +26,10 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         super.viewDidLoad()
         setup()
 
-        let localArticles = ArticleManager.shared.fetchAll()
+        PracticeManager.shared.deleteAllEntities()
+        UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
 
-        print("foo - \(localArticles.count) \(localArticles)")
+        let localArticles = ArticleManager.shared.fetchAll()
 
         if !UserDefaultsManager.shared.hasFetchedDataToday() {
             self.fetchArticles { serverArticles in
@@ -42,66 +43,54 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
             self.articles = localArticles
         }
         
-        let title = "South Korea’s Deepfake Porn Scandal: A Crisis of Digital Exploitation"
-
-        let content = """
-        Last Saturday, Heejin, a university student, received a chilling Telegram message from an anonymous sender. “Your photos and personal information have been leaked. Let’s discuss.” As she opened the message, she was confronted with a familiar photograph from her school days, now manipulated into explicit and fake content using sophisticated deepfake technology.
-
-        Deepfakes, which typically superimpose a person’s face onto explicit images, are being increasingly generated through artificial intelligence. “I was petrified, I felt so alone,” Heejin recounted to the BBC. Yet, she was far from alone in her distress.
-
-        Two days prior, South Korean journalist Ko Narin had exposed a scandal that would become the most significant of her career. Her investigation revealed that police were probing deepfake porn rings at two major universities, but Ko suspected the issue was more widespread. Her search through social media uncovered numerous Telegram chat groups where users were sharing personal photos and converting them into fake pornography with alarming speed.
-
-        These groups weren’t limited to university students; they extended to high schools and even middle schools. Some groups, referred to as “humiliation rooms” or “friend of friend rooms,” were dedicated to targeting specific individuals. Membership often required posting multiple personal photos and details about the targeted person.
-
-        Ko’s report in the Hankyoreh newspaper has stunned South Korea. The police have announced they are considering investigating Telegram, following France’s lead, where Telegram’s Russian founder faced charges related to app misuse. The South Korean government has pledged stricter penalties and called for better education for young men.
-
-        Telegram has stated it "actively combats harmful content on its platform, including illegal pornography."
-
-        Ko’s investigation revealed the systematic and organized nature of these groups. One group’s guidelines demanded more than four photos of individuals, along with their names, ages, and locations. “I was shocked at how systematic and organized the process was,” Ko said, particularly horrified by a group targeting underage students.
-
-        Women’s rights activists have joined the effort to uncover and address this crisis. By the end of the week, over 500 educational institutions had been identified as targets. The true scale is still unclear, but many victims are believed to be underage, with a significant number of perpetrators being teenagers themselves.
-
-        Heejin’s distress was exacerbated by learning the full extent of the crisis, which led her to question her own actions. “I couldn’t stop thinking did this happen because I uploaded my photos to social media?” She and many others have since removed their online photos or deactivated their accounts, fearing further exploitation.
-
-        Ah-eun, a university student, expressed frustration at having to alter her social media behavior despite no wrongdoing. Some victims have been discouraged by police, who dismissed the cases as difficult and less serious due to the fake nature of the photos.
-
-        The heart of this scandal lies with Telegram, a private, encrypted messaging app. Unlike public websites, Telegram’s private nature and anonymous user base make it a haven for criminal activity. Recent responses from politicians and law enforcement include a promise to investigate Telegram’s role and enforce harsher penalties for offenders.
-
-        The app’s founder, Pavel Durov, was recently charged in France for crimes related to the platform, including facilitating the sharing of child pornography. Critics argue that South Korean authorities have been slow to address the issue, citing previous failures to act on similar crises.
-
-        Park Jihyun, a political advocate for victims of digital sex crimes, has been inundated with calls from terrified parents and students. She and other activists are calling for stricter regulation or even a ban on Telegram in South Korea to protect citizens from digital exploitation.
-
-        The Advocacy Centre for Online Sexual Abuse Victims (ACOSAV) has seen a dramatic increase in underage victims, from 86 in 2023 to 238 in the first eight months of 2024. Park Seonghye, a leader at the center, described the situation as an emergency, likening it to a wartime crisis.
-
-        While Telegram has taken some action to remove harmful content, activists argue that this is insufficient. They believe the root of the issue is entrenched sexism, which manifests through digital platforms. Critics have pointed to President Yoon Suk Yeol’s denial of structural sexism and his reduction of support for victim advocacy groups as contributing factors.
-
-        Lee Myung-hwa, a counselor working with young sex offenders, highlighted the need for education on sexual abuse to prevent reoffending. The government has promised to increase penalties for creators and viewers of deepfake pornography, addressing criticism that current measures are inadequate.
-
-        Despite efforts to shut down the offending chatrooms, new ones are likely to emerge. The creation of a “humiliation room” targeting journalists like Ko has heightened concerns among those involved in the investigation. This anxiety is shared by many young women in South Korea, who now find themselves vigilant and fearful of being targeted.
-        """
-        
-        let text = "\(title)\n\n\(content)"
-        
-        GoogleTTSService.shared.downloadSSML(text) { audioResource in
-            guard let audioResource else {
-                print("foo - download ssml failed")
-                return
-            }
-            guard let audioData = audioResource.data else { return }
-
-            FirestoreManager.shared.uploadAudio(audioId: audioResource.id, audioData: audioData) { isDownloadSuccessful, url in
-                print("foo upload audio \(isDownloadSuccessful)")
-
-                let article = Article(id: UUID().uuidString, title: title, content: content, uploadedDate: Date())
-                article.audioResource = audioResource
-
-                FirestoreManager.shared.uploadArticle(article) { isDownloadSuccessful in
-                    print("foo - upload article \(isDownloadSuccessful)")
-                    
-
-                }
-            }
-        }
+//        let title = "Successful Polio Vaccination Campaign in Gaza Surpasses Expectations"
+//
+//        let content = """
+//        The World Health Organization (WHO) has announced that the initial phase of a polio vaccination campaign in central Gaza has exceeded its goals, with over 161,000 children vaccinated within the first two days. Dr. Rik Peeperkorn, WHO's representative in the Palestinian territories, noted that this figure surpasses the projected target of 156,500, likely due to underestimations of the densely populated area.
+//
+//        The vaccination drive became possible after Israel and Hamas agreed to localized ceasefires, allowing health workers to administer vaccines. This initiative was crucial following the first confirmed polio case in Gaza in 25 years, which left a 10-month-old partially paralyzed.
+//
+//        The immunization campaign is being conducted in three stages, with temporary pauses in hostilities from 06:00 to 15:00 local time. The first phase began in Deir al-Balah and Khan Younis governorates, and will continue in Rafah, followed by North Gaza and Gaza City. While the campaign has progressed smoothly, Dr. Peeperkorn emphasized that there are at least 10 days remaining in the first round, with a second round scheduled in four weeks to ensure full immunization coverage.
+//
+//        Efforts are ongoing to reach children in areas outside the ceasefire zones, particularly in the southern parts of Gaza. The overall goal is to vaccinate 640,000 children, with a minimum of 90% coverage needed to halt the transmission of poliovirus in Gaza and prevent its spread to neighboring regions.
+//
+//        Polio is a highly contagious virus, often transmitted through contaminated water, that primarily affects children under five. It can lead to severe consequences such as paralysis or even death. Humanitarian organizations attribute the resurgence of polio in Gaza to disruptions in vaccination programs and significant damage to water and sanitation infrastructure due to the ongoing conflict.
+//
+//        The mother of the affected child, Niveen, shared her feelings of guilt for being unable to vaccinate her son due to the conflict. She expressed a deep desire for her son to receive treatment outside Gaza, hoping he could live a life free from the debilitating effects of polio.
+//        """
+//        
+//        let text = "\(title)\n\n\(content)"
+//        
+//        GoogleTTSService.shared.downloadSSML(text) { audioResource in
+//            guard let audioResource else {
+//                print("foo - download ssml failed")
+//                return
+//            }
+//
+//            guard let id = audioResource.id, let audioData = audioResource.data else {
+//                print("foo - download ssml failed, there is no audio data")
+//                return
+//            }
+//
+//            FirestoreManager.shared.uploadAudio(audioId: id, audioData: audioData) { isDownloadSuccessful, url in
+//                print("foo upload audio \(isDownloadSuccessful)")
+//
+//                let imageResource = FSPracticeImage(id: UUID().uuidString)
+//
+//                let article = FSPracticeArticle(id: UUID().uuidString,
+//                                                title: title,
+//                                                content: content,
+//                                                uploadedDate: Date(),
+//                                                audioResource: audioResource,
+//                                                imageResource: imageResource)
+//
+//                FirestoreManager.shared.uploadArticle(article) { isDownloadSuccessful in
+//                    print("foo - upload article \(isDownloadSuccessful)")
+//                    
+//
+//                }
+//            }
+//        }
         
     }
 
@@ -223,7 +212,11 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
             }
             
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                var snapshot = self.dataSource.snapshot()
+
+                snapshot.reloadItems([self.articles[indexPath.row]])
+
+                self.dataSource.apply(snapshot, animatingDifferences: true)
             }
         }
     }
