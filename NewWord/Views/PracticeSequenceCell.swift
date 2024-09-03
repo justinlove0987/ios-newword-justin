@@ -12,6 +12,7 @@ class PracticeSequenceCell: UICollectionViewCell {
     static let reuseIdentifier = String(describing: PracticeSequenceCell.self)
     
     @IBOutlet weak var backgroundCoverView: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -142,9 +142,9 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     
     private var dataSource: UICollectionViewDiffableDataSource<Section,Row>!
     
-    private var newData: [[PracticeSetting]] = []
-    
     private var sections: [Section] = [.practiceType, .firstPractice, .forget, .advanced]
+    
+    var practice: Practice?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,16 +152,7 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     }
     
     private func setup() {
-        setupData()
         setupCollectionView()
-    }
-    
-    private func setupData() {
-        newData = [
-            [PracticeSetting(title: "123"), PracticeSetting(title: "123")],
-            [PracticeSetting(title: "123"), PracticeSetting(title: "123"), PracticeSetting(title: "123"), PracticeSetting(title: "123")],
-            [PracticeSetting(title: "123"), PracticeSetting(title: "123"), PracticeSetting(title: "123")]
-        ]
     }
 
     private func setupCollectionView() {
@@ -260,7 +251,11 @@ extension PracticeSettingViewController {
         itemIdentifier: Row
     ) -> UICollectionViewCell? {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeSettingCell.reuseIdentifier, for: indexPath) as! PracticeSettingCell
-        cell.configure(row: itemIdentifier)
+        
+        if let practice {
+            cell.configure(row: itemIdentifier, data: practice)
+        }
+        
         return cell
     }
 

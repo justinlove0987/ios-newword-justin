@@ -33,21 +33,7 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
     }
 
     private func setupData() {
-
-        let type = PracticeType.listenAndTranslate.rawValue
-        let preset = PracticePreset()
-
-        preset.defaultPreset = DefaultPracticePreset()
-
-        let resource = PracticeResource(article: Article(title: "title", content: "content", uploadedDate: Date()))
-
-        let practice = Practice(type: type, preset: preset, resource: resource, records: [])
-        PracticeManager.shared.create(model: practice)
-
-        let practiceMap = PracticeMap(practiceMatrix: [[practice]])
-        PracticeMapManager.shared.create(model: practiceMap)
-
-        self.practiceMap = practiceMap
+        self.practiceMap = PracticeMapManager.shared.fetch(by: PracticeMapType.blueprint.rawValue)
     }
 
     private func setupCollectionView() {
@@ -62,7 +48,11 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
     private func createDataSource() -> UICollectionViewDiffableDataSource<Int, Practice> {
         let dataSource = UICollectionViewDiffableDataSource<Int, Practice>(collectionView: collectionView,
                                                                             cellProvider: { collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeSequenceCell.reuseIdentifier, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeSequenceCell.reuseIdentifier, for: indexPath) as! PracticeSequenceCell
+            
+            let type = PracticeType(rawValue: itemIdentifier.type)!
+            
+            cell.titleLabel.text = type.title
 
             return cell
         })
@@ -114,7 +104,14 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
 
 extension PracticeSequenceViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let practiceMap else { return }
+        
+        let practices = practiceMap.practiceMatrix[indexPath.section]
+        let practice = practices[indexPath.row]
+        
         let controller = PracticeSettingViewController.instantiate()
+        
+        controller.practice = practice
         
         navigationController?.pushViewControllerWithCustomTransition(controller)
     }

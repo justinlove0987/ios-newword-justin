@@ -61,6 +61,7 @@
 		2A70457F2C85B04700A58672 /* PracticeAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70457E2C85B04700A58672 /* PracticeAudio.swift */; };
 		2A7045812C85B08700A58672 /* PracticeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045802C85B08700A58672 /* PracticeImage.swift */; };
 		2A7045852C85B46C00A58672 /* PracticeRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045842C85B46C00A58672 /* PracticeRecord.swift */; };
+		2A71BDD02C869AC900418A5B /* PracticeResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A71BDCF2C869AC900418A5B /* PracticeResourceManager.swift */; };
 		2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */; };
 		2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */; };
 		2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */; };
@@ -199,6 +200,7 @@
 		2A70457E2C85B04700A58672 /* PracticeAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeAudio.swift; sourceTree = "<group>"; };
 		2A7045802C85B08700A58672 /* PracticeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeImage.swift; sourceTree = "<group>"; };
 		2A7045842C85B46C00A58672 /* PracticeRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeRecord.swift; sourceTree = "<group>"; };
+		2A71BDCF2C869AC900418A5B /* PracticeResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeResourceManager.swift; sourceTree = "<group>"; };
 		2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextRevisionInputAccessoryView.xib; sourceTree = "<group>"; };
 		2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextRevisionInputAccessoryView.swift; sourceTree = "<group>"; };
 		2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseDeckViewController.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				2A7045652C805B4E00A58672 /* PracticePresetManager.swift */,
 				D04023362C81A74A004BF63B /* PracticeMapManager.swift */,
 				D040233C2C847F46004BF63B /* PrracticeManager.swift */,
+				2A71BDCF2C869AC900418A5B /* PracticeResourceManager.swift */,
 			);
 			path = SwiftDataManager;
 			sourceTree = "<group>";
@@ -700,6 +703,7 @@
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
 				2AC3E5932C5602EB002CC242 /* SettingCell.swift in Sources */,
 				2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */,
+				2A71BDD02C869AC900418A5B /* PracticeResourceManager.swift in Sources */,
 				2A0D41F32C6EF2C3000B1B3B /* ArticlePlayButtonView.swift in Sources */,
 				D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */,
 				2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */,

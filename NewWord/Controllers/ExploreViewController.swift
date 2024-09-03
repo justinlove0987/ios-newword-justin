@@ -25,21 +25,10 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-
-//        let practicePreset = PracticePreset(practiceType: 0, firstPracticeGraduationInterval: 0, firstPracticeEasyInterval: 0, firstPracticeEase: 0, forgetPracticeInterval: 0, forgetPracticeEase: 0, practiceThresholdRules: [], easyBonus: 0, isSynchronizedWithPracticePreset: true)
-//
-//        PracticeThresholdRuleManager.shared.create(model: PracticeThresholdRule(conditionType: 0, thresholdValue: 0, actionType: 0))
-//        PracticePresetManager.shared.create(model: practicePreset)
-//        PracticeMapManager.shared.create(model: PracticeMap(practicePresetMatrix: [[practicePreset]], practiceRecord: []))
-//
+        
         let result2 = PracticeThresholdRuleManager.shared.fetchAll()
         let result3 = PracticePresetManager.shared.fetchAll()
         let result4 = PracticeMapManager.shared.fetchAll()
-        
-        
-//        PracticeThresholdRuleManager.shared.deleteAll()
-//        PracticePresetManager.shared.deleteAll()
-//        PracticeMapManager.shared.deleteAll()
 
         print("foo - \(result2) \(result3) \(result4)")
         

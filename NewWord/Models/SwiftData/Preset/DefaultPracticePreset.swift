@@ -9,25 +9,20 @@ import UIKit
 import SwiftData
 
 @Model
-class DefaultPracticePreset: Identifiable, Encodable, Decodable {
+class DefaultPracticePreset: Identifiable, Codable {
 
     var practiceType: Int = 0
-    
     var firstPracticeGraduationInterval: Double = 1.0
     var firstPracticeEasyInterval: Double = 3.0
     var firstPracticeEase: Double = 2.5
-    var firstPracticeLearningPhase: Double  = 1
-    
-    var forgetPracticeInterval: Double = 1
+    var firstPracticeLearningPhase: Double = 1.0
+    var forgetPracticeInterval: Double = 1.0
     var forgetPracticeEase: Double = 2.3
     var forgetPracticeRelearningSteps: Double = 0.0
-    
     var practiceThresholdRules: [PracticeThresholdRule] = []
     var easyBonus: Double = 1.3
     var isSynchronizedWithPracticePreset: Bool = false
     var synchronizedPracticePreset: DefaultPracticePreset? = nil
-
-    // 設定初始化方法
 
     init() {}
 
@@ -35,21 +30,27 @@ class DefaultPracticePreset: Identifiable, Encodable, Decodable {
          firstPracticeGraduationInterval: Double,
          firstPracticeEasyInterval: Double,
          firstPracticeEase: Double,
+         firstPracticeLearningPhase: Double,
          forgetPracticeInterval: Double,
          forgetPracticeEase: Double,
+         forgetPracticeRelearningSteps: Double,
          practiceThresholdRules: [PracticeThresholdRule],
          easyBonus: Double,
-         isSynchronizedWithPracticePreset: Bool) {
+         isSynchronizedWithPracticePreset: Bool,
+         synchronizedPracticePreset: DefaultPracticePreset? = nil) {
 
         self.practiceType = practiceType
         self.firstPracticeGraduationInterval = firstPracticeGraduationInterval
         self.firstPracticeEasyInterval = firstPracticeEasyInterval
         self.firstPracticeEase = firstPracticeEase
+        self.firstPracticeLearningPhase = firstPracticeLearningPhase
         self.forgetPracticeInterval = forgetPracticeInterval
         self.forgetPracticeEase = forgetPracticeEase
+        self.forgetPracticeRelearningSteps = forgetPracticeRelearningSteps
         self.practiceThresholdRules = practiceThresholdRules
         self.easyBonus = easyBonus
         self.isSynchronizedWithPracticePreset = isSynchronizedWithPracticePreset
+        self.synchronizedPracticePreset = synchronizedPracticePreset
     }
 
     // 自定義編碼和解碼
@@ -99,5 +100,4 @@ class DefaultPracticePreset: Identifiable, Encodable, Decodable {
         try container.encode(isSynchronizedWithPracticePreset, forKey: .isSynchronizedWithPracticePreset)
         try container.encodeIfPresent(synchronizedPracticePreset, forKey: .synchronizedPracticePreset)
     }
-
 }

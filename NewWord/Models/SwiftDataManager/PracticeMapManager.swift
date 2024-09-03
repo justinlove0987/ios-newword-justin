@@ -15,5 +15,21 @@ class PracticeMapManager: ModelManager<PracticeMap> {
 
     private override init() {}
 
+    
+    func fetch(by type: Int) -> PracticeMap? {
+        guard let context = context else { return nil }
+        let descriptor = FetchDescriptor<PracticeMap>(
+            predicate: #Predicate { $0.type == type }
+        )
+        
+        do {
+            let models = try context.fetch(descriptor)
+            return models.first
+        } catch {
+            print("Failed to load model.")
+            return nil
+        }
+    }
+
 
 }

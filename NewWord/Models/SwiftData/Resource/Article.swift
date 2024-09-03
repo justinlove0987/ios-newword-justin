@@ -41,7 +41,6 @@ class Article: Identifiable, Codable {
         case uploadedDate
         case audio
         case image
-        case ttsSynthesisResult
         case cefrType
     }
 
@@ -51,8 +50,8 @@ class Article: Identifiable, Codable {
         self.title = try container.decode(String.self, forKey: .title)
         self.content = try container.decode(String.self, forKey: .content)
         self.uploadedDate = try container.decode(Date.self, forKey: .uploadedDate)
-        self.audio = try container.decode(PracticeAudio.self, forKey: .audio)
-        self.image = try container.decode(PracticeImage.self, forKey: .image)
+        self.audio = try container.decodeIfPresent(PracticeAudio.self, forKey: .audio)
+        self.image = try container.decodeIfPresent(PracticeImage.self, forKey: .image)
         self.cefrType = try container.decodeIfPresent(Int.self, forKey: .cefrType)
     }
 
@@ -62,8 +61,8 @@ class Article: Identifiable, Codable {
         try container.encode(title, forKey: .title)
         try container.encode(content, forKey: .content)
         try container.encode(uploadedDate, forKey: .uploadedDate)
-        try container.encode(audio, forKey: .audio)
-        try container.encode(image, forKey: .image)
+        try container.encodeIfPresent(audio, forKey: .audio)
+        try container.encodeIfPresent(image, forKey: .image)
         try container.encodeIfPresent(cefrType, forKey: .cefrType)
     }
 }

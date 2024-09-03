@@ -15,17 +15,21 @@ class PracticePreset: Codable {
     
     var defaultPreset: DefaultPracticePreset?
     
+    init(defaultPreset: DefaultPracticePreset) {
+        self.defaultPreset = defaultPreset
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case defaultPreset
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.defaultPreset = try container.decode(DefaultPracticePreset.self, forKey: .defaultPreset)
+        self.defaultPreset = try container.decodeIfPresent(DefaultPracticePreset.self, forKey: .defaultPreset)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(defaultPreset, forKey: .defaultPreset)
+        try container.encodeIfPresent(defaultPreset, forKey: .defaultPreset)
     }
 }

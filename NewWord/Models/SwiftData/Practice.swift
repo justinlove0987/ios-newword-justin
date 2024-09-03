@@ -12,11 +12,15 @@ import SwiftData
 class Practice: Identifiable, Codable {
 
     var type: Int
-    var resource: PracticeResource
-    var preset: PracticePreset
-    var records: [PracticeRecord]
+    var resource: PracticeResource?
+    var preset: PracticePreset?
+    var records: [PracticeRecord] = []
 
-    init(type: Int, preset: PracticePreset, resource: PracticeResource, records: [PracticeRecord]) {
+    init(type: Int, 
+         preset: PracticePreset,
+         resource: PracticeResource,
+         records: [PracticeRecord] = []) {
+        
         self.type = type
         self.preset = preset
         self.resource = resource
@@ -33,16 +37,16 @@ class Practice: Identifiable, Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.type = try container.decode(Int.self, forKey: .type)
-        self.resource = try container.decode(PracticeResource.self, forKey: .resource)
-        self.preset = try container.decode(PracticePreset.self, forKey: .preset)
+        self.resource = try container.decodeIfPresent(PracticeResource.self, forKey: .resource) ?? nil
+        self.preset = try container.decodeIfPresent(PracticePreset.self, forKey: .preset) ?? nil
         self.records = try container.decode([PracticeRecord].self, forKey: .records)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(type, forKey: .type)
-        try container.encode(resource, forKey: .resource)
-        try container.encode(preset, forKey: .preset)
+        try container.encodeIfPresent(resource, forKey: .resource)
+        try container.encodeIfPresent(preset, forKey: .preset)
         try container.encode(records, forKey: .records)
     }
 }

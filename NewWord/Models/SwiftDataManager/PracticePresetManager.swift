@@ -10,9 +10,19 @@ import UIKit
 import SwiftData
 
 @MainActor
-class PracticePresetManager: ModelManager<DefaultPracticePreset> {
+class PracticePresetManager: ModelManager<PracticePreset> {
     
     static let shared = PracticePresetManager()
+    
+    private override init() {}
+    
+    
+}
+
+@MainActor
+class DefaultPracticePresetManager: ModelManager<DefaultPracticePreset> {
+    
+    static let shared = DefaultPracticePresetManager()
     
     private override init() {}
     

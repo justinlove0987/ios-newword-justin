@@ -71,6 +71,51 @@ extension AppDelegate {
         }
 
         _ = PersistentContainerManager.shared
+        
+        createDefaultPracticeMap()
+    }
+    
+    func createDefaultPracticeMap() {
+        PracticeManager.shared.deleteAllEntities()
+        
+        let practiceMaps = PracticeMapManager.shared.fetchAll()
+        
+        if practiceMaps.isEmpty {
+            let type = PracticeType.listenAndTranslate.rawValue
+            
+            let defaultPracticePreset = DefaultPracticePreset()
+//            DefaultPracticePresetManager.shared.create(model: defaultPracticePreset)
+            
+            let preset = PracticePreset(defaultPreset: defaultPracticePreset)
+            PracticePresetManager.shared.create(model: preset)
+            
+            let fetchedPreset = PracticePresetManager.shared.fetch(byId: preset.id)
+            
+            let article = Article(title: "title", content: "content", uploadedDate: Date())
+            ArticleManager.shared.create(model: article)
+            
+            let resource = PracticeResource(article: article)
+            PracticeResourceManager.shared.create(model: resource)
+            
+            let practice = Practice(type: type, preset: fetchedPreset!, resource: resource, records: [])
+            PracticeManager.shared.create(model: practice)
+            
+            let practiceMap = PracticeMap(type: 0, practiceMatrix: [[practice]])
+            PracticeMapManager.shared.create(model: practiceMap)
+            
+            let map = PracticeMapManager.shared.fetch(byId: practiceMap.id)
+            
+            let resources = PracticeResourceManager.shared.fetchAll()
+            
+            print("foo - \(resources.first?.article)")
+            print("foo - \(fetchedPreset)")
+//            print("foo - \(practiceMap.practiceMatrix.first?.first?.resource)")
+            print("foo - \(map?.practiceMatrix.first)")
+            print("foo - \(map?.practiceMatrix.first?.first)")
+            print("foo - \(map?.practiceMatrix.first?.first?.resource)")
+            
+            
+        }
     }
 }
 
