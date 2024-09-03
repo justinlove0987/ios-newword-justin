@@ -26,48 +26,48 @@ class PracticeSettingCell: UICollectionViewCell {
         titleLabel.text = row.title
         imageView.image = UIImage(systemName: row.sfSymbolName)
         
-//        configureDescriptionLabel(row: row, data: data)
+        configureDescriptionLabel(row: row, data: data)
         configureCellType(row: row)
     }
     
-//    func configureDescriptionLabel(row: PracticeSettingViewController.Row, data: Practice) {
-//        guard let preset = data.preset?.defaultPreset else { return }
-//        
-//        var description: String
-//        
-//        switch row {
-//        case .practiceType:
-//            let type = PracticeType(rawValue: data.type)!
-//            description = type.title
-//            
-//        case .firstPracticeLearningPhase:
-//            description = String(preset.firstPracticeLearningPhase)
-//            
-//        case .firstPracticeGraduationInterval:
-//            description = String(preset.firstPracticeGraduationInterval)
-//            
-//        case .firstPracticeEasyInterval:
-//            description = String(preset.firstPracticeEasyInterval)
-//            
-//        case .forgotRelearningPhase:
-//            description = String(preset.forgetPracticeRelearningSteps)
-//            
-//        case .forgotGraduationInterval:
-//            description = String(preset.forgetPracticeInterval)
-//            
-//        case .initialEase:
-//            description = String(preset.firstPracticeEase)
-//            
-//        case .followPreviousPractice:
-//            description = ""
-//            
-//        case .practiceDetails:
-//            description = ""
-//        }
-//        
-//        descriptionLabel.text = description
-//        
-//    }
+    func configureDescriptionLabel(row: PracticeSettingViewController.Row, data: Practice) {
+        guard let preset = data.preset?.defaultPreset else { return }
+        
+        var description: String
+        
+        switch row {
+        case .practiceType:
+            let type = PracticeType(rawValue: data.type)!
+            description = type.title
+            
+        case .firstPracticeLearningPhase:
+            description = String(preset.firstPracticeLearningPhase)
+            
+        case .firstPracticeGraduationInterval:
+            description = String(preset.firstPracticeGraduationInterval)
+            
+        case .firstPracticeEasyInterval:
+            description = String(preset.firstPracticeEasyInterval)
+            
+        case .forgotRelearningPhase:
+            description = String(preset.forgetPracticeRelearningSteps)
+            
+        case .forgotGraduationInterval:
+            description = String(preset.forgetPracticeInterval)
+            
+        case .initialEase:
+            description = String(preset.firstPracticeEase)
+            
+        case .followPreviousPractice:
+            description = ""
+            
+        case .practiceDetails:
+            description = ""
+        }
+        
+        descriptionLabel.text = description
+        
+    }
     
     func configureCellType(row: PracticeSettingViewController.Row) {
         switch row.cellType {

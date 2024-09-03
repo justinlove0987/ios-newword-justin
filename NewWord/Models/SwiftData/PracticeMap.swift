@@ -13,33 +13,13 @@ enum PracticeMapType: Int, CaseIterable {
 }
 
 @Model
-class PracticeMap: Identifiable, Codable {
+class PracticeMap: Identifiable {
     var type: Int
-    var practiceMatrix: [[Practice]] = []
+    var sequences: [PracticeSequence] = []
 
     // 設定初始化方法
-    init(type: Int, practiceMatrix: [[Practice]]) {
+    init(type: Int, sequences: [PracticeSequence]) {
         self.type = type
-        self.practiceMatrix = practiceMatrix
-    }
-
-    // CodingKeys 枚舉，用於定義屬性與 JSON 鍵的對應
-    private enum CodingKeys: String, CodingKey {
-        case type
-        case practiceMatrix
-    }
-
-    // 解碼方法
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.type = try container.decode(Int.self, forKey: .type)
-        self.practiceMatrix = try container.decodeIfPresent([[Practice]].self, forKey: .practiceMatrix) ?? []
-    }
-
-    // 編碼方法
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(type, forKey: .type)
-        try container.encodeIfPresent(practiceMatrix, forKey: .practiceMatrix)
+        self.sequences = sequences
     }
 }

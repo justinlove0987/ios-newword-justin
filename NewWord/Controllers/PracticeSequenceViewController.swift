@@ -91,11 +91,11 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
 
         var snapshot = NSDiffableDataSourceSnapshot<Int, Practice>()
 
-        for i in 0..<practiceMap.practiceMatrix.count {
-            let practices = practiceMap.practiceMatrix[i]
+        for i in 0..<practiceMap.sequences.count {
+            let sequence = practiceMap.sequences[i]
 
             snapshot.appendSections([i])
-            snapshot.appendItems(practices, toSection: i)
+            snapshot.appendItems(sequence.practices, toSection: i)
         }
         
         dataSource.apply(snapshot, animatingDifferences: false)
@@ -106,8 +106,8 @@ extension PracticeSequenceViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let practiceMap else { return }
         
-        let practices = practiceMap.practiceMatrix[indexPath.section]
-        let practice = practices[indexPath.row]
+        let sequence = practiceMap.sequences[indexPath.section]
+        let practice = sequence.practices[indexPath.row]
         
         let controller = PracticeSettingViewController.instantiate()
         

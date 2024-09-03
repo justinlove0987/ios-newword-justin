@@ -87,32 +87,32 @@ extension AppDelegate {
 //            DefaultPracticePresetManager.shared.create(model: defaultPracticePreset)
             
             let preset = PracticePreset(defaultPreset: defaultPracticePreset)
-            PracticePresetManager.shared.create(model: preset)
-            
-            let fetchedPreset = PracticePresetManager.shared.fetch(byId: preset.id)
+//            PracticePresetManager.shared.create(model: preset)
             
             let article = Article(title: "title", content: "content", uploadedDate: Date())
-            ArticleManager.shared.create(model: article)
+//            ArticleManager.shared.create(model: article)
             
             let resource = PracticeResource(article: article)
-            PracticeResourceManager.shared.create(model: resource)
+//            PracticeResourceManager.shared.create(model: resource)
             
-            let practice = Practice(type: type, preset: fetchedPreset!, resource: resource, records: [])
-            PracticeManager.shared.create(model: practice)
+            let practice = Practice(type: type, preset: preset, resource: resource, records: [])
+//            PracticeManager.shared.create(model: practice)
+
+            let sequence = PracticeSequence(practices: [practice])
+
+            let map = PracticeMap(type: 0, sequences: [sequence])
+
+            PracticeMapManager.shared.create(model: map)
+
+//            let map = PracticeMapManager.shared.fetch(byId: practiceMap.id)
             
-            let practiceMap = PracticeMap(type: 0, practiceMatrix: [[practice]])
-            PracticeMapManager.shared.create(model: practiceMap)
-            
-            let map = PracticeMapManager.shared.fetch(byId: practiceMap.id)
-            
-            let resources = PracticeResourceManager.shared.fetchAll()
-            
-            print("foo - \(resources.first?.article)")
-            print("foo - \(fetchedPreset)")
+//            let resources = PracticeResourceManager.shared.fetchAll()
+
+            print("foo - \(map.sequences.first?.practices.first?.resource)")
 //            print("foo - \(practiceMap.practiceMatrix.first?.first?.resource)")
-            print("foo - \(map?.practiceMatrix.first)")
-            print("foo - \(map?.practiceMatrix.first?.first)")
-            print("foo - \(map?.practiceMatrix.first?.first?.resource)")
+//            print("foo - \(map?.practiceMatrix.first)")
+//            print("foo - \(map?.practiceMatrix.first?.first)")
+//            print("foo - \(map?.practiceMatrix.first?.first?.resource)")
             
             
         }
