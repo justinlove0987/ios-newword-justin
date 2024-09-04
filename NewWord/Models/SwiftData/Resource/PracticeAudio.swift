@@ -20,7 +20,7 @@ class PracticeAudio: Identifiable, Codable {
          data: Data? = nil,
          timepoints: [TimepointInformation] = []) {
 
-        self.id = UUID().uuidString
+        self.id = id
         self.data = data
         self.timepoints = timepoints
     }
@@ -49,53 +49,30 @@ class PracticeAudio: Identifiable, Codable {
     }
 }
 
-@Model
-class TimepointInformation: Identifiable, Codable {
+extension PracticeAudio {
 
-    var id: UUID = UUID() // Identifiable 需要的 id 屬性
-    var rangeLocation: Int?
-    var rangeLength: Int?
-    var markName: String
-    var timeSeconds: Double
+    class Copy: Identifiable, Hashable {
+        var id: String?
+        var data: Data?
+        var timepoints: [TimepointInformation.Copy] = []
 
-    // 初始化方法
-    init(location: Int?, length: Int?, markName: String, timeSeconds: Double) {
-        self.rangeLocation = location
-        self.rangeLength = length
-        self.markName = markName
-        self.timeSeconds = timeSeconds
-    }
+        init(id: String? = nil,
+             data: Data? = nil,
+             timepoints: [TimepointInformation.Copy] = []) {
 
-    // CodingKeys 枚舉，用於定義屬性與 JSON 鍵的對應
-    private enum CodingKeys: String, CodingKey {
-        case rangeLocation
-        case rangeLength
-        case markName
-        case timeSeconds
-    }
+            self.id = id
+            self.data = data
+            self.timepoints = timepoints
+        }
 
-    // 解碼方法
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.rangeLocation = try container.decodeIfPresent(Int.self, forKey: .rangeLocation)
-        self.rangeLength = try container.decodeIfPresent(Int.self, forKey: .rangeLength)
-        self.markName = try container.decode(String.self, forKey: .markName)
-        self.timeSeconds = try container.decode(Double.self, forKey: .timeSeconds)
-    }
+        static func == (lhs: Copy, rhs: Copy) -> Bool {
+            return lhs.id == rhs.id
+        }
 
-    // 編碼方法
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(rangeLocation, forKey: .rangeLocation)
-        try container.encode(rangeLength, forKey: .rangeLength)
-        try container.encode(markName, forKey: .markName)
-        try container.encode(timeSeconds, forKey: .timeSeconds)
+
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
     }
 }
 
-extension TimepointInformation {
-    var range: NSRange? {
-        guard let rangeLocation = rangeLocation, let rangeLength = rangeLength else { return nil }
-        return NSRange(location: rangeLocation, length: rangeLength)
-    }
-}

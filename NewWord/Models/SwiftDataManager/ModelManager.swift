@@ -77,10 +77,13 @@ class ModelManager<Model: ModelProtocol> {
     }
     
     // 更新記錄
-    func update(id: PersistentIdentifier, with updates: (Model) -> Void) {
+    func update(id: PersistentIdentifier, with updates: ((Model) -> Void)? = nil) {
         guard let context = context else { return }
+
         if let model = fetch(byId: id) {
-            updates(model)
+            // 如果有傳遞 updates 閉包，則執行更新
+            updates?(model)
+
             do {
                 try context.save()
             } catch {
@@ -90,7 +93,7 @@ class ModelManager<Model: ModelProtocol> {
             print("Model with ID \(id) not found")
         }
     }
-    
+
     // 讀取記錄
     func fetch(byId id: PersistentIdentifier) -> Model? {
         guard let context = context else { return nil }
@@ -124,7 +127,19 @@ class ModelManager<Model: ModelProtocol> {
             deleteAll(ofType: model)
         }
     }
-    
+
+    // 保存當前狀態
+    func save() {
+        guard let context = context else { return }
+
+        do {
+            try context.save()
+            print("Successfully saved the context.")
+        } catch {
+            print("Failed to save the context: \(error)")
+        }
+    }
+
 }
 
 class PersistentContainerManager {

@@ -37,7 +37,7 @@
 		2A6BA13E2C635F2600F0DE3F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA13D2C635F2600F0DE3F /* FirebaseAnalytics */; };
 		2A6BA1402C635F2600F0DE3F /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA13F2C635F2600F0DE3F /* FirebaseAuth */; };
 		2A6BA1422C635F2600F0DE3F /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA1412C635F2600F0DE3F /* FirebaseDatabase */; };
-		2A6BA1442C63622B00F0DE3F /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6BA1432C63622B00F0DE3F /* FirestoreManager.swift */; };
+		2A6BA1442C63622B00F0DE3F /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6BA1432C63622B00F0DE3F /* FirebaseManager.swift */; };
 		2A6BA1462C63626E00F0DE3F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA1452C63626E00F0DE3F /* FirebaseFirestore */; };
 		2A70454A2C7DB85E00A58672 /* PracticeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045492C7DB85E00A58672 /* PracticeType.swift */; };
 		2A70454C2C7DBAB000A58672 /* PracticeModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70454B2C7DBAB000A58672 /* PracticeModeViewController.swift */; };
@@ -107,6 +107,7 @@
 		D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00A72F02BFDEDA00064F325 /* NoCardView.swift */; };
 		D01961102C43BEA70040735E /* CustomTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D019610F2C43BEA70040735E /* CustomTagView.swift */; };
 		D01961122C43BEB20040735E /* CustomTagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D01961112C43BEB20040735E /* CustomTagView.xib */; };
+		D01DAA852C8825EA0021BB3A /* TimepointInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01DAA842C8825EA0021BB3A /* TimepointInformation.swift */; };
 		D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */; };
 		D02BE80E2C67B26F00140DD3 /* GoogleCloudTranslationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02BE80D2C67B26F00140DD3 /* GoogleCloudTranslationService.swift */; };
 		D02E46F72C272CC500418781 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02E46F62C272CC500418781 /* UserDefaultsManager.swift */; };
@@ -123,7 +124,6 @@
 		D04AC2052C51E78E00F91A07 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04AC2032C51E78E00F91A07 /* SearchCell.xib */; };
 		D04AC2072C51EF0300F91A07 /* DeckCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D04AC2062C51EF0300F91A07 /* DeckCell.xib */; };
 		D05D6A1C2C652645006AC6BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D05D6A1B2C652645006AC6BE /* GoogleService-Info.plist */; };
-		D06166A72C87569F0024396C /* FSDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06166A62C87569F0024396C /* FSDataModel.swift */; };
 		D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */; };
 		D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */; };
 		D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */; };
@@ -180,7 +180,7 @@
 		2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWord+Extension.swift"; sourceTree = "<group>"; };
 		2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSelectorViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A67688C2C3322590040C89F /* AddTagTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagTextView.swift; sourceTree = "<group>"; };
-		2A6BA1432C63622B00F0DE3F /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		2A6BA1432C63622B00F0DE3F /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		2A7045492C7DB85E00A58672 /* PracticeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeType.swift; sourceTree = "<group>"; };
 		2A70454B2C7DBAB000A58672 /* PracticeModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeViewController.swift; sourceTree = "<group>"; };
 		2A7045552C7DC35D00A58672 /* RadioButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonCell.swift; sourceTree = "<group>"; };
@@ -248,6 +248,7 @@
 		D00A72F02BFDEDA00064F325 /* NoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCardView.swift; sourceTree = "<group>"; };
 		D019610F2C43BEA70040735E /* CustomTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTagView.swift; sourceTree = "<group>"; };
 		D01961112C43BEB20040735E /* CustomTagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTagView.xib; sourceTree = "<group>"; };
+		D01DAA842C8825EA0021BB3A /* TimepointInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimepointInformation.swift; sourceTree = "<group>"; };
 		D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordTextField.swift; sourceTree = "<group>"; };
 		D02BE80D2C67B26F00140DD3 /* GoogleCloudTranslationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleCloudTranslationService.swift; sourceTree = "<group>"; };
 		D02E46F62C272CC500418781 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -264,7 +265,6 @@
 		D04AC2032C51E78E00F91A07 /* SearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
 		D04AC2062C51EF0300F91A07 /* DeckCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeckCell.xib; sourceTree = "<group>"; };
 		D05D6A1B2C652645006AC6BE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D06166A62C87569F0024396C /* FSDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSDataModel.swift; sourceTree = "<group>"; };
 		D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGeneratedArticleViewController.swift; sourceTree = "<group>"; };
 		D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
 		D09262B72C097D2400CA90BA /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -354,6 +354,7 @@
 				2A70457C2C85AFE700A58672 /* Article.swift */,
 				2A70457E2C85B04700A58672 /* PracticeAudio.swift */,
 				2A7045802C85B08700A58672 /* PracticeImage.swift */,
+				D01DAA842C8825EA0021BB3A /* TimepointInformation.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -460,7 +461,6 @@
 		D04EB7582BB66ED5009E3A41 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D06166A52C87568D0024396C /* Firebase */,
 				2A70455F2C800C6100A58672 /* SwiftDataManager */,
 				2A7045482C7DB85100A58672 /* SwiftData */,
 				D09262BB2C097F2A00CA90BA /* CoreData */,
@@ -525,14 +525,6 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		D06166A52C87568D0024396C /* Firebase */ = {
-			isa = PBXGroup;
-			children = (
-				D06166A62C87569F0024396C /* FSDataModel.swift */,
-			);
-			path = Firebase;
-			sourceTree = "<group>";
-		};
 		D09262BB2C097F2A00CA90BA /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -542,7 +534,7 @@
 				D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */,
 				D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */,
 				2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */,
-				2A6BA1432C63622B00F0DE3F /* FirestoreManager.swift */,
+				2A6BA1432C63622B00F0DE3F /* FirebaseManager.swift */,
 				D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -692,7 +684,7 @@
 				2A7045632C80265600A58672 /* ModelManager.swift in Sources */,
 				2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */,
 				D04023352C81A659004BF63B /* PracticeContext.swift in Sources */,
-				2A6BA1442C63622B00F0DE3F /* FirestoreManager.swift in Sources */,
+				2A6BA1442C63622B00F0DE3F /* FirebaseManager.swift in Sources */,
 				2A7B6CD12C080A900017BB5C /* StoryboardGenerated.swift in Sources */,
 				2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */,
 				2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */,
@@ -706,6 +698,7 @@
 				D01961102C43BEA70040735E /* CustomTagView.swift in Sources */,
 				2A70456E2C8559FF00A58672 /* Practice.swift in Sources */,
 				D02BE80E2C67B26F00140DD3 /* GoogleCloudTranslationService.swift in Sources */,
+				D01DAA852C8825EA0021BB3A /* TimepointInformation.swift in Sources */,
 				D032145B2BD63C2200512263 /* Preferences.swift in Sources */,
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
 				2AFC91552C7C6634002C2AD1 /* PracticeSettingHeaderView.swift in Sources */,
@@ -781,7 +774,6 @@
 				2A7045722C85676400A58672 /* PracticeContextResource.swift in Sources */,
 				D0B2E3FC2C2BB15F0047B2F5 /* CustomTextView.swift in Sources */,
 				D0AF303E2C43CB6500DF71CD /* TagLabel.swift in Sources */,
-				D06166A72C87569F0024396C /* FSDataModel.swift in Sources */,
 				D0A86A682C1B5FA00022DFDD /* ContextCell.swift in Sources */,
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
 				D00981B82C86FB6100C1E948 /* PracticeUserGeneratedContent.swift in Sources */,

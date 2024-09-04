@@ -11,8 +11,8 @@ import Foundation
 import FirebaseFirestore
 import FirebaseStorage
 
-class FirestoreManager {
-    static let shared = FirestoreManager()
+class FirebaseManager {
+    static let shared = FirebaseManager()
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
 
@@ -123,7 +123,7 @@ class FirestoreManager {
         return article
     }
 
-    func uploadArticle(_ article: FSPracticeArticle, completion: @escaping (Bool) -> Void) {
+    func uploadArticle(_ article: Article.Copy, completion: @escaping (Bool) -> Void) {
         var articleData: [String: Any] = [
             "title": article.title!,
             "content": article.content!,
@@ -146,12 +146,10 @@ class FirestoreManager {
         if let audioResource = article.audioResource {
             let timepointsArray = audioResource.timepoints.map { timepoint in
                 [
-                    "range": [
-                        "rangeLocation": timepoint.rangeLocation as Any,
-                        "rangeLength": timepoint.rangeLength as Any
-                    ],
-                    "markName": timepoint.markName,
-                    "timeSeconds": timepoint.timeSeconds
+                    "rangeLocation": timepoint.rangeLocation as Any,
+                    "rangeLength": timepoint.rangeLength as Any,
+                    "markName": timepoint.markName as Any,
+                    "timeSeconds": timepoint.timeSeconds as Any
                 ]
             }
 
@@ -247,7 +245,7 @@ class FirestoreManager {
                 self.downloadImageData(from: url) { result in
                     switch result {
                     case .success(let data):
-                        if let image = UIImage(data: data) {
+                        if UIImage(data: data) != nil {
                             completion(.success(data))
 
                         } else {

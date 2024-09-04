@@ -44,10 +44,43 @@ class PracticeImage: Identifiable, Codable {
         try container.encode(id, forKey: .id)
         try container.encode(data, forKey: .data)
     }
+}
+
+extension PracticeImage {
 
     // MARK: - Computed Property
+
     var image: UIImage? {
         guard let data else { return nil }
         return UIImage(data: data)
     }
 }
+
+extension PracticeImage {
+
+    class Copy: Identifiable, Hashable {
+        
+        var id: String?
+        var data: Data?
+
+        init(id: String? = nil, data: Data? = nil) {
+            self.id = id
+            self.data = data
+        }
+
+        var image: UIImage? {
+            guard let data else { return nil }
+            return UIImage(data: data)
+        }
+
+        static func == (lhs: Copy, rhs: Copy) -> Bool {
+            return lhs.id == rhs.id
+        }
+
+
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+    }
+}
+

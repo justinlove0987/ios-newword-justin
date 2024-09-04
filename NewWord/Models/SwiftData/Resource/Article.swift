@@ -75,6 +75,7 @@ class Article: Identifiable, Codable {
 }
 
 extension Article {
+
     var formattedUploadedDate: String? {
         guard let uploadedDate else { return nil }
         let dateFormatter = DateFormatter()
@@ -87,6 +88,10 @@ extension Article {
         return "\(title)\n\n\(content)"
     }
 
+    var hasAudio: Bool {
+        return audioResource?.data != nil
+    }
+
     var hasImage: Bool {
         return imageResource?.data != nil
     }
@@ -96,3 +101,114 @@ extension Article {
         return CEFR(rawValue: cefrType)
     }
 }
+
+
+extension Article {
+
+    class Copy: Identifiable, Hashable {
+        var id: String?
+        var title: String?
+        var content: String?
+        var uploadedDate: Date?
+        var audioResource: PracticeAudio.Copy?
+        var imageResource: PracticeImage.Copy?
+        var cefrType: Int?
+
+        init(id: String? = UUID().uuidString,
+             title: String? = nil,
+             content: String? = nil,
+             uploadedDate: Date? = nil,
+             audioResource: PracticeAudio.Copy? = nil,
+             imageResource: PracticeImage.Copy? = nil,
+             cefrType: Int? = nil) {
+
+            self.id = id
+            self.title = title
+            self.content = content
+            self.uploadedDate = uploadedDate
+            self.audioResource = audioResource
+            self.imageResource = imageResource
+            self.cefrType = cefrType
+        }
+
+        var formattedUploadedDate: String? {
+            guard let uploadedDate else { return nil }
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy/MM/dd"
+            return dateFormatter.string(from: uploadedDate)
+        }
+
+        var text: String? {
+            guard let title, let content else { return nil }
+            return "\(title)\n\n\(content)"
+        }
+
+        var hasAudio: Bool {
+            return audioResource?.data != nil
+        }
+
+        var hasImage: Bool {
+            return imageResource?.data != nil
+        }
+
+        var cefr: CEFR? {
+            guard let cefrType else { return nil }
+            return CEFR(rawValue: cefrType)
+        }
+
+        static func == (lhs: Copy, rhs: Copy) -> Bool {
+            return lhs.id == rhs.id
+        }
+
+
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+    }
+
+    func copy() -> Copy {
+        // 複製 PracticeAudio
+        let copiedAudioResource: PracticeAudio.Copy? = {
+            if let audioResource = self.audioResource {
+                let copiedTimepoints = audioResource.timepoints.map { timepoint in
+                    TimepointInformation.Copy(
+                        id: timepoint.id,
+                        location: timepoint.rangeLocation,
+                        length: timepoint.rangeLength,
+                        markName: timepoint.markName,
+                        timeSeconds: timepoint.timeSeconds
+                    )
+                }
+                print("foo - \(audioResource.id)")
+                return PracticeAudio.Copy(id: audioResource.id, data: audioResource.data, timepoints: copiedTimepoints)
+            } else {
+                return nil
+            }
+        }()
+
+        // 複製 PracticeImage
+        let copiedImageResource: PracticeImage.Copy? = {
+            if let imageResource = self.imageResource {
+                return PracticeImage.Copy(id: imageResource.id, data: imageResource.data)
+            } else {
+                return nil
+            }
+        }()
+
+        // 回傳複製的 ArticleCopy
+        return Copy(
+            id: self.id,
+            title: self.title,
+            content: self.content,
+            uploadedDate: self.uploadedDate,
+            audioResource: copiedAudioResource,
+            imageResource: copiedImageResource,
+            cefrType: self.cefrType
+        )
+    }
+
+    static func copyArticles(from articles: [Article]) -> [Copy] {
+        return articles.map { $0.copy() }
+    }
+}
+

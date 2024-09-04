@@ -288,18 +288,19 @@ struct WordSelectorViewControllerViewModel {
     }
     
     
-    func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: Article?) {
-        guard let copyArticle = article else { return }
-        guard let result = copyArticle.audioResource else { return }
+    mutating func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: Article.Copy?) {
+        guard var article = article else { return }
+        guard let result = article.audioResource else { return }
 
-        for timepoint in result.timepoints {
-            
+        for i in 0..<result.timepoints.count {
+            let timepoint = result.timepoints[i]
+
             guard let range = timepoint.range else { continue }
 
             let isGreaterThanTagPosition = range.location >= tagPosition
 
             if isGreaterThanTagPosition {
-                timepoint.rangeLocation! += adjustmentOffset
+                article.audioResource!.timepoints[i].rangeLocation! += adjustmentOffset
             }
         }
     }
@@ -588,11 +589,11 @@ struct WordSelectorViewControllerViewModel {
     
 
     
-    func rangeForMarkName(in article: Article, markName: String) -> NSRange? {
+    func rangeForMarkName(in article: Article.Copy, markName: String) -> NSRange? {
         guard let audioResource = article.audioResource else {
             return nil
         }
-        
+
         for timepoint in audioResource.timepoints {
             if timepoint.markName == markName {
                 return timepoint.range

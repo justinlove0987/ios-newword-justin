@@ -22,7 +22,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBOutlet weak var articlePlayButtonView: ArticlePlayButtonView!
     @IBOutlet weak var bottomPanelStackView: UIStackView!
     
-    var article: Article?
+    var article: Article.Copy?
 
     private var customTextView: AddTagTextView!
     private let pacticeModelSelectorView: PracticeModeSelectorView = PracticeModeSelectorView()
@@ -80,16 +80,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
 
         player.delegate = self
         
-        downloadAudio { isDownloadSuccessful, audioData in
-            if isDownloadSuccessful {
-                guard let audioData else { return }
-                self.player.audioData = audioData
-                self.player.setupAudioPlayer()
-
-            } else {
-                self.articlePlayButtonView.isHidden = true
-            }
-        }
+        setupAudio()
 
         NotificationCenter.default.addObserver(self, selector: #selector(appDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
@@ -122,6 +113,31 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             customTextView.leadingAnchor.constraint(equalTo: textView.leadingAnchor),
             customTextView.trailingAnchor.constraint(equalTo: textView.trailingAnchor)
         ])
+    }
+
+    private func setupAudio() {
+        guard var article else { return }
+
+        if article.hasAudio {
+            self.player.audioData = article.audioResource?.data
+            self.player.setupAudioPlayer()
+
+        } else {
+            downloadAudio { isDownloadSuccessful, audioData in
+                if isDownloadSuccessful {
+                    guard let audioData else { return }
+                    self.player.audioData = audioData
+                    self.player.setupAudioPlayer()
+
+                    article.audioResource?.data = audioData
+                    
+                    PracticeAudioManager.shared.save()
+
+                } else {
+                    self.articlePlayButtonView.isHidden = true
+                }
+            }
+        }
     }
 
     // MARK: - Actions
@@ -421,7 +437,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             return
         }
 
-        FirestoreManager.shared.downloadAudio(audioId: audioId) { isDownloadSuccessful, audioData in
+        FirebaseManager.shared.downloadAudio(audioId: audioId) { isDownloadSuccessful, audioData in
             completion?(isDownloadSuccessful, audioData)
         }
     }
@@ -469,9 +485,9 @@ extension ServerProvidedArticleViewController: AudioPlayerDelegate {
     
     func audioPlayer(_ player: AudioPlayer, didUpdateToMarkName markName: String) {
         guard let article else { return }
-        
+
         let range = viewModel.rangeForMarkName(in: article, markName: markName)
-        
+
         customTextView.highlightRangeDuringPlayback = range
     }
 }

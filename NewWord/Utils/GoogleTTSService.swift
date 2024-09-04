@@ -238,7 +238,7 @@ class GoogleTTSService: NSObject {
     func downloadSSML(_ text: String,
                       voiceType: VoiceType = .enUSPolyglot1Male,
                       rate: Double = 0.8,
-                      completion: @escaping (FSPracticeAudio?) -> Void) {
+                      completion: @escaping (PracticeAudio.Copy?) -> Void) {
 
         var text = addMarksToText(text)
         text = wrapWithSpeakTags(text)
@@ -265,7 +265,7 @@ class GoogleTTSService: NSObject {
             }
             
             // 解析 timepoints 並封裝到 TimepointInfo 中
-            var timepoints: [FSTimepointInformation] = []
+            var timepoints: [TimepointInformation.Copy] = []
 
             if let tpArray = response["timepoints"] as? [[String: Any]] {
                 for tp in tpArray {
@@ -282,18 +282,18 @@ class GoogleTTSService: NSObject {
                             return nil
                         }()
 
-                        let timepointInformation = FSTimepointInformation(id: nil,
-                                                                          location: range?.location,
-                                                                          length: range?.length,
-                                                                          markName: markName,
-                                                                          timeSeconds: timeSeconds)
+                        let timepointInformation = TimepointInformation.Copy(id: nil,
+                                                                             location: range?.location,
+                                                                             length: range?.length,
+                                                                             markName: markName,
+                                                                             timeSeconds: timeSeconds)
 
                         timepoints.append(timepointInformation)
                     }
                 }
             }
             
-            let result = FSPracticeAudio(id: UUID().uuidString ,data: audioData, timepoints: timepoints)
+            let result = PracticeAudio.Copy(id: UUID().uuidString ,data: audioData, timepoints: timepoints)
 
             DispatchQueue.main.async {
                 completion(result)
