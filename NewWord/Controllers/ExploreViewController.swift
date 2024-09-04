@@ -28,16 +28,19 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
 
 //        PracticeManager.shared.deleteAllEntities()
 //        UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
+//        uploadArticle()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         let localArticles = ArticleManager.shared.fetchAll()
-        
+
         if shouldFetchArticles() {
             fetchAndSyncArticles(with: localArticles)
         } else {
             self.articles = Article.copyArticles(from: localArticles)
         }
-        
-//        uploadArticle()
     }
 
     func getYesterdayDate() -> Date {
@@ -133,19 +136,23 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     private func fetchImage(at indexPath: IndexPath) {
         guard let imageId = self.articles[indexPath.row].imageResource?.id else { return }
 
+        let article = self.articles[indexPath.row]
+
         FirebaseManager.shared.getImage(for: imageId) { result in
             switch result {
             case .success(let imageData):
-                self.articles[indexPath.row].imageResource?.data = imageData
+                article.imageResource?.data = imageData
+
+                ArticleManager.shared.updateImage(id: article.id, imageData: imageData)
 
             case .failure(_):
-                self.articles[indexPath.row].imageResource?.data = UIImage(named: "loading")?.pngData()
+                article.imageResource?.data = UIImage(named: "loading")?.pngData()
             }
             
             DispatchQueue.main.async {
                 var snapshot = self.dataSource.snapshot()
 
-                snapshot.reloadItems([self.articles[indexPath.row]])
+                snapshot.reloadItems([article])
 
                 self.dataSource.apply(snapshot, animatingDifferences: true)
             }

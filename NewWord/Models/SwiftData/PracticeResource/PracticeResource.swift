@@ -13,6 +13,7 @@ import SwiftData
 class PracticeResource: Identifiable, Codable {
 
     var article: Article?
+    var practice: Practice?
 
     // 初始化方法
     init(article: Article? = nil) {
@@ -35,4 +36,33 @@ class PracticeResource: Identifiable, Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(article, forKey: .article)
     }
+}
+
+extension PracticeResource {
+
+    class Copy: Identifiable, Hashable  {
+
+        var article: Article.Copy?
+
+        var practice: Practice?
+
+        init(article: Article.Copy? = nil, practice: Practice? = nil) {
+            self.article = article
+        }
+
+
+        static func == (lhs: Copy, rhs: Copy) -> Bool {
+            return lhs.id == rhs.id
+        }
+
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+    }
+
+    func copy() -> Copy {
+        return Copy(article: self.article?.copy(),
+                    practice: self.practice)
+    }
+
 }

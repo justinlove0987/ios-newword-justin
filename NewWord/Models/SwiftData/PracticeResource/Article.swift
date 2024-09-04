@@ -167,42 +167,14 @@ extension Article {
     }
 
     func copy() -> Copy {
-        // 複製 PracticeAudio
-        let copiedAudioResource: PracticeAudio.Copy? = {
-            if let audioResource = self.audioResource {
-                let copiedTimepoints = audioResource.timepoints.map { timepoint in
-                    TimepointInformation.Copy(
-                        id: timepoint.id,
-                        location: timepoint.rangeLocation,
-                        length: timepoint.rangeLength,
-                        markName: timepoint.markName,
-                        timeSeconds: timepoint.timeSeconds
-                    )
-                }
-                
-                return PracticeAudio.Copy(id: audioResource.id, data: audioResource.data, timepoints: copiedTimepoints)
-            } else {
-                return nil
-            }
-        }()
 
-        // 複製 PracticeImage
-        let copiedImageResource: PracticeImage.Copy? = {
-            if let imageResource = self.imageResource {
-                return PracticeImage.Copy(id: imageResource.id, data: imageResource.data)
-            } else {
-                return nil
-            }
-        }()
-
-        // 回傳複製的 ArticleCopy
         return Copy(
             id: self.id,
             title: self.title,
             content: self.content,
             uploadedDate: self.uploadedDate,
-            audioResource: copiedAudioResource,
-            imageResource: copiedImageResource,
+            audioResource: self.audioResource?.copy(),
+            imageResource: self.imageResource?.copy(),
             cefrType: self.cefrType
         )
     }

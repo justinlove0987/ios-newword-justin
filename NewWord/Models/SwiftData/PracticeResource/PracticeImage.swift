@@ -84,5 +84,11 @@ extension PracticeImage {
             hasher.combine(id)
         }
     }
+
+    func copy() -> Copy {
+        return Copy(id: self.id,
+                    data: self.data
+        )
+    }
 }
 

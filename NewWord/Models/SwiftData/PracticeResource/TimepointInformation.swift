@@ -87,6 +87,15 @@ extension TimepointInformation {
         }
     }
 
+    func copy() -> Copy {
+        return Copy(id: self.id,
+                    location: self.rangeLocation,
+                    length: self.rangeLength,
+                    markName: self.markName,
+                    timeSeconds: self.timeSeconds
+        )
+    }
+
     var range: NSRange? {
         guard let rangeLocation = rangeLocation, let rangeLength = rangeLength else { return nil }
         return NSRange(location: rangeLocation, length: rangeLength)

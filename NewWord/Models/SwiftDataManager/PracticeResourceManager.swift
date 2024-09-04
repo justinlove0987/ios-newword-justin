@@ -57,7 +57,27 @@ class ArticleManager: ModelManager<Article> {
             print("Model with ID \(id) not found")
         }
     }
-    
+
+    // 更新記錄
+    func updateImage(id: String, imageData: Data?, with updates: ((Article) -> Void)? = nil) {
+        guard let context = context else { return }
+
+        if let model = fetch(byId: id) {
+
+            model.imageResource?.data = imageData
+
+            updates?(model)
+
+            do {
+                try context.save()
+            } catch {
+                print("Failed to update model: \(error)")
+            }
+        } else {
+            print("Model with ID \(id) not found")
+        }
+    }
+
     
 }
 

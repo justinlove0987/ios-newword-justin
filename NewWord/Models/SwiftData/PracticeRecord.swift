@@ -9,12 +9,13 @@ import UIKit
 import SwiftData
 
 @Model
-class PracticeRecord: Codable {
-    
-    init() {}
-    
+class PracticeRecord: Identifiable, Codable {
+
+    var id: String?
     var defaultRecord: DefaultPracticeRecord?
-    
+
+    init() {}
+
     private enum CodingKeys: String, CodingKey {
         case defaultRecord
     }

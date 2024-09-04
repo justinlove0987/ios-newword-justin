@@ -39,7 +39,6 @@
 		2A6BA1422C635F2600F0DE3F /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA1412C635F2600F0DE3F /* FirebaseDatabase */; };
 		2A6BA1442C63622B00F0DE3F /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6BA1432C63622B00F0DE3F /* FirebaseManager.swift */; };
 		2A6BA1462C63626E00F0DE3F /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6BA1452C63626E00F0DE3F /* FirebaseFirestore */; };
-		2A70454A2C7DB85E00A58672 /* PracticeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045492C7DB85E00A58672 /* PracticeType.swift */; };
 		2A70454C2C7DBAB000A58672 /* PracticeModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70454B2C7DBAB000A58672 /* PracticeModeViewController.swift */; };
 		2A7045572C7DC35D00A58672 /* RadioButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A7045562C7DC35D00A58672 /* RadioButtonCell.xib */; };
 		2A7045582C7DC35D00A58672 /* RadioButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045552C7DC35D00A58672 /* RadioButtonCell.swift */; };
@@ -182,7 +181,6 @@
 		2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSelectorViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A67688C2C3322590040C89F /* AddTagTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagTextView.swift; sourceTree = "<group>"; };
 		2A6BA1432C63622B00F0DE3F /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		2A7045492C7DB85E00A58672 /* PracticeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeType.swift; sourceTree = "<group>"; };
 		2A70454B2C7DBAB000A58672 /* PracticeModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeViewController.swift; sourceTree = "<group>"; };
 		2A7045552C7DC35D00A58672 /* RadioButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonCell.swift; sourceTree = "<group>"; };
 		2A7045562C7DC35D00A58672 /* RadioButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RadioButtonCell.xib; sourceTree = "<group>"; };
@@ -325,15 +323,13 @@
 				2A7045692C805FD800A58672 /* PracticeMap.swift */,
 				D00981B52C86C7BE00C1E948 /* PracticeSequence.swift */,
 				2A70456D2C8559FF00A58672 /* Practice.swift */,
-				2A7045492C7DB85E00A58672 /* PracticeType.swift */,
-				2A7045792C85AC3A00A58672 /* PracticeResource.swift */,
 				2A7045772C85AB5B00A58672 /* PracticePreset.swift */,
 				2A7045842C85B46C00A58672 /* PracticeRecord.swift */,
 				2A7045862C85B52200A58672 /* ContextResource */,
-				2A70457B2C85AFB700A58672 /* Resource */,
+				2A70457B2C85AFB700A58672 /* PracticeResource */,
 				2A7045822C85B3C800A58672 /* Preset */,
 				2A7045832C85B41A00A58672 /* Record */,
-				2AA450822C88585E0033F5DA /* UserGeneratedContent */,
+				2AA450822C88585E0033F5DA /* UGC */,
 			);
 			path = SwiftData;
 			sourceTree = "<group>";
@@ -351,15 +347,16 @@
 			path = SwiftDataManager;
 			sourceTree = "<group>";
 		};
-		2A70457B2C85AFB700A58672 /* Resource */ = {
+		2A70457B2C85AFB700A58672 /* PracticeResource */ = {
 			isa = PBXGroup;
 			children = (
+				2A7045792C85AC3A00A58672 /* PracticeResource.swift */,
 				2A70457C2C85AFE700A58672 /* Article.swift */,
 				2A70457E2C85B04700A58672 /* PracticeAudio.swift */,
 				2A7045802C85B08700A58672 /* PracticeImage.swift */,
 				D01DAA842C8825EA0021BB3A /* TimepointInformation.swift */,
 			);
-			path = Resource;
+			path = PracticeResource;
 			sourceTree = "<group>";
 		};
 		2A7045822C85B3C800A58672 /* Preset */ = {
@@ -387,12 +384,12 @@
 			path = ContextResource;
 			sourceTree = "<group>";
 		};
-		2AA450822C88585E0033F5DA /* UserGeneratedContent */ = {
+		2AA450822C88585E0033F5DA /* UGC */ = {
 			isa = PBXGroup;
 			children = (
 				2AA450802C8858410033F5DA /* PUGC_ContextTag.swift */,
 			);
-			path = UserGeneratedContent;
+			path = UGC;
 			sourceTree = "<group>";
 		};
 		D0058CE72BBA713B00D2BB25 /* ViewModels */ = {
@@ -757,7 +754,6 @@
 				D0A6E4E92C52060100E1EF35 /* TagView.swift in Sources */,
 				2AFF6C9F2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift in Sources */,
 				2A7F3C102C5B5A3C0028150D /* ExploreViewController.swift in Sources */,
-				2A70454A2C7DB85E00A58672 /* PracticeType.swift in Sources */,
 				D0D6E0EB2C1DE92C00C1F95E /* ContextStackView.swift in Sources */,
 				2A7045662C805B4E00A58672 /* PracticePresetManager.swift in Sources */,
 				2A70454C2C7DBAB000A58672 /* PracticeModeViewController.swift in Sources */,

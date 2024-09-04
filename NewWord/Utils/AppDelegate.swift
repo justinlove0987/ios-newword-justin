@@ -63,14 +63,14 @@ extension AppDelegate {
         let practiceMaps = PracticeMapManager.shared.fetchAll()
         
         if practiceMaps.isEmpty {
-            let type = PracticeType.listenAndTranslate.rawValue
+            let type = Practice.PracticeType.listenAndTranslate.rawValue
 
             let preset = PracticePreset(defaultPreset: DefaultPracticePreset())
             
             let resource = PracticeResource()
 //            PracticeResourceManager.shared.create(model: resource)
             
-            let practice = Practice(type: type, preset: preset, resource: resource, ugc: nil, records: [])
+            let practice = Practice(typeRawValue: type, preset: preset, resource: resource, ugc: nil, records: [])
 //            PracticeManager.shared.create(model: practice)
 
             let sequence = PracticeSequence(practices: [practice])

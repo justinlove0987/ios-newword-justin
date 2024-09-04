@@ -74,5 +74,12 @@ extension PracticeAudio {
             hasher.combine(id)
         }
     }
+
+    func copy() -> Copy {
+        return Copy(id: self.id,
+                    data: self.data,
+                    timepoints: self.timepoints.map { $0.copy() }
+        )
+    }
 }
 

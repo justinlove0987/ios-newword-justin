@@ -50,9 +50,7 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
                                                                             cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeSequenceCell.reuseIdentifier, for: indexPath) as! PracticeSequenceCell
             
-            let type = PracticeType(rawValue: itemIdentifier.type)!
-            
-            cell.titleLabel.text = type.title
+            cell.titleLabel.text = itemIdentifier.type?.title
 
             return cell
         })

@@ -13,14 +13,14 @@ class PracticePreset: Identifiable, Codable {
 
     // MARK: - Properties
 
-    var id: UUID = UUID()
+    var id: String?
     var defaultPreset: DefaultPracticePreset?
 
     // MARK: - Initializers
 
     init() {}
 
-    init(defaultPreset: DefaultPracticePreset) {
+    init(defaultPreset: DefaultPracticePreset? = nil) {
         self.defaultPreset = defaultPreset
     }
 
@@ -34,7 +34,7 @@ class PracticePreset: Identifiable, Codable {
     // MARK: - Codable Methods
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(UUID.self, forKey: .id)
+        self.id = try container.decode(String.self, forKey: .id)
         self.defaultPreset = try container.decodeIfPresent(DefaultPracticePreset.self, forKey: .defaultPreset)
     }
 
