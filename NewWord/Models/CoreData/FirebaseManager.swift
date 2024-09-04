@@ -72,7 +72,7 @@ class FirebaseManager {
         let practiceAudioResource = PracticeAudio()
         let practiceImageResource = PracticeImage()
 
-        let id = data["id"] as? String
+        guard let id = data["id"] as? String else { return nil }
         let title = data["title"] as? String
         let content = data["content"] as? String
         let cefrType = data["cefrType"] as? Int
@@ -125,6 +125,7 @@ class FirebaseManager {
 
     func uploadArticle(_ article: Article.Copy, completion: @escaping (Bool) -> Void) {
         var articleData: [String: Any] = [
+            "id": article.id,
             "title": article.title!,
             "content": article.content!,
             "uploadedDate": article.uploadedDate!

@@ -12,7 +12,7 @@ import SwiftData
 @Model
 class Article: Identifiable, Codable {
 
-    var id: String?
+    var id: String
     var title: String?
     var content: String?
     var uploadedDate: Date?
@@ -21,7 +21,7 @@ class Article: Identifiable, Codable {
     var cefrType: Int?
 
     // 初始化方法
-    init(id: String? = UUID().uuidString,
+    init(id: String,
          title: String? = nil,
          content: String? = nil,
          uploadedDate: Date? = nil,
@@ -106,7 +106,7 @@ extension Article {
 extension Article {
 
     class Copy: Identifiable, Hashable {
-        var id: String?
+        var id: String
         var title: String?
         var content: String?
         var uploadedDate: Date?
@@ -114,7 +114,7 @@ extension Article {
         var imageResource: PracticeImage.Copy?
         var cefrType: Int?
 
-        init(id: String? = UUID().uuidString,
+        init(id: String,
              title: String? = nil,
              content: String? = nil,
              uploadedDate: Date? = nil,
@@ -179,7 +179,7 @@ extension Article {
                         timeSeconds: timepoint.timeSeconds
                     )
                 }
-                print("foo - \(audioResource.id)")
+                
                 return PracticeAudio.Copy(id: audioResource.id, data: audioResource.data, timepoints: copiedTimepoints)
             } else {
                 return nil

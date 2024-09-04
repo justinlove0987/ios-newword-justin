@@ -1,44 +1,49 @@
 //
-//  PracticeSequence.swift
+//  PracticeTag.swift
 //  NewWord
 //
-//  Created by justin on 2024/9/3.
+//  Created by 曾柏楊 on 2024/9/4.
 //
+
 
 import UIKit
 import SwiftData
 
 
 @Model
-class PracticeSequence: Identifiable, Codable {
+class PUGC_ContextTag: Identifiable, Codable {
     // MARK: - Properties
     var id: String?
-    var practices: [Practice] = []
+    var rangeLocation: Int?
+    var rangelength: Int?
+    var number: Int?
+    var translation: String?
+    var contextId: String?
+    
 
     // MARK: - Initializer
-    init(id: String? = nil,
-         practices: [Practice]) {
+    init(id: String? = nil) {
         
         self.id = id
-        self.practices = practices
+        
     }
 
     // MARK: - Codable Keys
     private enum CodingKeys: String, CodingKey {
         case id
-        case practices
+        
     }
 
     // MARK: - Codable Methods
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)
-        practices = try container.decode([Practice].self, forKey: .practices)
+        
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(practices, forKey: .practices)
+        
     }
 }

@@ -75,6 +75,7 @@
 		2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */; };
 		2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */; };
 		2A9C8AF62C3BBE3500D839D8 /* OpenCC in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9C8AF52C3BBE3500D839D8 /* OpenCC */; };
+		2AA450812C8858410033F5DA /* PUGC_ContextTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA450802C8858410033F5DA /* PUGC_ContextTag.swift */; };
 		2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */; };
 		2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */; };
 		2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */; };
@@ -216,6 +217,7 @@
 		2A89D86B2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeModeSelectorView.xib; sourceTree = "<group>"; };
 		2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeSelectorView.swift; sourceTree = "<group>"; };
 		2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevisePresetViewController.swift; sourceTree = "<group>"; };
+		2AA450802C8858410033F5DA /* PUGC_ContextTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PUGC_ContextTag.swift; sourceTree = "<group>"; };
 		2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewController.swift; sourceTree = "<group>"; };
 		2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSelectionCell.swift; sourceTree = "<group>"; };
 		2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSelectionCell.xib; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				2A70457B2C85AFB700A58672 /* Resource */,
 				2A7045822C85B3C800A58672 /* Preset */,
 				2A7045832C85B41A00A58672 /* Record */,
+				2AA450822C88585E0033F5DA /* UserGeneratedContent */,
 			);
 			path = SwiftData;
 			sourceTree = "<group>";
@@ -382,6 +385,14 @@
 				2A7045732C85680800A58672 /* Vocabulary.swift */,
 			);
 			path = ContextResource;
+			sourceTree = "<group>";
+		};
+		2AA450822C88585E0033F5DA /* UserGeneratedContent */ = {
+			isa = PBXGroup;
+			children = (
+				2AA450802C8858410033F5DA /* PUGC_ContextTag.swift */,
+			);
+			path = UserGeneratedContent;
 			sourceTree = "<group>";
 		};
 		D0058CE72BBA713B00D2BB25 /* ViewModels */ = {
@@ -713,6 +724,7 @@
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
 				2AC3E5932C5602EB002CC242 /* SettingCell.swift in Sources */,
 				2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */,
+				2AA450812C8858410033F5DA /* PUGC_ContextTag.swift in Sources */,
 				2A71BDD02C869AC900418A5B /* PracticeResourceManager.swift in Sources */,
 				2A0D41F32C6EF2C3000B1B3B /* ArticlePlayButtonView.swift in Sources */,
 				D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */,

@@ -30,19 +30,14 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
 //        UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
 
         let localArticles = ArticleManager.shared.fetchAll()
-
-        if !UserDefaultsManager.shared.hasFetchedDataToday() {
-            self.fetchArticles { serverArticles in
-                self.syncNewServerArticles(with: localArticles, from: serverArticles) {
-                    self.articles = Article.copyArticles(from: serverArticles)
-                }
-
-                UserDefaultsManager.shared.updateLastFetchedDate()
-            }
-
+        
+        if shouldFetchArticles() {
+            fetchAndSyncArticles(with: localArticles)
         } else {
             self.articles = Article.copyArticles(from: localArticles)
         }
+        
+//        uploadArticle()
     }
 
     func getYesterdayDate() -> Date {
@@ -156,6 +151,21 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
             }
         }
     }
+    
+    // MARK: - Helper Methods
+
+    private func shouldFetchArticles() -> Bool {
+        return !UserDefaultsManager.shared.hasFetchedDataToday()
+    }
+
+    private func fetchAndSyncArticles(with localArticles: [Article]) {
+        fetchArticles { serverArticles in
+            self.syncNewServerArticles(with: localArticles, from: serverArticles) {
+                self.articles = Article.copyArticles(from: serverArticles)
+            }
+            UserDefaultsManager.shared.updateLastFetchedDate()
+        }
+    }
 
     private func syncNewServerArticles(with localArticles: [Article], from serverArticles: [Article], completion: @escaping () -> Void) {
         let localArticleIDs = Set(localArticles.map { $0.id })
@@ -199,7 +209,7 @@ extension ExploreViewController: UICollectionViewDelegate {
             }
         }
         
-        controller.article = articles[indexPath.row]
+        controller.copyArticle = articles[indexPath.row]
         
         navigationController?.pushViewControllerWithCustomTransition(controller)
     }
@@ -227,53 +237,54 @@ extension ExploreViewController: UICollectionViewDelegate {
 
 extension ExploreViewController {
     func uploadArticle() {
-        //        let title = "Successful Polio Vaccination Campaign in Gaza Surpasses Expectations"
-        //
-        //        let content = """
-        //        The World Health Organization (WHO) has announced that the initial phase of a polio vaccination campaign in central Gaza has exceeded its goals, with over 161,000 children vaccinated within the first two days. Dr. Rik Peeperkorn, WHO's representative in the Palestinian territories, noted that this figure surpasses the projected target of 156,500, likely due to underestimations of the densely populated area.
-        //
-        //        The vaccination drive became possible after Israel and Hamas agreed to localized ceasefires, allowing health workers to administer vaccines. This initiative was crucial following the first confirmed polio case in Gaza in 25 years, which left a 10-month-old partially paralyzed.
-        //
-        //        The immunization campaign is being conducted in three stages, with temporary pauses in hostilities from 06:00 to 15:00 local time. The first phase began in Deir al-Balah and Khan Younis governorates, and will continue in Rafah, followed by North Gaza and Gaza City. While the campaign has progressed smoothly, Dr. Peeperkorn emphasized that there are at least 10 days remaining in the first round, with a second round scheduled in four weeks to ensure full immunization coverage.
-        //
-        //        Efforts are ongoing to reach children in areas outside the ceasefire zones, particularly in the southern parts of Gaza. The overall goal is to vaccinate 640,000 children, with a minimum of 90% coverage needed to halt the transmission of poliovirus in Gaza and prevent its spread to neighboring regions.
-        //
-        //        Polio is a highly contagious virus, often transmitted through contaminated water, that primarily affects children under five. It can lead to severe consequences such as paralysis or even death. Humanitarian organizations attribute the resurgence of polio in Gaza to disruptions in vaccination programs and significant damage to water and sanitation infrastructure due to the ongoing conflict.
-        //
-        //        The mother of the affected child, Niveen, shared her feelings of guilt for being unable to vaccinate her son due to the conflict. She expressed a deep desire for her son to receive treatment outside Gaza, hoping he could live a life free from the debilitating effects of polio.
-        //        """
-        //
-        //        let text = "\(title)\n\n\(content)"
-        //
-        //        GoogleTTSService.shared.downloadSSML(text) { audioResource in
-        //            guard let audioResource else {
-        //                print("foo - download ssml failed")
-        //                return
-        //            }
-        //
-        //            guard let id = audioResource.id, let audioData = audioResource.data else {
-        //                print("foo - download ssml failed, there is no audio data")
-        //                return
-        //            }
-        //
-        //            FirebaseManager.shared.uploadAudio(audioId: id, audioData: audioData) { isDownloadSuccessful, url in
-        //                print("foo upload audio \(isDownloadSuccessful)")
-        //
-        //                let imageResource = FSPracticeImage(id: UUID().uuidString)
-        //
-        //                let article = FSPracticeArticle(id: UUID().uuidString,
-        //                                                title: title,
-        //                                                content: content,
-        //                                                uploadedDate: Date(),
-        //                                                audioResource: audioResource,
-        //                                                imageResource: imageResource)
-        //
-        //                FirebaseManager.shared.uploadArticle(article) { isDownloadSuccessful in
-        //                    print("foo - upload article \(isDownloadSuccessful)")
-        //
-        //
-        //                }
-        //            }
-        //        }
+        let title = "Successful Polio Vaccination Campaign in Gaza Surpasses Expectations"
+        
+        let content =
+                """
+                The World Health Organization (WHO) has announced that the initial phase of a polio vaccination campaign in central Gaza has exceeded its goals, with over 161,000 children vaccinated within the first two days. Dr. Rik Peeperkorn, WHO's representative in the Palestinian territories, noted that this figure surpasses the projected target of 156,500, likely due to underestimations of the densely populated area.
+                
+                The vaccination drive became possible after Israel and Hamas agreed to localized ceasefires, allowing health workers to administer vaccines. This initiative was crucial following the first confirmed polio case in Gaza in 25 years, which left a 10-month-old partially paralyzed.
+                
+                The immunization campaign is being conducted in three stages, with temporary pauses in hostilities from 06:00 to 15:00 local time. The first phase began in Deir al-Balah and Khan Younis governorates, and will continue in Rafah, followed by North Gaza and Gaza City. While the campaign has progressed smoothly, Dr. Peeperkorn emphasized that there are at least 10 days remaining in the first round, with a second round scheduled in four weeks to ensure full immunization coverage.
+                
+                Efforts are ongoing to reach children in areas outside the ceasefire zones, particularly in the southern parts of Gaza. The overall goal is to vaccinate 640,000 children, with a minimum of 90% coverage needed to halt the transmission of poliovirus in Gaza and prevent its spread to neighboring regions.
+                
+                Polio is a highly contagious virus, often transmitted through contaminated water, that primarily affects children under five. It can lead to severe consequences such as paralysis or even death. Humanitarian organizations attribute the resurgence of polio in Gaza to disruptions in vaccination programs and significant damage to water and sanitation infrastructure due to the ongoing conflict.
+                
+                The mother of the affected child, Niveen, shared her feelings of guilt for being unable to vaccinate her son due to the conflict. She expressed a deep desire for her son to receive treatment outside Gaza, hoping he could live a life free from the debilitating effects of polio.
+                """
+        
+                let text = "\(title)\n\n\(content)"
+        
+                GoogleTTSService.shared.downloadSSML(text) { audioResource in
+                    guard let audioResource else {
+                        print("foo - download ssml failed")
+                        return
+                    }
+        
+                    guard let id = audioResource.id, let audioData = audioResource.data else {
+                        print("foo - download ssml failed, there is no audio data")
+                        return
+                    }
+        
+                    FirebaseManager.shared.uploadAudio(audioId: id, audioData: audioData) { isDownloadSuccessful, url in
+                        print("foo upload audio \(isDownloadSuccessful)")
+        
+                        let imageResource = PracticeImage.Copy(id: UUID().uuidString)
+        
+                        let article = Article.Copy(id: UUID().uuidString,
+                                                        title: title,
+                                                        content: content,
+                                                        uploadedDate: Date(),
+                                                        audioResource: audioResource,
+                                                        imageResource: imageResource)
+        
+                        FirebaseManager.shared.uploadArticle(article) { isDownloadSuccessful in
+                            print("foo - upload article \(isDownloadSuccessful)")
+        
+        
+                        }
+                    }
+                }
     }
 }

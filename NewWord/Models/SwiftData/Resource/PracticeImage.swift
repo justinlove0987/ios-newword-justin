@@ -63,7 +63,9 @@ extension PracticeImage {
         var id: String?
         var data: Data?
 
-        init(id: String? = nil, data: Data? = nil) {
+        init(id: String? = nil,
+             data: Data? = nil) {
+            
             self.id = id
             self.data = data
         }

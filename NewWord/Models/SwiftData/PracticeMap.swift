@@ -16,13 +16,16 @@ enum PracticeMapType: Int, CaseIterable {
 class PracticeMap: Identifiable, Codable {
     // MARK: - Properties
 
-    var id: UUID
+    var id: String?
     var type: Int
     var sequences: [PracticeSequence] = []
 
     // MARK: - Initializer
 
-    init(id: UUID = UUID(), type: Int, sequences: [PracticeSequence]) {
+    init(id: String? = nil,
+         type: Int,
+         sequences: [PracticeSequence]) {
+        
         self.id = id
         self.type = type
         self.sequences = sequences
@@ -39,7 +42,7 @@ class PracticeMap: Identifiable, Codable {
     // MARK: - Codable Methods
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(UUID.self, forKey: .id)
+        id = try container.decode(String.self, forKey: .id)
         type = try container.decode(Int.self, forKey: .type)
         sequences = try container.decode([PracticeSequence].self, forKey: .sequences)
     }

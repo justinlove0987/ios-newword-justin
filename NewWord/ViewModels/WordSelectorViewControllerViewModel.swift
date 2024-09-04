@@ -287,9 +287,9 @@ struct WordSelectorViewControllerViewModel {
         return !tags.isEmpty
     }
     
-    
+    @MainActor 
     mutating func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: Article.Copy?) {
-        guard var article = article else { return }
+        guard let article = article else { return }
         guard let result = article.audioResource else { return }
 
         for i in 0..<result.timepoints.count {
@@ -300,7 +300,7 @@ struct WordSelectorViewControllerViewModel {
             let isGreaterThanTagPosition = range.location >= tagPosition
 
             if isGreaterThanTagPosition {
-                article.audioResource!.timepoints[i].rangeLocation! += adjustmentOffset
+                result.timepoints[i].rangeLocation! += adjustmentOffset
             }
         }
     }

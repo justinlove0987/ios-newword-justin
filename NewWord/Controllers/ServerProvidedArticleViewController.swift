@@ -22,7 +22,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBOutlet weak var articlePlayButtonView: ArticlePlayButtonView!
     @IBOutlet weak var bottomPanelStackView: UIStackView!
     
-    var article: Article.Copy?
+    var copyArticle: Article.Copy?
 
     private var customTextView: AddTagTextView!
     private let pacticeModelSelectorView: PracticeModeSelectorView = PracticeModeSelectorView()
@@ -62,8 +62,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     private func setupProperties() {
         customTextView.layer.zPosition = 0
         translationContentView.layer.zPosition = 1
-        imageView.image = article?.imageResource?.image
-        customTextView.text = article?.text
+        imageView.image = copyArticle?.imageResource?.image
+        customTextView.text = copyArticle?.text
         
         articlePlayButtonView.playButton.addTarget(self, action: #selector(playArticle), for: .touchUpInside)
 
@@ -90,7 +90,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     }
 
     private func setupCumstomTextView() {
-        guard let text = article?.text else { return }
+        guard let text = copyArticle?.text else { return }
 
         customTextView = AddTagTextView.createTextView(text)
         customTextView.delegate = self
@@ -116,10 +116,10 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     }
 
     private func setupAudio() {
-        guard var article else { return }
+        guard let copyArticle else { return }
 
-        if article.hasAudio {
-            self.player.audioData = article.audioResource?.data
+        if copyArticle.hasAudio {
+            self.player.audioData = copyArticle.audioResource?.data
             self.player.setupAudioPlayer()
 
         } else {
@@ -129,9 +129,9 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
                     self.player.audioData = audioData
                     self.player.setupAudioPlayer()
 
-                    article.audioResource?.data = audioData
+                    copyArticle.audioResource?.data = audioData
                     
-                    PracticeAudioManager.shared.save()
+                    ArticleManager.shared.updateAudio(id: copyArticle.id, audioData: audioData)
 
                 } else {
                     self.articlePlayButtonView.isHidden = true
@@ -165,8 +165,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     }
     
     @objc func playArticle(_ sender: UIButton) {
-        guard let article else { return }
-        // guard let ttsSynthesisResult =  article.ttsSynthesisResult else { return }
+        guard let copyArticle else { return }
         
         switch player.state {
         case .notPlayed:
@@ -174,7 +173,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             
             if audioDataExists {
                 self.player.setupAudioPlayer()
-                self.player.playAudioWithMarks(article)
+                self.player.playAudioWithMarks(copyArticle)
                 triggerImpactFeedback()
                 
             } else {
@@ -183,7 +182,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
                         guard let audioData else { return }
                         self.player.audioData = audioData
                         self.player.setupAudioPlayer()
-                        self.player.playAudioWithMarks(article)
+                        self.player.playAudioWithMarks(copyArticle)
 
                     } else {
                         self.articlePlayButtonView.isHidden = true
@@ -196,7 +195,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             triggerImpactFeedback()
             
         case .paused:
-            player.playAudioWithMarks(article)
+            player.playAudioWithMarks(copyArticle)
             triggerImpactFeedback()
         }
     }
@@ -297,7 +296,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             if !viewModel.hasDuplicateClozeLocations(with: range) {
                 customTextView.removeNumberImageView(at: updatedRange.location)
                 viewModel.updateTagNSRanges(with: updatedRange, offset: adjustmentOffset)
-                viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: article)
+                viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: copyArticle)
                 viewModel.currentSelectedRange = updatedRange
                 customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
             }
@@ -331,7 +330,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
                 let adjustmentOffset = 1
                 let updatedRange = NSRange(location: range.location+adjustmentOffset, length: range.length)
                 
-                self.viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: article)
+                self.viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: copyArticle)
                 self.viewModel.currentSelectedRange = updatedRange
                 self.customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
                 self.customTextView.removeAllDashedUnderlines()
@@ -432,7 +431,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     }
 
     private func downloadAudio(completion: ((_ isDownloadSuccessful: Bool, _ audioData: Data?) -> Void)? = nil) {
-        guard let article = article, let audioId = article.audioResource?.id else {
+        guard let article = copyArticle, let audioId = article.audioResource?.id else {
             completion?(false, nil)
             return
         }
@@ -484,9 +483,9 @@ extension ServerProvidedArticleViewController: AudioPlayerDelegate {
     }
     
     func audioPlayer(_ player: AudioPlayer, didUpdateToMarkName markName: String) {
-        guard let article else { return }
+        guard let copyArticle else { return }
 
-        let range = viewModel.rangeForMarkName(in: article, markName: markName)
+        let range = viewModel.rangeForMarkName(in: copyArticle, markName: markName)
 
         customTextView.highlightRangeDuringPlayback = range
     }

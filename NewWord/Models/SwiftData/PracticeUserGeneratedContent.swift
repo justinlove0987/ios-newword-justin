@@ -12,10 +12,10 @@ import UIKit
 @Model
 class PracticeUserGeneratedContent: Identifiable, Codable {
     // MARK: - Properties
-    var id: UUID
+    var id: String?
 
     // MARK: - Initializer
-    init(id: UUID = UUID()) {
+    init(id: String? = nil) {
         self.id = id
     }
 
@@ -27,7 +27,7 @@ class PracticeUserGeneratedContent: Identifiable, Codable {
     // MARK: - Codable Methods
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(UUID.self, forKey: .id)
+        id = try container.decode(String.self, forKey: .id)
     }
 
     func encode(to encoder: Encoder) throws {
