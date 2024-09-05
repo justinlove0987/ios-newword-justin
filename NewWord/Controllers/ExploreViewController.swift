@@ -13,11 +13,11 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var dataSource: UICollectionViewDiffableDataSource<Int,Article.Copy>!
-
-    private var articles: [Article.Copy] = [] {
+    private var dataSource: UICollectionViewDiffableDataSource<Int,PracticeServerProvidedContent.Copy>!
+    
+    private var resources: [PracticeServerProvidedContent.Copy] = [] {
         didSet {
-            articles.sort { $0.uploadedDate! > $1.uploadedDate! }
+            resources.sort { $0.article!.uploadedDate! > $1.article!.uploadedDate! }
             updateSnapshot()
         }
     }
@@ -39,7 +39,9 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         if shouldFetchArticles() {
             fetchAndSyncArticles(with: localArticles)
         } else {
-            self.articles = Article.copyArticles(from: localArticles)
+            let articles = Article.copyArticles(from: localArticles)
+            
+            self.resources = articles.map { PracticeServerProvidedContent.Copy(article:$0) }
         }
     }
 
@@ -78,12 +80,13 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         updateSnapshot()
     }
     
-    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, Article.Copy> {
-        let dataSource = UICollectionViewDiffableDataSource<Int, Article.Copy>(collectionView: collectionView,
+    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, PracticeServerProvidedContent.Copy> {
+        let dataSource = UICollectionViewDiffableDataSource<Int, PracticeServerProvidedContent.Copy>(collectionView: collectionView,
                                                                             cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExploreCell.reuseIdentifier, for: indexPath) as! ExploreCell
+                    
+            guard let currentArticle = itemIdentifier.article else { return UICollectionViewCell() }
             
-            let currentArticle = self.articles[indexPath.row]
             
             cell.configure(currentArticle)
             cell.imageView.image = currentArticle.hasImage ? UIImage(data: currentArticle.imageResource!.data!) : UIImage(named: "loading")
@@ -124,9 +127,9 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     }
     
     private func updateSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Article.Copy>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, PracticeServerProvidedContent.Copy>()
         snapshot.appendSections([0])
-        snapshot.appendItems(articles)
+        snapshot.appendItems(resources)
 
         DispatchQueue.main.async {
             self.dataSource.apply(snapshot, animatingDifferences: false)
@@ -134,9 +137,8 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     }
     
     private func fetchImage(at indexPath: IndexPath) {
-        guard let imageId = self.articles[indexPath.row].imageResource?.id else { return }
-
-        let article = self.articles[indexPath.row]
+        guard let article = self.resources[indexPath.row].article else { return }
+        guard let imageId = article.imageResource?.id else { return }
 
         FirebaseManager.shared.getImage(for: imageId) { result in
             switch result {
@@ -152,7 +154,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
             DispatchQueue.main.async {
                 var snapshot = self.dataSource.snapshot()
 
-                snapshot.reloadItems([article])
+                snapshot.reloadItems([self.resources[indexPath.row]])
 
                 self.dataSource.apply(snapshot, animatingDifferences: true)
             }
@@ -168,7 +170,8 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     private func fetchAndSyncArticles(with localArticles: [Article]) {
         fetchArticles { serverArticles in
             self.syncNewServerArticles(with: localArticles, from: serverArticles) {
-                self.articles = Article.copyArticles(from: serverArticles)
+                let articles = Article.copyArticles(from: serverArticles)
+                self.resources = articles.map { PracticeServerProvidedContent.Copy(article:$0) }
             }
             UserDefaultsManager.shared.updateLastFetchedDate()
         }
@@ -216,7 +219,7 @@ extension ExploreViewController: UICollectionViewDelegate {
             }
         }
         
-        controller.copyArticle = articles[indexPath.row]
+        controller.copyArticle = self.resources[indexPath.row].article
         
         navigationController?.pushViewControllerWithCustomTransition(controller)
     }
@@ -284,7 +287,9 @@ extension ExploreViewController {
                                                         content: content,
                                                         uploadedDate: Date(),
                                                         audioResource: audioResource,
-                                                        imageResource: imageResource)
+                                                        imageResource: imageResource,
+                                                   cefrType: CEFR.c1.rawValue
+                        )
         
                         FirebaseManager.shared.uploadArticle(article) { isDownloadSuccessful in
                             print("foo - upload article \(isDownloadSuccessful)")

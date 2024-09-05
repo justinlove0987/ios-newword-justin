@@ -31,7 +31,7 @@ extension PracticeContext {
     }
 
     var linkedResource: Any? {
-        guard let type = PracticeContextType(rawValue: type) else { return nil }
+        guard let type = ContextType(rawValue: type) else { return nil }
         
         switch type {
         case .word:

@@ -24,3 +24,12 @@ class PracticeContextManager: ModelManager<PracticeContext> {
 
     private override init() {}
 }
+
+@MainActor
+class ContexTagManager: ModelManager<ContextTag> {
+
+    static let shared = ContexTagManager()
+
+    private override init() {}
+}
+

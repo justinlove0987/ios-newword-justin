@@ -12,8 +12,6 @@ class AddTagTextView: UITextView, UITextViewDelegate {
 
     typealias ColoredText = WordSelectorViewControllerViewModel.ColoredText
     typealias ColoredMark = WordSelectorViewControllerViewModel.ColoredMark
-    
-    var article: FSArticle?
 
     var highlightRangeDuringPlayback: NSRange? {
         didSet {
@@ -152,9 +150,9 @@ class AddTagTextView: UITextView, UITextViewDelegate {
         return characterIndex
     }
 
-    func insertNumberImageView(at location: Int, existClozes: [Tag], with textToInsert: String , scale: Double = 1.0) {
+    func insertNumberImageView(at location: Int, existClozes: [ContextTag.Copy], with textToInsert: String , scale: Double = 1.0) {
         for cloze in existClozes {
-            let currentLocation = cloze.range.location
+            let currentLocation = cloze.range!.location
 
             guard currentLocation != location else {
                 return
@@ -370,6 +368,32 @@ class AddTagTextView: UITextView, UITextViewDelegate {
             self.highlightRangeDuringPlayback = NSRange(location: newLocation, length: highlightRangeDuringPlayback.length)
             self.setNeedsDisplay()
         }
+    }
+    
+    func extractTitle() -> String? {
+        guard let text = self.text else { return nil }
+
+        // 假設標題和內容是用換行符分隔的
+        let components = text.components(separatedBy: "\n")
+        guard components.count > 1 else { return nil }
+
+        let title = components[0]
+        let content = components.dropFirst().joined(separator: "\n")
+        
+        return title
+    }
+
+    func extractContent() -> String? {
+        guard let text = self.text else { return nil }
+
+        // 假設標題和內容是用換行符分隔的
+        let components = text.components(separatedBy: "\n")
+        guard components.count > 1 else { return nil }
+
+        let content = components.dropFirst().joined(separator: "\n")
+        
+        // 將內容行合併成一個單一的字符串
+        return content
     }
     
     private var animationLayers: [CAGradientLayer] = []

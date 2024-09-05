@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum PracticeContextType: Int {
+enum ContextType: Int {
     case word
     case sentence
     case article

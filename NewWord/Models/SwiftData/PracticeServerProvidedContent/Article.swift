@@ -19,6 +19,7 @@ class Article: Identifiable, Codable {
     var audioResource: PracticeAudio?
     var imageResource: PracticeImage?
     var cefrType: Int?
+    var tags: [ContextTag] = []
 
     // 初始化方法
     init(id: String,
@@ -27,7 +28,9 @@ class Article: Identifiable, Codable {
          uploadedDate: Date? = nil,
          audioResource: PracticeAudio? = nil,
          imageResource: PracticeImage? = nil,
-         cefrType: Int? = nil) {
+         cefrType: Int? = nil,
+         tags: [ContextTag] = []
+    ) {
 
         self.id = id
         self.title = title
@@ -36,6 +39,7 @@ class Article: Identifiable, Codable {
         self.audioResource = audioResource
         self.imageResource = imageResource
         self.cefrType = cefrType
+        self.tags = tags
     }
 
     // CodingKeys 枚舉，用於定義屬性與 JSON 鍵的對應
@@ -47,6 +51,7 @@ class Article: Identifiable, Codable {
         case audioResource
         case imageResource
         case cefrType
+        case tags
     }
 
     // 解碼方法
@@ -59,6 +64,7 @@ class Article: Identifiable, Codable {
         self.audioResource = try container.decodeIfPresent(PracticeAudio.self, forKey: .audioResource)
         self.imageResource = try container.decodeIfPresent(PracticeImage.self, forKey: .imageResource)
         self.cefrType = try container.decodeIfPresent(Int.self, forKey: .cefrType)
+        self.tags = try container.decode([ContextTag].self, forKey: .tags)
     }
 
     // 編碼方法
@@ -71,6 +77,7 @@ class Article: Identifiable, Codable {
         try container.encodeIfPresent(audioResource, forKey: .audioResource)
         try container.encodeIfPresent(imageResource, forKey: .imageResource)
         try container.encodeIfPresent(cefrType, forKey: .cefrType)
+        try container.encodeIfPresent(tags, forKey: .tags)
     }
 }
 
@@ -113,6 +120,7 @@ extension Article {
         var audioResource: PracticeAudio.Copy?
         var imageResource: PracticeImage.Copy?
         var cefrType: Int?
+        var tags: [ContextTag.Copy] = []
 
         init(id: String,
              title: String? = nil,
@@ -120,7 +128,9 @@ extension Article {
              uploadedDate: Date? = nil,
              audioResource: PracticeAudio.Copy? = nil,
              imageResource: PracticeImage.Copy? = nil,
-             cefrType: Int? = nil) {
+             cefrType: Int? = nil,
+             tags: [ContextTag.Copy] = []
+        ) {
 
             self.id = id
             self.title = title
@@ -129,6 +139,7 @@ extension Article {
             self.audioResource = audioResource
             self.imageResource = imageResource
             self.cefrType = cefrType
+            self.tags = tags
         }
 
         var formattedUploadedDate: String? {
@@ -175,7 +186,8 @@ extension Article {
             uploadedDate: self.uploadedDate,
             audioResource: self.audioResource?.copy(),
             imageResource: self.imageResource?.copy(),
-            cefrType: self.cefrType
+            cefrType: self.cefrType,
+            tags: self.tags.map { $0.copy() }
         )
     }
 

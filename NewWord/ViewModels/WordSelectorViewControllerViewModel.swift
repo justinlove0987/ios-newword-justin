@@ -11,8 +11,6 @@ import NaturalLanguage
 import SwiftKit
 
 struct WordSelectorViewControllerViewModel {
-    
-    typealias TagType = Tag.TagType
 
     enum SelectMode: Int, CaseIterable {
         case word
@@ -80,7 +78,7 @@ struct WordSelectorViewControllerViewModel {
         var coloredCharacters: [CharacterIndex: [ColorSegment]]
     }
     
-    var tags: [Tag] = []
+    var tags: [ContextTag.Copy] = []
     
     var selectMode: SelectMode = .word
     
@@ -89,7 +87,7 @@ struct WordSelectorViewControllerViewModel {
     var translationPairs: [TranslationPair] = []
 
     mutating func getClozeNumber() -> Int {
-        let clozeNumbers = tags.map { $0.number }
+        let clozeNumbers = tags.map { $0.number! }
         
         if clozeNumbers.isEmpty {
             return 1
@@ -108,11 +106,13 @@ struct WordSelectorViewControllerViewModel {
         return maxClozeNumber!
     }
 
-    func getUpdatedRange(range: NSRange, offset: Int) -> NSRange {
+    func getUpdatedRange(range: NSRange, offset: Int) -> NSRange? {
         let location = range.location
 
-        for cloze in tags {
-            let currentLocation = cloze.range.location
+        for tag in tags {
+            guard let range = tag.range else { return nil }
+            
+            let currentLocation = range.location
             let isSameLocation = location == currentLocation
 
             if isSameLocation {
@@ -123,18 +123,21 @@ struct WordSelectorViewControllerViewModel {
         return NSRange(location: range.location+offset, length: range.length)
     }
     
-    mutating func removeAllTags(in text: String) -> String {
+    mutating func removeAllTags(in text: String) -> String? {
         var text = text
         let uniqueClozeIndices = getUniqueLocationClozeIndices()
 
         for i in uniqueClozeIndices {
-            let currentCloze = tags[i]
+            let tag = tags[i]
             let offset = -1
-            let tagLocation = currentCloze.range.location-1
+            
+            guard let range = tag.range else { return nil }
+            
+            let tagLocation = range.location-1
             
             let tagRange = NSRange(location: tagLocation, length: 1)
             
-            if let tagIndex = currentCloze.getTagIndex(in: text) {
+            if let tagIndex = tag.getTagIndex(in: text) {
                 text.remove(at: tagIndex)
                 updateTagNSRanges(with: tagRange, offset: offset)
             }
@@ -144,69 +147,37 @@ struct WordSelectorViewControllerViewModel {
     }
 
 
-//    @MainActor 
-//    func saveContext(_ text: String) {
-//        let map = PracticeMapManager.shared.fetchAll().first!
-//        let resource = PracticeResource(article: <#T##Article?#>)
-//
-//        // PracticeContext(type: 0, context: <#T##String#>, resource: <#T##PracticeContextResource#>, practiceMap: map)
-//
-//        let context = CoreDataManager.shared.createContext(text)
-//
-//        for i in 0..<tags.count {
-//            let currentCloze = tags[i]
-//
-//            guard let word = textInRange(text: text, range: currentCloze.range),
-//                  let deck = getSaveDeck(currentCloze) else {
-//                continue
-//            }
-//
-//            let newCloze = CoreDataManager.shared.createCloze(number: currentCloze.number, hint: "", clozeWord: currentCloze.text)
-//
-//            newCloze.context = context
-//            newCloze.contextId = context.id
-//            newCloze.clozeWord = word
-//            newCloze.location = Int64(currentCloze.range.location)
-//            newCloze.length = Int64(currentCloze.range.length)
-//            newCloze.hint = currentCloze.translatedText
-//
-//            GoogleTTSService.shared.download(text: word) { data in
-//                newCloze.clozeAudio = data
-//                CoreDataManager.shared.save()
-//            }
-//
-//            let resource = CoreDataManager.shared.createNoteResource()
-//            resource.cloze = newCloze
-//
-//            let note = CoreDataManager.shared.createNote(typeRawValue: NoteType.lienteningCloze.rawValue)
-//            note.resource = resource
-//
-//            CoreDataManager.shared.addCard(to: deck, with: note)
-//        }
-//
-//        CoreDataManager.shared.save()
-//
-//    }
+
+    @MainActor 
+    func saveTags(to article: Article.Copy) {
+        article.tags = tags
+        
+        ArticleManager.shared.updateArticle(withId: article.id, from: article)
+    }
 
     mutating func saveTag(_ text: String) {
         let context = CoreDataManager.shared.createContext(text)
         
         for i in 0..<tags.count {
-            let currentCloze = tags[i]
+            let tag = tags[i]
             
-            guard let word = textInRange(text: text, range: currentCloze.range),
-                  let deck = getSaveDeck(currentCloze) else {
+            guard let range = tag.range else { return }
+            guard let number = tag.number else { return }
+            guard let text = tag.text else { return }
+            
+            guard let word = textInRange(text: text, range: range),
+                  let deck = getSaveDeck(tag) else {
                 continue
             }
             
-            let newCloze = CoreDataManager.shared.createCloze(number: currentCloze.number, hint: "", clozeWord: currentCloze.text)
+            let newCloze = CoreDataManager.shared.createCloze(number: number, hint: "", clozeWord: text)
             
             newCloze.context = context
             newCloze.contextId = context.id
             newCloze.clozeWord = word
-            newCloze.location = Int64(currentCloze.range.location)
-            newCloze.length = Int64(currentCloze.range.length)
-            newCloze.hint = currentCloze.translatedText
+            newCloze.location = Int64(range.location)
+            newCloze.length = Int64(range.length)
+            newCloze.hint = tag.translation
             
             GoogleTTSService.shared.download(text: word) { data in
                 newCloze.clozeAudio = data
@@ -230,11 +201,11 @@ struct WordSelectorViewControllerViewModel {
         return String(text[rangeInString])
     }
     
-    func containsTag(textType: TextType, tagType: TagType, range: NSRange) -> Bool {
+    func containsTag(textType: ContextType, range: NSRange) -> Bool {
         for i in 0..<tags.count {
             let currentTag = tags[i]
             
-            let tagExists = currentTag.isEqualTo(textType: textType, tagType: tagType, range: range)
+            let tagExists = currentTag.isEqualTo(textType: textType, range: range)
             
             if tagExists {
                 return true
@@ -271,8 +242,9 @@ struct WordSelectorViewControllerViewModel {
 
     func hasDuplicateClozeLocations(with range: NSRange) -> Bool {
         for i in 0..<tags.count {
-            let currentCloze = tags[i]
-            let currentLocation = currentCloze.range.location
+            let tag = tags[i]
+            guard let crrentRange = tag.range else { return false}
+            let currentLocation = crrentRange.location
             let hasDuplicates = range.location == currentLocation
 
             if hasDuplicates {
@@ -308,24 +280,27 @@ struct WordSelectorViewControllerViewModel {
     /// 在加入cloze前update就不須理會新的cloze是否在array中
     mutating func updateTagNSRanges(with newNSRange: NSRange, offset: Int) {
         for i in 0..<tags.count {
-            let currentCloze = tags[i]
+            let tag = tags[i]
+            guard let range = tag.range else { return }
 
-            if newNSRange.location == currentCloze.range.location {
+            if newNSRange.location == range.location {
                 return
             }
         }
 
         for i in 0..<tags.count {
-            let currentCloze = tags[i]
+            let tag = tags[i]
+            guard let range = tag.range else { return }
+            
             let newLocation = newNSRange.location
-            let currentLocation = currentCloze.range.location
-            let currentLength = currentCloze.range.length
+            let currentLocation = range.location
+            let currentLength = range.length
 
             if newLocation < currentLocation {
-                tags[i].range = NSRange(location: currentLocation + offset, length: currentLength)
+                tags[i].rangeLocation = currentLocation + offset
 
             } else if newLocation > currentLocation && newLocation < currentLocation + currentLength {
-                tags[i].range = NSRange(location: currentLocation, length: currentLength+offset)
+                tags[i].rangelength = currentLength + offset
             }
         }
     }
@@ -333,21 +308,30 @@ struct WordSelectorViewControllerViewModel {
     func createNewTag(number: Int, 
                         cloze: String,
                         range: NSRange,
-                        textType: TextType,
-                        hint: String) -> Tag {
+                        textType: ContextType,
+                      hint: String) -> ContextTag.Copy {
         
-        var newCloze: Tag
+        var newTag: ContextTag.Copy
         let tagColor: UIColor = selectMode == .sentence ? UIColor.tagBlue : UIColor.tagGreen
         let cotentColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueText: UIColor.textGreen
         let id = UUID().uuidString
         
-        newCloze = Tag(id: id, number: number, text: cloze, range: range, tagColor: tagColor, contentColor: cotentColor, translatedText: hint, textType: textType)
+        
+        newTag = ContextTag.Copy(id: id,
+                                 text: cloze,
+                                 number: number,
+                                 rangeLocation: range.location,
+                                 rangeLength: range.length,
+                                 translation: hint, 
+                                 typeRawValue: textType.rawValue,
+                                 tagColor: tagColor.toData(),
+                                 contentColor: cotentColor.toData())
 
-        return newCloze
+        return newTag
     }
 
-    mutating func appendCloze(_ cloze: Tag) {
-        tags.append(cloze)
+    mutating func appendTag(_ tag: ContextTag.Copy) {
+        tags.append(tag)
     }
     
     func getUniqueLocationClozeIndices() -> [Int] {
@@ -356,7 +340,8 @@ struct WordSelectorViewControllerViewModel {
 
         for i in 0..<tags.count {
             let currentCloze = tags[i]
-            let location = currentCloze.range.location
+            guard let range = currentCloze.range else { return [] }
+            let location = range.location
             
             if !uniqueLocations.contains(location) {
                 indices.append(i)
@@ -373,7 +358,7 @@ struct WordSelectorViewControllerViewModel {
     }
     
     func getNSRanges() -> [NSRange] {
-        return tags.map { $0.range }
+        return tags.map { $0.range! }
     }
     
     func createColoredText() -> ColoredText {
@@ -382,16 +367,16 @@ struct WordSelectorViewControllerViewModel {
         for i in 0..<tags.count {
             let current = tags[i]
             let nsRange = current.range
-            let location = nsRange.location
+            let location = nsRange!.location
             
-            for i in 0..<nsRange.length {
+            for i in 0..<nsRange!.length {
                 let index = location + i
                 let isFirstIndex = location == index
 
-                let newSegment = ColorSegment(tagColor: current.tagColor,
-                                              contentColor: current.contentColor,
+                let newSegment = ColorSegment(tagColor: UIColor.fromData(current.tagColor!)!,
+                                              contentColor: UIColor.fromData(current.contentColor!)!,
                                               clozeLocation: location,
-                                              clozeLength: nsRange.length, tagNumber: current.number)
+                                              clozeLength: nsRange!.length, tagNumber: current.number)
                 
                 var characterindex = ColoredText.CharacterIndex(index: index)
 
@@ -535,7 +520,7 @@ struct WordSelectorViewControllerViewModel {
         return convertedText
     }
     
-    func getTextType(_ text: String) -> TextType {
+    func getTextType(_ text: String) -> ContextType {
         // 去除前後空白字符
         let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -557,7 +542,7 @@ struct WordSelectorViewControllerViewModel {
         }
     }
     
-    func getTextType(from selectMode: SelectMode) -> TextType {
+    func getTextType(from selectMode: SelectMode) -> ContextType {
         switch selectMode {
         case .word:
             return .word
@@ -566,10 +551,10 @@ struct WordSelectorViewControllerViewModel {
         }
     }
     
-    private func getSaveDeck(_ cloze: Tag) -> CDDeck? {
+    private func getSaveDeck(_ cloze: ContextTag.Copy) -> CDDeck? {
         let decks = CoreDataManager.shared.getDecks()
         var deck: CDDeck? = nil
-        let isWord = cloze.textType == .word
+        let isWord = cloze.type == .word
         
         if isWord {
             if let firstDeck = decks.first {

@@ -67,11 +67,13 @@ extension AppDelegate {
 
             let preset = PracticePreset(defaultPreset: DefaultPracticePreset())
             
-            let resource = PracticeResource()
-//            PracticeResourceManager.shared.create(model: resource)
+            let resource = PracticeServerProvidedContent()
             
-            let practice = Practice(typeRawValue: type, preset: preset, resource: resource, ugc: nil, records: [])
-//            PracticeManager.shared.create(model: practice)
+            let practice = Practice(typeRawValue: type,
+                                    preset: preset,
+                                    serverProvidedContent: resource,
+                                    userGeneratedContent: nil,
+                                    records: [])
 
             let sequence = PracticeSequence(practices: [practice])
 

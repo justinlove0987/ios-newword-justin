@@ -93,7 +93,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
     @IBAction func confirmAction(_ sender: UIBarButtonItem) {
         guard var text = customTextView.text else { return }
         
-        text = viewModel.removeAllTags(in: text)
+        text = viewModel.removeAllTags(in: text) ?? ""
         viewModel.saveTag(text)
         
         navigationController?.popToRootViewController(animated: true)
@@ -144,7 +144,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
 
         guard !text.startsWithObjectReplacementCharacter() else { return }
         guard !viewModel.isWhitespace(text) else { return }
-        guard !viewModel.containsTag(textType: .article, tagType: .listenAndTranslate, range: range) else {
+        guard !viewModel.containsTag(textType: .article, range: range) else {
             viewModel.removeCloze(range)
 
             if !viewModel.hasDuplicateClozeLocations(with: range) {
@@ -197,10 +197,10 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
         let offset = 1
         let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
         let textType = self.viewModel.getTextType(text)
-        let newCloze = self.viewModel.createNewTag(number: clozeNumber, cloze: text, range: updateRange, textType: textType, hint: hint)
+        let newCloze = self.viewModel.createNewTag(number: clozeNumber, cloze: text, range: updateRange!, textType: textType, hint: hint)
 
-        self.viewModel.updateTagNSRanges(with: updateRange, offset: offset)
-        self.viewModel.appendCloze(newCloze)
+        self.viewModel.updateTagNSRanges(with: updateRange!, offset: offset)
+        self.viewModel.appendTag(newCloze)
     }
 
     private func updateCustomTextView() {

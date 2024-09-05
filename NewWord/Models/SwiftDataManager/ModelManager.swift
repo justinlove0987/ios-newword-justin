@@ -154,7 +154,7 @@ class PersistentContainerManager {
         PracticeThresholdRule.self,
         PracticePreset.self,
         PracticeMap.self,
-        PracticeResource.self,
+        PracticeServerProvidedContent.self,
         Practice.self,
     ]
 

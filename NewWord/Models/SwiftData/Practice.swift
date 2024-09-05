@@ -10,47 +10,52 @@ import SwiftData
 
 @Model
 class Practice: Identifiable, Codable, Hashable {
+    
     // MARK: - Properties
+    
     var id: String?
     var typeRawValue: Int?
-    var resource: PracticeResource?
-    var ugc: PracticeUserGeneratedContent?
+    var serverProvidedContent: PracticeServerProvidedContent?
+    var userGeneratedContent: PracticeUserGeneratedContent?
     var preset: PracticePreset?
     var records: [PracticeRecord] = []
 
     // MARK: - Initializer
+    
     init(id: String? = nil,
          typeRawValue: Int? = nil,
          preset: PracticePreset? = nil,
-         resource: PracticeResource? = nil,
-         ugc: PracticeUserGeneratedContent? = nil,
+         serverProvidedContent: PracticeServerProvidedContent? = nil,
+         userGeneratedContent: PracticeUserGeneratedContent? = nil,
          records: [PracticeRecord] = []) {
 
         self.id = id
         self.typeRawValue = typeRawValue
         self.preset = preset
-        self.resource = resource
-        self.ugc = ugc
+        self.serverProvidedContent = serverProvidedContent
+        self.userGeneratedContent = userGeneratedContent
         self.records = records
     }
 
     // MARK: - Codable Keys
+    
     private enum CodingKeys: String, CodingKey {
         case id
         case typeRawValue
-        case resource
-        case ugc
+        case serverProvidedContent
+        case userGeneratedContent
         case preset
         case records
     }
 
     // MARK: - Codable Methods
+    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)
         typeRawValue = try container.decode(Int.self, forKey: .typeRawValue)
-        resource = try container.decodeIfPresent(PracticeResource.self, forKey: .resource)
-        ugc = try container.decodeIfPresent(PracticeUserGeneratedContent.self, forKey: .ugc)
+        serverProvidedContent = try container.decodeIfPresent(PracticeServerProvidedContent.self, forKey: .serverProvidedContent)
+        userGeneratedContent = try container.decodeIfPresent(PracticeUserGeneratedContent.self, forKey: .userGeneratedContent)
         preset = try container.decodeIfPresent(PracticePreset.self, forKey: .preset)
         records = try container.decode([PracticeRecord].self, forKey: .records)
     }
@@ -59,8 +64,8 @@ class Practice: Identifiable, Codable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(typeRawValue, forKey: .typeRawValue)
-        try container.encodeIfPresent(resource, forKey: .resource)
-        try container.encodeIfPresent(ugc, forKey: .ugc)
+        try container.encodeIfPresent(serverProvidedContent, forKey: .serverProvidedContent)
+        try container.encodeIfPresent(userGeneratedContent, forKey: .userGeneratedContent)
         try container.encodeIfPresent(preset, forKey: .preset)
         try container.encode(records, forKey: .records)
     }
@@ -71,15 +76,25 @@ extension Practice {
 
         var id: String?
         var typeRawValue: Int?
-        var resource: PracticeResource.Copy?
+        var serverProvidedContent: PracticeServerProvidedContent.Copy?
+        var userGeneratedContent: PracticeUserGeneratedContent.Copy?
+        var preset: PracticePreset?
+        var records: [PracticeRecord] = []
 
         init(id: String? = nil,
              typeRawValue: Int? = nil,
-             resource: PracticeResource.Copy? = nil) {
+             userGeneratedContent: PracticeUserGeneratedContent.Copy? = nil,
+             serverProvidedContent: PracticeServerProvidedContent.Copy? = nil,
+             preset: PracticePreset? = nil,
+             records: [PracticeRecord] = []
+        ) {
 
             self.id = id
             self.typeRawValue = typeRawValue
-            self.resource = resource
+            self.userGeneratedContent = userGeneratedContent
+            self.serverProvidedContent = serverProvidedContent
+            self.preset = preset
+            self.records = records
         }
 
         static func == (lhs: Copy, rhs: Copy) -> Bool {
@@ -95,7 +110,7 @@ extension Practice {
     func copy() -> Copy {
         return Copy(id: self.id,
                     typeRawValue: self.typeRawValue,
-                    resource: self.resource?.copy()
+                    serverProvidedContent: self.serverProvidedContent?.copy()
         )
     }
 }

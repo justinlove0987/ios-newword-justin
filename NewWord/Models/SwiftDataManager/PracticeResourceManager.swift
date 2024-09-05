@@ -9,7 +9,7 @@ import UIKit
 import SwiftData
 
 @MainActor
-class PracticeResourceManager: ModelManager<PracticeResource> {
+class PracticeResourceManager: ModelManager<PracticeServerProvidedContent> {
 
     static let shared = PracticeResourceManager()
 
@@ -35,6 +35,43 @@ class ArticleManager: ModelManager<Article> {
         } catch {
             print("Failed to load model.")
             return nil
+        }
+    }
+    
+    func updateArticle(withId id: String, from copy: Article.Copy, applying updates: ((Article) -> Void)? = nil) {
+        guard let context = context else {
+            print("No context available")
+            return
+        }
+        
+        guard let article = fetch(byId: id) else {
+            print("Article with ID \(id) not found")
+            return
+        }
+        
+        if let audioData = copy.audioResource?.data {
+            article.audioResource?.data = audioData
+        }
+        
+        if let imageData = copy.imageResource?.data {
+            article.imageResource?.data = imageData
+        }
+        
+        article.content = copy.content
+        
+        article.tags.forEach { tag in
+            ContexTagManager.shared.delete(id: tag.id)
+        }
+        
+        article.tags = copy.tags.map { $0.toContextTag() }
+        
+        updates?(article)
+        
+        do {
+            try context.save()
+            print("Article with ID \(id) successfully updated")
+        } catch {
+            print("Failed to save updates for article with ID \(id): \(error)")
         }
     }
     

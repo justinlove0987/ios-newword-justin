@@ -10,10 +10,9 @@ import SwiftData
 
 
 @Model
-class PracticeResource: Identifiable, Codable {
+class PracticeServerProvidedContent: Identifiable, Codable {
 
     var article: Article?
-    var practice: Practice?
 
     // 初始化方法
     init(article: Article? = nil) {
@@ -38,13 +37,11 @@ class PracticeResource: Identifiable, Codable {
     }
 }
 
-extension PracticeResource {
+extension PracticeServerProvidedContent {
 
     class Copy: Identifiable, Hashable  {
 
         var article: Article.Copy?
-
-        var practice: Practice?
 
         init(article: Article.Copy? = nil, practice: Practice? = nil) {
             self.article = article
@@ -61,8 +58,7 @@ extension PracticeResource {
     }
 
     func copy() -> Copy {
-        return Copy(article: self.article?.copy(),
-                    practice: self.practice)
+        return Copy(article: self.article?.copy())
     }
 
 }
