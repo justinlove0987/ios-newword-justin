@@ -19,11 +19,16 @@ class TimepointInformation: Identifiable, Codable {
     var timeSeconds: Double
 
     // 初始化方法
-    init(location: Int?, length: Int?, markName: String, timeSeconds: Double) {
+    init(location: Int?, 
+         length: Int?,
+         markName: String,
+         timeSeconds: Double) {
+        
         self.rangeLocation = location
         self.rangeLength = length
         self.markName = markName
         self.timeSeconds = timeSeconds
+        
     }
 
     // CodingKeys 枚舉，用於定義屬性與 JSON 鍵的對應

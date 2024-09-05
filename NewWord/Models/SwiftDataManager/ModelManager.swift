@@ -148,7 +148,7 @@ class PersistentContainerManager {
     
     let models: [any PersistentModel.Type] = [
         DefaultPracticePreset.self,
-        Article.self,
+        PracticeTagArticle.self,
         PracticeAudio.self,
         PracticeImage.self,
         PracticeThresholdRule.self,

@@ -19,7 +19,7 @@ class FirebaseManager {
     private init() {}
     
     @MainActor
-    func fetchArticle(articleId: String, completion: @escaping (Article?) -> Void) {
+    func fetchArticle(articleId: String, completion: @escaping (PracticeTagArticle?) -> Void) {
         db.collection("articles").document(articleId).getDocument { (document, error) in
             guard let document = document, document.exists else {
                 print("Article not found")
@@ -37,7 +37,7 @@ class FirebaseManager {
     }
     
     @MainActor
-    func fetchAllArticles(completion: @escaping ([Article]) -> Void) {
+    func fetchAllArticles(completion: @escaping ([PracticeTagArticle]) -> Void) {
         db.collection("articles").getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error fetching articles: \(error)")
@@ -51,7 +51,7 @@ class FirebaseManager {
                 return
             }
             
-            var articles: [Article] = []
+            var articles: [PracticeTagArticle] = []
 
             for document in documents {
                 guard let article = self.parseArticle(from: document) else { continue }
@@ -64,7 +64,7 @@ class FirebaseManager {
     }
 
 
-    func parseArticle(from document: DocumentSnapshot) -> Article? {
+    func parseArticle(from document: DocumentSnapshot) -> PracticeTagArticle? {
         guard let data = document.data() else {
             return nil
         }
@@ -114,7 +114,7 @@ class FirebaseManager {
         }
 
 
-        let article = Article(id: id, title: title, content: content, uploadedDate: uploadedDate)
+        let article = PracticeTagArticle(id: id, title: title, content: content, uploadedDate: uploadedDate)
 
         article.audioResource = practiceAudioResource
         article.imageResource = practiceImageResource
@@ -123,7 +123,7 @@ class FirebaseManager {
         return article
     }
 
-    func uploadArticle(_ article: Article.Copy, completion: @escaping (Bool) -> Void) {
+    func uploadArticle(_ article: PracticeTagArticle.Copy, completion: @escaping (Bool) -> Void) {
         var articleData: [String: Any] = [
             "id": article.id,
             "title": article.title!,

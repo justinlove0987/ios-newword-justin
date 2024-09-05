@@ -39,9 +39,9 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         if shouldFetchArticles() {
             fetchAndSyncArticles(with: localArticles)
         } else {
-            let articles = Article.copyArticles(from: localArticles)
+            let articles = PracticeTagArticle.copyArticles(from: localArticles)
             
-            self.resources = articles.map { PracticeServerProvidedContent.Copy(article:$0) }
+            self.resources = articles.map { PracticeServerProvidedContent.Copy(article: $0) }
         }
     }
 
@@ -59,9 +59,9 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         setupCollectionView()
     }
 
-    private func fetchArticles(completion: @escaping ([Article]) -> Void) {
+    private func fetchArticles(completion: @escaping ([PracticeTagArticle]) -> Void) {
         FirebaseManager.shared.fetchAllArticles { articles in
-            var newArticles: [Article] = []
+            var newArticles: [PracticeTagArticle] = []
 
             for article in articles {
                 newArticles.append(article)
@@ -167,17 +167,17 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         return !UserDefaultsManager.shared.hasFetchedDataToday()
     }
 
-    private func fetchAndSyncArticles(with localArticles: [Article]) {
+    private func fetchAndSyncArticles(with localArticles: [PracticeTagArticle]) {
         fetchArticles { serverArticles in
             self.syncNewServerArticles(with: localArticles, from: serverArticles) {
-                let articles = Article.copyArticles(from: serverArticles)
+                let articles = PracticeTagArticle.copyArticles(from: serverArticles)
                 self.resources = articles.map { PracticeServerProvidedContent.Copy(article:$0) }
             }
             UserDefaultsManager.shared.updateLastFetchedDate()
         }
     }
 
-    private func syncNewServerArticles(with localArticles: [Article], from serverArticles: [Article], completion: @escaping () -> Void) {
+    private func syncNewServerArticles(with localArticles: [PracticeTagArticle], from serverArticles: [PracticeTagArticle], completion: @escaping () -> Void) {
         let localArticleIDs = Set(localArticles.map { $0.id })
         let newArticles = serverArticles.filter { !localArticleIDs.contains($0.id) }
 
@@ -282,7 +282,7 @@ extension ExploreViewController {
         
                         let imageResource = PracticeImage.Copy(id: UUID().uuidString)
         
-                        let article = Article.Copy(id: UUID().uuidString,
+                        let article = PracticeTagArticle.Copy(id: UUID().uuidString,
                                                         title: title,
                                                         content: content,
                                                         uploadedDate: Date(),

@@ -83,7 +83,7 @@ class AudioPlayer: NSObject {
         return audioPlayer?.isPlaying ?? false
     }
     
-    func playAudioWithMarks(_ article: Article.Copy) {
+    func playAudioWithMarks(_ article: PracticeTagArticle.Copy) {
         play()
         startPlaybackTimer(with: article)
     }
@@ -101,12 +101,12 @@ class AudioPlayer: NSObject {
     }
     
     // 用於手動觸發計時器邏輯的方法
-    func triggerPlaybackLogic(_ article: Article.Copy) {
+    func triggerPlaybackLogic(_ article: PracticeTagArticle.Copy) {
         handlePlaybackTimer(article: article)
     }
     
     // 啟動計時器
-    private func startPlaybackTimer(with article: Article.Copy) {
+    private func startPlaybackTimer(with article: PracticeTagArticle.Copy) {
         stopPlaybackTimer() // 停止並清除現有的計時器
                 
         playbackTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
@@ -118,7 +118,7 @@ class AudioPlayer: NSObject {
         RunLoop.main.add(playbackTimer!, forMode: RunLoop.Mode.common)
     }
     
-    private func handlePlaybackTimer(article: Article.Copy) {
+    private func handlePlaybackTimer(article: PracticeTagArticle.Copy) {
         guard let player = audioPlayer else { return }
         guard let audioResource = article.audioResource else { return }
         guard let text = article.text else { return }

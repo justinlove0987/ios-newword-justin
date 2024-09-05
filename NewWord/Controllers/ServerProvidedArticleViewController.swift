@@ -22,7 +22,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBOutlet weak var articlePlayButtonView: ArticlePlayButtonView!
     @IBOutlet weak var bottomPanelStackView: UIStackView!
     
-    var copyArticle: Article.Copy?
+    var copyArticle: PracticeTagArticle.Copy?
 
     private var customTextView: AddTagTextView!
     private let pacticeModelSelectorView: PracticeModeSelectorView = PracticeModeSelectorView()
@@ -63,7 +63,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         customTextView.layer.zPosition = 0
         translationContentView.layer.zPosition = 1
         imageView.image = copyArticle?.imageResource?.image
-        customTextView.text = copyArticle?.text
+        customTextView.text = copyArticle?.revisedArticle?.text
         
         articlePlayButtonView.playButton.addTarget(self, action: #selector(playArticle), for: .touchUpInside)
 
@@ -89,13 +89,13 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     private func setupViewModel() {
         viewModel = WordSelectorViewControllerViewModel()
         
-        if let tags = copyArticle?.tags {
+        if let tags = copyArticle?.revisedArticle?.tags {
             viewModel.tags = tags
         }
     }
 
     private func setupCumstomTextView() {
-        guard let text = copyArticle?.text else { return }
+        guard let text = copyArticle?.revisedArticle?.text else { return }
 
         customTextView = AddTagTextView.createTextView(text)
         customTextView.delegate = self
@@ -150,14 +150,14 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBAction func backAction(_ sender: UIBarButtonItem) {
         guard var text = customTextView.text else { return }
         guard let copyArticle else { return }
+        
+        copyArticle.revisedArticle?.tags = viewModel.tags
+        copyArticle.revisedArticle?.text = copyArticle.revisedArticle?.text
+        
+        viewModel.saveTags(to: copyArticle)
 
 //        text = viewModel.removeAllTags(in: text) ?? ""
 //        viewModel.saveTag(text)
-        
-        copyArticle.title = customTextView.extractTitle()
-        copyArticle.content = customTextView.extractContent()
-        
-        viewModel.saveTags(to: copyArticle)
         
         viewModel.showPracticeAlert(presentViewController: self) {
             self.navigationController?.popToRootViewController(animated: true)

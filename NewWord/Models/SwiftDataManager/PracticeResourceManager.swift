@@ -17,15 +17,15 @@ class PracticeResourceManager: ModelManager<PracticeServerProvidedContent> {
 }
 
 @MainActor
-class ArticleManager: ModelManager<Article> {
+class ArticleManager: ModelManager<PracticeTagArticle> {
 
     static let shared = ArticleManager()
 
     private override init() {}
     
-    func fetch(byId id: String) -> Article? {
+    func fetch(byId id: String) -> PracticeTagArticle? {
         guard let context = context else { return nil }
-        let descriptor = FetchDescriptor<Article>(
+        let descriptor = FetchDescriptor<PracticeTagArticle>(
             predicate: #Predicate { $0.id == id }
         )
         
@@ -38,7 +38,7 @@ class ArticleManager: ModelManager<Article> {
         }
     }
     
-    func updateArticle(withId id: String, from copy: Article.Copy, applying updates: ((Article) -> Void)? = nil) {
+    func updateArticle(withId id: String, from copy: PracticeTagArticle.Copy, applying updates: ((PracticeTagArticle) -> Void)? = nil) {
         guard let context = context else {
             print("No context available")
             return
@@ -59,11 +59,23 @@ class ArticleManager: ModelManager<Article> {
         
         article.content = copy.content
         
-        article.tags.forEach { tag in
-            ContexTagManager.shared.delete(id: tag.id)
+        if let revisedArticle = article.revisedArticle {
+            
+            article.revisedArticle?.tags.forEach { tag in
+                ContexTagManager.shared.delete(id: tag.id)
+            }
+            
+            revisedArticle.text = copy.revisedArticle?.text
+            revisedArticle.tags = copy.revisedArticle!.tags.map { $0.toContextTag() }
+            
+        } else {
+            let revisedArticle = PracticeTagArticle(id: UUID().uuidString,
+                                                    text: copy.revisedArticle?.text,
+                                                    tags: copy.revisedArticle!.tags.map { $0.toContextTag() }
+            )
+            
+            article.revisedArticle = revisedArticle
         }
-        
-        article.tags = copy.tags.map { $0.toContextTag() }
         
         updates?(article)
         
@@ -76,7 +88,7 @@ class ArticleManager: ModelManager<Article> {
     }
     
     // 更新記錄
-    func updateAudio(id: String, audioData: Data?, with updates: ((Article) -> Void)? = nil) {
+    func updateAudio(id: String, audioData: Data?, with updates: ((PracticeTagArticle) -> Void)? = nil) {
         guard let context = context else { return }
 
         if let model = fetch(byId: id) {
@@ -96,7 +108,7 @@ class ArticleManager: ModelManager<Article> {
     }
 
     // 更新記錄
-    func updateImage(id: String, imageData: Data?, with updates: ((Article) -> Void)? = nil) {
+    func updateImage(id: String, imageData: Data?, with updates: ((PracticeTagArticle) -> Void)? = nil) {
         guard let context = context else { return }
 
         if let model = fetch(byId: id) {

@@ -12,10 +12,10 @@ import SwiftData
 @Model
 class PracticeServerProvidedContent: Identifiable, Codable {
 
-    var article: Article?
+    var article: PracticeTagArticle?
 
     // 初始化方法
-    init(article: Article? = nil) {
+    init(article: PracticeTagArticle? = nil) {
         self.article = article
     }
 
@@ -27,7 +27,7 @@ class PracticeServerProvidedContent: Identifiable, Codable {
     // 解碼方法
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.article = try container.decodeIfPresent(Article.self, forKey: .article)
+        self.article = try container.decodeIfPresent(PracticeTagArticle.self, forKey: .article)
     }
 
     // 編碼方法
@@ -41,9 +41,9 @@ extension PracticeServerProvidedContent {
 
     class Copy: Identifiable, Hashable  {
 
-        var article: Article.Copy?
+        var article: PracticeTagArticle.Copy?
 
-        init(article: Article.Copy? = nil, practice: Practice? = nil) {
+        init(article: PracticeTagArticle.Copy? = nil, practice: Practice? = nil) {
             self.article = article
         }
 

@@ -149,9 +149,7 @@ struct WordSelectorViewControllerViewModel {
 
 
     @MainActor 
-    func saveTags(to article: Article.Copy) {
-        article.tags = tags
-        
+    func saveTags(to article: PracticeTagArticle.Copy) {
         ArticleManager.shared.updateArticle(withId: article.id, from: article)
     }
 
@@ -260,7 +258,7 @@ struct WordSelectorViewControllerViewModel {
     }
     
     @MainActor 
-    mutating func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: Article.Copy?) {
+    mutating func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: PracticeTagArticle.Copy?) {
         guard let article = article else { return }
         guard let result = article.audioResource else { return }
 
@@ -574,7 +572,7 @@ struct WordSelectorViewControllerViewModel {
     
 
     
-    func rangeForMarkName(in article: Article.Copy, markName: String) -> NSRange? {
+    func rangeForMarkName(in article: PracticeTagArticle.Copy, markName: String) -> NSRange? {
         guard let audioResource = article.audioResource else {
             return nil
         }
