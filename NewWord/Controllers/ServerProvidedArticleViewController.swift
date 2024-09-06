@@ -63,8 +63,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         customTextView.layer.zPosition = 0
         translationContentView.layer.zPosition = 1
         imageView.image = copyArticle?.imageResource?.image
-        customTextView.text = copyArticle?.revisedArticle?.text
-        
+        customTextView.text = copyArticle?.revisedText
+
         articlePlayButtonView.playButton.addTarget(self, action: #selector(playArticle), for: .touchUpInside)
 
         applyBottomToTopFadeGradient(to: imageCoverView, startColor: .background, endColor: .clear)
@@ -89,13 +89,13 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     private func setupViewModel() {
         viewModel = WordSelectorViewControllerViewModel()
         
-        if let tags = copyArticle?.revisedArticle?.tags {
+        if let tags = copyArticle?.revisedTags {
             viewModel.tags = tags
         }
     }
 
     private func setupCumstomTextView() {
-        guard let text = copyArticle?.revisedArticle?.text else { return }
+        guard let text = copyArticle?.revisedText else { return }
 
         customTextView = AddTagTextView.createTextView(text)
         customTextView.delegate = self
@@ -151,9 +151,9 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         guard var text = customTextView.text else { return }
         guard let copyArticle else { return }
         
-        copyArticle.revisedArticle?.tags = viewModel.tags
-        copyArticle.revisedArticle?.text = copyArticle.revisedArticle?.text
-        
+        copyArticle.revisedTags = viewModel.tags
+        copyArticle.revisedText = text
+
         viewModel.saveTags(to: copyArticle)
 
 //        text = viewModel.removeAllTags(in: text) ?? ""
@@ -427,18 +427,107 @@ extension ServerProvidedArticleViewController: PracticeModeSelectorViewDelegate 
 }
 
 extension ServerProvidedArticleViewController {
+
     private func tag(range: NSRange) {
-        let text = getText(from: range)
-        guard !shouldSkipText(text) else { return }
-        
+        // 獲取點擊的文字
+        let text = (customTextView.text as NSString).substring(with: range)
+        let textWithoutFFFC = text.removeObjectReplacementCharacter()
+
+        guard !text.startsWithObjectReplacementCharacter() else { return }
+        guard !viewModel.isWhitespace(text) else { return }
+
         let textType = viewModel.getTextType(from: viewModel.selectMode)
-        
+
         if viewModel.containsTag(textType: textType, range: range) {
-            handleExistingTag(range: range, textType: textType)
+            viewModel.removeCloze(range)
+
+            let adjustmentOffset = -1
+            let updatedRange = NSRange(location: range.location-1, length: range.length)
+
+            if !viewModel.hasDuplicateTagLocations(with: range) {
+                customTextView.removeNumberImageView(at: updatedRange.location)
+                viewModel.updateTagNSRanges(with: updatedRange, offset: adjustmentOffset)
+                viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: copyArticle)
+                viewModel.currentSelectedRange = updatedRange
+                customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
+            }
+
+            let coloredText = viewModel.calculateColoredTextHeightFraction()
+            let coloredMarks = viewModel.createColoredMarks(coloredText)
+            let useRange = viewModel.hasDuplicateTagLocations(with: range) ? range : updatedRange
+            let containsTag = self.viewModel.containsTag(textType: textType, range: useRange)
+
+            customTextView.userSelectedColorRanges = coloredText
+            customTextView.renewTagImages(coloredMarks)
+            customTextView.configureProperties()
+            customTextView.removeAllDashedUnderlines()
+            customTextView.addDashedUnderline(in: useRange, forWord: self.viewModel.selectMode == .word)
+
+            updatePracticeModeSelector(containsTag: containsTag)
+
+            triggerImpactFeedback()
+
+            return
+        }
+
+        let translationClosure: ((_ translatedTraditionalText: String) -> ()) = { [weak self] translatedTraditionalText in
+            guard let self else { return }
+
+            self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
+            self.updateTag(with: range, text: text, hint: translatedTraditionalText)
+            self.updateCustomTextView()
+
+            if !self.viewModel.hasDuplicateTagLocations(with: range) {
+                let adjustmentOffset = 1
+                let updatedRange = NSRange(location: range.location+adjustmentOffset, length: range.length)
+
+                self.viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: copyArticle)
+                self.viewModel.currentSelectedRange = updatedRange
+                self.customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
+                self.customTextView.removeAllDashedUnderlines()
+                self.customTextView.addDashedUnderline(in: updatedRange, forWord: self.viewModel.selectMode == .word)
+                self.updatePracticeModeSelector(containsTag: self.viewModel.hasDuplicateTagLocations(with: updatedRange))
+
+            } else {
+                let textType = self.viewModel.getTextType(from: self.viewModel.selectMode)
+                let containsTag = self.viewModel.containsTag(textType: textType, range: range)
+                self.customTextView.removeAllDashedUnderlines()
+                self.customTextView.addDashedUnderline(in: range, forWord: self.viewModel.selectMode == .word)
+                self.updatePracticeModeSelector(containsTag: containsTag)
+
+            }
+
+            triggerImpactFeedback()
+        }
+
+
+        if viewModel.containsOriginalText(textWithoutFFFC) {
+            let translatedText = viewModel.getTranslatedText(textWithoutFFFC)
+
+            translationClosure(translatedText!)
+
         } else {
-            handleNewTag(range: range, text: text)
+            viewModel.translateEnglishToChinese(textWithoutFFFC) { translatedSimplifiedText in
+                let translatedSimplifiedText = translatedSimplifiedText ?? ""
+                let translatedTraditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
+
+                translationClosure(translatedTraditionalText)
+            }
         }
     }
+
+//    private func tag(range: NSRange) {
+//        let text = getText(from: range)
+//        guard !shouldSkipText(text) else { return }
+//        
+//        let textType = viewModel.getTextType(from: viewModel.selectMode)
+//        
+//        if viewModel.containsTag(textType: textType, range: range) {
+//            handleExistingTag(range: range, textType: textType)
+//        } else {
+//            handleNewTag(range: range, text: text)
+//        }
+//    }
 
     private func getText(from range: NSRange) -> String {
         let text = (customTextView.text as NSString).substring(with: range)
@@ -453,7 +542,7 @@ extension ServerProvidedArticleViewController {
         viewModel.removeCloze(range)
         let updatedRange = adjustedRange(for: range, adjustmentOffset: -1)
         
-        if !viewModel.hasDuplicateClozeLocations(with: range) {
+        if !viewModel.hasDuplicateTagLocations(with: range) {
             updateTextViewForExistingTag(range: range, updatedRange: updatedRange)
         }
         
@@ -475,14 +564,14 @@ extension ServerProvidedArticleViewController {
     private func configureTags() {
         let coloredText = viewModel.calculateColoredTextHeightFraction()
         let coloredMarks = viewModel.createColoredMarks(coloredText)
-        
+
         customTextView.userSelectedColorRanges = coloredText
         customTextView.renewTagImages(coloredMarks)
         customTextView.configureProperties()
     }
 
     private func updateTextViewWithTagInfo(range: NSRange, updatedRange: NSRange, textType: ContextType) {
-        let useRange = viewModel.hasDuplicateClozeLocations(with: range) ? range : updatedRange
+        let useRange = viewModel.hasDuplicateTagLocations(with: range) ? range : updatedRange
         let containsTag = viewModel.containsTag(textType: textType, range: useRange)
         
         configureTags()
@@ -525,7 +614,7 @@ extension ServerProvidedArticleViewController {
         customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
         customTextView.removeAllDashedUnderlines()
         customTextView.addDashedUnderline(in: updatedRange, forWord: viewModel.selectMode == .word)
-        updatePracticeModeSelector(containsTag: viewModel.hasDuplicateClozeLocations(with: updatedRange))
+        updatePracticeModeSelector(containsTag: viewModel.hasDuplicateTagLocations(with: updatedRange))
         
         triggerImpactFeedback()
     }

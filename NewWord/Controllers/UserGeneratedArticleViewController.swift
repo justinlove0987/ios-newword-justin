@@ -147,7 +147,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
         guard !viewModel.containsTag(textType: .article, range: range) else {
             viewModel.removeCloze(range)
 
-            if !viewModel.hasDuplicateClozeLocations(with: range) {
+            if !viewModel.hasDuplicateTagLocations(with: range) {
                 let updatedRange = NSRange(location: range.location-1, length: range.length)
                 customTextView.removeNumberImageView(at: updatedRange.location)
                 viewModel.updateTagNSRanges(with: updatedRange, offset: -1)

@@ -110,9 +110,9 @@ struct WordSelectorViewControllerViewModel {
         let location = range.location
 
         for tag in tags {
-            guard let range = tag.range else { return nil }
-            
-            let currentLocation = range.location
+            guard let currentRange = tag.range else { return nil }
+
+            let currentLocation = currentRange.location
             let isSameLocation = location == currentLocation
 
             if isSameLocation {
@@ -146,11 +146,12 @@ struct WordSelectorViewControllerViewModel {
         return text
     }
 
-
-
+    
     @MainActor 
     func saveTags(to article: PracticeTagArticle.Copy) {
+
         ArticleManager.shared.updateArticle(withId: article.id, from: article)
+
     }
 
     mutating func saveTag(_ text: String) {
@@ -238,10 +239,10 @@ struct WordSelectorViewControllerViewModel {
         }
     }
 
-    func hasDuplicateClozeLocations(with range: NSRange) -> Bool {
+    func hasDuplicateTagLocations(with range: NSRange) -> Bool {
         for i in 0..<tags.count {
             let tag = tags[i]
-            guard let crrentRange = tag.range else { return false}
+            guard let crrentRange = tag.range else { return false }
             let currentLocation = crrentRange.location
             let hasDuplicates = range.location == currentLocation
 
@@ -260,17 +261,16 @@ struct WordSelectorViewControllerViewModel {
     @MainActor 
     mutating func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: PracticeTagArticle.Copy?) {
         guard let article = article else { return }
-        guard let result = article.audioResource else { return }
 
-        for i in 0..<result.timepoints.count {
-            let timepoint = result.timepoints[i]
+        for i in 0..<article.revisedTimepoints.count {
+            let timepoint = article.revisedTimepoints[i]
 
             guard let range = timepoint.range else { continue }
 
             let isGreaterThanTagPosition = range.location >= tagPosition
 
             if isGreaterThanTagPosition {
-                result.timepoints[i].rangeLocation! += adjustmentOffset
+                article.revisedTimepoints[i].rangeLocation! += adjustmentOffset
             }
         }
     }
@@ -573,11 +573,11 @@ struct WordSelectorViewControllerViewModel {
 
     
     func rangeForMarkName(in article: PracticeTagArticle.Copy, markName: String) -> NSRange? {
-        guard let audioResource = article.audioResource else {
-            return nil
-        }
+//        guard let audioResource = article.audioResource else {
+//            return nil
+//        }
 
-        for timepoint in audioResource.timepoints {
+        for timepoint in article.revisedTimepoints {
             if timepoint.markName == markName {
                 return timepoint.range
             }

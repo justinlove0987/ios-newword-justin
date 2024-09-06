@@ -120,12 +120,12 @@ class AudioPlayer: NSObject {
     
     private func handlePlaybackTimer(article: PracticeTagArticle.Copy) {
         guard let player = audioPlayer else { return }
-        guard let audioResource = article.audioResource else { return }
+//        guard let audioResource = article.audioResource else { return }
         guard let text = article.text else { return }
         
         let currentTimeInSeconds = roundToOneDecimalPlace(player.currentTime)
 
-        for timepoint in audioResource.timepoints {
+        for timepoint in article.revisedTimepoints {
             guard let timeSeconds = timepoint.timeSeconds else { return }
             guard let markName = timepoint.markName else { return }
 

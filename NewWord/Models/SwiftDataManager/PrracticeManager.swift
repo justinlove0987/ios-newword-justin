@@ -26,10 +26,19 @@ class PracticeContextManager: ModelManager<PracticeContext> {
 }
 
 @MainActor
-class ContexTagManager: ModelManager<ContextTag> {
+class ContextTagManager: ModelManager<ContextTag> {
 
-    static let shared = ContexTagManager()
+    static let shared = ContextTagManager()
 
     private override init() {}
 }
+
+@MainActor
+class TimepointInformationManager: ModelManager<TimepointInformation> {
+
+    static let shared = TimepointInformationManager()
+
+    private override init() {}
+}
+
 

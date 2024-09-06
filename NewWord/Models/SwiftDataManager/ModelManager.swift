@@ -33,6 +33,7 @@ class ModelManager<Model: ModelProtocol> {
     // 刪除所有記錄
     func deleteAll() {
         guard let context = context else { return }
+
         do {
             let allModels = try context.fetch(FetchDescriptor<Model>())
             for model in allModels {
@@ -62,9 +63,10 @@ class ModelManager<Model: ModelProtocol> {
     }
     
     // 刪除記錄
-    func delete(id: PersistentIdentifier) {
+    func delete(id: PersistentIdentifier) async {
         guard let context = context else { return }
-        if let model = fetch(byId: id) {
+
+        if let model = await fetch(byId: id) {
             context.delete(model)
             do {
                 try context.save()
@@ -77,10 +79,10 @@ class ModelManager<Model: ModelProtocol> {
     }
     
     // 更新記錄
-    func update(id: PersistentIdentifier, with updates: ((Model) -> Void)? = nil) {
+    func update(id: PersistentIdentifier, with updates: ((Model) -> Void)? = nil) async {
         guard let context = context else { return }
 
-        if let model = fetch(byId: id) {
+        if let model = await fetch(byId: id) {
             // 如果有傳遞 updates 閉包，則執行更新
             updates?(model)
 
@@ -95,12 +97,14 @@ class ModelManager<Model: ModelProtocol> {
     }
 
     // 讀取記錄
-    func fetch(byId id: PersistentIdentifier) -> Model? {
+    func fetch(byId id: PersistentIdentifier) async -> Model? {
         guard let context = context else { return nil }
+
+
         let descriptor = FetchDescriptor<Model>(
             predicate: #Predicate { $0.persistentModelID == id }
         )
-        
+
         do {
             let models = try context.fetch(descriptor)
             return models.first
@@ -166,5 +170,65 @@ class PersistentContainerManager {
         let configuration = ModelConfiguration(isStoredInMemoryOnly: false)
 
         container = try? ModelContainer(for: schema, configurations: [configuration])
+
+    }
+}
+
+@available(iOS 17, *)
+public actor BackgroundSerialPersistenceActor: ModelActor {
+
+    public let modelContainer: ModelContainer
+    public let modelExecutor: any ModelExecutor
+    private var context: ModelContext { modelExecutor.modelContext }
+
+    public init(container: ModelContainer) {
+        self.modelContainer = container
+        let context = ModelContext(modelContainer)
+        modelExecutor = DefaultSerialModelExecutor(modelContext: context)
+    }
+
+    public func fetchData<T: PersistentModel>(
+        predicate: Predicate<T>? = nil,
+        sortBy: [SortDescriptor<T>] = []
+    ) throws -> [T] {
+        let fetchDescriptor = FetchDescriptor<T>(predicate: predicate, sortBy: sortBy)
+        let list: [T] = try context.fetch(fetchDescriptor)
+        return list
+    }
+
+    public func fetchCount<T: PersistentModel>(
+        predicate: Predicate<T>? = nil,
+        sortBy: [SortDescriptor<T>] = []
+    ) throws -> Int {
+        let fetchDescriptor = FetchDescriptor<T>(predicate: predicate, sortBy: sortBy)
+        let count = try context.fetchCount(fetchDescriptor)
+        return count
+    }
+
+    public func insert<T: PersistentModel>(data: T) {
+        let context = data.modelContext ?? context
+        context.insert(data)
+    }
+
+    public func save() throws {
+        try context.save()
+    }
+
+    public func remove<T: PersistentModel>(predicate: Predicate<T>? = nil) throws {
+        try context.delete(model: T.self, where: predicate)
+    }
+
+    public func saveAndInsertIfNeeded<T: PersistentModel>(
+        data: T,
+        predicate: Predicate<T>
+    ) throws {
+        let descriptor = FetchDescriptor<T>(predicate: predicate)
+        let context = data.modelContext ?? context
+        let savedCount = try context.fetchCount(descriptor)
+
+        if savedCount == 0 {
+            context.insert(data)
+        }
+        try context.save()
     }
 }

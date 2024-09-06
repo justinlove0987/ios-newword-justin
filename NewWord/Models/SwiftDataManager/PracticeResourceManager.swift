@@ -48,7 +48,7 @@ class ArticleManager: ModelManager<PracticeTagArticle> {
             print("Article with ID \(id) not found")
             return
         }
-        
+
         if let audioData = copy.audioResource?.data {
             article.audioResource?.data = audioData
         }
@@ -56,26 +56,35 @@ class ArticleManager: ModelManager<PracticeTagArticle> {
         if let imageData = copy.imageResource?.data {
             article.imageResource?.data = imageData
         }
-        
-        article.content = copy.content
-        
-        if let revisedArticle = article.revisedArticle {
-            
-            article.revisedArticle?.tags.forEach { tag in
-                ContexTagManager.shared.delete(id: tag.id)
+
+//        let actor = BackgroundSerialPersistenceActor(container: PersistentContainerManager.shared.container!)
+
+//        Task {
+            article.revisedTags.forEach { tag in
+                Task {
+//                    let predicate = #Predicate<ContextTag> { $0.id == tag.id }
+//                    try await actor.remove(predicate: predicate)
+                    await ContextTagManager.shared.delete(id: tag.id)
+                }
             }
-            
-            revisedArticle.text = copy.revisedArticle?.text
-            revisedArticle.tags = copy.revisedArticle!.tags.map { $0.toContextTag() }
-            
-        } else {
-            let revisedArticle = PracticeTagArticle(id: UUID().uuidString,
-                                                    text: copy.revisedArticle?.text,
-                                                    tags: copy.revisedArticle!.tags.map { $0.toContextTag() }
-            )
-            
-            article.revisedArticle = revisedArticle
-        }
+//        }
+
+//        Task {
+            article.revisedTimepoints.forEach { timepoint in
+                Task {
+                    await TimepointInformationManager.shared.delete(id: timepoint.id)
+                }
+
+//                Task {
+//                    let predicate = #Predicate<TimepointInformation> { $0.id == timepoint.id }
+//                    try await actor.remove(predicate: predicate)
+//                }
+            }
+//        }
+
+        article.revisedTimepoints = copy.revisedTimepoints.map { $0.toTimepointInformation() }
+        article.revisedTags = copy.revisedTags.map { $0.toContextTag() }
+        article.revisedText = copy.revisedText
         
         updates?(article)
         

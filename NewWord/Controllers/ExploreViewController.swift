@@ -29,10 +29,6 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
 //        PracticeManager.shared.deleteAllEntities()
 //        UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
 //        uploadArticle()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
 
         let localArticles = ArticleManager.shared.fetchAll()
 
@@ -40,7 +36,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
             fetchAndSyncArticles(with: localArticles)
         } else {
             let articles = PracticeTagArticle.copyArticles(from: localArticles)
-            
+
             self.resources = articles.map { PracticeServerProvidedContent.Copy(article: $0) }
         }
     }
@@ -283,12 +279,14 @@ extension ExploreViewController {
                         let imageResource = PracticeImage.Copy(id: UUID().uuidString)
         
                         let article = PracticeTagArticle.Copy(id: UUID().uuidString,
-                                                        title: title,
-                                                        content: content,
-                                                        uploadedDate: Date(),
-                                                        audioResource: audioResource,
-                                                        imageResource: imageResource,
-                                                   cefrType: CEFR.c1.rawValue
+                                                              title: title,
+                                                              content: content,
+                                                              text: "\(title)\n\n\(content)",
+                                                              uploadedDate: Date(),
+                                                              audioResource: audioResource,
+                                                              imageResource: imageResource,
+                                                              cefrType: CEFR.c1.rawValue,
+                                                              revisedText: "\(title)\n\n\(content)"
                         )
         
                         FirebaseManager.shared.uploadArticle(article) { isDownloadSuccessful in

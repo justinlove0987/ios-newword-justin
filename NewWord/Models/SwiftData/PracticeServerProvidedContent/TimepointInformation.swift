@@ -90,6 +90,15 @@ extension TimepointInformation {
         func hash(into hasher: inout Hasher) {
             hasher.combine(id)
         }
+
+        func toTimepointInformation() -> TimepointInformation {
+            return TimepointInformation(
+                location: self.rangeLocation,
+                length: self.rangeLength,
+                markName: self.markName ?? "",
+                timeSeconds: self.timeSeconds ?? 0.0
+            )
+        }
     }
 
     func copy() -> Copy {
