@@ -187,6 +187,12 @@ public actor BackgroundSerialPersistenceActor: ModelActor {
         modelExecutor = DefaultSerialModelExecutor(modelContext: context)
     }
 
+    public func fetchAll<T: PersistentModel>() throws -> [T] {
+        let fetchDescriptor = FetchDescriptor<T>()
+        let list: [T] = try context.fetch(fetchDescriptor)
+        return list
+    }
+
     public func fetchData<T: PersistentModel>(
         predicate: Predicate<T>? = nil,
         sortBy: [SortDescriptor<T>] = []
