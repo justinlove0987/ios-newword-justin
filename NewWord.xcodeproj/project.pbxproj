@@ -72,6 +72,7 @@
 		2A89D86A2C7435AC00DDBFF0 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89D8692C7435AC00DDBFF0 /* UITextView+Extension.swift */; };
 		2A89D86C2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A89D86B2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib */; };
 		2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */; };
+		2A91E2D82C92D1BA00C619AF /* UserGeneratedTagArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A91E2D72C92D1BA00C619AF /* UserGeneratedTagArticle.swift */; };
 		2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */; };
 		2A9C8AF62C3BBE3500D839D8 /* OpenCC in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9C8AF52C3BBE3500D839D8 /* OpenCC */; };
 		2AA450812C8858410033F5DA /* ContextTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA450802C8858410033F5DA /* ContextTag.swift */; };
@@ -215,6 +216,7 @@
 		2A89D8692C7435AC00DDBFF0 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		2A89D86B2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeModeSelectorView.xib; sourceTree = "<group>"; };
 		2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeSelectorView.swift; sourceTree = "<group>"; };
+		2A91E2D72C92D1BA00C619AF /* UserGeneratedTagArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGeneratedTagArticle.swift; sourceTree = "<group>"; };
 		2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevisePresetViewController.swift; sourceTree = "<group>"; };
 		2AA450802C8858410033F5DA /* ContextTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextTag.swift; sourceTree = "<group>"; };
 		2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewController.swift; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 			children = (
 				2A7045792C85AC3A00A58672 /* PracticeServerProvidedContent.swift */,
 				2A70457C2C85AFE700A58672 /* PracticeTagArticle.swift */,
+				2A91E2D72C92D1BA00C619AF /* UserGeneratedTagArticle.swift */,
 				2A70457E2C85B04700A58672 /* PracticeAudio.swift */,
 				2A7045802C85B08700A58672 /* PracticeImage.swift */,
 				D01DAA842C8825EA0021BB3A /* TimepointInformation.swift */,
@@ -736,6 +739,7 @@
 				D02BE80E2C67B26F00140DD3 /* GoogleCloudTranslationService.swift in Sources */,
 				D01DAA852C8825EA0021BB3A /* TimepointInformation.swift in Sources */,
 				D032145B2BD63C2200512263 /* Preferences.swift in Sources */,
+				2A91E2D82C92D1BA00C619AF /* UserGeneratedTagArticle.swift in Sources */,
 				2A18E7B42BE74008005139C8 /* DeckCell.swift in Sources */,
 				2AFC91552C7C6634002C2AD1 /* PracticeSettingHeaderView.swift in Sources */,
 				2A7045852C85B46C00A58672 /* PracticeRecord.swift in Sources */,

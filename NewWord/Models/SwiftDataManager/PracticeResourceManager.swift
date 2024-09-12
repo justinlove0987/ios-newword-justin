@@ -39,6 +39,7 @@ class ArticleManager: ModelManager<PracticeTagArticle> {
     }
     
     func updateArticle(withId id: String, from copy: PracticeTagArticle.Copy, applying updates: ((PracticeTagArticle) -> Void)? = nil) {
+        
         guard let context = context else {
             print("No context available")
             return
@@ -48,7 +49,7 @@ class ArticleManager: ModelManager<PracticeTagArticle> {
             print("Article with ID \(id) not found")
             return
         }
-
+        
         if let audioData = copy.audioResource?.data {
             article.audioResource?.data = audioData
         }
@@ -56,35 +57,27 @@ class ArticleManager: ModelManager<PracticeTagArticle> {
         if let imageData = copy.imageResource?.data {
             article.imageResource?.data = imageData
         }
-
-//        let actor = BackgroundSerialPersistenceActor(container: PersistentContainerManager.shared.container!)
-
-//        Task {
-            article.revisedTags.forEach { tag in
-                Task {
-//                    let predicate = #Predicate<ContextTag> { $0.id == tag.id }
-//                    try await actor.remove(predicate: predicate)
-                    await ContextTagManager.shared.delete(id: tag.id)
-                }
+        
+        guard let ugcArticle = article.userGeneratedTagArticle else { return }
+        guard let ugcCopy = copy.userGeneratedTagArticle else { return }
+        
+        ugcArticle.revisedTags.forEach { tag in
+            Task {
+                await ContextTagManager.shared.delete(id: tag.id)
             }
-//        }
-
-//        Task {
-            article.revisedTimepoints.forEach { timepoint in
-                Task {
-                    await TimepointInformationManager.shared.delete(id: timepoint.id)
-                }
-
-//                Task {
-//                    let predicate = #Predicate<TimepointInformation> { $0.id == timepoint.id }
-//                    try await actor.remove(predicate: predicate)
-//                }
+        }
+        
+        ugcArticle.revisedTimepoints.forEach { timepoint in
+            Task {
+                await TimepointInformationManager.shared.delete(id: timepoint.id)
             }
-//        }
-
-        article.revisedTimepoints = copy.revisedTimepoints.map { $0.toTimepointInformation() }
-        article.revisedTags = copy.revisedTags.map { $0.toContextTag() }
-        article.revisedText = copy.revisedText
+            
+        }
+        
+        
+        ugcArticle.revisedTimepoints = ugcCopy.revisedTimepoints.map { $0.toTimepointInformation() }
+        ugcArticle.revisedTags = ugcCopy.revisedTags.map { $0.toContextTag() }
+        ugcArticle.revisedText = ugcCopy.revisedText
         
         updates?(article)
         

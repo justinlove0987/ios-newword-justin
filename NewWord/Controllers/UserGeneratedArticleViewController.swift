@@ -91,23 +91,18 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
     }
     
     @IBAction func confirmAction(_ sender: UIBarButtonItem) {
-        guard var text = customTextView.text else { return }
+//        guard var text = customTextView.text else { return }
         
-        text = viewModel.removeAllTags(in: text) ?? ""
-        viewModel.saveTag(text)
+//        text = viewModel.removeAllTags(in: text) ?? ""
+//        viewModel.saveTag(text)
         
-        navigationController?.popToRootViewController(animated: true)
+//        navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func selectModeAction(_ sender: UIButton) {
         viewModel.changeSelectMode()
         selectModeButton.setTitle(viewModel.selectMode.title, for: .normal)
     }
-
-    //    @IBAction func settingAction(_ sender: UIButton) {
-    //        let controller = TagSettingViewController.instantiate()
-    //        navigationController?.present(controller, animated: true)
-    //    }
 
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         guard !customTextView.isTextSelected() else {

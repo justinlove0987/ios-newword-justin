@@ -63,7 +63,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         customTextView.layer.zPosition = 0
         translationContentView.layer.zPosition = 1
         imageView.image = copyArticle?.imageResource?.image
-        customTextView.text = copyArticle?.revisedText
+        customTextView.text = copyArticle?.userGeneratedTagArticle?.revisedText
 
         articlePlayButtonView.playButton.addTarget(self, action: #selector(playArticle), for: .touchUpInside)
 
@@ -89,13 +89,13 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     private func setupViewModel() {
         viewModel = WordSelectorViewControllerViewModel()
         
-        if let tags = copyArticle?.revisedTags {
+        if let tags = copyArticle?.userGeneratedTagArticle?.revisedTags {
             viewModel.tags = tags
         }
     }
 
     private func setupCumstomTextView() {
-        guard let text = copyArticle?.revisedText else { return }
+        guard let text = copyArticle?.userGeneratedTagArticle?.revisedText else { return }
 
         customTextView = AddTagTextView.createTextView(text)
         customTextView.delegate = self
@@ -151,8 +151,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         guard var text = customTextView.text else { return }
         guard let copyArticle else { return }
         
-        copyArticle.revisedTags = viewModel.tags
-        copyArticle.revisedText = text
+        copyArticle.userGeneratedTagArticle?.revisedTags = viewModel.tags
+        copyArticle.userGeneratedTagArticle?.revisedText = text
 
         viewModel.saveTags(to: copyArticle)
 

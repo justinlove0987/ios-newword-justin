@@ -260,7 +260,7 @@ struct WordSelectorViewControllerViewModel {
     
     @MainActor 
     mutating func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: PracticeTagArticle.Copy?) {
-        guard let article = article else { return }
+        guard let article = article?.userGeneratedTagArticle else { return }
 
         for i in 0..<article.revisedTimepoints.count {
             let timepoint = article.revisedTimepoints[i]
@@ -573,9 +573,7 @@ struct WordSelectorViewControllerViewModel {
 
     
     func rangeForMarkName(in article: PracticeTagArticle.Copy, markName: String) -> NSRange? {
-//        guard let audioResource = article.audioResource else {
-//            return nil
-//        }
+        guard let article = article.userGeneratedTagArticle else { return nil }
 
         for timepoint in article.revisedTimepoints {
             if timepoint.markName == markName {

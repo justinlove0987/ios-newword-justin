@@ -25,20 +25,14 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        
+//        uploadArticle()
+        
+        handleArticles()
 
 //        PracticeManager.shared.deleteAllEntities()
 //        UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
 //        uploadArticle()
-
-        let localArticles = ArticleManager.shared.fetchAll()
-
-        if shouldFetchArticles() {
-            fetchAndSyncArticles(with: localArticles)
-        } else {
-            let articles = PracticeTagArticle.copyArticles(from: localArticles)
-
-            self.resources = articles.map { PracticeServerProvidedContent.Copy(article: $0) }
-        }
     }
 
     func getYesterdayDate() -> Date {
@@ -162,6 +156,17 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     private func shouldFetchArticles() -> Bool {
         return !UserDefaultsManager.shared.hasFetchedDataToday()
     }
+    
+    func handleArticles() {
+        let localArticles = ArticleManager.shared.fetchAll()
+
+        if shouldFetchArticles() {
+            fetchAndSyncArticles(with: localArticles)
+        } else {
+            let articles = PracticeTagArticle.copyArticles(from: localArticles)
+            self.resources = articles.map { PracticeServerProvidedContent.Copy(article: $0) }
+        }
+    }
 
     private func fetchAndSyncArticles(with localArticles: [PracticeTagArticle]) {
         fetchArticles { serverArticles in
@@ -277,6 +282,10 @@ extension ExploreViewController {
                         print("foo upload audio \(isDownloadSuccessful)")
         
                         let imageResource = PracticeImage.Copy(id: UUID().uuidString)
+                        
+                        
+                        let ugArticle = UserGeneratedTagArticle.Copy(id: UUID().uuidString,
+                                                                     revisedText: "\(title)\n\n\(content)")
         
                         let article = PracticeTagArticle.Copy(id: UUID().uuidString,
                                                               title: title,
@@ -286,7 +295,7 @@ extension ExploreViewController {
                                                               audioResource: audioResource,
                                                               imageResource: imageResource,
                                                               cefrType: CEFR.c1.rawValue,
-                                                              revisedText: "\(title)\n\n\(content)"
+                                                              userGeneratedTagArticle: ugArticle
                         )
         
                         FirebaseManager.shared.uploadArticle(article) { isDownloadSuccessful in

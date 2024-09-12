@@ -120,8 +120,8 @@ class AudioPlayer: NSObject {
     
     private func handlePlaybackTimer(article: PracticeTagArticle.Copy) {
         guard let player = audioPlayer else { return }
-//        guard let audioResource = article.audioResource else { return }
         guard let text = article.text else { return }
+        guard let article = article.userGeneratedTagArticle else { return }
         
         let currentTimeInSeconds = roundToOneDecimalPlace(player.currentTime)
 

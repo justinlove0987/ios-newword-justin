@@ -12,7 +12,7 @@ import SwiftData
 
 @Model
 class PracticeTagArticle: Identifiable, Codable {
-    
+
     var id: String
     var title: String?
     var content: String?
@@ -21,10 +21,7 @@ class PracticeTagArticle: Identifiable, Codable {
     var audioResource: PracticeAudio?
     var imageResource: PracticeImage?
     var cefrType: Int?
-    var tags: [ContextTag] = []
-    var revisedTags: [ContextTag] = []
-    var revisedText: String?
-    var revisedTimepoints: [TimepointInformation] = []
+    var userGeneratedTagArticle: UserGeneratedTagArticle?
 
     // 初始化方法
     init(id: String,
@@ -35,10 +32,7 @@ class PracticeTagArticle: Identifiable, Codable {
          audioResource: PracticeAudio? = nil,
          imageResource: PracticeImage? = nil,
          cefrType: Int? = nil,
-         tags: [ContextTag] = [],
-         revisedTags: [ContextTag] = [],
-         revisedText: String? = nil,
-         revisedTimepoints: [TimepointInformation] = []
+         userGeneratedTagArticle: UserGeneratedTagArticle? = nil
     ) {
         self.id = id
         self.title = title
@@ -48,12 +42,9 @@ class PracticeTagArticle: Identifiable, Codable {
         self.audioResource = audioResource
         self.imageResource = imageResource
         self.cefrType = cefrType
-        self.tags = tags
-        self.revisedTags = revisedTags
-        self.revisedText = revisedText
-        self.revisedTimepoints = revisedTimepoints
+        self.userGeneratedTagArticle = userGeneratedTagArticle
     }
-    
+
     // CodingKeys 枚舉，用於定義屬性與 JSON 鍵的對應
     private enum CodingKeys: String, CodingKey {
         case id
@@ -64,12 +55,9 @@ class PracticeTagArticle: Identifiable, Codable {
         case audioResource
         case imageResource
         case cefrType
-        case tags
-        case revisedText
-        case revisedTags
-        case revisedTimepoints
+        case userGeneratedTagArticle
     }
-    
+
     // 解碼方法
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -81,25 +69,21 @@ class PracticeTagArticle: Identifiable, Codable {
         self.audioResource = try container.decodeIfPresent(PracticeAudio.self, forKey: .audioResource)
         self.imageResource = try container.decodeIfPresent(PracticeImage.self, forKey: .imageResource)
         self.cefrType = try container.decodeIfPresent(Int.self, forKey: .cefrType)
-        self.revisedText = try container.decode(String.self, forKey: .revisedText)
-        self.revisedTags = try container.decode([ContextTag].self, forKey: .revisedTags)
-        self.revisedTimepoints = try container.decode([TimepointInformation].self, forKey: .revisedTimepoints)
+        self.userGeneratedTagArticle = try container.decodeIfPresent(UserGeneratedTagArticle.self, forKey: .userGeneratedTagArticle)
     }
-    
+
     // 編碼方法
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encodeIfPresent(title, forKey: .title)
         try container.encodeIfPresent(content, forKey: .content)
-        try container.encodeIfPresent(content, forKey: .text)
+        try container.encodeIfPresent(text, forKey: .text)
         try container.encodeIfPresent(uploadedDate, forKey: .uploadedDate)
         try container.encodeIfPresent(audioResource, forKey: .audioResource)
         try container.encodeIfPresent(imageResource, forKey: .imageResource)
         try container.encodeIfPresent(cefrType, forKey: .cefrType)
-        try container.encodeIfPresent(revisedTags, forKey: .revisedTags)
-        try container.encodeIfPresent(revisedText, forKey: .revisedText)
-        try container.encodeIfPresent(revisedTimepoints, forKey: .revisedTimepoints)
+        try container.encodeIfPresent(userGeneratedTagArticle, forKey: .userGeneratedTagArticle)
     }
 }
 
@@ -126,7 +110,6 @@ extension PracticeTagArticle {
     }
 }
 
-
 extension PracticeTagArticle {
 
     class Copy: Identifiable, Hashable {
@@ -138,10 +121,7 @@ extension PracticeTagArticle {
         var audioResource: PracticeAudio.Copy?
         var imageResource: PracticeImage.Copy?
         var cefrType: Int?
-        var tags: [ContextTag.Copy] = []
-        var revisedTags: [ContextTag.Copy] = []
-        var revisedText: String?
-        var revisedTimepoints: [TimepointInformation.Copy] = []
+        var userGeneratedTagArticle: UserGeneratedTagArticle.Copy?
 
         init(id: String,
              title: String? = nil,
@@ -151,11 +131,7 @@ extension PracticeTagArticle {
              audioResource: PracticeAudio.Copy? = nil,
              imageResource: PracticeImage.Copy? = nil,
              cefrType: Int? = nil,
-             tags: [ContextTag.Copy] = [],
-             revisedTags: [ContextTag.Copy] = [],
-             revisedText: String? = nil,
-             revisedTimepoints: [TimepointInformation.Copy] = []
-
+             userGeneratedTagArticle: UserGeneratedTagArticle.Copy? = nil
         ) {
             self.id = id
             self.title = title
@@ -165,11 +141,7 @@ extension PracticeTagArticle {
             self.audioResource = audioResource
             self.imageResource = imageResource
             self.cefrType = cefrType
-            self.tags = tags
-            self.revisedTags = revisedTags
-            self.revisedText = revisedText
-            self.revisedTimepoints = revisedTimepoints
-
+            self.userGeneratedTagArticle = userGeneratedTagArticle
         }
 
         var formattedUploadedDate: String? {
@@ -200,29 +172,24 @@ extension PracticeTagArticle {
             hasher.combine(id)
         }
     }
-    
 
     func copy() -> Copy {
+        let hasUGCTagArticle = self.userGeneratedTagArticle != nil && self.userGeneratedTagArticle?.revisedText != nil
         
-        let hasNoText = self.text == nil && self.title != nil && self.content != nil
-        let hasNoRevisedText = self.revisedText == nil && self.title != nil && self.content != nil
-        let text = hasNoText ? "\(self.title!)\n\n\(self.content!)" : self.text
-        let revisedText = hasNoRevisedText ? "\(self.title!)\n\n\(self.content!)" : self.revisedText
-        let revisedTimpoints = (self.revisedTimepoints.isEmpty ? self.audioResource?.timepoints.map { $0.copy() } : self.revisedTimepoints.map { $0.copy() }) ?? []
-
+        let ugcTagArticle: UserGeneratedTagArticle? = hasUGCTagArticle ? 
+        self.userGeneratedTagArticle : 
+        UserGeneratedTagArticle(id: UUID().uuidString, revisedText: "\(title!)\n\n\(content!)")
+        
         let copy = Copy(
             id: self.id,
             title: self.title,
             content: self.content,
-            text: text,
+            text: self.text,
             uploadedDate: self.uploadedDate,
             audioResource: self.audioResource?.copy(),
             imageResource: self.imageResource?.copy(),
             cefrType: self.cefrType,
-            tags: self.tags.map { $0.copy() },
-            revisedTags: self.revisedTags.map { $0.copy() },
-            revisedText: revisedText,
-            revisedTimepoints: revisedTimpoints
+            userGeneratedTagArticle: ugcTagArticle?.copy()
         )
         
         return copy
