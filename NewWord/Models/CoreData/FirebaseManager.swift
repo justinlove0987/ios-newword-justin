@@ -69,15 +69,14 @@ class FirebaseManager {
             return nil
         }
 
-        let practiceAudioResource = CDPracticeAudio()
-        let practiceImageResource = CDPracticeImage()
+        let practiceAudioResource = CoreDataManager.shared.createPracticeAudio()
+        let practiceImageResource = CoreDataManager.shared.createPracticeImage()
         let article = CoreDataManager.shared.createArticle()
 
-        guard let id = data["id"] as? String else { return nil }
+        let id = data["id"] as? String
         let title = data["title"] as? String
         let content = data["content"] as? String
         let cefrRawValue = data["cefrType"] as? Int
-
         let timestamp = data["uploadedDate"] as? Timestamp
         let uploadedDate = timestamp?.dateValue()
 

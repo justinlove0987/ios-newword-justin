@@ -26,15 +26,15 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         super.viewDidLoad()
         setup()
         UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
-//        uploadArticle()
         
+        FirebaseManager.shared.fetchAllArticles { articles in
+            print("foo - \(articles)")
+        }
+        
+//        uploadArticle()
 //        handleArticles()
 
         self.resources = CoreDataManager.shared.getAllArticles()
-
-//        PracticeManager.shared.deleteAllEntities()
-
-//        uploadArticle()
     }
 
     func getYesterdayDate() -> Date {
@@ -265,7 +265,7 @@ extension ExploreViewController {
         
                 let text = "\(title)\n\n\(content)"
         
-                GoogleTTSService.shared.downloadSSML(text) { audioResource in
+            GoogleTTSService.shared.downloadSSML(text) { audioResource, timepoints  in
                     guard let audioResource else {
                         print("foo - download ssml failed")
                         return
@@ -275,20 +275,27 @@ extension ExploreViewController {
                         print("foo - download ssml failed, there is no audio data")
                         return
                     }
+                
+                    guard let timepoints else {
+                        print("foo - download ssml failed, there is no timepoints")
+                        return
+                    }
         
                     FirebaseManager.shared.uploadAudio(audioId: id, audioData: audioData) { isDownloadSuccessful, url in
-                        print("foo upload audio \(isDownloadSuccessful)")
+                        
+                        print("foo - upload audio \(isDownloadSuccessful)")
         
                         let imageResource = CoreDataManager.shared.createPracticeImage()
-
-                        let article = CoreDataManager.shared.createArticle(text: "\(title)\n\n\(content)",
-                                                             title: title,
-                                                             content: content,
-                                                             uploadedDate: Date(),
-                                                             cefrRawValue: CEFR.c1.rawValue,
-                                                             audioResource: audioResource,
-                                                             imageResource: imageResource
-                        )
+                        let article = CoreDataManager.shared.createArticle()
+                        
+                        article.title = title
+                        article.content = content
+                        article.text = article.text
+                        article.uploadedDate = Date()
+                        article.cefrRawValue = CEFR.c1.rawValue.toInt64
+                        article.audioResource = audioResource
+                        article.imageResource = imageResource
+                        article.timepoints = NSSet(array: timepoints)
         
                         FirebaseManager.shared.uploadArticle(article) { isDownloadSuccessful in
                             print("foo - upload article \(isDownloadSuccessful)")

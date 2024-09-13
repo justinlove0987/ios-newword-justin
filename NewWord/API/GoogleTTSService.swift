@@ -294,7 +294,7 @@ class GoogleTTSService: NSObject {
             }
             
             let audioResrouce = CoreDataManager.shared.createPracticeAudio()
-            audioResrouce.data = data
+            audioResrouce.data = audioData
 
             DispatchQueue.main.async {
                 completion(audioResrouce,timepoints)
