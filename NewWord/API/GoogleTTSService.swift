@@ -238,7 +238,7 @@ class GoogleTTSService: NSObject {
     func downloadSSML(_ text: String,
                       voiceType: VoiceType = .enUSPolyglot1Male,
                       rate: Double = 0.8,
-                      completion: @escaping (CDPractice) -> Void) {
+                      completion: @escaping (CDPracticeAudio?, [CDTimepointInformation]?) -> Void) {
 
         var text = addMarksToText(text)
         text = wrapWithSpeakTags(text)
@@ -259,13 +259,13 @@ class GoogleTTSService: NSObject {
             guard let audioContent = response["audioContent"] as? String,
                   let audioData = Data(base64Encoded: audioContent) else {
                 DispatchQueue.main.async {
-                    completion(nil)
+                    completion(nil,nil)
                 }
                 return
             }
             
             // 解析 timepoints 並封裝到 TimepointInfo 中
-            var timepoints: [TimepointInformation.Copy] = []
+            var timepoints: [CDTimepointInformation] = []
 
             if let tpArray = response["timepoints"] as? [[String: Any]] {
                 for tp in tpArray {
@@ -282,21 +282,22 @@ class GoogleTTSService: NSObject {
                             return nil
                         }()
 
-                        let timepointInformation = TimepointInformation.Copy(id: nil,
-                                                                             location: range?.location,
-                                                                             length: range?.length,
-                                                                             markName: markName,
-                                                                             timeSeconds: timeSeconds)
+                        
+                        let timepointInformation = CoreDataManager.shared.createTimePointInformation(rangeLength: range?.length,
+                                                                          rangeLocation: range?.location,
+                                                                          timeSeconds: timeSeconds,
+                                                                          markName: markName)
 
                         timepoints.append(timepointInformation)
                     }
                 }
             }
             
-            let result = PracticeAudio.Copy(id: UUID().uuidString ,data: audioData, timepoints: timepoints)
+            let audioResrouce = CoreDataManager.shared.createPracticeAudio()
+            audioResrouce.data = data
 
             DispatchQueue.main.async {
-                completion(result)
+                completion(audioResrouce,timepoints)
             }
         }
     }

@@ -34,6 +34,15 @@ extension CDPracticeArticle {
     var cefr: CEFR? {
         return CEFR(rawValue: Int(cefrRawValue))
     }
+    
+    func createText() -> String? {
+        guard let title,
+              let content else {
+            return nil
+        }
+        
+        return "\(title)\n\n\(content)"
+    }
 
 }
 

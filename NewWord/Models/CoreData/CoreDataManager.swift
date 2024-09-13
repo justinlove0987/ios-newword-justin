@@ -705,27 +705,8 @@ extension CoreDataManager {
 
 extension CoreDataManager {
 
-    func createArticle(text: String,
-                       title: String,
-                       content: String,
-                       uploadedDate: Date,
-                       cefrRawValue: Int,
-                       audioResource: CDPracticeAudio,
-                       imageResource: CDPracticeImage,
-                       userGeneratedArticle: CDUserGeneratedArticle
-
-    ) -> CDPracticeArticle {
+    func createArticle() -> CDPracticeArticle {
         let article = CDPracticeArticle(context: persistentContainer.viewContext)
-
-        article.id = UUID().uuidString
-        article.text = text
-        article.title = title
-        article.content = content
-        article.uploadedDate = uploadedDate
-        article.cefrRawValue = cefrRawValue.toInt64
-        article.audioResource = audioResource
-        article.imageResource = imageResource
-        article.userGeneratedArticle = userGeneratedArticle
 
         return article
     }
@@ -848,5 +829,31 @@ extension CoreDataManager {
         article.revisedText = revisedText
 
         return article
+    }
+}
+
+// MARK: - CDPracticeImage
+
+extension CoreDataManager {
+
+    func createPracticeImage() -> CDPracticeImage {
+        let image = CDPracticeImage(context: persistentContainer.viewContext)
+
+        image.id = UUID().uuidString
+
+        return image
+    }
+}
+
+// MARK: - CDPracticeAudio
+
+extension CoreDataManager {
+
+    func createPracticeAudio() -> CDPracticeAudio {
+        let audio = CDPracticeAudio(context: persistentContainer.viewContext)
+
+        audio.id = UUID().uuidString
+
+        return audio
     }
 }

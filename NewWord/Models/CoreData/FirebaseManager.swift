@@ -110,15 +110,17 @@ class FirebaseManager {
                     timepoints.append(timepoint)
 
                     CoreDataManager.shared.addTimepoint(timepoint, to: article)
-
-
                 }
             }
         }
-
+        
+        article.title = title
+        article.content = content
+        article.text = article.createText()
+        article.uploadedDate = uploadedDate
+        article.cefrRawValue = cefrRawValue.toInt64 ?? 0
         article.audioResource = practiceAudioResource
         article.imageResource = practiceImageResource
-        article.cefrRawValue = cefrRawValue.toInt64 ?? 0
 
         return article
     }
@@ -133,7 +135,6 @@ class FirebaseManager {
 
         // 處理 imageResource
         if let imageResource = article.imageResource {
-
             var resource: [String: Any] = [:]
             
             if let imageId = imageResource.id {
@@ -144,26 +145,31 @@ class FirebaseManager {
         }
 
         // 處理 audioResource
+        
         if let audioResource = article.audioResource {
-            let timepointsArray = audioResource.timepoints.map { timepoint in
-                [
-                    "rangeLocation": timepoint.rangeLocation as Any,
-                    "rangeLength": timepoint.rangeLength as Any,
-                    "markName": timepoint.markName as Any,
-                    "timeSeconds": timepoint.timeSeconds as Any
-                ]
-            }
-
-            var resource: [String: Any] = ["timepoints": timepointsArray]
+            var resource: [String: Any] = [:]
+            
             resource["id"] = audioResource.id
-
+            
             articleData["audioResource"] = resource
         }
-
-        // 處理 cefrType
-        if let cefrType = article.cefrType {
-            articleData["cefrType"] = cefrType
+        
+        // 處理 timepoints
+        
+        let timepoints = CoreDataManager.shared.getUserGeneratedTimepoints(from: article)
+        
+        let timepointsArray = timepoints.map { timepoint in
+            [
+                "rangeLocation": timepoint.rangeLocation as Any,
+                "rangeLength": timepoint.rangeLength as Any,
+                "markName": timepoint.markName as Any,
+                "timeSeconds": timepoint.timeSeconds as Any
+            ]
         }
+        
+        articleData["timepoints"] = timepointsArray
+        
+        articleData["cefrRawValue"] = article.cefrRawValue
 
         db.collection("articles").addDocument(data: articleData) { error in
             if let error = error {

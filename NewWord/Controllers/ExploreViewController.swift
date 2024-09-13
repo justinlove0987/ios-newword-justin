@@ -279,10 +279,7 @@ extension ExploreViewController {
                     FirebaseManager.shared.uploadAudio(audioId: id, audioData: audioData) { isDownloadSuccessful, url in
                         print("foo upload audio \(isDownloadSuccessful)")
         
-                        let imageResource = PracticeImage.Copy(id: UUID().uuidString)
-
-                        let ugcArticle = CoreDataManager.shared.createUserGeneratedArticle(revisedText: "\(title)\n\n\(content)")
-
+                        let imageResource = CoreDataManager.shared.createPracticeImage()
 
                         let article = CoreDataManager.shared.createArticle(text: "\(title)\n\n\(content)",
                                                              title: title,
@@ -292,22 +289,9 @@ extension ExploreViewController {
                                                              audioResource: audioResource,
                                                              imageResource: imageResource
                         )
-
-                        let article = PracticeTagArticle.Copy(id: UUID().uuidString,
-                                                              title: title,
-                                                              content: content,
-                                                              text: "\(title)\n\n\(content)",
-                                                              uploadedDate: Date(),
-                                                              audioResource: audioResource,
-                                                              imageResource: imageResource,
-                                                              cefrType: CEFR.c1.rawValue,
-                                                              userGeneratedTagArticle: ugArticle
-                        )
         
                         FirebaseManager.shared.uploadArticle(article) { isDownloadSuccessful in
                             print("foo - upload article \(isDownloadSuccessful)")
-        
-        
                         }
                     }
                 }
