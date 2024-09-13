@@ -238,7 +238,7 @@ class GoogleTTSService: NSObject {
     func downloadSSML(_ text: String,
                       voiceType: VoiceType = .enUSPolyglot1Male,
                       rate: Double = 0.8,
-                      completion: @escaping (PracticeAudio.Copy?) -> Void) {
+                      completion: @escaping (CDPractice) -> Void) {
 
         var text = addMarksToText(text)
         text = wrapWithSpeakTags(text)

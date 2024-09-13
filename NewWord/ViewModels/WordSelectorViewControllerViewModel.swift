@@ -78,7 +78,7 @@ struct WordSelectorViewControllerViewModel {
         var coloredCharacters: [CharacterIndex: [ColorSegment]]
     }
     
-    var tags: [ContextTag.Copy] = []
+    var tags: [CDUserGeneratedContextTag] = []
     
     var selectMode: SelectMode = .word
     
@@ -87,7 +87,7 @@ struct WordSelectorViewControllerViewModel {
     var translationPairs: [TranslationPair] = []
 
     mutating func getClozeNumber() -> Int {
-        let clozeNumbers = tags.map { $0.number! }
+        let clozeNumbers = tags.map { Int($0.number) }
         
         if clozeNumbers.isEmpty {
             return 1
@@ -146,11 +146,10 @@ struct WordSelectorViewControllerViewModel {
         return text
     }
 
-    
-    @MainActor 
-    func saveTags(to article: PracticeTagArticle.Copy) {
+     
+    func saveTags(to article: CDPracticeArticle) {
 
-        ArticleManager.shared.updateArticle(withId: article.id, from: article)
+        // ArticleManager.shared.updateArticle(withId: article.id, from: article)
 
     }
 
@@ -161,7 +160,6 @@ struct WordSelectorViewControllerViewModel {
             let tag = tags[i]
             
             guard let range = tag.range else { return }
-            guard let number = tag.number else { return }
             guard let text = tag.text else { return }
             
             guard let word = textInRange(text: text, range: range),
@@ -169,8 +167,8 @@ struct WordSelectorViewControllerViewModel {
                 continue
             }
             
-            let newCloze = CoreDataManager.shared.createCloze(number: number, hint: "", clozeWord: text)
-            
+            let newCloze = CoreDataManager.shared.createCloze(number: Int(tag.number), hint: "", clozeWord: text)
+
             newCloze.context = context
             newCloze.contextId = context.id
             newCloze.clozeWord = word
@@ -259,18 +257,20 @@ struct WordSelectorViewControllerViewModel {
     }
     
     @MainActor 
-    mutating func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: PracticeTagArticle.Copy?) {
-        guard let article = article?.userGeneratedTagArticle else { return }
+    mutating func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: CDPracticeArticle?) {
+//        guard let article = article?.userGeneratedArticle else { return }
 
-        for i in 0..<article.revisedTimepoints.count {
-            let timepoint = article.revisedTimepoints[i]
+        let userGeneratedTimepoints = CoreDataManager.shared.getUserGeneratedTimepoints(from: article)
+
+        for i in 0..<userGeneratedTimepoints.count {
+            let timepoint = userGeneratedTimepoints[i]
 
             guard let range = timepoint.range else { continue }
 
             let isGreaterThanTagPosition = range.location >= tagPosition
 
             if isGreaterThanTagPosition {
-                article.revisedTimepoints[i].rangeLocation! += adjustmentOffset
+                userGeneratedTimepoints[i].rangeLocation += Int64(adjustmentOffset)
             }
         }
     }
@@ -295,10 +295,10 @@ struct WordSelectorViewControllerViewModel {
             let currentLength = range.length
 
             if newLocation < currentLocation {
-                tags[i].rangeLocation = currentLocation + offset
+                tags[i].revisedRangeLocation = Int64(currentLocation + offset)
 
             } else if newLocation > currentLocation && newLocation < currentLocation + currentLength {
-                tags[i].rangelength = currentLength + offset
+                tags[i].revisedRangeLength = Int64(currentLength + offset)
             }
         }
     }
@@ -307,28 +307,28 @@ struct WordSelectorViewControllerViewModel {
                         cloze: String,
                         range: NSRange,
                         textType: ContextType,
-                      hint: String) -> ContextTag.Copy {
-        
-        var newTag: ContextTag.Copy
+                      hint: String) -> CDUserGeneratedContextTag {
+
         let tagColor: UIColor = selectMode == .sentence ? UIColor.tagBlue : UIColor.tagGreen
         let cotentColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueText: UIColor.textGreen
-        let id = UUID().uuidString
         
-        
-        newTag = ContextTag.Copy(id: id,
-                                 text: cloze,
-                                 number: number,
-                                 rangeLocation: range.location,
-                                 rangeLength: range.length,
-                                 translation: hint, 
-                                 typeRawValue: textType.rawValue,
-                                 tagColor: tagColor.toData(),
-                                 contentColor: cotentColor.toData())
 
-        return newTag
+
+        let tag = CoreDataManager.shared.createUserGeneratedContextTag(number: number,
+                                                             originalRangeLength: 0,
+                                                             originalRangeLocation: 0,
+                                                             revisedRangeLength: range.length,
+                                                             revisedRangeLocation: range.location,
+                                                             tagColor: tagColor,
+                                                             contentColor: cotentColor,
+                                                             text: cloze,
+                                                             translation: hint,
+                                                             typeRawValue: textType.rawValue)
+
+        return tag
     }
 
-    mutating func appendTag(_ tag: ContextTag.Copy) {
+    mutating func appendTag(_ tag: CDUserGeneratedContextTag) {
         tags.append(tag)
     }
     
@@ -374,8 +374,8 @@ struct WordSelectorViewControllerViewModel {
                 let newSegment = ColorSegment(tagColor: UIColor.fromData(current.tagColor!)!,
                                               contentColor: UIColor.fromData(current.contentColor!)!,
                                               clozeLocation: location,
-                                              clozeLength: nsRange!.length, tagNumber: current.number)
-                
+                                              clozeLength: nsRange!.length, tagNumber: Int(current.number))
+
                 var characterindex = ColoredText.CharacterIndex(index: index)
 
                 characterindex.isFirstIndex = location == index
@@ -549,7 +549,7 @@ struct WordSelectorViewControllerViewModel {
         }
     }
     
-    private func getSaveDeck(_ cloze: ContextTag.Copy) -> CDDeck? {
+    private func getSaveDeck(_ cloze: CDUserGeneratedContextTag) -> CDDeck? {
         let decks = CoreDataManager.shared.getDecks()
         var deck: CDDeck? = nil
         let isWord = cloze.type == .word
@@ -572,10 +572,10 @@ struct WordSelectorViewControllerViewModel {
     
 
     
-    func rangeForMarkName(in article: PracticeTagArticle.Copy, markName: String) -> NSRange? {
-        guard let article = article.userGeneratedTagArticle else { return nil }
+    func rangeForMarkName(in article: CDPracticeArticle, markName: String) -> NSRange? {
+        let userGeneratedTimepoints = CoreDataManager.shared.getUserGeneratedTimepoints(from: article)
 
-        for timepoint in article.revisedTimepoints {
+        for timepoint in userGeneratedTimepoints {
             if timepoint.markName == markName {
                 return timepoint.range
             }

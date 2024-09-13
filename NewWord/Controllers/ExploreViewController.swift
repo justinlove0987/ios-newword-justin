@@ -13,11 +13,11 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var dataSource: UICollectionViewDiffableDataSource<Int,PracticeServerProvidedContent.Copy>!
-    
-    private var resources: [PracticeServerProvidedContent.Copy] = [] {
+    private var dataSource: UICollectionViewDiffableDataSource<Int, CDPracticeArticle>!
+
+    private var resources: [CDPracticeArticle] = [] {
         didSet {
-            resources.sort { $0.article!.uploadedDate! > $1.article!.uploadedDate! }
+            resources.sort { $0.uploadedDate! > $1.uploadedDate! }
             updateSnapshot()
         }
     }
@@ -25,13 +25,15 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        
+        UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
 //        uploadArticle()
         
-        handleArticles()
+//        handleArticles()
+
+        self.resources = CoreDataManager.shared.getAllArticles()
 
 //        PracticeManager.shared.deleteAllEntities()
-//        UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
+
 //        uploadArticle()
     }
 
@@ -49,9 +51,9 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         setupCollectionView()
     }
 
-    private func fetchArticles(completion: @escaping ([PracticeTagArticle]) -> Void) {
+    private func fetchArticles(completion: @escaping ([CDPracticeArticle]) -> Void) {
         FirebaseManager.shared.fetchAllArticles { articles in
-            var newArticles: [PracticeTagArticle] = []
+            var newArticles: [CDPracticeArticle] = []
 
             for article in articles {
                 newArticles.append(article)
@@ -70,18 +72,15 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         updateSnapshot()
     }
     
-    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, PracticeServerProvidedContent.Copy> {
-        let dataSource = UICollectionViewDiffableDataSource<Int, PracticeServerProvidedContent.Copy>(collectionView: collectionView,
+    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, CDPracticeArticle> {
+        let dataSource = UICollectionViewDiffableDataSource<Int, CDPracticeArticle>(collectionView: collectionView,
                                                                             cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExploreCell.reuseIdentifier, for: indexPath) as! ExploreCell
-                    
-            guard let currentArticle = itemIdentifier.article else { return UICollectionViewCell() }
             
-            
-            cell.configure(currentArticle)
-            cell.imageView.image = currentArticle.hasImage ? UIImage(data: currentArticle.imageResource!.data!) : UIImage(named: "loading")
+            cell.configure(itemIdentifier)
+            cell.imageView.image = itemIdentifier.hasImage ? UIImage(data: itemIdentifier.imageResource!.data!) : UIImage(named: "loading")
 
-            if !currentArticle.hasImage {
+            if !itemIdentifier.hasImage {
                 self.fetchImage(at: indexPath)
             }
             
@@ -117,7 +116,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     }
     
     private func updateSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, PracticeServerProvidedContent.Copy>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, CDPracticeArticle>()
         snapshot.appendSections([0])
         snapshot.appendItems(resources)
 
@@ -127,15 +126,16 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     }
     
     private func fetchImage(at indexPath: IndexPath) {
-        guard let article = self.resources[indexPath.row].article else { return }
+        let article = self.resources[indexPath.row]
         guard let imageId = article.imageResource?.id else { return }
+        guard let articleId = article.id else { return }
 
         FirebaseManager.shared.getImage(for: imageId) { result in
             switch result {
             case .success(let imageData):
                 article.imageResource?.data = imageData
 
-                ArticleManager.shared.updateImage(id: article.id, imageData: imageData)
+//                ArticleManager.shared.updateImage(id: articleId, imageData: imageData)
 
             case .failure(_):
                 article.imageResource?.data = UIImage(named: "loading")?.pngData()
@@ -158,27 +158,25 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     }
     
     func handleArticles() {
-        let localArticles = ArticleManager.shared.fetchAll()
+        let localArticles = CoreDataManager.shared.getAllArticles()
 
         if shouldFetchArticles() {
             fetchAndSyncArticles(with: localArticles)
         } else {
-            let articles = PracticeTagArticle.copyArticles(from: localArticles)
-            self.resources = articles.map { PracticeServerProvidedContent.Copy(article: $0) }
+            self.resources = localArticles
         }
     }
 
-    private func fetchAndSyncArticles(with localArticles: [PracticeTagArticle]) {
+    private func fetchAndSyncArticles(with localArticles: [CDPracticeArticle]) {
         fetchArticles { serverArticles in
             self.syncNewServerArticles(with: localArticles, from: serverArticles) {
-                let articles = PracticeTagArticle.copyArticles(from: serverArticles)
-                self.resources = articles.map { PracticeServerProvidedContent.Copy(article:$0) }
+                self.resources = serverArticles
             }
             UserDefaultsManager.shared.updateLastFetchedDate()
         }
     }
 
-    private func syncNewServerArticles(with localArticles: [PracticeTagArticle], from serverArticles: [PracticeTagArticle], completion: @escaping () -> Void) {
+    private func syncNewServerArticles(with localArticles: [CDPracticeArticle], from serverArticles: [CDPracticeArticle], completion: @escaping () -> Void) {
         let localArticleIDs = Set(localArticles.map { $0.id })
         let newArticles = serverArticles.filter { !localArticleIDs.contains($0.id) }
 
@@ -187,7 +185,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
 
             newArticles.forEach { article in
                 dispatchGroup.enter()
-                ArticleManager.shared.create(model: article)
+                // CoreDataManager.shared.createArticle()
                 dispatchGroup.leave()
             }
 
@@ -220,7 +218,7 @@ extension ExploreViewController: UICollectionViewDelegate {
             }
         }
         
-        controller.copyArticle = self.resources[indexPath.row].article
+        controller.article = self.resources[indexPath.row]
         
         navigationController?.pushViewControllerWithCustomTransition(controller)
     }
@@ -282,11 +280,19 @@ extension ExploreViewController {
                         print("foo upload audio \(isDownloadSuccessful)")
         
                         let imageResource = PracticeImage.Copy(id: UUID().uuidString)
-                        
-                        
-                        let ugArticle = UserGeneratedTagArticle.Copy(id: UUID().uuidString,
-                                                                     revisedText: "\(title)\n\n\(content)")
-        
+
+                        let ugcArticle = CoreDataManager.shared.createUserGeneratedArticle(revisedText: "\(title)\n\n\(content)")
+
+
+                        let article = CoreDataManager.shared.createArticle(text: "\(title)\n\n\(content)",
+                                                             title: title,
+                                                             content: content,
+                                                             uploadedDate: Date(),
+                                                             cefrRawValue: CEFR.c1.rawValue,
+                                                             audioResource: audioResource,
+                                                             imageResource: imageResource
+                        )
+
                         let article = PracticeTagArticle.Copy(id: UUID().uuidString,
                                                               title: title,
                                                               content: content,

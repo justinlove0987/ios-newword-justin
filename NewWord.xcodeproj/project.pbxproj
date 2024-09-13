@@ -128,6 +128,11 @@
 		D05D6A1C2C652645006AC6BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D05D6A1B2C652645006AC6BE /* GoogleService-Info.plist */; };
 		D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */; };
 		D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */; };
+		D090166E2C93CB2400A5FBD2 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D090166D2C93CB2400A5FBD2 /* Int+Extension.swift */; };
+		D09016722C93DCB200A5FBD2 /* CDPracticeArticle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09016702C93DCB200A5FBD2 /* CDPracticeArticle+Extension.swift */; };
+		D09016762C93DEF200A5FBD2 /* CDPracticeImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09016742C93DEF200A5FBD2 /* CDPracticeImage+Extension.swift */; };
+		D090167A2C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09016782C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift */; };
+		D090167E2C93E56600A5FBD2 /* CDTimepointInformation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D090167C2C93E56600A5FBD2 /* CDTimepointInformation+Extension.swift */; };
 		D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */; };
 		D09262BA2C097ECD00CA90BA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262B92C097ECD00CA90BA /* CoreDataManager.swift */; };
 		D09262BF2C097FC600CA90BA /* CDLearningRecord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */; };
@@ -271,6 +276,11 @@
 		D05D6A1B2C652645006AC6BE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGeneratedArticleViewController.swift; sourceTree = "<group>"; };
 		D083CBE62C15A90700BE98DC /* UIResponder+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extension.swift"; sourceTree = "<group>"; };
+		D090166D2C93CB2400A5FBD2 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		D09016702C93DCB200A5FBD2 /* CDPracticeArticle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeArticle+Extension.swift"; sourceTree = "<group>"; };
+		D09016742C93DEF200A5FBD2 /* CDPracticeImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeImage+Extension.swift"; sourceTree = "<group>"; };
+		D09016782C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUserGeneratedContextTag+Extension.swift"; sourceTree = "<group>"; };
+		D090167C2C93E56600A5FBD2 /* CDTimepointInformation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDTimepointInformation+Extension.swift"; sourceTree = "<group>"; };
 		D09262B72C097D2400CA90BA /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		D09262B92C097ECD00CA90BA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDLearningRecord+Extension.swift"; sourceTree = "<group>"; };
@@ -415,6 +425,7 @@
 				2AFF6CA02C5B748800629B26 /* UINavigationController+Extension.swift */,
 				2A89D8692C7435AC00DDBFF0 /* UITextView+Extension.swift */,
 				2AFE839C2C893FC600C5AA33 /* UIColor+Extension.swift */,
+				D090166D2C93CB2400A5FBD2 /* Int+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -564,8 +575,12 @@
 		D09262BB2C097F2A00CA90BA /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				D0344F5F2C56B25D00F721BF /* CDNote+Extension.swift */,
 				D09262B92C097ECD00CA90BA /* CoreDataManager.swift */,
+				D090167C2C93E56600A5FBD2 /* CDTimepointInformation+Extension.swift */,
+				D09016782C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift */,
+				D09016742C93DEF200A5FBD2 /* CDPracticeImage+Extension.swift */,
+				D09016702C93DCB200A5FBD2 /* CDPracticeArticle+Extension.swift */,
+				D0344F5F2C56B25D00F721BF /* CDNote+Extension.swift */,
 				D09262C02C09808400CA90BA /* CDCard+Extension.swift */,
 				D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */,
 				D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */,
@@ -755,6 +770,7 @@
 				2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */,
 				2AA450812C8858410033F5DA /* ContextTag.swift in Sources */,
 				2A71BDD02C869AC900418A5B /* PracticeResourceManager.swift in Sources */,
+				D090166E2C93CB2400A5FBD2 /* Int+Extension.swift in Sources */,
 				2A0D41F32C6EF2C3000B1B3B /* ArticlePlayButtonView.swift in Sources */,
 				D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */,
 				2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */,
@@ -763,6 +779,7 @@
 				2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */,
 				D02E46F72C272CC500418781 /* UserDefaultsManager.swift in Sources */,
 				2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */,
+				D090167E2C93E56600A5FBD2 /* CDTimepointInformation+Extension.swift in Sources */,
 				2A70455A2C7FF7AC00A58672 /* ClozeViewControllerViewModel.swift in Sources */,
 				2A70455C2C7FF94A00A58672 /* ClozeWord.swift in Sources */,
 				2A7045582C7DC35D00A58672 /* RadioButtonCell.swift in Sources */,
@@ -783,6 +800,7 @@
 				2A7045682C805B7A00A58672 /* DefaultPracticePreset.swift in Sources */,
 				2AFC914A2C7C4F6F002C2AD1 /* PracticeSequenceCell.swift in Sources */,
 				2A7045612C800C7000A58672 /* PracticeThresholdRuleManager.swift in Sources */,
+				D09016722C93DCB200A5FBD2 /* CDPracticeArticle+Extension.swift in Sources */,
 				D0A6E4E92C52060100E1EF35 /* TagView.swift in Sources */,
 				2AFF6C9F2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift in Sources */,
 				2A7F3C102C5B5A3C0028150D /* ExploreViewController.swift in Sources */,
@@ -792,6 +810,7 @@
 				2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */,
 				2A70457F2C85B04700A58672 /* PracticeAudio.swift in Sources */,
 				D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */,
+				D09016762C93DEF200A5FBD2 /* CDPracticeImage+Extension.swift in Sources */,
 				2A7045702C8562A400A58672 /* ContextType.swift in Sources */,
 				D09262B82C097D2400CA90BA /* DataModel.xcdatamodeld in Sources */,
 				2A2176852C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift in Sources */,
@@ -815,6 +834,7 @@
 				D0B2E3FC2C2BB15F0047B2F5 /* CustomTextView.swift in Sources */,
 				D0AF303E2C43CB6500DF71CD /* TagLabel.swift in Sources */,
 				D0A86A682C1B5FA00022DFDD /* ContextCell.swift in Sources */,
+				D090167A2C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift in Sources */,
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
 				D00981B82C86FB6100C1E948 /* PracticeUserGeneratedContent.swift in Sources */,
 				2A17DAF82C1579E400919642 /* ClozeView.swift in Sources */,

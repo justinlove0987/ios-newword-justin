@@ -27,7 +27,7 @@ class ExploreCell: UICollectionViewCell {
         innerView.addDefaultBorder(cornerRadius: 15)
     }
     
-    func configure(_ article: PracticeTagArticle.Copy) {
+    func configure(_ article: CDPracticeArticle) {
         titleLabel.text = article.title
         contentLabel.text = article.content
         uploadedDateLabel.text = article.formattedUploadedDate
@@ -35,9 +35,9 @@ class ExploreCell: UICollectionViewCell {
         conifgureCEFRLabel(article)
     }
     
-    func conifgureCEFRLabel(_ article: PracticeTagArticle.Copy) {
+    func conifgureCEFRLabel(_ article: CDPracticeArticle) {
         cefrView.addDefaultBorder(cornerRadius: 5)
-        cefrView.isHidden = article.cefrType == nil
+//        cefrView.isHidden = article.cefrRawValue == nil
         cefrLabel.text = article.cefr?.title
     }
 }

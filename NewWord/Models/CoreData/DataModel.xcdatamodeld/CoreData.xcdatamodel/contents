@@ -67,15 +67,7 @@
         <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNote" inverseName="resource" inverseEntity="CDNote"/>
         <relationship name="sentenceCloze" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentenceCloze" inverseName="resource" inverseEntity="CDSentenceCloze"/>
     </entity>
-    <entity name="CDPracticeAudio" representedClassName="CDPracticeAudio" syncable="YES" codeGenerationType="class">
-        <attribute name="data" optional="YES" attributeType="Binary"/>
-        <attribute name="id" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="CDPracticeImage" representedClassName="CDPracticeImage" syncable="YES" codeGenerationType="class">
-        <attribute name="data" optional="YES" attributeType="Binary"/>
-        <attribute name="id" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="CDPracticeTagArticle" representedClassName="CDPracticeTagArticle" syncable="YES" codeGenerationType="class">
+    <entity name="CDPracticeArticle" representedClassName="CDPracticeArticle" syncable="YES" codeGenerationType="category">
         <attribute name="cefrRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
@@ -84,7 +76,16 @@
         <attribute name="uploadedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="audioResource" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeAudio"/>
         <relationship name="imageResource" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeImage"/>
-        <relationship name="userGeneratedTagArticle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDUserGeneratedTagArticle"/>
+        <relationship name="timepoints" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTimepointInformation"/>
+        <relationship name="userGeneratedArticle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDUserGeneratedArticle"/>
+    </entity>
+    <entity name="CDPracticeAudio" representedClassName="CDPracticeAudio" syncable="YES" codeGenerationType="class">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CDPracticeImage" representedClassName="CDPracticeImage" syncable="YES" codeGenerationType="category">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
     </entity>
     <entity name="CDPreset" representedClassName="CDPreset" syncable="YES" codeGenerationType="class">
         <relationship name="advanced" maxCount="1" deletionRule="Nullify" destinationEntity="CDAdvanced" inverseName="preset" inverseEntity="CDAdvanced"/>
@@ -118,29 +119,31 @@
         <attribute name="learningStpes" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="preset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPreset" inverseName="startCard" inverseEntity="CDPreset"/>
     </entity>
-    <entity name="CDTimepointInformation" representedClassName="CDTimepointInformation" syncable="YES" codeGenerationType="class">
+    <entity name="CDTimepointInformation" representedClassName="CDTimepointInformation" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="markName" optional="YES" attributeType="String"/>
         <attribute name="rangeLength" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="rangeLocation" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timeSeconds" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
-    <entity name="CDUserGeneratedContextTag" representedClassName="CDUserGeneratedContextTag" syncable="YES" codeGenerationType="class">
+    <entity name="CDUserGeneratedArticle" representedClassName="CDUserGeneratedArticle" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="revisedText" optional="YES" attributeType="String"/>
+        <relationship name="userGeneratedContextTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDUserGeneratedContextTag"/>
+        <relationship name="userGeneratedTimepoints" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTimepointInformation"/>
+    </entity>
+    <entity name="CDUserGeneratedContextTag" representedClassName="CDUserGeneratedContextTag" syncable="YES" codeGenerationType="category">
         <attribute name="contentColor" optional="YES" attributeType="Binary"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="rangelength" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="rangeLocation" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="originalRangeLength" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="originalRnageLocation" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="revisedRangeLength" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="revisedRangeLocation" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="tagColor" optional="YES" attributeType="Binary"/>
         <attribute name="text" optional="YES" attributeType="String"/>
         <attribute name="translation" optional="YES" attributeType="String"/>
         <attribute name="typeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-    </entity>
-    <entity name="CDUserGeneratedTagArticle" representedClassName="CDUserGeneratedTagArticle" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="String"/>
-        <attribute name="revisedText" optional="YES" attributeType="String"/>
-        <relationship name="revisedTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDUserGeneratedContextTag"/>
-        <relationship name="revisedTimepoints" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTimepointInformation"/>
     </entity>
     <entity name="CDWord" representedClassName="CDWord" syncable="YES" codeGenerationType="category">
         <attribute name="chinese" attributeType="String"/>

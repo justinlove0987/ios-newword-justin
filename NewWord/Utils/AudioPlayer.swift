@@ -83,7 +83,7 @@ class AudioPlayer: NSObject {
         return audioPlayer?.isPlaying ?? false
     }
     
-    func playAudioWithMarks(_ article: PracticeTagArticle.Copy) {
+    func playAudioWithMarks(_ article: CDPracticeArticle) {
         play()
         startPlaybackTimer(with: article)
     }
@@ -101,12 +101,12 @@ class AudioPlayer: NSObject {
     }
     
     // 用於手動觸發計時器邏輯的方法
-    func triggerPlaybackLogic(_ article: PracticeTagArticle.Copy) {
+    func triggerPlaybackLogic(_ article: CDPracticeArticle) {
         handlePlaybackTimer(article: article)
     }
     
     // 啟動計時器
-    private func startPlaybackTimer(with article: PracticeTagArticle.Copy) {
+    private func startPlaybackTimer(with article: CDPracticeArticle) {
         stopPlaybackTimer() // 停止並清除現有的計時器
                 
         playbackTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
@@ -118,18 +118,18 @@ class AudioPlayer: NSObject {
         RunLoop.main.add(playbackTimer!, forMode: RunLoop.Mode.common)
     }
     
-    private func handlePlaybackTimer(article: PracticeTagArticle.Copy) {
+    private func handlePlaybackTimer(article: CDPracticeArticle) {
         guard let player = audioPlayer else { return }
         guard let text = article.text else { return }
-        guard let article = article.userGeneratedTagArticle else { return }
         
         let currentTimeInSeconds = roundToOneDecimalPlace(player.currentTime)
 
-        for timepoint in article.revisedTimepoints {
-            guard let timeSeconds = timepoint.timeSeconds else { return }
+        let timepoints = CoreDataManager.shared.getUserGeneratedTimepoints(from: article)
+
+        for timepoint in timepoints {
             guard let markName = timepoint.markName else { return }
 
-            let markTime = roundToOneDecimalPlace(timeSeconds)
+            let markTime = roundToOneDecimalPlace(timepoint.timeSeconds)
 
             if markTime == currentTimeInSeconds && !currentTimeInSeconds.isZero  {
                 if let nsRange = timepoint.range, let _ = Range(nsRange, in: text) {

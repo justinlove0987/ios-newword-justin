@@ -19,7 +19,7 @@ class FirebaseManager {
     private init() {}
     
     @MainActor
-    func fetchArticle(articleId: String, completion: @escaping (PracticeTagArticle?) -> Void) {
+    func fetchArticle(articleId: String, completion: @escaping (CDPracticeArticle?) -> Void) {
         db.collection("articles").document(articleId).getDocument { (document, error) in
             guard let document = document, document.exists else {
                 print("Article not found")
@@ -37,7 +37,7 @@ class FirebaseManager {
     }
     
     @MainActor
-    func fetchAllArticles(completion: @escaping ([PracticeTagArticle]) -> Void) {
+    func fetchAllArticles(completion: @escaping ([CDPracticeArticle]) -> Void) {
         db.collection("articles").getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error fetching articles: \(error)")
@@ -51,7 +51,7 @@ class FirebaseManager {
                 return
             }
             
-            var articles: [PracticeTagArticle] = []
+            var articles: [CDPracticeArticle] = []
 
             for document in documents {
                 guard let article = self.parseArticle(from: document) else { continue }
@@ -64,18 +64,19 @@ class FirebaseManager {
     }
 
 
-    func parseArticle(from document: DocumentSnapshot) -> PracticeTagArticle? {
+    func parseArticle(from document: DocumentSnapshot) -> CDPracticeArticle? {
         guard let data = document.data() else {
             return nil
         }
 
-        let practiceAudioResource = PracticeAudio()
-        let practiceImageResource = PracticeImage()
+        let practiceAudioResource = CDPracticeAudio()
+        let practiceImageResource = CDPracticeImage()
+        let article = CoreDataManager.shared.createArticle()
 
         guard let id = data["id"] as? String else { return nil }
         let title = data["title"] as? String
         let content = data["content"] as? String
-        let cefrType = data["cefrType"] as? Int
+        let cefrRawValue = data["cefrType"] as? Int
 
         let timestamp = data["uploadedDate"] as? Timestamp
         let uploadedDate = timestamp?.dateValue()
@@ -92,40 +93,39 @@ class FirebaseManager {
 
             if let parsingTmepoints = audioResource["timepoints"] as? [[String: Any]] {
 
-                var timepoints: [TimepointInformation] = []
+                var timepoints: [CDTimepointInformation] = []
 
                 for timepoint in parsingTmepoints {
                     let location = timepoint["rangeLocation"] as? Int ?? 0
                     let length = timepoint["rangeLength"] as? Int ?? 0
                     let markName = timepoint["markName"] as? String ?? ""
                     let timeSeconds = timepoint["timeSeconds"] as? Double ?? 0.0
+                    
 
-                    let timepointInfo = TimepointInformation(
-                        location: location,
-                        length: length,
-                        markName: markName,
-                        timeSeconds: timeSeconds)
+                    let timepoint = CoreDataManager.shared.createTimePointInformation(rangeLength: length,
+                                                                      rangeLocation: location,
+                                                                      timeSeconds: timeSeconds,
+                                                                      markName: markName)
 
-                    timepoints.append(timepointInfo)
+                    timepoints.append(timepoint)
+
+                    CoreDataManager.shared.addTimepoint(timepoint, to: article)
+
+
                 }
-
-                practiceAudioResource.timepoints = timepoints
             }
         }
 
-
-        let article = PracticeTagArticle(id: id, title: title, content: content, uploadedDate: uploadedDate)
-
         article.audioResource = practiceAudioResource
         article.imageResource = practiceImageResource
-        article.cefrType = cefrType
+        article.cefrRawValue = cefrRawValue.toInt64 ?? 0
 
         return article
     }
 
-    func uploadArticle(_ article: PracticeTagArticle.Copy, completion: @escaping (Bool) -> Void) {
+    func uploadArticle(_ article: CDPracticeArticle, completion: @escaping (Bool) -> Void) {
         var articleData: [String: Any] = [
-            "id": article.id,
+            "id": article.id!,
             "title": article.title!,
             "content": article.content!,
             "uploadedDate": article.uploadedDate!
