@@ -70,7 +70,7 @@ class FirebaseManager {
 
         let practiceAudioResource = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
         let practiceImageResource = CoreDataManager.shared.createEntity(ofType: CDPracticeImage.self)
-        let article = CoreDataManager.shared.createArticle()
+        let article = CoreDataManager.shared.createEntity(ofType: CDPracticeArticle.self)
 
         let id = data["id"] as? String
         let title = data["title"] as? String
@@ -100,20 +100,22 @@ class FirebaseManager {
                     let timeSeconds = timepoint["timeSeconds"] as? Double ?? 0.0
                     
 
-                    let timepoint = CoreDataManager.shared.createTimePointInformation(rangeLength: length,
-                                                                      rangeLocation: location,
-                                                                      timeSeconds: timeSeconds,
-                                                                      markName: markName)
+                    let timepoint = CoreDataManager.shared.createEntity(ofType: CDTimepointInformation.self)
+
+                    timepoint.rangeLength = length.toInt64
+                    timepoint.rangeLocation = location.toInt64
+                    timepoint.timeSeconds = timeSeconds
+                    timepoint.markName = markName
 
                     timepoints.append(timepoint)
 
-                    CoreDataManager.shared.addTimepoint(timepoint, to: article)
+                    article.addToTimepoints(timepoint)
                 }
             }
         }
 
-        article.cefrRawValue = cefrRawValue.toInt64 ?? -1
         article.id = id
+        article.cefrRawValue = cefrRawValue.toInt64 ?? CEFR.none.rawValue.toInt64
         article.title = title
         article.content = content
         article.text = article.createText()

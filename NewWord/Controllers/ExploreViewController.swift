@@ -27,13 +27,8 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-//        CoreDataManager.shared.deleteAllEntities()
-        UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
 
-//        handleArticles()
-        FirebaseManager.shared.fetchAllArticles { articles in
-            self.resources = articles
-        }
+        setupArticles()
         
 //        uploadArticle()
 
@@ -127,12 +122,11 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         guard let imageId = article.imageResource?.id else { return }
         guard article.id != nil else { return }
 
-        print("foo - image id \(imageId)")
-
         FirebaseManager.shared.getImage(for: imageId) { result in
             switch result {
             case .success(let imageData):
                 article.imageResource?.data = imageData
+                CoreDataManager.shared.save()
 
             case .failure(_):
                 article.imageResource?.data = UIImage(named: "loading")?.pngData()
@@ -154,7 +148,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         return !UserDefaultsManager.shared.hasFetchedDataToday()
     }
     
-    func handleArticles() {
+    func setupArticles() {
         let localArticles = CoreDataManager.shared.getAll(ofType: CDPracticeArticle.self)
 
         if shouldFetchArticles() {
@@ -167,7 +161,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     private func fetchAndSyncArticles(with localArticles: [CDPracticeArticle]) {
         fetchArticles { serverArticles in
             self.syncNewServerArticles(with: localArticles, from: serverArticles) {
-                self.resources = CoreDataManager.shared.getAllArticles()
+                self.resources = CoreDataManager.shared.getAll(ofType: CDPracticeArticle.self)
             }
             UserDefaultsManager.shared.updateLastFetchedDate()
         }
@@ -175,25 +169,18 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
 
     private func syncNewServerArticles(with localArticles: [CDPracticeArticle], from serverArticles: [CDPracticeArticle], completion: @escaping () -> Void) {
         let localArticleIDs = Set(localArticles.map { $0.id })
-        let newArticles = serverArticles.filter { !localArticleIDs.contains($0.id) }
 
-        // 遍歷所有的 newArticles，將其新增到本地端
-        newArticles.forEach { serverArticle in
-            let newArticle = CoreDataManager.shared.createArticle()
-            newArticle.id = serverArticle.id
-            newArticle.title = serverArticle.title
-            newArticle.content = serverArticle.content
-            newArticle.uploadedDate = serverArticle.uploadedDate
-            // Copy any other properties as needed
+        serverArticles.forEach { serverArticle in
+            let hasArticle = localArticleIDs.contains(serverArticle.id)
+
+            if hasArticle {
+                CoreDataManager.shared.discardEntity(serverArticle)
+            }
         }
-
-        print("foo - \(newArticles.count)")
 
         CoreDataManager.shared.save()
 
-        let articles = CoreDataManager.shared.getAllArticles()
-
-        print("foo - \(articles.count)")
+        completion()
     }
 }
 

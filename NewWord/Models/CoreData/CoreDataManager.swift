@@ -705,22 +705,6 @@ extension CoreDataManager {
 
 extension CoreDataManager {
 
-    func createArticle() -> CDPracticeArticle {
-        let article = CDPracticeArticle(context: persistentContainer.viewContext)
-
-        return article
-    }
-
-    func addTimepoint(_ timepoint: CDTimepointInformation,to article: CDPracticeArticle) {
-        article.addToTimepoints(timepoint)
-
-        do {
-            try persistentContainer.viewContext.save()
-        } catch {
-            print("Failed to save context: \(error)")
-        }
-    }
-
     func getAllArticles() -> [CDPracticeArticle] {
         let fetchRequest: NSFetchRequest<CDPracticeArticle> = CDPracticeArticle.fetchRequest()
 
@@ -849,6 +833,35 @@ extension CoreDataManager {
         } catch {
             print("Failed to fetch \(T.self): \(error)")
             return []
+        }
+    }
+
+    func deleteEntity<T: NSManagedObject>(_ entity: T) {
+        persistentContainer.viewContext.delete(entity)
+
+        do {
+            try persistentContainer.viewContext.save()
+            print("\(T.self) deleted successfully!")
+        } catch {
+            print("Failed to delete \(T.self): \(error)")
+        }
+    }
+
+    func discardEntity<T: NSManagedObject>(_ entity: T) {
+        persistentContainer.viewContext.delete(entity)
+//        print("\(T.self) discarded from context!")
+    }
+
+    func deleteAllEntities<T: NSManagedObject>(ofType type: T.Type) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: type))
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try persistentContainer.viewContext.execute(deleteRequest)
+            try persistentContainer.viewContext.save()
+            print("All \(T.self) entities deleted successfully!")
+        } catch {
+            print("Failed to delete all \(T.self) entities: \(error)")
         }
     }
 
