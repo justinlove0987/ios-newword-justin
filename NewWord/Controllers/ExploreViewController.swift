@@ -18,6 +18,8 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     private var resources: [CDPracticeArticle] = [] {
         didSet {
             resources.sort { $0.uploadedDate! > $1.uploadedDate! }
+
+
             updateSnapshot()
         }
     }
@@ -25,16 +27,16 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+//        CoreDataManager.shared.deleteAllEntities()
         UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
-        
+
+//        handleArticles()
         FirebaseManager.shared.fetchAllArticles { articles in
-            print("foo - \(articles)")
+            self.resources = articles
         }
         
 //        uploadArticle()
-//        handleArticles()
 
-        self.resources = CoreDataManager.shared.getAllArticles()
     }
 
     func getYesterdayDate() -> Date {
@@ -53,13 +55,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
 
     private func fetchArticles(completion: @escaping ([CDPracticeArticle]) -> Void) {
         FirebaseManager.shared.fetchAllArticles { articles in
-            var newArticles: [CDPracticeArticle] = []
-
-            for article in articles {
-                newArticles.append(article)
-            }
-
-            completion(newArticles)
+            completion(articles)
         }
     }
 
@@ -78,7 +74,8 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExploreCell.reuseIdentifier, for: indexPath) as! ExploreCell
             
             cell.configure(itemIdentifier)
-            cell.imageView.image = itemIdentifier.hasImage ? UIImage(data: itemIdentifier.imageResource!.data!) : UIImage(named: "loading")
+
+            cell.imageView.image = itemIdentifier.hasImage ? itemIdentifier.imageResource?.image : UIImage(named: "loading")
 
             if !itemIdentifier.hasImage {
                 self.fetchImage(at: indexPath)
@@ -128,14 +125,14 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     private func fetchImage(at indexPath: IndexPath) {
         let article = self.resources[indexPath.row]
         guard let imageId = article.imageResource?.id else { return }
-        guard let articleId = article.id else { return }
+        guard article.id != nil else { return }
+
+        print("foo - image id \(imageId)")
 
         FirebaseManager.shared.getImage(for: imageId) { result in
             switch result {
             case .success(let imageData):
                 article.imageResource?.data = imageData
-
-//                ArticleManager.shared.updateImage(id: articleId, imageData: imageData)
 
             case .failure(_):
                 article.imageResource?.data = UIImage(named: "loading")?.pngData()
@@ -158,7 +155,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     }
     
     func handleArticles() {
-        let localArticles = CoreDataManager.shared.getAllArticles()
+        let localArticles = CoreDataManager.shared.getAll(ofType: CDPracticeArticle.self)
 
         if shouldFetchArticles() {
             fetchAndSyncArticles(with: localArticles)
@@ -170,7 +167,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     private func fetchAndSyncArticles(with localArticles: [CDPracticeArticle]) {
         fetchArticles { serverArticles in
             self.syncNewServerArticles(with: localArticles, from: serverArticles) {
-                self.resources = serverArticles
+                self.resources = CoreDataManager.shared.getAllArticles()
             }
             UserDefaultsManager.shared.updateLastFetchedDate()
         }
@@ -180,19 +177,23 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         let localArticleIDs = Set(localArticles.map { $0.id })
         let newArticles = serverArticles.filter { !localArticleIDs.contains($0.id) }
 
-        DispatchQueue.main.async {
-            let dispatchGroup = DispatchGroup()
-
-            newArticles.forEach { article in
-                dispatchGroup.enter()
-                // CoreDataManager.shared.createArticle()
-                dispatchGroup.leave()
-            }
-
-            dispatchGroup.notify(queue: .main) {
-                completion()
-            }
+        // 遍歷所有的 newArticles，將其新增到本地端
+        newArticles.forEach { serverArticle in
+            let newArticle = CoreDataManager.shared.createArticle()
+            newArticle.id = serverArticle.id
+            newArticle.title = serverArticle.title
+            newArticle.content = serverArticle.content
+            newArticle.uploadedDate = serverArticle.uploadedDate
+            // Copy any other properties as needed
         }
+
+        print("foo - \(newArticles.count)")
+
+        CoreDataManager.shared.save()
+
+        let articles = CoreDataManager.shared.getAllArticles()
+
+        print("foo - \(articles.count)")
     }
 }
 
@@ -285,9 +286,12 @@ extension ExploreViewController {
                         
                         print("foo - upload audio \(isDownloadSuccessful)")
         
-                        let imageResource = CoreDataManager.shared.createPracticeImage()
-                        let article = CoreDataManager.shared.createArticle()
-                        
+                        let imageResource = CoreDataManager.shared.createEntity(ofType: CDPracticeImage.self)
+                        imageResource.id = UUID().uuidString
+
+                        let article = CoreDataManager.shared.createEntity(ofType: CDPracticeArticle.self)
+
+                        article.id = UUID().uuidString
                         article.title = title
                         article.content = content
                         article.text = article.text

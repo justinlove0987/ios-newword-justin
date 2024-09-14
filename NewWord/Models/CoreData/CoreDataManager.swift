@@ -716,7 +716,6 @@ extension CoreDataManager {
 
         do {
             try persistentContainer.viewContext.save()
-            print("New timepoint added successfully!")
         } catch {
             print("Failed to save context: \(error)")
         }
@@ -750,6 +749,11 @@ extension CoreDataManager {
             return []
         }
     }
+
+    func deleteArticle(_ article: CDPracticeArticle) {
+        persistentContainer.viewContext.delete(article)
+        save()
+    }
 }
 
 // MARK: - CDTimepointInformation
@@ -762,8 +766,6 @@ extension CoreDataManager {
                                     markName: String?) -> CDTimepointInformation {
 
         let timepointInformation = CDTimepointInformation(context: persistentContainer.viewContext)
-
-        let reuslt = rangeLength.toInt64
 
         timepointInformation.id = UUID().uuidString
         timepointInformation.rangeLength = rangeLength.toInt64!
@@ -797,7 +799,7 @@ extension CoreDataManager {
         tag.id = UUID().uuidString
         tag.number = number.toInt64
         tag.originalRangeLength = originalRangeLength.toInt64
-        tag.originalRnageLocation = originalRangeLocation.toInt64
+        tag.originalRangeLocation = originalRangeLocation.toInt64
         tag.revisedRangeLength = revisedRangeLength.toInt64
         tag.revisedRangeLocation = revisedRangeLocation.toInt64
         tag.tagColor = tagColor.toData()
@@ -820,9 +822,7 @@ extension CoreDataManager {
 
 // MARK: - CDUserGeneratedArticle
 
-
 extension CoreDataManager {
-
     func createUserGeneratedArticle(revisedText: String?) -> CDUserGeneratedArticle {
         let article = CDUserGeneratedArticle(context: persistentContainer.viewContext)
 
@@ -832,28 +832,24 @@ extension CoreDataManager {
     }
 }
 
-// MARK: - CDPracticeImage
-
 extension CoreDataManager {
 
-    func createPracticeImage() -> CDPracticeImage {
-        let image = CDPracticeImage(context: persistentContainer.viewContext)
+    func createEntity<T: NSManagedObject>(ofType type: T.Type) -> T {
+        let entity = T(context: persistentContainer.viewContext)
 
-        image.id = UUID().uuidString
-
-        return image
+        return entity
     }
-}
 
-// MARK: - CDPracticeAudio
+    func getAll<T: NSManagedObject>(ofType type: T.Type) -> [T] {
+        let fetchRequest = T.fetchRequest()
 
-extension CoreDataManager {
-
-    func createPracticeAudio() -> CDPracticeAudio {
-        let audio = CDPracticeAudio(context: persistentContainer.viewContext)
-
-        audio.id = UUID().uuidString
-
-        return audio
+        do {
+            let fetchedEntities = try persistentContainer.viewContext.fetch(fetchRequest) as? [T]
+            return fetchedEntities ?? []
+        } catch {
+            print("Failed to fetch \(T.self): \(error)")
+            return []
+        }
     }
+
 }

@@ -293,7 +293,7 @@ class GoogleTTSService: NSObject {
                 }
             }
             
-            let audioResrouce = CoreDataManager.shared.createPracticeAudio()
+            let audioResrouce = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
             audioResrouce.data = audioData
 
             DispatchQueue.main.async {

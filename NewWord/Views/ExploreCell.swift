@@ -37,7 +37,7 @@ class ExploreCell: UICollectionViewCell {
     
     func conifgureCEFRLabel(_ article: CDPracticeArticle) {
         cefrView.addDefaultBorder(cornerRadius: 5)
-//        cefrView.isHidden = article.cefrRawValue == nil
+        cefrView.isHidden = article.cefr! == .none
         cefrLabel.text = article.cefr?.title
     }
 }

@@ -30,7 +30,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     private var player: AudioPlayer = AudioPlayer()
     
     var addCallback: (() ->())?
-    
+
     var isRightBarButtonItemVisible: Bool = true {
            didSet {
                self.navigationItem.rightBarButtonItem?.isEnabled = self.isRightBarButtonItemVisible
@@ -63,7 +63,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         customTextView.layer.zPosition = 0
         translationContentView.layer.zPosition = 1
         imageView.image = article?.imageResource?.image
-        customTextView.text = article?.userGeneratedArticle?.revisedText
+        customTextView.text = article?.text
 
         articlePlayButtonView.playButton.addTarget(self, action: #selector(playArticle), for: .touchUpInside)
 
@@ -88,12 +88,11 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
 
     private func setupViewModel() {
         viewModel = WordSelectorViewControllerViewModel()
-
         viewModel.tags = CoreDataManager.shared.getUserGeneratedTags(from: article)
     }
 
     private func setupCumstomTextView() {
-        guard let text = article?.userGeneratedArticle?.revisedText else { return }
+        guard let text = article?.text else { return }
 
         customTextView = AddTagTextView.createTextView(text)
         customTextView.delegate = self
@@ -146,7 +145,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     // MARK: - Actions
     
     @IBAction func backAction(_ sender: UIBarButtonItem) {
-        guard var text = customTextView.text else { return }
+        guard let text = customTextView.text else { return }
         guard let article else { return }
         
 //        article.userGeneratedArticle?.revisedTags = viewModel.tags
@@ -284,8 +283,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             }
         }
     }
-    
-
 
     private func updateTranslationLabels(originalText: String, translatedText: String) {
         self.originalTextLabel.text = originalText
@@ -471,6 +468,7 @@ extension ServerProvidedArticleViewController {
         let translationClosure: ((_ translatedTraditionalText: String) -> ()) = { [weak self] translatedTraditionalText in
             guard let self else { return }
 
+
             self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
             self.updateTag(with: range, text: text, hint: translatedTraditionalText)
             self.updateCustomTextView()
@@ -492,12 +490,10 @@ extension ServerProvidedArticleViewController {
                 self.customTextView.removeAllDashedUnderlines()
                 self.customTextView.addDashedUnderline(in: range, forWord: self.viewModel.selectMode == .word)
                 self.updatePracticeModeSelector(containsTag: containsTag)
-
             }
 
             triggerImpactFeedback()
         }
-
 
         if viewModel.containsOriginalText(textWithoutFFFC) {
             let translatedText = viewModel.getTranslatedText(textWithoutFFFC)
@@ -513,19 +509,6 @@ extension ServerProvidedArticleViewController {
             }
         }
     }
-
-//    private func tag(range: NSRange) {
-//        let text = getText(from: range)
-//        guard !shouldSkipText(text) else { return }
-//        
-//        let textType = viewModel.getTextType(from: viewModel.selectMode)
-//        
-//        if viewModel.containsTag(textType: textType, range: range) {
-//            handleExistingTag(range: range, textType: textType)
-//        } else {
-//            handleNewTag(range: range, text: text)
-//        }
-//    }
 
     private func getText(from range: NSRange) -> String {
         let text = (customTextView.text as NSString).substring(with: range)

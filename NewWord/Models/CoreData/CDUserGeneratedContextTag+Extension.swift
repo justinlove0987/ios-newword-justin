@@ -43,6 +43,40 @@ extension CDUserGeneratedContextTag {
 
         return nil
     }
+}
 
+// MARK: - Copy
 
+extension CDUserGeneratedContextTag {
+    struct Copy {
+        var id: String?
+        var number: Int64
+        var originalRangeLength: Int64
+        var originalRangeLocation: Int64
+        var revisedRangeLength: Int64
+        var revisedRangeLocation: Int64
+        var tagColor: Data?
+        var contentColor: Data?
+        var text: String?
+        var translation: String?
+        var typeRawValue: Int64
+
+        var range: NSRange? {
+            return NSRange(location: Int(revisedRangeLocation), length: Int(revisedRangeLength))
+        }
+    }
+
+    func copy() -> Copy {
+        return Copy(id: id,
+                    number: number,
+                    originalRangeLength: originalRangeLength,
+                    originalRangeLocation: originalRangeLocation,
+                    revisedRangeLength: revisedRangeLength,
+                    revisedRangeLocation: revisedRangeLocation,
+                    tagColor: tagColor,
+                    contentColor: contentColor,
+                    text: text,
+                    translation: translation,
+                    typeRawValue: typeRawValue )
+    }
 }

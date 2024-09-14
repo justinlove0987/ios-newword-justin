@@ -36,7 +36,6 @@ class FirebaseManager {
         }
     }
     
-    @MainActor
     func fetchAllArticles(completion: @escaping ([CDPracticeArticle]) -> Void) {
         db.collection("articles").getDocuments { (querySnapshot, error) in
             if let error = error {
@@ -69,8 +68,8 @@ class FirebaseManager {
             return nil
         }
 
-        let practiceAudioResource = CoreDataManager.shared.createPracticeAudio()
-        let practiceImageResource = CoreDataManager.shared.createPracticeImage()
+        let practiceAudioResource = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
+        let practiceImageResource = CoreDataManager.shared.createEntity(ofType: CDPracticeImage.self)
         let article = CoreDataManager.shared.createArticle()
 
         let id = data["id"] as? String
@@ -112,12 +111,13 @@ class FirebaseManager {
                 }
             }
         }
-        
+
+        article.cefrRawValue = cefrRawValue.toInt64 ?? -1
+        article.id = id
         article.title = title
         article.content = content
         article.text = article.createText()
         article.uploadedDate = uploadedDate
-        article.cefrRawValue = cefrRawValue.toInt64 ?? 0
         article.audioResource = practiceAudioResource
         article.imageResource = practiceImageResource
 
@@ -305,15 +305,18 @@ class FirebaseManager {
 }
 
 enum CEFR: Int, CaseIterable, Codable {
+    case none = -1
     case a1 = 0
     case a2
     case b1
     case b2
     case c1
     case c2
-    
+
     var title: String {
         switch self {
+        case .none:
+            return "未分類"
         case .a1:
             return "A1"
         case .a2:

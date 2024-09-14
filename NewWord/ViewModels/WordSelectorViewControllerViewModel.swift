@@ -12,6 +12,9 @@ import SwiftKit
 
 struct WordSelectorViewControllerViewModel {
 
+    var startTime: Date?
+    var timer: DispatchSourceTimer?
+
     enum SelectMode: Int, CaseIterable {
         case word
         case sentence
@@ -255,11 +258,8 @@ struct WordSelectorViewControllerViewModel {
     func hasAnyTag() -> Bool {
         return !tags.isEmpty
     }
-    
-    @MainActor 
-    mutating func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: CDPracticeArticle?) {
-//        guard let article = article?.userGeneratedArticle else { return }
 
+    func updateAudioRange(tagPosition: Int, adjustmentOffset: Int, article: CDPracticeArticle?) {
         let userGeneratedTimepoints = CoreDataManager.shared.getUserGeneratedTimepoints(from: article)
 
         for i in 0..<userGeneratedTimepoints.count {
@@ -274,31 +274,26 @@ struct WordSelectorViewControllerViewModel {
             }
         }
     }
-    
-    /// 在加入cloze前update就不須理會新的cloze是否在array中
-    mutating func updateTagNSRanges(with newNSRange: NSRange, offset: Int) {
+
+    func updateTagNSRanges(with newNSRange: NSRange, offset: Int) {
         for i in 0..<tags.count {
             let tag = tags[i]
+
             guard let range = tag.range else { return }
 
             if newNSRange.location == range.location {
                 return
             }
-        }
 
-        for i in 0..<tags.count {
-            let tag = tags[i]
-            guard let range = tag.range else { return }
-            
             let newLocation = newNSRange.location
             let currentLocation = range.location
             let currentLength = range.length
 
             if newLocation < currentLocation {
-                tags[i].revisedRangeLocation = Int64(currentLocation + offset)
+                tags[i].revisedRangeLocation = currentLocation.toInt64 + offset.toInt64
 
             } else if newLocation > currentLocation && newLocation < currentLocation + currentLength {
-                tags[i].revisedRangeLength = Int64(currentLength + offset)
+                tags[i].revisedRangeLength = currentLength.toInt64 + offset.toInt64
             }
         }
     }
@@ -311,8 +306,6 @@ struct WordSelectorViewControllerViewModel {
 
         let tagColor: UIColor = selectMode == .sentence ? UIColor.tagBlue : UIColor.tagGreen
         let cotentColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueText: UIColor.textGreen
-        
-
 
         let tag = CoreDataManager.shared.createUserGeneratedContextTag(number: number,
                                                              originalRangeLength: 0,
@@ -358,24 +351,33 @@ struct WordSelectorViewControllerViewModel {
     func getNSRanges() -> [NSRange] {
         return tags.map { $0.range! }
     }
-    
+
     func createColoredText() -> ColoredText {
         var result = ColoredText(coloredCharacters: [:])
 
         for i in 0..<tags.count {
-            let current = tags[i]
-            let nsRange = current.range
-            let location = nsRange!.location
-            
-            for i in 0..<nsRange!.length {
+            let tag = tags[i]
+            let nsRange = tag.range
+
+            guard let location = nsRange?.location,
+                  let length = nsRange?.length,
+                  let tagColorData = tag.tagColor,
+                  let tagColor = UIColor.fromData(tagColorData),
+                  let contentColorData = tag.contentColor,
+                  let contentColor = UIColor.fromData(contentColorData)
+            else { continue }
+
+
+            let newSegment = ColorSegment(tagColor: tagColor,
+                                          contentColor: contentColor,
+                                          clozeLocation: location,
+                                          clozeLength: length,
+                                          tagNumber: Int(tag.number))
+
+
+            for i in 0..<length {
                 let index = location + i
                 let isFirstIndex = location == index
-
-                let newSegment = ColorSegment(tagColor: UIColor.fromData(current.tagColor!)!,
-                                              contentColor: UIColor.fromData(current.contentColor!)!,
-                                              clozeLocation: location,
-                                              clozeLength: nsRange!.length, tagNumber: Int(current.number))
-
                 var characterindex = ColoredText.CharacterIndex(index: index)
 
                 characterindex.isFirstIndex = location == index
@@ -398,10 +400,14 @@ struct WordSelectorViewControllerViewModel {
         return result
     }
     
-    func calculateColoredTextHeightFraction() -> ColoredText {
+    mutating func calculateColoredTextHeightFraction() -> ColoredText {
+
+        startTimer()
+
         let coloredText = createColoredText()
+
         var newColoredText: ColoredText = .init(coloredCharacters: [:])
-        
+
         for (characterIndex, colorSegments) in coloredText.coloredCharacters {
             var colorSegments = colorSegments
             
@@ -453,7 +459,7 @@ struct WordSelectorViewControllerViewModel {
 
             newColoredText.coloredCharacters[characterIndex] = colorSegments
         }
-        
+
         return newColoredText
     }
     
@@ -489,7 +495,6 @@ struct WordSelectorViewControllerViewModel {
     }
 
     func translateEnglishToChinese(_ text: String, completion: @escaping (String?) -> Void) {
-
         let english = Locale(identifier: "en")
         let chinese = Locale(identifier: "zh-TW")
 
@@ -508,7 +513,6 @@ struct WordSelectorViewControllerViewModel {
                 completion(nil)
             }
         }
-
     }
     
     func convertSimplifiedToTraditional(_ text: String) -> String {
@@ -569,7 +573,7 @@ struct WordSelectorViewControllerViewModel {
         
         return deck
     }
-    
+
 
     
     func rangeForMarkName(in article: CDPracticeArticle, markName: String) -> NSRange? {
@@ -604,6 +608,27 @@ struct WordSelectorViewControllerViewModel {
         // 顯示 Alert
         
         presentViewController.present(alertController, animated: true)
+    }
+
+    mutating func startTimer() {
+        startTime = Date() // 紀錄開始時間
+        timer = DispatchSource.makeTimerSource() // 創建計時器
+        timer?.schedule(deadline: .now(), repeating: 1) // 每秒觸發一次
+        timer?.setEventHandler {
+            // 計時器在每次觸發時可以執行其他邏輯
+        }
+        timer?.resume() // 開始計時
+    }
+
+    func printElapsedSeconds() {
+        guard let startTime = startTime else {
+            print("計時器尚未開始")
+            return
+        }
+
+        let elapsed = Date().timeIntervalSince(startTime) // 計算經過的秒數
+        let formattedElapsed = String(format: "%.2f", elapsed) // 格式化小數點後兩位
+        print("已經經過 \(formattedElapsed) 秒")
     }
 }
 
