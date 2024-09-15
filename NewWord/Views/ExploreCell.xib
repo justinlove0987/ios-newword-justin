@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -61,35 +60,64 @@
                                     <constraint firstItem="dwg-3Y-0CN" firstAttribute="top" secondItem="qnS-YS-4xF" secondAttribute="top" constant="20" id="lMV-0E-AFF"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mCD-8d-abp">
-                                <rect key="frame" x="461.33333333333331" y="20" width="30.666666666666686" height="30.333333333333329"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LDy-pN-RUS">
+                                <rect key="frame" x="412" y="20" width="80" height="36"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBs-DB-Gve">
-                                        <rect key="frame" x="7.9999999999999991" y="8" width="14.666666666666661" height="14.333333333333336"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <color key="textColor" name="title"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ga2-Nu-y0o">
+                                        <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aJ1-2O-xQg">
+                                                <rect key="frame" x="8" y="8.9999999999999982" width="20" height="18.666666666666664"/>
+                                                <color key="tintColor" name="title"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="Bvc-ia-u28"/>
+                                                    <constraint firstAttribute="width" constant="20" id="FOB-AZ-OxB"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" name="transition"/>
+                                        <constraints>
+                                            <constraint firstItem="aJ1-2O-xQg" firstAttribute="leading" secondItem="Ga2-Nu-y0o" secondAttribute="leading" constant="8" id="0kq-bu-636"/>
+                                            <constraint firstAttribute="trailing" secondItem="aJ1-2O-xQg" secondAttribute="trailing" constant="8" id="JH0-Md-7NB"/>
+                                            <constraint firstItem="aJ1-2O-xQg" firstAttribute="top" secondItem="Ga2-Nu-y0o" secondAttribute="top" constant="8" id="bnp-vs-TZ3"/>
+                                            <constraint firstAttribute="bottom" secondItem="aJ1-2O-xQg" secondAttribute="bottom" constant="8" id="k8o-87-1OT"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mCD-8d-abp">
+                                        <rect key="frame" x="44" y="0.0" width="36" height="36"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBs-DB-Gve">
+                                                <rect key="frame" x="8" y="8" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="Ddp-4G-f7w"/>
+                                                    <constraint firstAttribute="height" constant="20" id="z3U-Qw-pt8"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                                <color key="textColor" name="title"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" name="transition"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="dBs-DB-Gve" secondAttribute="bottom" constant="8" id="6Ie-5o-xD8"/>
+                                            <constraint firstAttribute="trailing" secondItem="dBs-DB-Gve" secondAttribute="trailing" constant="8" id="ME2-HN-ENI"/>
+                                            <constraint firstItem="dBs-DB-Gve" firstAttribute="top" secondItem="mCD-8d-abp" secondAttribute="top" constant="8" id="PXX-w2-tbm"/>
+                                            <constraint firstItem="dBs-DB-Gve" firstAttribute="leading" secondItem="mCD-8d-abp" secondAttribute="leading" constant="8" id="QNg-xn-DEU"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" name="transition"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="dBs-DB-Gve" secondAttribute="bottom" constant="8" id="6Ie-5o-xD8"/>
-                                    <constraint firstAttribute="trailing" secondItem="dBs-DB-Gve" secondAttribute="trailing" constant="8" id="ME2-HN-ENI"/>
-                                    <constraint firstItem="dBs-DB-Gve" firstAttribute="top" secondItem="mCD-8d-abp" secondAttribute="top" constant="8" id="PXX-w2-tbm"/>
-                                    <constraint firstItem="dBs-DB-Gve" firstAttribute="leading" secondItem="mCD-8d-abp" secondAttribute="leading" constant="8" id="QNg-xn-DEU"/>
-                                </constraints>
-                            </view>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="qnS-YS-4xF" firstAttribute="leading" secondItem="9MU-z9-qac" secondAttribute="leading" id="3LJ-2c-vxT"/>
                             <constraint firstItem="6C1-IT-WGw" firstAttribute="top" secondItem="9MU-z9-qac" secondAttribute="top" id="Jib-hN-8eG"/>
                             <constraint firstAttribute="trailing" secondItem="qnS-YS-4xF" secondAttribute="trailing" id="Pdi-Sa-tcO"/>
-                            <constraint firstItem="mCD-8d-abp" firstAttribute="top" secondItem="9MU-z9-qac" secondAttribute="top" constant="20" symbolic="YES" id="RId-N5-fg7"/>
-                            <constraint firstAttribute="trailing" secondItem="mCD-8d-abp" secondAttribute="trailing" constant="20" symbolic="YES" id="fPw-7G-gLW"/>
+                            <constraint firstItem="LDy-pN-RUS" firstAttribute="top" secondItem="9MU-z9-qac" secondAttribute="top" constant="20" symbolic="YES" id="cXH-Ys-k6b"/>
                             <constraint firstItem="qnS-YS-4xF" firstAttribute="height" secondItem="9MU-z9-qac" secondAttribute="height" multiplier="0.5" id="g4j-1O-e1V"/>
                             <constraint firstAttribute="bottom" secondItem="qnS-YS-4xF" secondAttribute="bottom" id="hnU-rL-cXS"/>
                             <constraint firstAttribute="trailing" secondItem="6C1-IT-WGw" secondAttribute="trailing" id="oXy-BE-tGL"/>
+                            <constraint firstAttribute="trailing" secondItem="LDy-pN-RUS" secondAttribute="trailing" constant="20" symbolic="YES" id="sSA-zQ-tMf"/>
                             <constraint firstAttribute="bottom" secondItem="6C1-IT-WGw" secondAttribute="bottom" id="urP-JP-xFX"/>
                             <constraint firstItem="6C1-IT-WGw" firstAttribute="leading" secondItem="9MU-z9-qac" secondAttribute="leading" id="zWd-Kh-u05"/>
                         </constraints>
@@ -117,6 +145,7 @@
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="bookmark.circle.fill" catalog="system" width="128" height="123"/>
         <image name="loading" width="3000" height="2000"/>
         <namedColor name="description">
             <color red="0.57647058823529407" green="0.59215686274509804" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
