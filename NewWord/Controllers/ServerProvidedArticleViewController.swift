@@ -294,7 +294,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
 
     private func updateTag(with range: NSRange, text: String, hint: String) {
         let clozeNumber = self.viewModel.getClozeNumber()
-        self.customTextView.insertNumberImageView(at: range.location, existClozes: self.viewModel.tags, with: String(clozeNumber))
+        self.customTextView.insertNumberImageView(at: range.location, existTags: self.viewModel.tags, with: String(clozeNumber))
 
         let offset = 1
         let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
@@ -303,7 +303,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         
         article?.userGeneratedArticle?.addToUserGeneratedContextTags(newTag)
         
-        self.viewModel.updateTagNSRanges(with: updateRange!, offset: offset)
+        self.viewModel.tags.sort { $0.revisedRangeLocation < $1.revisedRangeLocation }
+        self.viewModel.updateTagNSRanges(with: range, offset: offset)
         self.viewModel.appendTag(newTag)
     }
 
@@ -512,38 +513,6 @@ extension ServerProvidedArticleViewController {
         }
     }
 
-    private func getText(from range: NSRange) -> String {
-        let text = (customTextView.text as NSString).substring(with: range)
-        return text.removeObjectReplacementCharacter()
-    }
-
-    private func shouldSkipText(_ text: String) -> Bool {
-        return text.startsWithObjectReplacementCharacter() || viewModel.isWhitespace(text)
-    }
-
-    private func handleExistingTag(range: NSRange, textType: ContextType) {
-        viewModel.removeTag(range)
-        let updatedRange = adjustedRange(for: range, adjustmentOffset: -1)
-        
-        if !viewModel.hasDuplicateTagLocations(with: range) {
-            updateTextViewForExistingTag(range: range, updatedRange: updatedRange)
-        }
-        
-        updateTextViewWithTagInfo(range: range, updatedRange: updatedRange, textType: textType)
-    }
-
-    private func adjustedRange(for range: NSRange, adjustmentOffset: Int) -> NSRange {
-        return NSRange(location: range.location + adjustmentOffset, length: range.length)
-    }
-
-    private func updateTextViewForExistingTag(range: NSRange, updatedRange: NSRange) {
-        customTextView.removeNumberImageView(at: updatedRange.location)
-        viewModel.updateTagNSRanges(with: updatedRange, offset: -1)
-        viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: -1, article: article)
-        viewModel.currentSelectedRange = updatedRange
-        customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: -1)
-    }
-
     private func configureTags() {
         let coloredText = viewModel.calculateColoredTextHeightFraction()
         let coloredMarks = viewModel.createColoredMarks(coloredText)
@@ -552,55 +521,4 @@ extension ServerProvidedArticleViewController {
         customTextView.renewTagImages(coloredMarks)
         customTextView.configureProperties()
     }
-
-    private func updateTextViewWithTagInfo(range: NSRange, updatedRange: NSRange, textType: ContextType) {
-        let useRange = viewModel.hasDuplicateTagLocations(with: range) ? range : updatedRange
-        let containsTag = viewModel.containsTag(textType: textType, range: useRange)
-        
-        configureTags()
-        customTextView.removeAllDashedUnderlines()
-        customTextView.addDashedUnderline(in: useRange, forWord: viewModel.selectMode == .word)
-        
-        updatePracticeModeSelector(containsTag: containsTag)
-        triggerImpactFeedback()
-    }
-
-    private func handleNewTag(range: NSRange, text: String) {
-        let translationClosure: (_ translatedText: String) -> Void = { [weak self] translatedText in
-            guard let self = self else { return }
-            
-            self.updateTranslationLabels(originalText: text, translatedText: translatedText)
-            self.updateTag(with: range, text: text, hint: translatedText)
-            self.updateCustomTextView()
-            
-            self.updateTextViewForNewTag(range: range, translatedText: translatedText)
-        }
-        
-        if viewModel.containsOriginalText(text) {
-            let translatedText = viewModel.getTranslatedText(text)
-            translationClosure(translatedText ?? "")
-        } else {
-            viewModel.translateEnglishToChinese(text) { translatedSimplifiedText in
-                let translatedSimplifiedText = translatedSimplifiedText ?? ""
-                let translatedTraditionalText = self.viewModel.convertSimplifiedToTraditional(translatedSimplifiedText)
-                translationClosure(translatedTraditionalText)
-            }
-        }
-    }
-
-    private func updateTextViewForNewTag(range: NSRange, translatedText: String) {
-        let adjustmentOffset = 1
-        let updatedRange = adjustedRange(for: range, adjustmentOffset: adjustmentOffset)
-        
-        viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: article)
-        viewModel.currentSelectedRange = updatedRange
-        customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
-        customTextView.removeAllDashedUnderlines()
-        customTextView.addDashedUnderline(in: updatedRange, forWord: viewModel.selectMode == .word)
-        updatePracticeModeSelector(containsTag: viewModel.hasDuplicateTagLocations(with: updatedRange))
-        
-        triggerImpactFeedback()
-    }
-
-
 }

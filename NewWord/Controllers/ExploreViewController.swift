@@ -25,9 +25,9 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
-        
-        CoreDataManager.shared.deleteAllEntities()
+//        UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
+//        
+//        CoreDataManager.shared.deleteAllEntities()
         
         setup()
 //        uploadArticle()

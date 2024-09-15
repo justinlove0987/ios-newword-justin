@@ -187,7 +187,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
 
     private func updateCloze(with range: NSRange, text: String, hint: String) {
         let clozeNumber = self.viewModel.getClozeNumber()
-        self.customTextView.insertNumberImageView(at: range.location, existClozes: self.viewModel.tags, with: String(clozeNumber))
+        self.customTextView.insertNumberImageView(at: range.location, existTags: self.viewModel.tags, with: String(clozeNumber))
 
         let offset = 1
         let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)

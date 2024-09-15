@@ -269,7 +269,7 @@ struct WordSelectorViewControllerViewModel {
         }
     }
 
-    func updateTagNSRanges(with newNSRange: NSRange, offset: Int) {
+    mutating func updateTagNSRanges(with newNSRange: NSRange, offset: Int) {
         for i in 0..<tags.count {
             let tag = tags[i]
 
