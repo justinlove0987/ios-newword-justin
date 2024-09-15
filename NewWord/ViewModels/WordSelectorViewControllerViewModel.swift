@@ -306,17 +306,19 @@ struct WordSelectorViewControllerViewModel {
 
         let tagColor: UIColor = selectMode == .sentence ? UIColor.tagBlue : UIColor.tagGreen
         let cotentColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueText: UIColor.textGreen
-
-        let tag = CoreDataManager.shared.createUserGeneratedContextTag(number: number,
-                                                             originalRangeLength: 0,
-                                                             originalRangeLocation: 0,
-                                                             revisedRangeLength: range.length,
-                                                             revisedRangeLocation: range.location,
-                                                             tagColor: tagColor,
-                                                             contentColor: cotentColor,
-                                                             text: cloze,
-                                                             translation: hint,
-                                                             typeRawValue: textType.rawValue)
+        
+        let tag = CoreDataManager.shared.createEntity(ofType: CDUserGeneratedContextTag.self)
+        
+        tag.number = number.toInt64
+        tag.originalRangeLength = 0
+        tag.originalRangeLocation = 0
+        tag.revisedRangeLength = range.length.toInt64
+        tag.revisedRangeLocation = range.location.toInt64
+        tag.tagColor = tagColor.toData()
+        tag.contentColor = cotentColor.toData()
+        tag.text = cloze
+        tag.translation = hint
+        tag.typeRawValue = textType.rawValue.toInt64
 
         return tag
     }

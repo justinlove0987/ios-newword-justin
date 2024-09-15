@@ -27,11 +27,8 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-
         setupArticles()
-        
 //        uploadArticle()
-
     }
 
     func getYesterdayDate() -> Date {
@@ -150,11 +147,11 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     
     func setupArticles() {
         let localArticles = CoreDataManager.shared.getAll(ofType: CDPracticeArticle.self)
+        
+        self.resources = localArticles
 
         if shouldFetchArticles() {
             fetchAndSyncArticles(with: localArticles)
-        } else {
-            self.resources = localArticles
         }
     }
 

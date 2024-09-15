@@ -271,6 +271,7 @@ class GoogleTTSService: NSObject {
                 for tp in tpArray {
                     if let markName = tp["markName"] as? String,
                        let timeSeconds = tp["timeSeconds"] as? Double {
+                        
                         // 解析 markName 並生成 NSRange
                         let components = markName.split(separator: "_")
                         let range: NSRange? = {
@@ -281,14 +282,21 @@ class GoogleTTSService: NSObject {
                             }
                             return nil
                         }()
-
                         
-                        let timepointInformation = CoreDataManager.shared.createTimePointInformation(rangeLength: range?.length,
-                                                                          rangeLocation: range?.location,
-                                                                          timeSeconds: timeSeconds,
-                                                                          markName: markName)
+                        let timepoint = CoreDataManager.shared.createEntity(ofType: CDTimepointInformation.self)
+                        
+                        timepoint.timeSeconds = timeSeconds
+                        timepoint.markName = markName
+                        
+                        if let rangeLocation = range?.location.toInt64 {
+                            timepoint.rangeLocation = rangeLocation
+                        }
+                        
+                        if let rangeLength = range?.length.toInt64 {
+                            timepoint.rangeLength = rangeLength
+                        }
 
-                        timepoints.append(timepointInformation)
+                        timepoints.append(timepoint)
                     }
                 }
             }

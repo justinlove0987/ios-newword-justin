@@ -705,18 +705,6 @@ extension CoreDataManager {
 
 extension CoreDataManager {
 
-    func getAllArticles() -> [CDPracticeArticle] {
-        let fetchRequest: NSFetchRequest<CDPracticeArticle> = CDPracticeArticle.fetchRequest()
-
-        do {
-            let articles = try persistentContainer.viewContext.fetch(fetchRequest)
-            return articles
-        } catch {
-            print("Failed to fetch articles: \(error)")
-            return []
-        }
-    }
-
     func getUserGeneratedTimepoints(from article: CDPracticeArticle?) -> [CDTimepointInformation] {
         if let timepoints = article?.userGeneratedArticle?.userGeneratedTimepoints?.allObjects as? [CDTimepointInformation] {
             return timepoints
@@ -725,94 +713,12 @@ extension CoreDataManager {
         }
     }
 
-
     func getUserGeneratedTags(from article: CDPracticeArticle?) -> [CDUserGeneratedContextTag] {
         if let timepoints = article?.userGeneratedArticle?.userGeneratedContextTags?.allObjects as? [CDUserGeneratedContextTag] {
             return timepoints
         } else {
             return []
         }
-    }
-
-    func deleteArticle(_ article: CDPracticeArticle) {
-        persistentContainer.viewContext.delete(article)
-        save()
-    }
-}
-
-// MARK: - CDTimepointInformation
-
-extension CoreDataManager {
-
-    func createTimePointInformation(rangeLength: Int?,
-                                    rangeLocation: Int?,
-                                    timeSeconds: Double?,
-                                    markName: String?) -> CDTimepointInformation {
-
-        let timepointInformation = CDTimepointInformation(context: persistentContainer.viewContext)
-
-        timepointInformation.id = UUID().uuidString
-        timepointInformation.rangeLength = rangeLength.toInt64!
-        timepointInformation.rangeLocation = rangeLocation.toInt64!
-        timepointInformation.markName = markName
-
-        return timepointInformation
-    }
-}
-
-// MARK: - CDUserGeneratedContextTag
-
-
-extension CoreDataManager {
-
-    func createUserGeneratedContextTag(number: Int,
-                                       originalRangeLength: Int,
-                                       originalRangeLocation: Int,
-                                       revisedRangeLength: Int,
-                                       revisedRangeLocation: Int,
-                                       tagColor: UIColor,
-                                       contentColor: UIColor,
-                                       text: String,
-                                       translation: String,
-                                       typeRawValue: Int
-
-
-    ) -> CDUserGeneratedContextTag {
-        
-        let tag = CDUserGeneratedContextTag(context: persistentContainer.viewContext)
-        tag.id = UUID().uuidString
-        tag.number = number.toInt64
-        tag.originalRangeLength = originalRangeLength.toInt64
-        tag.originalRangeLocation = originalRangeLocation.toInt64
-        tag.revisedRangeLength = revisedRangeLength.toInt64
-        tag.revisedRangeLocation = revisedRangeLocation.toInt64
-        tag.tagColor = tagColor.toData()
-        tag.contentColor = contentColor.toData()
-        tag.text = text
-        tag.translation = translation
-        tag.typeRawValue = typeRawValue.toInt64
-
-        return tag
-    }
-
-    func createDefaultUserGeneratedContextTag(text: String?) -> CDUserGeneratedContextTag {
-
-        let tag = CDUserGeneratedContextTag(context: persistentContainer.viewContext)
-        tag.text = text
-
-        return tag
-    }
-}
-
-// MARK: - CDUserGeneratedArticle
-
-extension CoreDataManager {
-    func createUserGeneratedArticle(revisedText: String?) -> CDUserGeneratedArticle {
-        let article = CDUserGeneratedArticle(context: persistentContainer.viewContext)
-
-        article.revisedText = revisedText
-
-        return article
     }
 }
 
@@ -849,7 +755,7 @@ extension CoreDataManager {
 
     func discardEntity<T: NSManagedObject>(_ entity: T) {
         persistentContainer.viewContext.delete(entity)
-//        print("\(T.self) discarded from context!")
+        print("\(T.self) discarded from context!")
     }
 
     func deleteAllEntities<T: NSManagedObject>(ofType type: T.Type) {
