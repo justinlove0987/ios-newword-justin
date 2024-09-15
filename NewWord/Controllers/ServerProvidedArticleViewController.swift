@@ -29,7 +29,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     private var viewModel: WordSelectorViewControllerViewModel!
     private var player: AudioPlayer = AudioPlayer()
     
-    var addCallback: (() ->())?
+    var confirmCallback: (() ->())?
+    var waitCallback: (() ->())?
 
     var isRightBarButtonItemVisible: Bool = true {
            didSet {
@@ -155,9 +156,10 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         
         viewModel.showPracticeAlert(presentViewController: self) {
             self.navigationController?.popToRootViewController(animated: true)
+            self.waitCallback?()
             
         } confirmAction: {
-            self.addCallback?()
+            self.confirmCallback?()
         }
         
     }

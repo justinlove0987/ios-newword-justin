@@ -188,7 +188,15 @@ extension ExploreViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = ServerProvidedArticleViewController.instantiate()
         
-        controller.addCallback = {
+        controller.waitCallback = { [weak self] in
+            guard let self else { return }
+            
+            self.collectionView.reloadData()
+        }
+        
+        controller.confirmCallback = { [weak self] in
+            guard let self else { return }
+            
             self.selectTab(at: 1)
             
             if let deck = CoreDataManager.shared.findFirstDeckWithCard() {

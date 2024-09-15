@@ -19,6 +19,8 @@ class ExploreCell: UICollectionViewCell {
     
     @IBOutlet weak var cefrView: UIView!
     @IBOutlet weak var cefrLabel: UILabel!
+    @IBOutlet weak var tagExistsView: UIView!
+    
     
     var imageDidSetCallback: ((UIImage) -> ())?
     
@@ -33,11 +35,24 @@ class ExploreCell: UICollectionViewCell {
         uploadedDateLabel.text = article.formattedUploadedDate
         
         conifgureCEFRLabel(article)
+        configureTagExistsView(article)
     }
     
     func conifgureCEFRLabel(_ article: CDPracticeArticle) {
         cefrView.addDefaultBorder(cornerRadius: 5)
         cefrView.isHidden = article.cefr! == .none
         cefrLabel.text = article.cefr?.title
+        
+        
+    }
+    
+    func configureTagExistsView(_ article: CDPracticeArticle) {
+        if let tagCounts = article.userGeneratedArticle?.userGeneratedContextTags?.count
+        {
+            let hasAtLeastOneTag = tagCounts > 0
+            
+            tagExistsView.isHidden = !hasAtLeastOneTag
+            tagExistsView.addDefaultBorder(cornerRadius: 5)
+        }
     }
 }

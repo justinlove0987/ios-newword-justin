@@ -138,6 +138,7 @@
                 <outlet property="contentLabel" destination="2kB-15-YU0" id="xI5-HW-P1U"/>
                 <outlet property="imageView" destination="6C1-IT-WGw" id="ESv-T4-zF8"/>
                 <outlet property="innerView" destination="9MU-z9-qac" id="vJ0-Nx-aq4"/>
+                <outlet property="tagExistsView" destination="Ga2-Nu-y0o" id="996-fb-GcJ"/>
                 <outlet property="titleLabel" destination="v4h-NG-7Ob" id="FX9-ML-QXM"/>
                 <outlet property="uploadedDateLabel" destination="Q6V-p9-Fg5" id="if2-W2-G5e"/>
             </connections>
