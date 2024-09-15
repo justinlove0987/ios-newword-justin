@@ -63,7 +63,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         customTextView.layer.zPosition = 0
         translationContentView.layer.zPosition = 1
         imageView.image = article?.imageResource?.image
-        customTextView.text = article?.text
 
         articlePlayButtonView.playButton.addTarget(self, action: #selector(playArticle), for: .touchUpInside)
 
@@ -92,7 +91,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     }
 
     private func setupCumstomTextView() {
-        guard let text = article?.text else { return }
+        guard let text = article?.userGeneratedArticle?.revisedText else { return }
 
         customTextView = AddTagTextView.createTextView(text)
         customTextView.delegate = self
@@ -145,13 +144,11 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     // MARK: - Actions
     
     @IBAction func backAction(_ sender: UIBarButtonItem) {
-        guard let text = customTextView.text else { return }
+        guard var text = customTextView.text else { return }
         guard let article else { return }
         
 //        article.userGeneratedArticle?.revisedTags = viewModel.tags
-        article.userGeneratedArticle?.revisedText = text
-
-        viewModel.saveTags(to: article)
+//        article.userGeneratedArticle?.revisedText = text
 
 //        text = viewModel.removeAllTags(in: text) ?? ""
 //        viewModel.saveTag(text)
@@ -302,7 +299,9 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         let offset = 1
         let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
         let textType = self.viewModel.getTextType(text)
-        let newTag = self.viewModel.createNewTag(number: clozeNumber, cloze: text, range: updateRange!, textType: textType, hint: hint)
+        let newTag = self.viewModel.createNewTag(number: clozeNumber, text: text, range: updateRange!, textType: textType, hint: hint)
+        
+        article?.userGeneratedArticle?.addToUserGeneratedContextTags(newTag)
         
         self.viewModel.updateTagNSRanges(with: updateRange!, offset: offset)
         self.viewModel.appendTag(newTag)
@@ -383,6 +382,10 @@ extension ServerProvidedArticleViewController: UITextViewDelegate {
 // MARK: - AudioPlayerDelegate
 
 extension ServerProvidedArticleViewController: AudioPlayerDelegate {
+    func audioPlayer(_ player: AudioPlayer, didUpdateToRange range: NSRange) {
+        customTextView.highlightRangeDuringPlayback = range
+    }
+    
     func audioPlayerDidFinishPlaying(_ player: AudioPlayer) {
         articlePlayButtonView.playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         customTextView.highlightRangeDuringPlayback = nil
@@ -400,14 +403,6 @@ extension ServerProvidedArticleViewController: AudioPlayerDelegate {
         articlePlayButtonView.playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
         customTextView.highlightRangeDuringPlayback = nil
     }
-    
-    func audioPlayer(_ player: AudioPlayer, didUpdateToMarkName markName: String) {
-        guard let article else { return }
-
-        let range = viewModel.rangeForMarkName(in: article, markName: markName)
-
-        customTextView.highlightRangeDuringPlayback = range
-    }
 }
 
 extension ServerProvidedArticleViewController: PracticeModeSelectorViewDelegate {
@@ -417,7 +412,6 @@ extension ServerProvidedArticleViewController: PracticeModeSelectorViewDelegate 
         tag(range: currentSelectedRange)
         
         isRightBarButtonItemVisible = viewModel.hasAnyTag()
-        
     }
 }
 
@@ -434,7 +428,7 @@ extension ServerProvidedArticleViewController {
         let textType = viewModel.getTextType(from: viewModel.selectMode)
 
         if viewModel.containsTag(textType: textType, range: range) {
-            viewModel.removeCloze(range)
+            viewModel.removeTag(range)
 
             let adjustmentOffset = -1
             let updatedRange = NSRange(location: range.location-1, length: range.length)
@@ -459,7 +453,11 @@ extension ServerProvidedArticleViewController {
             customTextView.addDashedUnderline(in: useRange, forWord: self.viewModel.selectMode == .word)
 
             updatePracticeModeSelector(containsTag: containsTag)
+            
+            article?.userGeneratedArticle?.revisedText = customTextView.text
 
+            CoreDataManager.shared.save()
+            
             triggerImpactFeedback()
 
             return
@@ -467,7 +465,6 @@ extension ServerProvidedArticleViewController {
 
         let translationClosure: ((_ translatedTraditionalText: String) -> ()) = { [weak self] translatedTraditionalText in
             guard let self else { return }
-
 
             self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
             self.updateTag(with: range, text: text, hint: translatedTraditionalText)
@@ -492,7 +489,12 @@ extension ServerProvidedArticleViewController {
                 self.updatePracticeModeSelector(containsTag: containsTag)
             }
 
+            article?.userGeneratedArticle?.revisedText = customTextView.text
+            
+            CoreDataManager.shared.save()
+            
             triggerImpactFeedback()
+            
         }
 
         if viewModel.containsOriginalText(textWithoutFFFC) {
@@ -520,7 +522,7 @@ extension ServerProvidedArticleViewController {
     }
 
     private func handleExistingTag(range: NSRange, textType: ContextType) {
-        viewModel.removeCloze(range)
+        viewModel.removeTag(range)
         let updatedRange = adjustedRange(for: range, adjustmentOffset: -1)
         
         if !viewModel.hasDuplicateTagLocations(with: range) {

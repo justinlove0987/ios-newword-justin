@@ -21,32 +21,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "52AE6F3C-2F53-4E76-AE58-A79F5C2CACB9"
+            uuid = "476CB671-7911-41C5-B160-159E948C0D4E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NewWord/Controllers/ServerProvidedArticleViewController.swift"
+            filePath = "NewWord/Views/AddTagTextView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "359"
-            endingLineNumber = "359"
-            landmarkName = "downloadAudio(completion:)"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "insertNumberImageView(at:existClozes:with:scale:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7C26267C-1C0A-4234-B262-B6897807EF91"
+            uuid = "8F99238A-934A-48FC-BBDA-46289E0FE47F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NewWord/Controllers/ServerProvidedArticleViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "362"
-            endingLineNumber = "362"
-            landmarkName = "downloadAudio(completion:)"
+            startingLineNumber = "469"
+            endingLineNumber = "469"
+            landmarkName = "tag(range:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D71F422F-740F-419D-8B61-41C18FF7470F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NewWord/Controllers/ServerProvidedArticleViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "298"
+            endingLineNumber = "298"
+            landmarkName = "updateTag(with:text:hint:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

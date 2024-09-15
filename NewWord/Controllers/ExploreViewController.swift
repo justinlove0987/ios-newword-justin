@@ -19,15 +19,17 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         didSet {
             resources.sort { $0.uploadedDate! > $1.uploadedDate! }
 
-
             updateSnapshot()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
+        
+        CoreDataManager.shared.deleteAllEntities()
+        
         setup()
-        setupArticles()
 //        uploadArticle()
     }
 
@@ -43,12 +45,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
 
     private func setup() {
         setupCollectionView()
-    }
-
-    private func fetchArticles(completion: @escaping ([CDPracticeArticle]) -> Void) {
-        FirebaseManager.shared.fetchAllArticles { articles in
-            completion(articles)
-        }
+        setupArticles()
     }
 
     private func setupCollectionView() {
@@ -140,10 +137,6 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     }
     
     // MARK: - Helper Methods
-
-    private func shouldFetchArticles() -> Bool {
-        return !UserDefaultsManager.shared.hasFetchedDataToday()
-    }
     
     func setupArticles() {
         let localArticles = CoreDataManager.shared.getAll(ofType: CDPracticeArticle.self)
@@ -154,13 +147,23 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
             fetchAndSyncArticles(with: localArticles)
         }
     }
-
+    
+    private func shouldFetchArticles() -> Bool {
+        return !UserDefaultsManager.shared.hasFetchedDataToday()
+    }
+    
     private func fetchAndSyncArticles(with localArticles: [CDPracticeArticle]) {
         fetchArticles { serverArticles in
             self.syncNewServerArticles(with: localArticles, from: serverArticles) {
                 self.resources = CoreDataManager.shared.getAll(ofType: CDPracticeArticle.self)
             }
             UserDefaultsManager.shared.updateLastFetchedDate()
+        }
+    }
+    
+    private func fetchArticles(completion: @escaping ([CDPracticeArticle]) -> Void) {
+        FirebaseManager.shared.fetchAllArticles { articles in
+            completion(articles)
         }
     }
 

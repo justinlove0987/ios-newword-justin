@@ -149,13 +149,6 @@ struct WordSelectorViewControllerViewModel {
         return text
     }
 
-     
-    func saveTags(to article: CDPracticeArticle) {
-
-        // ArticleManager.shared.updateArticle(withId: article.id, from: article)
-
-    }
-
     mutating func saveTag(_ text: String) {
         let context = CoreDataManager.shared.createContext(text)
         
@@ -227,13 +220,14 @@ struct WordSelectorViewControllerViewModel {
         return translationPair?.translatedText
     }
     
-    mutating func removeCloze(_ range: NSRange) {
+    mutating func removeTag(_ range: NSRange){
         for i in 0..<tags.count {
-            let currentCloze = tags[i]
+            let currentTag = tags[i]
 
-            let findCloze = currentCloze.range == range
+            let findTag = currentTag.range == range
             
-            if findCloze {
+            if findTag {
+                CoreDataManager.shared.deleteEntity(currentTag)
                 tags.remove(at: i)
                 break
             }
@@ -299,7 +293,7 @@ struct WordSelectorViewControllerViewModel {
     }
 
     func createNewTag(number: Int, 
-                        cloze: String,
+                        text: String,
                         range: NSRange,
                         textType: ContextType,
                       hint: String) -> CDUserGeneratedContextTag {
@@ -316,7 +310,7 @@ struct WordSelectorViewControllerViewModel {
         tag.revisedRangeLocation = range.location.toInt64
         tag.tagColor = tagColor.toData()
         tag.contentColor = cotentColor.toData()
-        tag.text = cloze
+        tag.text = text
         tag.translation = hint
         tag.typeRawValue = textType.rawValue.toInt64
 

@@ -129,7 +129,7 @@
     <entity name="CDUserGeneratedArticle" representedClassName="CDUserGeneratedArticle" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="revisedText" optional="YES" attributeType="String"/>
-        <relationship name="userGeneratedContextTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDUserGeneratedContextTag"/>
+        <relationship name="userGeneratedContextTags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDUserGeneratedContextTag" inverseName="userGeneratedArticle" inverseEntity="CDUserGeneratedContextTag"/>
         <relationship name="userGeneratedTimepoints" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTimepointInformation"/>
     </entity>
     <entity name="CDUserGeneratedContextTag" representedClassName="CDUserGeneratedContextTag" syncable="YES" codeGenerationType="category">
@@ -144,6 +144,7 @@
         <attribute name="text" optional="YES" attributeType="String"/>
         <attribute name="translation" optional="YES" attributeType="String"/>
         <attribute name="typeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="userGeneratedArticle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDUserGeneratedArticle" inverseName="userGeneratedContextTags" inverseEntity="CDUserGeneratedArticle"/>
     </entity>
     <entity name="CDWord" representedClassName="CDWord" syncable="YES" codeGenerationType="category">
         <attribute name="chinese" attributeType="String"/>

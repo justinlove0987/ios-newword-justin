@@ -18,24 +18,6 @@ class FirebaseManager {
 
     private init() {}
     
-    @MainActor
-    func fetchArticle(articleId: String, completion: @escaping (CDPracticeArticle?) -> Void) {
-        db.collection("articles").document(articleId).getDocument { (document, error) in
-            guard let document = document, document.exists else {
-                print("Article not found")
-                completion(nil)
-                return
-            }
-            
-            guard let article = self.parseArticle(from: document) else {
-                completion(nil)
-                return
-            }
-            
-            completion(article)
-        }
-    }
-    
     func fetchAllArticles(completion: @escaping ([CDPracticeArticle]) -> Void) {
         db.collection("articles").getDocuments { (querySnapshot, error) in
             if let error = error {
@@ -71,6 +53,7 @@ class FirebaseManager {
         let practiceAudioResource = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
         let practiceImageResource = CoreDataManager.shared.createEntity(ofType: CDPracticeImage.self)
         let article = CoreDataManager.shared.createEntity(ofType: CDPracticeArticle.self)
+        let userGeneratedArticle = CoreDataManager.shared.createEntity(ofType: CDUserGeneratedArticle.self)
 
         let id = data["id"] as? String
         let title = data["title"] as? String
@@ -91,29 +74,32 @@ class FirebaseManager {
 
             if let parsingTmepoints = audioResource["timepoints"] as? [[String: Any]] {
 
-                var timepoints: [CDTimepointInformation] = []
-
                 for timepoint in parsingTmepoints {
-                    let location = timepoint["rangeLocation"] as? Int ?? 0
-                    let length = timepoint["rangeLength"] as? Int ?? 0
+                    let rangeLocation = timepoint["rangeLocation"] as? Int ?? 0
+                    let rangeLength = timepoint["rangeLength"] as? Int ?? 0
                     let markName = timepoint["markName"] as? String ?? ""
                     let timeSeconds = timepoint["timeSeconds"] as? Double ?? 0.0
                     
 
                     let timepoint = CoreDataManager.shared.createEntity(ofType: CDTimepointInformation.self)
+                    let userGeneratedTimepoint = CoreDataManager.shared.createEntity(ofType: CDTimepointInformation.self)
 
-                    timepoint.rangeLength = length.toInt64
-                    timepoint.rangeLocation = location.toInt64
+                    timepoint.rangeLocation = rangeLocation.toInt64
+                    timepoint.rangeLength = rangeLength.toInt64
                     timepoint.timeSeconds = timeSeconds
                     timepoint.markName = markName
-
-                    timepoints.append(timepoint)
+                    
+                    userGeneratedTimepoint.rangeLocation = rangeLocation.toInt64
+                    userGeneratedTimepoint.rangeLength = rangeLength.toInt64
+                    userGeneratedTimepoint.timeSeconds = timeSeconds
+                    userGeneratedTimepoint.markName = markName
 
                     article.addToTimepoints(timepoint)
+                    userGeneratedArticle.addToUserGeneratedTimepoints(userGeneratedTimepoint)
                 }
             }
         }
-
+        
         article.id = id
         article.cefrRawValue = cefrRawValue.toInt64 ?? CEFR.none.rawValue.toInt64
         article.title = title
@@ -122,6 +108,10 @@ class FirebaseManager {
         article.uploadedDate = uploadedDate
         article.audioResource = practiceAudioResource
         article.imageResource = practiceImageResource
+        article.userGeneratedArticle = userGeneratedArticle
+        
+        userGeneratedArticle.id = UUID().uuidString
+        userGeneratedArticle.revisedText = article.createText()
 
         return article
     }

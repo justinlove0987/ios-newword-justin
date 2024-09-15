@@ -378,7 +378,6 @@ class AddTagTextView: UITextView, UITextViewDelegate {
         guard components.count > 1 else { return nil }
 
         let title = components[0]
-        let content = components.dropFirst().joined(separator: "\n")
         
         return title
     }

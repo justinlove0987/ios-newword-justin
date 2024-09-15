@@ -9,11 +9,11 @@ import Foundation
 import AVFoundation
 
 protocol AudioPlayerDelegate: AnyObject {
-    func audioPlayer(_ player: AudioPlayer, didUpdateToMarkName markName: String)
+    func audioPlayer(_ player: AudioPlayer, didUpdateToRange range: NSRange)
     func audioPlayerDidPause(_ player: AudioPlayer)
     func audioPlayerDidStop(_ player: AudioPlayer)
-    func audioPlayerDidStartPlaying(_ player: AudioPlayer) // 新增方法
-    func audioPlayerDidFinishPlaying(_ player: AudioPlayer) // 新增方法
+    func audioPlayerDidStartPlaying(_ player: AudioPlayer)
+    func audioPlayerDidFinishPlaying(_ player: AudioPlayer)
 }
 
 enum AudioPlayerState {
@@ -127,13 +127,11 @@ class AudioPlayer: NSObject {
         let timepoints = CoreDataManager.shared.getUserGeneratedTimepoints(from: article)
 
         for timepoint in timepoints {
-            guard let markName = timepoint.markName else { return }
-
             let markTime = roundToOneDecimalPlace(timepoint.timeSeconds)
 
             if markTime == currentTimeInSeconds && !currentTimeInSeconds.isZero  {
                 if let nsRange = timepoint.range, let _ = Range(nsRange, in: text) {
-                    delegate?.audioPlayer(self, didUpdateToMarkName: markName)
+                    delegate?.audioPlayer(self, didUpdateToRange: nsRange)
                 } else {
                     print("Invalid range")
                 }
