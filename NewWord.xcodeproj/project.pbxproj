@@ -88,6 +88,9 @@
 		2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */; };
 		2AED807F2C2E987B001E675A /* SearchClozeResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */; };
 		2AF886902C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */; };
+		2AFABE602C98105B00BA2347 /* CDPracticeMap+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE5E2C98105B00BA2347 /* CDPracticeMap+Extension.swift */; };
+		2AFABE642C98120300BA2347 /* CDPractice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE622C98120300BA2347 /* CDPractice+Extension.swift */; };
+		2AFABE682C98156D00BA2347 /* CDPracticeSequence+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE662C98156D00BA2347 /* CDPracticeSequence+Extension.swift */; };
 		2AFC91472C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */; };
 		2AFC914A2C7C4F6F002C2AD1 /* PracticeSequenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */; };
 		2AFC914B2C7C4F6F002C2AD1 /* PracticeSequenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */; };
@@ -236,6 +239,9 @@
 		2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultCell.swift; sourceTree = "<group>"; };
 		2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchClozeResultCell.xib; sourceTree = "<group>"; };
 		2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningClozeViewViewModel.swift; sourceTree = "<group>"; };
+		2AFABE5E2C98105B00BA2347 /* CDPracticeMap+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeMap+Extension.swift"; sourceTree = "<group>"; };
+		2AFABE622C98120300BA2347 /* CDPractice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPractice+Extension.swift"; sourceTree = "<group>"; };
+		2AFABE662C98156D00BA2347 /* CDPracticeSequence+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeSequence+Extension.swift"; sourceTree = "<group>"; };
 		2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSequenceViewController.swift; sourceTree = "<group>"; };
 		2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSequenceCell.swift; sourceTree = "<group>"; };
 		2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeSequenceCell.xib; sourceTree = "<group>"; };
@@ -576,6 +582,9 @@
 			isa = PBXGroup;
 			children = (
 				D09262B92C097ECD00CA90BA /* CoreDataManager.swift */,
+				2AFABE662C98156D00BA2347 /* CDPracticeSequence+Extension.swift */,
+				2AFABE622C98120300BA2347 /* CDPractice+Extension.swift */,
+				2AFABE5E2C98105B00BA2347 /* CDPracticeMap+Extension.swift */,
 				D090167C2C93E56600A5FBD2 /* CDTimepointInformation+Extension.swift */,
 				D09016782C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift */,
 				D09016742C93DEF200A5FBD2 /* CDPracticeImage+Extension.swift */,
@@ -771,6 +780,7 @@
 				2AA450812C8858410033F5DA /* ContextTag.swift in Sources */,
 				2A71BDD02C869AC900418A5B /* PracticeResourceManager.swift in Sources */,
 				D090166E2C93CB2400A5FBD2 /* Int+Extension.swift in Sources */,
+				2AFABE602C98105B00BA2347 /* CDPracticeMap+Extension.swift in Sources */,
 				2A0D41F32C6EF2C3000B1B3B /* ArticlePlayButtonView.swift in Sources */,
 				D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */,
 				2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */,
@@ -804,6 +814,7 @@
 				D0A6E4E92C52060100E1EF35 /* TagView.swift in Sources */,
 				2AFF6C9F2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift in Sources */,
 				2A7F3C102C5B5A3C0028150D /* ExploreViewController.swift in Sources */,
+				2AFABE642C98120300BA2347 /* CDPractice+Extension.swift in Sources */,
 				D0D6E0EB2C1DE92C00C1F95E /* ContextStackView.swift in Sources */,
 				2A7045662C805B4E00A58672 /* PracticePresetManager.swift in Sources */,
 				2A70454C2C7DBAB000A58672 /* PracticeModeViewController.swift in Sources */,
@@ -830,6 +841,7 @@
 				2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
 				2AFC91472C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift in Sources */,
+				2AFABE682C98156D00BA2347 /* CDPracticeSequence+Extension.swift in Sources */,
 				2A7045722C85676400A58672 /* PracticeContextResource.swift in Sources */,
 				D0B2E3FC2C2BB15F0047B2F5 /* CustomTextView.swift in Sources */,
 				D0AF303E2C43CB6500DF71CD /* TagLabel.swift in Sources */,

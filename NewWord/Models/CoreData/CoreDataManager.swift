@@ -477,19 +477,6 @@ extension CoreDataManager {
     }
 }
 
-
-// MARK: - SentenceCloze
-
-extension CoreDataManager {
-    func createSentenceCloze(clozeword: CDWord, sentence: CDSentence) -> CDSentenceCloze {
-        let sentenceCloze = CDSentenceCloze(context: persistentContainer.viewContext)
-        sentenceCloze.clozeWord = createWord(chinese: "像是", text: "like")
-        sentenceCloze.sentence = sentence
-        
-        return sentenceCloze
-    }
-}
-
 // MARK: - Sentence
 
 extension CoreDataManager {
@@ -722,8 +709,10 @@ extension CoreDataManager {
     }
 }
 
-extension CoreDataManager {
 
+
+extension CoreDataManager {
+    
     func createEntity<T: NSManagedObject>(ofType type: T.Type) -> T {
         let entity = T(context: persistentContainer.viewContext)
 
@@ -772,3 +761,49 @@ extension CoreDataManager {
     }
 
 }
+
+// MARK: - CDPracticePresetDefault
+
+extension CoreDataManager {
+    func createPracticePresetDefault() -> CDPracticePresetDefault {
+        let preset = CDPracticePresetDefault(context: persistentContainer.viewContext)
+        
+        preset.firstPracticeGraduationInterval = 1.0
+        preset.firstPracticeEasyInterval = 3.0
+        preset.firstPracticeEase = 2.5
+        preset.firstPracticeLearningPhase = 1.0
+        preset.forgetPracticeInterval = 1.0
+        preset.forgetPracticeEase = 2.3
+        preset.forgetPracticeRelearningSteps = 0.0
+        preset.easyBonus = 1.3
+        preset.isSynchronizedWithPracticePreset = false
+        preset.synchronizedPracticePreset = nil
+        
+        return preset
+    }
+}
+
+// MARK: - CDPracticeMap
+
+extension CoreDataManager {
+    
+    func getFirstBlueprintMap() -> CDPracticeMap? {
+        let fetchRequest: NSFetchRequest<CDPracticeMap> = CDPracticeMap.fetchRequest()
+        
+        // 過濾條件: typeRawValue 等於 PracticeMapType.blueprint 的 rawValue
+        fetchRequest.predicate = NSPredicate(format: "typeRawValue == %d", PracticeMapType.blueprint.rawValue)
+        
+        // 只需要第一個結果
+        fetchRequest.fetchLimit = 1
+        
+        do {
+            let results = try persistentContainer.viewContext.fetch(fetchRequest)
+            return results.first
+        } catch {
+            print("Failed to fetch blueprint map: \(error)")
+            return nil
+        }
+    }
+}
+
+

@@ -56,38 +56,62 @@ extension AppDelegate {
         
         createDefaultPracticeMap()
     }
+//    
+//    func createDefaultPracticeMap() {
+////        PracticeManager.shared.deleteAllEntities()
+//        
+//        let practiceMaps = PracticeMapManager.shared.fetchAll()
+//        
+//        if practiceMaps.isEmpty {
+//            let type = Practice.PracticeType.listenAndTranslate.rawValue
+//
+//            let preset = PracticePreset(defaultPreset: DefaultPracticePreset())
+//            
+//            let resource = PracticeServerProvidedContent()
+//            
+//            let practice = Practice(typeRawValue: type,
+//                                    preset: preset,
+//                                    serverProvidedContent: resource,
+//                                    userGeneratedContent: nil,
+//                                    records: [])
+//
+//            let sequence = PracticeSequence(practices: [practice])
+//
+//            let map = PracticeMap(type: 0, sequences: [sequence])
+//
+//            PracticeMapManager.shared.create(model: map)
+//
+////            print("foo - \(map.sequences.first?.practices.first?.resource)")
+////            print("foo - \(practiceMap.practiceMatrix.first?.first?.resource)")
+////            print("foo - \(map?.practiceMatrix.first)")
+////            print("foo - \(map?.practiceMatrix.first?.first)")
+////            print("foo - \(map?.practiceMatrix.first?.first?.resource)")
+//            
+//            
+//        }
+//    }
     
     func createDefaultPracticeMap() {
-//        PracticeManager.shared.deleteAllEntities()
+        let maps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
         
-        let practiceMaps = PracticeMapManager.shared.fetchAll()
-        
-        if practiceMaps.isEmpty {
-            let type = Practice.PracticeType.listenAndTranslate.rawValue
-
-            let preset = PracticePreset(defaultPreset: DefaultPracticePreset())
+        if maps.isEmpty {
+            let practiceTypeRawValue = Practice.PracticeType.listenAndTranslate.rawValue
             
-            let resource = PracticeServerProvidedContent()
+            let presetDefault = CoreDataManager.shared.createPracticePresetDefault()
+            let preset = CoreDataManager.shared.createEntity(ofType: CDPracticePreset.self)
+            let practice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
+            let sequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
+            let map = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
             
-            let practice = Practice(typeRawValue: type,
-                                    preset: preset,
-                                    serverProvidedContent: resource,
-                                    userGeneratedContent: nil,
-                                    records: [])
-
-            let sequence = PracticeSequence(practices: [practice])
-
-            let map = PracticeMap(type: 0, sequences: [sequence])
-
-            PracticeMapManager.shared.create(model: map)
-
-//            print("foo - \(map.sequences.first?.practices.first?.resource)")
-//            print("foo - \(practiceMap.practiceMatrix.first?.first?.resource)")
-//            print("foo - \(map?.practiceMatrix.first)")
-//            print("foo - \(map?.practiceMatrix.first?.first)")
-//            print("foo - \(map?.practiceMatrix.first?.first?.resource)")
+            preset.practicePresetDefault = presetDefault
             
+            practice.preset = preset
+            practice.typeRawValue = practiceTypeRawValue.toInt64
+            practice.practiceSequence = sequence
             
+            sequence.map = map
+            
+            CoreDataManager.shared.save()
         }
     }
 }

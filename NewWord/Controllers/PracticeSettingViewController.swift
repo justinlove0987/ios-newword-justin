@@ -144,7 +144,7 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     
     private var sections: [Section] = [.practiceType, .firstPractice, .forget, .advanced]
     
-    var practice: Practice?
+    var practice: CDPractice?
 
     override func viewDidLoad() {
         super.viewDidLoad()

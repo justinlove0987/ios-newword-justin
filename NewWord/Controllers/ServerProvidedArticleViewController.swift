@@ -147,15 +147,11 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBAction func backAction(_ sender: UIBarButtonItem) {
         guard var text = customTextView.text else { return }
         guard let article else { return }
-        
-//        article.userGeneratedArticle?.revisedTags = viewModel.tags
-//        article.userGeneratedArticle?.revisedText = text
 
-//        text = viewModel.removeAllTags(in: text) ?? ""
-//        viewModel.saveTag(text)
+        text = viewModel.removeAllTags(in: text) ?? ""
+        viewModel.saveTag(text)
         
         viewModel.showPracticeAlert(presentViewController: self) {
-            self.navigationController?.popToRootViewController(animated: true)
             self.waitCallback?()
             
         } confirmAction: {

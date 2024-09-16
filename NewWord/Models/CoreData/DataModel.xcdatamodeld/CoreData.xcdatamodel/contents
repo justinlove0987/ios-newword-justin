@@ -67,6 +67,16 @@
         <relationship name="note" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDNote" inverseName="resource" inverseEntity="CDNote"/>
         <relationship name="sentenceCloze" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentenceCloze" inverseName="resource" inverseEntity="CDSentenceCloze"/>
     </entity>
+    <entity name="CDPractice" representedClassName="CDPractice" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="typeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="practiceSequence" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeSequence" inverseName="practices" inverseEntity="CDPracticeSequence"/>
+        <relationship name="preset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePreset" inverseName="practice" inverseEntity="CDPracticePreset"/>
+        <relationship name="records" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeRecord" inverseName="practice" inverseEntity="CDPracticeRecord"/>
+        <relationship name="serverProviededContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeServerProvidedContent" inverseName="practice" inverseEntity="CDPracticeServerProvidedContent"/>
+        <relationship name="userGeneratedContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeUserGeneratedContent" inverseName="practice" inverseEntity="CDPracticeUserGeneratedContent"/>
+    </entity>
     <entity name="CDPracticeArticle" representedClassName="CDPracticeArticle" syncable="YES" codeGenerationType="category">
         <attribute name="cefrRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="content" optional="YES" attributeType="String"/>
@@ -76,6 +86,7 @@
         <attribute name="uploadedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="audioResource" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeAudio"/>
         <relationship name="imageResource" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeImage"/>
+        <relationship name="serverProvidedContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeServerProvidedContent" inverseName="article" inverseEntity="CDPracticeServerProvidedContent"/>
         <relationship name="timepoints" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTimepointInformation"/>
         <relationship name="userGeneratedArticle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDUserGeneratedArticle"/>
     </entity>
@@ -86,6 +97,69 @@
     <entity name="CDPracticeImage" representedClassName="CDPracticeImage" syncable="YES" codeGenerationType="category">
         <attribute name="data" optional="YES" attributeType="Binary"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CDPracticeMap" representedClassName="CDPracticeMap" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="typeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="sequences" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPracticeSequence" inverseName="map" inverseEntity="CDPracticeSequence"/>
+    </entity>
+    <entity name="CDPracticePreset" representedClassName="CDPracticePreset" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <relationship name="practice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPractice" inverseName="preset" inverseEntity="CDPractice"/>
+        <relationship name="practicePresetDefault" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePresetDefault" inverseName="practicePreset" inverseEntity="CDPracticePresetDefault"/>
+    </entity>
+    <entity name="CDPracticePresetDefault" representedClassName="CDPracticePresetDefault" syncable="YES" codeGenerationType="class">
+        <attribute name="easyBonus" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="firstPracticeEase" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="firstPracticeEasyInterval" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="firstPracticeGraduationInterval" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="firstPracticeLearningPhase" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="forgetPracticeEase" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="forgetPracticeInterval" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="forgetPracticeRelearningSteps" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isSynchronizedWithPracticePreset" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="practiceType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="practicePreset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePreset" inverseName="practicePresetDefault" inverseEntity="CDPracticePreset"/>
+        <relationship name="practiceThresholdRules" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeThresholdRule" inverseName="practiceDefaultPreset" inverseEntity="CDPracticeThresholdRule"/>
+        <relationship name="synchronizedPracticePreset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePresetDefault" inverseName="synchronizedPracticePreset" inverseEntity="CDPracticePresetDefault"/>
+    </entity>
+    <entity name="CDPracticeRecord" representedClassName="CDPracticeRecord" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <relationship name="practice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPractice" inverseName="records" inverseEntity="CDPractice"/>
+        <relationship name="practiceRecordDefault" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeRecordDefault" inverseName="practiceRecord" inverseEntity="CDPracticeRecordDefault"/>
+    </entity>
+    <entity name="CDPracticeRecordDefault" representedClassName="CDPracticeRecordDefault" syncable="YES" codeGenerationType="class">
+        <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="ease" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="learnedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="stateRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="statusRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="practiceRecord" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeRecord" inverseName="practiceRecordDefault" inverseEntity="CDPracticeRecord"/>
+    </entity>
+    <entity name="CDPracticeSequence" representedClassName="CDPracticeSequence" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="level" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="map" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeMap" inverseName="sequences" inverseEntity="CDPracticeMap"/>
+        <relationship name="practices" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPractice" inverseName="practiceSequence" inverseEntity="CDPractice"/>
+    </entity>
+    <entity name="CDPracticeServerProvidedContent" representedClassName="CDPracticeServerProvidedContent" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <relationship name="article" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeArticle" inverseName="serverProvidedContent" inverseEntity="CDPracticeArticle"/>
+        <relationship name="practice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPractice" inverseName="serverProviededContent" inverseEntity="CDPractice"/>
+    </entity>
+    <entity name="CDPracticeThresholdRule" representedClassName="CDPracticeThresholdRule" syncable="YES" codeGenerationType="class">
+        <attribute name="actionType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="conditionType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="thresholdValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="practiceDefaultPreset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePresetDefault" inverseName="practiceThresholdRules" inverseEntity="CDPracticePresetDefault"/>
+    </entity>
+    <entity name="CDPracticeUserGeneratedContent" representedClassName="CDPracticeUserGeneratedContent" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <relationship name="practice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPractice" inverseName="userGeneratedContent" inverseEntity="CDPractice"/>
     </entity>
     <entity name="CDPreset" representedClassName="CDPreset" syncable="YES" codeGenerationType="class">
         <relationship name="advanced" maxCount="1" deletionRule="Nullify" destinationEntity="CDAdvanced" inverseName="preset" inverseEntity="CDAdvanced"/>

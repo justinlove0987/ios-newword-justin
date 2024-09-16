@@ -66,6 +66,4 @@ class DefaultPracticeRecord: Identifiable, Codable {
         try container.encode(statusRawValue, forKey: .statusRawValue)
         try container.encode(duration, forKey: .time)
     }
-    
-    
 }

@@ -20,7 +20,7 @@ class PracticeSettingCell: UICollectionViewCell {
     
     @IBOutlet weak var radioButtonImageView: UIImageView!
     
-    func configure(row: PracticeSettingViewController.Row, data: Practice) {
+    func configure(row: PracticeSettingViewController.Row, data: CDPractice) {
         hideStackViewArrangedSubviews()
         
         titleLabel.text = row.title
@@ -30,8 +30,8 @@ class PracticeSettingCell: UICollectionViewCell {
         configureCellType(row: row)
     }
     
-    func configureDescriptionLabel(row: PracticeSettingViewController.Row, data: Practice) {
-        guard let preset = data.preset?.defaultPreset else { return }
+    func configureDescriptionLabel(row: PracticeSettingViewController.Row, data: CDPractice) {
+        guard let preset = data.preset?.practicePresetDefault else { return }
         
         var description: String
         

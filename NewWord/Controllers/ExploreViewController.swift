@@ -157,6 +157,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
             self.syncNewServerArticles(with: localArticles, from: serverArticles) {
                 self.resources = CoreDataManager.shared.getAll(ofType: CDPracticeArticle.self)
             }
+            
             UserDefaultsManager.shared.updateLastFetchedDate()
         }
     }
@@ -189,9 +190,8 @@ extension ExploreViewController: UICollectionViewDelegate {
         let controller = ServerProvidedArticleViewController.instantiate()
         
         controller.waitCallback = { [weak self] in
-            guard let self else { return }
-            
-            self.collectionView.reloadData()
+            self?.navigationController?.popToRootViewController(animated: true)
+            self?.collectionView.reloadData()
         }
         
         controller.confirmCallback = { [weak self] in

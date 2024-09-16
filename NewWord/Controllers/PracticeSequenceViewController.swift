@@ -18,9 +18,9 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var dataSource: UICollectionViewDiffableDataSource<Int,Practice>!
+    private var dataSource: UICollectionViewDiffableDataSource<Int,CDPractice>!
 
-    private var practiceMap: PracticeMap?
+    private var practiceMap: CDPracticeMap?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
     }
 
     private func setupData() {
-        self.practiceMap = PracticeMapManager.shared.fetch(by: PracticeMapType.blueprint.rawValue)
+        self.practiceMap = CoreDataManager.shared.getFirstBlueprintMap()
     }
 
     private func setupCollectionView() {
@@ -45,8 +45,8 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
         updateSnapshot()
     }
 
-    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, Practice> {
-        let dataSource = UICollectionViewDiffableDataSource<Int, Practice>(collectionView: collectionView,
+    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, CDPractice> {
+        let dataSource = UICollectionViewDiffableDataSource<Int, CDPractice>(collectionView: collectionView,
                                                                             cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeSequenceCell.reuseIdentifier, for: indexPath) as! PracticeSequenceCell
             
@@ -87,13 +87,13 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
     private func updateSnapshot() {
         guard let practiceMap else { return }
 
-        var snapshot = NSDiffableDataSourceSnapshot<Int, Practice>()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, CDPractice>()
 
-        for i in 0..<practiceMap.sequences.count {
-            let sequence = practiceMap.sequences[i]
+        for i in 0..<practiceMap.sortedSequences.count {
+            let sequence = practiceMap.sortedSequences[i]
 
             snapshot.appendSections([i])
-            snapshot.appendItems(sequence.practices, toSection: i)
+            snapshot.appendItems(sequence.sortedPractices, toSection: i)
         }
         
         dataSource.apply(snapshot, animatingDifferences: false)
@@ -104,8 +104,8 @@ extension PracticeSequenceViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let practiceMap else { return }
         
-        let sequence = practiceMap.sequences[indexPath.section]
-        let practice = sequence.practices[indexPath.row]
+        let sequence = practiceMap.sortedSequences[indexPath.section]
+        let practice = sequence.sortedPractices[indexPath.row]
         
         let controller = PracticeSettingViewController.instantiate()
         

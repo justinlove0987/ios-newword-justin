@@ -8,9 +8,7 @@
 import UIKit
 import SwiftData
 
-enum PracticeMapType: Int, CaseIterable {
-    case blueprint
-}
+
 
 @Model
 class PracticeMap: Identifiable, Codable {
