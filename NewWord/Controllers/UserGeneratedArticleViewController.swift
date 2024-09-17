@@ -192,7 +192,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
         let offset = 1
         let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
         let textType = self.viewModel.getTextType(text)
-        let newTag = self.viewModel.createNewTag(number: clozeNumber, text: text, range: updateRange!, textType: textType, hint: hint)
+        let newTag = self.viewModel.createNewTag(number: clozeNumber, text: text, range: updateRange!, textType: textType, translation: hint)
 
         self.viewModel.updateTagNSRanges(with: updateRange!, offset: offset)
         self.viewModel.appendTag(newTag)

@@ -56,42 +56,9 @@ extension AppDelegate {
         
         createDefaultPracticeMap()
     }
-//    
-//    func createDefaultPracticeMap() {
-////        PracticeManager.shared.deleteAllEntities()
-//        
-//        let practiceMaps = PracticeMapManager.shared.fetchAll()
-//        
-//        if practiceMaps.isEmpty {
-//            let type = Practice.PracticeType.listenAndTranslate.rawValue
-//
-//            let preset = PracticePreset(defaultPreset: DefaultPracticePreset())
-//            
-//            let resource = PracticeServerProvidedContent()
-//            
-//            let practice = Practice(typeRawValue: type,
-//                                    preset: preset,
-//                                    serverProvidedContent: resource,
-//                                    userGeneratedContent: nil,
-//                                    records: [])
-//
-//            let sequence = PracticeSequence(practices: [practice])
-//
-//            let map = PracticeMap(type: 0, sequences: [sequence])
-//
-//            PracticeMapManager.shared.create(model: map)
-//
-////            print("foo - \(map.sequences.first?.practices.first?.resource)")
-////            print("foo - \(practiceMap.practiceMatrix.first?.first?.resource)")
-////            print("foo - \(map?.practiceMatrix.first)")
-////            print("foo - \(map?.practiceMatrix.first?.first)")
-////            print("foo - \(map?.practiceMatrix.first?.first?.resource)")
-//            
-//            
-//        }
-//    }
     
     func createDefaultPracticeMap() {
+        
         let maps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
         
         if maps.isEmpty {
@@ -107,7 +74,7 @@ extension AppDelegate {
             
             practice.preset = preset
             practice.typeRawValue = practiceTypeRawValue.toInt64
-            practice.practiceSequence = sequence
+            practice.sequence = sequence
             
             sequence.map = map
             

@@ -148,8 +148,63 @@ struct WordSelectorViewControllerViewModel {
         
         return text
     }
+    
+    
+    func saveTag(_ tag: CDUserGeneratedContextTag) {
+        let maps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
+        
+        let blueprintMap = maps.first!
+        
+        guard let range = tag.range,
+              let text = tag.text,
+              let deck = getSaveDeck(tag) else {
+            return
+        }
+        
+        let newMap = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
+        
+        for sequence in blueprintMap.sortedSequences {
+            let newSequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
+            
+            newSequence.id = UUID().uuidString
+            newSequence.level = sequence.level
+            newSequence.map = newMap
+            
+            for practice in sequence.sortedPractices {
+                let newPractice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
+                let userGeneratedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeUserGeneratedContent.self)
+                let userGeneratedContextTag = CoreDataManager.shared.createEntity(ofType: CDUserGeneratedContextTag.self)
+                let serverProvidedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeServerProvidedContent.self)
+                
+                userGeneratedContextTag.id = UUID().uuidString
+                userGeneratedContextTag.number = tag.number
+                userGeneratedContextTag.originalRangeLocation = tag.originalRangeLocation
+                userGeneratedContextTag.originalRangeLength = tag.originalRangeLength
+                userGeneratedContextTag.revisedRangeLocation = tag.revisedRangeLocation
+                userGeneratedContextTag.revisedRangeLength = tag.revisedRangeLength
+                userGeneratedContextTag.tagColor = tag.tagColor
+                userGeneratedContextTag.contentColor = tag.contentColor
+                userGeneratedContextTag.text = tag.text
+                userGeneratedContextTag.translation = tag.translation
+                userGeneratedContextTag.typeRawValue = tag.typeRawValue
+                userGeneratedContextTag.userGeneratedContent = userGeneratedContent
+                
+                userGeneratedContent.userGeneratedContextTag = userGeneratedContextTag
+                
+                serverProvidedContent.article = userGeneratedContextTag.userGeneratedArticle?.article
+                
+                newPractice.id = UUID().uuidString
+                newPractice.order = practice.order
+                newPractice.typeRawValue = practice.typeRawValue
+                newPractice.userGeneratedContent = userGeneratedContent
+                newPractice.serverProviededContent = serverProvidedContent
+                newPractice.sequence = newSequence
+                newPractice.deck = deck
+            }
+        }
+    }
 
-    mutating func saveTag(_ text: String) {
+    mutating func saveTags(_ text: String) {
         let context = CoreDataManager.shared.createContext(text)
         
         for i in 0..<tags.count {
@@ -296,7 +351,7 @@ struct WordSelectorViewControllerViewModel {
                         text: String,
                         range: NSRange,
                         textType: ContextType,
-                      hint: String) -> CDUserGeneratedContextTag {
+                      translation: String) -> CDUserGeneratedContextTag {
 
         let tagColor: UIColor = selectMode == .sentence ? UIColor.tagBlue : UIColor.tagGreen
         let cotentColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueText: UIColor.textGreen
@@ -311,7 +366,7 @@ struct WordSelectorViewControllerViewModel {
         tag.tagColor = tagColor.toData()
         tag.contentColor = cotentColor.toData()
         tag.text = text
-        tag.translation = hint
+        tag.translation = translation
         tag.typeRawValue = textType.rawValue.toInt64
 
         return tag
@@ -549,10 +604,10 @@ struct WordSelectorViewControllerViewModel {
         }
     }
     
-    private func getSaveDeck(_ cloze: CDUserGeneratedContextTag) -> CDDeck? {
-        let decks = CoreDataManager.shared.getDecks()
+    private func getSaveDeck(_ tag: CDUserGeneratedContextTag) -> CDDeck? {
+        let decks = CoreDataManager.shared.getAll(ofType: CDDeck.self)
         var deck: CDDeck? = nil
-        let isWord = cloze.type == .word
+        let isWord = tag.type == .word
         
         if isWord {
             if let firstDeck = decks.first {

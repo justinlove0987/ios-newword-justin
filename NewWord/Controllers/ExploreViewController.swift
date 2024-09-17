@@ -25,12 +25,9 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
-//        
-//        CoreDataManager.shared.deleteAllEntities()
-        
-        setup()
+//        resetData()
 //        uploadArticle()
+        setup()
     }
 
     func getYesterdayDate() -> Date {
@@ -41,6 +38,13 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         let yesterday = calendar.date(byAdding: .day, value: -1, to: today)
 
         return yesterday!
+    }
+    
+    private func resetData() {
+        UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
+        
+        CoreDataManager.shared.deleteAllEntities()
+
     }
 
     private func setup() {

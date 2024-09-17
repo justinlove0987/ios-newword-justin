@@ -148,8 +148,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         guard var text = customTextView.text else { return }
         guard let article else { return }
 
-        text = viewModel.removeAllTags(in: text) ?? ""
-        viewModel.saveTag(text)
+//        text = viewModel.removeAllTags(in: text) ?? ""
+//        viewModel.saveTag(text)
         
         viewModel.showPracticeAlert(presentViewController: self) {
             self.waitCallback?()
@@ -297,7 +297,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         let offset = 1
         let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
         let textType = self.viewModel.getTextType(text)
-        let newTag = self.viewModel.createNewTag(number: clozeNumber, text: text, range: updateRange!, textType: textType, hint: hint)
+        let newTag = self.viewModel.createNewTag(number: clozeNumber, text: text, range: updateRange!, textType: textType, translation: hint)
         
         article?.userGeneratedArticle?.addToUserGeneratedContextTags(newTag)
         
@@ -465,8 +465,20 @@ extension ServerProvidedArticleViewController {
         let translationClosure: ((_ translatedTraditionalText: String) -> ()) = { [weak self] translatedTraditionalText in
             guard let self else { return }
 
+            let offset = 1
+            let clozeNumber = self.viewModel.getClozeNumber()
+            let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
+            let textType = self.viewModel.getTextType(text)
+            let newTag = self.viewModel.createNewTag(number: clozeNumber, text: text, range: updateRange!, textType: textType, translation: translatedTraditionalText)
+            
             self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
-            self.updateTag(with: range, text: text, hint: translatedTraditionalText)
+            self.customTextView.insertNumberImageView(at: range.location, existTags: self.viewModel.tags, with: String(clozeNumber))
+            self.viewModel.tags.sort { $0.revisedRangeLocation < $1.revisedRangeLocation }
+            self.viewModel.updateTagNSRanges(with: range, offset: offset)
+            self.viewModel.appendTag(newTag)
+            
+            article?.userGeneratedArticle?.addToUserGeneratedContextTags(newTag)
+            
             self.updateCustomTextView()
 
             if !self.viewModel.hasDuplicateTagLocations(with: range) {
@@ -490,10 +502,11 @@ extension ServerProvidedArticleViewController {
 
             article?.userGeneratedArticle?.revisedText = customTextView.text
             
+            self.viewModel.saveTag(newTag)
+            
             CoreDataManager.shared.save()
             
             triggerImpactFeedback()
-            
         }
 
         if viewModel.containsOriginalText(textWithoutFFFC) {
