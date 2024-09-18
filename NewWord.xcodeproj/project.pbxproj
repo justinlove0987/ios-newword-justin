@@ -91,6 +91,12 @@
 		2AFABE602C98105B00BA2347 /* CDPracticeMap+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE5E2C98105B00BA2347 /* CDPracticeMap+Extension.swift */; };
 		2AFABE642C98120300BA2347 /* CDPractice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE622C98120300BA2347 /* CDPractice+Extension.swift */; };
 		2AFABE682C98156D00BA2347 /* CDPracticeSequence+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE662C98156D00BA2347 /* CDPracticeSequence+Extension.swift */; };
+		2AFABE6A2C990E7F00BA2347 /* ShowPracticesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE692C990E7F00BA2347 /* ShowPracticesViewController.swift */; };
+		2AFABE6C2C990FAB00BA2347 /* ShowPracticesViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE6B2C990FAB00BA2347 /* ShowPracticesViewControllerViewModel.swift */; };
+		2AFABE702C99111300BA2347 /* CDDeck+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE6E2C99111300BA2347 /* CDDeck+Extension.swift */; };
+		2AFABE742C99137B00BA2347 /* CDPracticeRecord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE722C99137B00BA2347 /* CDPracticeRecord+Extension.swift */; };
+		2AFABE782C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE762C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift */; };
+		2AFABE7C2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE7A2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift */; };
 		2AFC91472C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */; };
 		2AFC914A2C7C4F6F002C2AD1 /* PracticeSequenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */; };
 		2AFC914B2C7C4F6F002C2AD1 /* PracticeSequenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */; };
@@ -242,6 +248,12 @@
 		2AFABE5E2C98105B00BA2347 /* CDPracticeMap+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeMap+Extension.swift"; sourceTree = "<group>"; };
 		2AFABE622C98120300BA2347 /* CDPractice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPractice+Extension.swift"; sourceTree = "<group>"; };
 		2AFABE662C98156D00BA2347 /* CDPracticeSequence+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeSequence+Extension.swift"; sourceTree = "<group>"; };
+		2AFABE692C990E7F00BA2347 /* ShowPracticesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPracticesViewController.swift; sourceTree = "<group>"; };
+		2AFABE6B2C990FAB00BA2347 /* ShowPracticesViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPracticesViewControllerViewModel.swift; sourceTree = "<group>"; };
+		2AFABE6E2C99111300BA2347 /* CDDeck+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDDeck+Extension.swift"; sourceTree = "<group>"; };
+		2AFABE722C99137B00BA2347 /* CDPracticeRecord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeRecord+Extension.swift"; sourceTree = "<group>"; };
+		2AFABE762C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeRecordStandard+Extension.swift"; sourceTree = "<group>"; };
+		2AFABE7A2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeStatus+Extension.swift"; sourceTree = "<group>"; };
 		2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSequenceViewController.swift; sourceTree = "<group>"; };
 		2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSequenceCell.swift; sourceTree = "<group>"; };
 		2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeSequenceCell.xib; sourceTree = "<group>"; };
@@ -400,6 +412,21 @@
 			path = PracticeUserGeneratedContent;
 			sourceTree = "<group>";
 		};
+		2AFABE712C99114B00BA2347 /* Practice */ = {
+			isa = PBXGroup;
+			children = (
+				2AFABE5E2C98105B00BA2347 /* CDPracticeMap+Extension.swift */,
+				2AFABE662C98156D00BA2347 /* CDPracticeSequence+Extension.swift */,
+				2AFABE622C98120300BA2347 /* CDPractice+Extension.swift */,
+				2AFABE722C99137B00BA2347 /* CDPracticeRecord+Extension.swift */,
+				D09016742C93DEF200A5FBD2 /* CDPracticeImage+Extension.swift */,
+				D09016702C93DCB200A5FBD2 /* CDPracticeArticle+Extension.swift */,
+				2AFABE762C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift */,
+				2AFABE7A2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift */,
+			);
+			path = Practice;
+			sourceTree = "<group>";
+		};
 		2AFE839A2C8934D600C5AA33 /* PracticeServerProvidedContent */ = {
 			isa = PBXGroup;
 			children = (
@@ -452,6 +479,7 @@
 				2A7045592C7FF7AB00A58672 /* ClozeViewControllerViewModel.swift */,
 				D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */,
 				2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */,
+				2AFABE6B2C990FAB00BA2347 /* ShowPracticesViewControllerViewModel.swift */,
 				2A17DAF92C157C7F00919642 /* ClozeViewViewModel.swift */,
 				2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */,
 				2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */,
@@ -529,6 +557,7 @@
 				2A70455B2C7FF94900A58672 /* ClozeWord.swift */,
 				2A034E822C75879C00668F02 /* Tag.swift */,
 				2A034E842C75902D00668F02 /* TranslationPair.swift */,
+				2A6BA1432C63622B00F0DE3F /* FirebaseManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -546,6 +575,7 @@
 				2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */,
 				2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */,
 				2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */,
+				2AFABE692C990E7F00BA2347 /* ShowPracticesViewController.swift */,
 				2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */,
 				2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */,
 				2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */,
@@ -581,20 +611,16 @@
 		D09262BB2C097F2A00CA90BA /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				2AFABE712C99114B00BA2347 /* Practice */,
 				D09262B92C097ECD00CA90BA /* CoreDataManager.swift */,
-				2AFABE662C98156D00BA2347 /* CDPracticeSequence+Extension.swift */,
-				2AFABE622C98120300BA2347 /* CDPractice+Extension.swift */,
-				2AFABE5E2C98105B00BA2347 /* CDPracticeMap+Extension.swift */,
+				2AFABE6E2C99111300BA2347 /* CDDeck+Extension.swift */,
 				D090167C2C93E56600A5FBD2 /* CDTimepointInformation+Extension.swift */,
 				D09016782C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift */,
-				D09016742C93DEF200A5FBD2 /* CDPracticeImage+Extension.swift */,
-				D09016702C93DCB200A5FBD2 /* CDPracticeArticle+Extension.swift */,
 				D0344F5F2C56B25D00F721BF /* CDNote+Extension.swift */,
 				D09262C02C09808400CA90BA /* CDCard+Extension.swift */,
 				D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */,
 				D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */,
 				2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */,
-				2A6BA1432C63622B00F0DE3F /* FirebaseManager.swift */,
 				D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -773,6 +799,7 @@
 				D04023372C81A74A004BF63B /* PracticeMapManager.swift in Sources */,
 				2A02EF292C4A386500E21A6E /* TagTestingCell.swift in Sources */,
 				2A67688D2C3322590040C89F /* AddTagTextView.swift in Sources */,
+				2AFABE7C2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift in Sources */,
 				D0D8D5F62C0F0920001BB415 /* String+Extension.swift in Sources */,
 				2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */,
 				2AC3E5932C5602EB002CC242 /* SettingCell.swift in Sources */,
@@ -782,6 +809,7 @@
 				D090166E2C93CB2400A5FBD2 /* Int+Extension.swift in Sources */,
 				2AFABE602C98105B00BA2347 /* CDPracticeMap+Extension.swift in Sources */,
 				2A0D41F32C6EF2C3000B1B3B /* ArticlePlayButtonView.swift in Sources */,
+				2AFABE702C99111300BA2347 /* CDDeck+Extension.swift in Sources */,
 				D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */,
 				2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */,
 				D0344F602C56B25D00F721BF /* CDNote+Extension.swift in Sources */,
@@ -793,6 +821,7 @@
 				2A70455A2C7FF7AC00A58672 /* ClozeViewControllerViewModel.swift in Sources */,
 				2A70455C2C7FF94A00A58672 /* ClozeWord.swift in Sources */,
 				2A7045582C7DC35D00A58672 /* RadioButtonCell.swift in Sources */,
+				2AFABE6C2C990FAB00BA2347 /* ShowPracticesViewControllerViewModel.swift in Sources */,
 				2A89D86A2C7435AC00DDBFF0 /* UITextView+Extension.swift in Sources */,
 				2A17DAFA2C157C7F00919642 /* ClozeViewViewModel.swift in Sources */,
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
@@ -813,6 +842,7 @@
 				D09016722C93DCB200A5FBD2 /* CDPracticeArticle+Extension.swift in Sources */,
 				D0A6E4E92C52060100E1EF35 /* TagView.swift in Sources */,
 				2AFF6C9F2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift in Sources */,
+				2AFABE742C99137B00BA2347 /* CDPracticeRecord+Extension.swift in Sources */,
 				2A7F3C102C5B5A3C0028150D /* ExploreViewController.swift in Sources */,
 				2AFABE642C98120300BA2347 /* CDPractice+Extension.swift in Sources */,
 				D0D6E0EB2C1DE92C00C1F95E /* ContextStackView.swift in Sources */,
@@ -827,6 +857,7 @@
 				2A2176852C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift in Sources */,
 				D03107D42C16F2AA00EEF772 /* LearningRecordCell.swift in Sources */,
 				2A67688B2C3294470040C89F /* WordSelectorViewControllerViewModel.swift in Sources */,
+				2AFABE782C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift in Sources */,
 				D0EE06FD2C6A4CFD000B5BC8 /* ChatGPTService.swift in Sources */,
 				2A24E8D62C537E59006C1032 /* ListeningClozeView.swift in Sources */,
 				D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */,
@@ -838,6 +869,7 @@
 				D04AC2042C51E78E00F91A07 /* SearchCell.swift in Sources */,
 				2A17DAFE2C158C5A00919642 /* InputAccessoryView.swift in Sources */,
 				2A7045812C85B08700A58672 /* PracticeImage.swift in Sources */,
+				2AFABE6A2C990E7F00BA2347 /* ShowPracticesViewController.swift in Sources */,
 				2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
 				2AFC91472C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift in Sources */,

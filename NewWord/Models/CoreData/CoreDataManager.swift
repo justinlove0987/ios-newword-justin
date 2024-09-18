@@ -765,18 +765,11 @@ extension CoreDataManager {
 // MARK: - CDPracticePresetDefault
 
 extension CoreDataManager {
-    func createPracticePresetDefault() -> CDPracticePresetDefault {
-        let preset = CDPracticePresetDefault(context: persistentContainer.viewContext)
+    func createPracticePresetDefault() -> CDPracticePresetStandard {
+        let preset = CDPracticePresetStandard(context: persistentContainer.viewContext)
         
-        preset.firstPracticeGraduationInterval = 1.0
-        preset.firstPracticeEasyInterval = 3.0
         preset.firstPracticeEase = 2.5
-        preset.firstPracticeLearningPhase = 1.0
-        preset.forgetPracticeInterval = 1.0
-        preset.forgetPracticeEase = 2.3
-        preset.forgetPracticeRelearningSteps = 0.0
-        preset.easyBonus = 1.3
-        preset.isSynchronizedWithPracticePreset = false
+        preset.firstPracticeInterval = 3.0
         preset.synchronizedPracticePreset = nil
         
         return preset

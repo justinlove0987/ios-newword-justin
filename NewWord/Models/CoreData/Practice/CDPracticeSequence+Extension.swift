@@ -16,11 +16,11 @@ public class CDPracticeSequence: NSManagedObject {
 
 extension CDPracticeSequence {
     var sortedPractices: [CDPractice] {
-        guard let sequences = self.practices as? Set<CDPractice> else {
+        guard let practices = self.practices as? Set<CDPractice> else {
             return []
         }
         
-        let sortedSequences = sequences.sorted { $0.order < $1.order }
-        return sortedSequences
+        let sortedPractices = practices.sorted { $0.sequenceOrder < $1.sequenceOrder }
+        return sortedPractices
     }
 }
