@@ -132,7 +132,6 @@
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="learnedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="stateRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="statusRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="practiceRecord" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeRecord" inverseName="standardRecords" inverseEntity="CDPracticeRecord"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeStatus"/>
     </entity>
