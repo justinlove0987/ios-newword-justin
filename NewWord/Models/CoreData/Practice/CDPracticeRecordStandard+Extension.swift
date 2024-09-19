@@ -18,6 +18,39 @@ extension CDPracticeRecordStandard {
     var state: PracticeRecordStandardState? {
         return PracticeRecordStandardState(rawValue: Int(stateRawValue))
     }
+    
+    var isTodayReview: Bool {
+        guard let dueDate = dueDate,
+              let status = status,
+              let state = state else {
+            return false
+        }
+        
+        return dueDate <= Date() &&
+        status.type == .easy &&
+        (state == .learn ||
+         state == .review)
+    }
+    
+    var isTodayRelearn: Bool {
+        guard let dueDate = dueDate,
+              let status = status,
+              let state = state else {
+            return false
+        }
+        
+        return dueDate <= Date() &&
+        status.type == .again &&
+        (state == .learn ||
+         state == .relearn)
+    }
+}
+
+extension CDPracticeRecordStandard {
+    
+    func getDuration(from latestTransitionPracticeStatus: ) -> Double? {
+        return nil
+    }
 }
 
 

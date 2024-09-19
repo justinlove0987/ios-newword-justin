@@ -20,12 +20,12 @@ extension CDPracticeRecord {
         return PracticeRecordType(rawValue: Int(typeRawValue))
     }
     
-    var standardArray: [CDPracticeRecordStandard] {
-        guard let records = self.standards as? Set<CDPracticeRecordStandard> else {
+    var standardRecords: [CDPracticeRecordStandard] {
+        guard let recordSet = self.standardRecordSet as? Set<CDPracticeRecordStandard> else {
             return []
         }
         
-        return Array(records)
+        return Array(recordSet)
     }
 }
 

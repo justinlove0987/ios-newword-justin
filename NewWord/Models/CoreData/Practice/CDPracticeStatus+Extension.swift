@@ -15,11 +15,14 @@ public class CDPracticeStatus: NSManagedObject {
 }
 
 extension CDPracticeStatus {
-    var type: PracticeStatusType {
-        return PracticeStatusType(rawValue: Int(typeRawValue))
+    var type: PracticeStatusStandardType? {
+        return PracticeStatusStandardType(rawValue: Int(typeRawValue))
     }
 }
 
-enum PracticeStatusType: Int, CaseIterable {
-    
+enum PracticeStatusStandardType: Int, CaseIterable {
+    case again
+    case hard
+    case good
+    case easy
 }

@@ -98,7 +98,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
     
     private func setupViewModel() {
         viewModel.deck = deck
-        viewModel.setupCards()
+        viewModel.setupPractices()
         
         viewModel.tapAction = { sender in
             self.tapHelper(sender)

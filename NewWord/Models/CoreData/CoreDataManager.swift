@@ -133,7 +133,9 @@ extension CoreDataManager {
             guard let record = card.latestLearningRecord else { return false }
             return (record.dueDate! <= Date() &&
                     record.status == .incorrect &&
-                    (record.state == .relearn || record.state == .learn || record.state == .relearn))
+                    (record.state == .relearn ||
+                     record.state == .learn ||
+                     record.state == .relearn))
         }
         
         return relearnCards

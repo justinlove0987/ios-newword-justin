@@ -39,12 +39,12 @@ class ListeningClozeView: UIView, NibOwnerLoadable {
     var originalText: String = ""
     var translatedText: String = ""
     
-    var card: CDCard?
+    var practice: CDPractice?
     
     // MARK: - Lifecycles
 
-    init?(card: CDCard) {
-        self.card = card
+    init?(practice: CDPractice) {
+        self.practice = practice
         super.init(frame: .zero)
         loadNibContent()
         setup()
@@ -79,7 +79,7 @@ class ListeningClozeView: UIView, NibOwnerLoadable {
     
     private func setupViewModel() {
         viewModel = ListeningClozeViewViewModel()
-        viewModel.card = card
+        viewModel.practice = practice
     }
     
     private func setupLabels() {
@@ -142,18 +142,20 @@ class ListeningClozeView: UIView, NibOwnerLoadable {
     }
 
     private func updatePlayButtonUI() {
-        guard let card else { return }
-        guard let cloze = CoreDataManager.shared.getCloze(from: card) else { return }
+        guard let practice,
+        let userGeneratedContextTag = practice.userGeneratedContent?.userGeneratedContextTag else {
+            return
+        }
         
         switch currentPlaybackState {
         case .playing:
-            if let audio = cloze.clozeAudio {
+            if let audio = userGeneratedContextTag.practiceAudio?.data {
                 GoogleTTSService.shared.speak(audio)
                 
             } else {
-                if let word = cloze.clozeWord {
+                if let word = userGeneratedContextTag.text {
                     GoogleTTSService.shared.download(text: word) { data in
-                        cloze.clozeAudio = data
+                        userGeneratedContextTag.practiceAudio?.data = data
                         GoogleTTSService.shared.speak(data)
                         CoreDataManager.shared.save()
                     }
@@ -166,7 +168,7 @@ class ListeningClozeView: UIView, NibOwnerLoadable {
         
         GoogleTTSService.shared.startCallback = { [weak self] in
             guard let self = self else { return }
-            guard let duration = GoogleTTSService.shared.getDuration(cloze.clozeAudio) else { return }
+            guard let duration = GoogleTTSService.shared.getDuration(userGeneratedContextTag.practiceAudio?.data) else { return }
             self.playButton.applyOverlayAnimation(duration: duration, color: .border)
         }
         

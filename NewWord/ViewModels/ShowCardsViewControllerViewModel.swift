@@ -16,25 +16,25 @@ class ShowCardsViewControllerViewModel {
         case notToday
     }
     
-    struct CardPosition {
+    struct PracticePosition {
         let startPosition: (Int, Int)
         let endPosition: (Int,Int)
     }
     
-    private var cardTypeOrder: [CardType] = [.new, .review, .relearn]
-    private var storageCards: [CDCard] = []
-    private var cardPositions: [CardPosition] = []
+    private var practiceRecordTypeOrder: [PracticeRecordStandardState] = [.learn, .review, .relearn]
+    private var storageCards: [CDPractice] = []
+    private var practicePositions: [PracticePosition] = []
     
     private var currentMatrix: (collectionIndex: Int, cardIndex: Int) = (0,0)
     
-    private var cardCollections: [[CDCard]] = []
+    private var practiceCollections: [[CDPractice]] = []
     
-    private var currentCard: CDCard? {
-        return getCurrentCard() ?? nil
+    private var currentPractice: CDPractice? {
+        return getCurrentPractice() ?? nil
     }
     
     var hasNextCardCollection: Bool {
-        return currentMatrix.collectionIndex + 1 < cardTypeOrder.count
+        return currentMatrix.collectionIndex + 1 < practiceRecordTypeOrder.count
     }
     
     var deck: CDDeck?
@@ -44,43 +44,43 @@ class ShowCardsViewControllerViewModel {
 
     // MARK: - Helpers
 
-    func setupCards() {
+    func setupPractices() {
         guard let deck else { return }
         
-        let tnewCards = CoreDataManager.shared.getNewCards(from: deck)
-        let treviewCards = CoreDataManager.shared.getReviewCards(from: deck)
-        let trelearnCards = CoreDataManager.shared.getRelearnCards(from: deck)
+        let newPractices = deck.newPractices
+        let reviewPractices = deck.reviewPractices
+        let relearnPractices = deck.relearnPractices
         
-        for cardOrder in cardTypeOrder {
-            switch cardOrder {
-            case .new:
-                cardCollections.append(tnewCards)
+        for order in practiceRecordTypeOrder {
+            switch order {
+            case .learn:
+                practiceCollections.append(newPractices)
             case .relearn:
-                cardCollections.append(trelearnCards)
+                practiceCollections.append(relearnPractices)
             case .review:
-                cardCollections.append(treviewCards)
-            case .notToday:
+                practiceCollections.append(reviewPractices)
+            default:
                 break
             }
         }
     }
     
-    func getCardAfterMovingCard() -> CDCard? {
+    func getCardAfterMovingCard() -> CDPractice? {
         let cards = getCurrentCardCollection()
         let hasCards = currentMatrix.cardIndex < cards.count
         
         if hasCards {
-            return getCurrentCard()
+            return getCurrentPractice()
         } else {
             return findPossibleCardInNextCollection()
         }
     }
     
-    func findPossibleCardInNextCollection() -> CDCard? {
+    func findPossibleCardInNextCollection() -> CDPractice? {
         let hasCard = hasCard(at: currentMatrix.collectionIndex)
         
         if hasCard {
-            return cardCollections[currentMatrix.collectionIndex][currentMatrix.cardIndex]
+            return practiceCollections[currentMatrix.collectionIndex][currentMatrix.cardIndex]
         } else {
             if hasNextCardCollection {
                 currentMatrix.collectionIndex += 1
@@ -95,7 +95,7 @@ class ShowCardsViewControllerViewModel {
     func hasNoCard() -> Bool {
         var cardCount = 0
         
-        for cardCollection in cardCollections {
+        for cardCollection in practiceCollections {
             for _ in cardCollection {
                 cardCount += 1
             }
@@ -124,7 +124,7 @@ class ShowCardsViewControllerViewModel {
     }
     
     func hasCard(at collectionIndex: Int) -> Bool {
-        let hasCollection = collectionIndex < cardTypeOrder.count
+        let hasCollection = collectionIndex < practiceRecordTypeOrder.count
         
         if hasCollection {
             let currentCardCollection = getCurrentCardCollection()
@@ -135,8 +135,8 @@ class ShowCardsViewControllerViewModel {
         return false
     }
     
-    func getCurrentCard() -> CDCard? {
-        let hasCollection = currentMatrix.collectionIndex < cardTypeOrder.count
+    func getCurrentPractice() -> CDPractice? {
+        let hasCollection = currentMatrix.collectionIndex < practiceRecordTypeOrder.count
         
         if hasCollection {
             let currentCards = getCurrentCardCollection()
@@ -153,33 +153,29 @@ class ShowCardsViewControllerViewModel {
         return nil
     }
     
-    func getCurrentCardCollection() -> [CDCard] {
-        let collection = cardCollections[currentMatrix.collectionIndex]
+    func getCurrentCardCollection() -> [CDPractice] {
+        let collection = practiceCollections[currentMatrix.collectionIndex]
         
         return collection
     }
     
     func getCurrentSubview() -> any ShowCardsSubviewDelegate {
-        guard let card = getCurrentCard(),
-              let noteType = card.note?.type else {
+        guard let practice = getCurrentPractice(),
+              let type = practice.type else {
             return NoCardView()
         }
         
         let subview: any ShowCardsSubviewDelegate
         
-        switch noteType {
-        case .prononciation:
-            subview = PronounciationView()
-
-        case .cloze:
-            guard let clozeView = ClozeView(card: card) else { return NoCardView() }
-            clozeView.delegate = self
-            subview = clozeView
+        switch type {
+        case .listenAndTranslate:
+            guard let clozeView = ListeningClozeView(practice: practice) else {
+                return NoCardView()
+            }
             
-        case .lienteningCloze:
-            guard let clozeView = ListeningClozeView(card: card) else { return NoCardView() }
             subview = clozeView
-        case .sentenceCloze:
+        
+        default:
             subview = NoCardView()
         }
         
@@ -188,7 +184,7 @@ class ShowCardsViewControllerViewModel {
     
     func addLearningRecordToCurrentCard(isAnswerCorrect: Bool) {
         guard let deck = deck else { return }
-        guard let card = getCurrentCard() else { return }
+        guard let card = getCurrentPractice() else { return }
 
         let learningRecord = CoreDataManager.shared.createLearningRecord(lastCard: card, deck: deck, isAnswerCorrect: isAnswerCorrect)
 
@@ -196,9 +192,9 @@ class ShowCardsViewControllerViewModel {
     }
     
     func moveCard(isAnswerCorrect: Bool) {
-        guard cardCollections[currentMatrix.collectionIndex].count > 0 else { return }
+        guard practiceCollections[currentMatrix.collectionIndex].count > 0 else { return }
         
-        let moveCard = cardCollections[currentMatrix.collectionIndex].remove(at: currentMatrix.cardIndex)
+        let moveCard = practiceCollections[currentMatrix.collectionIndex].remove(at: currentMatrix.cardIndex)
         
         if isAnswerCorrect {
             storageCards.append(moveCard)
@@ -207,10 +203,10 @@ class ShowCardsViewControllerViewModel {
         }
     }
     
-    func addCardToCollection(_ card: CDCard, type: CardType) {
-        for (i, cardType) in cardTypeOrder.enumerated() {
+    func addCardToCollection(_ card: CDPractice, type: PracticeRecordStandardState) {
+        for (i, cardType) in practiceRecordTypeOrder.enumerated() {
             if type == cardType {
-                cardCollections[i].append(card)
+                practiceCollections[i].append(card)
             }
         }
     }
@@ -220,15 +216,15 @@ class ShowCardsViewControllerViewModel {
         var review = 0
         var relearn = 0
 
-        for (i,order) in cardTypeOrder.enumerated() {
+        for (i,order) in practiceRecordTypeOrder.enumerated() {
             switch order {
-            case .new:
-                new = cardCollections[i].count
+            case .learn:
+                new = practiceCollections[i].count
             case .relearn:
-                relearn = cardCollections[i].count
+                relearn = practiceCollections[i].count
             case .review:
-                review = cardCollections[i].count
-            case .notToday:
+                review = practiceCollections[i].count
+            default:
                 break
             }
         }

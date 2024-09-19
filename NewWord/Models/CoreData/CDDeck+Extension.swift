@@ -16,8 +16,8 @@ public class CDDeck: NSManagedObject {
 }
 
 extension CDDeck {
-    var practiceArray: [CDPractice] {
-        guard let practices = self.practices as? Set<CDPractice> else {
+    var practices: [CDPractice] {
+        guard let practices = self.practiceSet as? Set<CDPractice> else {
             return []
         }
         
@@ -25,16 +25,42 @@ extension CDDeck {
     }
     
     var newPractices: [CDPractice] {
-        let newPractices = practiceArray.filter { practice in
-            guard let standardArray = practice.record?.standardArray else {
+        let newPractices = practices.filter { practice in
+            guard let standardArray = practice.record?.standardRecords else {
                 return false
             }
             
             return standardArray.isEmpty
         }
         
-        return []
+        return newPractices
     }
     
+    var reviewPractices: [CDPractice] {
+        let reviewPractices = practices.filter { practice in
+            guard let standardRecords = practice.record?.standardRecords,
+                  let latestPracticeRecordStandard = practice.latestPracticeRecordStandard
+            else {
+                return false
+            }
+            
+            return latestPracticeRecordStandard.isTodayReview
+        }
+        
+        return reviewPractices
+    }
     
+    var relearnPractices: [CDPractice] {
+        let relearnPractices = practices.filter { practice in
+            guard let standardRecords = practice.record?.standardRecords,
+                  let latestPracticeRecordStandard = practice.latestPracticeRecordStandard
+            else {
+                return false
+            }
+            
+            return latestPracticeRecordStandard.isTodayRelearn
+        }
+        
+        return relearnPractices
+    }
 }

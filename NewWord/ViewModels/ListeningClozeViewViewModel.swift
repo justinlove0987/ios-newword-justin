@@ -9,20 +9,28 @@ import Foundation
 import AVKit
 
 struct ListeningClozeViewViewModel {
-    var card: CDCard?
+    var practice: CDPractice?
     
     let synthesizer: AVSpeechSynthesizer = AVSpeechSynthesizer()
 
     func getOriginalText() -> String? {
-        guard let card else { return nil }
+        guard let practice else { return nil }
         
-        return CoreDataManager.shared.getClozeWord(from: card)
+        guard let userGeneratedContextTag = practice.userGeneratedContent?.userGeneratedContextTag else {
+            return nil
+        }
+        
+        return userGeneratedContextTag.text
     }
     
     func getTranslatedText() -> String? {
-        guard let card else { return nil }
+        guard let practice else { return nil }
         
-        return CoreDataManager.shared.getHint(from: card)
+        guard let userGeneratedContextTag = practice.userGeneratedContent?.userGeneratedContextTag else {
+            return nil
+        }
+        
+        return userGeneratedContextTag.translation
     }
 
     func speak(text: String, voiceName: String? = nil) {

@@ -18,6 +18,109 @@ extension CDPractice {
     var type: PracticeType? {
         return PracticeType(rawValue: Int(typeRawValue))
     }
+    
+    var latestPracticeRecordStandard: CDPracticeRecordStandard? {
+        guard let standardRecords = record?.standardRecords else {
+            return nil
+        }
+        
+        return standardRecords.max { lRecord, rRecord in
+            guard let lDueDate = lRecord.dueDate,
+                  let rDueDate = rRecord.dueDate else { return false
+            }
+            return lDueDate < rDueDate
+        }
+    }
+    
+    var latestTransitionPracticeRecordStandard: CDPracticeRecordStandard? {
+        guard let standardRecords = record?.standardRecords else {
+            return nil
+        }
+        
+        var sortedStandardRecords = standardRecords.sorted { lReord, rRecord in
+            guard let lReordDate = lReord.dueDate,
+                  let rRecordDate = rRecord.dueDate else {
+                return false
+            }
+            
+            return lReordDate > rRecordDate
+        }
+        
+        let record = sortedStandardRecords.first { record in
+            guard let status = record.status else {
+                return false
+            }
+            
+            return status.type == .again || status.type == .easy
+        }
+        
+        return record
+    }
+    
+    var isNewPractice: Bool {
+        guard let standardRecords = record?.standardRecords else {
+            return false
+        }
+        
+        return standardRecords.isEmpty
+    }
+}
+
+extension CDPractice {
+    
+    // easeBonus * lastDuration * (lastEase + easeAdustment)
+    
+    
+    
+    func addRecord(currentStatus: PracticeStatusStandardType) {
+        let today: Date = Date()
+        
+        guard let latestRecord = self.latestPracticeRecordStandard,
+              let latestStatusType = latestRecord.status?.type,
+              let standardPreset = self.preset?.standardPreset
+        else {
+            return
+        }
+        
+        standardPreset.firstPracticeEase
+        standardPreset.firstPracticeInterval
+        
+        if isNewPractice {
+            
+        }
+        
+        if let latestRecord = self.latestPracticeRecordStandard {
+            
+        } else {
+            
+        }
+        
+//        latestTransitionPracticeRecordStandard
+        
+//        switch latestStatusType {
+//        case .again:
+//            <#code#>
+//        case .hard:
+//            <#code#>
+//        case .good:
+//            <#code#>
+//        case .easy:
+//            <#code#>
+//        }
+//        
+//        switch currentStatus {
+//        case .again:
+//            <#code#>
+//        case .hard:
+//            <#code#>
+//        case .good:
+//            <#code#>
+//        case .easy:
+//            <#code#>
+//        }
+        
+        
+    }
 }
 
 enum PracticeType: Int, CaseIterable {
