@@ -83,10 +83,11 @@ extension CDPractice {
         }
         
         standardPreset.firstPracticeEase
-        standardPreset.firstPracticeInterval
-        
+
+        CoreDataManager.shared.createEntity(ofType: CDPracticeRecordStandard.self)
+
         if isNewPractice {
-            
+
         }
         
         if let latestRecord = self.latestPracticeRecordStandard {
