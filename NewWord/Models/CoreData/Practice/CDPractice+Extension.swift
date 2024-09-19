@@ -94,13 +94,18 @@ extension CDPractice {
         }
         
         if latestStatus.type == .again && latestState == .learn {
-            return .firstLearn
+            return .learning
         }
         
         if let latestTransitionPracticeStandardRecord,
-           let state = latestTransitionPracticeStandardRecord.state
+           let state = latestTransitionPracticeStandardRecord.state,
+           let status = latestTransitionPracticeStandardRecord.status
         {
-            
+            if status.type == .easy {
+                return .easyTransition
+            } else if status.type == .again {
+                return .againTransition
+            }
         }
         
         return .unknown
@@ -130,10 +135,12 @@ extension CDPractice {
         var dueDate: Date
         var ease: Double = 2.5
         var learnedDate: Date = Date()
-        var stateRawValue: Int
+        var newState: PracticeRecordStandardState = .leach
         
         // 當state是new或是learn的時候是使用 state 去新增 record
-        if state == .new || state == .firstLearn {
+        
+        switch state {
+        case .new, .learning:
             guard let firstPracticeInterval = referenceStatus?.firstPracticeInterval else {
                 return
             }
@@ -141,14 +148,22 @@ extension CDPractice {
             duration = firstPracticeInterval
             dueDate = learnedDate.adding(seconds: duration)
             ease = standardPreset.firstPracticeEase
-            stateRawValue
             
-        }
-        
-        if userPressedStatusType == .again {
+            if userPressedStatusType == .easy {
+                newState = .review
+            }
             
-        } else if userPressedStatusType == .easy {
+        case .easyTransition:
+//            referenceStatus?.easeBonus
+//            duration =
+            break
             
+        case .againTransition:
+//            duration =
+            break
+            
+        case .unknown:
+            break
         }
         
         standardRecord.duration = duration
@@ -158,7 +173,7 @@ extension CDPractice {
 // 針對整個record
 enum PracticeStandardState: Int, CaseIterable {
     case new
-    case firstLearn
+    case learning
     case easyTransition
     case againTransition
     case unknown
