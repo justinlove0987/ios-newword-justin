@@ -54,23 +54,42 @@ extension AppDelegate {
 
         _ = PersistentContainerManager.shared
         
-        createDefaultPracticeMap()
+        createFirstTimePracticeMap()
     }
     
-    func createDefaultPracticeMap() {
+    func createFirstTimePracticeMap() {
         
         let maps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
         
         if maps.isEmpty {
             let practiceTypeRawValue = Practice.PracticeType.listenAndTranslate.rawValue
             
-            let presetDefault = CoreDataManager.shared.createPracticePresetDefault()
+            let again = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
+            let hard = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
+            let good = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
+            let easy = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
+            let standardPreset = CoreDataManager.shared.createEntity(ofType: CDPracticePresetStandard.self)
             let preset = CoreDataManager.shared.createEntity(ofType: CDPracticePreset.self)
             let practice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
             let sequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
             let map = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
             
-            preset.practicePresetDefault = presetDefault
+            for standardStatusType in PracticeStandardStatusType.allCases {
+                let status = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
+                
+                status.easeAdjustment = standardStatusType.easeAdjustment
+                status.easeBonus = standardStatusType.easeBonus
+                status.firstPracticeInterval = standardStatusType.firstPracticeInterval
+                status.forgetInterval = standardStatusType.forgetInterval
+                status.order = standardStatusType.order.toInt64
+                status.title = standardStatusType.title
+                status.typeRawValue = standardStatusType.rawValue.toInt64
+                status.standardPreset = standardPreset
+            }
+            
+            standardPreset.firstPracticeEase = 2.5
+            
+            preset.standardPreset = standardPreset
             
             practice.preset = preset
             practice.typeRawValue = practiceTypeRawValue.toInt64

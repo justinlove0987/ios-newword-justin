@@ -46,14 +46,6 @@ extension CDPracticeRecordStandard {
     }
 }
 
-extension CDPracticeRecordStandard {
-    
-    func getDuration(from latestTransitionPracticeStatus: ) -> Double? {
-        return nil
-    }
-}
-
-
 enum PracticeRecordStandardState: Int, CaseIterable {
     case learn
     case review

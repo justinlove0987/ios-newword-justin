@@ -110,12 +110,11 @@
         <relationship name="practice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPractice" inverseName="preset" inverseEntity="CDPractice"/>
         <relationship name="standardPreset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePresetStandard" inverseName="preset" inverseEntity="CDPracticePresetStandard"/>
     </entity>
-    <entity name="CDPracticePresetStandard" representedClassName="CDPracticePresetStandard" syncable="YES" codeGenerationType="class">
+    <entity name="CDPracticePresetStandard" representedClassName="CDPracticePresetStandard" syncable="YES" codeGenerationType="category">
         <attribute name="firstPracticeEase" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="firstPracticeInterval" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <relationship name="preset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePreset" inverseName="standardPreset" inverseEntity="CDPracticePreset"/>
-        <relationship name="statuses" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeStatus" inverseName="standardPreset" inverseEntity="CDPracticeStatus"/>
+        <relationship name="statusSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeStatus" inverseName="standardPreset" inverseEntity="CDPracticeStatus"/>
         <relationship name="synchronizedPracticePreset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePresetStandard" inverseName="synchronizedPracticePreset" inverseEntity="CDPracticePresetStandard"/>
         <relationship name="thresholdRules" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPracticeThresholdRule" inverseName="practiceDefaultPreset" inverseEntity="CDPracticeThresholdRule"/>
     </entity>
@@ -149,11 +148,12 @@
     <entity name="CDPracticeStatus" representedClassName="CDPracticeStatus" syncable="YES" codeGenerationType="category">
         <attribute name="easeAdjustment" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="easeBonus" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="interval" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="firstPracticeInterval" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="forgetInterval" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="typeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="standardPreset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePresetStandard" inverseName="statuses" inverseEntity="CDPracticePresetStandard"/>
+        <relationship name="standardPreset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePresetStandard" inverseName="statusSet" inverseEntity="CDPracticePresetStandard"/>
     </entity>
     <entity name="CDPracticeThresholdRule" representedClassName="CDPracticeThresholdRule" syncable="YES" codeGenerationType="class">
         <attribute name="actionType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

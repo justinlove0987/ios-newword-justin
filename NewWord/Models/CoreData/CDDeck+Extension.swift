@@ -39,7 +39,7 @@ extension CDDeck {
     var reviewPractices: [CDPractice] {
         let reviewPractices = practices.filter { practice in
             guard let standardRecords = practice.record?.standardRecords,
-                  let latestPracticeRecordStandard = practice.latestPracticeRecordStandard
+                  let latestPracticeRecordStandard = practice.latestPracticeStandardRecord
             else {
                 return false
             }
@@ -53,7 +53,7 @@ extension CDDeck {
     var relearnPractices: [CDPractice] {
         let relearnPractices = practices.filter { practice in
             guard let standardRecords = practice.record?.standardRecords,
-                  let latestPracticeRecordStandard = practice.latestPracticeRecordStandard
+                  let latestPracticeRecordStandard = practice.latestPracticeStandardRecord
             else {
                 return false
             }

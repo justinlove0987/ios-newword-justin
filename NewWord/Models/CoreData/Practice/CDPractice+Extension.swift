@@ -19,7 +19,7 @@ extension CDPractice {
         return PracticeType(rawValue: Int(typeRawValue))
     }
     
-    var latestPracticeRecordStandard: CDPracticeRecordStandard? {
+    var latestPracticeStandardRecord: CDPracticeRecordStandard? {
         guard let standardRecords = record?.standardRecords else {
             return nil
         }
@@ -32,7 +32,7 @@ extension CDPractice {
         }
     }
     
-    var latestTransitionPracticeRecordStandard: CDPracticeRecordStandard? {
+    var latestTransitionPracticeStandardRecord: CDPracticeRecordStandard? {
         guard let standardRecords = record?.standardRecords else {
             return nil
         }
@@ -57,12 +57,53 @@ extension CDPractice {
         return record
     }
     
-    var isNewPractice: Bool {
+    var hasLatestTransitionPracticeRecordStandard: Bool {
+        return latestTransitionPracticeStandardRecord != nil
+    }
+    
+    var isNew: Bool {
         guard let standardRecords = record?.standardRecords else {
             return false
         }
         
         return standardRecords.isEmpty
+    }
+    
+    var state: PracticeStandardState {
+        guard let standardRecords = record?.standardRecords else {
+            return .unknown
+        }
+        
+        var sortedStandardRecords = standardRecords.sorted { lReord, rRecord in
+            guard let lReordDate = lReord.dueDate,
+                  let rRecordDate = rRecord.dueDate else {
+                return false
+            }
+            
+            return lReordDate > rRecordDate
+        }
+        
+        
+        if sortedStandardRecords.isEmpty {
+            return .new
+        }
+        
+        guard let latestStatus = sortedStandardRecords.first?.status,
+              let latestState = sortedStandardRecords.first?.state else {
+            return .unknown
+        }
+        
+        if latestStatus.type == .again && latestState == .learn {
+            return .firstLearn
+        }
+        
+        if let latestTransitionPracticeStandardRecord,
+           let state = latestTransitionPracticeStandardRecord.state
+        {
+            
+        }
+        
+        return .unknown
     }
 }
 
@@ -70,58 +111,57 @@ extension CDPractice {
     
     // easeBonus * lastDuration * (lastEase + easeAdustment)
     
-    
-    
-    func addRecord(currentStatus: PracticeStatusStandardType) {
+    func addRecord(userPressedStatusType: PracticeStandardStatusType, referencePractice: CDPractice) {
         let today: Date = Date()
         
-        guard let latestRecord = self.latestPracticeRecordStandard,
+        guard let latestRecord = self.latestPracticeStandardRecord,
               let latestStatusType = latestRecord.status?.type,
               let standardPreset = self.preset?.standardPreset
         else {
             return
         }
+
+        let standardRecord = CoreDataManager.shared.createEntity(ofType: CDPracticeRecordStandard.self)
+        let referenceStatus = standardPreset.getStatus(from: userPressedStatusType)
+
+        // 如果是新練習和舊練習會有duration差異嗎？不會，有差異的是依據上一次的回答
         
-        standardPreset.firstPracticeEase
-
-        CoreDataManager.shared.createEntity(ofType: CDPracticeRecordStandard.self)
-
-        if isNewPractice {
-
+        var duration: Double = 0.0
+        var dueDate: Date
+        var ease: Double = 2.5
+        var learnedDate: Date = Date()
+        var stateRawValue: Int
+        
+        // 當state是new或是learn的時候是使用 state 去新增 record
+        if state == .new || state == .firstLearn {
+            guard let firstPracticeInterval = referenceStatus?.firstPracticeInterval else {
+                return
+            }
+            
+            duration = firstPracticeInterval
+            dueDate = learnedDate.adding(seconds: duration)
+            ease = standardPreset.firstPracticeEase
+            stateRawValue
+            
         }
         
-        if let latestRecord = self.latestPracticeRecordStandard {
+        if userPressedStatusType == .again {
             
-        } else {
+        } else if userPressedStatusType == .easy {
             
         }
         
-//        latestTransitionPracticeRecordStandard
-        
-//        switch latestStatusType {
-//        case .again:
-//            <#code#>
-//        case .hard:
-//            <#code#>
-//        case .good:
-//            <#code#>
-//        case .easy:
-//            <#code#>
-//        }
-//        
-//        switch currentStatus {
-//        case .again:
-//            <#code#>
-//        case .hard:
-//            <#code#>
-//        case .good:
-//            <#code#>
-//        case .easy:
-//            <#code#>
-//        }
-        
-        
+        standardRecord.duration = duration
     }
+}
+
+// 針對整個record
+enum PracticeStandardState: Int, CaseIterable {
+    case new
+    case firstLearn
+    case easyTransition
+    case againTransition
+    case unknown
 }
 
 enum PracticeType: Int, CaseIterable {
