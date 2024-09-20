@@ -184,8 +184,11 @@ class ShowCardsViewControllerViewModel {
     
     func addLearningRecordToCurrentCard(isAnswerCorrect: Bool) {
         guard let practice = getCurrentPractice() else { return }
+        guard let deck,
+              let standardPreset = deck.presetc?.standardPreset else { return }
 
-        practice.addRecord(userPressedStatusType: .easy)
+        practice.addRecord(userPressedStatusType: .easy,
+                           standardPreset: standardPreset)
     }
     
     func moveCard(isAnswerCorrect: Bool) {

@@ -123,9 +123,10 @@ extension CDPractice {
 
 extension CDPractice {
     
-    func addRecord(userPressedStatusType: PracticeStandardStatusType) {
-        guard let latestRecord = self.latestPracticeStandardRecord,
-              let standardPreset = self.preset?.standardPreset else {
+    func addRecord(userPressedStatusType: PracticeStandardStatusType,
+                   standardPreset: CDPracticePresetStandard) {
+        
+        guard let latestRecord = self.latestPracticeStandardRecord else {
             return
         }
 

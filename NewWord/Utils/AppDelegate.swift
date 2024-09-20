@@ -35,6 +35,12 @@ extension AppDelegate {
             UserDefaultsManager.shared.preferredLineSpacing = 5
         }
         
+        // CoreDataManager.shared.deleteAllEntities()
+        createDecks()
+        createFirstTimePracticeMap()
+    }
+    
+    func createDecks() {
         if !CoreDataManager.shared.deckExists() {
             CoreDataManager.shared.addDeck(name: "單字複習牌組")
             CoreDataManager.shared.addDeck(name: "句子複習牌組")
@@ -51,43 +57,44 @@ extension AppDelegate {
             
             CoreDataManager.shared.addSelectableItemList(items: items, type: .deck)
         }
-
-        _ = PersistentContainerManager.shared
-        
-        createFirstTimePracticeMap()
     }
     
     func createFirstTimePracticeMap() {
         
+        let decks = CoreDataManager.shared.getAll(ofType: CDDeck.self)
         let maps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
         
         if maps.isEmpty {
             let practiceTypeRawValue = Practice.PracticeType.listenAndTranslate.rawValue
-
-            let standardPreset = CoreDataManager.shared.createEntity(ofType: CDPracticePresetStandard.self)
-            let preset = CoreDataManager.shared.createEntity(ofType: CDPracticePreset.self)
             let practice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
             let sequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
             let map = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
             
-            for standardStatusType in PracticeStandardStatusType.allCases {
-                let status = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
+            for deck in decks {
+                let preset = CoreDataManager.shared.createEntity(ofType: CDPracticePreset.self)
+                let standardPreset = CoreDataManager.shared.createEntity(ofType: CDPracticePresetStandard.self)
                 
-                status.easeAdjustment = standardStatusType.easeAdjustment
-                status.easeBonus = standardStatusType.easeBonus
-                status.firstPracticeInterval = standardStatusType.firstPracticeInterval
-                status.forgetInterval = standardStatusType.forgetInterval
-                status.order = standardStatusType.order.toInt64
-                status.title = standardStatusType.title
-                status.typeRawValue = standardStatusType.rawValue.toInt64
-                status.standardPreset = standardPreset
+                
+                standardPreset.firstPracticeEase = 2.5
+                
+                preset.standardPreset = standardPreset
+                
+                for standardStatusType in PracticeStandardStatusType.allCases {
+                    let status = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
+                    
+                    status.easeAdjustment = standardStatusType.easeAdjustment
+                    status.easeBonus = standardStatusType.easeBonus
+                    status.firstPracticeInterval = standardStatusType.firstPracticeInterval
+                    status.forgetInterval = standardStatusType.forgetInterval
+                    status.order = standardStatusType.order.toInt64
+                    status.title = standardStatusType.title
+                    status.typeRawValue = standardStatusType.rawValue.toInt64
+                    status.standardPreset = standardPreset
+                }
+                
+                deck.presetc = preset
             }
             
-            standardPreset.firstPracticeEase = 2.5
-            
-            preset.standardPreset = standardPreset
-            
-            practice.preset = preset
             practice.typeRawValue = practiceTypeRawValue.toInt64
             practice.sequence = sequence
 

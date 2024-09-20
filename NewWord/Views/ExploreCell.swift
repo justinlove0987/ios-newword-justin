@@ -42,8 +42,6 @@ class ExploreCell: UICollectionViewCell {
         cefrView.addDefaultBorder(cornerRadius: 5)
         cefrView.isHidden = article.cefr! == .none
         cefrLabel.text = article.cefr?.title
-        
-        
     }
     
     func configureTagExistsView(_ article: CDPracticeArticle) {

@@ -23,6 +23,10 @@ extension CDPracticePresetStandard {
         return Array(statusSet)
     }
     
+    var sortedStatuses: [CDPracticeStatus] {
+        return statuses.sorted { $0.order < $1.order }
+    }
+    
     func getStatus(from userPressedStatus: PracticeStandardStatusType) -> CDPracticeStatus? {
         for status in statuses {
             if status.type == userPressedStatus {

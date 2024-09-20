@@ -30,6 +30,8 @@
 		2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */; };
 		2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C22BE48FB2003F058F /* SearchViewController.swift */; };
 		2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */; };
+		2A4DA68F2C9D434B00CC6CDD /* PracticeButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A4DA68E2C9D434B00CC6CDD /* PracticeButton.xib */; };
+		2A4DA6912C9D448600CC6CDD /* PracticeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DA6902C9D448600CC6CDD /* PracticeButton.swift */; };
 		2A5D608E2C63663B00252A0C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5D608D2C63663B00252A0C /* FirebaseStorage */; };
 		2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */; };
 		2A67688B2C3294470040C89F /* WordSelectorViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */; };
@@ -94,8 +96,6 @@
 		2AFABE602C98105B00BA2347 /* CDPracticeMap+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE5E2C98105B00BA2347 /* CDPracticeMap+Extension.swift */; };
 		2AFABE642C98120300BA2347 /* CDPractice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE622C98120300BA2347 /* CDPractice+Extension.swift */; };
 		2AFABE682C98156D00BA2347 /* CDPracticeSequence+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE662C98156D00BA2347 /* CDPracticeSequence+Extension.swift */; };
-		2AFABE6A2C990E7F00BA2347 /* ShowPracticesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE692C990E7F00BA2347 /* ShowPracticesViewController.swift */; };
-		2AFABE6C2C990FAB00BA2347 /* ShowPracticesViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE6B2C990FAB00BA2347 /* ShowPracticesViewControllerViewModel.swift */; };
 		2AFABE702C99111300BA2347 /* CDDeck+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE6E2C99111300BA2347 /* CDDeck+Extension.swift */; };
 		2AFABE742C99137B00BA2347 /* CDPracticeRecord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE722C99137B00BA2347 /* CDPracticeRecord+Extension.swift */; };
 		2AFABE782C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE762C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift */; };
@@ -196,6 +196,8 @@
 		2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		2A38F8C22BE48FB2003F058F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		2A4DA68E2C9D434B00CC6CDD /* PracticeButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeButton.xib; sourceTree = "<group>"; };
+		2A4DA6902C9D448600CC6CDD /* PracticeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeButton.swift; sourceTree = "<group>"; };
 		2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWord+Extension.swift"; sourceTree = "<group>"; };
 		2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSelectorViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A67688C2C3322590040C89F /* AddTagTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagTextView.swift; sourceTree = "<group>"; };
@@ -254,8 +256,6 @@
 		2AFABE5E2C98105B00BA2347 /* CDPracticeMap+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeMap+Extension.swift"; sourceTree = "<group>"; };
 		2AFABE622C98120300BA2347 /* CDPractice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPractice+Extension.swift"; sourceTree = "<group>"; };
 		2AFABE662C98156D00BA2347 /* CDPracticeSequence+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeSequence+Extension.swift"; sourceTree = "<group>"; };
-		2AFABE692C990E7F00BA2347 /* ShowPracticesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPracticesViewController.swift; sourceTree = "<group>"; };
-		2AFABE6B2C990FAB00BA2347 /* ShowPracticesViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPracticesViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2AFABE6E2C99111300BA2347 /* CDDeck+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDDeck+Extension.swift"; sourceTree = "<group>"; };
 		2AFABE722C99137B00BA2347 /* CDPracticeRecord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeRecord+Extension.swift"; sourceTree = "<group>"; };
 		2AFABE762C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeRecordStandard+Extension.swift"; sourceTree = "<group>"; };
@@ -487,7 +487,6 @@
 				2A7045592C7FF7AB00A58672 /* ClozeViewControllerViewModel.swift */,
 				D0058CE82BBA714F00D2BB25 /* SentenceClozeViewModel.swift */,
 				2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */,
-				2AFABE6B2C990FAB00BA2347 /* ShowPracticesViewControllerViewModel.swift */,
 				2A17DAF92C157C7F00919642 /* ClozeViewViewModel.swift */,
 				2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */,
 				2AF8868F2C539B1C00E7FA3E /* ListeningClozeViewViewModel.swift */,
@@ -552,6 +551,8 @@
 				2AFC91562C7C6BA3002C2AD1 /* SeparatorFooterView.swift */,
 				2A7045552C7DC35D00A58672 /* RadioButtonCell.swift */,
 				2A7045562C7DC35D00A58672 /* RadioButtonCell.xib */,
+				2A4DA6902C9D448600CC6CDD /* PracticeButton.swift */,
+				2A4DA68E2C9D434B00CC6CDD /* PracticeButton.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -583,7 +584,6 @@
 				2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */,
 				2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */,
 				2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */,
-				2AFABE692C990E7F00BA2347 /* ShowPracticesViewController.swift */,
 				2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */,
 				2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */,
 				2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */,
@@ -741,6 +741,7 @@
 			files = (
 				2A0D41F12C6EF1D0000B1B3B /* ArticlePlayButtonView.xib in Resources */,
 				2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */,
+				2A4DA68F2C9D434B00CC6CDD /* PracticeButton.xib in Resources */,
 				D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */,
 				2AFC91502C7C5B85002C2AD1 /* PracticeSettingCell.xib in Resources */,
 				2A034F7D2C3682C800AEDA65 /* CustomNumberTagView.xib in Resources */,
@@ -833,7 +834,6 @@
 				2A9C73A82C9C08FF006690A5 /* TimeConverter.swift in Sources */,
 				2A70455C2C7FF94A00A58672 /* ClozeWord.swift in Sources */,
 				2A7045582C7DC35D00A58672 /* RadioButtonCell.swift in Sources */,
-				2AFABE6C2C990FAB00BA2347 /* ShowPracticesViewControllerViewModel.swift in Sources */,
 				2A89D86A2C7435AC00DDBFF0 /* UITextView+Extension.swift in Sources */,
 				2A17DAFA2C157C7F00919642 /* ClozeViewViewModel.swift in Sources */,
 				D0DA5AC52BB66A05008644DC /* AppDelegate.swift in Sources */,
@@ -874,6 +874,7 @@
 				2A24E8D62C537E59006C1032 /* ListeningClozeView.swift in Sources */,
 				D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */,
 				2A70456A2C805FD800A58672 /* PracticeMap.swift in Sources */,
+				2A4DA6912C9D448600CC6CDD /* PracticeButton.swift in Sources */,
 				D00981B62C86C7BE00C1E948 /* PracticeSequence.swift in Sources */,
 				2AC5D8B92C54941B0090AEBB /* PlayButton.swift in Sources */,
 				D09262C12C09808400CA90BA /* CDCard+Extension.swift in Sources */,
@@ -881,7 +882,6 @@
 				D04AC2042C51E78E00F91A07 /* SearchCell.swift in Sources */,
 				2A17DAFE2C158C5A00919642 /* InputAccessoryView.swift in Sources */,
 				2A7045812C85B08700A58672 /* PracticeImage.swift in Sources */,
-				2AFABE6A2C990E7F00BA2347 /* ShowPracticesViewController.swift in Sources */,
 				2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
 				2AFC91472C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift in Sources */,

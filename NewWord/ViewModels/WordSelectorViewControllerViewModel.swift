@@ -175,6 +175,7 @@ struct WordSelectorViewControllerViewModel {
                 let userGeneratedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeUserGeneratedContent.self)
                 let userGeneratedContextTag = CoreDataManager.shared.createEntity(ofType: CDUserGeneratedContextTag.self)
                 let serverProvidedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeServerProvidedContent.self)
+                let practiceAudio = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
                 
                 userGeneratedContextTag.id = UUID().uuidString
                 userGeneratedContextTag.number = tag.number
@@ -188,6 +189,7 @@ struct WordSelectorViewControllerViewModel {
                 userGeneratedContextTag.translation = tag.translation
                 userGeneratedContextTag.typeRawValue = tag.typeRawValue
                 userGeneratedContextTag.userGeneratedContent = userGeneratedContent
+                userGeneratedContextTag.practiceAudio = practiceAudio
                 
                 userGeneratedContent.userGeneratedContextTag = userGeneratedContextTag
                 

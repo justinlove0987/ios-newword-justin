@@ -86,7 +86,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        setupButtonRadiusCorner()
+        updatePracticeButtonCornerRadius()
     }
 
     // MARK: - Helpers
@@ -94,6 +94,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
     private func setup() {
         setupViewModel()
         setupProperties()
+        setupPracticeButtons()
     }
     
     private func setupViewModel() {
@@ -123,39 +124,42 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
         rateStackView.isHidden = false
     }
 
-    private func setupButtonRadiusCorner() {
-        let firstButton = answerTypeStackView.arrangedSubviews.first!
-        let lastButton = answerTypeStackView.arrangedSubviews.last!
-
+    private func setupPracticeButtons() {
+        guard let statuses = viewModel.deck?.presetc?.standardPreset?.sortedStatuses else {
+            return
+        }
+        
+        for i in 0..<statuses.count {
+            let status = statuses[i]
+            
+            let button = PracticeButton()
+            
+            button.titleLabel.text = status.title
+            button.intervalLabel.text = "1.6y"
+            
+            answerTypeStackView.addArrangedSubview(button)
+        }
+    }
+    
+    private func updatePracticeButtonCornerRadius() {
         let screenCornerRadius: CGFloat = 44
         let safeAreaInsetBottom = view.safeAreaInsets.bottom
-
         let cornerRadius = screenCornerRadius - safeAreaInsetBottom
-
-        firstButton.addDefaultBorder(cornerRadius: cornerRadius, maskedCorners: [.layerMinXMaxYCorner])
-        lastButton.addDefaultBorder(cornerRadius: cornerRadius, maskedCorners: [.layerMaxXMaxYCorner])
-
-        let buttons: [UIView] = [firstButton, lastButton]
-
-        for button in buttons {
-            if let button = button as? UIButton {
-                button.addTarget(self, action: #selector(touchButton(_:)), for: [.touchDown, .touchDragEnter, .touchDragInside])
-            }
-
-            if let button = button as? UIButton {
-                button.addTarget(self, action: #selector(touchCancel(_:)), for: [.touchCancel, .touchDragExit, .touchUpInside, .touchUpOutside, .touchDragOutside])
+        
+        for i in 0..<answerTypeStackView.arrangedSubviews.count {
+            let button = answerTypeStackView.arrangedSubviews[i]
+            let isFirstButton = i == 0
+            let isLastButton = i + 1 == answerTypeStackView.arrangedSubviews.count
+            
+            if isFirstButton {
+                button.addDefaultBorder(cornerRadius: cornerRadius, maskedCorners: [.layerMinXMaxYCorner])
+            } else if isLastButton {
+                button.addDefaultBorder(cornerRadius: cornerRadius, maskedCorners: [.layerMaxXMaxYCorner])
+            } else {
+                button.addDefaultBorder(cornerRadius: 0)
             }
         }
     }
-
-    @objc func touchButton(_ sender: UIButton) {
-        sender.backgroundColor = UIColor.transition
-    }
-
-    @objc func touchCancel(_ sender: UIButton) {
-        sender.backgroundColor = UIColor.background
-    }
-
 
     private func layout(newSubview: any ShowCardsSubviewDelegate) {
         if let oldClozeView = lastShowingSubview as? ClozeView {
@@ -182,6 +186,17 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
 
     @objc func tap(_ sender: UITapGestureRecognizer) {
         tapHelper(sender)
+        
+//        guard let button = sender.view as? UIButton else {
+//            return
+//        }
+//        
+//        let touchPoint = sender.location(in: button)
+//        if button.bounds.contains(touchPoint) {
+//            print("Tapped inside the button")
+//        } else {
+//            print("Tapped outside the button")
+//        }
     }
 
     private func tapHelper(_ sender: UITapGestureRecognizer) {
@@ -197,9 +212,9 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
             updateAnswerStateView(isFinalState: isFinalState)
 
         } else {
-            let isAnswerCorrect = isTouchOnRightSide(of: contentView, at: sender.location(in: self.view))
+            let isAnswerEasy = isTouchOnRightSide(of: contentView, at: sender.location(in: self.view))
             
-            showAnswer(with: isAnswerCorrect)
+            showAnswer(with: isAnswerEasy)
 
             guard let _ = viewModel.getCardAfterMovingCard() else {
                 lastShowingSubview = NoCardView()

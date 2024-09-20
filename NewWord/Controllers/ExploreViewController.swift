@@ -25,7 +25,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        resetData()
+        resetData()
 //        uploadArticle()
         setup()
     }
@@ -43,8 +43,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     private func resetData() {
         UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
         
-        CoreDataManager.shared.deleteAllEntities()
-
+//        CoreDataManager.shared.deleteAllEntities()
     }
 
     private func setup() {

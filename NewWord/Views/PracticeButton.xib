@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PracticeButton" customModule="NewWord" customModuleProvider="target">
+            <connections>
+                <outlet property="innerButton" destination="ocv-oA-qfe" id="Dz6-cM-baC"/>
+                <outlet property="intervalLabel" destination="5CC-Ep-dAu" id="93y-ux-oiS"/>
+                <outlet property="titleLabel" destination="Alj-Ou-sww" id="Gn4-X1-EHB"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="150" height="145"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ocv-oA-qfe">
+                    <rect key="frame" x="0.0" y="0.0" width="150" height="145"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain"/>
+                    <connections>
+                        <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="0xT-6G-gwy"/>
+                    </connections>
+                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9Ot-fK-vCZ">
+                    <rect key="frame" x="60" y="54" width="30" height="37.333333333333343"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="簡單" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Alj-Ou-sww">
+                            <rect key="frame" x="0.0" y="0.0" width="30" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.6年" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5CC-Ep-dAu">
+                            <rect key="frame" x="0.0" y="23" width="30" height="14.333333333333336"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" name="description"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="tintColor" name="title"/>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="9Ot-fK-vCZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="0v5-6J-zfw"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ocv-oA-qfe" secondAttribute="trailing" id="GTr-tV-cAd"/>
+                <constraint firstAttribute="bottom" secondItem="ocv-oA-qfe" secondAttribute="bottom" id="Vif-nt-vrT"/>
+                <constraint firstItem="ocv-oA-qfe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gbf-ah-G93"/>
+                <constraint firstItem="9Ot-fK-vCZ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="uwK-kc-KkB"/>
+                <constraint firstItem="ocv-oA-qfe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="wd2-PO-2Or"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-112.97709923664122" y="-310.91549295774649"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="description">
+            <color red="0.57647058823529407" green="0.59215686274509804" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="title">
+            <color red="0.090196078431372548" green="0.094117647058823528" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>
