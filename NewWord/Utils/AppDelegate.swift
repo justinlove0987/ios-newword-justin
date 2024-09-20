@@ -35,7 +35,7 @@ extension AppDelegate {
             UserDefaultsManager.shared.preferredLineSpacing = 5
         }
         
-        // CoreDataManager.shared.deleteAllEntities()
+        CoreDataManager.shared.deleteAllEntities()
         createDecks()
         createFirstTimePracticeMap()
     }

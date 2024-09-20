@@ -176,7 +176,8 @@ struct WordSelectorViewControllerViewModel {
                 let userGeneratedContextTag = CoreDataManager.shared.createEntity(ofType: CDUserGeneratedContextTag.self)
                 let serverProvidedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeServerProvidedContent.self)
                 let practiceAudio = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
-                
+                let record = CoreDataManager.shared.createEntity(ofType: CDPracticeRecord.self)
+
                 userGeneratedContextTag.id = UUID().uuidString
                 userGeneratedContextTag.number = tag.number
                 userGeneratedContextTag.originalRangeLocation = tag.originalRangeLocation
@@ -199,6 +200,7 @@ struct WordSelectorViewControllerViewModel {
                 newPractice.sequenceOrder = practice.sequenceOrder
                 newPractice.typeRawValue = practice.typeRawValue
                 newPractice.userGeneratedContent = userGeneratedContent
+                newPractice.record = record
                 newPractice.serverProviededContent = serverProvidedContent
                 newPractice.sequence = newSequence
                 newPractice.deck = deck

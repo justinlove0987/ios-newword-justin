@@ -20,6 +20,22 @@ extension CDPracticeStatus {
     }
 }
 
+extension CDPracticeStatus {
+    func copy() -> CDPracticeStatus {
+        let copy = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
+
+        copy.easeAdjustment = self.easeAdjustment
+        copy.easeBonus = self.easeBonus
+        copy.firstPracticeInterval = self.firstPracticeInterval
+        copy.forgetInterval = self.forgetInterval
+        copy.order = self.order
+        copy.title = self.title
+        copy.typeRawValue = self.typeRawValue
+
+        return copy
+    }
+}
+
 enum PracticeStandardStatusType: Int, CaseIterable {
     case again
     case hard

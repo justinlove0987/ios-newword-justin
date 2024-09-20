@@ -125,10 +125,6 @@ extension CDPractice {
     
     func addRecord(userPressedStatusType: PracticeStandardStatusType,
                    standardPreset: CDPracticePresetStandard) {
-        
-        guard let latestRecord = self.latestPracticeStandardRecord else {
-            return
-        }
 
         let referenceStatus = standardPreset.getStatus(from: userPressedStatusType)
 
@@ -140,7 +136,7 @@ extension CDPractice {
         let (newEase, newDuration, newDueDate, newRecordState) = calculateNewValues(
             state: state,
             referenceStatus: referenceStatus,
-            latestRecord: latestRecord,
+            latestRecord: self.latestPracticeStandardRecord,
             userPressedStatusType: userPressedStatusType,
             standardPreset: standardPreset
         )
@@ -151,7 +147,7 @@ extension CDPractice {
             learnedDate: learnedDate,
             newDueDate: newDueDate,
             newRecordState: newRecordState,
-            referenceStatus: referenceStatus
+            referenceStatus: referenceStatus.copy()
         )
     }
 
@@ -162,15 +158,15 @@ extension CDPractice {
     private func calculateNewValues(
         state: PracticeStandardState,
         referenceStatus: CDPracticeStatus,
-        latestRecord: CDPracticeRecordStandard,
+        latestRecord: CDPracticeRecordStandard?,
         userPressedStatusType: PracticeStandardStatusType,
         standardPreset: CDPracticePresetStandard
-    ) -> (Double, Double, Date, PracticeRecordStandardState) {
+    ) -> (Double, Double, Date, PracticeRecordStandardStateType) {
 
-        var newEase: Double = latestRecord.ease
+        var newEase: Double = latestRecord == nil ? standardPreset.firstPracticeEase : latestRecord!.ease
         var newDuration: Double = 0.0
         var newDueDate: Date = Date()
-        var newRecordState: PracticeRecordStandardState = .relearn
+        var newRecordState: PracticeRecordStandardStateType = .relearn
 
         let learnedDate = Date() // 假設當前的日期為learnedDate
 
@@ -183,7 +179,7 @@ extension CDPractice {
 
         case .easyTransition:
             newEase += referenceStatus.easeAdjustment
-            newDuration = newEase * referenceStatus.easeBonus * latestRecord.duration
+            newDuration = newEase * referenceStatus.easeBonus * (latestRecord == nil ? referenceStatus.firstPracticeInterval : latestRecord!.duration)
             newDueDate = learnedDate.adding(seconds: newDuration)
             newRecordState = userPressedStatusType == .again ? .relearn : .review
 
@@ -205,7 +201,7 @@ extension CDPractice {
         newDuration: Double,
         learnedDate: Date,
         newDueDate: Date,
-        newRecordState: PracticeRecordStandardState,
+        newRecordState: PracticeRecordStandardStateType,
         referenceStatus: CDPracticeStatus
     ) {
         let standardRecord = CoreDataManager.shared.createEntity(ofType: CDPracticeRecordStandard.self)
@@ -215,8 +211,24 @@ extension CDPractice {
         standardRecord.dueDate = newDueDate
         standardRecord.stateRawValue = newRecordState.rawValue.toInt64
 
+        self.record?.addToStandardRecordSet(standardRecord)
+
         CoreDataManager.shared.save()
     }
+
+//    func getDuration(at order: Int) -> Double {
+//        switch state {
+//        case .new, .firstPractice:
+//
+//
+//        case .easyTransition:
+//            <#code#>
+//        case .againTransition:
+//            <#code#>
+//        case .unknown:
+//            <#code#>
+//        }
+//    }
 
 }
 

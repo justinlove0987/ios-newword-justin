@@ -21,7 +21,7 @@ class ShowCardsViewControllerViewModel {
         let endPosition: (Int,Int)
     }
     
-    private var practiceRecordTypeOrder: [PracticeRecordStandardState] = [.learn, .review, .relearn]
+    private var practiceRecordTypeOrder: [PracticeRecordStandardStateType] = [.learn, .review, .relearn]
     private var storageCards: [CDPractice] = []
     
     private var currentMatrix: (collectionIndex: Int, cardIndex: Int) = (0,0)
@@ -204,7 +204,7 @@ class ShowCardsViewControllerViewModel {
         }
     }
     
-    func addCardToCollection(_ card: CDPractice, type: PracticeRecordStandardState) {
+    func addCardToCollection(_ card: CDPractice, type: PracticeRecordStandardStateType) {
         for (i, cardType) in practiceRecordTypeOrder.enumerated() {
             if type == cardType {
                 practiceCollections[i].append(card)

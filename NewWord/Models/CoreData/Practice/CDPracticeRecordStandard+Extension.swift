@@ -15,8 +15,8 @@ public class CDPracticeRecordStandard: NSManagedObject {
 }
 
 extension CDPracticeRecordStandard {
-    var state: PracticeRecordStandardState? {
-        return PracticeRecordStandardState(rawValue: Int(stateRawValue))
+    var state: PracticeRecordStandardStateType? {
+        return PracticeRecordStandardStateType(rawValue: Int(stateRawValue))
     }
     
     var isTodayReview: Bool {
@@ -46,7 +46,7 @@ extension CDPracticeRecordStandard {
     }
 }
 
-enum PracticeRecordStandardState: Int, CaseIterable {
+enum PracticeRecordStandardStateType: Int, CaseIterable {
     case learn
     case review
     case relearn
