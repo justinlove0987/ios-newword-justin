@@ -136,7 +136,10 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
             
             button.titleLabel.text = status.title
             button.intervalLabel.text = "1.6y"
-            
+            button.status = status
+            button.addTarget(self, action: #selector(touchButton(_:)), for: [.touchDown, .touchDragEnter, .touchDragInside])
+            button.addTarget(self, action: #selector(touchCancel(_:)), for: [.touchCancel, .touchDragExit, .touchUpInside, .touchUpOutside, .touchDragOutside])
+
             answerTypeStackView.addArrangedSubview(button)
         }
     }
@@ -186,17 +189,6 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
 
     @objc func tap(_ sender: UITapGestureRecognizer) {
         tapHelper(sender)
-        
-//        guard let button = sender.view as? UIButton else {
-//            return
-//        }
-//        
-//        let touchPoint = sender.location(in: button)
-//        if button.bounds.contains(touchPoint) {
-//            print("Tapped inside the button")
-//        } else {
-//            print("Tapped outside the button")
-//        }
     }
 
     private func tapHelper(_ sender: UITapGestureRecognizer) {
@@ -212,9 +204,15 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
             updateAnswerStateView(isFinalState: isFinalState)
 
         } else {
-            let isAnswerEasy = isTouchOnRightSide(of: contentView, at: sender.location(in: self.view))
-            
-            showAnswer(with: isAnswerEasy)
+            if let practiceButton = touchedAnswerButton(sender: sender) {
+                guard let statusType = practiceButton.status?.type else { return }
+
+                showAnswer(with: statusType)
+
+            } else {
+                let statusType: PracticeStandardStatusType = isTouchOnRightSide(of: contentView, at: sender.location(in: self.view)) ? .easy : .again
+                showAnswer(with: statusType)
+            }
 
             guard let _ = viewModel.getCardAfterMovingCard() else {
                 lastShowingSubview = NoCardView()
@@ -225,10 +223,10 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
         }
     }
     
-    private func showAnswer(with isAnswerCorrect: Bool) {
-        viewModel.addLearningRecordToCurrentCard(isAnswerCorrect: isAnswerCorrect)
-        viewModel.moveCard(isAnswerCorrect: isAnswerCorrect)
-        
+    private func showAnswer(with userPressedStatusType: PracticeStandardStatusType) {
+        viewModel.addLearningRecordToCurrentCard(userPressedStatusType: userPressedStatusType)
+        viewModel.moveCard(userPressedStatusType: userPressedStatusType)
+
         lastShowingSubview = viewModel.getCurrentSubview()
         let collectionCounts = viewModel.getCollectionCounts()
         updateLabels(collectionCounts: collectionCounts)
@@ -255,18 +253,39 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
         let midX = view.bounds.midX
         return point.x > midX
     }
-    
+
+    private func touchedAnswerButton(sender: UITapGestureRecognizer) -> PracticeButton? {
+        for subview in answerTypeStackView.arrangedSubviews {
+            let touchPoint = sender.location(in: subview)
+            if subview.bounds.contains(touchPoint) {
+                if let subview = subview as? PracticeButton {
+                    return subview
+                }
+            }
+        }
+
+        return nil
+    }
+
     
     // MARK: - Actions
 
-    @IBAction func correctAction(_ sender: UIButton) {
-        showAnswer(with: true)
+//    @IBAction func correctAction(_ sender: UIButton) {
+//        showAnswer(with: true)
+//    }
+//
+//    @IBAction func incorrectAction(_ sender: UIButton) {
+//        showAnswer(with: false)
+//    }
+
+    @objc func touchButton(_ sender: UIButton) {
+        sender.backgroundColor = UIColor.transition
     }
 
-    @IBAction func incorrectAction(_ sender: UIButton) {
-        showAnswer(with: false)
+    @objc func touchCancel(_ sender: UIButton) {
+        sender.backgroundColor = UIColor.background
     }
-    
+
     deinit {
         print("foo - ShowCardsViewController deinit")
     }

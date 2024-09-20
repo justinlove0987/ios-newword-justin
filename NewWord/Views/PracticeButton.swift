@@ -7,40 +7,21 @@
 
 import UIKit
 
-class PracticeButton: UIView, NibOwnerLoadable {
-    
+class PracticeButton: UIControl, NibOwnerLoadable {
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var intervalLabel: UILabel!
     @IBOutlet weak var innerButton: UIButton!
-    
+
+    var status: CDPracticeStatus?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadNibContent()
-        setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         loadNibContent()
-        setup()
     }
-    
-    private func setup() {
-        innerButton.addTarget(self, action: #selector(touchButton(_:)), for: [.touchDown, .touchDragEnter, .touchDragInside])
-        innerButton.addTarget(self, action: #selector(touchCancel(_:)), for: [.touchCancel, .touchDragExit, .touchUpInside, .touchUpOutside, .touchDragOutside])
-    }
-    
-    
-    @objc func touchButton(_ sender: UIButton) {
-        sender.backgroundColor = UIColor.transition
-    }
-
-    @objc func touchCancel(_ sender: UIButton) {
-        sender.backgroundColor = UIColor.background
-    }
-    
-    @IBAction func buttonAction(_ sender: UIButton) {
-        print("foo - touch button")
-    }
-    
 }

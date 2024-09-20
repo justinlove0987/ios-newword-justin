@@ -23,7 +23,6 @@ class ShowCardsViewControllerViewModel {
     
     private var practiceRecordTypeOrder: [PracticeRecordStandardState] = [.learn, .review, .relearn]
     private var storageCards: [CDPractice] = []
-    private var practicePositions: [PracticePosition] = []
     
     private var currentMatrix: (collectionIndex: Int, cardIndex: Int) = (0,0)
     
@@ -182,23 +181,25 @@ class ShowCardsViewControllerViewModel {
         return subview
     }
     
-    func addLearningRecordToCurrentCard(isAnswerCorrect: Bool) {
+    func addLearningRecordToCurrentCard(userPressedStatusType: PracticeStandardStatusType) {
         guard let practice = getCurrentPractice() else { return }
         guard let deck,
               let standardPreset = deck.presetc?.standardPreset else { return }
 
-        practice.addRecord(userPressedStatusType: .easy,
+        practice.addRecord(userPressedStatusType: userPressedStatusType,
                            standardPreset: standardPreset)
     }
     
-    func moveCard(isAnswerCorrect: Bool) {
+    func moveCard(userPressedStatusType: PracticeStandardStatusType) {
+        guard let currentPractice else { return }
         guard practiceCollections[currentMatrix.collectionIndex].count > 0 else { return }
-        
+
+
         let moveCard = practiceCollections[currentMatrix.collectionIndex].remove(at: currentMatrix.cardIndex)
-        
-        if isAnswerCorrect {
+
+        if currentPractice.state == .easyTransition {
             storageCards.append(moveCard)
-        } else {
+        } else if currentPractice.state == .againTransition {
             addCardToCollection(moveCard, type: .relearn)
         }
     }
