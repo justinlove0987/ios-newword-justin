@@ -27,7 +27,7 @@ extension CDDeck {
     var newPractices: [CDPractice] {
         let newPractices = practices.filter { practice in
             guard let standardArray = practice.record?.standardRecords else {
-                return false
+                return true
             }
             
             return standardArray.isEmpty

@@ -63,11 +63,7 @@ extension AppDelegate {
         
         if maps.isEmpty {
             let practiceTypeRawValue = Practice.PracticeType.listenAndTranslate.rawValue
-            
-            let again = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
-            let hard = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
-            let good = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
-            let easy = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
+
             let standardPreset = CoreDataManager.shared.createEntity(ofType: CDPracticePresetStandard.self)
             let preset = CoreDataManager.shared.createEntity(ofType: CDPracticePreset.self)
             let practice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
@@ -94,7 +90,7 @@ extension AppDelegate {
             practice.preset = preset
             practice.typeRawValue = practiceTypeRawValue.toInt64
             practice.sequence = sequence
-            
+
             sequence.map = map
             
             CoreDataManager.shared.save()

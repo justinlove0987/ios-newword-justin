@@ -51,9 +51,9 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             let cell = tableView.dequeueReusableCell(withIdentifier: DeckCell.reuseIdentifier, for: indexPath) as! DeckCell
             
-            let newCards = CoreDataManager.shared.getNewCards(from: itemIdentifier)
-            let relearnCards = CoreDataManager.shared.getRelearnCards(from: itemIdentifier)
-            let reviewCards = CoreDataManager.shared.getReviewCards(from: itemIdentifier)
+            let newCards = itemIdentifier.newPractices
+            let relearnCards = itemIdentifier.relearnPractices
+            let reviewCards = itemIdentifier.reviewPractices
 
             cell.deck = itemIdentifier
             cell.nameLabel.text = itemIdentifier.name

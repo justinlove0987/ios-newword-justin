@@ -194,7 +194,7 @@ struct WordSelectorViewControllerViewModel {
                 serverProvidedContent.article = userGeneratedContextTag.userGeneratedArticle?.article
                 
                 newPractice.id = UUID().uuidString
-                newPractice.order = practice.order
+                newPractice.sequenceOrder = practice.sequenceOrder
                 newPractice.typeRawValue = practice.typeRawValue
                 newPractice.userGeneratedContent = userGeneratedContent
                 newPractice.serverProviededContent = serverProvidedContent

@@ -31,8 +31,8 @@ class PracticeSettingCell: UICollectionViewCell {
     }
     
     func configureDescriptionLabel(row: PracticeSettingViewController.Row, data: CDPractice) {
-        guard let preset = data.preset?.practicePresetDefault else { return }
-        
+        guard let preset = data.preset?.standardPreset else { return }
+
         var description: String
         
         switch row {
@@ -41,20 +41,20 @@ class PracticeSettingCell: UICollectionViewCell {
 
             description = title
 
-        case .firstPracticeLearningPhase:
-            description = String(preset.firstPracticeLearningPhase)
-            
-        case .firstPracticeGraduationInterval:
-            description = String(preset.firstPracticeGraduationInterval)
-            
-        case .firstPracticeEasyInterval:
-            description = String(preset.firstPracticeEasyInterval)
-            
-        case .forgotRelearningPhase:
-            description = String(preset.forgetPracticeRelearningSteps)
-            
-        case .forgotGraduationInterval:
-            description = String(preset.forgetPracticeInterval)
+//        case .firstPracticeLearningPhase:
+//            description = String(preset.firstPracticeLearningPhase)
+//            
+//        case .firstPracticeGraduationInterval:
+//            description = String(preset.firstPracticeGraduationInterval)
+//            
+//        case .firstPracticeEasyInterval:
+//            description = String(preset.firstPracticeEasyInterval)
+//            
+//        case .forgotRelearningPhase:
+//            description = String(preset.forgetPracticeRelearningSteps)
+//            
+//        case .forgotGraduationInterval:
+//            description = String(preset.forgetPracticeInterval)
             
         case .initialEase:
             description = String(preset.firstPracticeEase)
@@ -63,6 +63,9 @@ class PracticeSettingCell: UICollectionViewCell {
             description = ""
             
         case .practiceDetails:
+            description = ""
+
+        default:
             description = ""
         }
         
