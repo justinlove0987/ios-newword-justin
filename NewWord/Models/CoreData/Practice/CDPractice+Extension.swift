@@ -9,6 +9,26 @@
 import Foundation
 import CoreData
 
+enum PracticeType: Int, CaseIterable {
+    case listenAndTranslate
+    case listenReadChineseAndTypeEnglish
+    case listenAndTypeEnglish
+    case readAndTranslate
+
+    var title: String {
+        switch self {
+        case .listenAndTranslate:
+            return "聆聽並翻譯"
+        case .listenReadChineseAndTypeEnglish:
+            return "聆聽、閱讀中文並輸入英文"
+        case .listenAndTypeEnglish:
+            return "聆聽並輸入英文"
+        case .readAndTranslate:
+            return "閱讀並翻譯"
+        }
+    }
+}
+
 @objc(CDPractice)
 public class CDPractice: NSManagedObject {
 
@@ -37,7 +57,7 @@ extension CDPractice {
             return nil
         }
 
-        var sortedStandardRecords = standardRecords.sorted { lReord, rRecord in
+        let sortedStandardRecords = standardRecords.sorted { lReord, rRecord in
             guard let lReordDate = lReord.dueDate,
                   let rRecordDate = rRecord.dueDate else {
                 return false
@@ -48,7 +68,7 @@ extension CDPractice {
 
         let record = sortedStandardRecords.first { record in
             guard let status = record.status,
-                  let state = record.state
+                  let state = record.stateType
             else {
                 return false
             }
@@ -66,59 +86,6 @@ extension CDPractice {
         
         return standardRecords.isEmpty
     }
-
-    var isLearning: Bool {
-        guard !isNew else { return false }
-
-        guard let latestState = latestPracticeStandardRecord?.state,
-              let latestStatus = latestPracticeStandardRecord?.status else {
-            return false
-        }
-
-        if (latestStatus.type == .again || latestStatus.type == .good || latestStatus.type == .hard) &&
-            (latestState == .learn) {
-            return true
-        }
-
-        return false
-    }
-
-    var isEasyTransition: Bool {
-        guard let status = latestTransitionPracticeStandardRecord?.status else {
-            return false
-        }
-
-        return status.type == .easy
-    }
-
-    var isAgainTransition: Bool {
-        guard let status = latestTransitionPracticeStandardRecord?.status else {
-            return false
-        }
-
-        return status.type == .again
-    }
-
-    var state: PracticeStandardState {
-        if isNew {
-            return .new
-        }
-
-        if isLearning {
-            return .firstPractice
-        }
-
-        if isEasyTransition {
-            return .easyTransition
-        }
-        
-
-        if isAgainTransition {
-            return .againTransition
-        }
-
-        return .unknown
-    }
 }
 
 extension CDPractice {
@@ -134,7 +101,6 @@ extension CDPractice {
         }
 
         let (newEase, newDuration, newDueDate, newRecordState) = calculateNewValues(
-            state: state,
             referenceStatus: referenceStatus,
             latestRecord: self.latestPracticeStandardRecord,
             userPressedStatusType: userPressedStatusType,
@@ -156,41 +122,53 @@ extension CDPractice {
     }
 
     private func calculateNewValues(
-        state: PracticeStandardState,
         referenceStatus: CDPracticeStatus,
         latestRecord: CDPracticeRecordStandard?,
         userPressedStatusType: PracticeStandardStatusType,
         standardPreset: CDPracticePresetStandard
-    ) -> (Double, Double, Date, PracticeRecordStandardStateType) {
+    ) -> (newEase: Double, newDuration: Double, newDueDate: Date, newRecordState: PracticeRecordStandardStateType) {
 
         var newEase: Double = latestRecord == nil ? standardPreset.firstPracticeEase : latestRecord!.ease
         var newDuration: Double = 0.0
         var newDueDate: Date = Date()
         var newRecordState: PracticeRecordStandardStateType = .relearn
 
-        let learnedDate = Date() // 假設當前的日期為learnedDate
-
-        switch state {
-        case .new, .firstPractice:
+        let learnedDate = Date()
+        
+        if isNew {
             newEase = standardPreset.firstPracticeEase
             newDuration = referenceStatus.firstPracticeInterval
             newDueDate = learnedDate.adding(seconds: newDuration)
             newRecordState = .learn
 
-        case .easyTransition:
-            newEase += referenceStatus.easeAdjustment
-            newDuration = newEase * referenceStatus.easeBonus * (latestRecord == nil ? referenceStatus.firstPracticeInterval : latestRecord!.duration)
-            newDueDate = learnedDate.adding(seconds: newDuration)
-            newRecordState = userPressedStatusType == .again ? .relearn : .review
+            return (newEase, newDuration, newDueDate, newRecordState)
+        }
 
-        case .againTransition:
+        switch latestRecord!.intervalType {
+
+        case .firstPractice:
+            newEase = standardPreset.firstPracticeEase
+            newDuration = referenceStatus.firstPracticeInterval
+            newDueDate = learnedDate.adding(seconds: newDuration)
+            newRecordState = .learn
+
+        case .forget:
             newEase += referenceStatus.easeAdjustment
             newDuration = referenceStatus.forgetInterval
             newDueDate = learnedDate.adding(seconds: newDuration)
             newRecordState = userPressedStatusType == .easy ? .review : .relearn
 
-        case .unknown:
-            break
+        case .remember:
+            newEase += referenceStatus.easeAdjustment
+            newDuration = newEase * referenceStatus.easeBonus * (latestRecord == nil ? referenceStatus.firstPracticeInterval : latestRecord!.duration)
+            newDueDate = learnedDate.adding(seconds: newDuration)
+            newRecordState = userPressedStatusType == .again ? .relearn : .review
+
+        default:
+            newEase = standardPreset.firstPracticeEase
+            newDuration = referenceStatus.firstPracticeInterval
+            newDueDate = learnedDate.adding(seconds: newDuration)
+            newRecordState = .learn
         }
 
         return (newEase, newDuration, newDueDate, newRecordState)
@@ -216,47 +194,22 @@ extension CDPractice {
         CoreDataManager.shared.save()
     }
 
-//    func getDuration(at order: Int) -> Double {
-//        switch state {
-//        case .new, .firstPractice:
-//
-//
-//        case .easyTransition:
-//            <#code#>
-//        case .againTransition:
-//            <#code#>
-//        case .unknown:
-//            <#code#>
-//        }
-//    }
+    func getInterval(at order: Int, standardPreset: CDPracticePresetStandard) -> Double? {
+        guard let statusType = PracticeStandardStatusType(rawValue: order) else { return nil }
 
-}
+        let referenceStatus = standardPreset.getStatus(from: statusType)
 
-// 針對整個record
-enum PracticeStandardState: Int, CaseIterable {
-    case new
-    case firstPractice
-    case easyTransition
-    case againTransition
-    case unknown
-}
-
-enum PracticeType: Int, CaseIterable {
-    case listenAndTranslate
-    case listenReadChineseAndTypeEnglish
-    case listenAndTypeEnglish
-    case readAndTranslate
-
-    var title: String {
-        switch self {
-        case .listenAndTranslate:
-            return "聆聽並翻譯"
-        case .listenReadChineseAndTypeEnglish:
-            return "聆聽、閱讀中文並輸入英文"
-        case .listenAndTypeEnglish:
-            return "聆聽並輸入英文"
-        case .readAndTranslate:
-            return "閱讀並翻譯"
+        guard let referenceStatus = referenceStatus else {
+            return nil
         }
+
+        let newValues = calculateNewValues(
+            referenceStatus: referenceStatus,
+            latestRecord: self.latestPracticeStandardRecord,
+            userPressedStatusType: statusType,
+            standardPreset: standardPreset
+        )
+
+        return newValues.newDuration
     }
 }

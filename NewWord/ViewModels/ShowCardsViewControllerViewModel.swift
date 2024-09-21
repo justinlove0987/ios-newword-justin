@@ -16,24 +16,8 @@ class ShowCardsViewControllerViewModel {
         case notToday
     }
     
-    struct PracticePosition {
-        let startPosition: (Int, Int)
-        let endPosition: (Int,Int)
-    }
-    
-    private var practiceRecordTypeOrder: [PracticeRecordStandardStateType] = [.learn, .review, .relearn]
-    private var storageCards: [CDPractice] = []
-    
-    private var currentMatrix: (collectionIndex: Int, cardIndex: Int) = (0,0)
-    
-    private var practiceCollections: [[CDPractice]] = []
-    
     private var currentPractice: CDPractice? {
         return getCurrentPractice() ?? nil
-    }
-    
-    var hasNextCardCollection: Bool {
-        return currentMatrix.collectionIndex + 1 < practiceRecordTypeOrder.count
     }
     
     var deck: CDDeck?
@@ -43,119 +27,49 @@ class ShowCardsViewControllerViewModel {
 
     // MARK: - Helpers
 
-    func setupPractices() {
-        guard let deck else { return }
-        
-        let newPractices = deck.newPractices
-        let reviewPractices = deck.reviewPractices
-        let relearnPractices = deck.relearnPractices
-        
-        for order in practiceRecordTypeOrder {
-            switch order {
-            case .learn:
-                practiceCollections.append(newPractices)
-            case .relearn:
-                practiceCollections.append(relearnPractices)
-            case .review:
-                practiceCollections.append(reviewPractices)
-            default:
-                break
-            }
-        }
+    func getNewPracticeNumber() -> Int {
+        guard let newPractices = deck?.newPractices else { return 0 }
+        return newPractices.count
     }
-    
-    func getCardAfterMovingCard() -> CDPractice? {
-        let cards = getCurrentCardCollection()
-        let hasCards = currentMatrix.cardIndex < cards.count
-        
-        if hasCards {
-            return getCurrentPractice()
-        } else {
-            return findPossibleCardInNextCollection()
-        }
+
+    func getRelearnPracticeNumber() -> Int {
+        guard let newPractices = deck?.relearnPractices else { return 0 }
+        return newPractices.count
     }
-    
-    func findPossibleCardInNextCollection() -> CDPractice? {
-        let hasCard = hasCard(at: currentMatrix.collectionIndex)
-        
-        if hasCard {
-            return practiceCollections[currentMatrix.collectionIndex][currentMatrix.cardIndex]
-        } else {
-            if hasNextCardCollection {
-                currentMatrix.collectionIndex += 1
-                
-                return findPossibleCardInNextCollection()
-            }
-        }
-        
-        return nil
+
+    func getReviewPracticeNumber() -> Int {
+        guard let newPractices = deck?.reviewPractices else { return 0 }
+        return newPractices.count
     }
-    
-    func hasNoCard() -> Bool {
-        var cardCount = 0
-        
-        for cardCollection in practiceCollections {
-            for _ in cardCollection {
-                cardCount += 1
-            }
-        }
-        
-        return cardCount > 0
+
+    func hasPractice() -> Bool {
+        let count = getNewPracticeNumber() + getRelearnPracticeNumber() + getReviewPracticeNumber()
+
+        return count > 0
     }
-    
-    func hasNextCard() -> Bool {
-        let cards = getCurrentCardCollection()
-        let hasNextCard = currentMatrix.cardIndex + 1 < cards.count
-        
-        if !hasNextCard {
-            if hasNextCardCollection {
-                let nextCollectionIndex = currentMatrix.collectionIndex + 1
-                let hasCard = hasCard(at: nextCollectionIndex)
-                
-                return hasCard
-                
-            } else {
-                return false
-            }
-        }
-        
-        return true
-    }
-    
-    func hasCard(at collectionIndex: Int) -> Bool {
-        let hasCollection = collectionIndex < practiceRecordTypeOrder.count
-        
-        if hasCollection {
-            let currentCardCollection = getCurrentCardCollection()
-            
-            return currentCardCollection.count > 0
-        }
-        
-        return false
-    }
-    
+
     func getCurrentPractice() -> CDPractice? {
-        let hasCollection = currentMatrix.collectionIndex < practiceRecordTypeOrder.count
-        
-        if hasCollection {
-            let currentCards = getCurrentCardCollection()
-            let hasCardIndex = currentMatrix.cardIndex < currentCards.count
-            
-            if hasCardIndex {
-                let card = currentCards[currentMatrix.cardIndex]
-                return card
-            } else {
-                return findPossibleCardInNextCollection()
-            }
+        guard let deck else { return nil }
+
+        let relearnPractices = deck.relearnPractices
+
+        if !relearnPractices.isEmpty {
+            return relearnPractices.first
+        }
+
+        let newPractices = deck.newPractices
+
+        if !newPractices.isEmpty {
+            return newPractices.first
+        }
+
+        let reviewPractices = deck.reviewPractices
+
+        if !reviewPractices.isEmpty {
+            return reviewPractices.first
         }
         
         return nil
-    }
-    
-    func getCurrentCardCollection() -> [CDPractice] {
-        let collection = practiceCollections[currentMatrix.collectionIndex]
-        
-        return collection
     }
     
     func getCurrentSubview() -> any ShowCardsSubviewDelegate {
@@ -190,49 +104,6 @@ class ShowCardsViewControllerViewModel {
                            standardPreset: standardPreset)
     }
     
-    func moveCard(userPressedStatusType: PracticeStandardStatusType) {
-        guard let currentPractice else { return }
-        guard practiceCollections[currentMatrix.collectionIndex].count > 0 else { return }
-
-
-        let moveCard = practiceCollections[currentMatrix.collectionIndex].remove(at: currentMatrix.cardIndex)
-
-        if currentPractice.state == .easyTransition {
-            storageCards.append(moveCard)
-        } else if currentPractice.state == .againTransition {
-            addCardToCollection(moveCard, type: .relearn)
-        }
-    }
-    
-    func addCardToCollection(_ card: CDPractice, type: PracticeRecordStandardStateType) {
-        for (i, cardType) in practiceRecordTypeOrder.enumerated() {
-            if type == cardType {
-                practiceCollections[i].append(card)
-            }
-        }
-    }
-    
-    func getCollectionCounts() -> (new: Int, relearn: Int, review: Int) {
-        var new = 0
-        var review = 0
-        var relearn = 0
-
-        for (i,order) in practiceRecordTypeOrder.enumerated() {
-            switch order {
-            case .learn:
-                new = practiceCollections[i].count
-            case .relearn:
-                relearn = practiceCollections[i].count
-            case .review:
-                review = practiceCollections[i].count
-            default:
-                break
-            }
-        }
-
-        return (new: new, relearn: relearn, review: review)
-    }
-    
 }
 
 extension ShowCardsViewControllerViewModel: ClozeViewProtocol {
@@ -254,4 +125,8 @@ extension ShowCardsViewControllerViewModel: ClozeViewProtocol {
         guard let action = tapAction else { return }
         action(sender)
     }
+}
+
+private extension CDDeck {
+    
 }

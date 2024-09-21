@@ -99,7 +99,6 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
     
     private func setupViewModel() {
         viewModel.deck = deck
-        viewModel.setupPractices()
         
         viewModel.tapAction = { sender in
             self.tapHelper(sender)
@@ -117,8 +116,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tap)
 
-        let collectionCounts = viewModel.getCollectionCounts()
-        updateLabels(collectionCounts: collectionCounts)
+        updateLabels()
         
         answerTypeStackView.isHidden = true
         rateStackView.isHidden = false
@@ -133,7 +131,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
             let status = statuses[i]
             
             let button = PracticeButton()
-            
+
             button.titleLabel.text = status.title
             button.intervalLabel.text = "1.6y"
             button.status = status
@@ -197,6 +195,8 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
         if let hasNextState, hasNextState {
             lastShowingSubview?.nextState()
 
+            updateAnswerButtonTitles()
+
             guard let isFinalState = lastShowingSubview?.isFinalState() else {
                 return
             }
@@ -214,32 +214,25 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
                 showAnswer(with: statusType)
             }
 
-            guard let _ = viewModel.getCardAfterMovingCard() else {
-                lastShowingSubview = NoCardView()
-                return
-            }
-
             lastShowingSubview = viewModel.getCurrentSubview()
         }
     }
     
     private func showAnswer(with userPressedStatusType: PracticeStandardStatusType) {
         viewModel.addLearningRecordToCurrentCard(userPressedStatusType: userPressedStatusType)
-        viewModel.moveCard(userPressedStatusType: userPressedStatusType)
 
         lastShowingSubview = viewModel.getCurrentSubview()
-        let collectionCounts = viewModel.getCollectionCounts()
-        updateLabels(collectionCounts: collectionCounts)
+        updateLabels()
     }
     
-    private func updateLabels(collectionCounts: (new: Int, relearn: Int, review: Int)) {
-        newLabel.text = "\(collectionCounts.new)"
-        relearnLabel.text = "\(collectionCounts.relearn)"
-        reviewLabel.text = "\(collectionCounts.review)"
+    private func updateLabels() {
+        newLabel.text = "\(viewModel.getNewPracticeNumber())"
+        relearnLabel.text = "\(viewModel.getRelearnPracticeNumber())"
+        reviewLabel.text = "\(viewModel.getReviewPracticeNumber())"
     }
     
     private func updateAnswerStateView(isFinalState: Bool) {
-        if isFinalState && !viewModel.hasNoCard() {
+        if isFinalState && !viewModel.hasPractice() {
             answerTypeStackView.isHidden = true
             rateStackView.isHidden = false
             
@@ -248,7 +241,26 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
             rateStackView.isHidden = isFinalState
         }
     }
-    
+
+    private func updateAnswerButtonTitles() {
+        guard let practice = viewModel.getCurrentPractice() else { return }
+        guard let preset = deck?.presetc?.standardPreset else { return }
+
+        for i in 0..<answerTypeStackView.arrangedSubviews.count {
+            let subview = answerTypeStackView.arrangedSubviews[i]
+
+            guard let button = subview as? PracticeButton else {
+                return
+            }
+
+            guard let interval = practice.getInterval(at: i, standardPreset: preset) else {
+                return
+            }
+
+            button.intervalLabel.text = "\(interval)"
+        }
+    }
+
     private func isTouchOnRightSide(of view: UIView, at point: CGPoint) -> Bool {
         let midX = view.bounds.midX
         return point.x > midX
