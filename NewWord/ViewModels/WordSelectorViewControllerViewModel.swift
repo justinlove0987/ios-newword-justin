@@ -177,6 +177,15 @@ struct WordSelectorViewControllerViewModel {
                 let serverProvidedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeServerProvidedContent.self)
                 let practiceAudio = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
                 let record = CoreDataManager.shared.createEntity(ofType: CDPracticeRecord.self)
+                let standardRecord = CoreDataManager.shared.createEntity(ofType: CDPracticeRecordStandard.self)
+                
+                standardRecord.dueDate = Date()
+                standardRecord.duration = 0
+                standardRecord.ease = 2.5
+                standardRecord.learnedDate = Date()
+                standardRecord.stateRawValue = PracticeRecordStandardStateType.new.rawValue.toInt64
+                standardRecord.statusRawValue = PracticeStandardStatusType.again.rawValue.toInt64
+                standardRecord.practiceRecord = record
 
                 userGeneratedContextTag.id = UUID().uuidString
                 userGeneratedContextTag.number = tag.number

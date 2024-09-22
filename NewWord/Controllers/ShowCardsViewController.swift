@@ -190,19 +190,20 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
     }
 
     private func tapHelper(_ sender: UITapGestureRecognizer) {
-        let hasNextState = lastShowingSubview?.hasNextState()
-
-        if let hasNextState, hasNextState {
+        guard let hasNextState = lastShowingSubview?.hasNextState() else { return }
+        
+        if hasNextState {
             lastShowingSubview?.nextState()
-
-            updateAnswerButtonTitles()
-
+            
             guard let isFinalState = lastShowingSubview?.isFinalState() else {
                 return
             }
-
-            updateAnswerStateView(isFinalState: isFinalState)
-
+            
+            if isFinalState {
+                updateAnswerButtonIntervals()
+                updateAnswerStateView(isFinalState: isFinalState)
+            }
+            
         } else {
             if let practiceButton = touchedAnswerButton(sender: sender) {
                 guard let statusType = practiceButton.status?.type else { return }
@@ -232,17 +233,21 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
     }
     
     private func updateAnswerStateView(isFinalState: Bool) {
-        if isFinalState && !viewModel.hasPractice() {
+        if isFinalState && viewModel.hasPractice() {
+            answerTypeStackView.isHidden = false
+            rateStackView.isHidden = true
+            
+        } else if isFinalState && !viewModel.hasPractice() {
             answerTypeStackView.isHidden = true
             rateStackView.isHidden = false
             
         } else {
-            answerTypeStackView.isHidden = !isFinalState
-            rateStackView.isHidden = isFinalState
+            answerTypeStackView.isHidden = true
+            rateStackView.isHidden = false
         }
     }
 
-    private func updateAnswerButtonTitles() {
+    private func updateAnswerButtonIntervals() {
         guard let practice = viewModel.getCurrentPractice() else { return }
         guard let preset = deck?.presetc?.standardPreset else { return }
 

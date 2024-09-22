@@ -18,14 +18,21 @@ extension CDPracticeRecordStandard {
     var stateType: PracticeRecordStandardStateType? {
         return PracticeRecordStandardStateType(rawValue: Int(stateRawValue))
     }
+    
+    var statusType: PracticeStandardStatusType? {
+        return PracticeStandardStatusType(rawValue: Int(statusRawValue))
+    }
 
     var intervalType: PracticeStandardIntervalType? {
-        guard let status = status,
+        guard let statusType = statusType,
               let stateType = stateType else {
             return nil
         }
 
-        switch (stateType, status.type) {
+        switch (stateType, statusType) {
+        case (.new, .again):
+            return .new
+            
         case (.learn, .again), (.learn, .hard), (.learn, .good):
             return .firstPractice // 上一次練習在第一次練習期間
 
@@ -38,10 +45,17 @@ extension CDPracticeRecordStandard {
         case (_,_):
             return .unknown
         }
-
+    }
+    
+    var isDueNew: Bool {
+        guard let dueDate = dueDate else {
+            return false
+        }
+        
+        return dueDate <= Date() && stateType == .new
     }
 
-    var isTodayReview: Bool {
+    var isDueReview: Bool {
         guard let dueDate = dueDate else {
             return false
         }
@@ -49,16 +63,17 @@ extension CDPracticeRecordStandard {
         return dueDate <= Date() && intervalType == .remember
     }
     
-    var isTodayRelearn: Bool {
+    var isDueRelearn: Bool {
         guard let dueDate = dueDate else {
             return false
         }
         
-        return dueDate <= Date() && intervalType == .forget
+        return dueDate <= Date() && (intervalType == .forget || intervalType == .firstPractice)
     }
 }
 
 enum PracticeStandardIntervalType: Int, CaseIterable {
+    case new
     case firstPractice
     case forget
     case remember
@@ -66,6 +81,7 @@ enum PracticeStandardIntervalType: Int, CaseIterable {
 }
 
 enum PracticeRecordStandardStateType: Int, CaseIterable {
+    case new
     case learn
     case review
     case relearn

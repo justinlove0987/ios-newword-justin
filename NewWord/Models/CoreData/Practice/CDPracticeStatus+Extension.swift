@@ -80,7 +80,7 @@ enum PracticeStandardStatusType: Int, CaseIterable {
         case .again:
             return 1
         case .hard:
-            return timeConverter.convertToSeconds(from: .minutes(1))
+            return 15
         case .good:
             return timeConverter.convertToSeconds(from: .minutes(10))
         case .easy:

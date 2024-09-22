@@ -26,11 +26,11 @@ extension CDDeck {
     
     var newPractices: [CDPractice] {
         let newPractices = practices.filter { practice in
-            guard let standardArray = practice.record?.standardRecords else {
+            guard let latestPracticeRecordStandard = practice.latestPracticeStandardRecord else {
                 return true
             }
             
-            return standardArray.isEmpty
+            return latestPracticeRecordStandard.isDueNew
         }
         
         return newPractices
@@ -42,7 +42,7 @@ extension CDDeck {
                 return false
             }
             
-            return latestPracticeRecordStandard.isTodayReview
+            return latestPracticeRecordStandard.isDueReview
         }
         
         return reviewPractices
@@ -54,7 +54,7 @@ extension CDDeck {
                 return false
             }
             
-            return latestPracticeRecordStandard.isTodayRelearn
+            return latestPracticeRecordStandard.isDueRelearn
         }
         
         return relearnPractices

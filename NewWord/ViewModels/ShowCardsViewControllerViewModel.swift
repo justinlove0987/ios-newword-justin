@@ -47,7 +47,7 @@ class ShowCardsViewControllerViewModel {
 
         return count > 0
     }
-
+    
     func getCurrentPractice() -> CDPractice? {
         guard let deck else { return nil }
 
