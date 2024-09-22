@@ -14,7 +14,7 @@ protocol SearchDataSource: Hashable {
 
 struct SearchClozeDataSource: SearchDataSource {
     var title: String
-    var cards: [CDCard]
+    var contexts: [CDPracticeContext]
 }
 
 class SearchViewController: UIViewController, StoryboardGenerated {
@@ -70,38 +70,38 @@ class SearchViewController: UIViewController, StoryboardGenerated {
         tableView.dataSource = dataSource
     }
     
-    func groupCardsByText(_ decks: [CDDeck]) -> GroupedCards {
-        let groupedCards = decks.flatMap { deck in
-            let cards = CoreDataManager.shared.cards(from: deck)
-            var groupedCards = [String: [CDCard]]()
-
-
-            for card in cards {
-                guard let cloze = card.note?.resource?.cloze,
-                      let text = cloze.clozeWord else {
-                    continue
-                }
-
-                let key = text
-                groupedCards[key, default: []].append(card)
-            }
-
-            // 對 groupedCards 的鍵按長度進行排序，如果長度相同則按字母順序排序
-            let sortedKeys = groupedCards.keys.sorted {
-                if $0.count == $1.count {
-                    return $0 < $1
-                } else {
-                    return $0.count < $1.count
-                }
-            }
-
-            return sortedKeys.map { key in
-                SearchClozeDataSource(title: key, cards: groupedCards[key] ?? [])
-            }
-        }
-
-        return groupedCards
-    }
+//    func groupCardsByText(_ decks: [CDDeck]) -> GroupedCards {
+//        let groupedCards = decks.flatMap { deck in
+//            let cards = CoreDataManager.shared.cards(from: deck)
+//            var groupedCards = [String: [CDCard]]()
+//
+//
+//            for card in cards {
+//                guard let cloze = card.note?.resource?.cloze,
+//                      let text = cloze.clozeWord else {
+//                    continue
+//                }
+//
+//                let key = text
+//                groupedCards[key, default: []].append(card)
+//            }
+//
+//            // 對 groupedCards 的鍵按長度進行排序，如果長度相同則按字母順序排序
+//            let sortedKeys = groupedCards.keys.sorted {
+//                if $0.count == $1.count {
+//                    return $0 < $1
+//                } else {
+//                    return $0.count < $1.count
+//                }
+//            }
+//
+//            return sortedKeys.map { key in
+//                SearchClozeDataSource(title: key, cards: groupedCards[key] ?? [])
+//            }
+//        }
+//
+//        return groupedCards
+//    }
 
     private func filterSearchText(_ searhcText: String? ,to groupedCards: GroupedCards) -> GroupedCards {
         var groupedCards = groupedCards
@@ -126,12 +126,15 @@ class SearchViewController: UIViewController, StoryboardGenerated {
     }
 
     private func filterDataSource() {
-        var decks = CoreDataManager.shared.getDecks()
-
-        decks = filterSelectedDecks(decks)
-
-        groupedCards = groupCardsByText(decks)
-        groupedCards = filterSearchText(searchText, to: groupedCards)
+         let contexts = CoreDataManager.shared.getAll(ofType: CDPracticeContext.self)
+        
+        let groupedCards = contexts.map { practiceContext in
+            let title = practiceContext.context ?? "title"
+            
+            return SearchClozeDataSource(title: title, contexts: [practiceContext])
+        }
+        
+        self.groupedCards = groupedCards
     }
 
     private func updateDataSource() {
@@ -185,7 +188,7 @@ extension SearchViewController: UITableViewDelegate {
         let currentGroupedCards = groupedCards[indexPath.row]
         
         let controller = SearchClozeResultViewController.instantiate()
-        controller.cards = currentGroupedCards.cards
+//        controller.cards = currentGroupedCards.cards
 
         navigationController?.pushViewController(controller, animated: true)
         

@@ -97,6 +97,12 @@
         <attribute name="data" optional="YES" attributeType="Binary"/>
         <attribute name="id" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="CDPracticeContext" representedClassName="CDPracticeContext" syncable="YES" codeGenerationType="class">
+        <attribute name="context" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="map" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeMap" inverseName="practiceContext" inverseEntity="CDPracticeMap"/>
+    </entity>
     <entity name="CDPracticeImage" representedClassName="CDPracticeImage" syncable="YES" codeGenerationType="category">
         <attribute name="data" optional="YES" attributeType="Binary"/>
         <attribute name="id" optional="YES" attributeType="String"/>
@@ -104,6 +110,7 @@
     <entity name="CDPracticeMap" representedClassName="CDPracticeMap" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="typeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="practiceContext" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeContext" inverseName="map" inverseEntity="CDPracticeContext"/>
         <relationship name="sequences" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPracticeSequence" inverseName="map" inverseEntity="CDPracticeSequence"/>
     </entity>
     <entity name="CDPracticePreset" representedClassName="CDPracticePreset" syncable="YES" codeGenerationType="class">

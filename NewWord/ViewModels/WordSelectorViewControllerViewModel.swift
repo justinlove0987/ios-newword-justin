@@ -162,6 +162,12 @@ struct WordSelectorViewControllerViewModel {
         }
         
         let newMap = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
+        let practiceContext = CoreDataManager.shared.createEntity(ofType: CDPracticeContext.self)
+        
+        practiceContext.id = UUID().uuidString
+        practiceContext.map = newMap
+        practiceContext.context = text
+        practiceContext.type = tag.typeRawValue
         
         for sequence in blueprintMap.sortedSequences {
             let newSequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
