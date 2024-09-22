@@ -69,39 +69,6 @@ class SearchViewController: UIViewController, StoryboardGenerated {
         
         tableView.dataSource = dataSource
     }
-    
-//    func groupCardsByText(_ decks: [CDDeck]) -> GroupedCards {
-//        let groupedCards = decks.flatMap { deck in
-//            let cards = CoreDataManager.shared.cards(from: deck)
-//            var groupedCards = [String: [CDCard]]()
-//
-//
-//            for card in cards {
-//                guard let cloze = card.note?.resource?.cloze,
-//                      let text = cloze.clozeWord else {
-//                    continue
-//                }
-//
-//                let key = text
-//                groupedCards[key, default: []].append(card)
-//            }
-//
-//            // 對 groupedCards 的鍵按長度進行排序，如果長度相同則按字母順序排序
-//            let sortedKeys = groupedCards.keys.sorted {
-//                if $0.count == $1.count {
-//                    return $0 < $1
-//                } else {
-//                    return $0.count < $1.count
-//                }
-//            }
-//
-//            return sortedKeys.map { key in
-//                SearchClozeDataSource(title: key, cards: groupedCards[key] ?? [])
-//            }
-//        }
-//
-//        return groupedCards
-//    }
 
     private func filterSearchText(_ searhcText: String? ,to groupedCards: GroupedCards) -> GroupedCards {
         var groupedCards = groupedCards
