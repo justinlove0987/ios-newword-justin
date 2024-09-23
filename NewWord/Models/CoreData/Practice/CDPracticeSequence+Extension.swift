@@ -16,7 +16,7 @@ public class CDPracticeSequence: NSManagedObject {
 
 extension CDPracticeSequence {
     var sortedPractices: [CDPractice] {
-        guard let practices = self.practices as? Set<CDPractice> else {
+        guard let practices = self.practiceSet as? Set<CDPractice> else {
             return []
         }
         

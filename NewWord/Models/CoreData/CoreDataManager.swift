@@ -701,14 +701,14 @@ extension CoreDataManager {
             return []
         }
     }
-
-    func getUserGeneratedTags(from article: CDPracticeArticle?) -> [CDUserGeneratedContextTag] {
-        if let timepoints = article?.userGeneratedArticle?.userGeneratedContextTags?.allObjects as? [CDUserGeneratedContextTag] {
-            return timepoints
-        } else {
-            return []
-        }
-    }
+//
+//    func getUserGeneratedTags(from article: CDPracticeArticle?) -> [CDUserGeneratedContextTag] {
+//        if let timepoints = article?.userGeneratedArticle?.userGeneratedContextTags?.allObjects as? [CDUserGeneratedContextTag] {
+//            return timepoints
+//        } else {
+//            return []
+//        }
+//    }
 }
 
 

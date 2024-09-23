@@ -81,18 +81,18 @@ struct WordSelectorViewControllerViewModel {
         var coloredCharacters: [CharacterIndex: [ColorSegment]]
     }
     
-    var article: CDPracticeArticle?
-    
-    var tags: [CDUserGeneratedContextTag] {
-        guard let tags = article?.userGeneratedArticle.userGeneratedContextTags else {
-            return []
+    var article: CDPracticeArticle? {
+        didSet {
+            guard let tags = article?.userGeneratedArticle?.userGeneratedContextTags else {
+                return
+            }
+
+            self.tags = tags
         }
-        
-        
-        
-        return tags
     }
-    
+
+    var tags: [CDUserGeneratedContextTag] = []
+
     var selectMode: SelectMode = .word
     
     var currentSelectedRange: NSRange?
@@ -160,11 +160,20 @@ struct WordSelectorViewControllerViewModel {
     }
     
     func removeRelatedPractices(_ tag: CDUserGeneratedContextTag) {
+        guard let articleId = self.article?.id else { return }
         guard let practiceMap = tag.userGeneratedArticle?.article?.serverProvidedContent?.practice?.sequence?.map else {
             return
         }
-        
-        // 把所有practice有同一個article的都刪除
+
+        for sequence in practiceMap.sortedSequences {
+            for practice in sequence.sortedPractices {
+                guard let currentArticleId = practice.serverProviededContent?.article?.id else { return }
+
+                if currentArticleId == articleId {
+                    print("foo - is same article !!!")
+                }
+            }
+        }
     }
 
     mutating func saveTags(_ text: String) {
@@ -334,7 +343,7 @@ struct WordSelectorViewControllerViewModel {
         tag.typeRawValue = textType.rawValue.toInt64
         tag.practiceAudio = practiceAudio
         
-        article?.userGeneratedArticle?.addToUserGeneratedContextTags(tag)
+        article?.userGeneratedArticle?.addToUserGeneratedContextTagSet(tag)
 
         return tag
     }

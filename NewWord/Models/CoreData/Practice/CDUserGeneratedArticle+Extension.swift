@@ -16,10 +16,10 @@ public class CDUserGeneratedArticle: NSManagedObject {
 
 extension CDUserGeneratedArticle {
     var userGeneratedContextTags: [CDUserGeneratedContextTag] {
-        guard let tags = self.userGeneratedContextTags as? Set<CDUserGeneratedContextTag> else {
+        guard let tags = self.userGeneratedContextTagSet as? Set<CDUserGeneratedContextTag> else {
             return []
         }
         
-        return tags
+        return Array(tags)
     }
 }

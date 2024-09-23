@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="23G93" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23G93" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="CDAdvanced" representedClassName="CDAdvanced" syncable="YES" codeGenerationType="class">
         <attribute name="easyBonus" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="startingEase" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -72,12 +72,13 @@
     <entity name="CDPractice" representedClassName="CDPractice" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="isActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="referencePracticeId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sequenceOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="typeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="deck" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDeck" inverseName="practiceSet" inverseEntity="CDDeck"/>
         <relationship name="preset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePreset" inverseName="practice" inverseEntity="CDPracticePreset"/>
         <relationship name="record" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeRecord" inverseName="practice" inverseEntity="CDPracticeRecord"/>
-        <relationship name="sequence" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeSequence" inverseName="practices" inverseEntity="CDPracticeSequence"/>
+        <relationship name="sequence" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeSequence" inverseName="practiceSet" inverseEntity="CDPracticeSequence"/>
         <relationship name="serverProviededContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeServerProvidedContent" inverseName="practice" inverseEntity="CDPracticeServerProvidedContent"/>
         <relationship name="userGeneratedContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeUserGeneratedContent" inverseName="practice" inverseEntity="CDPracticeUserGeneratedContent"/>
     </entity>
@@ -152,7 +153,7 @@
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="level" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="map" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeMap" inverseName="sequences" inverseEntity="CDPracticeMap"/>
-        <relationship name="practices" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPractice" inverseName="sequence" inverseEntity="CDPractice"/>
+        <relationship name="practiceSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPractice" inverseName="sequence" inverseEntity="CDPractice"/>
     </entity>
     <entity name="CDPracticeServerProvidedContent" representedClassName="CDPracticeServerProvidedContent" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String"/>
