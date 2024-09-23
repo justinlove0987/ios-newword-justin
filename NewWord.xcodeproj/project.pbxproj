@@ -81,6 +81,7 @@
 		2A9C73AE2C9C1DBA006690A5 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C73AD2C9C1DBA006690A5 /* Date+Extension.swift */; };
 		2A9C8AF62C3BBE3500D839D8 /* OpenCC in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9C8AF52C3BBE3500D839D8 /* OpenCC */; };
 		2AA450812C8858410033F5DA /* ContextTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA450802C8858410033F5DA /* ContextTag.swift */; };
+		2AB3DC952CA145E0004CAFE3 /* CDUserGeneratedArticle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB3DC932CA145E0004CAFE3 /* CDUserGeneratedArticle+Extension.swift */; };
 		2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */; };
 		2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */; };
 		2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */; };
@@ -241,6 +242,7 @@
 		2A9C73A92C9C0D28006690A5 /* CDPracticePresetStandard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticePresetStandard+Extension.swift"; sourceTree = "<group>"; };
 		2A9C73AD2C9C1DBA006690A5 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		2AA450802C8858410033F5DA /* ContextTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextTag.swift; sourceTree = "<group>"; };
+		2AB3DC932CA145E0004CAFE3 /* CDUserGeneratedArticle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUserGeneratedArticle+Extension.swift"; sourceTree = "<group>"; };
 		2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewController.swift; sourceTree = "<group>"; };
 		2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSelectionCell.swift; sourceTree = "<group>"; };
 		2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSelectionCell.xib; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 				D09016702C93DCB200A5FBD2 /* CDPracticeArticle+Extension.swift */,
 				2AFABE762C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift */,
 				2AFABE7A2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift */,
+				2AB3DC932CA145E0004CAFE3 /* CDUserGeneratedArticle+Extension.swift */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -842,6 +845,7 @@
 				2A1A5DA32C719D6600B94037 /* SkeletonLoadable.swift in Sources */,
 				2AFC91572C7C6BA3002C2AD1 /* SeparatorFooterView.swift in Sources */,
 				D020A4F22BB9DE0D00CA5CAF /* WordTextField.swift in Sources */,
+				2AB3DC952CA145E0004CAFE3 /* CDUserGeneratedArticle+Extension.swift in Sources */,
 				2A70457D2C85AFE700A58672 /* PracticeTagArticle.swift in Sources */,
 				D03107CC2C16EE6200EEF772 /* CardInformationViewController.swift in Sources */,
 				2A2683772C6DA4DD00FFF81D /* AudioPlayer.swift in Sources */,

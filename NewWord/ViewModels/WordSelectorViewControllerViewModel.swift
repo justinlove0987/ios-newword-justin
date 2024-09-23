@@ -81,7 +81,17 @@ struct WordSelectorViewControllerViewModel {
         var coloredCharacters: [CharacterIndex: [ColorSegment]]
     }
     
-    var tags: [CDUserGeneratedContextTag] = []
+    var article: CDPracticeArticle?
+    
+    var tags: [CDUserGeneratedContextTag] {
+        guard let tags = article?.userGeneratedArticle.userGeneratedContextTags else {
+            return []
+        }
+        
+        
+        
+        return tags
+    }
     
     var selectMode: SelectMode = .word
     
@@ -149,78 +159,12 @@ struct WordSelectorViewControllerViewModel {
         return text
     }
     
-    
-    func createPracticeMap(_ tag: CDUserGeneratedContextTag) {
-        let maps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
-        
-        let blueprintMap = maps.first!
-        
-        guard let range = tag.revisedRange,
-              let text = tag.text,
-              let deck = getSaveDeck(tag) else {
+    func removeRelatedPractices(_ tag: CDUserGeneratedContextTag) {
+        guard let practiceMap = tag.userGeneratedArticle?.article?.serverProvidedContent?.practice?.sequence?.map else {
             return
         }
         
-        let newMap = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
-        let practiceContext = CoreDataManager.shared.createEntity(ofType: CDPracticeContext.self)
-        
-        practiceContext.id = UUID().uuidString
-        practiceContext.map = newMap
-        practiceContext.context = text
-        practiceContext.type = tag.typeRawValue
-        
-        for sequence in blueprintMap.sortedSequences {
-            let newSequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
-            
-            newSequence.id = UUID().uuidString
-            newSequence.level = sequence.level
-            newSequence.map = newMap
-            
-            for practice in sequence.sortedPractices {
-                let newPractice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
-                let userGeneratedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeUserGeneratedContent.self)
-                let userGeneratedContextTag = CoreDataManager.shared.createEntity(ofType: CDUserGeneratedContextTag.self)
-                let serverProvidedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeServerProvidedContent.self)
-                let practiceAudio = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
-                let record = CoreDataManager.shared.createEntity(ofType: CDPracticeRecord.self)
-                let standardRecord = CoreDataManager.shared.createEntity(ofType: CDPracticeRecordStandard.self)
-                
-                standardRecord.dueDate = Date()
-                standardRecord.duration = 0
-                standardRecord.ease = 2.5
-                standardRecord.learnedDate = Date()
-                standardRecord.stateRawValue = PracticeRecordStandardStateType.new.rawValue.toInt64
-                standardRecord.statusRawValue = PracticeStandardStatusType.again.rawValue.toInt64
-                standardRecord.practiceRecord = record
-
-                userGeneratedContextTag.id = UUID().uuidString
-                userGeneratedContextTag.number = tag.number
-                userGeneratedContextTag.originalRangeLocation = tag.originalRangeLocation
-                userGeneratedContextTag.originalRangeLength = tag.originalRangeLength
-                userGeneratedContextTag.revisedRangeLocation = tag.revisedRangeLocation
-                userGeneratedContextTag.revisedRangeLength = tag.revisedRangeLength
-                userGeneratedContextTag.tagColor = tag.tagColor
-                userGeneratedContextTag.contentColor = tag.contentColor
-                userGeneratedContextTag.text = tag.text
-                userGeneratedContextTag.translation = tag.translation
-                userGeneratedContextTag.typeRawValue = tag.typeRawValue
-                userGeneratedContextTag.userGeneratedContent = userGeneratedContent
-                userGeneratedContextTag.practiceAudio = practiceAudio
-                
-                userGeneratedContent.userGeneratedContextTag = userGeneratedContextTag
-                
-                serverProvidedContent.article = userGeneratedContextTag.userGeneratedArticle?.article
-                
-                newPractice.id = UUID().uuidString
-                newPractice.sequenceOrder = practice.sequenceOrder
-                newPractice.typeRawValue = practice.typeRawValue
-                newPractice.userGeneratedContent = userGeneratedContent
-                newPractice.record = record
-                newPractice.serverProviededContent = serverProvidedContent
-                newPractice.sequence = newSequence
-                newPractice.deck = deck
-            }
-        }
+        // 把所有practice有同一個article的都刪除
     }
 
     mutating func saveTags(_ text: String) {
@@ -371,11 +315,12 @@ struct WordSelectorViewControllerViewModel {
                         range: NSRange,
                         textType: ContextType,
                       translation: String) -> CDUserGeneratedContextTag {
-
+        
         let tagColor: UIColor = selectMode == .sentence ? UIColor.tagBlue : UIColor.tagGreen
         let cotentColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueText: UIColor.textGreen
         
         let tag = CoreDataManager.shared.createEntity(ofType: CDUserGeneratedContextTag.self)
+        let practiceAudio = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
         
         tag.number = number.toInt64
         tag.originalRangeLength = 0
@@ -387,8 +332,67 @@ struct WordSelectorViewControllerViewModel {
         tag.text = text
         tag.translation = translation
         tag.typeRawValue = textType.rawValue.toInt64
+        tag.practiceAudio = practiceAudio
+        
+        article?.userGeneratedArticle?.addToUserGeneratedContextTags(tag)
 
         return tag
+    }
+    
+    func createPracticeMap(_ tag: CDUserGeneratedContextTag) {
+        let maps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
+        
+        let blueprintMap = maps.first!
+        
+        guard let text = tag.text,
+              let deck = getSaveDeck(tag) else {
+            return
+        }
+        
+        let newMap = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
+        let practiceContext = CoreDataManager.shared.createEntity(ofType: CDPracticeContext.self)
+        
+        practiceContext.id = UUID().uuidString
+        practiceContext.map = newMap
+        practiceContext.context = text
+        practiceContext.type = tag.typeRawValue
+        
+        for sequence in blueprintMap.sortedSequences {
+            let newSequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
+            
+            newSequence.id = UUID().uuidString
+            newSequence.level = sequence.level
+            newSequence.map = newMap
+            
+            for practice in sequence.sortedPractices {
+                let newPractice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
+                let userGeneratedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeUserGeneratedContent.self)
+                let serverProvidedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeServerProvidedContent.self)
+                let record = CoreDataManager.shared.createEntity(ofType: CDPracticeRecord.self)
+                let standardRecord = CoreDataManager.shared.createEntity(ofType: CDPracticeRecordStandard.self)
+                
+                standardRecord.dueDate = Date()
+                standardRecord.duration = 0
+                standardRecord.ease = 2.5
+                standardRecord.learnedDate = Date()
+                standardRecord.stateRawValue = PracticeRecordStandardStateType.new.rawValue.toInt64
+                standardRecord.statusRawValue = PracticeStandardStatusType.again.rawValue.toInt64
+                standardRecord.practiceRecord = record
+                
+                userGeneratedContent.userGeneratedContextTag = tag
+                
+                serverProvidedContent.article = article
+                
+                newPractice.id = UUID().uuidString
+                newPractice.sequenceOrder = practice.sequenceOrder
+                newPractice.typeRawValue = practice.typeRawValue
+                newPractice.userGeneratedContent = userGeneratedContent
+                newPractice.record = record
+                newPractice.serverProviededContent = serverProvidedContent
+                newPractice.sequence = newSequence
+                newPractice.deck = deck
+            }
+        }
     }
 
     mutating func appendTag(_ tag: CDUserGeneratedContextTag) {

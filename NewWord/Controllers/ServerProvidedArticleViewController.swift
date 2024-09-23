@@ -88,7 +88,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
 
     private func setupViewModel() {
         viewModel = WordSelectorViewControllerViewModel()
-        viewModel.tags = CoreDataManager.shared.getUserGeneratedTags(from: article)
+        // viewModel.tags = CoreDataManager.shared.getUserGeneratedTags(from: article)
+        viewModel.article = article
     }
 
     private func setupCumstomTextView() {
@@ -290,22 +291,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         }
     }
 
-    private func updateTag(with range: NSRange, text: String, hint: String) {
-        let clozeNumber = self.viewModel.getClozeNumber()
-        self.customTextView.insertNumberImageView(at: range.location, existTags: self.viewModel.tags, with: String(clozeNumber))
-
-        let offset = 1
-        let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
-        let textType = self.viewModel.getTextType(text)
-        let newTag = self.viewModel.createNewTag(number: clozeNumber, text: text, range: updateRange!, textType: textType, translation: hint)
-        
-        article?.userGeneratedArticle?.addToUserGeneratedContextTags(newTag)
-        
-        self.viewModel.tags.sort { $0.revisedRangeLocation < $1.revisedRangeLocation }
-        self.viewModel.updateTagNSRanges(with: range, offset: offset)
-        self.viewModel.appendTag(newTag)
-    }
-
     private func updateCustomTextView() {
         let coloredText = self.viewModel.calculateColoredTextHeightFraction()
         let coloredMarks = self.viewModel.createColoredMarks(coloredText)
@@ -476,8 +461,7 @@ extension ServerProvidedArticleViewController {
             self.viewModel.tags.sort { $0.revisedRangeLocation < $1.revisedRangeLocation }
             self.viewModel.updateTagNSRanges(with: range, offset: offset)
             self.viewModel.appendTag(newTag)
-            
-            article?.userGeneratedArticle?.addToUserGeneratedContextTags(newTag)
+            self.viewModel.createPracticeMap(newTag)
             
             self.updateCustomTextView()
 
@@ -502,9 +486,9 @@ extension ServerProvidedArticleViewController {
 
             article?.userGeneratedArticle?.revisedText = customTextView.text
             
-            self.viewModel.createPracticeMap(newTag)
-            
             CoreDataManager.shared.save()
+            
+            viewModel.removeRelatedPractices(newTag)
             
             triggerImpactFeedback()
         }
