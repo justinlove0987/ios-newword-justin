@@ -152,7 +152,7 @@ class AddTagTextView: UITextView, UITextViewDelegate {
 
     func insertNumberImageView(at location: Int, existTags: [CDUserGeneratedContextTag], with textToInsert: String , scale: Double = 1.0) {
         for cloze in existTags {
-            let currentLocation = cloze.range!.location
+            let currentLocation = cloze.revisedRange!.location
 
             guard currentLocation != location else {
                 return

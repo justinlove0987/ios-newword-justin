@@ -113,7 +113,7 @@ struct WordSelectorViewControllerViewModel {
         let location = range.location
 
         for tag in tags {
-            guard let currentRange = tag.range else { return nil }
+            guard let currentRange = tag.revisedRange else { return nil }
 
             let currentLocation = currentRange.location
             let isSameLocation = location == currentLocation
@@ -134,7 +134,7 @@ struct WordSelectorViewControllerViewModel {
             let tag = tags[i]
             let offset = -1
             
-            guard let range = tag.range else { return nil }
+            guard let range = tag.revisedRange else { return nil }
             
             let tagLocation = range.location-1
             
@@ -150,12 +150,12 @@ struct WordSelectorViewControllerViewModel {
     }
     
     
-    func saveTag(_ tag: CDUserGeneratedContextTag) {
+    func createPracticeMap(_ tag: CDUserGeneratedContextTag) {
         let maps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
         
         let blueprintMap = maps.first!
         
-        guard let range = tag.range,
+        guard let range = tag.revisedRange,
               let text = tag.text,
               let deck = getSaveDeck(tag) else {
             return
@@ -229,7 +229,7 @@ struct WordSelectorViewControllerViewModel {
         for i in 0..<tags.count {
             let tag = tags[i]
             
-            guard let range = tag.range else { return }
+            guard let range = tag.revisedRange else { return }
             guard let text = tag.text else { return }
             
             guard let word = textInRange(text: text, range: range),
@@ -298,7 +298,7 @@ struct WordSelectorViewControllerViewModel {
         for i in 0..<tags.count {
             let currentTag = tags[i]
 
-            let findTag = currentTag.range == range
+            let findTag = currentTag.revisedRange == range
             
             if findTag {
                 CoreDataManager.shared.deleteEntity(currentTag)
@@ -311,7 +311,7 @@ struct WordSelectorViewControllerViewModel {
     func hasDuplicateTagLocations(with range: NSRange) -> Bool {
         for i in 0..<tags.count {
             let tag = tags[i]
-            guard let crrentRange = tag.range else { return false }
+            guard let crrentRange = tag.revisedRange else { return false }
             let currentLocation = crrentRange.location
             let hasDuplicates = range.location == currentLocation
 
@@ -347,7 +347,7 @@ struct WordSelectorViewControllerViewModel {
         for i in 0..<tags.count {
             let tag = tags[i]
 
-            guard let range = tag.range else { return }
+            guard let range = tag.revisedRange else { return }
 
             if newNSRange.location == range.location {
                 return
@@ -401,7 +401,7 @@ struct WordSelectorViewControllerViewModel {
 
         for i in 0..<tags.count {
             let currentCloze = tags[i]
-            guard let range = currentCloze.range else { return [] }
+            guard let range = currentCloze.revisedRange else { return [] }
             let location = range.location
             
             if !uniqueLocations.contains(location) {
@@ -419,7 +419,7 @@ struct WordSelectorViewControllerViewModel {
     }
     
     func getNSRanges() -> [NSRange] {
-        return tags.map { $0.range! }
+        return tags.map { $0.revisedRange! }
     }
 
     func createColoredText() -> ColoredText {
@@ -427,7 +427,7 @@ struct WordSelectorViewControllerViewModel {
 
         for i in 0..<tags.count {
             let tag = tags[i]
-            let nsRange = tag.range
+            let nsRange = tag.revisedRange
 
             guard let location = nsRange?.location,
                   let length = nsRange?.length,

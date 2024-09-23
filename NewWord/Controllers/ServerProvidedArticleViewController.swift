@@ -502,7 +502,7 @@ extension ServerProvidedArticleViewController {
 
             article?.userGeneratedArticle?.revisedText = customTextView.text
             
-            self.viewModel.saveTag(newTag)
+            self.viewModel.createPracticeMap(newTag)
             
             CoreDataManager.shared.save()
             

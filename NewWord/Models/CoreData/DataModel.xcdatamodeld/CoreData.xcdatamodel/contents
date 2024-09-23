@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="23G93" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23G93" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="CDAdvanced" representedClassName="CDAdvanced" syncable="YES" codeGenerationType="class">
         <attribute name="easyBonus" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="startingEase" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -102,6 +102,10 @@
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="map" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeMap" inverseName="practiceContext" inverseEntity="CDPracticeMap"/>
+        <relationship name="resource" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeContextResource"/>
+    </entity>
+    <entity name="CDPracticeContextResource" representedClassName="CDPracticeContextResource" syncable="YES" codeGenerationType="class">
+        <relationship name="wordEntry" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWordEntry"/>
     </entity>
     <entity name="CDPracticeImage" representedClassName="CDPracticeImage" syncable="YES" codeGenerationType="category">
         <attribute name="data" optional="YES" attributeType="Binary"/>
@@ -243,5 +247,39 @@
         <attribute name="text" attributeType="String"/>
         <relationship name="sentence" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentence" inverseName="words" inverseEntity="CDSentence"/>
         <relationship name="sentenceCloze" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSentenceCloze" inverseName="clozeWord" inverseEntity="CDSentenceCloze"/>
+    </entity>
+    <entity name="CDWordDefinition" representedClassName="CDWordDefinition" syncable="YES" codeGenerationType="class">
+        <attribute name="cefrRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="originalLanguageMeaning" optional="YES" attributeType="String"/>
+        <attribute name="translatedLanguageMeaning" optional="YES" attributeType="String"/>
+        <relationship name="examples" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWordExample"/>
+    </entity>
+    <entity name="CDWordEntry" representedClassName="CDWordEntry" syncable="YES" codeGenerationType="class">
+        <attribute name="partOfSpeechRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="word" optional="YES" attributeType="String"/>
+        <relationship name="definitions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWordDefinition"/>
+        <relationship name="forms" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWordForms"/>
+        <relationship name="pronounciations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWordProunounciation"/>
+    </entity>
+    <entity name="CDWordExample" representedClassName="CDWordExample" syncable="YES" codeGenerationType="class">
+        <attribute name="originalLanguageRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="originalText" optional="YES" attributeType="String"/>
+        <attribute name="translatedLanguageRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="translatedText" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CDWordForms" representedClassName="CDWordForms" syncable="YES" codeGenerationType="class">
+        <attribute name="gerund" optional="YES" attributeType="String"/>
+        <attribute name="pastParticiple" optional="YES" attributeType="String"/>
+        <attribute name="pastTense" optional="YES" attributeType="String"/>
+        <attribute name="pluralForm" optional="YES" attributeType="String"/>
+        <attribute name="presentParticiple" optional="YES" attributeType="String"/>
+        <attribute name="thirdPersonSingular" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CDWordProunounciation" representedClassName="CDWordProunounciation" syncable="YES" codeGenerationType="class">
+        <attribute name="ipaPhonetic" optional="YES" attributeType="String"/>
+        <attribute name="kkPhonetic" optional="YES" attributeType="String"/>
+        <attribute name="languageRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="speaker" optional="YES" attributeType="String"/>
+        <relationship name="audioResource" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeAudio"/>
     </entity>
 </model>
