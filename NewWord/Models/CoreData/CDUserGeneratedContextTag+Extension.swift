@@ -24,10 +24,10 @@ extension CDUserGeneratedContextTag {
         return NSRange(location: Int(revisedRangeLocation), length: Int(revisedRangeLength))
     }
 
-    func isEqualTo(_ other: ContextTag.Copy) -> Bool {
-        return self.revisedRange == other.range &&
-        self.type == other.type
-    }
+//    func isEqualTo(_ other: ContextTag.Copy) -> Bool {
+//        return self.revisedRange == other.range &&
+//        self.type == other.type
+//    }
 
     func isEqualTo(textType: ContextType, range: NSRange) -> Bool {
         return self.revisedRange == range &&
