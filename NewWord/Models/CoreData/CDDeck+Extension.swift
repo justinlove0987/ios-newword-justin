@@ -26,6 +26,10 @@ extension CDDeck {
     
     var newPractices: [CDPractice] {
         let newPractices = practices.filter { practice in
+            guard practice.isActive else {
+                return false
+            }
+            
             guard let latestPracticeRecordStandard = practice.latestPracticeStandardRecord else {
                 return true
             }
@@ -38,6 +42,10 @@ extension CDDeck {
     
     var reviewPractices: [CDPractice] {
         let reviewPractices = practices.filter { practice in
+            guard practice.isActive else {
+                return false
+            }
+            
             guard let latestPracticeRecordStandard = practice.latestPracticeStandardRecord else {
                 return false
             }
@@ -50,6 +58,10 @@ extension CDDeck {
     
     var relearnPractices: [CDPractice] {
         let relearnPractices = practices.filter { practice in
+            guard practice.isActive else {
+                return false
+            }
+            
             guard let latestPracticeRecordStandard = practice.latestPracticeStandardRecord else {
                 return false
             }

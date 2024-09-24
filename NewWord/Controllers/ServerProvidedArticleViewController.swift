@@ -488,8 +488,6 @@ extension ServerProvidedArticleViewController {
             
             CoreDataManager.shared.save()
             
-            viewModel.removeRelatedPractices(newTag)
-            
             triggerImpactFeedback()
         }
 

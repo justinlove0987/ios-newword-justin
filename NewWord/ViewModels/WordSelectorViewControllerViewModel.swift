@@ -170,7 +170,14 @@ struct WordSelectorViewControllerViewModel {
                 guard let currentArticleId = practice.serverProviededContent?.article?.id else { return }
 
                 if currentArticleId == articleId {
-                    print("foo - is same article !!!")
+                    practice.isActive = false
+                    
+                    let practices = CoreDataManager.shared.getAll(ofType: CDPractice.self)
+                    
+                    for i in 0..<practices.count {
+                        let practice = practices[i]
+                        print("foo - \(i) is \(practice.isActive) \(practice.userGeneratedContent?.userGeneratedContextTag?.text)")
+                    }
                 }
             }
         }
@@ -254,8 +261,9 @@ struct WordSelectorViewControllerViewModel {
             let findTag = currentTag.revisedRange == range
             
             if findTag {
-                CoreDataManager.shared.deleteEntity(currentTag)
+                removeRelatedPractices(currentTag)
                 tags.remove(at: i)
+                CoreDataManager.shared.deleteEntity(currentTag)
                 break
             }
         }
@@ -400,6 +408,7 @@ struct WordSelectorViewControllerViewModel {
                 newPractice.serverProviededContent = serverProvidedContent
                 newPractice.sequence = newSequence
                 newPractice.deck = deck
+                newPractice.isActive = true
             }
         }
     }
