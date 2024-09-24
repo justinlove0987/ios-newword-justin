@@ -74,7 +74,7 @@ extension CDUserGeneratedContextTag {
                     revisedRangeLength: revisedRangeLength,
                     revisedRangeLocation: revisedRangeLocation,
                     tagColor: tagColor,
-                    contentColor: contentColor,
+                    contentColor: tagContentColor,
                     text: text,
                     translation: translation,
                     typeRawValue: typeRawValue )

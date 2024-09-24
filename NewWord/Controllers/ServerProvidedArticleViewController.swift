@@ -412,7 +412,7 @@ extension ServerProvidedArticleViewController {
         let textType = viewModel.getTextType(from: viewModel.selectMode)
 
         if viewModel.containsTag(textType: textType, range: range) {
-            viewModel.removeTag(range)
+            viewModel.deactivateTag(range)
 
             let adjustmentOffset = -1
             let updatedRange = NSRange(location: range.location-1, length: range.length)
@@ -449,19 +449,20 @@ extension ServerProvidedArticleViewController {
 
         let translationClosure: ((_ translatedTraditionalText: String) -> ()) = { [weak self] translatedTraditionalText in
             guard let self else { return }
-
+            
             let offset = 1
             let clozeNumber = self.viewModel.getClozeNumber()
             let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
-            let textType = self.viewModel.getTextType(text)
-            let newTag = self.viewModel.createNewTag(number: clozeNumber, text: text, range: updateRange!, textType: textType, translation: translatedTraditionalText)
             
             self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
-            self.customTextView.insertNumberImageView(at: range.location, existTags: self.viewModel.tags, with: String(clozeNumber))
-            self.viewModel.tags.sort { $0.revisedRangeLocation < $1.revisedRangeLocation }
+            
+            if let tags = article?.userGeneratedArticle?.sortedTaggedContext {
+                self.customTextView.insertNumberImageView(at: range.location, existTags: tags, with: String(clozeNumber))
+            }
+            
             self.viewModel.updateTagNSRanges(with: range, offset: offset)
-            self.viewModel.appendTag(newTag)
-            self.viewModel.createPracticeMap(newTag)
+            self.viewModel.activateTag(at: updateRange!, text: text, translation: translatedTraditionalText, number: clozeNumber)
+//            self.viewModel.createPracticeMap(newTag)
             
             self.updateCustomTextView()
 

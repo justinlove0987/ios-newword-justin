@@ -80,22 +80,21 @@ class FirebaseManager {
                     let markName = timepoint["markName"] as? String ?? ""
                     let timeSeconds = timepoint["timeSeconds"] as? Double ?? 0.0
                     
-
-                    let timepoint = CoreDataManager.shared.createEntity(ofType: CDTimepointInformation.self)
-                    let userGeneratedTimepoint = CoreDataManager.shared.createEntity(ofType: CDTimepointInformation.self)
-
-                    timepoint.rangeLocation = rangeLocation.toInt64
-                    timepoint.rangeLength = rangeLength.toInt64
-                    timepoint.timeSeconds = timeSeconds
-                    timepoint.markName = markName
+                    let practiceAudio = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
+                    let userGeneratedContextTag = CoreDataManager.shared.createEntity(ofType: CDUserGeneratedContextTag.self)
                     
-                    userGeneratedTimepoint.rangeLocation = rangeLocation.toInt64
-                    userGeneratedTimepoint.rangeLength = rangeLength.toInt64
-                    userGeneratedTimepoint.timeSeconds = timeSeconds
-                    userGeneratedTimepoint.markName = markName
-
-                    article.addToTimepoints(timepoint)
-                    userGeneratedArticle.addToUserGeneratedTimepoints(userGeneratedTimepoint)
+                    userGeneratedContextTag.timeSeconds = timeSeconds
+                    userGeneratedContextTag.markName = markName
+                    userGeneratedContextTag.originalRangeLocation = rangeLocation.toInt64
+                    userGeneratedContextTag.originalRangeLength = rangeLength.toInt64
+                    userGeneratedContextTag.revisedRangeLocation = rangeLocation.toInt64
+                    userGeneratedContextTag.revisedRangeLength = rangeLength.toInt64
+                    userGeneratedContextTag.isTag = false
+                    userGeneratedContextTag.id = UUID().uuidString
+                    userGeneratedContextTag.practiceAudio = practiceAudio
+                    userGeneratedContextTag.typeRawValue = ContextType.word.rawValue.toInt64
+                    
+                    userGeneratedArticle.addToUserGeneratedContextTagSet(userGeneratedContextTag)
                 }
             }
         }

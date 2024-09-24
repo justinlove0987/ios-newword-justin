@@ -695,20 +695,14 @@ extension CoreDataManager {
 extension CoreDataManager {
 
     func getUserGeneratedTimepoints(from article: CDPracticeArticle?) -> [CDTimepointInformation] {
-        if let timepoints = article?.userGeneratedArticle?.userGeneratedTimepoints?.allObjects as? [CDTimepointInformation] {
-            return timepoints
-        } else {
-            return []
-        }
-    }
-//
-//    func getUserGeneratedTags(from article: CDPracticeArticle?) -> [CDUserGeneratedContextTag] {
-//        if let timepoints = article?.userGeneratedArticle?.userGeneratedContextTags?.allObjects as? [CDUserGeneratedContextTag] {
+//        if let timepoints = article?.userGeneratedArticle?.userGeneratedTimepoints?.allObjects as? [CDTimepointInformation] {
 //            return timepoints
 //        } else {
 //            return []
 //        }
-//    }
+        
+        return []
+    }
 }
 
 

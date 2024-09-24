@@ -140,7 +140,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
         guard !text.startsWithObjectReplacementCharacter() else { return }
         guard !viewModel.isWhitespace(text) else { return }
         guard !viewModel.containsTag(textType: .article, range: range) else {
-            viewModel.removeTag(range)
+            viewModel.deactivateTag(range)
 
             if !viewModel.hasDuplicateTagLocations(with: range) {
                 let updatedRange = NSRange(location: range.location-1, length: range.length)
@@ -187,7 +187,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
 
     private func updateCloze(with range: NSRange, text: String, hint: String) {
         let clozeNumber = self.viewModel.getClozeNumber()
-        self.customTextView.insertNumberImageView(at: range.location, existTags: self.viewModel.tags, with: String(clozeNumber))
+//        self.customTextView.insertNumberImageView(at: range.location, existTags: self.viewModel.tags, with: String(clozeNumber))
 
         let offset = 1
         let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
@@ -195,7 +195,7 @@ class UserGeneratedArticleViewController: UIViewController, StoryboardGenerated 
         let newTag = self.viewModel.createNewTag(number: clozeNumber, text: text, range: updateRange!, textType: textType, translation: hint)
 
         self.viewModel.updateTagNSRanges(with: updateRange!, offset: offset)
-        self.viewModel.appendTag(newTag)
+//        self.viewModel.appendTag(newTag)
     }
 
     private func updateCustomTextView() {

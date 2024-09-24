@@ -225,18 +225,20 @@
         <attribute name="revisedText" optional="YES" attributeType="String"/>
         <relationship name="article" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeArticle" inverseName="userGeneratedArticle" inverseEntity="CDPracticeArticle"/>
         <relationship name="userGeneratedContextTagSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDUserGeneratedContextTag" inverseName="userGeneratedArticle" inverseEntity="CDUserGeneratedContextTag"/>
-        <relationship name="userGeneratedTimepoints" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTimepointInformation"/>
     </entity>
     <entity name="CDUserGeneratedContextTag" representedClassName="CDUserGeneratedContextTag" syncable="YES" codeGenerationType="category">
-        <attribute name="contentColor" optional="YES" attributeType="Binary"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isTag" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="markName" optional="YES" attributeType="String"/>
         <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="originalRangeLength" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="originalRangeLocation" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="revisedRangeLength" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="revisedRangeLocation" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="tagColor" optional="YES" attributeType="Binary"/>
+        <attribute name="tagContentColor" optional="YES" attributeType="Binary"/>
         <attribute name="text" optional="YES" attributeType="String"/>
+        <attribute name="timeSeconds" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="translation" optional="YES" attributeType="String"/>
         <attribute name="typeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="practiceAudio" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CDPracticeAudio"/>

@@ -81,17 +81,9 @@ struct WordSelectorViewControllerViewModel {
         var coloredCharacters: [CharacterIndex: [ColorSegment]]
     }
     
-    var article: CDPracticeArticle? {
-        didSet {
-            guard let tags = article?.userGeneratedArticle?.userGeneratedContextTags else {
-                return
-            }
+    var article: CDPracticeArticle?
 
-            self.tags = tags
-        }
-    }
-
-    var tags: [CDUserGeneratedContextTag] = []
+//     var tags: [CDUserGeneratedContextTag] = []
 
     var selectMode: SelectMode = .word
     
@@ -100,6 +92,8 @@ struct WordSelectorViewControllerViewModel {
     var translationPairs: [TranslationPair] = []
 
     mutating func getClozeNumber() -> Int {
+        guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else { return 0 }
+        
         let clozeNumbers = tags.map { Int($0.number) }
         
         if clozeNumbers.isEmpty {
@@ -120,6 +114,8 @@ struct WordSelectorViewControllerViewModel {
     }
 
     func getUpdatedRange(range: NSRange, offset: Int) -> NSRange? {
+        guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else { return nil }
+        
         let location = range.location
 
         for tag in tags {
@@ -137,6 +133,8 @@ struct WordSelectorViewControllerViewModel {
     }
     
     mutating func removeAllTags(in text: String) -> String? {
+        guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else { return nil }
+        
         var text = text
         let uniqueClozeIndices = getUniqueLocationClozeIndices()
 
@@ -184,6 +182,8 @@ struct WordSelectorViewControllerViewModel {
     }
 
     mutating func saveTags(_ text: String) {
+        guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else { return }
+        
         let context = CoreDataManager.shared.createContext(text)
         
         for i in 0..<tags.count {
@@ -229,6 +229,8 @@ struct WordSelectorViewControllerViewModel {
     }
     
     func containsTag(textType: ContextType, range: NSRange) -> Bool {
+        guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else { return false }
+        
         for i in 0..<tags.count {
             let currentTag = tags[i]
             
@@ -254,7 +256,9 @@ struct WordSelectorViewControllerViewModel {
         return translationPair?.translatedText
     }
     
-    mutating func removeTag(_ range: NSRange){
+    mutating func deactivateTag(_ range: NSRange){
+        guard let tags = article?.userGeneratedArticle?.contexts else { return }
+        
         for i in 0..<tags.count {
             let currentTag = tags[i]
 
@@ -262,14 +266,15 @@ struct WordSelectorViewControllerViewModel {
             
             if findTag {
                 removeRelatedPractices(currentTag)
-                tags.remove(at: i)
-                CoreDataManager.shared.deleteEntity(currentTag)
+                currentTag.isTag = false
                 break
             }
         }
     }
 
     func hasDuplicateTagLocations(with range: NSRange) -> Bool {
+        guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else { return false }
+        
         for i in 0..<tags.count {
             let tag = tags[i]
             guard let crrentRange = tag.revisedRange else { return false }
@@ -285,6 +290,8 @@ struct WordSelectorViewControllerViewModel {
     }
     
     func hasAnyTag() -> Bool {
+        guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else { return false }
+        
         return !tags.isEmpty
     }
 
@@ -305,20 +312,18 @@ struct WordSelectorViewControllerViewModel {
     }
 
     mutating func updateTagNSRanges(with newNSRange: NSRange, offset: Int) {
+        guard let tags = article?.userGeneratedArticle?.contexts else { return }
+        
         for i in 0..<tags.count {
             let tag = tags[i]
 
             guard let range = tag.revisedRange else { return }
 
-            if newNSRange.location == range.location {
-                return
-            }
-
             let newLocation = newNSRange.location
             let currentLocation = range.location
             let currentLength = range.length
 
-            if newLocation < currentLocation {
+            if newLocation <= currentLocation {
                 tags[i].revisedRangeLocation = currentLocation.toInt64 + offset.toInt64
 
             } else if newLocation > currentLocation && newLocation < currentLocation + currentLength {
@@ -334,7 +339,7 @@ struct WordSelectorViewControllerViewModel {
                       translation: String) -> CDUserGeneratedContextTag {
         
         let tagColor: UIColor = selectMode == .sentence ? UIColor.tagBlue : UIColor.tagGreen
-        let cotentColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueText: UIColor.textGreen
+        let contentColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueText: UIColor.textGreen
         
         let tag = CoreDataManager.shared.createEntity(ofType: CDUserGeneratedContextTag.self)
         let practiceAudio = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
@@ -345,7 +350,7 @@ struct WordSelectorViewControllerViewModel {
         tag.revisedRangeLength = range.length.toInt64
         tag.revisedRangeLocation = range.location.toInt64
         tag.tagColor = tagColor.toData()
-        tag.contentColor = cotentColor.toData()
+        tag.tagContentColor = contentColor.toData()
         tag.text = text
         tag.translation = translation
         tag.typeRawValue = textType.rawValue.toInt64
@@ -412,12 +417,32 @@ struct WordSelectorViewControllerViewModel {
             }
         }
     }
-
-    mutating func appendTag(_ tag: CDUserGeneratedContextTag) {
-        tags.append(tag)
+    
+    mutating func activateTag(at range: NSRange, text: String, translation: String, number: Int) {
+        guard let tags = article?.userGeneratedArticle?.contexts else { return }
+        
+        let tagColor: UIColor = selectMode == .sentence ? UIColor.tagBlue : UIColor.tagGreen
+        let contentColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueText: UIColor.textGreen
+        
+        for tag in tags {
+            let selectedContext = tag.revisedRangeLocation == range.location && tag.revisedRangeLength == range.length
+            
+            if selectedContext {
+                tag.isTag = true
+                tag.text = text
+                tag.number = number.toInt64
+                tag.translation = translation
+                tag.tagColor = tagColor.toData()
+                tag.tagContentColor = contentColor.toData()
+                break
+            }
+        }
+        
     }
     
     func getUniqueLocationClozeIndices() -> [Int] {
+        guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else { return [] }
+        
         var uniqueLocations: Set<Int> = .init()
         var indices: [Int] = []
 
@@ -441,11 +466,17 @@ struct WordSelectorViewControllerViewModel {
     }
     
     func getNSRanges() -> [NSRange] {
+        guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else { return [] }
+        
         return tags.map { $0.revisedRange! }
     }
 
     func createColoredText() -> ColoredText {
         var result = ColoredText(coloredCharacters: [:])
+        
+        guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else {
+            return result
+        }
 
         for i in 0..<tags.count {
             let tag = tags[i]
@@ -455,7 +486,7 @@ struct WordSelectorViewControllerViewModel {
                   let length = nsRange?.length,
                   let tagColorData = tag.tagColor,
                   let tagColor = UIColor.fromData(tagColorData),
-                  let contentColorData = tag.contentColor,
+                  let contentColorData = tag.tagContentColor,
                   let contentColor = UIColor.fromData(contentColorData)
             else { continue }
 
@@ -493,8 +524,6 @@ struct WordSelectorViewControllerViewModel {
     }
     
     mutating func calculateColoredTextHeightFraction() -> ColoredText {
-
-        startTimer()
 
         let coloredText = createColoredText()
 

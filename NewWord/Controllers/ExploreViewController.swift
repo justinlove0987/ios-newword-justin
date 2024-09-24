@@ -264,7 +264,7 @@ extension ExploreViewController {
         
                 let text = "\(title)\n\n\(content)"
         
-            GoogleTTSService.shared.downloadSSML(text) { audioResource, timepoints  in
+            GoogleTTSService.shared.downloadSSML(text) { audioResource, timepoints in
                     guard let audioResource else {
                         print("foo - download ssml failed")
                         return
