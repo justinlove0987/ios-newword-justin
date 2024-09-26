@@ -164,6 +164,8 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBAction func settingAction(_ sender: UIBarButtonItem) {
         let controller = PracticeSequenceViewController.instantiate()
         
+        controller.practiceMap = CoreDataManager.shared.getFirstBlueprintMap()
+        
         self.navigationController?.pushViewControllerWithCustomTransition(controller)
     }
     

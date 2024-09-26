@@ -20,7 +20,7 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
     
     private var dataSource: UICollectionViewDiffableDataSource<Int,CDPractice>!
 
-    private var practiceMap: CDPracticeMap?
+    var practiceMap: CDPracticeMap?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +28,7 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
     }
     
     private func setup() {
-        setupData()
         setupCollectionView()
-    }
-
-    private func setupData() {
-        self.practiceMap = CoreDataManager.shared.getFirstBlueprintMap()
     }
 
     private func setupCollectionView() {

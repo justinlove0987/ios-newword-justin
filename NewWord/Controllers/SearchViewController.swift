@@ -93,7 +93,7 @@ class SearchViewController: UIViewController, StoryboardGenerated {
     }
 
     private func filterDataSource() {
-         let contexts = CoreDataManager.shared.getAll(ofType: CDPracticeContext.self)
+        let contexts = CoreDataManager.shared.getAll(ofType: CDPracticeContext.self)
         
         let groupedCards = contexts.map { practiceContext in
             let title = practiceContext.context ?? "title"
@@ -154,8 +154,10 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentGroupedCards = groupedCards[indexPath.row]
         
-        let controller = SearchClozeResultViewController.instantiate()
-//        controller.cards = currentGroupedCards.cards
+        guard let context = currentGroupedCards.contexts.first else { return }
+        
+        let controller = PracticeSequenceViewController.instantiate()
+        controller.practiceMap = context.map
 
         navigationController?.pushViewController(controller, animated: true)
         

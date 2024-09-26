@@ -83,8 +83,6 @@ struct WordSelectorViewControllerViewModel {
     
     var article: CDPracticeArticle?
 
-//     var tags: [CDUserGeneratedContextTag] = []
-
     var selectMode: SelectMode = .word
     
     var currentSelectedRange: NSRange?
@@ -456,35 +454,16 @@ struct WordSelectorViewControllerViewModel {
     func removeRelatedPractices(_ tag: CDUserGeneratedContextTag) {
         for userGeneratedContent in tag.userGeneratedContents {
             userGeneratedContent.practice?.isActive = false
+            
+            guard let practice = userGeneratedContent.practice,
+                  let standardRecords = userGeneratedContent.practice?.record?.standardRecords else {
+                return
+            }
+            
+            if standardRecords.count == 1 {
+                CoreDataManager.shared.deleteEntity(practice)
+            }
         }
-    }
-    
-    func createPractice(from blueprintPractice: CDPractice) -> CDPractice {
-        let newPractice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
-        let userGeneratedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeUserGeneratedContent.self)
-        let serverProvidedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeServerProvidedContent.self)
-        let record = CoreDataManager.shared.createEntity(ofType: CDPracticeRecord.self)
-        let standardRecord = CoreDataManager.shared.createEntity(ofType: CDPracticeRecordStandard.self)
-        
-        standardRecord.dueDate = Date()
-        standardRecord.duration = 0
-        standardRecord.ease = 2.5
-        standardRecord.learnedDate = Date()
-        standardRecord.stateRawValue = PracticeRecordStandardStateType.new.rawValue.toInt64
-        standardRecord.statusRawValue = PracticeStandardStatusType.again.rawValue.toInt64
-        standardRecord.practiceRecord = record
-        
-        serverProvidedContent.article = article
-        
-        newPractice.id = UUID().uuidString
-        newPractice.order = blueprintPractice.order
-        newPractice.typeRawValue = blueprintPractice.typeRawValue
-        newPractice.userGeneratedContent = userGeneratedContent
-        newPractice.serverProviededContent = serverProvidedContent
-        newPractice.record = record
-        newPractice.isActive = true
-        
-        return newPractice
     }
 
     func getUniqueLocationClozeIndices() -> [Int] {
