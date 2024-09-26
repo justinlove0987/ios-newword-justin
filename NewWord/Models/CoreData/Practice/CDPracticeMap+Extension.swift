@@ -21,7 +21,7 @@ extension CDPracticeMap {
     }
     
     var sortedSequences: [CDPracticeSequence] {
-        guard let sequences = self.sequences as? Set<CDPracticeSequence> else {
+        guard let sequences = self.sequenceSet as? Set<CDPracticeSequence> else {
             return []
         }
 
@@ -31,6 +31,16 @@ extension CDPracticeMap {
     
     var greatestLevelSequence: CDPracticeSequence? {
         return sortedSequences.last
+    }
+    
+    var hasPractice: Bool {
+        for sequence in sortedSequences {
+            if sequence.sortedPractices.count > 0 {
+                return true
+            }
+        }
+        
+        return false
     }
 }
 

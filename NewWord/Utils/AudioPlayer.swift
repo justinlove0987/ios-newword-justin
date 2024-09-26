@@ -121,16 +121,17 @@ class AudioPlayer: NSObject {
     private func handlePlaybackTimer(article: CDPracticeArticle) {
         guard let player = audioPlayer else { return }
         guard let text = article.text else { return }
+        guard let contexts = article.userGeneratedArticle?.contexts else { return }
         
         let currentTimeInSeconds = roundToOneDecimalPlace(player.currentTime)
 
         let timepoints = CoreDataManager.shared.getUserGeneratedTimepoints(from: article)
 
-        for timepoint in timepoints {
-            let markTime = roundToOneDecimalPlace(timepoint.timeSeconds)
+        for context in contexts {
+            let markTime = roundToOneDecimalPlace(context.timeSeconds)
 
             if markTime == currentTimeInSeconds && !currentTimeInSeconds.isZero  {
-                if let nsRange = timepoint.range, let _ = Range(nsRange, in: text) {
+                if let nsRange = context.revisedRange, let _ = Range(nsRange, in: text) {
                     delegate?.audioPlayer(self, didUpdateToRange: nsRange)
                 } else {
                     print("Invalid range")

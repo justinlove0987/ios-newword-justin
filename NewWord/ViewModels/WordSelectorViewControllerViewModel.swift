@@ -456,13 +456,19 @@ struct WordSelectorViewControllerViewModel {
             userGeneratedContent.practice?.isActive = false
             
             guard let practice = userGeneratedContent.practice,
-                  let standardRecords = userGeneratedContent.practice?.record?.standardRecords else {
+                  let practiceMap = practice.sequence?.map,
+                  let latestPracticeStandardRecord = userGeneratedContent.practice?.latestPracticeStandardRecord else {
                 return
             }
             
-            if standardRecords.count == 1 {
+            if latestPracticeStandardRecord.stateType == .new {
                 CoreDataManager.shared.deleteEntity(practice)
             }
+            
+            if !practiceMap.hasPractice {
+                CoreDataManager.shared.deleteEntity(practiceMap)
+            }
+            
         }
     }
 

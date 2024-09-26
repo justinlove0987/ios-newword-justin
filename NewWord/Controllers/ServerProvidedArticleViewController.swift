@@ -148,9 +148,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBAction func backAction(_ sender: UIBarButtonItem) {
         guard var text = customTextView.text else { return }
         guard let article else { return }
-
-//        text = viewModel.removeAllTags(in: text) ?? ""
-//        viewModel.saveTag(text)
         
         viewModel.showPracticeAlert(presentViewController: self) {
             self.waitCallback?()
@@ -158,7 +155,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         } confirmAction: {
             self.confirmCallback?()
         }
-        
     }
     
     @IBAction func settingAction(_ sender: UIBarButtonItem) {
