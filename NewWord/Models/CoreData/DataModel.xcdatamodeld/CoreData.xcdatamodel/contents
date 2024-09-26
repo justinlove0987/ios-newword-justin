@@ -72,14 +72,14 @@
     <entity name="CDPractice" representedClassName="CDPractice" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="isActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="sequenceOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="typeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="deck" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDeck" inverseName="practiceSet" inverseEntity="CDDeck"/>
         <relationship name="preset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePreset" inverseName="practice" inverseEntity="CDPracticePreset"/>
         <relationship name="record" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeRecord" inverseName="practice" inverseEntity="CDPracticeRecord"/>
         <relationship name="sequence" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeSequence" inverseName="practiceSet" inverseEntity="CDPracticeSequence"/>
-        <relationship name="serverProviededContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeServerProvidedContent" inverseName="practice" inverseEntity="CDPracticeServerProvidedContent"/>
-        <relationship name="userGeneratedContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeUserGeneratedContent" inverseName="practice" inverseEntity="CDPracticeUserGeneratedContent"/>
+        <relationship name="serverProviededContent" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CDPracticeServerProvidedContent" inverseName="practice" inverseEntity="CDPracticeServerProvidedContent"/>
+        <relationship name="userGeneratedContent" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CDPracticeUserGeneratedContent" inverseName="practice" inverseEntity="CDPracticeUserGeneratedContent"/>
     </entity>
     <entity name="CDPracticeArticle" representedClassName="CDPracticeArticle" syncable="YES" codeGenerationType="category">
         <attribute name="cefrRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

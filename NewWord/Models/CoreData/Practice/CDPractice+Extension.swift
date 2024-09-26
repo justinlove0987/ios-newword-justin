@@ -42,7 +42,6 @@ extension CDPractice {
 }
 
 extension CDPractice {
-    
     func addRecord(userPressedStatusType: PracticeStandardStatusType,
                    standardPreset: CDPracticePresetStandard) {
 

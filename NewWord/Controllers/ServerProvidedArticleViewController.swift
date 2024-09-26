@@ -462,7 +462,7 @@ extension ServerProvidedArticleViewController {
             let tag = self.viewModel.activateTag(at: range, text: text, translation: translatedTraditionalText, number: clozeNumber)
 
             self.viewModel.updateTagNSRanges(with: range, offset: offset)
-            self.viewModel.createPracticeMap(tag)
+            self.viewModel.mergePracticeMap(tag)
             self.updateCustomTextView()
 
             if !self.viewModel.hasDuplicateTagLocations(with: range) {

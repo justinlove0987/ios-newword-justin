@@ -20,7 +20,7 @@ extension CDPracticeSequence {
             return []
         }
         
-        let sortedPractices = practices.sorted { $0.sequenceOrder < $1.sequenceOrder }
+        let sortedPractices = practices.sorted { $0.order < $1.order }
         return sortedPractices
     }
 }
