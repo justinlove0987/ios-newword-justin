@@ -419,7 +419,9 @@ class AddTagTextView: UITextView, UITextViewDelegate {
 
 extension AddTagTextView {
     
-    func addDashedUnderline(in range: NSRange, forWord: Bool = false) {
+    func updateDashedUnderline(in range: NSRange, forWord: Bool = false) {
+        removeAllDashedUnderlines()
+        
         guard self.font != nil else { return }
 
         let layoutManager = self.layoutManager

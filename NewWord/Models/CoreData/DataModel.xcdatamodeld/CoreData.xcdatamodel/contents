@@ -242,9 +242,8 @@
         <attribute name="translation" optional="YES" attributeType="String"/>
         <attribute name="typeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="practiceAudio" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CDPracticeAudio"/>
-        <relationship name="practiceMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDMaster"/>
         <relationship name="userGeneratedArticle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDUserGeneratedArticle" inverseName="userGeneratedContextTagSet" inverseEntity="CDUserGeneratedArticle"/>
-        <relationship name="userGeneratedContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeUserGeneratedContent" inverseName="userGeneratedContextTag" inverseEntity="CDPracticeUserGeneratedContent"/>
+        <relationship name="userGeneratedContent" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPracticeUserGeneratedContent" inverseName="userGeneratedContextTag" inverseEntity="CDPracticeUserGeneratedContent"/>
     </entity>
     <entity name="CDWord" representedClassName="CDWord" syncable="YES" codeGenerationType="category">
         <attribute name="chinese" attributeType="String"/>

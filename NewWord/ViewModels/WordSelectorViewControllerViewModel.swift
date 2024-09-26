@@ -156,30 +156,6 @@ struct WordSelectorViewControllerViewModel {
         
         return text
     }
-    
-    func removeRelatedPractices(_ tag: CDUserGeneratedContextTag) {
-        guard let articleId = self.article?.id else { return }
-        guard let practiceMap = tag.userGeneratedArticle?.article?.serverProvidedContent?.practice?.sequence?.map else {
-            return
-        }
-
-        for sequence in practiceMap.sortedSequences {
-            for practice in sequence.sortedPractices {
-                guard let currentArticleId = practice.serverProviededContent?.article?.id else { return }
-
-                if currentArticleId == articleId {
-                    practice.isActive = false
-                    
-                    let practices = CoreDataManager.shared.getAll(ofType: CDPractice.self)
-                    
-                    for i in 0..<practices.count {
-                        let practice = practices[i]
-                        print("foo - \(i) is \(practice.isActive) \(practice.userGeneratedContent?.userGeneratedContextTag?.text)")
-                    }
-                }
-            }
-        }
-    }
 
     mutating func saveTags(_ text: String) {
         guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else { return }
@@ -256,21 +232,7 @@ struct WordSelectorViewControllerViewModel {
         return translationPair?.translatedText
     }
     
-    mutating func deactivateTag(_ range: NSRange){
-        guard let tags = article?.userGeneratedArticle?.contexts else { return }
-        
-        for i in 0..<tags.count {
-            let currentTag = tags[i]
 
-            let findTag = currentTag.revisedRange == range
-            
-            if findTag {
-                removeRelatedPractices(currentTag)
-                currentTag.isTag = false
-                break
-            }
-        }
-    }
 
     func hasDuplicateTagLocations(with range: NSRange) -> Bool {
         guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else { return false }
@@ -361,7 +323,9 @@ struct WordSelectorViewControllerViewModel {
         return tag
     }
     
-    func createPracticeMap(_ tag: CDUserGeneratedContextTag) {
+    func createPracticeMap(_ tag: CDUserGeneratedContextTag?) {
+        guard let tag else { return }
+        
         let maps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
         
         let blueprintMap = maps.first!
@@ -418,28 +382,76 @@ struct WordSelectorViewControllerViewModel {
         }
     }
     
-    mutating func activateTag(at range: NSRange, text: String, translation: String, number: Int) {
-        guard let tags = article?.userGeneratedArticle?.contexts else { return }
-        
+    @discardableResult
+    mutating func activateTag(at range: NSRange, text: String, translation: String, number: Int) -> CDUserGeneratedContextTag? {
+        guard let tags = article?.userGeneratedArticle?.contexts else { return nil }
+
         let tagColor: UIColor = selectMode == .sentence ? UIColor.tagBlue : UIColor.tagGreen
         let contentColor: UIColor = selectMode == .sentence ? UIColor.clozeBlueText: UIColor.textGreen
         
         for tag in tags {
-            let selectedContext = tag.revisedRangeLocation == range.location && tag.revisedRangeLength == range.length
-            
-            if selectedContext {
+            let isSelectedContext = tag.revisedRangeLocation == range.location && tag.revisedRangeLength == range.length
+
+            if isSelectedContext {
                 tag.isTag = true
                 tag.text = text
                 tag.number = number.toInt64
                 tag.translation = translation
                 tag.tagColor = tagColor.toData()
                 tag.tagContentColor = contentColor.toData()
-                break
+                print("foo - activate tag \(text)")
+                return tag
             }
         }
         
+        return nil
     }
-    
+
+    @discardableResult
+    mutating func deactivateTag(_ range: NSRange) -> CDUserGeneratedContextTag? {
+        guard let tags = article?.userGeneratedArticle?.contexts else { return nil }
+
+        for i in 0..<tags.count {
+            let currentTag = tags[i]
+
+            let findTag = currentTag.revisedRange == range
+
+            if findTag {
+                removeRelatedPractices(currentTag)
+                currentTag.isTag = false
+                return currentTag
+            }
+        }
+
+        return nil
+    }
+
+    func removeRelatedPractices(_ tag: CDUserGeneratedContextTag) {
+        print("foo - \(tag.text)")
+        guard let articleId = self.article?.id else { return }
+        guard let practiceMap = tag.userGeneratedArticle?.article?.serverProvidedContent?.practice?.sequence?.map else {
+            return
+        }
+
+        for sequence in practiceMap.sortedSequences {
+            for practice in sequence.sortedPractices {
+                guard let currentArticleId = practice.serverProviededContent?.article?.id else { return }
+                print("foo - find article")
+                if currentArticleId == articleId {
+                    practice.isActive = false
+                    print("foo - successfully deactivate practice \(practice.id) \(practice.userGeneratedContent?.userGeneratedContextTag?.text)")
+                }
+            }
+        }
+
+        let practices = CoreDataManager.shared.getAll(ofType: CDPractice.self)
+
+        for i in 0..<practices.count {
+            let practice = practices[i]
+            print("foo - \(i) is \(practice.id) \(practice.isActive) \(practice.userGeneratedContent?.userGeneratedContextTag?.text)")
+        }
+    }
+
     func getUniqueLocationClozeIndices() -> [Int] {
         guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else { return [] }
         

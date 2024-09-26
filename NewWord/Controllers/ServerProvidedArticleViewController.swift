@@ -249,7 +249,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
             
             textView.removeAllDashedUnderlines()
-            textView.addDashedUnderline(in: selectedRange, forWord: isWord)
+            textView.updateDashedUnderline(in: selectedRange, forWord: isWord)
             
             self.viewModel.selectMode = isWord ? .word : .sentence
             self.viewModel.currentSelectedRange = selectedRange
@@ -433,8 +433,7 @@ extension ServerProvidedArticleViewController {
             customTextView.userSelectedColorRanges = coloredText
             customTextView.renewTagImages(coloredMarks)
             customTextView.configureProperties()
-            customTextView.removeAllDashedUnderlines()
-            customTextView.addDashedUnderline(in: useRange, forWord: self.viewModel.selectMode == .word)
+            customTextView.updateDashedUnderline(in: useRange, forWord: self.viewModel.selectMode == .word)
 
             updatePracticeModeSelector(containsTag: containsTag)
             
@@ -460,10 +459,10 @@ extension ServerProvidedArticleViewController {
                 self.customTextView.insertNumberImageView(at: range.location, existTags: tags, with: String(clozeNumber))
             }
             
+            let tag = self.viewModel.activateTag(at: range, text: text, translation: translatedTraditionalText, number: clozeNumber)
+
             self.viewModel.updateTagNSRanges(with: range, offset: offset)
-            self.viewModel.activateTag(at: updateRange!, text: text, translation: translatedTraditionalText, number: clozeNumber)
-//            self.viewModel.createPracticeMap(newTag)
-            
+            self.viewModel.createPracticeMap(tag)
             self.updateCustomTextView()
 
             if !self.viewModel.hasDuplicateTagLocations(with: range) {
@@ -473,15 +472,13 @@ extension ServerProvidedArticleViewController {
                 self.viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: article)
                 self.viewModel.currentSelectedRange = updatedRange
                 self.customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
-                self.customTextView.removeAllDashedUnderlines()
-                self.customTextView.addDashedUnderline(in: updatedRange, forWord: self.viewModel.selectMode == .word)
+                self.customTextView.updateDashedUnderline(in: updatedRange, forWord: self.viewModel.selectMode == .word)
                 self.updatePracticeModeSelector(containsTag: self.viewModel.hasDuplicateTagLocations(with: updatedRange))
 
             } else {
                 let textType = self.viewModel.getTextType(from: self.viewModel.selectMode)
                 let containsTag = self.viewModel.containsTag(textType: textType, range: range)
-                self.customTextView.removeAllDashedUnderlines()
-                self.customTextView.addDashedUnderline(in: range, forWord: self.viewModel.selectMode == .word)
+                self.customTextView.updateDashedUnderline(in: range, forWord: self.viewModel.selectMode == .word)
                 self.updatePracticeModeSelector(containsTag: containsTag)
             }
 
