@@ -28,6 +28,10 @@ extension CDPracticeMap {
         let sortedSequences = sequences.sorted { $0.level < $1.level }
         return sortedSequences
     }
+    
+    var greatestLevelSequence: CDPracticeSequence? {
+        return sortedSequences.last
+    }
 }
 
 enum PracticeMapType: Int, CaseIterable {

@@ -312,6 +312,7 @@
 				2AFABE762C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift */,
 				2AFABE7A2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift */,
 				2AB3DC932CA145E0004CAFE3 /* CDUserGeneratedArticle+Extension.swift */,
+				D09016782C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -482,7 +483,6 @@
 				D09262B92C097ECD00CA90BA /* CoreDataManager.swift */,
 				2AFABE6E2C99111300BA2347 /* CDDeck+Extension.swift */,
 				D090167C2C93E56600A5FBD2 /* CDTimepointInformation+Extension.swift */,
-				D09016782C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift */,
 				D0344F5F2C56B25D00F721BF /* CDNote+Extension.swift */,
 				D09262C02C09808400CA90BA /* CDCard+Extension.swift */,
 				D09262BE2C097FC600CA90BA /* CDLearningRecord+Extension.swift */,

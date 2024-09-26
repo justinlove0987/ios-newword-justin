@@ -90,7 +90,7 @@
         <attribute name="uploadedDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="audioResource" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeAudio"/>
         <relationship name="imageResource" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeImage"/>
-        <relationship name="serverProvidedContent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeServerProvidedContent" inverseName="article" inverseEntity="CDPracticeServerProvidedContent"/>
+        <relationship name="serverProvidedContent" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPracticeServerProvidedContent" inverseName="article" inverseEntity="CDPracticeServerProvidedContent"/>
         <relationship name="timepoints" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTimepointInformation"/>
         <relationship name="userGeneratedArticle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDUserGeneratedArticle" inverseName="article" inverseEntity="CDUserGeneratedArticle"/>
     </entity>
@@ -179,7 +179,7 @@
     <entity name="CDPracticeUserGeneratedContent" representedClassName="CDPracticeUserGeneratedContent" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String"/>
         <relationship name="practice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPractice" inverseName="userGeneratedContent" inverseEntity="CDPractice"/>
-        <relationship name="userGeneratedContextTag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDUserGeneratedContextTag" inverseName="userGeneratedContent" inverseEntity="CDUserGeneratedContextTag"/>
+        <relationship name="userGeneratedContextTag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDUserGeneratedContextTag" inverseName="userGeneratedContentSet" inverseEntity="CDUserGeneratedContextTag"/>
     </entity>
     <entity name="CDPreset" representedClassName="CDPreset" syncable="YES" codeGenerationType="class">
         <relationship name="advanced" maxCount="1" deletionRule="Nullify" destinationEntity="CDAdvanced" inverseName="preset" inverseEntity="CDAdvanced"/>
@@ -243,7 +243,7 @@
         <attribute name="typeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="practiceAudio" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CDPracticeAudio"/>
         <relationship name="userGeneratedArticle" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDUserGeneratedArticle" inverseName="userGeneratedContextTagSet" inverseEntity="CDUserGeneratedArticle"/>
-        <relationship name="userGeneratedContent" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPracticeUserGeneratedContent" inverseName="userGeneratedContextTag" inverseEntity="CDPracticeUserGeneratedContent"/>
+        <relationship name="userGeneratedContentSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPracticeUserGeneratedContent" inverseName="userGeneratedContextTag" inverseEntity="CDPracticeUserGeneratedContent"/>
     </entity>
     <entity name="CDWord" representedClassName="CDWord" syncable="YES" codeGenerationType="category">
         <attribute name="chinese" attributeType="String"/>

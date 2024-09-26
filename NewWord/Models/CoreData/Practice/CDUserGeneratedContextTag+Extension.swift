@@ -16,6 +16,7 @@ public class CDUserGeneratedContextTag: NSManagedObject {
 
 
 extension CDUserGeneratedContextTag {
+    
     var type: ContextType? {
         return ContextType(rawValue: Int(typeRawValue))
     }
@@ -23,11 +24,14 @@ extension CDUserGeneratedContextTag {
     var revisedRange: NSRange? {
         return NSRange(location: Int(revisedRangeLocation), length: Int(revisedRangeLength))
     }
-
-//    func isEqualTo(_ other: ContextTag.Copy) -> Bool {
-//        return self.revisedRange == other.range &&
-//        self.type == other.type
-//    }
+    
+    var userGeneratedContents: [CDPracticeUserGeneratedContent] {
+        guard let contents = self.userGeneratedContentSet as? Set<CDPracticeUserGeneratedContent> else {
+            return []
+        }
+        
+        return Array(contents)
+    }
 
     func isEqualTo(textType: ContextType, range: NSRange) -> Bool {
         return self.revisedRange == range &&
