@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
+class PracticeMapViewController: UIViewController, StoryboardGenerated {
     
     struct PracticeSetting: Hashable {
         var title: String
@@ -25,6 +25,11 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateSnapshot()
     }
     
     private func setup() {
@@ -95,7 +100,7 @@ class PracticeSequenceViewController: UIViewController, StoryboardGenerated {
     }
 }
 
-extension PracticeSequenceViewController: UICollectionViewDelegate {
+extension PracticeMapViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let practiceMap else { return }
         

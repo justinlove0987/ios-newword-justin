@@ -230,10 +230,11 @@ extension PracticeSettingViewController: UICollectionViewDelegate {
         
         switch row {
         case .practiceType:
-            break
-//            let controller = PracticeModeViewController.instantiate()
-//            
-//            navigationController?.pushViewControllerWithCustomTransition(controller)
+            let controller = PracticeModeViewController.instantiate()
+            
+            controller.practice = practice
+            
+            navigationController?.pushViewControllerWithCustomTransition(controller)
             
         default:
             break

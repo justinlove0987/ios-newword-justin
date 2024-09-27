@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,14 +24,13 @@
 		2A1A5DA32C719D6600B94037 /* SkeletonLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1A5DA22C719D6600B94037 /* SkeletonLoadable.swift */; };
 		2A2176852C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */; };
 		2A24E8D42C50DF39006C1032 /* ReviseContextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */; };
-		2A24E8D62C537E59006C1032 /* ListeningClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A24E8D52C537E59006C1032 /* ListeningClozeView.swift */; };
-		2A24E8D82C537E66006C1032 /* ListeningClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A24E8D72C537E66006C1032 /* ListeningClozeView.xib */; };
 		2A2683772C6DA4DD00FFF81D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2683762C6DA4DD00FFF81D /* AudioPlayer.swift */; };
 		2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */; };
 		2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C22BE48FB2003F058F /* SearchViewController.swift */; };
 		2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */; };
 		2A4DA68F2C9D434B00CC6CDD /* PracticeButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A4DA68E2C9D434B00CC6CDD /* PracticeButton.xib */; };
 		2A4DA6912C9D448600CC6CDD /* PracticeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DA6902C9D448600CC6CDD /* PracticeButton.swift */; };
+		2A5A77912CA62EA400A481BE /* PracticeModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A77902CA62EA400A481BE /* PracticeModeViewController.swift */; };
 		2A5D608E2C63663B00252A0C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5D608D2C63663B00252A0C /* FirebaseStorage */; };
 		2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */; };
 		2A67688B2C3294470040C89F /* WordSelectorViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */; };
@@ -81,7 +80,7 @@
 		2AFABE742C99137B00BA2347 /* CDPracticeRecord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE722C99137B00BA2347 /* CDPracticeRecord+Extension.swift */; };
 		2AFABE782C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE762C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift */; };
 		2AFABE7C2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE7A2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift */; };
-		2AFC91472C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */; };
+		2AFC91472C7C4BB9002C2AD1 /* PracticeMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91462C7C4BB9002C2AD1 /* PracticeMapViewController.swift */; };
 		2AFC914A2C7C4F6F002C2AD1 /* PracticeSequenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */; };
 		2AFC914B2C7C4F6F002C2AD1 /* PracticeSequenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */; };
 		2AFC914D2C7C5720002C2AD1 /* PracticeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */; };
@@ -164,14 +163,13 @@
 		2A1A5DA22C719D6600B94037 /* SkeletonLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonLoadable.swift; sourceTree = "<group>"; };
 		2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseContextViewController.swift; sourceTree = "<group>"; };
-		2A24E8D52C537E59006C1032 /* ListeningClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningClozeView.swift; sourceTree = "<group>"; };
-		2A24E8D72C537E66006C1032 /* ListeningClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListeningClozeView.xib; sourceTree = "<group>"; };
 		2A2683762C6DA4DD00FFF81D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		2A38F8C22BE48FB2003F058F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2A4DA68E2C9D434B00CC6CDD /* PracticeButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeButton.xib; sourceTree = "<group>"; };
 		2A4DA6902C9D448600CC6CDD /* PracticeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeButton.swift; sourceTree = "<group>"; };
+		2A5A77902CA62EA400A481BE /* PracticeModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeViewController.swift; sourceTree = "<group>"; };
 		2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWord+Extension.swift"; sourceTree = "<group>"; };
 		2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSelectorViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A67688C2C3322590040C89F /* AddTagTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagTextView.swift; sourceTree = "<group>"; };
@@ -215,7 +213,7 @@
 		2AFABE722C99137B00BA2347 /* CDPracticeRecord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeRecord+Extension.swift"; sourceTree = "<group>"; };
 		2AFABE762C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeRecordStandard+Extension.swift"; sourceTree = "<group>"; };
 		2AFABE7A2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeStatus+Extension.swift"; sourceTree = "<group>"; };
-		2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSequenceViewController.swift; sourceTree = "<group>"; };
+		2AFC91462C7C4BB9002C2AD1 /* PracticeMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeMapViewController.swift; sourceTree = "<group>"; };
 		2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSequenceCell.swift; sourceTree = "<group>"; };
 		2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeSequenceCell.xib; sourceTree = "<group>"; };
 		2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSettingViewController.swift; sourceTree = "<group>"; };
@@ -280,6 +278,10 @@
 		D0DF66A02C3E3ED600749D96 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		D0EE06FC2C6A4CFD000B5BC8 /* ChatGPTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		2A5A77922CA637F000A481BE /* Practice */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Practice; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		D0DA5ABE2BB66A05008644DC /* Frameworks */ = {
@@ -359,6 +361,7 @@
 		D020A4EA2BB9D8E700CA5CAF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2A5A77922CA637F000A481BE /* Practice */,
 				2A18E7B32BE74008005139C8 /* DeckCell.swift */,
 				D04AC2062C51EF0300F91A07 /* DeckCell.xib */,
 				D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */,
@@ -393,8 +396,6 @@
 				2A02EF282C4A386500E21A6E /* TagTestingCell.xib */,
 				D04AC2022C51E78E00F91A07 /* SearchCell.swift */,
 				D04AC2032C51E78E00F91A07 /* SearchCell.xib */,
-				2A24E8D52C537E59006C1032 /* ListeningClozeView.swift */,
-				2A24E8D72C537E66006C1032 /* ListeningClozeView.xib */,
 				2AC5D8B82C54941B0090AEBB /* PlayButton.swift */,
 				2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */,
 				2AC3E5922C5602EB002CC242 /* SettingCell.swift */,
@@ -451,8 +452,9 @@
 				2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */,
 				2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */,
 				D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */,
-				2AFC91462C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift */,
+				2AFC91462C7C4BB9002C2AD1 /* PracticeMapViewController.swift */,
 				2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */,
+				2A5A77902CA62EA400A481BE /* PracticeModeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -540,6 +542,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				2A5A77922CA637F000A481BE /* Practice */,
+			);
 			name = NewWord;
 			packageProductDependencies = (
 				2A9C8AF52C3BBE3500D839D8 /* OpenCC */,
@@ -610,7 +615,6 @@
 				D04AC2072C51EF0300F91A07 /* DeckCell.xib in Resources */,
 				D0DA5AD12BB66A07008644DC /* Base in Resources */,
 				2AC5D8BB2C54942A0090AEBB /* PlayButton.xib in Resources */,
-				2A24E8D82C537E66006C1032 /* ListeningClozeView.xib in Resources */,
 				2AFC91542C7C6634002C2AD1 /* PracticeSettingHeaderView.xib in Resources */,
 				2AFC914B2C7C4F6F002C2AD1 /* PracticeSequenceCell.xib in Resources */,
 				2AED807F2C2E987B001E675A /* SearchClozeResultCell.xib in Resources */,
@@ -702,6 +706,7 @@
 				2A7F3C102C5B5A3C0028150D /* ExploreViewController.swift in Sources */,
 				2AFABE642C98120300BA2347 /* CDPractice+Extension.swift in Sources */,
 				D0D6E0EB2C1DE92C00C1F95E /* ContextStackView.swift in Sources */,
+				2A5A77912CA62EA400A481BE /* PracticeModeViewController.swift in Sources */,
 				2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */,
 				D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */,
 				D09016762C93DEF200A5FBD2 /* CDPracticeImage+Extension.swift in Sources */,
@@ -711,7 +716,6 @@
 				2A67688B2C3294470040C89F /* WordSelectorViewControllerViewModel.swift in Sources */,
 				2AFABE782C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift in Sources */,
 				D0EE06FD2C6A4CFD000B5BC8 /* ChatGPTService.swift in Sources */,
-				2A24E8D62C537E59006C1032 /* ListeningClozeView.swift in Sources */,
 				D083CBE72C15A90700BE98DC /* UIResponder+Extension.swift in Sources */,
 				2A4DA6912C9D448600CC6CDD /* PracticeButton.swift in Sources */,
 				2AC5D8B92C54941B0090AEBB /* PlayButton.swift in Sources */,
@@ -721,7 +725,7 @@
 				2A17DAFE2C158C5A00919642 /* InputAccessoryView.swift in Sources */,
 				2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
-				2AFC91472C7C4BB9002C2AD1 /* PracticeSequenceViewController.swift in Sources */,
+				2AFC91472C7C4BB9002C2AD1 /* PracticeMapViewController.swift in Sources */,
 				2AFABE682C98156D00BA2347 /* CDPracticeSequence+Extension.swift in Sources */,
 				D0B2E3FC2C2BB15F0047B2F5 /* CustomTextView.swift in Sources */,
 				D0AF303E2C43CB6500DF71CD /* TagLabel.swift in Sources */,

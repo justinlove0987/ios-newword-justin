@@ -42,7 +42,6 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     
     private func resetData() {
         UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
-        
 //        CoreDataManager.shared.deleteAllEntities()
     }
 

@@ -45,7 +45,7 @@ class ExploreCell: UICollectionViewCell {
     }
     
     func configureTagExistsView(_ article: CDPracticeArticle) {
-        if let tagCounts = article.userGeneratedArticle?.userGeneratedContextTagSet?.count
+        if let tagCounts = article.userGeneratedArticle?.sortedTaggedContext.count
         {
             let hasAtLeastOneTag = tagCounts > 0
             

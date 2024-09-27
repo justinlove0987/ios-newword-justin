@@ -14,9 +14,10 @@ class RadioButtonCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var radioButtonImageView: UIImageView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    func configure(row: PracticeModeViewController.Row) {
+        titleLabel.text = row.practiceType.title
+        
+        let imageName = row.isSelected ? "circle.inset.filled" : "circle"
+        radioButtonImageView.image = UIImage(systemName: imageName)
     }
-
 }

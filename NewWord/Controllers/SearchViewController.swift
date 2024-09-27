@@ -156,7 +156,7 @@ extension SearchViewController: UITableViewDelegate {
         
         guard let context = currentGroupedCards.contexts.first else { return }
         
-        let controller = PracticeSequenceViewController.instantiate()
+        let controller = PracticeMapViewController.instantiate()
         controller.practiceMap = context.map
 
         navigationController?.pushViewController(controller, animated: true)
