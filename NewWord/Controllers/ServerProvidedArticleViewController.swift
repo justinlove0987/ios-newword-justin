@@ -75,8 +75,6 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
         pacticeModelSelectorView.addDefaultBorder(cornerRadius: 5)
         pacticeModelSelectorView.delegate = self
         pacticeModelSelectorView.practiceButton.isHidden = true
-        
-        isRightBarButtonItemVisible = viewModel.hasAnyTag()
 
         player.delegate = self
         
@@ -392,8 +390,6 @@ extension ServerProvidedArticleViewController: PracticeModeSelectorViewDelegate 
         guard let currentSelectedRange = viewModel.currentSelectedRange else { return }
         
         tag(range: currentSelectedRange)
-        
-        isRightBarButtonItemVisible = viewModel.hasAnyTag()
     }
 }
 

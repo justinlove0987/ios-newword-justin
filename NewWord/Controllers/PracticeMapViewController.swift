@@ -153,7 +153,7 @@ extension PracticeMapViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let practiceMap else { return }
         
-        var items = itemMatrix[indexPath.section]
+        let items = itemMatrix[indexPath.section]
         let item = items[indexPath.row]
         
         switch item.cellType {
