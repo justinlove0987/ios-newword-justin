@@ -20,6 +20,10 @@ extension CDUserGeneratedContextTag {
     var type: ContextType? {
         return ContextType(rawValue: Int(typeRawValue))
     }
+    
+    var range: NSRange? {
+        return NSRange(location: Int(originalRangeLocation), length: Int(originalRangeLength))
+    }
 
     var revisedRange: NSRange? {
         return NSRange(location: Int(revisedRangeLocation), length: Int(revisedRangeLength))

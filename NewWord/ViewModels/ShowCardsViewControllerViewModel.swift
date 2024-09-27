@@ -82,12 +82,19 @@ class ShowCardsViewControllerViewModel {
         
         switch type {
         case .listenAndTranslate:
-            guard let clozeView = ListeningClozeView(practice: practice) else {
+            guard let view = ListeningClozeView(practice: practice) else {
                 return NoCardView()
             }
             
-            subview = clozeView
-        
+            subview = view
+            
+        case .readClozeAndTypeEnglish:
+            let view = PracticeClozeView()
+            
+            view.practice = practice
+            
+            subview = view
+            
         default:
             subview = NoCardView()
         }

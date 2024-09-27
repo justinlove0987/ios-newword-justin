@@ -9,18 +9,26 @@ import UIKit
 
 class PracticeMapViewController: UIViewController, StoryboardGenerated {
     
-    struct PracticeSetting: Hashable {
-        var title: String
-        var id: String = UUID().uuidString
+    enum CellType {
+        case addPractice
+        case practice
+    }
+    
+    struct Item: Hashable {
+        var id: UUID = UUID()
+        var cellType: CellType
+        var practice: CDPractice?
     }
     
     static var storyboardName: String = K.Storyboard.main
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var dataSource: UICollectionViewDiffableDataSource<Int,CDPractice>!
+    private var dataSource: UICollectionViewDiffableDataSource<Int,Item>!
 
     var practiceMap: CDPracticeMap?
+    
+    var itemMatrix: [[Item]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +37,48 @@ class PracticeMapViewController: UIViewController, StoryboardGenerated {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateSnapshot()
+        collectionView.reloadData()
     }
     
     private func setup() {
+        setupData()
         setupCollectionView()
+    }
+    
+    private func setupData() {
+        guard let practiceMap else { return }
+        
+        itemMatrix = []
+        
+        for i in 0..<practiceMap.sortedSequences.count {
+            let sequence = practiceMap.sortedSequences[i]
+            
+            let isLastSeqeunce = i + 1 == practiceMap.sortedSequences.count
+            var items: [Item] = []
+            
+            for j in 0..<sequence.sortedPractices.count {
+                let practice = sequence.sortedPractices[j]
+                
+                let isLastPractice = j + 1 == sequence.sortedPractices.count
+                
+                let pracitceItem = Item(cellType: .practice, practice: practice)
+                items.append(pracitceItem)
+                
+                if isLastPractice {
+                    let addPracticeItem = Item(cellType: .addPractice)
+                    items.append(addPracticeItem)
+                }
+            }
+            
+            itemMatrix.append(items)
+            
+            if isLastSeqeunce {
+                let addPracticeItem = Item(cellType: .addPractice)
+                let newSeqeunce = [addPracticeItem]
+                
+                itemMatrix.append(newSeqeunce)
+            }
+        }
     }
 
     private func setupCollectionView() {
@@ -42,15 +87,21 @@ class PracticeMapViewController: UIViewController, StoryboardGenerated {
         collectionView.dataSource = dataSource
         collectionView.collectionViewLayout = createCollectionViewLayout()
         collectionView.delegate = self
-        updateSnapshot()
+        updateSnapshot(false)
     }
 
-    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, CDPractice> {
-        let dataSource = UICollectionViewDiffableDataSource<Int, CDPractice>(collectionView: collectionView,
+    private func createDataSource() -> UICollectionViewDiffableDataSource<Int, Item> {
+        let dataSource = UICollectionViewDiffableDataSource<Int, Item>(collectionView: collectionView,
                                                                             cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeSequenceCell.reuseIdentifier, for: indexPath) as! PracticeSequenceCell
             
-            cell.titleLabel.text = itemIdentifier.type?.title
+            switch itemIdentifier.cellType {
+            case .addPractice:
+                cell.titleLabel.text = "+"
+                
+            case .practice:
+                cell.titleLabel.text = itemIdentifier.practice?.type?.title
+            }
 
             return cell
         })
@@ -84,19 +135,17 @@ class PracticeMapViewController: UIViewController, StoryboardGenerated {
         return UICollectionViewCompositionalLayout(section: section)
     }
     
-    private func updateSnapshot() {
-        guard let practiceMap else { return }
+    private func updateSnapshot(_ animatingDifferences: Bool) {
+        var snapshot = NSDiffableDataSourceSnapshot<Int, Item>()
 
-        var snapshot = NSDiffableDataSourceSnapshot<Int, CDPractice>()
-
-        for i in 0..<practiceMap.sortedSequences.count {
-            let sequence = practiceMap.sortedSequences[i]
+        for i in 0..<itemMatrix.count {
+            let items = itemMatrix[i]
 
             snapshot.appendSections([i])
-            snapshot.appendItems(sequence.sortedPractices, toSection: i)
+            snapshot.appendItems(items, toSection: i)
         }
         
-        dataSource.apply(snapshot, animatingDifferences: false)
+        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
 }
 
@@ -104,13 +153,65 @@ extension PracticeMapViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let practiceMap else { return }
         
-        let sequence = practiceMap.sortedSequences[indexPath.section]
-        let practice = sequence.sortedPractices[indexPath.row]
+        var items = itemMatrix[indexPath.section]
+        let item = items[indexPath.row]
         
-        let controller = PracticeSettingViewController.instantiate()
+        switch item.cellType {
+        case .addPractice:
+            let hasSequence = indexPath.section < practiceMap.sortedSequences.count
+            
+            if hasSequence {
+                let seqeunce = practiceMap.sortedSequences[indexPath.section]
+
+                let practiceBlueprint = createPracticeBlueprint()
+                practiceBlueprint.sequence = seqeunce
+                practiceBlueprint.order = indexPath.row.toInt64
+                practiceBlueprint.sequence = seqeunce
+                
+                let item = Item(cellType: .practice, practice: practiceBlueprint)
+                
+                itemMatrix[indexPath.section].insert(item, at: indexPath.row)
+                
+            } else {
+                let newSeqeunce = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
+                
+                let practiceBlueprint = createPracticeBlueprint()
+                practiceBlueprint.sequence = newSeqeunce
+                practiceBlueprint.order = indexPath.row.toInt64
+                practiceBlueprint.sequence = newSeqeunce
+                
+                newSeqeunce.map = practiceMap
+                newSeqeunce.level = indexPath.section.toInt64
+                
+                let item = Item(cellType: .practice, practice: practiceBlueprint)
+                itemMatrix[indexPath.section].insert(item, at: indexPath.row)
+                
+                let addPracticeItem = Item(cellType: .addPractice)
+                itemMatrix.append([addPracticeItem])
+            }
+            
+            CoreDataManager.shared.save()
+            
+            updateSnapshot(true)
+            
+        case .practice:
+            let controller = PracticeSettingViewController.instantiate()
+            controller.practice = item.practice
+            navigationController?.pushViewControllerWithCustomTransition(controller)
+        }
+    }
+}
+
+
+// MARK: - CoreData
+
+extension PracticeMapViewController {
+    
+    func createPracticeBlueprint() -> CDPractice {
+        let practiceBlueprint = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
         
-        controller.practice = practice
+        practiceBlueprint.typeRawValue = PracticeType.listenAndTranslate.rawValue.toInt64
         
-        navigationController?.pushViewControllerWithCustomTransition(controller)
+        return practiceBlueprint
     }
 }
