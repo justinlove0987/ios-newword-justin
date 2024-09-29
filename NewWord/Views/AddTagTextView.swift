@@ -193,6 +193,7 @@ class AddTagTextView: UITextView, UITextViewDelegate {
         let attachmentString = NSAttributedString(attachment: attachment)
 
         textStorage.insert(attachmentString, at: location)
+        
         setNeedsLayout()
     }
 
@@ -311,12 +312,12 @@ class AddTagTextView: UITextView, UITextViewDelegate {
         // 設定標題的段落樣式（不縮排）
         let titleParagraphStyle = NSMutableParagraphStyle()
         titleParagraphStyle.lineSpacing = UserDefaultsManager.shared.preferredLineSpacing
-//        titleParagraphStyle.alignment = .center // 置中對齊
 
         // 設定內容的段落樣式（縮排）
         let contentParagraphStyle = NSMutableParagraphStyle()
         contentParagraphStyle.lineSpacing = UserDefaultsManager.shared.preferredLineSpacing
         contentParagraphStyle.firstLineHeadIndent = UserDefaultsManager.shared.preferredFontSize * 1.75
+        contentParagraphStyle.lineBreakMode = .byWordWrapping
         
         // 設定標題字體（粗體並增大2點）
         let titleFontSize = UserDefaultsManager.shared.preferredFontSize + 2
@@ -346,6 +347,9 @@ class AddTagTextView: UITextView, UITextViewDelegate {
         textStorage.addAttribute(.paragraphStyle, value: contentParagraphStyle, range: contentRange)
         textStorage.addAttribute(.foregroundColor, value: UIColor.title, range: contentRange)
         textStorage.addAttribute(.font, value: font, range: contentRange)
+        
+        removeKernAttribute(from: textStorage)
+        updateKernForSingleCharacterInEachLine(textStorage: textStorage, layoutManager: self.layoutManager, textContainer: self.textContainer)
 
         // 計算文字大小
         let size = CGSize(width: self.frame.width, height: CGFloat.greatestFiniteMagnitude)
@@ -354,6 +358,45 @@ class AddTagTextView: UITextView, UITextViewDelegate {
         // 設定contentSize
         if boundingRect.height < self.frame.height + 30 {
             self.contentSize = CGSize(width: self.frame.width, height: self.frame.height + 30)
+        }
+    }
+    
+    func removeKernAttribute(from textStorage: NSTextStorage) {
+        let fullRange = NSRange(location: 0, length: textStorage.length)
+
+        // 遍歷所有屬性
+        textStorage.enumerateAttribute(.kern, in: fullRange, options: []) { (value, range, stop) in
+            if value != nil {
+                // 刪除該範圍內的 kern 屬性
+                textStorage.removeAttribute(.kern, range: range)
+            }
+        }
+    }
+    
+    // 調整行尾單字的字距
+    func updateKernForSingleCharacterInEachLine(textStorage: NSTextStorage, layoutManager: NSLayoutManager, textContainer: NSTextContainer) {
+        let numberOfGlyphs = layoutManager.numberOfGlyphs
+
+        layoutManager.enumerateLineFragments(forGlyphRange: NSRange(location: 0, length: numberOfGlyphs)) { (rect, usedRect, container, glyphRange, stop) in
+            let lastGlyphIndex = NSMaxRange(glyphRange) - 1
+            let lastCharRange = layoutManager.characterRange(forGlyphRange: NSRange(location: lastGlyphIndex, length: 1), actualGlyphRange: nil)
+            
+            let substring = (textStorage.string as NSString).substring(with: lastCharRange)
+            
+            let objectReplacementCharacter = "￼"
+            
+            if substring.count == 1 && substring == objectReplacementCharacter {
+                // 獲取最後一個字元的矩形
+                let lastCharRect = layoutManager.boundingRect(forGlyphRange: lastCharRange, in: textContainer)
+                let rightBoundaryX = self.frame.origin.x + self.frame.width - textContainer.lineFragmentPadding
+
+                // 計算距離
+                let newRange = NSRange(location: lastCharRange.location - 1, length: lastCharRange.length)
+                let kernValue = rightBoundaryX - lastCharRect.minX
+                
+                // 設定kern屬性
+                textStorage.addAttribute(.kern, value: kernValue, range: newRange)
+            }
         }
     }
 
