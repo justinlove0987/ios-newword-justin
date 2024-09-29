@@ -408,13 +408,12 @@ extension ServerProvidedArticleViewController {
         if viewModel.containsTag(textType: textType, range: range) {
             viewModel.deactivateTag(range)
 
-            let adjustmentOffset = -1
-            let updatedRange = NSRange(location: range.location-1, length: range.length)
+            let adjustmentOffset = -2
+            let updatedRange = NSRange(location: range.location+adjustmentOffset, length: range.length)
 
             if !viewModel.hasDuplicateTagLocations(with: range) {
                 customTextView.removeNumberImageView(at: updatedRange.location)
                 viewModel.updateTagNSRanges(with: updatedRange, offset: adjustmentOffset)
-                viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: article)
                 viewModel.currentSelectedRange = updatedRange
                 customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
             }
@@ -443,7 +442,7 @@ extension ServerProvidedArticleViewController {
         let translationClosure: ((_ translatedTraditionalText: String) -> ()) = { [weak self] translatedTraditionalText in
             guard let self else { return }
             
-            let offset = 1
+            let offset = 2
             let clozeNumber = self.viewModel.getClozeNumber()
             // let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
             
@@ -460,10 +459,9 @@ extension ServerProvidedArticleViewController {
             self.updateCustomTextView()
 
             if !self.viewModel.hasDuplicateTagLocations(with: range) {
-                let adjustmentOffset = 1
+                let adjustmentOffset = 2
                 let updatedRange = NSRange(location: range.location+adjustmentOffset, length: range.length)
 
-                self.viewModel.updateAudioRange(tagPosition: range.location, adjustmentOffset: adjustmentOffset, article: article)
                 self.viewModel.currentSelectedRange = updatedRange
                 self.customTextView.updateHighlightRangeDuringPlayback(comparedRange: range, adjustmentOffset: adjustmentOffset)
                 self.customTextView.updateDashedUnderline(in: updatedRange, forWord: self.viewModel.selectMode == .word)

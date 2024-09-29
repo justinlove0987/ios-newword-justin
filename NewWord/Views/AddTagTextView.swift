@@ -190,10 +190,13 @@ class AddTagTextView: UITextView, UITextViewDelegate {
         attachment.bounds = CGRect(x: 0, y: self.font?.descender ?? 0, width: labelImage.size.width, height: labelImage.size.height)
 
         // 創建帶有附件的帶屬性字符串
-        let attachmentString = NSAttributedString(attachment: attachment)
+
+        let attachmentString = NSMutableAttributedString(attachment: attachment)
+        let zeroWidthJoiner = NSAttributedString(string: "\u{200D}")
+        attachmentString.append(zeroWidthJoiner)
 
         textStorage.insert(attachmentString, at: location)
-        
+
         setNeedsLayout()
     }
 
@@ -217,8 +220,11 @@ class AddTagTextView: UITextView, UITextViewDelegate {
 
             attachment.bounds = CGRect(x: 0, y: self.font?.descender ?? 0, width: image.size.width, height: image.size.height)
 
-            let attachmentString = NSAttributedString(attachment: attachment)
-            let replaceRange = NSRange(location: coloredMark.characterIndex, length: 1)
+            // let attachmentString = NSAttributedString(attachment: attachment)
+
+            let attachmentString = NSMutableAttributedString(attachment: attachment)
+
+            let replaceRange = NSRange(location: coloredMark.characterIndex-1, length: 1)
 
             textStorage.replaceCharacters(in: replaceRange, with: attachmentString)
 
@@ -227,7 +233,7 @@ class AddTagTextView: UITextView, UITextViewDelegate {
     }
 
     func removeNumberImageView(at location: Int) {
-        textStorage.deleteCharacters(in: NSRange(location: location, length: 1))
+        textStorage.deleteCharacters(in: NSRange(location: location, length: 2))
     }
 
     func sentenceRangeContainingCharacter(at characterIndex: Int) -> NSRange? {
@@ -318,7 +324,8 @@ class AddTagTextView: UITextView, UITextViewDelegate {
         contentParagraphStyle.lineSpacing = UserDefaultsManager.shared.preferredLineSpacing
         contentParagraphStyle.firstLineHeadIndent = UserDefaultsManager.shared.preferredFontSize * 1.75
         contentParagraphStyle.lineBreakMode = .byWordWrapping
-        
+        contentParagraphStyle.hyphenationFactor = 1
+
         // 設定標題字體（粗體並增大2點）
         let titleFontSize = UserDefaultsManager.shared.preferredFontSize + 2
         let titleFont = UIFont(name: "TimesNewRomanPS-BoldItalicMT", size: titleFontSize) ??
@@ -347,9 +354,9 @@ class AddTagTextView: UITextView, UITextViewDelegate {
         textStorage.addAttribute(.paragraphStyle, value: contentParagraphStyle, range: contentRange)
         textStorage.addAttribute(.foregroundColor, value: UIColor.title, range: contentRange)
         textStorage.addAttribute(.font, value: font, range: contentRange)
-        
-        removeKernAttribute(from: textStorage)
-        updateKernForSingleCharacterInEachLine(textStorage: textStorage, layoutManager: self.layoutManager, textContainer: self.textContainer)
+
+//        removeKernAttribute(from: textStorage)
+//        updateKernForSingleCharacterInEachLine(textStorage: textStorage, layoutManager: self.layoutManager, textContainer: self.textContainer)
 
         // 計算文字大小
         let size = CGSize(width: self.frame.width, height: CGFloat.greatestFiniteMagnitude)
