@@ -500,18 +500,18 @@ extension AddTagTextView {
         
         let titleParagraphStyle = createParagraphStyle(isTitle: true)
         let contentParagraphStyle = createParagraphStyle(isTitle: false)
-        let contentStartIndex = title.count + 1 // +1 is for the newline character
+        let contentStartIndex = (title as NSString).length + 1 // +1 is for the newline character
         
         applyAttributes(to: textStorage,
                         text: title,
-                        range: NSRange(location: 0, length: title.count),
+                        range: NSRange(location: 0, length: (title as NSString).length),
                         font: titleFont,
                         paragraphStyle: titleParagraphStyle)
         
         
         applyAttributes(to: textStorage,
                         text: content,
-                        range: NSRange(location: contentStartIndex, length: content.count),
+                        range: NSRange(location: contentStartIndex, length: (content as NSString).length),
                         font: contentFont,
                         paragraphStyle: contentParagraphStyle)
         
@@ -528,7 +528,7 @@ extension AddTagTextView {
     }
 
     private func createFont(for type: FontType) -> UIFont {
-        let baseFontSize = UserDefaultsManager.shared.preferredFontSize + 20
+        let baseFontSize = UserDefaultsManager.shared.preferredFontSize
         let fontSize: CGFloat = (type == .title) ? baseFontSize + 2 : baseFontSize
         
         switch type {
@@ -550,7 +550,6 @@ extension AddTagTextView {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = UserDefaultsManager.shared.preferredLineSpacing
         paragraphStyle.lineBreakMode = .byWordWrapping
-        paragraphStyle.hyphenationFactor = 1
         
         if !isTitle {
             paragraphStyle.firstLineHeadIndent = UserDefaultsManager.shared.preferredFontSize * 1.75
@@ -560,6 +559,7 @@ extension AddTagTextView {
     }
 
     private func applyAttributes(to textStorage: NSTextStorage, text: String, range: NSRange, font: UIFont, paragraphStyle: NSParagraphStyle) {
+        
         textStorage.addAttributes([
             .paragraphStyle: paragraphStyle,
             .foregroundColor: UIColor.title,

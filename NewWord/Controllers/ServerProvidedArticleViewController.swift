@@ -444,7 +444,6 @@ extension ServerProvidedArticleViewController {
             
             let offset = 2
             let clozeNumber = self.viewModel.getClozeNumber()
-            // let updateRange = self.viewModel.getUpdatedRange(range: range, offset: offset)
             
             self.updateTranslationLabels(originalText: textWithoutFFFC, translatedText: translatedTraditionalText)
             
