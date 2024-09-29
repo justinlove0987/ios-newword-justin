@@ -12,6 +12,18 @@ class AddTagTextView: UITextView, UITextViewDelegate {
 
     typealias ColoredText = WordSelectorViewControllerViewModel.ColoredText
     typealias ColoredMark = WordSelectorViewControllerViewModel.ColoredMark
+    
+    private enum FontType {
+        case title
+        case content
+        
+        var fontName: String {
+            switch self {
+            case .title: return "TimesNewRomanPS-BoldItalicMT"
+            case .content: return "TimesNewRomanPSMT"
+            }
+        }
+    }
 
     var highlightRangeDuringPlayback: NSRange? {
         didSet {
@@ -300,112 +312,6 @@ class AddTagTextView: UITextView, UITextViewDelegate {
 
         return textView
     }
-    
-    func configureProperties() {
-        guard let text = self.text else { return }
-
-        // 假設標題和內容是用換行符分隔的
-        let components = text.components(separatedBy: "\n")
-        guard components.count > 1 else { return }
-
-        let title = components[0]
-        let content = components.dropFirst().joined(separator: "\n")
-
-        // 設定偏好的字體大小和行距
-        UserDefaultsManager.shared.preferredFontSize = 20
-        UserDefaultsManager.shared.preferredLineSpacing = UserDefaultsManager.shared.preferredFontSize * 0.75
-
-        // 設定標題的段落樣式（不縮排）
-        let titleParagraphStyle = NSMutableParagraphStyle()
-        titleParagraphStyle.lineSpacing = UserDefaultsManager.shared.preferredLineSpacing
-
-        // 設定內容的段落樣式（縮排）
-        let contentParagraphStyle = NSMutableParagraphStyle()
-        contentParagraphStyle.lineSpacing = UserDefaultsManager.shared.preferredLineSpacing
-        contentParagraphStyle.firstLineHeadIndent = UserDefaultsManager.shared.preferredFontSize * 1.75
-        contentParagraphStyle.lineBreakMode = .byWordWrapping
-        contentParagraphStyle.hyphenationFactor = 1
-
-        // 設定標題字體（粗體並增大2點）
-        let titleFontSize = UserDefaultsManager.shared.preferredFontSize + 2
-        let titleFont = UIFont(name: "TimesNewRomanPS-BoldItalicMT", size: titleFontSize) ??
-        UIFont.systemFont(ofSize: titleFontSize,
-                          weight: .medium)
-
-        var font = UIFont(name: "TimesNewRomanPSMT", size: UserDefaultsManager.shared.preferredFontSize) ?? UIFont.systemFont(ofSize: UserDefaultsManager.shared.preferredFontSize, weight: .medium)
-
-        if let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body).withDesign(.serif) {
-            font = UIFont(descriptor: fontDescriptor, size: UserDefaultsManager.shared.preferredFontSize)
-        }
-
-        // 設定文字
-        self.font = font
-        self.textColor = UIColor.title
-
-        // 設定標題屬性
-        let titleRange = NSRange(location: 0, length: title.count)
-        textStorage.addAttribute(.paragraphStyle, value: titleParagraphStyle, range: titleRange)
-        textStorage.addAttribute(.foregroundColor, value: UIColor.title, range: titleRange)
-        textStorage.addAttribute(.font, value: titleFont, range: titleRange)
-
-        // 設定內容屬性
-        let contentStartIndex = title.count + 1 // +1 是為了跳過換行符
-        let contentRange = NSRange(location: contentStartIndex, length: content.count)
-        textStorage.addAttribute(.paragraphStyle, value: contentParagraphStyle, range: contentRange)
-        textStorage.addAttribute(.foregroundColor, value: UIColor.title, range: contentRange)
-        textStorage.addAttribute(.font, value: font, range: contentRange)
-
-//        removeKernAttribute(from: textStorage)
-//        updateKernForSingleCharacterInEachLine(textStorage: textStorage, layoutManager: self.layoutManager, textContainer: self.textContainer)
-
-        // 計算文字大小
-        let size = CGSize(width: self.frame.width, height: CGFloat.greatestFiniteMagnitude)
-        let boundingRect = textStorage.boundingRect(with: size, options: .usesLineFragmentOrigin, context: nil)
-
-        // 設定contentSize
-        if boundingRect.height < self.frame.height + 30 {
-            self.contentSize = CGSize(width: self.frame.width, height: self.frame.height + 30)
-        }
-    }
-    
-    func removeKernAttribute(from textStorage: NSTextStorage) {
-        let fullRange = NSRange(location: 0, length: textStorage.length)
-
-        // 遍歷所有屬性
-        textStorage.enumerateAttribute(.kern, in: fullRange, options: []) { (value, range, stop) in
-            if value != nil {
-                // 刪除該範圍內的 kern 屬性
-                textStorage.removeAttribute(.kern, range: range)
-            }
-        }
-    }
-    
-    // 調整行尾單字的字距
-    func updateKernForSingleCharacterInEachLine(textStorage: NSTextStorage, layoutManager: NSLayoutManager, textContainer: NSTextContainer) {
-        let numberOfGlyphs = layoutManager.numberOfGlyphs
-
-        layoutManager.enumerateLineFragments(forGlyphRange: NSRange(location: 0, length: numberOfGlyphs)) { (rect, usedRect, container, glyphRange, stop) in
-            let lastGlyphIndex = NSMaxRange(glyphRange) - 1
-            let lastCharRange = layoutManager.characterRange(forGlyphRange: NSRange(location: lastGlyphIndex, length: 1), actualGlyphRange: nil)
-            
-            let substring = (textStorage.string as NSString).substring(with: lastCharRange)
-            
-            let objectReplacementCharacter = "￼"
-            
-            if substring.count == 1 && substring == objectReplacementCharacter {
-                // 獲取最後一個字元的矩形
-                let lastCharRect = layoutManager.boundingRect(forGlyphRange: lastCharRange, in: textContainer)
-                let rightBoundaryX = self.frame.origin.x + self.frame.width - textContainer.lineFragmentPadding
-
-                // 計算距離
-                let newRange = NSRange(location: lastCharRange.location - 1, length: lastCharRange.length)
-                let kernValue = rightBoundaryX - lastCharRect.minX
-                
-                // 設定kern屬性
-                textStorage.addAttribute(.kern, value: kernValue, range: newRange)
-            }
-        }
-    }
 
     func updateHighlightRangeDuringPlayback(comparedRange: NSRange, adjustmentOffset: Int) {
         guard let highlightRangeDuringPlayback else { return }
@@ -420,31 +326,6 @@ class AddTagTextView: UITextView, UITextViewDelegate {
         }
     }
     
-    func extractTitle() -> String? {
-        guard let text = self.text else { return nil }
-
-        // 假設標題和內容是用換行符分隔的
-        let components = text.components(separatedBy: "\n")
-        guard components.count > 1 else { return nil }
-
-        let title = components[0]
-        
-        return title
-    }
-
-    func extractContent() -> String? {
-        guard let text = self.text else { return nil }
-
-        // 假設標題和內容是用換行符分隔的
-        let components = text.components(separatedBy: "\n")
-        guard components.count > 1 else { return nil }
-
-        let content = components.dropFirst().joined(separator: "\n")
-        
-        // 將內容行合併成一個單一的字符串
-        return content
-    }
-    
     private var animationLayers: [CAGradientLayer] = []
     private var gradientLayer: CAGradientLayer?
 
@@ -457,9 +338,6 @@ class AddTagTextView: UITextView, UITextViewDelegate {
     var gradientSet = [[CGColor]]()
     var currentGradient: Int = 0
 
-//    let gradientOne = UIColor(red: 48/255, green: 62/255, blue: 103/255, alpha: 1).cgColor
-//    let gradientTwo = UIColor(red: 244/255, green: 88/255, blue: 53/255, alpha: 1).cgColor
-//    let gradientThree = UIColor(red: 244/255, green: 88/255, blue: 53/255, alpha: 1).cgColor
     let gradientOne = UIColor.red.cgColor
     let gradientTwo = UIColor.blue.cgColor
     let gradientThree = UIColor.green.cgColor
@@ -602,4 +480,99 @@ extension AddTagTextView: CAAnimationDelegate {
 func triggerImpactFeedback() {
     let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
     feedbackGenerator.impactOccurred()
+}
+
+// MARK: - Properties Helpers
+
+extension AddTagTextView {
+    
+    func configureProperties() {
+        guard let text = self.text else { return }
+        
+        let components = splitTextIntoTitleAndContent(from: text)
+        
+        guard let title = components.title, let content = components.content else { return }
+        
+        let titleFont = createFont(for: .title)
+        let contentFont = createFont(for: .content)
+
+        self.font = contentFont
+        
+        let titleParagraphStyle = createParagraphStyle(isTitle: true)
+        let contentParagraphStyle = createParagraphStyle(isTitle: false)
+        let contentStartIndex = title.count + 1 // +1 is for the newline character
+        
+        applyAttributes(to: textStorage,
+                        text: title,
+                        range: NSRange(location: 0, length: title.count),
+                        font: titleFont,
+                        paragraphStyle: titleParagraphStyle)
+        
+        
+        applyAttributes(to: textStorage,
+                        text: content,
+                        range: NSRange(location: contentStartIndex, length: content.count),
+                        font: contentFont,
+                        paragraphStyle: contentParagraphStyle)
+        
+        adjustContentSize()
+    }
+    
+    private func splitTextIntoTitleAndContent(from text: String) -> (title: String?, content: String?) {
+        let components = text.components(separatedBy: "\n")
+        guard components.count > 1 else { return (nil, nil) }
+        
+        let title = components[0]
+        let content = components.dropFirst().joined(separator: "\n")
+        return (title, content)
+    }
+
+    private func createFont(for type: FontType) -> UIFont {
+        let baseFontSize = UserDefaultsManager.shared.preferredFontSize + 20
+        let fontSize: CGFloat = (type == .title) ? baseFontSize + 2 : baseFontSize
+        
+        switch type {
+        case .title:
+            if let customeFont = UIFont(name: type.fontName, size: fontSize) {
+                return customeFont
+            }
+        case .content:
+            if let fontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body).withDesign(.serif) {
+                
+                return UIFont(descriptor: fontDescriptor, size: fontSize)
+            }
+        }
+        
+        return UIFont.systemFont(ofSize: fontSize, weight: type == .title ? .medium : .regular)
+    }
+
+    private func createParagraphStyle(isTitle: Bool) -> NSMutableParagraphStyle {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = UserDefaultsManager.shared.preferredLineSpacing
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        paragraphStyle.hyphenationFactor = 1
+        
+        if !isTitle {
+            paragraphStyle.firstLineHeadIndent = UserDefaultsManager.shared.preferredFontSize * 1.75
+        }
+        
+        return paragraphStyle
+    }
+
+    private func applyAttributes(to textStorage: NSTextStorage, text: String, range: NSRange, font: UIFont, paragraphStyle: NSParagraphStyle) {
+        textStorage.addAttributes([
+            .paragraphStyle: paragraphStyle,
+            .foregroundColor: UIColor.title,
+            .font: font
+        ], range: range)
+    }
+
+    private func adjustContentSize() {
+        let size = CGSize(width: self.frame.width, height: CGFloat.greatestFiniteMagnitude)
+        let boundingRect = textStorage.boundingRect(with: size, options: .usesLineFragmentOrigin, context: nil)
+        
+        if boundingRect.height < self.frame.height + 30 {
+            self.contentSize = CGSize(width: self.frame.width, height: self.frame.height + 30)
+        }
+    }
 }
