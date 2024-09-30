@@ -169,9 +169,9 @@
         <attribute name="typeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="standardPreset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePresetStandard" inverseName="statusSet" inverseEntity="CDPracticePresetStandard"/>
     </entity>
-    <entity name="CDPracticeThresholdRule" representedClassName="CDPracticeThresholdRule" syncable="YES" codeGenerationType="class">
-        <attribute name="actionType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="conditionType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    <entity name="CDPracticeThresholdRule" representedClassName="CDPracticeThresholdRule" syncable="YES" codeGenerationType="category">
+        <attribute name="actionTypeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="conditionTypeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="thresholdValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="practiceDefaultPreset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePresetStandard" inverseName="thresholdRules" inverseEntity="CDPracticePresetStandard"/>

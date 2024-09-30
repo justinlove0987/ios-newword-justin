@@ -62,7 +62,7 @@ class PracticeSettingCell: UICollectionViewCell {
         case .followPreviousPractice:
             description = ""
             
-        case .practiceDetails:
+        case .practiceCompletionRules:
             description = ""
 
         default:

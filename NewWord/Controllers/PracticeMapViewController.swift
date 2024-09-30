@@ -41,8 +41,13 @@ class PracticeMapViewController: UIViewController, StoryboardGenerated {
     }
     
     private func setup() {
+        setupProperties()
         setupData()
         setupCollectionView()
+    }
+    
+    private func setupProperties() {
+        self.title = "練習藍圖"
     }
     
     private func setupData() {

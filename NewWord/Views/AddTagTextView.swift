@@ -500,18 +500,20 @@ extension AddTagTextView {
         
         let titleParagraphStyle = createParagraphStyle(isTitle: true)
         let contentParagraphStyle = createParagraphStyle(isTitle: false)
-        let contentStartIndex = (title as NSString).length + 1 // +1 is for the newline character
+        let titleLength = (title as NSString).length
+        let contentLegth = (content as NSString).length
+        let contentStartIndex = titleLength + 1 // +1 is for the newline character
         
         applyAttributes(to: textStorage,
                         text: title,
-                        range: NSRange(location: 0, length: (title as NSString).length),
+                        range: NSRange(location: 0, length: titleLength),
                         font: titleFont,
                         paragraphStyle: titleParagraphStyle)
         
         
         applyAttributes(to: textStorage,
                         text: content,
-                        range: NSRange(location: contentStartIndex, length: (content as NSString).length),
+                        range: NSRange(location: contentStartIndex, length: contentLegth),
                         font: contentFont,
                         paragraphStyle: contentParagraphStyle)
         

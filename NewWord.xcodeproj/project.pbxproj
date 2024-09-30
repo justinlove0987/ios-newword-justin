@@ -25,6 +25,10 @@
 		2A2176852C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */; };
 		2A24E8D42C50DF39006C1032 /* ReviseContextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */; };
 		2A2683772C6DA4DD00FFF81D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2683762C6DA4DD00FFF81D /* AudioPlayer.swift */; };
+		2A2BBF5C2CAA40E100BA02F2 /* PracticeCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2BBF5B2CAA40E100BA02F2 /* PracticeCompletionViewController.swift */; };
+		2A2BBF5F2CAA436100BA02F2 /* CDPracticeThresholdRule+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2BBF5D2CAA436100BA02F2 /* CDPracticeThresholdRule+Extension.swift */; };
+		2A2BBF632CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2BBF612CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.swift */; };
+		2A2BBF642CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A2BBF622CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.xib */; };
 		2A38F8BF2BE48F47003F058F /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */; };
 		2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C22BE48FB2003F058F /* SearchViewController.swift */; };
 		2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */; };
@@ -164,6 +168,10 @@
 		2A2176842C06AA75002ADE9A /* ShowCardsViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseContextViewController.swift; sourceTree = "<group>"; };
 		2A2683762C6DA4DD00FFF81D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		2A2BBF5B2CAA40E100BA02F2 /* PracticeCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCompletionViewController.swift; sourceTree = "<group>"; };
+		2A2BBF5D2CAA436100BA02F2 /* CDPracticeThresholdRule+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeThresholdRule+Extension.swift"; sourceTree = "<group>"; };
+		2A2BBF612CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCompletionCollectionViewCell.swift; sourceTree = "<group>"; };
+		2A2BBF622CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeCompletionCollectionViewCell.xib; sourceTree = "<group>"; };
 		2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		2A38F8C22BE48FB2003F058F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -315,6 +323,7 @@
 				2AFABE7A2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift */,
 				2AB3DC932CA145E0004CAFE3 /* CDUserGeneratedArticle+Extension.swift */,
 				D09016782C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift */,
+				2A2BBF5D2CAA436100BA02F2 /* CDPracticeThresholdRule+Extension.swift */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -416,6 +425,8 @@
 				2A7045562C7DC35D00A58672 /* RadioButtonCell.xib */,
 				2A4DA6902C9D448600CC6CDD /* PracticeButton.swift */,
 				2A4DA68E2C9D434B00CC6CDD /* PracticeButton.xib */,
+				2A2BBF612CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.swift */,
+				2A2BBF622CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -455,6 +466,7 @@
 				2AFC91462C7C4BB9002C2AD1 /* PracticeMapViewController.swift */,
 				2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */,
 				2A5A77902CA62EA400A481BE /* PracticeModeViewController.swift */,
+				2A2BBF5B2CAA40E100BA02F2 /* PracticeCompletionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -621,6 +633,7 @@
 				D04AC2052C51E78E00F91A07 /* SearchCell.xib in Resources */,
 				2A17DAFC2C158C3B00919642 /* InputAccessoryView.xib in Resources */,
 				D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */,
+				2A2BBF642CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.xib in Resources */,
 				2A89D86C2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib in Resources */,
 				D00A72EF2BFDEC5A0064F325 /* NoCardView.xib in Resources */,
 				2A02EF2A2C4A386500E21A6E /* TagTestingCell.xib in Resources */,
@@ -651,6 +664,7 @@
 				2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */,
 				D0D6E0E92C1CB38500C1F95E /* ContextLabel.swift in Sources */,
 				2A9C73AE2C9C1DBA006690A5 /* Date+Extension.swift in Sources */,
+				2A2BBF632CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.swift in Sources */,
 				2AFC91512C7C5B85002C2AD1 /* PracticeSettingCell.swift in Sources */,
 				2A034E852C75902D00668F02 /* TranslationPair.swift in Sources */,
 				D01961102C43BEA70040735E /* CustomTagView.swift in Sources */,
@@ -660,6 +674,7 @@
 				2AFC91552C7C6634002C2AD1 /* PracticeSettingHeaderView.swift in Sources */,
 				D0A064432BFC916C001AFE08 /* NibOwnerLoadable.swift in Sources */,
 				D0058CE92BBA714F00D2BB25 /* SentenceClozeViewModel.swift in Sources */,
+				2A2BBF5F2CAA436100BA02F2 /* CDPracticeThresholdRule+Extension.swift in Sources */,
 				2A02EF292C4A386500E21A6E /* TagTestingCell.swift in Sources */,
 				2A67688D2C3322590040C89F /* AddTagTextView.swift in Sources */,
 				2AFABE7C2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift in Sources */,
@@ -731,6 +746,7 @@
 				D0AF303E2C43CB6500DF71CD /* TagLabel.swift in Sources */,
 				D0A86A682C1B5FA00022DFDD /* ContextCell.swift in Sources */,
 				D090167A2C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift in Sources */,
+				2A2BBF5C2CAA40E100BA02F2 /* PracticeCompletionViewController.swift in Sources */,
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
 				2A17DAF82C1579E400919642 /* ClozeView.swift in Sources */,
 				D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */,

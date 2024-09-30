@@ -10,21 +10,21 @@ import UIKit
 class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     
     enum Section: Hashable {
-        case practiceType
+        case practiceTypeAndDetails
         case firstPractice
         case forget
         case advanced
         
         var rows: [Row] {
             switch self {
-            case .practiceType:
-                return [.practiceType]
+            case .practiceTypeAndDetails:
+                return [.practiceType, .practiceCompletionRules]
             case .firstPractice:
                 return [.firstPracticeLearningPhase, .firstPracticeGraduationInterval, .firstPracticeEasyInterval]
             case .forget:
                 return [.forgotRelearningPhase, .forgotGraduationInterval]
             case .advanced:
-                return [.initialEase, .followPreviousPractice, .practiceDetails]
+                return [.initialEase, .followPreviousPractice, .practiceCompletionRules]
             }
         }
         
@@ -59,7 +59,7 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
         case forgotGraduationInterval
         case initialEase
         case followPreviousPractice
-        case practiceDetails
+        case practiceCompletionRules
         
         var cellType: CellType {
             switch self {
@@ -79,7 +79,7 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
                 return .information
             case .followPreviousPractice:
                 return .toggleSwitch
-            case .practiceDetails:
+            case .practiceCompletionRules:
                 return .navigation
             }
         }
@@ -102,8 +102,8 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
                 return "起始輕鬆度"
             case .followPreviousPractice:
                 return "緊接上一個練習"
-            case .practiceDetails:
-                return "練習細節"
+            case .practiceCompletionRules:
+                return "練習畢業規則"
             }
         }
         
@@ -125,7 +125,7 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
                 return "dial"
             case .followPreviousPractice:
                 return "arrow.turn.down.right"
-            case .practiceDetails:
+            case .practiceCompletionRules:
                 return "doc.text.magnifyingglass"
             }
         }
@@ -142,7 +142,7 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     
     private var dataSource: UICollectionViewDiffableDataSource<Section,Row>!
     
-    private var sections: [Section] = [.practiceType, .firstPractice, .forget, .advanced]
+    private var sections: [Section] = [.practiceTypeAndDetails]
     
     var practice: CDPractice?
 
@@ -152,7 +152,12 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     }
     
     private func setup() {
+        setupProperties()
         setupCollectionView()
+    }
+    
+    private func setupProperties() {
+        self.title = "練習藍圖規則"
     }
 
     private func setupCollectionView() {
@@ -231,9 +236,11 @@ extension PracticeSettingViewController: UICollectionViewDelegate {
         switch row {
         case .practiceType:
             let controller = PracticeModeViewController.instantiate()
-            
             controller.practice = practice
+            navigationController?.pushViewControllerWithCustomTransition(controller)
             
+        case .practiceCompletionRules:
+            let controller = PracticeCompletionViewController.instantiate()
             navigationController?.pushViewControllerWithCustomTransition(controller)
             
         default:
