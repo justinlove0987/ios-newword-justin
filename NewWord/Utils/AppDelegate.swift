@@ -60,47 +60,71 @@ extension AppDelegate {
     }
     
     func createFirstTimePracticeMap() {
-        
-        let decks = CoreDataManager.shared.getAll(ofType: CDDeck.self)
         let maps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
         
         if maps.isEmpty {
-            let practiceTypeRawValue = PracticeType.listenAndTranslate.rawValue
-            let practice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
-            let sequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
-            let map = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
+            let decks = CoreDataManager.shared.getAll(ofType: CDDeck.self)
+            let practiceMapTypes = PracticeMapType.allCases
             
-            for deck in decks {
-                let preset = CoreDataManager.shared.createEntity(ofType: CDPracticePreset.self)
-                let standardPreset = CoreDataManager.shared.createEntity(ofType: CDPracticePresetStandard.self)
-                
-                
-                standardPreset.firstPracticeEase = 2.5
-                
-                preset.standardPreset = standardPreset
-                
-                for standardStatusType in PracticeStandardStatusType.allCases {
-                    let status = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
-                    
-                    status.easeAdjustment = standardStatusType.easeAdjustment
-                    status.easeBonus = standardStatusType.easeBonus
-                    status.firstPracticeInterval = standardStatusType.firstPracticeInterval
-                    status.forgetInterval = standardStatusType.forgetInterval
-                    status.order = standardStatusType.order.toInt64
-                    status.title = standardStatusType.title
-                    status.typeRawValue = standardStatusType.rawValue.toInt64
-                    status.standardPreset = standardPreset
+            for practiceMapType in practiceMapTypes {
+                if practiceMapType == .blueprintForArticleWord {
+                    createPracticeForArticle(mapType: practiceMapType, decks: decks)
                 }
-                
-                deck.presetc = preset
             }
             
-            practice.typeRawValue = practiceTypeRawValue.toInt64
-            practice.sequence = sequence
-
-            sequence.map = map
-            
             CoreDataManager.shared.save()
+        }
+    }
+
+    private func createPracticeForArticle(mapType: PracticeMapType, decks: [CDDeck]) {
+        let practiceTypeRawValue = PracticeType.listenAndTranslate.rawValue
+        let practice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
+        let sequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
+        let map = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
+
+        practice.typeRawValue = practiceTypeRawValue.toInt64
+        practice.sequence = sequence
+        sequence.map = map
+    }
+    
+    private func createDeck() {
+        for practiceType in PracticeType.allCases {
+            let deck = CoreDataManager.shared.createEntity(ofType: CDDeck.self)
+            let preset = CoreDataManager.shared.createEntity(ofType: CDPracticePreset.self)
+            let standardPreset = createStandardPreset(practiceType: practiceType)
+            
+            preset.standardPreset = standardPreset
+            
+            assignStatusesToPreset(standardPreset)
+            
+            deck.id = UUID().uuidString
+            deck.name = practiceType.title
+            deck.presetc = preset
+        }
+    }
+
+    private func createStandardPreset(practiceType: PracticeType) -> CDPracticePresetStandard {
+        let standardPreset = CoreDataManager.shared.createEntity(ofType: CDPracticePresetStandard.self)
+        standardPreset.firstPracticeEase = 2.5
+        
+        
+        let threshold = CoreDataManager.shared.createEntity(ofType: CDPracticeThresholdRule.self)
+        
+        
+        return standardPreset
+    }
+
+    private func assignStatusesToPreset(_ standardPreset: CDPracticePresetStandard) {
+        for standardStatusType in PracticeStandardStatusType.allCases {
+            let status = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
+            status.easeAdjustment = standardStatusType.easeAdjustment
+            status.easeBonus = standardStatusType.easeBonus
+            status.firstPracticeInterval = standardStatusType.firstPracticeInterval
+            status.forgetInterval = standardStatusType.forgetInterval
+            status.order = standardStatusType.order.toInt64
+            status.title = standardStatusType.title
+            status.typeRawValue = standardStatusType.rawValue.toInt64
+            status.standardPreset = standardPreset
         }
     }
 }

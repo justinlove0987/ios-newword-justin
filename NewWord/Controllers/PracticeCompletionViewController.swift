@@ -88,23 +88,12 @@ class PracticeCompletionViewController: UIViewController, StoryboardGenerated {
         
         dataSource.apply(snapshot, animatingDifferences: false)
     }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        
-        if let touch = touches.first {
-            let location = touch.location(in: self.collectionView)
-            print("Touch began at location: \(location)")
-        }
-    }
 }
 
 // MARK: - UICollectionView Delegate
 
 extension PracticeCompletionViewController: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        
         for cell in collectionView.visibleCells {
             guard let cell = cell as? PracticeCompletionCollectionViewCell else {
                 return

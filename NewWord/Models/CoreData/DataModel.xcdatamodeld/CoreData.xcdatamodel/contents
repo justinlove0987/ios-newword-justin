@@ -154,8 +154,9 @@
         <relationship name="map" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeMap" inverseName="sequenceSet" inverseEntity="CDPracticeMap"/>
         <relationship name="practiceSet" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="CDPractice" inverseName="sequence" inverseEntity="CDPractice"/>
     </entity>
-    <entity name="CDPracticeServerProvidedContent" representedClassName="CDPracticeServerProvidedContent" syncable="YES" codeGenerationType="class">
+    <entity name="CDPracticeServerProvidedContent" representedClassName="CDPracticeServerProvidedContent" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="typeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="article" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeArticle" inverseName="serverProvidedContent" inverseEntity="CDPracticeArticle"/>
         <relationship name="practice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPractice" inverseName="serverProviededContent" inverseEntity="CDPractice"/>
     </entity>

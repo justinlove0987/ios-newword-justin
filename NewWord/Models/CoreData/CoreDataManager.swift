@@ -766,7 +766,7 @@ extension CoreDataManager {
         let fetchRequest: NSFetchRequest<CDPracticeMap> = CDPracticeMap.fetchRequest()
         
         // 過濾條件: typeRawValue 等於 PracticeMapType.blueprint 的 rawValue
-        fetchRequest.predicate = NSPredicate(format: "typeRawValue == %d", PracticeMapType.blueprint.rawValue)
+        fetchRequest.predicate = NSPredicate(format: "typeRawValue == %d", PracticeMapType.blueprintForArticleWord.rawValue)
         
         // 只需要第一個結果
         fetchRequest.fetchLimit = 1

@@ -66,6 +66,7 @@
 		2A9C8AF62C3BBE3500D839D8 /* OpenCC in Frameworks */ = {isa = PBXBuildFile; productRef = 2A9C8AF52C3BBE3500D839D8 /* OpenCC */; };
 		2AB3DC952CA145E0004CAFE3 /* CDUserGeneratedArticle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB3DC932CA145E0004CAFE3 /* CDUserGeneratedArticle+Extension.swift */; };
 		2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */; };
+		2AC3C3E92CAA814D0010E7AA /* CDPracticeServerProvidedContent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3C3E72CAA814D0010E7AA /* CDPracticeServerProvidedContent+Extension.swift */; };
 		2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */; };
 		2AC3D4242C2D52BC00B72791 /* SearchSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */; };
 		2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */; };
@@ -203,6 +204,7 @@
 		2A9C73AD2C9C1DBA006690A5 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		2AB3DC932CA145E0004CAFE3 /* CDUserGeneratedArticle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDUserGeneratedArticle+Extension.swift"; sourceTree = "<group>"; };
 		2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardsViewController.swift; sourceTree = "<group>"; };
+		2AC3C3E72CAA814D0010E7AA /* CDPracticeServerProvidedContent+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeServerProvidedContent+Extension.swift"; sourceTree = "<group>"; };
 		2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSelectionCell.swift; sourceTree = "<group>"; };
 		2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchSelectionCell.xib; sourceTree = "<group>"; };
 		2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDeckViewController.swift; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				2AB3DC932CA145E0004CAFE3 /* CDUserGeneratedArticle+Extension.swift */,
 				D09016782C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift */,
 				2A2BBF5D2CAA436100BA02F2 /* CDPracticeThresholdRule+Extension.swift */,
+				2AC3C3E72CAA814D0010E7AA /* CDPracticeServerProvidedContent+Extension.swift */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -741,6 +744,7 @@
 				2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
 				2AFC91472C7C4BB9002C2AD1 /* PracticeMapViewController.swift in Sources */,
+				2AC3C3E92CAA814D0010E7AA /* CDPracticeServerProvidedContent+Extension.swift in Sources */,
 				2AFABE682C98156D00BA2347 /* CDPracticeSequence+Extension.swift in Sources */,
 				D0B2E3FC2C2BB15F0047B2F5 /* CustomTextView.swift in Sources */,
 				D0AF303E2C43CB6500DF71CD /* TagLabel.swift in Sources */,

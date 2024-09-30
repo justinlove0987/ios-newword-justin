@@ -23,11 +23,11 @@ enum PracticeThresholdRuleConditionType: Int {
     var title: String {
         switch self {
         case .totalAgainAttempts:
-            return "回答重來累績次數"
+            return "回答重來連續次數"
         case .cumulativeAgainAttempts:
             return "回答重來總次數"
         case .totalEasyAttempts:
-            return "回答簡單累績次數"
+            return "回答簡單連續次數"
         case .cumulativeEasyAttempts:
             return "回答簡單總次數"
         case .nextPracticeIntervalInDays:

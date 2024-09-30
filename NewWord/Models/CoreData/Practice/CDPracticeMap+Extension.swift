@@ -10,6 +10,22 @@
 import Foundation
 import CoreData
 
+enum PracticeMapType: Int, CaseIterable {
+    case practice
+    case blueprintForArticleWord
+    
+    var allowedPracticeTypes: [PracticeType] {
+        switch self {
+        case .blueprintForArticleWord:
+            return [.listenAndTranslate, .readClozeAndTypeEnglish]
+            
+        default:
+            return []
+        }
+
+    }
+}
+
 @objc(CDPracticeMap)
 public class CDPracticeMap: NSManagedObject {
 
@@ -44,6 +60,4 @@ extension CDPracticeMap {
     }
 }
 
-enum PracticeMapType: Int, CaseIterable {
-    case blueprint
-}
+
