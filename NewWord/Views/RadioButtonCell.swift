@@ -14,8 +14,8 @@ class RadioButtonCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var radioButtonImageView: UIImageView!
     
-    func configure(row: PracticeModeViewController.Row) {
-        titleLabel.text = row.practiceType.title
+    func configure(row: ReusableCollectionViewController<PracticeType>.Row) {
+        titleLabel.text = row.item.title
         
         let imageName = row.isSelected ? "circle.inset.filled" : "circle"
         radioButtonImageView.image = UIImage(systemName: imageName)

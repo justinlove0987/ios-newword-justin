@@ -779,6 +779,47 @@ extension CoreDataManager {
             return nil
         }
     }
+    
+    func hasPracticeMap() -> Bool {
+        let practiceMaps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
+        
+        return practiceMaps.count > 0
+    }
+    
+    func createPracticeMapBlueprint() {
+        for practiceMapType in PracticeMapType.allCases {
+            guard practiceMapType != .practice else {
+                continue
+            }
+            
+            guard let practiceMapBlueprint = practiceMapType.practiceBlueprint else {
+                continue
+            }
+            
+            let map = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
+            
+            map.typeRawValue = practiceMapType.rawValue.toInt64
+            
+            for i in 0..<practiceMapBlueprint.count {
+                let sequenceBluprint = practiceMapBlueprint[i]
+                let sequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
+                
+                sequence.map = map
+                
+                for j in 0..<sequenceBluprint.count {
+                    let practiceBlueprint = sequenceBluprint[j]
+                    let practice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
+                    
+                    practice.order = j.toInt64
+                    practice.typeRawValue = practiceBlueprint.rawValue.toInt64
+                    practice.sequence = sequence
+                    
+                }
+            }
+        }
+        
+        CoreDataManager.shared.save()
+    }
 }
 
 

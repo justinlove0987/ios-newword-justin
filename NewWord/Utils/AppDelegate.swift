@@ -36,8 +36,12 @@ extension AppDelegate {
         }
         
         CoreDataManager.shared.deleteAllEntities()
+        
         createDecks()
-        createFirstTimePracticeMap()
+        
+        if !CoreDataManager.shared.hasPracticeMap() {
+            CoreDataManager.shared.createPracticeMapBlueprint()
+        }
     }
     
     func createDecks() {
@@ -59,34 +63,6 @@ extension AppDelegate {
         }
     }
     
-    func createFirstTimePracticeMap() {
-        let maps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
-        
-        if maps.isEmpty {
-            let decks = CoreDataManager.shared.getAll(ofType: CDDeck.self)
-            let practiceMapTypes = PracticeMapType.allCases
-            
-            for practiceMapType in practiceMapTypes {
-                if practiceMapType == .blueprintForArticleWord {
-                    createPracticeForArticle(mapType: practiceMapType, decks: decks)
-                }
-            }
-            
-            CoreDataManager.shared.save()
-        }
-    }
-
-    private func createPracticeForArticle(mapType: PracticeMapType, decks: [CDDeck]) {
-        let practiceTypeRawValue = PracticeType.listenAndTranslate.rawValue
-        let practice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
-        let sequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
-        let map = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
-
-        practice.typeRawValue = practiceTypeRawValue.toInt64
-        practice.sequence = sequence
-        sequence.map = map
-    }
-    
     private func createDeck() {
         for practiceType in PracticeType.allCases {
             let deck = CoreDataManager.shared.createEntity(ofType: CDDeck.self)
@@ -106,10 +82,6 @@ extension AppDelegate {
     private func createStandardPreset(practiceType: PracticeType) -> CDPracticePresetStandard {
         let standardPreset = CoreDataManager.shared.createEntity(ofType: CDPracticePresetStandard.self)
         standardPreset.firstPracticeEase = 2.5
-        
-        
-        let threshold = CoreDataManager.shared.createEntity(ofType: CDPracticeThresholdRule.self)
-        
         
         return standardPreset
     }

@@ -14,15 +14,14 @@ enum PracticeMapType: Int, CaseIterable {
     case practice
     case blueprintForArticleWord
     
-    var allowedPracticeTypes: [PracticeType] {
+    var practiceBlueprint: [[PracticeType]]? {
         switch self {
         case .blueprintForArticleWord:
-            return [.listenAndTranslate, .readClozeAndTypeEnglish]
+            return [[.listenAndTranslate, .readClozeAndTypeEnglish]]
             
         default:
-            return []
+            return nil
         }
-
     }
 }
 

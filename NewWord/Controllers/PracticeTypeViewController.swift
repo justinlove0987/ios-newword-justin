@@ -8,7 +8,7 @@
 import UIKit
 
 
-class PracticeModeViewController: UIViewController, StoryboardGenerated {
+class PracticeTypeViewController: UIViewController, StoryboardGenerated {
     
     static var storyboardName: String = K.Storyboard.main
     
@@ -99,7 +99,7 @@ class PracticeModeViewController: UIViewController, StoryboardGenerated {
 
 // MARK: - UICollectionViewDelegate
 
-extension PracticeModeViewController: UICollectionViewDelegate {
+extension PracticeTypeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let row = rows[indexPath.row]
         
@@ -112,7 +112,7 @@ extension PracticeModeViewController: UICollectionViewDelegate {
 
 // MARK: - UICollectionView DataSource
 
-extension PracticeModeViewController {
+extension PracticeTypeViewController {
     
     // 提供 Cell 的配置方法
     private func cellProvider(
@@ -131,7 +131,7 @@ extension PracticeModeViewController {
 
 // MARK: - UICollectionViewCompositionalLayout
 
-extension PracticeModeViewController {
+extension PracticeTypeViewController {
     // 配置 Item
     private func createItem() -> NSCollectionLayoutItem {
         let itemSize = NSCollectionLayoutSize(

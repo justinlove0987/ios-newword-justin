@@ -34,7 +34,6 @@
 		2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */; };
 		2A4DA68F2C9D434B00CC6CDD /* PracticeButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A4DA68E2C9D434B00CC6CDD /* PracticeButton.xib */; };
 		2A4DA6912C9D448600CC6CDD /* PracticeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DA6902C9D448600CC6CDD /* PracticeButton.swift */; };
-		2A5A77912CA62EA400A481BE /* PracticeModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A77902CA62EA400A481BE /* PracticeModeViewController.swift */; };
 		2A5D608E2C63663B00252A0C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5D608D2C63663B00252A0C /* FirebaseStorage */; };
 		2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */; };
 		2A67688B2C3294470040C89F /* WordSelectorViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */; };
@@ -59,6 +58,8 @@
 		2A89D86A2C7435AC00DDBFF0 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89D8692C7435AC00DDBFF0 /* UITextView+Extension.swift */; };
 		2A89D86C2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A89D86B2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib */; };
 		2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */; };
+		2A9911DC2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9911DB2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift */; };
+		2A9911DE2CAB7FA3004F2625 /* NewPracticeTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9911DD2CAB7FA3004F2625 /* NewPracticeTypeViewController.swift */; };
 		2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */; };
 		2A9C73A82C9C08FF006690A5 /* TimeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C73A72C9C08FF006690A5 /* TimeConverter.swift */; };
 		2A9C73AB2C9C0D28006690A5 /* CDPracticePresetStandard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C73A92C9C0D28006690A5 /* CDPracticePresetStandard+Extension.swift */; };
@@ -178,7 +179,6 @@
 		2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		2A4DA68E2C9D434B00CC6CDD /* PracticeButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeButton.xib; sourceTree = "<group>"; };
 		2A4DA6902C9D448600CC6CDD /* PracticeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeButton.swift; sourceTree = "<group>"; };
-		2A5A77902CA62EA400A481BE /* PracticeModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeViewController.swift; sourceTree = "<group>"; };
 		2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWord+Extension.swift"; sourceTree = "<group>"; };
 		2A67688A2C3294470040C89F /* WordSelectorViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSelectorViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A67688C2C3322590040C89F /* AddTagTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagTextView.swift; sourceTree = "<group>"; };
@@ -198,6 +198,8 @@
 		2A89D8692C7435AC00DDBFF0 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		2A89D86B2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeModeSelectorView.xib; sourceTree = "<group>"; };
 		2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeSelectorView.swift; sourceTree = "<group>"; };
+		2A9911DB2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableRadioButtonCollectionViewController.swift; sourceTree = "<group>"; };
+		2A9911DD2CAB7FA3004F2625 /* NewPracticeTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPracticeTypeViewController.swift; sourceTree = "<group>"; };
 		2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevisePresetViewController.swift; sourceTree = "<group>"; };
 		2A9C73A72C9C08FF006690A5 /* TimeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConverter.swift; sourceTree = "<group>"; };
 		2A9C73A92C9C0D28006690A5 /* CDPracticePresetStandard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticePresetStandard+Extension.swift"; sourceTree = "<group>"; };
@@ -468,8 +470,9 @@
 				D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */,
 				2AFC91462C7C4BB9002C2AD1 /* PracticeMapViewController.swift */,
 				2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */,
-				2A5A77902CA62EA400A481BE /* PracticeModeViewController.swift */,
+				2A9911DD2CAB7FA3004F2625 /* NewPracticeTypeViewController.swift */,
 				2A2BBF5B2CAA40E100BA02F2 /* PracticeCompletionViewController.swift */,
+				2A9911DB2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -659,8 +662,10 @@
 				2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */,
 				2A6BA1442C63622B00F0DE3F /* FirebaseManager.swift in Sources */,
 				2AFE839D2C893FC600C5AA33 /* UIColor+Extension.swift in Sources */,
+				2A9911DE2CAB7FA3004F2625 /* NewPracticeTypeViewController.swift in Sources */,
 				2A7B6CD12C080A900017BB5C /* StoryboardGenerated.swift in Sources */,
 				2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */,
+				2A9911DC2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift in Sources */,
 				2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */,
 				2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */,
 				2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */,
@@ -724,7 +729,6 @@
 				2A7F3C102C5B5A3C0028150D /* ExploreViewController.swift in Sources */,
 				2AFABE642C98120300BA2347 /* CDPractice+Extension.swift in Sources */,
 				D0D6E0EB2C1DE92C00C1F95E /* ContextStackView.swift in Sources */,
-				2A5A77912CA62EA400A481BE /* PracticeModeViewController.swift in Sources */,
 				2AB8CC032BF5887300BFFD4A /* ShowCardsViewController.swift in Sources */,
 				D0696DD72C31094600FE4FE1 /* UserGeneratedArticleViewController.swift in Sources */,
 				D09016762C93DEF200A5FBD2 /* CDPracticeImage+Extension.swift in Sources */,

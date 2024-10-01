@@ -18,7 +18,7 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
         var rows: [Row] {
             switch self {
             case .practiceTypeAndDetails:
-                return [.practiceType, .practiceCompletionRules]
+                return [.practiceType, .deck]
             case .firstPractice:
                 return [.firstPracticeLearningPhase, .firstPracticeGraduationInterval, .firstPracticeEasyInterval]
             case .forget:
@@ -60,6 +60,7 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
         case initialEase
         case followPreviousPractice
         case practiceCompletionRules
+        case deck
         
         var cellType: CellType {
             switch self {
@@ -80,6 +81,8 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
             case .followPreviousPractice:
                 return .toggleSwitch
             case .practiceCompletionRules:
+                return .navigation
+            case .deck:
                 return .navigation
             }
         }
@@ -104,6 +107,8 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
                 return "緊接上一個練習"
             case .practiceCompletionRules:
                 return "練習畢業規則"
+            case .deck:
+                return "練習牌組"
             }
         }
         
@@ -127,6 +132,8 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
                 return "arrow.turn.down.right"
             case .practiceCompletionRules:
                 return "doc.text.magnifyingglass"
+            case .deck:
+                return "sparkles.rectangle.stack"
             }
         }
     }
@@ -157,7 +164,7 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     }
     
     private func setupProperties() {
-        self.title = "練習藍圖規則"
+        self.title = "練習地圖設定"
     }
 
     private func setupCollectionView() {
@@ -235,9 +242,12 @@ extension PracticeSettingViewController: UICollectionViewDelegate {
         
         switch row {
         case .practiceType:
-            let controller = PracticeModeViewController.instantiate()
+            let controller = NewPracticeTypeViewController()
             controller.practice = practice
             navigationController?.pushViewControllerWithCustomTransition(controller)
+            
+        case .deck:
+            break
             
         case .practiceCompletionRules:
             let controller = PracticeCompletionViewController.instantiate()
