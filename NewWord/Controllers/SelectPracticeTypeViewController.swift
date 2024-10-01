@@ -8,7 +8,7 @@
 import UIKit
 
 // Subclass for PracticeType
-class PracticeTypeViewController: ReusableCollectionViewController<PracticeType> {
+class SelectPracticeTypeViewController: ReusableCollectionViewController<PracticeType> {
     
     var practice: CDPractice?
     
@@ -19,7 +19,6 @@ class PracticeTypeViewController: ReusableCollectionViewController<PracticeType>
     }
     
     private func setupData() {
-        self.title = "練習種類"
         self.items = PracticeType.allCases
         
         guard let practiceType = practice?.type else { return }
@@ -34,6 +33,7 @@ class PracticeTypeViewController: ReusableCollectionViewController<PracticeType>
     }
     
     private func setupProperties() {
+        self.title = "練習種類"
         view.backgroundColor = .background
     }
     

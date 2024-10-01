@@ -20,4 +20,11 @@ class RadioButtonCell: UICollectionViewCell {
         let imageName = row.isSelected ? "circle.inset.filled" : "circle"
         radioButtonImageView.image = UIImage(systemName: imageName)
     }
+    
+    func configure(row: ReusableCollectionViewController<SelectDeckItemType>.Row) {
+        titleLabel.text = row.item.title
+        
+        let imageName = row.isSelected ? "circle.inset.filled" : "circle"
+        radioButtonImageView.image = UIImage(systemName: imageName)
+    }
 }

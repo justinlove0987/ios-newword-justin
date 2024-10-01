@@ -240,14 +240,20 @@ extension PracticeSettingViewController: UICollectionViewDelegate {
         let section = sections[indexPath.section]
         let row = section.rows[indexPath.row]
         
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        
         switch row {
         case .practiceType:
-            let controller = PracticeTypeViewController()
+            let controller = SelectPracticeTypeViewController()
             controller.practice = practice
             navigationController?.pushViewControllerWithCustomTransition(controller)
             
         case .deck:
-            break
+            let controller = SelectDeckViewController()
+            controller.practice = practice
+            navigationController?.pushViewControllerWithCustomTransition(controller)
             
         case .practiceCompletionRules:
             let controller = PracticeCompletionViewController.instantiate()

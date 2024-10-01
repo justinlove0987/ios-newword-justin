@@ -1712,10 +1712,10 @@ Environmental sustainability has become a crucial issue in today's world. With t
             </objects>
             <point key="canvasLocation" x="-1608" y="3735"/>
         </scene>
-        <!--Practice Type View Controller-->
+        <!--Select Practice Type View Controller-->
         <scene sceneID="trX-Y6-9xR">
             <objects>
-                <viewController storyboardIdentifier="PracticeModeViewController" id="iHz-8D-Dp4" customClass="PracticeTypeViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PracticeModeViewController" id="iHz-8D-Dp4" customClass="SelectPracticeTypeViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FDd-cA-1yi">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

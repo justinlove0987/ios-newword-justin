@@ -56,12 +56,6 @@ extension CDPractice {
             return lDueDate < rDueDate
         }
     }
-    
-    var isRelearnPractice: Bool {
-        guard let latestPracticeStandardRecord else { return false }
-        
-        return latestPracticeStandardRecord.stateType == .learn
-    }
 }
 
 extension CDPractice {
@@ -179,6 +173,8 @@ extension CDPractice {
 
         return newValues.newDuration
     }
+    
+//    func 
 }
 
 enum ContextType: Int, CaseIterable {

@@ -822,4 +822,20 @@ extension CoreDataManager {
     }
 }
 
+// MARK: CDPractice
+
+extension CoreDataManager {
+    func getFirstDeck(with practiceType: PracticeType) -> CDDeck? {
+        let practices = CoreDataManager.shared.getAll(ofType: CDPractice.self)
+        
+        for practice in practices {
+            if practice.type == practiceType && practice.deck != nil {
+                return practice.deck
+            }
+        }
+        
+        return nil
+    }
+}
+
 

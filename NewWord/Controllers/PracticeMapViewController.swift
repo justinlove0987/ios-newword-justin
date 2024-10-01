@@ -47,6 +47,10 @@ class PracticeMapViewController: UIViewController, StoryboardGenerated {
     }
     
     private func setupProperties() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        
         self.title = "練習地圖"
     }
     
