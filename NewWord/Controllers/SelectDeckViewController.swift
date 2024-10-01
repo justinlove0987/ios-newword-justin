@@ -28,7 +28,7 @@ enum SelectDeckItemType: Hashable {
 
 class SelectDeckViewController: ReusableCollectionViewController<SelectDeckItemType> {
     
-    var practice: CDPractice?
+    var blueprintPractice: CDPractice?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,34 +56,34 @@ class SelectDeckViewController: ReusableCollectionViewController<SelectDeckItemT
             items.append(SelectDeckItemType.existingDeck(deck))
         }
         
-        
-        
         self.items = items
     }
     
     private func setupSelectedItem() {
-        guard let practice,
-              let practiceType = practice.type else {
+        guard let blueprintPractice,
+              let practiceType = blueprintPractice.type else {
             return
         }
         
-        if let blueprintDeck = practice.deck {
+        if let blueprintDeck = blueprintPractice.deck {
             selectedItem = SelectDeckItemType.existingDeck(blueprintDeck)
             return
         }
         
         if let existDeck = CoreDataManager.shared.getFirstDeck(with: practiceType) {
+            blueprintPractice.deck = existDeck
             selectedItem = SelectDeckItemType.existingDeck(existDeck)
             return
         }
-        
+
+        blueprintPractice.deck = nil
         selectedItem = SelectDeckItemType.autoCreate
+
     }
     
     private func setupProperties() {
         self.title = "練習牌組"
         view.backgroundColor = .background
-//        navigationItem.
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -96,7 +96,7 @@ class SelectDeckViewController: ReusableCollectionViewController<SelectDeckItemT
             break
             
         case .existingDeck(let deck):
-            practice?.deck = deck
+            blueprintPractice?.deck = deck
         }
     }
     

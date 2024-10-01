@@ -8,7 +8,7 @@
     <entity name="CDCard" representedClassName="CDCard" syncable="YES" codeGenerationType="category">
         <attribute name="addedDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="String"/>
-        <relationship name="deck" maxCount="1" deletionRule="Nullify" destinationEntity="CDDeck" inverseName="cards" inverseEntity="CDDeck"/>
+        <relationship name="deck" maxCount="1" deletionRule="Nullify" destinationEntity="CDDeck"/>
         <relationship name="learningRecords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDLearningRecord" inverseName="card" inverseEntity="CDLearningRecord"/>
         <relationship name="note" maxCount="1" deletionRule="Nullify" destinationEntity="CDNote" inverseName="card" inverseEntity="CDNote"/>
     </entity>
@@ -32,10 +32,8 @@
     <entity name="CDDeck" representedClassName="CDDeck" syncable="YES" codeGenerationType="category">
         <attribute name="id" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
-        <relationship name="cards" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="CDCard" inverseName="deck" inverseEntity="CDCard"/>
         <relationship name="practiceSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPractice" inverseName="deck" inverseEntity="CDPractice"/>
-        <relationship name="preset" maxCount="1" deletionRule="No Action" destinationEntity="CDPreset" inverseName="deck" inverseEntity="CDPreset"/>
-        <relationship name="presetc" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePreset" inverseName="deck" inverseEntity="CDPracticePreset"/>
+        <relationship name="preset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePreset" inverseName="deck" inverseEntity="CDPracticePreset"/>
     </entity>
     <entity name="CDLapses" representedClassName="CDLapses" syncable="YES" codeGenerationType="category">
         <attribute name="leachActionRawValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -120,7 +118,7 @@
     </entity>
     <entity name="CDPracticePreset" representedClassName="CDPracticePreset" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String"/>
-        <relationship name="deck" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDeck" inverseName="presetc" inverseEntity="CDDeck"/>
+        <relationship name="deck" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDDeck" inverseName="preset" inverseEntity="CDDeck"/>
         <relationship name="practice" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPractice" inverseName="preset" inverseEntity="CDPractice"/>
         <relationship name="standardPreset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePresetStandard" inverseName="preset" inverseEntity="CDPracticePresetStandard"/>
     </entity>
@@ -184,7 +182,7 @@
     </entity>
     <entity name="CDPreset" representedClassName="CDPreset" syncable="YES" codeGenerationType="class">
         <relationship name="advanced" maxCount="1" deletionRule="Nullify" destinationEntity="CDAdvanced" inverseName="preset" inverseEntity="CDAdvanced"/>
-        <relationship name="deck" maxCount="1" deletionRule="Nullify" destinationEntity="CDDeck" inverseName="preset" inverseEntity="CDDeck"/>
+        <relationship name="deck" maxCount="1" deletionRule="Nullify" destinationEntity="CDDeck"/>
         <relationship name="lapses" maxCount="1" deletionRule="Nullify" destinationEntity="CDLapses" inverseName="preset" inverseEntity="CDLapses"/>
         <relationship name="master" maxCount="1" deletionRule="Nullify" destinationEntity="CDMaster" inverseName="preset" inverseEntity="CDMaster"/>
         <relationship name="startCard" maxCount="1" deletionRule="Nullify" destinationEntity="CDStartCard" inverseName="preset" inverseEntity="CDStartCard"/>

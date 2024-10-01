@@ -105,7 +105,7 @@ class ShowCardsViewControllerViewModel {
     func addLearningRecordToCurrentCard(userPressedStatusType: PracticeStandardStatusType) {
         guard let practice = getCurrentPractice() else { return }
         guard let deck,
-              let standardPreset = deck.presetc?.standardPreset else { return }
+              let standardPreset = deck.preset?.standardPreset else { return }
 
         practice.addRecord(userPressedStatusType: userPressedStatusType,
                            standardPreset: standardPreset)

@@ -40,22 +40,22 @@ class RevisePresetViewController: UIViewController, StoryboardGenerated {
     // MARK: - Helpers
     
     private func setupTextFields() {
-        guard let preset = self.deck.preset else { return }
-        let startCard = preset.startCard!
-        let lapses = preset.lapses!
-        let master = preset.master!
-        let advanced = preset.advanced!
-
-        learningStepsTextField.text =               "\(startCard.learningStpes)"
-        learningGraduatingIntervalTextField.text =  "\(startCard.graduatingInterval)"
-        easyIntervalTextField.text =                "\(startCard.easyInterval)"
-        relearningStepsTextField.text =             "\(lapses.relearningSteps)"
-        minumumIntervalTextField.text =             "\(lapses.minumumInterval)"
-        leachThresholdTextField.text =              "\(lapses.leachThreshold)"
-        leachActionTextField.text =                 "\(lapses.leachAction)"
-        masterGraduatingIntervalTextField.text =    "\(master.graduatingInterval)"
-        consecutiveCorrectsTextField.text =         "\(master.consecutiveCorrects)"
-        startingEaseTextField.text =                "\(advanced.startingEase)"
+//        guard let preset = self.deck.preset else { return }
+//        let startCard = preset.startCard!
+//        let lapses = preset.lapses!
+//        let master = preset.master!
+//        let advanced = preset.advanced!
+//
+//        learningStepsTextField.text =               "\(startCard.learningStpes)"
+//        learningGraduatingIntervalTextField.text =  "\(startCard.graduatingInterval)"
+//        easyIntervalTextField.text =                "\(startCard.easyInterval)"
+//        relearningStepsTextField.text =             "\(lapses.relearningSteps)"
+//        minumumIntervalTextField.text =             "\(lapses.minumumInterval)"
+//        leachThresholdTextField.text =              "\(lapses.leachThreshold)"
+//        leachActionTextField.text =                 "\(lapses.leachAction)"
+//        masterGraduatingIntervalTextField.text =    "\(master.graduatingInterval)"
+//        consecutiveCorrectsTextField.text =         "\(master.consecutiveCorrects)"
+//        startingEaseTextField.text =                "\(advanced.startingEase)"
     }
     
     @IBAction func saveAction(_ sender: UIButton) {
@@ -82,10 +82,10 @@ class RevisePresetViewController: UIViewController, StoryboardGenerated {
         
         let advanced = CoreDataManager.shared.addAdvanced(startingEase: startingEase, easyBonus: 1.3)
         
-        deck.preset?.startCard = startCard
-        deck.preset?.lapses = lapses
-        deck.preset?.master = master
-        deck.preset?.advanced = advanced
+//        deck.preset?.startCard = startCard
+//        deck.preset?.lapses = lapses
+//        deck.preset?.master = master
+//        deck.preset?.advanced = advanced
         
         delegate?.didTapSaveButton(self)
         

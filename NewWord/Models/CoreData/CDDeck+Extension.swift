@@ -16,11 +16,24 @@ public class CDDeck: NSManagedObject {
 }
 
 extension CDDeck {
+
+    var hasPractice: Bool {
+        let filteredPractices = practices.filter { practice in
+            guard let mapType = practice.sequence?.map?.type else {
+                return true
+            }
+
+            return mapType == .practice
+        }
+
+        return filteredPractices.count > 0
+    }
+
     var practices: [CDPractice] {
         guard let practices = self.practiceSet as? Set<CDPractice> else {
             return []
         }
-        
+
         return Array(practices)
     }
     

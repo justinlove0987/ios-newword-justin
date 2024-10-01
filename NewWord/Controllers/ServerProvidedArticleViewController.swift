@@ -406,7 +406,8 @@ extension ServerProvidedArticleViewController {
         let textType = viewModel.getTextType(from: viewModel.selectMode)
 
         if viewModel.containsTag(textType: textType, range: range) {
-            viewModel.deactivateTag(range)
+            let tag = viewModel.deactivateTag(range)
+            viewModel.removeRelatedCoreDatas(tag)
 
             let adjustmentOffset = -2
             let updatedRange = NSRange(location: range.location+adjustmentOffset, length: range.length)
@@ -452,9 +453,8 @@ extension ServerProvidedArticleViewController {
             }
             
             let tag = self.viewModel.activateTag(at: range, text: text, translation: translatedTraditionalText, number: clozeNumber)
-
             self.viewModel.updateTagNSRanges(with: range, offset: offset)
-            self.viewModel.mergePracticeMap(tag)
+            self.viewModel.synchronizePracticeMap(tag)
             self.updateCustomTextView()
 
             if !self.viewModel.hasDuplicateTagLocations(with: range) {

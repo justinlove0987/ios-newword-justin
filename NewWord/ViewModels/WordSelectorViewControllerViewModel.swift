@@ -320,95 +320,7 @@ struct WordSelectorViewControllerViewModel {
 
         return tag
     }
-    
-    func mergePracticeMap(_ tag: CDUserGeneratedContextTag?) {
-        guard let tag else { return }
-        
-        let maps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
-        
-        let blueprintMap = maps.first!
-        
-        guard let text = tag.text,
-              let deck = getSaveDeck(tag) else {
-            return
-        }
-        
-        if let practiceContext = getSamePracticeContext(with: text),
-           let greatestLevelSequence = practiceContext.map?.greatestLevelSequence
-        {
-            for i in 0..<blueprintMap.sortedSequences.count {
-                let blueprintSequence = blueprintMap.sortedSequences[i]
-                
-                let isBlueprintFirstLevel = blueprintSequence.level == 0
-                
-                if isBlueprintFirstLevel {
-                    for practice in blueprintSequence.sortedPractices {
-                        let emptyPractice = createEmptyPractice()
-                        let standardRecord = createNewStateStandardRecord()
-                        
-                        emptyPractice.record?.addToStandardRecordSet(standardRecord)
-                        emptyPractice.serverProviededContent?.article = article
-                        emptyPractice.order = practice.order
-                        emptyPractice.typeRawValue = practice.typeRawValue
-                        emptyPractice.userGeneratedContent?.userGeneratedContextTag = tag
-                        emptyPractice.sequence = greatestLevelSequence
-                        emptyPractice.deck = deck
-                    }
-                } else {
-                    let newSequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
-                    
-                    newSequence.level = greatestLevelSequence.level + blueprintSequence.level
-                    newSequence.id = UUID().uuidString
-                    newSequence.map = practiceContext.map
-                    
-                    for practice in blueprintSequence.sortedPractices {
-                        let standardRecord = createNewStateStandardRecord()
-                        let emptyPractice = createEmptyPractice()
-                        
-                        emptyPractice.order = practice.order
-                        emptyPractice.typeRawValue = practice.typeRawValue
-                        emptyPractice.record?.addToStandardRecordSet(standardRecord)
-                        emptyPractice.serverProviededContent?.article = article
-                        emptyPractice.userGeneratedContent?.userGeneratedContextTag = tag
-                        emptyPractice.sequence = newSequence
-                        emptyPractice.deck = deck
-                    }
-                }
-            }
-            
-        } else {
-            let practiceContext = CoreDataManager.shared.createEntity(ofType: CDPracticeContext.self)
-            let newMap = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
-            
-            practiceContext.id = UUID().uuidString
-            practiceContext.map = newMap
-            practiceContext.context = text
-            practiceContext.type = tag.typeRawValue
-            
-            for sequence in blueprintMap.sortedSequences {
-                let newSequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
-                
-                newSequence.id = UUID().uuidString
-                newSequence.level = sequence.level
-                newSequence.map = newMap
-                
-                for practice in sequence.sortedPractices {
-                    let standardRecord = createNewStateStandardRecord()
-                    let emptyPractice = createEmptyPractice()
-                    
-                    emptyPractice.order = practice.order
-                    emptyPractice.typeRawValue = practice.typeRawValue
-                    emptyPractice.record?.addToStandardRecordSet(standardRecord)
-                    emptyPractice.serverProviededContent?.article = article
-                    emptyPractice.userGeneratedContent?.userGeneratedContextTag = tag
-                    emptyPractice.sequence = newSequence
-                    emptyPractice.deck = deck
-                }
-            }
-        }
-    }
-        
-    @discardableResult
+
     mutating func activateTag(at range: NSRange, text: String, translation: String, number: Int) -> CDUserGeneratedContextTag? {
         guard let tags = article?.userGeneratedArticle?.contexts else { return nil }
 
@@ -432,7 +344,6 @@ struct WordSelectorViewControllerViewModel {
         return nil
     }
 
-    @discardableResult
     mutating func deactivateTag(_ range: NSRange) -> CDUserGeneratedContextTag? {
         guard let tags = article?.userGeneratedArticle?.contexts else { return nil }
 
@@ -442,7 +353,6 @@ struct WordSelectorViewControllerViewModel {
             let findTag = currentTag.revisedRange == range
 
             if findTag {
-                removeRelatedPractices(currentTag)
                 currentTag.isTag = false
                 return currentTag
             }
@@ -451,26 +361,6 @@ struct WordSelectorViewControllerViewModel {
         return nil
     }
 
-    func removeRelatedPractices(_ tag: CDUserGeneratedContextTag) {
-        for userGeneratedContent in tag.userGeneratedContents {
-            userGeneratedContent.practice?.isActive = false
-            
-            guard let practice = userGeneratedContent.practice,
-                  let practiceMap = practice.sequence?.map,
-                  let latestPracticeStandardRecord = userGeneratedContent.practice?.latestPracticeStandardRecord else {
-                return
-            }
-            
-            if latestPracticeStandardRecord.stateType == .new {
-                CoreDataManager.shared.deleteEntity(practice)
-            }
-            
-            if !practiceMap.hasPractice {
-                CoreDataManager.shared.deleteEntity(practiceMap)
-            }
-            
-        }
-    }
 
     func getUniqueLocationClozeIndices() -> [Int] {
         guard let tags = article?.userGeneratedArticle?.sortedTaggedContext else { return [] }
@@ -803,19 +693,176 @@ extension WordSelectorViewControllerViewModel {
 // MARK: - CoreData
 
 extension WordSelectorViewControllerViewModel {
-    private func getSamePracticeContext(with text: String) -> CDPracticeContext? {
-        let practiceContexts = CoreDataManager.shared.getAll(ofType: CDPracticeContext.self)
-        
-        for practiceContext in practiceContexts {
-            guard let context = practiceContext.context else { continue }
-            if context == text.lowercased() {
-                return practiceContext
+
+    func synchronizePracticeMap(_ tag: CDUserGeneratedContextTag?) {
+        guard isValidTag(tag), let text = tag?.text else { return }
+
+        guard let blueprintMap = getBlueprintMap(),
+              let practiceContext = findPracticeContext(matching: text),
+              let greatestLevelSequence = practiceContext.map?.greatestLevelSequence else {
+            createNewPracticeMap(for: tag!, using: text)
+            return
+        }
+
+        mergeWithExistingPracticeMap(blueprintMap: blueprintMap, practiceContext: practiceContext, greatestLevelSequence: greatestLevelSequence, tag: tag!)
+    }
+
+    private func isValidTag(_ tag: CDUserGeneratedContextTag?) -> Bool {
+        return tag != nil && tag?.text != nil
+    }
+
+    private func getBlueprintMap() -> CDPracticeMap? {
+        let maps = CoreDataManager.shared.getAll(ofType: CDPracticeMap.self)
+        return maps.first { $0.type == .blueprintForArticleWord }
+    }
+
+    private func mergeWithExistingPracticeMap(blueprintMap: CDPracticeMap, practiceContext: CDPracticeContext, greatestLevelSequence: CDPracticeSequence, tag: CDUserGeneratedContextTag) {
+        for blueprintSequence in blueprintMap.sortedSequences {
+            let targetSequence = (blueprintSequence.level == 0) ? greatestLevelSequence : createNewSequence(for: practiceContext.map!, baseSequence: blueprintSequence, greatestLevelSequence: greatestLevelSequence)
+
+            mergePractices(from: blueprintSequence, to: targetSequence, tag: tag)
+        }
+    }
+
+    private func mergePractices(from blueprintSequence: CDPracticeSequence, to targetSequence: CDPracticeSequence, tag: CDUserGeneratedContextTag) {
+        for blueprintPractice in blueprintSequence.sortedPractices {
+            _ = createPractice(from: blueprintPractice, sequence: targetSequence, tag: tag)
+        }
+    }
+
+    private func createPractice(from blueprintPractice: CDPractice, sequence: CDPracticeSequence, tag: CDUserGeneratedContextTag) -> CDPractice {
+        let emptyPractice = createEmptyPractice()
+        let standardRecord = createNewStateStandardRecord()
+
+        emptyPractice.record?.addToStandardRecordSet(standardRecord)
+        emptyPractice.serverProviededContent?.article = article
+        emptyPractice.order = blueprintPractice.order
+        emptyPractice.typeRawValue = blueprintPractice.typeRawValue
+        emptyPractice.userGeneratedContent?.userGeneratedContextTag = tag
+        emptyPractice.sequence = sequence
+        emptyPractice.deck = getDeck(from: blueprintPractice)
+
+        return emptyPractice
+    }
+
+    private func createNewPracticeMap(for tag: CDUserGeneratedContextTag, using text: String) {
+        let practiceContext = CoreDataManager.shared.createEntity(ofType: CDPracticeContext.self)
+        let newMap = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
+
+        practiceContext.id = UUID().uuidString
+        practiceContext.map = newMap
+        practiceContext.context = text
+        practiceContext.type = tag.typeRawValue
+
+        newMap.typeRawValue = PracticeMapType.practice.rawValue.toInt64
+
+        if let blueprintMap = getBlueprintMap() {
+            copyBlueprintSequences(from: blueprintMap, to: newMap, tag: tag)
+        }
+    }
+
+    private func copyBlueprintSequences(from blueprintMap: CDPracticeMap, to newMap: CDPracticeMap, tag: CDUserGeneratedContextTag) {
+        for sequence in blueprintMap.sortedSequences {
+            let newSequence = createNewSequence(for: newMap, baseSequence: sequence)
+            mergePractices(from: sequence, to: newSequence, tag: tag)
+        }
+    }
+
+    private func createNewSequence(for map: CDPracticeMap, baseSequence: CDPracticeSequence, greatestLevelSequence: CDPracticeSequence? = nil) -> CDPracticeSequence {
+        let newSequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
+        newSequence.id = UUID().uuidString
+        newSequence.level = (greatestLevelSequence?.level ?? 0) + baseSequence.level
+        newSequence.map = map
+        return newSequence
+    }
+
+    func removeRelatedCoreDatas(_ tag: CDUserGeneratedContextTag?) {
+        guard isValidTag(tag) else { return }
+
+        for userGeneratedContent in tag!.userGeneratedContents {
+            userGeneratedContent.practice?.isActive = false
+
+            guard let practice = userGeneratedContent.practice,
+                  let practiceMap = practice.sequence?.map,
+                  let deck = practice.deck,
+                  let latestPracticeStandardRecord = userGeneratedContent.practice?.latestPracticeStandardRecord else {
+                return
+            }
+
+            if latestPracticeStandardRecord.stateType == .new {
+                CoreDataManager.shared.deleteEntity(practice)
+            }
+
+            if !practiceMap.hasPractice {
+                CoreDataManager.shared.deleteEntity(practiceMap)
+            }
+
+            if !deck.hasPractice {
+                CoreDataManager.shared.deleteEntity(deck)
             }
         }
-        
-        return nil
     }
-    
+
+    private func findPracticeContext(matching text: String) -> CDPracticeContext? {
+        return CoreDataManager.shared.getAll(ofType: CDPracticeContext.self).first { $0.context?.lowercased() == text.lowercased() }
+    }
+
+    private func createDeck(from blueprintPracticeType: PracticeType) -> CDDeck {
+        let deck = CoreDataManager.shared.createEntity(ofType: CDDeck.self)
+        let preset = CoreDataManager.shared.createEntity(ofType: CDPracticePreset.self)
+        let standardPreset = createStandardPreset()
+
+        preset.standardPreset = standardPreset
+        assignStatusesToPreset(standardPreset)
+
+        deck.id = UUID().uuidString
+        deck.name = blueprintPracticeType.title
+        deck.preset = preset
+
+        return deck
+    }
+
+    private func createStandardPreset() -> CDPracticePresetStandard {
+        let standardPreset = CoreDataManager.shared.createEntity(ofType: CDPracticePresetStandard.self)
+        standardPreset.firstPracticeEase = 2.5
+
+        return standardPreset
+    }
+
+    private func assignStatusesToPreset(_ standardPreset: CDPracticePresetStandard) {
+        for standardStatusType in PracticeStandardStatusType.allCases {
+            let status = CoreDataManager.shared.createEntity(ofType: CDPracticeStatus.self)
+            status.easeAdjustment = standardStatusType.easeAdjustment
+            status.easeBonus = standardStatusType.easeBonus
+            status.firstPracticeInterval = standardStatusType.firstPracticeInterval
+            status.forgetInterval = standardStatusType.forgetInterval
+            status.order = standardStatusType.order.toInt64
+            status.title = standardStatusType.title
+            status.typeRawValue = standardStatusType.rawValue.toInt64
+            status.standardPreset = standardPreset
+        }
+    }
+
+    func getDeck(from blueprintPractice: CDPractice) -> CDDeck? {
+        guard let practiceType = blueprintPractice.type else {
+            return nil
+        }
+
+        if let deck = blueprintPractice.deck {
+            return deck
+        }
+
+        if let existDeck = CoreDataManager.shared.getFirstDeck(with: practiceType) {
+            blueprintPractice.deck = existDeck
+            return existDeck
+        }
+
+        let newDeck = createDeck(from: practiceType)
+        blueprintPractice.deck = newDeck
+
+        return newDeck
+    }
+
     func createNewStateStandardRecord() -> CDPracticeRecordStandard {
         let standardRecord = CoreDataManager.shared.createEntity(ofType: CDPracticeRecordStandard.self)
         standardRecord.dueDate = Date()
@@ -824,22 +871,22 @@ extension WordSelectorViewControllerViewModel {
         standardRecord.learnedDate = Date()
         standardRecord.stateRawValue = PracticeRecordStandardStateType.new.rawValue.toInt64
         standardRecord.statusRawValue = PracticeStandardStatusType.again.rawValue.toInt64
-        
+
         return standardRecord
     }
-    
+
     func createEmptyPractice() -> CDPractice {
         let userGeneratedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeUserGeneratedContent.self)
         let serverProvidedContent = CoreDataManager.shared.createEntity(ofType: CDPracticeServerProvidedContent.self)
         let record = CoreDataManager.shared.createEntity(ofType: CDPracticeRecord.self)
         let practice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
-        
+
         practice.id = UUID().uuidString
         practice.userGeneratedContent = userGeneratedContent
         practice.serverProviededContent = serverProvidedContent
         practice.record = record
         practice.isActive = true
-        
+
         return practice
     }
 }

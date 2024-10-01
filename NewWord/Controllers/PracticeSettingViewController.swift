@@ -252,7 +252,7 @@ extension PracticeSettingViewController: UICollectionViewDelegate {
             
         case .deck:
             let controller = SelectDeckViewController()
-            controller.practice = practice
+            controller.blueprintPractice = practice
             navigationController?.pushViewControllerWithCustomTransition(controller)
             
         case .practiceCompletionRules:

@@ -95,7 +95,7 @@ extension CoreDataManager {
         let deck = CDDeck(context: persistentContainer.viewContext)
         deck.name = name
         deck.id = UUID().uuidString
-        deck.preset = createDefaultPreset()
+//        deck.preset = createDefaultPreset()
         
         save()
 
@@ -331,92 +331,92 @@ extension CoreDataManager {
         return learningRecord
     }
     
-    func createLearningRecord(lastCard: CDCard, deck: CDDeck, isAnswerCorrect: Bool) -> CDLearningRecord {
-        let today: Date = Date()
-
-        // TODO: - 在新增learningRecord時增加說明
-        // TODO: - 調整 latestReview ease
-        // TODO: - 將答錯時，ease需要加上的趴數獨立出來
-        // TODO: - 需要調整 ease
-        // TODO: - 修改 dueDate 應該是 today 加上 computed interval
-
-        guard let latestLearningRecord = lastCard.latestLearningRecord else {
-            let startCard = deck.preset!.startCard!
-            
-            let dueDate: Date = isAnswerCorrect ? addInterval(to: today, dayInterval: Int(startCard.easyInterval))! : addInterval(to: today, secondInterval: startCard.learningStpes)
-            let statusRawValue = isAnswerCorrect ? CDLearningRecord.Status.correct.rawValue : CDLearningRecord.Status.incorrect.rawValue
-            
-            let learningRecord = createLearningRecord(dueDate: dueDate, ease: 2.5, learnedDate: today, stateRawValue: CDLearningRecord.State.learn.rawValue, statusRawValue: statusRawValue)
-            
-            return learningRecord
-        }
-        
-        let lastStatus =  latestLearningRecord.status
-        let lastState = latestLearningRecord.state
-        
-        let dueDate: Date
-        let newStatus: CDLearningRecord.Status
-        let newState: CDLearningRecord.State
-        
-        if isAnswerCorrect {
-            newStatus = .correct
-            
-            if lastCard.isMasterCard(belongs: deck) {
-                let newInterval = latestLearningRecord.interval * (latestLearningRecord.ease + 0.2)
-                dueDate = today.addingTimeInterval(newInterval)
-                newState = .master
-                
-            } else {
-                switch (lastState, lastStatus) {
-                case (.learn, .correct), (.review, .correct), (.relearn, .correct):
-                    let newInterval = latestLearningRecord.interval * (latestLearningRecord.ease + 0.2)
-                    dueDate = today.addingTimeInterval(newInterval)
-                    newState = .review
-                case (.learn, .incorrect):
-                    let interval = deck.preset!.startCard!.graduatingInterval
-                    dueDate = addInterval(to: today, dayInterval: Int(interval))!
-                    newState = .learn
-                case (.review, .incorrect), (.relearn, .incorrect):
-                    let newInterval = 1
-                    dueDate = addInterval(to: today, dayInterval: newInterval)!
-                    newState = .relearn
-                default:
-                    fatalError("Unknown state!")
-                }
-            }
-            
-        } else {
-            newStatus = .incorrect
-            
-            if lastCard.isLeachCard(belongs: deck) {
-                dueDate = today
-                newState = .leach
-                
-            } else {
-                switch (lastState, lastStatus) {
-                case (.learn, .correct), (.review, .correct), (.relearn, .correct):
-                    let relearningStpes = deck.preset!.lapses!.relearningSteps
-                    dueDate = addInterval(to: today, secondInterval: relearningStpes)
-                    newState = .review
-                    
-                case (.learn, .incorrect):
-                    let interval = deck.preset!.lapses!.relearningSteps
-                    dueDate = addInterval(to: today, secondInterval: interval)
-                    newState = .learn
-                    
-                case (.review, .incorrect), (.relearn, .incorrect):
-                    let interval = deck.preset!.lapses!.relearningSteps
-                    dueDate = addInterval(to: today, secondInterval: interval)
-                    newState = .relearn
-                    
-                default:
-                    fatalError("Unknown state!")
-                }
-            }
-        }
-
-        return createLearningRecord(dueDate: dueDate, ease: 2.5, learnedDate: today, stateRawValue: newState.rawValue, statusRawValue: newStatus.rawValue)
-    }
+//    func createLearningRecord(lastCard: CDCard, deck: CDDeck, isAnswerCorrect: Bool) -> CDLearningRecord {
+//        let today: Date = Date()
+//
+//        // TODO: - 在新增learningRecord時增加說明
+//        // TODO: - 調整 latestReview ease
+//        // TODO: - 將答錯時，ease需要加上的趴數獨立出來
+//        // TODO: - 需要調整 ease
+//        // TODO: - 修改 dueDate 應該是 today 加上 computed interval
+//
+//        guard let latestLearningRecord = lastCard.latestLearningRecord else {
+//            let startCard = deck.preset!.startCard!
+//            
+//            let dueDate: Date = isAnswerCorrect ? addInterval(to: today, dayInterval: Int(startCard.easyInterval))! : addInterval(to: today, secondInterval: startCard.learningStpes)
+//            let statusRawValue = isAnswerCorrect ? CDLearningRecord.Status.correct.rawValue : CDLearningRecord.Status.incorrect.rawValue
+//            
+//            let learningRecord = createLearningRecord(dueDate: dueDate, ease: 2.5, learnedDate: today, stateRawValue: CDLearningRecord.State.learn.rawValue, statusRawValue: statusRawValue)
+//            
+//            return learningRecord
+//        }
+//        
+//        let lastStatus =  latestLearningRecord.status
+//        let lastState = latestLearningRecord.state
+//        
+//        let dueDate: Date
+//        let newStatus: CDLearningRecord.Status
+//        let newState: CDLearningRecord.State
+//        
+//        if isAnswerCorrect {
+//            newStatus = .correct
+//            
+//            if lastCard.isMasterCard(belongs: deck) {
+//                let newInterval = latestLearningRecord.interval * (latestLearningRecord.ease + 0.2)
+//                dueDate = today.addingTimeInterval(newInterval)
+//                newState = .master
+//                
+//            } else {
+//                switch (lastState, lastStatus) {
+//                case (.learn, .correct), (.review, .correct), (.relearn, .correct):
+//                    let newInterval = latestLearningRecord.interval * (latestLearningRecord.ease + 0.2)
+//                    dueDate = today.addingTimeInterval(newInterval)
+//                    newState = .review
+//                case (.learn, .incorrect):
+//                    let interval = deck.preset!.startCard!.graduatingInterval
+//                    dueDate = addInterval(to: today, dayInterval: Int(interval))!
+//                    newState = .learn
+//                case (.review, .incorrect), (.relearn, .incorrect):
+//                    let newInterval = 1
+//                    dueDate = addInterval(to: today, dayInterval: newInterval)!
+//                    newState = .relearn
+//                default:
+//                    fatalError("Unknown state!")
+//                }
+//            }
+//            
+//        } else {
+//            newStatus = .incorrect
+//            
+//            if lastCard.isLeachCard(belongs: deck) {
+//                dueDate = today
+//                newState = .leach
+//                
+//            } else {
+//                switch (lastState, lastStatus) {
+//                case (.learn, .correct), (.review, .correct), (.relearn, .correct):
+//                    let relearningStpes = deck.preset!.lapses!.relearningSteps
+//                    dueDate = addInterval(to: today, secondInterval: relearningStpes)
+//                    newState = .review
+//                    
+//                case (.learn, .incorrect):
+//                    let interval = deck.preset!.lapses!.relearningSteps
+//                    dueDate = addInterval(to: today, secondInterval: interval)
+//                    newState = .learn
+//                    
+//                case (.review, .incorrect), (.relearn, .incorrect):
+//                    let interval = deck.preset!.lapses!.relearningSteps
+//                    dueDate = addInterval(to: today, secondInterval: interval)
+//                    newState = .relearn
+//                    
+//                default:
+//                    fatalError("Unknown state!")
+//                }
+//            }
+//        }
+//
+//        return createLearningRecord(dueDate: dueDate, ease: 2.5, learnedDate: today, stateRawValue: newState.rawValue, statusRawValue: newStatus.rawValue)
+//    }
 }
 
 // MARK: - Preset

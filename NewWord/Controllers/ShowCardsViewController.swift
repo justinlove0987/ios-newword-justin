@@ -123,7 +123,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
     }
 
     private func setupPracticeButtons() {
-        guard let statuses = viewModel.deck?.presetc?.standardPreset?.sortedStatuses else {
+        guard let statuses = viewModel.deck?.preset?.standardPreset?.sortedStatuses else {
             return
         }
         
@@ -249,7 +249,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
 
     private func updateAnswerButtonIntervals() {
         guard let practice = viewModel.getCurrentPractice() else { return }
-        guard let preset = deck?.presetc?.standardPreset else { return }
+        guard let preset = deck?.preset?.standardPreset else { return }
 
         for i in 0..<answerTypeStackView.arrangedSubviews.count {
             let subview = answerTypeStackView.arrangedSubviews[i]
