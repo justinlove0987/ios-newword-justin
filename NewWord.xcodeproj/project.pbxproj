@@ -59,7 +59,7 @@
 		2A89D86C2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A89D86B2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib */; };
 		2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */; };
 		2A9911DC2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9911DB2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift */; };
-		2A9911DE2CAB7FA3004F2625 /* NewPracticeTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9911DD2CAB7FA3004F2625 /* NewPracticeTypeViewController.swift */; };
+		2A9911DE2CAB7FA3004F2625 /* PracticeTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9911DD2CAB7FA3004F2625 /* PracticeTypeViewController.swift */; };
 		2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */; };
 		2A9C73A82C9C08FF006690A5 /* TimeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C73A72C9C08FF006690A5 /* TimeConverter.swift */; };
 		2A9C73AB2C9C0D28006690A5 /* CDPracticePresetStandard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C73A92C9C0D28006690A5 /* CDPracticePresetStandard+Extension.swift */; };
@@ -199,7 +199,7 @@
 		2A89D86B2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeModeSelectorView.xib; sourceTree = "<group>"; };
 		2A89D86D2C74721600DDBFF0 /* PracticeModeSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeSelectorView.swift; sourceTree = "<group>"; };
 		2A9911DB2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableRadioButtonCollectionViewController.swift; sourceTree = "<group>"; };
-		2A9911DD2CAB7FA3004F2625 /* NewPracticeTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPracticeTypeViewController.swift; sourceTree = "<group>"; };
+		2A9911DD2CAB7FA3004F2625 /* PracticeTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeTypeViewController.swift; sourceTree = "<group>"; };
 		2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevisePresetViewController.swift; sourceTree = "<group>"; };
 		2A9C73A72C9C08FF006690A5 /* TimeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConverter.swift; sourceTree = "<group>"; };
 		2A9C73A92C9C0D28006690A5 /* CDPracticePresetStandard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticePresetStandard+Extension.swift"; sourceTree = "<group>"; };
@@ -470,7 +470,7 @@
 				D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */,
 				2AFC91462C7C4BB9002C2AD1 /* PracticeMapViewController.swift */,
 				2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */,
-				2A9911DD2CAB7FA3004F2625 /* NewPracticeTypeViewController.swift */,
+				2A9911DD2CAB7FA3004F2625 /* PracticeTypeViewController.swift */,
 				2A2BBF5B2CAA40E100BA02F2 /* PracticeCompletionViewController.swift */,
 				2A9911DB2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift */,
 			);
@@ -662,7 +662,7 @@
 				2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */,
 				2A6BA1442C63622B00F0DE3F /* FirebaseManager.swift in Sources */,
 				2AFE839D2C893FC600C5AA33 /* UIColor+Extension.swift in Sources */,
-				2A9911DE2CAB7FA3004F2625 /* NewPracticeTypeViewController.swift in Sources */,
+				2A9911DE2CAB7FA3004F2625 /* PracticeTypeViewController.swift in Sources */,
 				2A7B6CD12C080A900017BB5C /* StoryboardGenerated.swift in Sources */,
 				2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */,
 				2A9911DC2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift in Sources */,

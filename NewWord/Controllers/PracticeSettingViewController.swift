@@ -242,7 +242,7 @@ extension PracticeSettingViewController: UICollectionViewDelegate {
         
         switch row {
         case .practiceType:
-            let controller = NewPracticeTypeViewController()
+            let controller = PracticeTypeViewController()
             controller.practice = practice
             navigationController?.pushViewControllerWithCustomTransition(controller)
             
