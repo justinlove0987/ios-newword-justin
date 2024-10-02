@@ -848,11 +848,13 @@ extension CoreDataManager {
         return createDeck(from: blueprintPracticeType)
     }
 
-    private func createDeck(from blueprintPracticeType: PracticeType) -> CDDeck {
+    private func createDeck(from practiceTypeBlueprint: PracticeType) -> CDDeck {
         let deck = createEntity(ofType: CDDeck.self)
         deck.id = UUID().uuidString
-        deck.name = blueprintPracticeType.title
+        deck.name = practiceTypeBlueprint.title
+        deck.practiceTypeRawValue = practiceTypeBlueprint.rawValue.toInt64
         deck.preset = createDeckPreset()
+        deck.generationTypeRawValue = GenerationType.systemGenerated.rawValue.toInt64
 
         return deck
     }

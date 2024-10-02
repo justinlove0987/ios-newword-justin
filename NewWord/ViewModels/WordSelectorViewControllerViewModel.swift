@@ -740,7 +740,7 @@ extension WordSelectorViewControllerViewModel {
         emptyPractice.typeRawValue = blueprintPractice.typeRawValue
         emptyPractice.userGeneratedContent?.userGeneratedContextTag = tag
         emptyPractice.sequence = sequence
-        emptyPractice.deck = getDeck(from: blueprintPractice)
+        emptyPractice.deck = blueprintPractice.deck
 
         return emptyPractice
     }
@@ -783,22 +783,16 @@ extension WordSelectorViewControllerViewModel {
             userGeneratedContent.practice?.isActive = false
 
             guard let practice = userGeneratedContent.practice,
-                  let practiceMap = practice.sequence?.map,
-                  let deck = practice.deck,
-                  let latestPracticeStandardRecord = userGeneratedContent.practice?.latestPracticeStandardRecord else {
+                  let practiceMap = practice.sequence?.map else {
                 return
             }
 
-            if latestPracticeStandardRecord.stateType == .new {
+            if practice.isLatestPracticeStandardRecordStateTypeNew {
                 CoreDataManager.shared.deleteEntity(practice)
             }
 
             if !practiceMap.hasPractice {
                 CoreDataManager.shared.deleteEntity(practiceMap)
-            }
-
-            if !deck.hasPractice {
-                CoreDataManager.shared.deleteEntity(deck)
             }
         }
     }
@@ -841,26 +835,6 @@ extension WordSelectorViewControllerViewModel {
             status.typeRawValue = standardStatusType.rawValue.toInt64
             status.standardPreset = standardPreset
         }
-    }
-
-    func getDeck(from blueprintPractice: CDPractice) -> CDDeck? {
-        guard let practiceType = blueprintPractice.type else {
-            return nil
-        }
-
-        if let deck = blueprintPractice.deck {
-            return deck
-        }
-
-//        if let existDeck = CoreDataManager.shared.getFirstDeck(with: practiceType) {
-//            blueprintPractice.deck = existDeck
-//            return existDeck
-//        }
-
-        let newDeck = createDeck(from: practiceType)
-        blueprintPractice.deck = newDeck
-
-        return newDeck
     }
 
     func createNewStateStandardRecord() -> CDPracticeRecordStandard {

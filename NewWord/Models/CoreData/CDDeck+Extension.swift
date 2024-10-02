@@ -9,13 +9,34 @@
 import Foundation
 import CoreData
 
+enum GenerationType: Int, CaseIterable {
+    case userGenerated
+    case systemGenerated
+}
+
 @objc(CDDeck)
 public class CDDeck: NSManagedObject {
 
 }
 
 extension CDDeck {
-    
+
+    var isUserGenerated: Bool {
+        return generationType == .userGenerated
+    }
+
+    var isSystemGeneratedWithPractice: Bool {
+        return generationType == .systemGenerated && hasPractice
+    }
+
+    var generationType: GenerationType? {
+        guard let type = GenerationType(rawValue: Int(generationTypeRawValue)) else {
+            return nil
+        }
+
+        return type
+    }
+
     var practiceType: PracticeType? {
         guard let type = PracticeType(rawValue: Int(practiceTypeRawValue)) else {
             return nil
@@ -25,6 +46,14 @@ extension CDDeck {
     }
 
     var hasPractice: Bool {
+        return practices.count > 0
+    }
+
+    var practices: [CDPractice] {
+        guard let practices = self.practiceSet as? Set<CDPractice> else {
+            return []
+        }
+
         let filteredPractices = practices.filter { practice in
             guard let mapType = practice.sequence?.map?.type else {
                 return true
@@ -33,15 +62,7 @@ extension CDDeck {
             return mapType == .practice
         }
 
-        return filteredPractices.count > 0
-    }
-
-    var practices: [CDPractice] {
-        guard let practices = self.practiceSet as? Set<CDPractice> else {
-            return []
-        }
-
-        return Array(practices)
+        return Array(filteredPractices)
     }
     
     var newPractices: [CDPractice] {

@@ -17,6 +17,8 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
     
     var dataSource: UITableViewDiffableDataSource<Int, CDDeck>!
 
+    private var decks: [CDDeck] = []
+
     // MARK: - Lifecycles
 
     override func viewDidLoad() {
@@ -26,25 +28,27 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        updateData()
         updateDataSource()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
 
     // MARK: - Helpers
 
     private func setup() {
+        updateData()
         setupDataSource()
         setupNotifications()
         setupProperties()
     }
 
-    private func setupProperties() {
-        tableView.register(UINib(nibName: DeckCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: DeckCell.reuseIdentifier)
+    private func updateData() {
+        let decks = CoreDataManager.shared.getAll(ofType: CDDeck.self)
 
-        addButton.addDefaultBorder(cornerRadius: 10)
+        let filteredDecks = decks.filter { deck in
+            return deck.isUserGenerated || deck.isSystemGeneratedWithPractice
+        }
+
+        self.decks = filteredDecks
     }
 
     private func setupDataSource() {
@@ -80,9 +84,13 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
         NotificationCenter.default.addObserver(self, selector: #selector(handleDeckUpdate(notification:)), name: .deckDidUpdate, object: nil)
     }
 
-    private func updateDataSource() {
-        let decks = CoreDataManager.shared.getDecks()
+    private func setupProperties() {
+        tableView.register(UINib(nibName: DeckCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: DeckCell.reuseIdentifier)
 
+        addButton.addDefaultBorder(cornerRadius: 10)
+    }
+
+    private func updateDataSource() {
         var snapshot = NSDiffableDataSourceSnapshot<Int, CDDeck>()
         snapshot.appendSections([0])
         snapshot.appendItems(decks, toSection: 0)

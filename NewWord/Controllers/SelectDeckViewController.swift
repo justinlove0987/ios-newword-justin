@@ -38,13 +38,17 @@ class SelectDeckViewController: ReusableCollectionViewController<SelectDeckItemT
             return
         }
         
-        let decks = CoreDataManager.shared.getAll(ofType: CDDeck.self)
-        
+        var decks = CoreDataManager.shared.getAll(ofType: CDDeck.self)
+
+
+        decks = decks.filter { deck in
+            return deck.practiceType == blueprintPracticeType || deck.practiceType == nil
+        }
+
         let sortedDecks = decks.sorted { lDeck, rDeck in
             if lDeck.practiceType == blueprintPracticeType || rDeck.practiceType == blueprintPracticeType {
                 return lDeck.practiceType == blueprintPracticeType
             }
-            
             
             guard let lName = lDeck.name,
                   let rName = rDeck.name else {
@@ -64,23 +68,13 @@ class SelectDeckViewController: ReusableCollectionViewController<SelectDeckItemT
     }
     
     private func setupSelectedItem() {
-        guard let blueprintPractice,
-              let blurprintPracticeType = blueprintPractice.type else {
+        guard let blueprintPractice else {
             return
         }
         
         if let blueprintDeck = blueprintPractice.deck {
             selectedItem = SelectDeckItemType.existingDeck(blueprintDeck)
             return
-        }
-        
-        let decks = CoreDataManager.shared.getAll(ofType: CDDeck.self)
-        
-        for deck in decks {
-            if deck.practiceType == blurprintPracticeType {
-                selectedItem = SelectDeckItemType.existingDeck(deck)
-                return
-            }
         }
     }
     

@@ -56,6 +56,14 @@ extension CDPractice {
             return lDueDate < rDueDate
         }
     }
+
+    var isLatestPracticeStandardRecordStateTypeNew: Bool {
+        guard let latestPracticeStandardRecord else {
+            return true
+        }
+
+        return latestPracticeStandardRecord.stateType == .new
+    }
 }
 
 extension CDPractice {

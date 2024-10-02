@@ -30,6 +30,7 @@
         <relationship name="cloze" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDCloze" inverseName="context" inverseEntity="CDCloze"/>
     </entity>
     <entity name="CDDeck" representedClassName="CDDeck" syncable="YES" codeGenerationType="category">
+        <attribute name="generationTypeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="practiceTypeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
