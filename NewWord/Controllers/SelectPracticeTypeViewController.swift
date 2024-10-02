@@ -10,7 +10,7 @@ import UIKit
 // Subclass for PracticeType
 class SelectPracticeTypeViewController: ReusableCollectionViewController<PracticeType> {
     
-    var practice: CDPractice?
+    var practiceBlueprint: CDPractice?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,7 @@ class SelectPracticeTypeViewController: ReusableCollectionViewController<Practic
     private func setupData() {
         self.items = PracticeType.allCases
         
-        guard let practiceType = practice?.type else { return }
+        guard let practiceType = practiceBlueprint?.type else { return }
         
         for currentPracticeType in PracticeType.allCases {
             let isSelected = currentPracticeType.rawValue == practiceType.rawValue
@@ -41,8 +41,9 @@ class SelectPracticeTypeViewController: ReusableCollectionViewController<Practic
         super.collectionView(collectionView, didSelectItemAt: indexPath)
         
         let selectedPracticeType = items[indexPath.row]
-        
-        practice?.typeRawValue = selectedPracticeType.rawValue.toInt64
+
+        updateData(with: selectedPracticeType)
+
     }
     
     override func cellProvider(
@@ -54,5 +55,18 @@ class SelectPracticeTypeViewController: ReusableCollectionViewController<Practic
         cell.configure(row: itemIdentifier)
         return cell
     }
+
+    private func updateData(with selectedPracticeType: PracticeType) {
+        practiceBlueprint?.typeRawValue = selectedPracticeType.rawValue.toInt64
+
+        guard let deckGenerationType = practiceBlueprint?.deck?.generationType,
+              deckGenerationType == .systemGenerated else {
+            return
+        }
+
+        practiceBlueprint?.deck = CoreDataManager.shared.getAll(ofType: CDDeck.self)
+            .first { $0.generationType == .systemGenerated && $0.practiceType == selectedPracticeType }
+    }
+
 }
 
