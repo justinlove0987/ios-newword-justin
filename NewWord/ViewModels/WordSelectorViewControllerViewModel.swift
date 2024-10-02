@@ -852,10 +852,10 @@ extension WordSelectorViewControllerViewModel {
             return deck
         }
 
-        if let existDeck = CoreDataManager.shared.getFirstDeck(with: practiceType) {
-            blueprintPractice.deck = existDeck
-            return existDeck
-        }
+//        if let existDeck = CoreDataManager.shared.getFirstDeck(with: practiceType) {
+//            blueprintPractice.deck = existDeck
+//            return existDeck
+//        }
 
         let newDeck = createDeck(from: practiceType)
         blueprintPractice.deck = newDeck

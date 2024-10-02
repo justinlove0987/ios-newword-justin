@@ -28,7 +28,7 @@
             </objects>
             <point key="canvasLocation" x="5738.1679389312976" y="776.76056338028172"/>
         </scene>
-        <!--Review View Controller-->
+        <!--練習-->
         <scene sceneID="gZK-6a-Dpi">
             <objects>
                 <viewController storyboardIdentifier="ReviewViewController" id="q0q-gF-HWm" customClass="ReviewViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
@@ -67,7 +67,7 @@
                             <constraint firstItem="ceV-BR-XvJ" firstAttribute="top" secondItem="qT2-jy-IAt" secondAttribute="top" constant="20" id="x49-7S-1oT"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="eeu-U7-JpZ"/>
+                    <navigationItem key="navigationItem" title="練習" id="eeu-U7-JpZ"/>
                     <connections>
                         <outlet property="addButton" destination="cbz-OJ-oNV" id="18q-K2-wHp"/>
                         <outlet property="tableView" destination="ceV-BR-XvJ" id="qZl-FU-p01"/>
@@ -983,7 +983,7 @@
             </objects>
             <point key="canvasLocation" x="-724" y="2273"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--設定-->
         <scene sceneID="Fda-51-NXx">
             <objects>
                 <viewController id="nbz-d4-gBP" customClass="SettingsViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
@@ -996,20 +996,20 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingCell" id="A5l-Xh-hd9" customClass="SettingCell" customModule="NewWord" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="353" height="52.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="353" height="53.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A5l-Xh-hd9" id="aqB-lT-EXF">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="52.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="53.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="聯絡我們" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9DP-tt-vs9">
-                                                    <rect key="frame" x="20" y="16" width="67.666666666666671" height="20.666666666666671"/>
+                                                    <rect key="frame" x="20" y="16" width="67.666666666666671" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="title"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="justin.tseng.developer@gamil.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcD-KO-SnQ">
-                                                    <rect key="frame" x="139" y="19.333333333333332" width="194" height="14.333333333333332"/>
+                                                    <rect key="frame" x="139" y="19.666666666666668" width="194" height="14.333333333333332"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" name="description"/>
                                                     <nil key="highlightedColor"/>
@@ -1046,7 +1046,7 @@
                             <constraint firstItem="YAr-hj-uGd" firstAttribute="leading" secondItem="4xs-1u-cdl" secondAttribute="leading" constant="20" id="y1d-tO-PVF"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="BuN-56-WcG"/>
+                    <navigationItem key="navigationItem" title="設定" id="BuN-56-WcG"/>
                     <connections>
                         <outlet property="tableView" destination="YAr-hj-uGd" id="9Hg-Gm-yWb"/>
                     </connections>
@@ -1343,7 +1343,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
             </objects>
             <point key="canvasLocation" x="7052.6717557251905" y="716.90140845070425"/>
         </scene>
-        <!--Search View Controller-->
+        <!--搜尋-->
         <scene sceneID="zm3-m9-kG9">
             <objects>
                 <viewController storyboardIdentifier="SearchViewController" id="D0N-pH-E9B" customClass="SearchViewController" customModule="NewWord" customModuleProvider="target" sceneMemberID="viewController">
@@ -1394,7 +1394,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                             <constraint firstItem="IzJ-si-fWz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jph-08-094" secondAttribute="leading" symbolic="YES" id="oR0-I7-DnL"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="nyB-Nh-QO5"/>
+                    <navigationItem key="navigationItem" title="搜尋" id="nyB-Nh-QO5"/>
                     <connections>
                         <outlet property="deckFilterButton" destination="IzJ-si-fWz" id="wjS-hB-ByB"/>
                         <outlet property="searchViewController" destination="38C-zP-s4j" id="V5m-dL-Mlt"/>

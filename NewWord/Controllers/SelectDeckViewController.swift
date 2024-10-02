@@ -8,14 +8,10 @@
 import UIKit
 
 enum SelectDeckItemType: Hashable {
-    case autoCreate
     case existingDeck(CDDeck)
     
     var title: String {
         switch self {
-        case .autoCreate:
-            return "自動新增"
-            
         case .existingDeck(let deck):
             guard let title = deck.name else {
                 return "未命名"
@@ -38,8 +34,18 @@ class SelectDeckViewController: ReusableCollectionViewController<SelectDeckItemT
     }
     
     private func setupItems() {
+        guard let blueprintPracticeType = blueprintPractice?.type else {
+            return
+        }
+        
         let decks = CoreDataManager.shared.getAll(ofType: CDDeck.self)
+        
         let sortedDecks = decks.sorted { lDeck, rDeck in
+            if lDeck.practiceType == blueprintPracticeType || rDeck.practiceType == blueprintPracticeType {
+                return lDeck.practiceType == blueprintPracticeType
+            }
+            
+            
             guard let lName = lDeck.name,
                   let rName = rDeck.name else {
                 return false
@@ -50,8 +56,6 @@ class SelectDeckViewController: ReusableCollectionViewController<SelectDeckItemT
         
         var items: [SelectDeckItemType] = []
         
-        items.append(SelectDeckItemType.autoCreate)
-        
         for deck in sortedDecks {
             items.append(SelectDeckItemType.existingDeck(deck))
         }
@@ -61,7 +65,7 @@ class SelectDeckViewController: ReusableCollectionViewController<SelectDeckItemT
     
     private func setupSelectedItem() {
         guard let blueprintPractice,
-              let practiceType = blueprintPractice.type else {
+              let blurprintPracticeType = blueprintPractice.type else {
             return
         }
         
@@ -70,15 +74,14 @@ class SelectDeckViewController: ReusableCollectionViewController<SelectDeckItemT
             return
         }
         
-        if let existDeck = CoreDataManager.shared.getFirstDeck(with: practiceType) {
-            blueprintPractice.deck = existDeck
-            selectedItem = SelectDeckItemType.existingDeck(existDeck)
-            return
+        let decks = CoreDataManager.shared.getAll(ofType: CDDeck.self)
+        
+        for deck in decks {
+            if deck.practiceType == blurprintPracticeType {
+                selectedItem = SelectDeckItemType.existingDeck(deck)
+                return
+            }
         }
-
-        blueprintPractice.deck = nil
-        selectedItem = SelectDeckItemType.autoCreate
-
     }
     
     private func setupProperties() {
@@ -92,8 +95,6 @@ class SelectDeckViewController: ReusableCollectionViewController<SelectDeckItemT
         let selectedDeckType = items[indexPath.row]
         
         switch selectedDeckType {
-        case .autoCreate:
-            break
             
         case .existingDeck(let deck):
             blueprintPractice?.deck = deck

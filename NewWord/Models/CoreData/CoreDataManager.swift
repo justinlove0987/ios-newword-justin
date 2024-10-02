@@ -204,8 +204,6 @@ extension CoreDataManager {
             return nil
         }
     }
-
-    
 }
 
 // MARK: - Card
@@ -807,12 +805,13 @@ extension CoreDataManager {
                 sequence.map = map
                 
                 for j in 0..<sequenceBluprint.count {
-                    let practiceBlueprint = sequenceBluprint[j]
+                    let practiceTypeBlueprint = sequenceBluprint[j]
                     let practice = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
                     
                     practice.order = j.toInt64
-                    practice.typeRawValue = practiceBlueprint.rawValue.toInt64
+                    practice.typeRawValue = practiceTypeBlueprint.rawValue.toInt64
                     practice.sequence = sequence
+                    practice.deck = getOrCreateSystemGeneratedDecks(for: practiceTypeBlueprint)
                     
                 }
             }
@@ -825,17 +824,63 @@ extension CoreDataManager {
 // MARK: CDPractice
 
 extension CoreDataManager {
-    func getFirstDeck(with practiceType: PracticeType) -> CDDeck? {
-        let practices = CoreDataManager.shared.getAll(ofType: CDPractice.self)
-        
-        for practice in practices {
-            if practice.type == practiceType && practice.deck != nil {
-                return practice.deck
-            }
-        }
-        
-        return nil
-    }
+//    func getFirstDeck(with practiceType: PracticeType) -> CDDeck? {
+//        let practices = CoreDataManager.shared.getAll(ofType: CDPractice.self)
+//        
+//        for practice in practices {
+//            if practice.type == practiceType && practice.deck != nil {
+//                return practice.deck
+//            }
+//        }
+//        
+//        return nil
+//    }
 }
 
+// MARK: CDDeck
 
+extension CoreDataManager {
+    func getOrCreateSystemGeneratedDecks(for blueprintPracticeType: PracticeType) -> CDDeck {
+        if let existingDeck = CoreDataManager.shared.getAll(ofType: CDDeck.self)
+            .first(where: { $0.practiceType == blueprintPracticeType }) {
+            return existingDeck
+        }
+        return createDeck(from: blueprintPracticeType)
+    }
+
+    private func createDeck(from blueprintPracticeType: PracticeType) -> CDDeck {
+        let deck = createEntity(ofType: CDDeck.self)
+        deck.id = UUID().uuidString
+        deck.name = blueprintPracticeType.title
+        deck.preset = createDeckPreset()
+
+        return deck
+    }
+
+    private func createDeckPreset() -> CDPracticePreset {
+        let preset = createEntity(ofType: CDPracticePreset.self)
+        preset.standardPreset = createDeckStandardPreset()
+        assignStatusesToPreset(preset.standardPreset!)
+        return preset
+    }
+
+    private func createDeckStandardPreset() -> CDPracticePresetStandard {
+        let standardPreset = createEntity(ofType: CDPracticePresetStandard.self)
+        standardPreset.firstPracticeEase = 2.5
+        return standardPreset
+    }
+
+    private func assignStatusesToPreset(_ standardPreset: CDPracticePresetStandard) {
+        PracticeStandardStatusType.allCases.forEach { standardStatusType in
+            let status = createEntity(ofType: CDPracticeStatus.self)
+            status.easeAdjustment = standardStatusType.easeAdjustment
+            status.easeBonus = standardStatusType.easeBonus
+            status.firstPracticeInterval = standardStatusType.firstPracticeInterval
+            status.forgetInterval = standardStatusType.forgetInterval
+            status.order = standardStatusType.order.toInt64
+            status.title = standardStatusType.title
+            status.typeRawValue = standardStatusType.rawValue.toInt64
+            status.standardPreset = standardPreset
+        }
+    }
+}

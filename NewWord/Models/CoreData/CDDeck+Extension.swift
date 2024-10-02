@@ -9,13 +9,20 @@
 import Foundation
 import CoreData
 
-
 @objc(CDDeck)
 public class CDDeck: NSManagedObject {
 
 }
 
 extension CDDeck {
+    
+    var practiceType: PracticeType? {
+        guard let type = PracticeType(rawValue: Int(practiceTypeRawValue)) else {
+            return nil
+        }
+        
+        return type
+    }
 
     var hasPractice: Bool {
         let filteredPractices = practices.filter { practice in

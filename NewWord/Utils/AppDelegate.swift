@@ -37,6 +37,8 @@ extension AppDelegate {
         
         CoreDataManager.shared.deleteAllEntities()
         
+        
+        
         if !CoreDataManager.shared.hasPracticeMap() {
             CoreDataManager.shared.createPracticeMapBlueprint()
         }
