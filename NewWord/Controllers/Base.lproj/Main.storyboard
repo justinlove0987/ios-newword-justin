@@ -36,13 +36,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ceV-BR-XvJ">
-                                <rect key="frame" x="0.0" y="123" width="393" height="571.66666666666663"/>
-                                <color key="backgroundColor" name="background"/>
-                                <connections>
-                                    <outlet property="delegate" destination="q0q-gF-HWm" id="9Kz-0f-Oy9"/>
-                                </connections>
-                            </tableView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbz-OJ-oNV">
                                 <rect key="frame" x="326" y="714.66666666666663" width="47" height="34.333333333333371"/>
                                 <color key="tintColor" name="background"/>
@@ -54,23 +47,29 @@
                                     <action selector="addClozeAction:" destination="q0q-gF-HWm" eventType="touchUpInside" id="yff-YF-Hp9"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZQC-Ib-RRU">
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <color key="backgroundColor" name="background"/>
+                                <collectionViewLayout key="collectionViewLayout" id="UZq-6N-gfa"/>
+                                <cells/>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qT2-jy-IAt"/>
                         <color key="backgroundColor" name="background"/>
                         <constraints>
+                            <constraint firstItem="qT2-jy-IAt" firstAttribute="bottom" secondItem="ZQC-Ib-RRU" secondAttribute="bottom" id="8sP-Sb-1mq"/>
+                            <constraint firstItem="qT2-jy-IAt" firstAttribute="trailing" secondItem="ZQC-Ib-RRU" secondAttribute="trailing" id="9Sd-NJ-bDo"/>
+                            <constraint firstItem="ZQC-Ib-RRU" firstAttribute="leading" secondItem="qT2-jy-IAt" secondAttribute="leading" id="FGz-wG-vXz"/>
+                            <constraint firstItem="ZQC-Ib-RRU" firstAttribute="top" secondItem="qT2-jy-IAt" secondAttribute="top" id="FY4-p1-8Kw"/>
                             <constraint firstItem="cbz-OJ-oNV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qT2-jy-IAt" secondAttribute="leading" symbolic="YES" id="GQe-eG-y9n"/>
                             <constraint firstItem="qT2-jy-IAt" firstAttribute="bottom" secondItem="cbz-OJ-oNV" secondAttribute="bottom" constant="20" id="HdQ-V0-Yv9"/>
-                            <constraint firstItem="cbz-OJ-oNV" firstAttribute="top" secondItem="ceV-BR-XvJ" secondAttribute="bottom" constant="20" id="Kkh-ku-Xlj"/>
                             <constraint firstItem="qT2-jy-IAt" firstAttribute="trailing" secondItem="cbz-OJ-oNV" secondAttribute="trailing" constant="20" id="VEL-jd-roh"/>
-                            <constraint firstItem="ceV-BR-XvJ" firstAttribute="leading" secondItem="qT2-jy-IAt" secondAttribute="leading" id="ZRj-td-AJF"/>
-                            <constraint firstItem="qT2-jy-IAt" firstAttribute="trailing" secondItem="ceV-BR-XvJ" secondAttribute="trailing" id="afS-vH-7OU"/>
-                            <constraint firstItem="ceV-BR-XvJ" firstAttribute="top" secondItem="qT2-jy-IAt" secondAttribute="top" constant="20" id="x49-7S-1oT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="練習" id="eeu-U7-JpZ"/>
                     <connections>
                         <outlet property="addButton" destination="cbz-OJ-oNV" id="18q-K2-wHp"/>
-                        <outlet property="tableView" destination="ceV-BR-XvJ" id="qZl-FU-p01"/>
+                        <outlet property="collectionView" destination="ZQC-Ib-RRU" id="kTs-ID-Rqi"/>
                         <segue destination="tBG-Wb-S5D" kind="show" id="Qsp-UN-Y6N"/>
                         <segue destination="hoP-lT-ZG6" kind="show" id="Vvc-fn-fQx"/>
                     </connections>
@@ -1529,16 +1528,7 @@ Environmental sustainability has become a crucial issue in today's world. With t
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="1bD-jX-3Ut">
-                                        <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="g1F-WB-WOm">
-                                            <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
+                                <cells/>
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QHX-PM-by9"/>

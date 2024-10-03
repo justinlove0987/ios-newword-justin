@@ -8,14 +8,28 @@
 import UIKit
 
 class ReviewViewController: UIViewController, StoryboardGenerated {
+
     static var storyboardName: String = "Main"
 
+    enum SectionIdentifier: Int, CaseIterable, Hashable {
+        case first
+        case second
+    }
+
+    enum ItemIdentifer: Hashable {
+        case allPractices
+        case againToday
+        case practiceByDeck(CDDeck)
+    }
+
     // MARK: - Properties
-    
-    @IBOutlet weak var tableView: UITableView!
+
     @IBOutlet weak var addButton: UIButton!
-    
-    var dataSource: UITableViewDiffableDataSource<Int, CDDeck>!
+    @IBOutlet weak var collectionView: UICollectionView!
+
+    var dataSource: UICollectionViewDiffableDataSource<SectionIdentifier, ItemIdentifer>!
+
+    var sections: [SectionIdentifier: [ItemIdentifer]] = [:]
 
     private var decks: [CDDeck] = []
 
@@ -29,16 +43,17 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateData()
-        updateDataSource()
+        updateSnapshot()
     }
 
     // MARK: - Helpers
 
     private func setup() {
         updateData()
-        setupDataSource()
-        setupNotifications()
+        setupCollectionView()
         setupProperties()
+        updateSnapshot()
+        // setupNotifications()
     }
 
     private func updateData() {
@@ -48,83 +63,119 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
             return deck.isUserGenerated || deck.isSystemGeneratedWithPractice
         }
 
-        self.decks = filteredDecks
+        let deckItems = filteredDecks.map { ItemIdentifer.practiceByDeck($0) }
+
+        sections = [
+            .first: [.allPractices, .againToday],
+            .second: deckItems
+        ]
     }
 
-    private func setupDataSource() {
-        dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
-            let cell = tableView.dequeueReusableCell(withIdentifier: DeckCell.reuseIdentifier, for: indexPath) as! DeckCell
-            
-            let newCards = itemIdentifier.newPractices
-            let relearnCards = itemIdentifier.relearnPractices
-            let reviewCards = itemIdentifier.reviewPractices
+    private func setupCollectionView() {
+        collectionView.register(UINib(nibName: DeckPracticeCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: DeckPracticeCell.reuseIdentifier)
+        collectionView.register(UINib(nibName: SingleDeckPracticeCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: SingleDeckPracticeCell.reuseIdentifier)
+        dataSource = createDataSource()
+        collectionView.dataSource = dataSource
+        collectionView.collectionViewLayout = createCollectionViewLayout()
+        collectionView.delegate = self
+    }
 
-            cell.deck = itemIdentifier
-            cell.nameLabel.text = itemIdentifier.name
-            cell.newLabel.text = "\(newCards.count)"
-            cell.relearnLabel.text = "\(relearnCards.count)"
-            cell.reviewLabel.text = "\(reviewCards.count)"
+    private func createDataSource() -> UICollectionViewDiffableDataSource<SectionIdentifier, ItemIdentifer> {
+        let dataSource = UICollectionViewDiffableDataSource<SectionIdentifier, ItemIdentifer>(
+            collectionView: collectionView,
+            cellProvider: cellProvider
+        )
 
-            cell.settingAction = {
-                let vc = ReviseDeckViewController.instantiate()
-                
-                vc.deck = itemIdentifier
-                
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+        return dataSource
+    }
+
+    func cellProvider(
+        collectionView: UICollectionView,
+        indexPath: IndexPath,
+        itemIdentifier: ItemIdentifer
+    ) -> UICollectionViewCell? {
+
+        switch itemIdentifier {
+
+        case .allPractices, .againToday:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeckPracticeCell.reuseIdentifier, for: indexPath) as! DeckPracticeCell
+            cell.configureUI(with: itemIdentifier)
             return cell
-        })
-        
-        tableView.dataSource = dataSource
 
-        updateDataSource()
+        case .practiceByDeck(_):
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SingleDeckPracticeCell.reuseIdentifier, for: indexPath) as! SingleDeckPracticeCell
+            cell.configureUI(with: itemIdentifier)
+            return cell
+        }
     }
-    
-    private func setupNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleDeckUpdate(notification:)), name: .deckDidUpdate, object: nil)
+
+    private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { [weak self] (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            guard let self = self else { return nil }
+
+            let sectionIdentifier = ReviewViewController.SectionIdentifier.allCases[sectionIndex]
+
+            let item = self.createItem(for: sectionIdentifier)
+            let group = self.createGroup(for: sectionIdentifier, with: item)
+            let section = self.createSection(for: sectionIdentifier, with: group)
+
+            return section
+        }
     }
 
     private func setupProperties() {
-        tableView.register(UINib(nibName: DeckCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: DeckCell.reuseIdentifier)
-
         addButton.addDefaultBorder(cornerRadius: 10)
     }
 
-    private func updateDataSource() {
-        var snapshot = NSDiffableDataSourceSnapshot<Int, CDDeck>()
-        snapshot.appendSections([0])
-        snapshot.appendItems(decks, toSection: 0)
+    private func updateSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<SectionIdentifier, ItemIdentifer>()
+
+        let sortedSections = sections.keys.sorted(by: { $0.rawValue < $1.rawValue })
+
+        for section in sortedSections {
+            snapshot.appendSections([section])
+
+            if let item = sections[section] {
+                snapshot.appendItems(item, toSection: section)
+            }
+
+        }
 
         dataSource.apply(snapshot)
-        tableView.reloadData()
+        collectionView.dataSource = dataSource
+        collectionView.reloadData()
     }
 
     // MARK: - Actions
 
-    @IBAction func addDeckAction(_ sender: UIButton) {
-        let alert = UIAlertController(title: "新增空白牌組", message: nil, preferredStyle: .alert)
+//    @IBAction func addDeckAction(_ sender: UIButton) {
+//        let alert = UIAlertController(title: "新增空白牌組", message: nil, preferredStyle: .alert)
+//
+//        alert.addTextField { (textField) in
+//            textField.placeholder = "牌組名稱"
+//        }
+//
+//        let cancel = UIAlertAction(title: "取消", style: .cancel)
+//        let confirm = UIAlertAction(title: "新增", style: .default) { action in
+//            if let textField = alert.textFields?.first, let text = textField.text {
+//                let deck = CoreDataManager.shared.addDeck(name: text)
+//                deck.name = text
+//
+//                var snapshot = self.dataSource.snapshot()
+//                snapshot.appendItems([deck], toSection: 0)
+//                self.dataSource.apply(snapshot)
+//            }
+//        }
+//
+//        alert.addAction(confirm)
+//        alert.addAction(cancel)
+//        present(alert, animated: true)
+//    }
 
-        alert.addTextField { (textField) in
-            textField.placeholder = "牌組名稱"
-        }
-
-        let cancel = UIAlertAction(title: "取消", style: .cancel)
-        let confirm = UIAlertAction(title: "新增", style: .default) { action in
-            if let textField = alert.textFields?.first, let text = textField.text {
-                let deck = CoreDataManager.shared.addDeck(name: text)
-                deck.name = text
-
-                var snapshot = self.dataSource.snapshot()
-                snapshot.appendItems([deck], toSection: 0)
-                self.dataSource.apply(snapshot)
-            }
-        }
-
-        alert.addAction(confirm)
-        alert.addAction(cancel)
-        present(alert, animated: true)
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDeckUpdate(notification:)), name: .deckDidUpdate, object: nil)
     }
-    
+
     @IBAction func addClozeAction(_ sender: UIButton) {
         let controller = ReviseContextViewController.instantiate()
         
@@ -135,29 +186,110 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
     }
     
     @objc func handleDeckUpdate(notification: Notification) {
-       updateDataSource()
-    }
-    
-    @IBAction func deleteAllEntities(_ sender: UIButton) {
-        CoreDataManager.shared.deleteAllEntities()
-        tableView.reloadData()
+       updateSnapshot()
     }
     
 }
 
-// MARK: - UITableViewDelegate
+// MARK: - UICollectionViewDelegate
 
-extension ReviewViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let deck = dataSource.itemIdentifier(for: indexPath) else { return }
+extension ReviewViewController: UICollectionViewDelegate {
 
-        let controller = ShowCardsViewController.instantiate()
-        controller.deck = deck
-        controller.modalTransitionStyle = .crossDissolve
-        controller.modalPresentationStyle = .fullScreen
-        controller.hidesBottomBarWhenPushed = true
-        controller.view.layoutIfNeeded()
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        navigationController?.pushViewController(controller, animated: true)
+        let section = SectionIdentifier.allCases[indexPath.section]
+
+        if let items = sections[section] {
+            let item = items[indexPath.item]
+
+            switch item {
+            case .allPractices:
+                break
+            case .againToday:
+                break
+            case .practiceByDeck(let deck):
+                let controller = ShowCardsViewController.instantiate()
+                controller.deck = deck
+                controller.modalTransitionStyle = .crossDissolve
+                controller.modalPresentationStyle = .fullScreen
+                controller.hidesBottomBarWhenPushed = true
+                controller.view.layoutIfNeeded()
+
+                navigationController?.pushViewController(controller, animated: true)
+            }
+        }
     }
 }
+
+// MARK: - UICollectionViewCompositionalLayout
+
+extension ReviewViewController {
+
+    private func createItem(for section: SectionIdentifier) -> NSCollectionLayoutItem {
+
+        let itemSize: NSCollectionLayoutSize
+
+        switch section {
+        case .first:
+            itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(0.5),
+                heightDimension: .fractionalHeight(1.0)
+            )
+
+        case .second:
+            itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .estimated(100)
+            )
+        }
+
+        return NSCollectionLayoutItem(layoutSize: itemSize)
+    }
+
+    private func createGroup(for section: SectionIdentifier, with item: NSCollectionLayoutItem) -> NSCollectionLayoutGroup {
+
+        let groupSize: NSCollectionLayoutSize
+
+        switch section {
+        case .first:
+            groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalWidth(0.5)
+            )
+
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: groupSize,
+                subitems: [item]
+            )
+
+            group.interItemSpacing = .flexible(15)
+
+            return group
+
+        case .second:
+            groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .estimated(100)
+            )
+
+            let group = NSCollectionLayoutGroup.vertical(
+                layoutSize: groupSize,
+                subitems: [item]
+            )
+
+            return group
+        }
+    }
+
+    private func createSection(for section: SectionIdentifier, with group: NSCollectionLayoutGroup) -> NSCollectionLayoutSection {
+        let layoutSection = NSCollectionLayoutSection(group: group)
+
+        // 設置邊界的內邊距
+        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
+
+        layoutSection.interGroupSpacing = 15
+
+        return layoutSection
+    }
+}
+

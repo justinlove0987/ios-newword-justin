@@ -295,6 +295,7 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		2A5A77922CA637F000A481BE /* Practice */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Practice; sourceTree = "<group>"; };
+		D0449D452CAE7AB100ED4D40 /* Review */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Review; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -377,6 +378,7 @@
 		D020A4EA2BB9D8E700CA5CAF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D0449D452CAE7AB100ED4D40 /* Review */,
 				2A5A77922CA637F000A481BE /* Practice */,
 				2A18E7B32BE74008005139C8 /* DeckCell.swift */,
 				D04AC2062C51EF0300F91A07 /* DeckCell.xib */,
@@ -565,6 +567,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				2A5A77922CA637F000A481BE /* Practice */,
+				D0449D452CAE7AB100ED4D40 /* Review */,
 			);
 			name = NewWord;
 			packageProductDependencies = (

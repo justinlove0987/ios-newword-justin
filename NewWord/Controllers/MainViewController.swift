@@ -42,7 +42,9 @@ class MainViewController: UIViewController {
         let exploreVC = storyboard.instantiateViewController(withIdentifier: "ExploreViewController")
         let searchVC = SearchViewController.instantiate()
         let settingsVC = SettingsViewController()
-        
+
+        reviewVC.view.layoutIfNeeded()
+
         dataSource = [reviewVC, exploreVC, searchVC, settingsVC]
         
     }
