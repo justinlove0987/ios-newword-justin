@@ -8,7 +8,7 @@
 import UIKit
 
 // Subclass for PracticeType
-class SelectPracticeTypeViewController: ReusableCollectionViewController<PracticeType> {
+class SelectPracticeTypeViewController: ReusableRadioButtonCollectionViewController<PracticeType> {
     
     var practiceBlueprint: CDPractice?
     

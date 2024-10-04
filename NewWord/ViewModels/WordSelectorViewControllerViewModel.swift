@@ -696,15 +696,25 @@ extension WordSelectorViewControllerViewModel {
 
     func synchronizePracticeMap(_ tag: CDUserGeneratedContextTag?) {
         guard isValidTag(tag), let text = tag?.text else { return }
-
-        guard let blueprintMap = getBlueprintMap(),
-              let practiceContext = findPracticeContext(matching: text),
-              let greatestLevelSequence = practiceContext.map?.greatestLevelSequence else {
+        
+        let lemma = findLemma(for: text)
+        
+        let praciceLemmaContext = findPracticeLemmaContext(matching: lemma)
+        
+        if let praciceLemmaContext {
+            let practiceContext = findPracticeContext(matching: lemma, in: praciceLemmaContext.contexts)
+            
+            if let blueprintMap = getBlueprintMap(),
+               let practiceContext,
+               let greatestLevelSequence = practiceContext.map?.greatestLevelSequence {
+                mergeWithExistingPracticeMap(blueprintMap: blueprintMap, practiceContext: practiceContext, greatestLevelSequence: greatestLevelSequence, tag: tag!)
+            } else {
+                createNewPracticeMap(for: tag!, using: text, to: praciceLemmaContext)
+            }
+            
+        } else {
             createNewPracticeMap(for: tag!, using: text)
-            return
         }
-
-        mergeWithExistingPracticeMap(blueprintMap: blueprintMap, practiceContext: practiceContext, greatestLevelSequence: greatestLevelSequence, tag: tag!)
     }
 
     private func isValidTag(_ tag: CDUserGeneratedContextTag?) -> Bool {
@@ -744,11 +754,16 @@ extension WordSelectorViewControllerViewModel {
 
         return emptyPractice
     }
-
-    private func createNewPracticeMap(for tag: CDUserGeneratedContextTag, using text: String) {
+    
+    private func createNewPracticeMap(for tag: CDUserGeneratedContextTag, using text: String, to practiceLemmaContext: CDPracticeLemma? = nil) {
         let practiceContext = CoreDataManager.shared.createEntity(ofType: CDPracticeContext.self)
         let newMap = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
+        
+        let lemmaContext = practiceLemmaContext ?? CoreDataManager.shared.createEntity(ofType: CDPracticeLemma.self)
 
+        lemmaContext.addToContextSet(practiceContext)
+        lemmaContext.lemma = findLemma(for: text)
+        
         practiceContext.id = UUID().uuidString
         practiceContext.map = newMap
         practiceContext.context = text
@@ -783,7 +798,9 @@ extension WordSelectorViewControllerViewModel {
             userGeneratedContent.practice?.isActive = false
 
             guard let practice = userGeneratedContent.practice,
-                  let practiceMap = practice.sequence?.map else {
+                  let practiceMap = practice.sequence?.map,
+                  let practiceLemma = practice.sequence?.map?.practiceContext?.lemma
+            else {
                 return
             }
 
@@ -794,11 +811,26 @@ extension WordSelectorViewControllerViewModel {
             if !practiceMap.hasPractice {
                 CoreDataManager.shared.deleteEntity(practiceMap)
             }
+            
+            if !practiceLemma.hasContext {
+                CoreDataManager.shared.deleteEntity(practiceLemma)
+            }
         }
     }
 
     private func findPracticeContext(matching text: String) -> CDPracticeContext? {
         return CoreDataManager.shared.getAll(ofType: CDPracticeContext.self).first { $0.context?.lowercased() == text.lowercased() }
+    }
+    
+    private func findPracticeContext(matching text: String, in contexts: [CDPracticeContext]) -> CDPracticeContext? {
+        return contexts.first {
+            $0.context?.lowercased() == text.lowercased()
+        }
+    }
+    
+    private func findPracticeLemmaContext(matching text: String) -> CDPracticeLemma? {
+        return CoreDataManager.shared.getAll(ofType: CDPracticeLemma.self).first {
+            $0.lemma?.lowercased() == text.lowercased() }
     }
 
     private func createDeck(from blueprintPracticeType: PracticeType) -> CDDeck {
@@ -863,4 +895,24 @@ extension WordSelectorViewControllerViewModel {
 
         return practice
     }
+    
+    func findLemma(for text: String) -> String {
+        let tagger = NLTagger(tagSchemes: [.lemma])
+        tagger.string = text
+
+        let range = text.startIndex..<text.endIndex
+        let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace]
+
+        var lemma: String?
+
+        tagger.enumerateTags(in: range, unit: .word, scheme: .lemma, options: options) { tag, tokenRange in
+            if let tag = tag, tag.rawValue != text {
+                lemma = tag.rawValue
+            }
+            return false // 只需要第一個 lemma
+        }
+
+        return lemma?.lowercased() ?? text.lowercased() // 如果沒找到 lemma，返回原始的 text
+    }
+
 }

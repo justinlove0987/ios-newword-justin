@@ -102,6 +102,7 @@
         <attribute name="context" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="lemma" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeLemma" inverseName="contextSet" inverseEntity="CDPracticeLemma"/>
         <relationship name="map" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeMap" inverseName="practiceContext" inverseEntity="CDPracticeMap"/>
         <relationship name="resource" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeContextResource"/>
     </entity>
@@ -111,6 +112,12 @@
     <entity name="CDPracticeImage" representedClassName="CDPracticeImage" syncable="YES" codeGenerationType="category">
         <attribute name="data" optional="YES" attributeType="Binary"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CDPracticeLemma" representedClassName="CDPracticeLemma" syncable="YES" codeGenerationType="category">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="lemma" optional="YES" attributeType="String"/>
+        <relationship name="contextSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPracticeContext" inverseName="lemma" inverseEntity="CDPracticeContext"/>
+        <relationship name="resource" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticeContextResource"/>
     </entity>
     <entity name="CDPracticeMap" representedClassName="CDPracticeMap" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="String"/>

@@ -18,7 +18,6 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
 
     enum ItemIdentifer: Hashable {
         case allPractices
-        case againToday
         case practiceByDeck(CDDeck)
     }
 
@@ -66,7 +65,7 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
         let deckItems = filteredDecks.map { ItemIdentifer.practiceByDeck($0) }
 
         sections = [
-            .first: [.allPractices, .againToday],
+            .first: [.allPractices],
             .second: deckItems
         ]
     }
@@ -97,7 +96,7 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
 
         switch itemIdentifier {
 
-        case .allPractices, .againToday:
+        case .allPractices:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeckPracticeCell.reuseIdentifier, for: indexPath) as! DeckPracticeCell
             cell.configureUI(with: itemIdentifier)
             return cell
@@ -142,8 +141,6 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
         }
 
         dataSource.apply(snapshot)
-        collectionView.dataSource = dataSource
-        collectionView.reloadData()
     }
 
     // MARK: - Actions
@@ -205,8 +202,7 @@ extension ReviewViewController: UICollectionViewDelegate {
             switch item {
             case .allPractices:
                 break
-            case .againToday:
-                break
+                
             case .practiceByDeck(let deck):
                 let controller = ShowCardsViewController.instantiate()
                 controller.deck = deck

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReusableCollectionViewController<Item: Hashable>: UIViewController , UICollectionViewDelegate {
+class ReusableRadioButtonCollectionViewController<Item: Hashable>: UIViewController , UICollectionViewDelegate {
     
     struct Row: Hashable {
         let item: Item
@@ -128,7 +128,7 @@ class ReusableCollectionViewController<Item: Hashable>: UIViewController , UICol
 
 // MARK: - UICollectionViewCompositionalLayout
 
-extension ReusableCollectionViewController {
+extension ReusableRadioButtonCollectionViewController {
     
     private func createItem() -> NSCollectionLayoutItem {
         let itemSize = NSCollectionLayoutSize(

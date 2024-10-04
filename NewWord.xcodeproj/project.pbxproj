@@ -61,6 +61,10 @@
 		2A9911DC2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9911DB2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift */; };
 		2A9911DE2CAB7FA3004F2625 /* SelectPracticeTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9911DD2CAB7FA3004F2625 /* SelectPracticeTypeViewController.swift */; };
 		2A9911E22CAB8D91004F2625 /* SelectDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9911E12CAB8D91004F2625 /* SelectDeckViewController.swift */; };
+		2A9911F52CAF6CD0004F2625 /* CDPracticeLemma+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9911F32CAF6CD0004F2625 /* CDPracticeLemma+Extension.swift */; };
+		2A9911F82CAF7D4D004F2625 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9911F72CAF7D4D004F2625 /* SearchResultViewController.swift */; };
+		2A9911FB2CAF7F56004F2625 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9911F92CAF7F56004F2625 /* SearchResultCell.swift */; };
+		2A9911FC2CAF7F56004F2625 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A9911FA2CAF7F56004F2625 /* SearchResultCell.xib */; };
 		2A9AFEAC2BE8AA140085766C /* RevisePresetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */; };
 		2A9C73A82C9C08FF006690A5 /* TimeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C73A72C9C08FF006690A5 /* TimeConverter.swift */; };
 		2A9C73AB2C9C0D28006690A5 /* CDPracticePresetStandard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C73A92C9C0D28006690A5 /* CDPracticePresetStandard+Extension.swift */; };
@@ -202,6 +206,10 @@
 		2A9911DB2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableRadioButtonCollectionViewController.swift; sourceTree = "<group>"; };
 		2A9911DD2CAB7FA3004F2625 /* SelectPracticeTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPracticeTypeViewController.swift; sourceTree = "<group>"; };
 		2A9911E12CAB8D91004F2625 /* SelectDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDeckViewController.swift; sourceTree = "<group>"; };
+		2A9911F32CAF6CD0004F2625 /* CDPracticeLemma+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeLemma+Extension.swift"; sourceTree = "<group>"; };
+		2A9911F72CAF7D4D004F2625 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		2A9911F92CAF7F56004F2625 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		2A9911FA2CAF7F56004F2625 /* SearchResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 		2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevisePresetViewController.swift; sourceTree = "<group>"; };
 		2A9C73A72C9C08FF006690A5 /* TimeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConverter.swift; sourceTree = "<group>"; };
 		2A9C73A92C9C0D28006690A5 /* CDPracticePresetStandard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticePresetStandard+Extension.swift"; sourceTree = "<group>"; };
@@ -316,6 +324,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A9911FD2CAF7F5D004F2625 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2A9911F92CAF7F56004F2625 /* SearchResultCell.swift */,
+				2A9911FA2CAF7F56004F2625 /* SearchResultCell.xib */,
+				2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */,
+				2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		2AFABE712C99114B00BA2347 /* Practice */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,6 +351,7 @@
 				D09016782C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift */,
 				2A2BBF5D2CAA436100BA02F2 /* CDPracticeThresholdRule+Extension.swift */,
 				2AC3C3E72CAA814D0010E7AA /* CDPracticeServerProvidedContent+Extension.swift */,
+				2A9911F32CAF6CD0004F2625 /* CDPracticeLemma+Extension.swift */,
 			);
 			path = Practice;
 			sourceTree = "<group>";
@@ -380,6 +400,7 @@
 			children = (
 				D0449D452CAE7AB100ED4D40 /* Review */,
 				2A5A77922CA637F000A481BE /* Practice */,
+				2A9911FD2CAF7F5D004F2625 /* Search */,
 				2A18E7B32BE74008005139C8 /* DeckCell.swift */,
 				D04AC2062C51EF0300F91A07 /* DeckCell.xib */,
 				D020A4F12BB9DE0D00CA5CAF /* WordTextField.swift */,
@@ -401,8 +422,6 @@
 				D0B2E3FB2C2BB15F0047B2F5 /* CustomTextView.swift */,
 				2AC3D4212C2D52BC00B72791 /* SearchSelectionCell.swift */,
 				2AC3D4222C2D52BC00B72791 /* SearchSelectionCell.xib */,
-				2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */,
-				2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */,
 				2A67688C2C3322590040C89F /* AddTagTextView.swift */,
 				2A034F802C37CCB600AEDA65 /* CustomNumberTagView.swift */,
 				2A034F7C2C3682C800AEDA65 /* CustomNumberTagView.xib */,
@@ -460,11 +479,12 @@
 				2A7F3C0F2C5B5A3C0028150D /* ExploreViewController.swift */,
 				2A38F8BE2BE48F47003F058F /* ReviewViewController.swift */,
 				2A38F8C22BE48FB2003F058F /* SearchViewController.swift */,
+				2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */,
+				2A9911F72CAF7D4D004F2625 /* SearchResultViewController.swift */,
 				2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */,
 				2AC3D4252C2D550200B72791 /* SearchDeckViewController.swift */,
 				2A38F8C42BE48FD4003F058F /* SettingsViewController.swift */,
 				2A9AFEAB2BE8AA140085766C /* RevisePresetViewController.swift */,
-				2AB8CC022BF5887300BFFD4A /* ShowCardsViewController.swift */,
 				2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */,
 				2A7B6CD62C081B8E0017BB5C /* ReviseNameViewController.swift */,
 				2A24E8D32C50DF39006C1032 /* ReviseContextViewController.swift */,
@@ -648,6 +668,7 @@
 				2A2BBF642CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.xib in Resources */,
 				2A89D86C2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib in Resources */,
 				D00A72EF2BFDEC5A0064F325 /* NoCardView.xib in Resources */,
+				2A9911FC2CAF7F56004F2625 /* SearchResultCell.xib in Resources */,
 				2A02EF2A2C4A386500E21A6E /* TagTestingCell.xib in Resources */,
 				2AFF6C9C2C5B5FF100629B26 /* ExploreCell.xib in Resources */,
 				D05D6A1C2C652645006AC6BE /* GoogleService-Info.plist in Resources */,
@@ -677,6 +698,7 @@
 				2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */,
 				2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */,
 				D0D6E0E92C1CB38500C1F95E /* ContextLabel.swift in Sources */,
+				2A9911FB2CAF7F56004F2625 /* SearchResultCell.swift in Sources */,
 				2A9C73AE2C9C1DBA006690A5 /* Date+Extension.swift in Sources */,
 				2A2BBF632CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.swift in Sources */,
 				2AFC91512C7C5B85002C2AD1 /* PracticeSettingCell.swift in Sources */,
@@ -708,9 +730,11 @@
 				2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */,
 				D02E46F72C272CC500418781 /* UserDefaultsManager.swift in Sources */,
 				2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */,
+				2A9911F82CAF7D4D004F2625 /* SearchResultViewController.swift in Sources */,
 				D090167E2C93E56600A5FBD2 /* CDTimepointInformation+Extension.swift in Sources */,
 				2A70455A2C7FF7AC00A58672 /* ClozeViewControllerViewModel.swift in Sources */,
 				2A9C73A82C9C08FF006690A5 /* TimeConverter.swift in Sources */,
+				2A9911F52CAF6CD0004F2625 /* CDPracticeLemma+Extension.swift in Sources */,
 				2A70455C2C7FF94A00A58672 /* ClozeWord.swift in Sources */,
 				2A7045582C7DC35D00A58672 /* RadioButtonCell.swift in Sources */,
 				2A89D86A2C7435AC00DDBFF0 /* UITextView+Extension.swift in Sources */,

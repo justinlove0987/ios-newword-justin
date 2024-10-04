@@ -11,13 +11,17 @@ protocol SearchDataSource: Hashable {
     var title: String { get set }
 }
 
-
 struct SearchClozeDataSource: SearchDataSource {
     var title: String
     var contexts: [CDPracticeContext]
 }
 
 class SearchViewController: UIViewController, StoryboardGenerated {
+    
+    enum ItemIdentifer: Hashable {
+        case lemma(CDPracticeLemma)
+        case context(CDPracticeContext)
+    }
 
     typealias GroupedCards = [SearchClozeDataSource]
 
@@ -27,42 +31,61 @@ class SearchViewController: UIViewController, StoryboardGenerated {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var deckFilterButton: UIButton!
 
-    private var dataSource: UITableViewDiffableDataSource<Int, SearchClozeDataSource>!
+    private var dataSource: UITableViewDiffableDataSource<Int, ItemIdentifer>!
 
     private var groupedCards: GroupedCards = []
+    
+    private var items: [ItemIdentifer] = []
 
     private var searchText: String? = nil {
         didSet {
             filterDataSource()
-            updateDataSource()
+            updateSnapshot()
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateData()
         setup()
-        setupTableViewDataSource()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         filterDataSource()
-        updateDataSource()
+        updateData()
+        updateSnapshot()
     }
 
     private func setup() {
+        setupProperties()
+        setupTableView()
+    }
+    
+    private func setupProperties() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tap)
-
-        tableView.register(UINib(nibName: SearchCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: SearchCell.reuseIdentifier)
 
         deckFilterButton.addDefaultBorder(cornerRadius: 8)
     }
 
-    private func setupTableViewDataSource() {
+    private func setupTableView() {
+        tableView.register(UINib(nibName: SearchCell.reuseIdentifier, bundle: nil), forCellReuseIdentifier: SearchCell.reuseIdentifier)
+        
         dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, itemIdentifier in
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchCell.reuseIdentifier, for: indexPath) as! SearchCell
-            cell.nameLabel.text = itemIdentifier.title
+            
+            switch itemIdentifier {
+            case .lemma(let practiceLemma):
+                if let lemma = practiceLemma.lemma {
+                    cell.nameLabel.text = lemma
+                }
+                
+            case .context(let practiceContext):
+                if let context = practiceContext.context {
+                    cell.nameLabel.text = context
+                }
+            }
 
             return cell
         })
@@ -103,12 +126,21 @@ class SearchViewController: UIViewController, StoryboardGenerated {
         
         self.groupedCards = groupedCards
     }
+    
+    
+    private func updateData() {
+        let lemmas = CoreDataManager.shared.getAll(ofType: CDPracticeLemma.self)
+        
+        items = lemmas.map { lemma in
+            return ItemIdentifer.lemma(lemma)
+        }
+    }
 
-    private func updateDataSource() {
-        var snapshot: NSDiffableDataSourceSnapshot<Int, SearchClozeDataSource> = .init()
+    private func updateSnapshot() {
+        var snapshot: NSDiffableDataSourceSnapshot<Int, ItemIdentifer> = .init()
         
         snapshot.appendSections([0])
-        snapshot.appendItems(groupedCards, toSection: 0)
+        snapshot.appendItems(items, toSection: 0)
 
         dataSource.apply(snapshot)
     }
@@ -132,7 +164,7 @@ class SearchViewController: UIViewController, StoryboardGenerated {
             guard let self = self else { return }
 
             self.filterDataSource()
-            self.updateDataSource()
+            self.updateSnapshot()
         }
         
         navigationController?.pushViewController(controller, animated: true)
@@ -160,7 +192,6 @@ extension SearchViewController: UITableViewDelegate {
         controller.practiceMap = context.map
 
         navigationController?.pushViewController(controller, animated: true)
-        
     }
 }
 

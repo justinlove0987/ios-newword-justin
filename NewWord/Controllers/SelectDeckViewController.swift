@@ -22,7 +22,7 @@ enum SelectDeckItemType: Hashable {
     }
 }
 
-class SelectDeckViewController: ReusableCollectionViewController<SelectDeckItemType> {
+class SelectDeckViewController: ReusableRadioButtonCollectionViewController<SelectDeckItemType> {
     
     var blueprintPractice: CDPractice?
     
