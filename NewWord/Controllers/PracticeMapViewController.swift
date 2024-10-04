@@ -177,6 +177,7 @@ extension PracticeMapViewController: UICollectionViewDelegate {
                 practiceBlueprint.order = indexPath.row.toInt64
                 practiceBlueprint.sequence = seqeunce
                 
+                
                 let item = Item(cellType: .practice, practice: practiceBlueprint)
                 
                 itemMatrix[indexPath.section].insert(item, at: indexPath.row)
@@ -219,7 +220,10 @@ extension PracticeMapViewController {
     func createPracticeBlueprint() -> CDPractice {
         let practiceBlueprint = CoreDataManager.shared.createEntity(ofType: CDPractice.self)
         
-        practiceBlueprint.typeRawValue = PracticeType.listenAndTranslate.rawValue.toInt64
+        let practiceType = PracticeType.listenAndTranslate
+        
+        practiceBlueprint.typeRawValue = practiceType.rawValue.toInt64
+        practiceBlueprint.deck = CoreDataManager.shared.getOrCreateSystemGeneratedDecks(for: practiceType)
         
         return practiceBlueprint
     }

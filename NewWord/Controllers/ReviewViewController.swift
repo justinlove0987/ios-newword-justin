@@ -43,6 +43,7 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
         super.viewWillAppear(animated)
         updateData()
         updateSnapshot()
+        collectionView.reloadData()
     }
 
     // MARK: - Helpers
@@ -137,7 +138,6 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
             if let item = sections[section] {
                 snapshot.appendItems(item, toSection: section)
             }
-
         }
 
         dataSource.apply(snapshot)

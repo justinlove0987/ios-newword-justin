@@ -734,35 +734,14 @@ extension WordSelectorViewControllerViewModel {
         }
     }
 
-    private func mergePractices(from blueprintSequence: CDPracticeSequence, to targetSequence: CDPracticeSequence, tag: CDUserGeneratedContextTag) {
-        for blueprintPractice in blueprintSequence.sortedPractices {
-            _ = createPractice(from: blueprintPractice, sequence: targetSequence, tag: tag)
-        }
-    }
-
-    private func createPractice(from blueprintPractice: CDPractice, sequence: CDPracticeSequence, tag: CDUserGeneratedContextTag) -> CDPractice {
-        let emptyPractice = createEmptyPractice()
-        let standardRecord = createNewStateStandardRecord()
-
-        emptyPractice.record?.addToStandardRecordSet(standardRecord)
-        emptyPractice.serverProviededContent?.article = article
-        emptyPractice.order = blueprintPractice.order
-        emptyPractice.typeRawValue = blueprintPractice.typeRawValue
-        emptyPractice.userGeneratedContent?.userGeneratedContextTag = tag
-        emptyPractice.sequence = sequence
-        emptyPractice.deck = blueprintPractice.deck
-
-        return emptyPractice
-    }
     
     private func createNewPracticeMap(for tag: CDUserGeneratedContextTag, using text: String, to practiceLemmaContext: CDPracticeLemma? = nil) {
+        let practiceLemma = practiceLemmaContext ?? CoreDataManager.shared.createEntity(ofType: CDPracticeLemma.self)
         let practiceContext = CoreDataManager.shared.createEntity(ofType: CDPracticeContext.self)
         let newMap = CoreDataManager.shared.createEntity(ofType: CDPracticeMap.self)
-        
-        let lemmaContext = practiceLemmaContext ?? CoreDataManager.shared.createEntity(ofType: CDPracticeLemma.self)
 
-        lemmaContext.addToContextSet(practiceContext)
-        lemmaContext.lemma = findLemma(for: text)
+        practiceLemma.addToContextSet(practiceContext)
+        practiceLemma.lemma = findLemma(for: text)
         
         practiceContext.id = UUID().uuidString
         practiceContext.map = newMap
@@ -782,13 +761,34 @@ extension WordSelectorViewControllerViewModel {
             mergePractices(from: sequence, to: newSequence, tag: tag)
         }
     }
-
+    
     private func createNewSequence(for map: CDPracticeMap, baseSequence: CDPracticeSequence, greatestLevelSequence: CDPracticeSequence? = nil) -> CDPracticeSequence {
         let newSequence = CoreDataManager.shared.createEntity(ofType: CDPracticeSequence.self)
         newSequence.id = UUID().uuidString
         newSequence.level = (greatestLevelSequence?.level ?? 0) + baseSequence.level
         newSequence.map = map
         return newSequence
+    }
+    
+    private func mergePractices(from blueprintSequence: CDPracticeSequence, to targetSequence: CDPracticeSequence, tag: CDUserGeneratedContextTag) {
+        for blueprintPractice in blueprintSequence.sortedPractices {
+            _ = createPractice(from: blueprintPractice, sequence: targetSequence, tag: tag)
+        }
+    }
+    
+    private func createPractice(from blueprintPractice: CDPractice, sequence: CDPracticeSequence, tag: CDUserGeneratedContextTag) -> CDPractice {
+        let emptyPractice = createEmptyPractice()
+        let standardRecord = createNewStateStandardRecord()
+
+        emptyPractice.record?.addToStandardRecordSet(standardRecord)
+        emptyPractice.serverProviededContent?.article = article
+        emptyPractice.order = blueprintPractice.order
+        emptyPractice.typeRawValue = blueprintPractice.typeRawValue
+        emptyPractice.userGeneratedContent?.userGeneratedContextTag = tag
+        emptyPractice.sequence = sequence
+        emptyPractice.deck = blueprintPractice.deck
+
+        return emptyPractice
     }
 
     func removeRelatedCoreDatas(_ tag: CDUserGeneratedContextTag?) {
