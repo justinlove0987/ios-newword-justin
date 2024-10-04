@@ -164,6 +164,10 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     }
     
     private func setupProperties() {
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+
         self.title = "練習地圖設定"
     }
 
@@ -239,11 +243,7 @@ extension PracticeSettingViewController: UICollectionViewDelegate {
         
         let section = sections[indexPath.section]
         let row = section.rows[indexPath.row]
-        
-        let backItem = UIBarButtonItem()
-        backItem.title = ""
-        navigationItem.backBarButtonItem = backItem
-        
+                
         switch row {
         case .practiceType:
             let controller = SelectPracticeTypeViewController()

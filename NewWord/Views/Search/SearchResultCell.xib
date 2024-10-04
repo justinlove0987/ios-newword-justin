@@ -41,6 +41,7 @@
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="33z-0N-ySa" secondAttribute="trailing" id="BzP-xb-Kle"/>
                 <constraint firstAttribute="bottom" secondItem="33z-0N-ySa" secondAttribute="bottom" id="IRV-iW-2Ox"/>
@@ -49,6 +50,7 @@
             </constraints>
             <size key="customSize" width="300" height="199"/>
             <connections>
+                <outlet property="innerView" destination="33z-0N-ySa" id="TNA-Uf-2Xv"/>
                 <outlet property="textView" destination="Po0-Db-ucx" id="oth-bO-i5F"/>
             </connections>
             <point key="canvasLocation" x="287.02290076335879" y="72.183098591549296"/>

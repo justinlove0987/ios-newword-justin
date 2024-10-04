@@ -65,8 +65,16 @@ class SearchViewController: UIViewController, StoryboardGenerated {
     private func setupProperties() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tap)
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        backItem.tintColor = .title
+        navigationItem.backBarButtonItem = backItem
 
         deckFilterButton.addDefaultBorder(cornerRadius: 8)
+    }
+    
+    @objc func backAction() {
+        
     }
 
     private func setupTableView() {
@@ -184,12 +192,18 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentGroupedCards = groupedCards[indexPath.row]
+//        let currentGroupedCards = groupedCards[indexPath.row]
+        //        guard let context = currentGroupedCards.contexts.first else { return }
+        //        let controller = PracticeMapViewController.instantiate()
+        //        controller.practiceMap = context.map
         
-        guard let context = currentGroupedCards.contexts.first else { return }
+        let item = items[indexPath.row]
         
-        let controller = PracticeMapViewController.instantiate()
-        controller.practiceMap = context.map
+        let controller = SearchResultViewController()
+        
+        if case let .lemma(practiceLemma) = item {
+            controller.practiceLemma = practiceLemma
+        }
 
         navigationController?.pushViewController(controller, animated: true)
     }

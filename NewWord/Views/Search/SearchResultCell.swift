@@ -11,26 +11,26 @@ class SearchResultCell: UICollectionViewCell {
     
     static let reuseIdentifier = String(describing: SearchResultCell.self)
     
-    
     @IBOutlet weak var textView: UITextView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    @IBOutlet weak var innerView: UIView!
     
     func configureUI(itemIdentifier: SearchResultViewController.Item) {
-//        itemIdentifier.practiceContext.
+        innerView.addDefaultBorder()
+        textView.isEditable = false
+        textView.isScrollEnabled = true
         
-        
-//        let range = NSRange(location: Int(cloze.location), length: Int(cloze.length))
-//
-//        let attributedString = highlightText(context, in: range)
-//
-//        textView.attributedText = attributedString
-//
-//
-//        scrollToRange(range, in: textView)
+        if case let  .highlightContext(hightlightContext) = itemIdentifier {
+            let text = hightlightContext.text
+            let location = hightlightContext.highlightRange.location
+            let length = hightlightContext.highlightRange.length
+            let range = NSRange(location: location, length: length)
+            
+            let attributedString = highlightText(text, in: range)
+            
+            textView.attributedText = attributedString
+            
+            scrollToRange(range, in: textView)
+        }
     }
     
     func highlightText(_ text: String, in range: NSRange, highlightColor: UIColor = .yellow) -> NSAttributedString {
