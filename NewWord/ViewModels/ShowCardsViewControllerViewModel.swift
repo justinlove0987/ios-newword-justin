@@ -90,7 +90,6 @@ class ShowCardsViewControllerViewModel {
             
         case .readClozeAndTypeEnglish:
             let view = PracticeClozeView()
-            
             view.practice = practice
             
             subview = view

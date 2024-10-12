@@ -36,10 +36,12 @@ class SearchViewController: UIViewController, StoryboardGenerated {
     private var groupedCards: GroupedCards = []
     
     private var items: [ItemIdentifer] = []
+    
+    private var filteredItems: [ItemIdentifer] = []
 
     private var searchText: String? = nil {
         didSet {
-            filterDataSource()
+            filterSearchText()
             updateSnapshot()
         }
     }
@@ -52,8 +54,8 @@ class SearchViewController: UIViewController, StoryboardGenerated {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        filterDataSource()
         updateData()
+        filterSearchText()
         updateSnapshot()
     }
 
@@ -71,6 +73,7 @@ class SearchViewController: UIViewController, StoryboardGenerated {
         navigationItem.backBarButtonItem = backItem
 
         deckFilterButton.addDefaultBorder(cornerRadius: 8)
+        deckFilterButton.isHidden = true
     }
     
     @objc func backAction() {
@@ -100,41 +103,36 @@ class SearchViewController: UIViewController, StoryboardGenerated {
         
         tableView.dataSource = dataSource
     }
+    
+//    private func filterSelectedDecks(_ decks: [CDDeck]) -> [CDDeck] {
+//        let decks = decks.filter { deck in
+//            guard let id = deck.id else { return false }
+//            return CoreDataManager.shared.isSelected(from: id, type: .deck)
+//        }
+//
+//        return decks
+//    }
 
-    private func filterSearchText(_ searhcText: String? ,to groupedCards: GroupedCards) -> GroupedCards {
-        var groupedCards = groupedCards
-
-        if let searchText, !searchText.isEmpty {
-            groupedCards = groupedCards.filter { groupedCards in
-                let searchText = searchText.lowercased()
-                return groupedCards.title.contains(searchText)
+    private func filterSearchText() {
+        guard let searchText = searchText, !searchText.isEmpty else {
+            filteredItems = items
+            return
+        }
+        
+        filteredItems = items.filter { item in
+            switch item {
+            case .lemma(let practiceLemma):
+                guard let lemma = practiceLemma.lemma else {
+                    return false
+                }
+                
+                return lemma.contains(searchText, caseSensitive: false)
+                
+            default:
+                return false
             }
         }
-
-        return groupedCards
     }
-
-    private func filterSelectedDecks(_ decks: [CDDeck]) -> [CDDeck] {
-        let decks = decks.filter { deck in
-            guard let id = deck.id else { return false }
-            return CoreDataManager.shared.isSelected(from: id, type: .deck)
-        }
-
-        return decks
-    }
-
-    private func filterDataSource() {
-        let contexts = CoreDataManager.shared.getAll(ofType: CDPracticeContext.self)
-        
-        let groupedCards = contexts.map { practiceContext in
-            let title = practiceContext.context ?? "title"
-            
-            return SearchClozeDataSource(title: title, contexts: [practiceContext])
-        }
-        
-        self.groupedCards = groupedCards
-    }
-    
     
     private func updateData() {
         let lemmas = CoreDataManager.shared.getAll(ofType: CDPracticeLemma.self)
@@ -142,13 +140,15 @@ class SearchViewController: UIViewController, StoryboardGenerated {
         items = lemmas.map { lemma in
             return ItemIdentifer.lemma(lemma)
         }
+        
+        filteredItems = items
     }
 
     private func updateSnapshot() {
         var snapshot: NSDiffableDataSourceSnapshot<Int, ItemIdentifer> = .init()
         
         snapshot.appendSections([0])
-        snapshot.appendItems(items, toSection: 0)
+        snapshot.appendItems(filteredItems, toSection: 0)
 
         dataSource.apply(snapshot)
     }
@@ -171,7 +171,7 @@ class SearchViewController: UIViewController, StoryboardGenerated {
         controller.callback = { [weak self] decks in
             guard let self = self else { return }
 
-            self.filterDataSource()
+            self.filterSearchText()
             self.updateSnapshot()
         }
         
@@ -192,12 +192,7 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let currentGroupedCards = groupedCards[indexPath.row]
-        //        guard let context = currentGroupedCards.contexts.first else { return }
-        //        let controller = PracticeMapViewController.instantiate()
-        //        controller.practiceMap = context.map
-        
-        let item = items[indexPath.row]
+        let item = filteredItems[indexPath.row]
         
         let controller = SearchResultViewController()
         

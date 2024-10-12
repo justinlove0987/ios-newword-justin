@@ -235,7 +235,7 @@ extension ReviewViewController {
         case .second:
             itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(100)
+                heightDimension: .fractionalHeight(1.0)
             )
         }
 
@@ -250,15 +250,13 @@ extension ReviewViewController {
         case .first:
             groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .fractionalWidth(0.5)
+                heightDimension: .estimated(100)
             )
 
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: groupSize,
                 subitems: [item]
             )
-
-            group.interItemSpacing = .flexible(15)
 
             return group
 
@@ -282,7 +280,6 @@ extension ReviewViewController {
 
         // 設置邊界的內邊距
         layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
-
         layoutSection.interGroupSpacing = 15
 
         return layoutSection

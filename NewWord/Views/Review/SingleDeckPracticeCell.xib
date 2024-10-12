@@ -94,7 +94,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" name="background"/>
+                        <color key="backgroundColor" name="content"/>
                         <constraints>
                             <constraint firstItem="II6-fJ-s6i" firstAttribute="centerY" secondItem="3C1-Ss-R85" secondAttribute="centerY" id="BhI-JB-tCG"/>
                             <constraint firstAttribute="trailing" secondItem="II6-fJ-s6i" secondAttribute="trailing" constant="20" symbolic="YES" id="Bj2-6N-zct"/>
@@ -125,8 +125,8 @@
     </objects>
     <resources>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
-        <namedColor name="background">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        <namedColor name="content">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="description">
             <color red="0.57647058823529407" green="0.59215686274509804" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

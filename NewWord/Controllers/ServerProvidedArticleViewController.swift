@@ -21,7 +21,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
     @IBOutlet var translationContentView: UIView!
     @IBOutlet weak var articlePlayButtonView: ArticlePlayButtonView!
     @IBOutlet weak var bottomPanelStackView: UIStackView!
-    
+    @IBOutlet weak var settingBarButtonItem: UIBarButtonItem!
     var article: CDPracticeArticle?
 
     private var customTextView: AddTagTextView!
@@ -253,7 +253,7 @@ class ServerProvidedArticleViewController: UIViewController, StoryboardGenerated
             self.updatePracticeModeSelector(containsTag: containsTag)
             
             UIView.animate(withDuration: 0.3) {
-                self.pacticeModelSelectorView.practiceButton.isHidden = false
+                self.pacticeModelSelectorView.practiceButton.isHidden = !isWord
             }
             
             triggerImpactFeedback()

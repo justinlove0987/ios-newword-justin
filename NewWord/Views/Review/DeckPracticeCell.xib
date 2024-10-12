@@ -28,7 +28,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" name="background"/>
+                        <color key="backgroundColor" name="content"/>
                         <constraints>
                             <constraint firstItem="GI9-qI-PZh" firstAttribute="top" secondItem="xEY-du-hHp" secondAttribute="top" constant="20" symbolic="YES" id="CK6-gW-1ZV"/>
                             <constraint firstItem="GI9-qI-PZh" firstAttribute="leading" secondItem="xEY-du-hHp" secondAttribute="leading" constant="20" symbolic="YES" id="EAD-hM-gPM"/>
@@ -51,8 +51,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <namedColor name="background">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        <namedColor name="content">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="title">
             <color red="0.090196078431372548" green="0.094117647058823528" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

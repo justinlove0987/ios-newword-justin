@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PracticeClozeView" customModule="NewWord" customModuleProvider="target">
             <connections>
                 <outlet property="clozeLabel" destination="Kn6-rV-GtK" id="BC1-zw-VY0"/>
+                <outlet property="textField" destination="Uot-Jd-VgX" id="XSx-Is-5OJ"/>
                 <outlet property="textView" destination="tSg-xH-nyK" id="Oak-y0-uPb"/>
             </connections>
         </placeholder>
@@ -24,20 +25,30 @@
                     <rect key="frame" x="0.0" y="0.0" width="393" height="426"/>
                     <subviews>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tSg-xH-nyK">
-                            <rect key="frame" x="76.666666666666671" y="132" width="239.66666666666663" height="162"/>
+                            <rect key="frame" x="31.333333333333343" y="132" width="330.33333333333326" height="162"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                             <color key="textColor" name="title"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入答案" textAlignment="center" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="Uot-Jd-VgX">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="42.666666666666664"/>
+                            <color key="backgroundColor" name="background"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="Uot-Jd-VgX" firstAttribute="leading" secondItem="a5P-B1-fuu" secondAttribute="leading" id="37k-DG-44a"/>
+                        <constraint firstItem="Uot-Jd-VgX" firstAttribute="top" secondItem="a5P-B1-fuu" secondAttribute="top" id="BQz-PK-0Ie"/>
+                        <constraint firstItem="Uot-Jd-VgX" firstAttribute="height" secondItem="a5P-B1-fuu" secondAttribute="height" multiplier="0.1" id="ILE-iG-1j5"/>
                         <constraint firstItem="tSg-xH-nyK" firstAttribute="centerX" secondItem="a5P-B1-fuu" secondAttribute="centerX" id="TOW-Fu-EO0"/>
                         <constraint firstItem="tSg-xH-nyK" firstAttribute="centerY" secondItem="a5P-B1-fuu" secondAttribute="centerY" id="gm2-tq-uTp"/>
-                        <constraint firstItem="tSg-xH-nyK" firstAttribute="width" secondItem="a5P-B1-fuu" secondAttribute="width" multiplier="0.61" id="hlk-Mz-Qpd"/>
+                        <constraint firstItem="tSg-xH-nyK" firstAttribute="width" secondItem="a5P-B1-fuu" secondAttribute="width" multiplier="0.84" id="hlk-Mz-Qpd"/>
                         <constraint firstItem="tSg-xH-nyK" firstAttribute="height" secondItem="a5P-B1-fuu" secondAttribute="height" multiplier="0.38" id="prx-qZ-yf7"/>
+                        <constraint firstAttribute="trailing" secondItem="Uot-Jd-VgX" secondAttribute="trailing" id="suL-wz-zeH"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jmx-FX-IqT">

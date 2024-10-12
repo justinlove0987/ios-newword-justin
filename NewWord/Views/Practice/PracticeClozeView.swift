@@ -11,6 +11,7 @@ class PracticeClozeView: UIView, NibOwnerLoadable {
     
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var clozeLabel: UILabel!
+    @IBOutlet weak var textField: UITextField!
     
     var practice: CDPractice? {
         didSet {
@@ -46,6 +47,7 @@ class PracticeClozeView: UIView, NibOwnerLoadable {
         switch currentState {
         case .question:
             clozeLabel.isHidden = true
+            textField.becomeFirstResponder()
             
         case .answer:
             clozeLabel.isHidden = false
