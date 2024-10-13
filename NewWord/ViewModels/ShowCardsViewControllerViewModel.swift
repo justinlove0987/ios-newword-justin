@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ShowCardsViewControllerViewModelDelegate: AnyObject {
+    func didPressReturnInTextField(_ textField: UITextField)
+}
+
 class ShowCardsViewControllerViewModel {
     
     enum CardType: Int {
@@ -24,6 +28,8 @@ class ShowCardsViewControllerViewModel {
 
     var tapAction: ((UITapGestureRecognizer) -> ())?
     var answerStackViewShouldHidden: ((Bool) -> ())?
+
+    weak var delegate: ShowCardsViewControllerViewModelDelegate?
 
     // MARK: - Helpers
 
@@ -91,6 +97,7 @@ class ShowCardsViewControllerViewModel {
         case .readClozeAndTypeEnglish:
             let view = PracticeClozeView()
             view.practice = practice
+            view.delegate = self
             
             subview = view
             
@@ -133,6 +140,8 @@ extension ShowCardsViewControllerViewModel: ClozeViewProtocol {
     }
 }
 
-private extension CDDeck {
-    
+extension ShowCardsViewControllerViewModel: PracticeClozeViewDelegate {
+    func didPressReturnInTextField(_ textField: UITextField) {
+        delegate?.didPressReturnInTextField(textField)
+    }
 }

@@ -99,6 +99,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
     
     private func setupViewModel() {
         viewModel.deck = deck
+        viewModel.delegate = self
         
         viewModel.tapAction = { sender in
             self.tapHelper(sender)
@@ -309,6 +310,11 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
 
 }
 
+extension ShowCardsViewController: ShowCardsViewControllerViewModelDelegate {
+    func didPressReturnInTextField(_ textField: UITextField) {
+        tapHelper(UITapGestureRecognizer())
+    }
+}
 
 
 

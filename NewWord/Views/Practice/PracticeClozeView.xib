@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PracticeClozeView" customModule="NewWord" customModuleProvider="target">
             <connections>
                 <outlet property="clozeLabel" destination="Kn6-rV-GtK" id="BC1-zw-VY0"/>
+                <outlet property="nativeLanguageTranslationLabel" destination="nEJ-vl-dBk" id="e0E-sh-vRA"/>
                 <outlet property="textField" destination="Uot-Jd-VgX" id="XSx-Is-5OJ"/>
                 <outlet property="textView" destination="tSg-xH-nyK" id="Oak-y0-uPb"/>
             </connections>
@@ -24,30 +25,41 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a5P-B1-fuu">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="426"/>
                     <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tSg-xH-nyK">
-                            <rect key="frame" x="31.333333333333343" y="132" width="330.33333333333326" height="162"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                            <color key="textColor" name="title"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="kgG-Lu-Jtg">
+                            <rect key="frame" x="31.333333333333343" y="81" width="330.33333333333326" height="264"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="中文提示" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEJ-vl-dBk">
+                                    <rect key="frame" x="0.0" y="0.0" width="330.33333333333331" height="26.333333333333332"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                    <color key="textColor" name="title"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tSg-xH-nyK">
+                                    <rect key="frame" x="0.0" y="46.333333333333329" width="330.33333333333331" height="217.66666666666669"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                    <color key="textColor" name="title"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
+                            </subviews>
+                        </stackView>
                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="請輸入答案" textAlignment="center" minimumFontSize="22" translatesAutoresizingMaskIntoConstraints="NO" id="Uot-Jd-VgX">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="42.666666666666664"/>
                             <color key="backgroundColor" name="background"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                         </textField>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="Uot-Jd-VgX" firstAttribute="leading" secondItem="a5P-B1-fuu" secondAttribute="leading" id="37k-DG-44a"/>
+                        <constraint firstItem="kgG-Lu-Jtg" firstAttribute="centerY" secondItem="a5P-B1-fuu" secondAttribute="centerY" id="5JZ-sa-qHj"/>
                         <constraint firstItem="Uot-Jd-VgX" firstAttribute="top" secondItem="a5P-B1-fuu" secondAttribute="top" id="BQz-PK-0Ie"/>
                         <constraint firstItem="Uot-Jd-VgX" firstAttribute="height" secondItem="a5P-B1-fuu" secondAttribute="height" multiplier="0.1" id="ILE-iG-1j5"/>
-                        <constraint firstItem="tSg-xH-nyK" firstAttribute="centerX" secondItem="a5P-B1-fuu" secondAttribute="centerX" id="TOW-Fu-EO0"/>
-                        <constraint firstItem="tSg-xH-nyK" firstAttribute="centerY" secondItem="a5P-B1-fuu" secondAttribute="centerY" id="gm2-tq-uTp"/>
-                        <constraint firstItem="tSg-xH-nyK" firstAttribute="width" secondItem="a5P-B1-fuu" secondAttribute="width" multiplier="0.84" id="hlk-Mz-Qpd"/>
-                        <constraint firstItem="tSg-xH-nyK" firstAttribute="height" secondItem="a5P-B1-fuu" secondAttribute="height" multiplier="0.38" id="prx-qZ-yf7"/>
+                        <constraint firstItem="kgG-Lu-Jtg" firstAttribute="height" secondItem="a5P-B1-fuu" secondAttribute="height" multiplier="0.62" id="WB3-HQ-bYZ"/>
+                        <constraint firstItem="kgG-Lu-Jtg" firstAttribute="centerX" secondItem="a5P-B1-fuu" secondAttribute="centerX" id="iG7-Ax-xZj"/>
+                        <constraint firstItem="kgG-Lu-Jtg" firstAttribute="width" secondItem="a5P-B1-fuu" secondAttribute="width" multiplier="0.84" id="oA7-9D-Edw"/>
                         <constraint firstAttribute="trailing" secondItem="Uot-Jd-VgX" secondAttribute="trailing" id="suL-wz-zeH"/>
                     </constraints>
                 </view>
