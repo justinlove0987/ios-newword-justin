@@ -60,13 +60,13 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
         let decks = CoreDataManager.shared.getAll(ofType: CDDeck.self)
 
         let filteredDecks = decks.filter { deck in
-            return deck.isUserGenerated || deck.isSystemGeneratedWithPractice
+            return true || deck.isUserGenerated || deck.isSystemGeneratedWithPractice
         }
 
         let deckItems = filteredDecks.map { ItemIdentifer.practiceByDeck($0) }
 
         sections = [
-            .first: [.allPractices],
+//            .first: [.allPractices],
             .second: deckItems
         ]
     }
@@ -113,7 +113,7 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
         return UICollectionViewCompositionalLayout { [weak self] (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             guard let self = self else { return nil }
 
-            let sectionIdentifier = ReviewViewController.SectionIdentifier.allCases[sectionIndex]
+            let sectionIdentifier = ReviewViewController.SectionIdentifier.second
 
             let item = self.createItem(for: sectionIdentifier)
             let group = self.createGroup(for: sectionIdentifier, with: item)
@@ -194,7 +194,7 @@ extension ReviewViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        let section = SectionIdentifier.allCases[indexPath.section]
+        let section = SectionIdentifier.second
 
         if let items = sections[section] {
             let item = items[indexPath.item]

@@ -54,7 +54,7 @@ extension CDDeck {
             return []
         }
 
-        let filteredPractices = practices.filter { practice in
+        var filteredPractices = practices.filter { practice in
             guard let mapType = practice.sequence?.map?.type else {
                 return true
             }
@@ -62,7 +62,9 @@ extension CDDeck {
             return mapType == .practice
         }
 
-        return Array(filteredPractices)
+        let sortedPractices = Array(filteredPractices).sorted { $0.id < $1.id }
+
+        return sortedPractices
     }
     
     var newPractices: [CDPractice] {

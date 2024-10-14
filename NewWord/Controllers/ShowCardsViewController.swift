@@ -215,8 +215,6 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
                 let statusType: PracticeStandardStatusType = isTouchOnRightSide(of: contentView, at: sender.location(in: self.view)) ? .easy : .again
                 showAnswer(with: statusType)
             }
-
-            lastShowingSubview = viewModel.getCurrentSubview()
         }
     }
     
