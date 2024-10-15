@@ -47,6 +47,9 @@
 		2A7045582C7DC35D00A58672 /* RadioButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045552C7DC35D00A58672 /* RadioButtonCell.swift */; };
 		2A70455A2C7FF7AC00A58672 /* ClozeViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7045592C7FF7AB00A58672 /* ClozeViewControllerViewModel.swift */; };
 		2A70455C2C7FF94A00A58672 /* ClozeWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A70455B2C7FF94900A58672 /* ClozeWord.swift */; };
+		2A763F492CBE465B00705C02 /* PracticeRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A763F482CBE465B00705C02 /* PracticeRecordViewController.swift */; };
+		2A763F4C2CBE4F2800705C02 /* SearchResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A763F4A2CBE4F2800705C02 /* SearchResultHeaderView.swift */; };
+		2A763F4D2CBE4F2800705C02 /* SearchResultHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A763F4B2CBE4F2800705C02 /* SearchResultHeaderView.xib */; };
 		2A791A6C2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */; };
 		2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */; };
 		2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */; };
@@ -192,6 +195,9 @@
 		2A7045562C7DC35D00A58672 /* RadioButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RadioButtonCell.xib; sourceTree = "<group>"; };
 		2A7045592C7FF7AB00A58672 /* ClozeViewControllerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClozeViewControllerViewModel.swift; sourceTree = "<group>"; };
 		2A70455B2C7FF94900A58672 /* ClozeWord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClozeWord.swift; sourceTree = "<group>"; };
+		2A763F482CBE465B00705C02 /* PracticeRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeRecordViewController.swift; sourceTree = "<group>"; };
+		2A763F4A2CBE4F2800705C02 /* SearchResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultHeaderView.swift; sourceTree = "<group>"; };
+		2A763F4B2CBE4F2800705C02 /* SearchResultHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResultHeaderView.xib; sourceTree = "<group>"; };
 		2A791A6B2C0EF1D100C26FFB /* ContextRevisionInputAccessoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContextRevisionInputAccessoryView.xib; sourceTree = "<group>"; };
 		2A791A6D2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextRevisionInputAccessoryView.swift; sourceTree = "<group>"; };
 		2A7B6CCE2C0809FE0017BB5C /* ReviseDeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviseDeckViewController.swift; sourceTree = "<group>"; };
@@ -455,6 +461,8 @@
 				2A4DA68E2C9D434B00CC6CDD /* PracticeButton.xib */,
 				2A2BBF612CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.swift */,
 				2A2BBF622CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.xib */,
+				2A763F4A2CBE4F2800705C02 /* SearchResultHeaderView.swift */,
+				2A763F4B2CBE4F2800705C02 /* SearchResultHeaderView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -498,6 +506,7 @@
 				2A9911DD2CAB7FA3004F2625 /* SelectPracticeTypeViewController.swift */,
 				2A9911E12CAB8D91004F2625 /* SelectDeckViewController.swift */,
 				2A9911DB2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift */,
+				2A763F482CBE465B00705C02 /* PracticeRecordViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -652,6 +661,7 @@
 				D0DA5ACE2BB66A07008644DC /* Assets.xcassets in Resources */,
 				2AFC91502C7C5B85002C2AD1 /* PracticeSettingCell.xib in Resources */,
 				2A034F7D2C3682C800AEDA65 /* CustomNumberTagView.xib in Resources */,
+				2A763F4D2CBE4F2800705C02 /* SearchResultHeaderView.xib in Resources */,
 				D01961122C43BEB20040735E /* CustomTagView.xib in Resources */,
 				2A17DAF62C1579D700919642 /* ClozeView.xib in Resources */,
 				2A7045572C7DC35D00A58672 /* RadioButtonCell.xib in Resources */,
@@ -685,6 +695,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A034F812C37CCB600AEDA65 /* CustomNumberTagView.swift in Sources */,
+				2A763F492CBE465B00705C02 /* PracticeRecordViewController.swift in Sources */,
 				D0DA5AC92BB66A05008644DC /* MainViewController.swift in Sources */,
 				2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */,
 				2A6BA1442C63622B00F0DE3F /* FirebaseManager.swift in Sources */,
@@ -749,6 +760,7 @@
 				2AB3DC952CA145E0004CAFE3 /* CDUserGeneratedArticle+Extension.swift in Sources */,
 				D03107CC2C16EE6200EEF772 /* CardInformationViewController.swift in Sources */,
 				2A2683772C6DA4DD00FFF81D /* AudioPlayer.swift in Sources */,
+				2A763F4C2CBE4F2800705C02 /* SearchResultHeaderView.swift in Sources */,
 				2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */,
 				2AFC914D2C7C5720002C2AD1 /* PracticeSettingViewController.swift in Sources */,
 				2A7B6CD52C0810030017BB5C /* NotificationName+Extension.swift in Sources */,

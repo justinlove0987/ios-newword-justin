@@ -7,13 +7,20 @@
 
 import UIKit
 
-class SearchResultViewController: UIViewController {
+class SearchResultViewController: UIViewController, StoryboardGenerated {
+    
+    static var storyboardName: String = K.Storyboard.main
     
     struct HighlightContext: Hashable {
         let id = UUID().uuidString
         let articleId: String
         let text: String
         let highlightRange: NSRange
+    }
+    
+    struct HighlightContexts: Hashable {
+        let text: String
+        let items: [Item]
     }
     
     struct Record: Hashable {
@@ -27,10 +34,10 @@ class SearchResultViewController: UIViewController {
     
     enum Section: Hashable {
         case record([Item])
-        case highlightContext([Item])
+        case highlightContext(HighlightContexts)
     }
     
-    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    @IBOutlet weak var collectionView: UICollectionView!
     
     private var dataSource: UICollectionViewDiffableDataSource<Section,Item>!
     
@@ -58,34 +65,31 @@ class SearchResultViewController: UIViewController {
     
     private func updateData() {
         guard let practiceLemma else { return }
+
+        var sections: [Section] = []
         
-        let items = collectItems(from: practiceLemma.contexts)
-        sections = createSections(from: items)
+        for context in practiceLemma.contexts {
+            guard let sortedSequences = context.map?.sortedSequences else { continue }
+            guard let text = context.context else { return }
+            
+            let items = getItems(from: sortedSequences)
+            
+            let section = Section.highlightContext(HighlightContexts(text: text, items: items))
+            
+            sections.append(section)
+        }
+        
+        self.sections = sections
     }
 
-    private func collectItems(from contexts: [CDPracticeContext]) -> [Item] {
+    private func getItems(from sequences: [CDPracticeSequence]) -> [Item] {
         var items: [Item] = []
         
-        for context in contexts {
-            guard let sortedSequences = context.map?.sortedSequences else { return items }
-            
-            for sequence in sortedSequences {
-                
-                for practice in sequence.sortedPractices {
-                    guard let article = practice.serverProviededContent?.article,
-                          let articleId = article.id,
-                          let articleText = article.text,
-                          let highlightRange = practice.userGeneratedContent?.userGeneratedContextTag?.range else {
-                        continue
-                    }
-                    
-                    let highlightContext = HighlightContext(articleId: articleId, text: articleText, highlightRange: highlightRange)
-                    
-                    if !isContextDuplicate(highlightContext, in: items) {
-                        let item = Item.highlightContext(highlightContext)
-                        
-                        items.append(item)
-                    }
+        for sequence in sequences {
+            for practice in sequence.sortedPractices {
+                if let highlightContext = createHighlightContext(from: practice),
+                   !isContextDuplicate(highlightContext, in: items) {
+                    items.append(Item.highlightContext(highlightContext))
                 }
             }
         }
@@ -93,48 +97,43 @@ class SearchResultViewController: UIViewController {
         return items
     }
 
+    private func createHighlightContext(from practice: CDPractice) -> HighlightContext? {
+        guard let article = practice.serverProviededContent?.article,
+              let articleId = article.id,
+              let articleText = article.text,
+              let highlightRange = practice.userGeneratedContent?.userGeneratedContextTag?.range else {
+            return nil
+        }
+        
+        return HighlightContext(articleId: articleId, text: articleText, highlightRange: highlightRange)
+    }
+
     private func isContextDuplicate(_ highlightContext: HighlightContext, in items: [Item]) -> Bool {
         return items.contains {
             if case let .highlightContext(existingContext) = $0 {
                 return existingContext.articleId == highlightContext.articleId &&
-                existingContext.highlightRange == highlightContext.highlightRange
+                       existingContext.highlightRange == highlightContext.highlightRange
             }
             return false
         }
     }
-
-    private func createSections(from items: [Item]) -> [Section] {
-        var sections: [Section] = []
-        
-//        for _ in 1...3 {
-//            sections.append(Section.record([Item.record(Record()), Item.record(Record()), Item.record(Record())]))
-//        }
-        
-        sections.append(Section.highlightContext(items))
-        
-        return sections
-    }
     
     private func setupProperties() {
-        self.title = "同詞彙列表"
+        self.title = practiceLemma?.lemma ?? "同詞彙列表"
         self.view.backgroundColor = .background
     }
     
     private func setupCollectionView() {
-        self.view.addSubview(collectionView)
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-        ])
-        
         collectionView.backgroundColor = .transition
-        collectionView.frame = view.bounds
+        
+        // 註冊 Cell
         collectionView.register(UINib(nibName: SearchResultCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: SearchResultCell.reuseIdentifier)
+        
+        // 註冊 Header
+        collectionView.register(UINib(nibName: SearchResultHeaderView.reuseIdentifier, bundle: nil),
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: SearchResultHeaderView.reuseIdentifier)
+        
         dataSource = createCollectionViewDataSource()
         
         collectionView.collectionViewLayout = createCollectionViewLayout()
@@ -142,12 +141,16 @@ class SearchResultViewController: UIViewController {
     }
     
     private func createCollectionViewDataSource() -> UICollectionViewDiffableDataSource<Section, Item> {
-        return UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+        let dataSource =  UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.reuseIdentifier, for: indexPath) as! SearchResultCell
             
             cell.configureUI(itemIdentifier: itemIdentifier)
             return cell
         }
+        
+        dataSource.supplementaryViewProvider = supplementaryViewProvider
+        
+        return dataSource
     }
     
     private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -156,9 +159,20 @@ class SearchResultViewController: UIViewController {
             
             let sectionIdentifier = sections[sectionIndex]
 
+            // 配置 Item
             let item = self.createItem(for: sectionIdentifier)
+            
+            // 配置 Group
             let group = self.createGroup(for: sectionIdentifier, with: item)
+            
+            // 配置 Section
             let section = self.createSection(for: sectionIdentifier, with: group)
+            
+            
+            // 配置 Header
+            if let headerItem = self.createHeader(for: sectionIndex) {
+                section.boundarySupplementaryItems.append(headerItem)
+            }
 
             return section
         }
@@ -171,8 +185,11 @@ class SearchResultViewController: UIViewController {
             snapshot.appendSections([section])
             
             switch section {
-            case .record(let items), .highlightContext(let items):
+            case .record(let items):
                 snapshot.appendItems(items, toSection: section)
+                
+            case .highlightContext(let highlightContexts):
+                snapshot.appendItems(highlightContexts.items, toSection: section)
             }
         }
 
@@ -180,6 +197,42 @@ class SearchResultViewController: UIViewController {
     }
 }
 
+// MARK: - UICollectionView DataSource
+
+extension SearchResultViewController {
+    
+    // 提供 Supplementary View 的配置方法
+    private func supplementaryViewProvider(
+        collectionView: UICollectionView,
+        kind: String,
+        indexPath: IndexPath
+    ) -> UICollectionReusableView? {
+        if kind == UICollectionView.elementKindSectionHeader {
+            return configureHeaderView(collectionView: collectionView, indexPath: indexPath)
+        }
+        
+        return nil
+    }
+    
+    private func configureHeaderView(
+        collectionView: UICollectionView,
+        indexPath: IndexPath
+    ) -> UICollectionReusableView? {
+        let headerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: SearchResultHeaderView.reuseIdentifier,
+            for: indexPath
+        ) as! SearchResultHeaderView
+        
+        let section = self.sections[indexPath.section]
+        
+        if case let .highlightContext(highlightContexts) = section {
+            headerView.updateUI(title: highlightContexts.text)
+        }
+
+        return headerView
+    }
+}
 
 // MARK: - UICollectionViewCompositionalLayout
 
@@ -244,4 +297,20 @@ extension SearchResultViewController {
 
         return layoutSection
     }
+    
+    private func createHeader(for sectionIndex: Int) -> NSCollectionLayoutBoundarySupplementaryItem? {
+        
+        let headerSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(15)
+        )
+        
+        return NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+    }
 }
+
+

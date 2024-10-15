@@ -194,7 +194,7 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = filteredItems[indexPath.row]
         
-        let controller = SearchResultViewController()
+        let controller = SearchResultViewController.instantiate()
         
         if case let .lemma(practiceLemma) = item {
             controller.practiceLemma = practiceLemma

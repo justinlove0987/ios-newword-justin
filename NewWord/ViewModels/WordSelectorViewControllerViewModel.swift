@@ -702,7 +702,7 @@ extension WordSelectorViewControllerViewModel {
         let praciceLemmaContext = findPracticeLemmaContext(matching: lemma)
         
         if let praciceLemmaContext {
-            let practiceContext = findPracticeContext(matching: lemma, in: praciceLemmaContext.contexts)
+            let practiceContext = findPracticeContext(matching: text, in: praciceLemmaContext.contexts)
             
             if let blueprintMap = getBlueprintMap(),
                let practiceContext,
