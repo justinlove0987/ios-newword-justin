@@ -14,42 +14,42 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     @IBOutlet weak var collectionView: UICollectionView!
     
     private var dataSource: UICollectionViewDiffableDataSource<Int, CDPracticeArticle>!
-
+    
     private var resources: [CDPracticeArticle] = [] {
         didSet {
             resources.sort { $0.uploadedDate! > $1.uploadedDate! }
-
+            
             updateSnapshot()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        resetData()
+//        resetData()
 //        uploadArticle()
         setup()
     }
-
+    
     func getYesterdayDate() -> Date {
         let calendar = Calendar.current
         let today = Date()
-
+        
         // 使用dateComponents來減去一天
         let yesterday = calendar.date(byAdding: .day, value: -1, to: today)
-
+        
         return yesterday!
     }
     
     private func resetData() {
         UserDefaultsManager.shared.lastDataFetchedDate = getYesterdayDate()
-//        CoreDataManager.shared.deleteAllEntities()
+        //        CoreDataManager.shared.deleteAllEntities()
     }
-
+    
     private func setup() {
         setupCollectionView()
         setupArticles()
     }
-
+    
     private func setupCollectionView() {
         collectionView.register(UINib(nibName: ExploreCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: ExploreCell.reuseIdentifier)
         dataSource = createDataSource()
@@ -61,13 +61,13 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     
     private func createDataSource() -> UICollectionViewDiffableDataSource<Int, CDPracticeArticle> {
         let dataSource = UICollectionViewDiffableDataSource<Int, CDPracticeArticle>(collectionView: collectionView,
-                                                                            cellProvider: { collectionView, indexPath, itemIdentifier in
+                                                                                    cellProvider: { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ExploreCell.reuseIdentifier, for: indexPath) as! ExploreCell
             
             cell.configure(itemIdentifier)
-
+            
             cell.imageView.image = itemIdentifier.hasImage ? itemIdentifier.imageResource?.image : UIImage(named: "loading")
-
+            
             if !itemIdentifier.hasImage {
                 self.fetchImage(at: indexPath)
             }
@@ -107,7 +107,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         var snapshot = NSDiffableDataSourceSnapshot<Int, CDPracticeArticle>()
         snapshot.appendSections([0])
         snapshot.appendItems(resources)
-
+        
         DispatchQueue.main.async {
             self.dataSource.apply(snapshot, animatingDifferences: false)
         }
@@ -117,22 +117,22 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         let article = self.resources[indexPath.row]
         guard let imageId = article.imageResource?.id else { return }
         guard article.id != nil else { return }
-
+        
         FirebaseManager.shared.getImage(for: imageId) { result in
             switch result {
             case .success(let imageData):
                 article.imageResource?.data = imageData
                 CoreDataManager.shared.save()
-
+                
             case .failure(_):
                 article.imageResource?.data = UIImage(named: "loading")?.pngData()
             }
             
             DispatchQueue.main.async {
                 var snapshot = self.dataSource.snapshot()
-
+                
                 snapshot.reloadItems([self.resources[indexPath.row]])
-
+                
                 self.dataSource.apply(snapshot, animatingDifferences: true)
             }
         }
@@ -144,7 +144,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
         let localArticles = CoreDataManager.shared.getAll(ofType: CDPracticeArticle.self)
         
         self.resources = localArticles
-
+        
         if shouldFetchArticles() {
             fetchAndSyncArticles(with: localArticles)
         }
@@ -169,20 +169,20 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
             completion(articles)
         }
     }
-
+    
     private func syncNewServerArticles(with localArticles: [CDPracticeArticle], from serverArticles: [CDPracticeArticle], completion: @escaping () -> Void) {
         let localArticleIDs = Set(localArticles.map { $0.id })
-
+        
         serverArticles.forEach { serverArticle in
             let hasArticle = localArticleIDs.contains(serverArticle.id)
-
+            
             if hasArticle {
                 CoreDataManager.shared.discardEntity(serverArticle)
             }
         }
-
+        
         CoreDataManager.shared.save()
-
+        
         completion()
     }
 }
@@ -244,64 +244,67 @@ extension ExploreViewController: UICollectionViewDelegate {
 
 extension ExploreViewController {
     func uploadArticle() {
-        let title = "Successful Polio Vaccination Campaign in Gaza Surpasses Expectations"
+        let title = "Africa's Growing Presence in Space"
         
         let content =
                 """
-                The World Health Organization (WHO) has announced that the initial phase of a polio vaccination campaign in central Gaza has exceeded its goals, with over 161,000 children vaccinated within the first two days. Dr. Rik Peeperkorn, WHO's representative in the Palestinian territories, noted that this figure surpasses the projected target of 156,500, likely due to underestimations of the densely populated area.
-                
-                The vaccination drive became possible after Israel and Hamas agreed to localized ceasefires, allowing health workers to administer vaccines. This initiative was crucial following the first confirmed polio case in Gaza in 25 years, which left a 10-month-old partially paralyzed.
-                
-                The immunization campaign is being conducted in three stages, with temporary pauses in hostilities from 06:00 to 15:00 local time. The first phase began in Deir al-Balah and Khan Younis governorates, and will continue in Rafah, followed by North Gaza and Gaza City. While the campaign has progressed smoothly, Dr. Peeperkorn emphasized that there are at least 10 days remaining in the first round, with a second round scheduled in four weeks to ensure full immunization coverage.
-                
-                Efforts are ongoing to reach children in areas outside the ceasefire zones, particularly in the southern parts of Gaza. The overall goal is to vaccinate 640,000 children, with a minimum of 90% coverage needed to halt the transmission of poliovirus in Gaza and prevent its spread to neighboring regions.
-                
-                Polio is a highly contagious virus, often transmitted through contaminated water, that primarily affects children under five. It can lead to severe consequences such as paralysis or even death. Humanitarian organizations attribute the resurgence of polio in Gaza to disruptions in vaccination programs and significant damage to water and sanitation infrastructure due to the ongoing conflict.
-                
-                The mother of the affected child, Niveen, shared her feelings of guilt for being unable to vaccinate her son due to the conflict. She expressed a deep desire for her son to receive treatment outside Gaza, hoping he could live a life free from the debilitating effects of polio.
+                On August 16, a significant milestone was reached when 116 satellites, mostly from Western nations, were launched into space. Among them, Senegal’s GaindeSAT-1A stood out as the country’s first satellite, marking an important step for Africa’s technological growth.
+
+                GaindeSAT-1A, a small CubeSat, will help with earth observation and telecommunications. Senegal’s president praised this achievement as a move toward technological sovereignty. Lower costs in space launches have opened new opportunities for African nations to engage in space activities, says Kwaku Sumah, founder of Spacehubs Africa.
+
+                To date, 17 African countries have launched more than 60 satellites. In the last year, Djibouti and Zimbabwe joined Senegal in sending their first satellites into orbit. Despite these advances, Africa still lacks its own space launch facilities, relying on partnerships with other nations.
+
+                African nations have used satellites to address urgent issues such as climate change. For example, Kenyan meteorologists have used satellite data to track severe weather and anticipate natural disasters. However, the continent remains dependent on foreign technology and expertise, a challenge that local governments hope to overcome.
+
+                As African space programs continue to grow, experts see both opportunities and challenges. While global powers may use these programs for geopolitical influence, African nations aim to leverage their space achievements to address their unique needs, from agriculture to disaster management. With nearly 80 satellites in development, Africa’s future in space looks promising.
                 """
         
-                let text = "\(title)\n\n\(content)"
+        let text = "\(title)\n\n\(content)"
         
-            GoogleTTSService.shared.downloadSSML(text) { audioResource, timepoints in
-                    guard let audioResource else {
-                        print("foo - download ssml failed")
-                        return
-                    }
-        
-                    guard let id = audioResource.id, let audioData = audioResource.data else {
-                        print("foo - download ssml failed, there is no audio data")
-                        return
-                    }
+        GoogleTTSService.shared.downloadSSML(text) { audioResource, timepoints in
+            guard let audioResource else {
+                print("foo - download ssml failed")
+                return
+            }
+            
+            guard let id = audioResource.id else {
+                print("foo - download ssml failed, there is no audio id")
+                return
+            }
+            
+            guard let audioData = audioResource.data else {
+                print("foo - download ssml failed, there is no audio data")
+                return
+            }
+            
+            guard let timepoints else {
+                print("foo - download ssml failed, there is no timepoints")
+                return
+            }
+            
+            FirebaseManager.shared.uploadAudio(audioId: id, audioData: audioData) { isDownloadSuccessful, url in
                 
-                    guard let timepoints else {
-                        print("foo - download ssml failed, there is no timepoints")
-                        return
-                    }
-        
-                    FirebaseManager.shared.uploadAudio(audioId: id, audioData: audioData) { isDownloadSuccessful, url in
-                        
-                        print("foo - upload audio \(isDownloadSuccessful)")
-        
-                        let imageResource = CoreDataManager.shared.createEntity(ofType: CDPracticeImage.self)
-                        imageResource.id = UUID().uuidString
-
-                        let article = CoreDataManager.shared.createEntity(ofType: CDPracticeArticle.self)
-
-                        article.id = UUID().uuidString
-                        article.title = title
-                        article.content = content
-                        article.text = article.text
-                        article.uploadedDate = Date()
-                        article.cefrRawValue = CEFR.c1.rawValue.toInt64
-                        article.audioResource = audioResource
-                        article.imageResource = imageResource
-                        article.timepoints = NSSet(array: timepoints)
-        
-                        FirebaseManager.shared.uploadArticle(article) { isDownloadSuccessful in
-                            print("foo - upload article \(isDownloadSuccessful)")
-                        }
-                    }
+                print("foo - upload audio \(isDownloadSuccessful)")
+                
+                let imageResource = CoreDataManager.shared.createEntity(ofType: CDPracticeImage.self)
+                imageResource.id = UUID().uuidString
+                
+                let article = CoreDataManager.shared.createEntity(ofType: CDPracticeArticle.self)
+                
+                article.id = UUID().uuidString
+                article.title = title
+                article.content = content
+                article.text = article.text
+                article.uploadedDate = Date()
+                article.cefrRawValue = CEFR.c1.rawValue.toInt64
+                article.audioResource = audioResource
+                article.imageResource = imageResource
+                article.timepointSet = NSSet(array: timepoints)
+                
+                FirebaseManager.shared.uploadArticle(article) { isDownloadSuccessful in
+                    print("foo - upload article \(isDownloadSuccessful)")
                 }
+            }
+        }
     }
 }

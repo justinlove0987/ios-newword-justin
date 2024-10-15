@@ -58,7 +58,7 @@ class FirebaseManager {
         let id = data["id"] as? String
         let title = data["title"] as? String
         let content = data["content"] as? String
-        let cefrRawValue = data["cefrType"] as? Int
+        let cefrRawValue = data["cefrRawValue"] as? Int
         let timestamp = data["uploadedDate"] as? Timestamp
         let uploadedDate = timestamp?.dateValue()
 
@@ -67,35 +67,31 @@ class FirebaseManager {
         }
 
         if let audioResource = data["audioResource"] as? [String: Any] {
-
-            if let id = audioResource["id"] as? String {
-                practiceAudioResource.id = id
-            }
-
-            if let parsingTmepoints = audioResource["timepoints"] as? [[String: Any]] {
-
-                for timepoint in parsingTmepoints {
-                    let rangeLocation = timepoint["rangeLocation"] as? Int ?? 0
-                    let rangeLength = timepoint["rangeLength"] as? Int ?? 0
-                    let markName = timepoint["markName"] as? String ?? ""
-                    let timeSeconds = timepoint["timeSeconds"] as? Double ?? 0.0
-                    
-                    let practiceAudio = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
-                    let userGeneratedContextTag = CoreDataManager.shared.createEntity(ofType: CDUserGeneratedContextTag.self)
-                    
-                    userGeneratedContextTag.timeSeconds = timeSeconds
-                    userGeneratedContextTag.markName = markName
-                    userGeneratedContextTag.originalRangeLocation = rangeLocation.toInt64
-                    userGeneratedContextTag.originalRangeLength = rangeLength.toInt64
-                    userGeneratedContextTag.revisedRangeLocation = rangeLocation.toInt64
-                    userGeneratedContextTag.revisedRangeLength = rangeLength.toInt64
-                    userGeneratedContextTag.isTag = false
-                    userGeneratedContextTag.id = UUID().uuidString
-                    userGeneratedContextTag.practiceAudio = practiceAudio
-                    userGeneratedContextTag.typeRawValue = ContextType.word.rawValue.toInt64
-                    
-                    userGeneratedArticle.addToUserGeneratedContextTagSet(userGeneratedContextTag)
-                }
+            practiceAudioResource.id = audioResource["id"] as? String
+        }
+        
+        if let textSegments = data["textSegments"] as? [[String: Any]] {
+            for textSegment in textSegments {
+                let rangeLocation = textSegment["rangeLocation"] as? Int ?? 0
+                let rangeLength = textSegment["rangeLength"] as? Int ?? 0
+                let markName = textSegment["markName"] as? String ?? ""
+                let timeSeconds = textSegment["timeSeconds"] as? Double ?? 0.0
+                
+                let practiceAudio = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
+                let userGeneratedContextTag = CoreDataManager.shared.createEntity(ofType: CDUserGeneratedContextTag.self)
+                
+                userGeneratedContextTag.timeSeconds = timeSeconds
+                userGeneratedContextTag.markName = markName
+                userGeneratedContextTag.originalRangeLocation = rangeLocation.toInt64
+                userGeneratedContextTag.originalRangeLength = rangeLength.toInt64
+                userGeneratedContextTag.revisedRangeLocation = rangeLocation.toInt64
+                userGeneratedContextTag.revisedRangeLength = rangeLength.toInt64
+                userGeneratedContextTag.isTag = false
+                userGeneratedContextTag.id = UUID().uuidString
+                userGeneratedContextTag.practiceAudio = practiceAudio
+                userGeneratedContextTag.typeRawValue = ContextType.word.rawValue.toInt64
+                
+                userGeneratedArticle.addToUserGeneratedContextTagSet(userGeneratedContextTag)
             }
         }
         
@@ -135,7 +131,6 @@ class FirebaseManager {
         }
 
         // 處理 audioResource
-        
         if let audioResource = article.audioResource {
             var resource: [String: Any] = [:]
             
@@ -145,10 +140,7 @@ class FirebaseManager {
         }
         
         // 處理 timepoints
-        
-        let timepoints = CoreDataManager.shared.getUserGeneratedTimepoints(from: article)
-        
-        let timepointsArray = timepoints.map { timepoint in
+        let textSegments = article.timepoints.map { timepoint in
             [
                 "rangeLocation": timepoint.rangeLocation as Any,
                 "rangeLength": timepoint.rangeLength as Any,
@@ -157,8 +149,7 @@ class FirebaseManager {
             ]
         }
         
-        articleData["timepoints"] = timepointsArray
-        
+        articleData["textSegments"] = textSegments
         articleData["cefrRawValue"] = article.cefrRawValue
 
         db.collection("articles").addDocument(data: articleData) { error in
@@ -292,35 +283,6 @@ class FirebaseManager {
             .setData([
             "ttsSynthesisResult": ttsSynthesisResultData
         ], merge: true)
-    }
-}
-
-enum CEFR: Int, CaseIterable, Codable {
-    case none = -1
-    case a1 = 0
-    case a2
-    case b1
-    case b2
-    case c1
-    case c2
-
-    var title: String {
-        switch self {
-        case .none:
-            return "未分類"
-        case .a1:
-            return "A1"
-        case .a2:
-            return "A2"
-        case .b1:
-            return "B1"
-        case .b2:
-            return "B2"
-        case .c1:
-            return "C1"
-        case .c2:
-            return "C2"
-        }
     }
 }
 

@@ -239,76 +239,79 @@ class GoogleTTSService: NSObject {
                       voiceType: VoiceType = .enUSPolyglot1Male,
                       rate: Double = 0.8,
                       completion: @escaping (CDPracticeAudio?, [CDTimepointInformation]?) -> Void) {
-
-        var text = addMarksToText(text)
-        text = wrapWithSpeakTags(text)
+        
+        let ssmlText = wrapWithSpeakTags(addMarksToText(text))
         
         downloadQueue.async {
-            let postData = self.buildPostData(text: text,
+            let postData = self.buildPostData(text: ssmlText,
                                               synthiesisInput: .ssml,
                                               timepointType: .SSML_MARK,
                                               voiceType: voiceType,
                                               rate: rate)
             
-            let headers = ["X-Goog-Api-Key": K.API.key, 
+            let headers = ["X-Goog-Api-Key": K.API.key,
                            "Content-Type": "application/json; charset=utf-8"]
-            
             let response = self.makePOSTRequest(url: K.API.tts, postData: postData, headers: headers)
             
-            // 獲取 `audioContent` 並解碼
             guard let audioContent = response["audioContent"] as? String,
                   let audioData = Data(base64Encoded: audioContent) else {
                 DispatchQueue.main.async {
-                    completion(nil,nil)
+                    completion(nil, nil)
                 }
                 return
             }
             
-            // 解析 timepoints 並封裝到 TimepointInfo 中
-            var timepoints: [CDTimepointInformation] = []
-
-            if let tpArray = response["timepoints"] as? [[String: Any]] {
-                for tp in tpArray {
-                    if let markName = tp["markName"] as? String,
-                       let timeSeconds = tp["timeSeconds"] as? Double {
-                        
-                        // 解析 markName 並生成 NSRange
-                        let components = markName.split(separator: "_")
-                        let range: NSRange? = {
-                            if components.count == 3,
-                               let location = Int(components[1]),
-                               let length = Int(components[2]) {
-                                return NSRange(location: location, length: length)
-                            }
-                            return nil
-                        }()
-                        
-                        let timepoint = CoreDataManager.shared.createEntity(ofType: CDTimepointInformation.self)
-                        
-                        timepoint.timeSeconds = timeSeconds
-                        timepoint.markName = markName
-                        
-                        if let rangeLocation = range?.location.toInt64 {
-                            timepoint.rangeLocation = rangeLocation
-                        }
-                        
-                        if let rangeLength = range?.length.toInt64 {
-                            timepoint.rangeLength = rangeLength
-                        }
-
-                        timepoints.append(timepoint)
-                    }
-                }
-            }
+            let timepoints = self.parseTimepoints(from: response)
             
-            let audioResrouce = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
-            audioResrouce.data = audioData
-
+            let audioResource = CoreDataManager.shared.createEntity(ofType: CDPracticeAudio.self)
+            audioResource.data = audioData
+            audioResource.id = UUID().uuidString
+            
             DispatchQueue.main.async {
-                completion(audioResrouce,timepoints)
+                completion(audioResource, timepoints)
             }
         }
     }
+
+    private func parseTimepoints(from response: [String: Any]) -> [CDTimepointInformation] {
+        var timepoints: [CDTimepointInformation] = []
+        
+        guard let tpArray = response["timepoints"] as? [[String: Any]] else { return timepoints }
+        
+        for tp in tpArray {
+            guard let markName = tp["markName"] as? String,
+                  let timeSeconds = tp["timeSeconds"] as? Double else { continue }
+            
+            let range = self.extractRange(from: markName)
+            
+            let timepoint = CoreDataManager.shared.createEntity(ofType: CDTimepointInformation.self)
+            timepoint.timeSeconds = timeSeconds
+            timepoint.markName = markName
+            
+            if let rangeLocation = range?.location.toInt64 {
+                timepoint.rangeLocation = rangeLocation
+            }
+            
+            if let rangeLength = range?.length.toInt64 {
+                timepoint.rangeLength = rangeLength
+            }
+            
+            timepoints.append(timepoint)
+        }
+        
+        return timepoints
+    }
+
+    private func extractRange(from markName: String) -> NSRange? {
+        let components = markName.split(separator: "_")
+        guard components.count == 3,
+              let location = Int(components[1]),
+              let length = Int(components[2]) else {
+            return nil
+        }
+        return NSRange(location: location, length: length)
+    }
+
     
     func addMarksToText(_ text: String) -> String {
         let tokenizer = NLTokenizer(unit: .word)
