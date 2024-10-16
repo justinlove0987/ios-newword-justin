@@ -27,14 +27,17 @@ extension AppDelegate {
     func initializeDataManager() {
         _ = CoreDataManager.shared
 
-        if UserDefaultsManager.shared.preferredFontSize == 0 {
-            UserDefaultsManager.shared.preferredFontSize = 18
-        }
+//        if UserDefaultsManager.shared.preferredFontSize == 0 {
+//            UserDefaultsManager.shared.preferredFontSize = 18
+//        }
+//
+//        if UserDefaultsManager.shared.preferredLineSpacing == 0 {
+//            UserDefaultsManager.shared.preferredLineSpacing = 5
+//        }
 
-        if UserDefaultsManager.shared.preferredLineSpacing == 0 {
-            UserDefaultsManager.shared.preferredLineSpacing = 5
-        }
-        
+        UserDefaultsManager.shared.preferredFontSize = 22
+        UserDefaultsManager.shared.preferredLineSpacing = 15
+
         // CoreDataManager.shared.deleteAllEntities()
         
         if !CoreDataManager.shared.hasPracticeMap() {
