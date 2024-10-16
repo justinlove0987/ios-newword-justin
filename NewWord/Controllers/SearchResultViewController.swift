@@ -20,6 +20,7 @@ class SearchResultViewController: UIViewController, StoryboardGenerated {
     
     struct HighlightContexts: Hashable {
         let text: String
+        let practiceContext: CDPracticeContext
         let items: [Item]
     }
     
@@ -74,7 +75,9 @@ class SearchResultViewController: UIViewController, StoryboardGenerated {
             
             let items = getItems(from: sortedSequences)
             
-            let section = Section.highlightContext(HighlightContexts(text: text, items: items))
+            let section = Section.highlightContext(HighlightContexts(text: text,
+                                                                     practiceContext: context,
+                                                                     items: items))
             
             sections.append(section)
         }
@@ -121,6 +124,7 @@ class SearchResultViewController: UIViewController, StoryboardGenerated {
     private func setupProperties() {
         self.title = practiceLemma?.lemma ?? "同詞彙列表"
         self.view.backgroundColor = .background
+        self.navigationController?.navigationBar.tintColor = UIColor.title
     }
     
     private func setupCollectionView() {
@@ -228,6 +232,17 @@ extension SearchResultViewController {
         
         if case let .highlightContext(highlightContexts) = section {
             headerView.updateUI(title: highlightContexts.text)
+            
+            headerView.recordCallback = { [weak self] in
+                guard let self else { return }
+                
+                let controller = PracticeMapViewController.instantiate()
+                controller.practiceMap = highlightContexts.practiceContext.map
+                
+                self.navigationController?.pushViewControllerWithCustomTransition(controller)
+            }
+            
+            headerView.delegate = self
         }
 
         return headerView
@@ -310,6 +325,14 @@ extension SearchResultViewController {
             elementKind: UICollectionView.elementKindSectionHeader,
             alignment: .top
         )
+    }
+}
+
+// MARK: - SearchResultHeaderViewDelegate
+
+extension SearchResultViewController: SearchResultHeaderViewDelegate {
+    func searchResultHeaderViewDidTapRecordButton(_ headerView: SearchResultHeaderView) {
+        
     }
 }
 

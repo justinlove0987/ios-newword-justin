@@ -7,12 +7,20 @@
 
 import UIKit
 
+protocol SearchResultHeaderViewDelegate: AnyObject {
+    func searchResultHeaderViewDidTapRecordButton(_ headerView: SearchResultHeaderView)
+}
+
 class SearchResultHeaderView: UICollectionReusableView {
     
     static let reuseIdentifier = String(describing: SearchResultHeaderView.self)
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var recordButton: UIButton!
+    
+    weak var delegate: SearchResultHeaderViewDelegate?
+    
+    var recordCallback: (() ->())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,6 +32,7 @@ class SearchResultHeaderView: UICollectionReusableView {
     }
     
     @IBAction func recordAction(_ sender: UIButton) {
-        print("foo - did tap record button")
+        recordCallback?()
+        delegate?.searchResultHeaderViewDidTapRecordButton(self)
     }
 }

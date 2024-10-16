@@ -24,11 +24,11 @@ class PracticeMapViewController: UIViewController, StoryboardGenerated {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var dataSource: UICollectionViewDiffableDataSource<Int,Item>!
-
     var practiceMap: CDPracticeMap?
     
-    var itemMatrix: [[Item]] = []
+    private var dataSource: UICollectionViewDiffableDataSource<Int,Item>!
+
+    private var itemMatrix: [[Item]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
