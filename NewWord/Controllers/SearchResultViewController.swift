@@ -241,8 +241,6 @@ extension SearchResultViewController {
                 
                 self.navigationController?.pushViewControllerWithCustomTransition(controller)
             }
-            
-            headerView.delegate = self
         }
 
         return headerView
@@ -325,14 +323,6 @@ extension SearchResultViewController {
             elementKind: UICollectionView.elementKindSectionHeader,
             alignment: .top
         )
-    }
-}
-
-// MARK: - SearchResultHeaderViewDelegate
-
-extension SearchResultViewController: SearchResultHeaderViewDelegate {
-    func searchResultHeaderViewDidTapRecordButton(_ headerView: SearchResultHeaderView) {
-        
     }
 }
 
