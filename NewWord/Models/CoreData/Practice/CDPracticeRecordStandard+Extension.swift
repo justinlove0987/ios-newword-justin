@@ -70,6 +70,50 @@ extension CDPracticeRecordStandard {
         
         return dueDate <= Date() && (intervalType == .forget || intervalType == .firstPractice)
     }
+    
+    var formattedInterval: String {
+        let minute: TimeInterval = 60
+        let hour: TimeInterval = minute * 60
+        let day: TimeInterval = hour * 24
+        let month: TimeInterval = day * 30.44 // 平均一個月的天數
+        let year: TimeInterval = day * 365.25 // 平均一年的天數
+
+        switch duration {
+        case let x where x >= year:
+            // 超過1年，顯示幾年，取到小數點後兩位
+            return String(format: "%.2f年", duration / year)
+        case let x where x >= month:
+            // 超過1個月，顯示幾個月，取到小數點後兩位
+            return String(format: "%.2f個月", duration / month)
+        case let x where x >= day:
+            // 超過1天，顯示幾天，不用小數點
+            return String(format: "%.0f天", duration / day)
+        case let x where x >= hour:
+            // 超過1小時，顯示幾小時，取到小數點後1位
+            return String(format: "%.1f小時", duration / hour)
+        case let x where x >= minute:
+            // 超過1分鐘，顯示幾分鐘
+            return String(format: "%.0f分鐘", duration / minute)
+        default:
+            // 小於1分鐘，直接顯示秒數
+            return String(format: "%.0f秒", duration)
+        }
+    }
+    
+    var formattedEase: String {
+        return String(format: "%.0f%%", ease * 100)
+    }
+    
+    var formattedLearnedDate: String? {
+        guard let learnedDate = learnedDate else {
+            return nil
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        return dateFormatter.string(from: learnedDate)
+    }
 }
 
 enum PracticeStandardIntervalType: Int, CaseIterable {
@@ -87,4 +131,21 @@ enum PracticeRecordStandardStateType: Int, CaseIterable {
     case relearn
     case leach
     case master
+    
+    var title: String {
+        switch self {
+        case .new:
+            return "新卡片"
+        case .learn:
+            return "學習"
+        case .review:
+            return "複習"
+        case .relearn:
+            return "重新學習"
+        case .leach:
+            return "-"
+        case .master:
+            return "-"
+        }
+    }
 }

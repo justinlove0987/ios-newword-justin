@@ -205,9 +205,11 @@ extension PracticeMapViewController: UICollectionViewDelegate {
             updateSnapshot(true)
             
         case .practice:
-            let controller = PracticeSettingViewController.instantiate()
+//            let controller = PracticeSettingViewController.instantiate()
+            let controller = PracticeRecordViewController()
             controller.practice = item.practice
-            navigationController?.pushViewControllerWithCustomTransition(controller)
+            navigationController?.pushViewController(controller, animated: true)
+//            navigationController?.pushViewControllerWithCustomTransition(controller)
         }
     }
 }

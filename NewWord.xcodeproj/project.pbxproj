@@ -82,6 +82,8 @@
 		2AC3E5932C5602EB002CC242 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3E5922C5602EB002CC242 /* SettingCell.swift */; };
 		2AC5D8B92C54941B0090AEBB /* PlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC5D8B82C54941B0090AEBB /* PlayButton.swift */; };
 		2AC5D8BB2C54942A0090AEBB /* PlayButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */; };
+		2AD675582CBFA36C007D9169 /* PracticeRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD675562CBFA36C007D9169 /* PracticeRecordCell.swift */; };
+		2AD675592CBFA36C007D9169 /* PracticeRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD675572CBFA36C007D9169 /* PracticeRecordCell.xib */; };
 		2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */; };
 		2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */; };
 		2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */; };
@@ -229,6 +231,8 @@
 		2AC3E5922C5602EB002CC242 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		2AC5D8B82C54941B0090AEBB /* PlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButton.swift; sourceTree = "<group>"; };
 		2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayButton.xib; sourceTree = "<group>"; };
+		2AD675562CBFA36C007D9169 /* PracticeRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeRecordCell.swift; sourceTree = "<group>"; };
+		2AD675572CBFA36C007D9169 /* PracticeRecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeRecordCell.xib; sourceTree = "<group>"; };
 		2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSettingViewController.swift; sourceTree = "<group>"; };
 		2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultViewController.swift; sourceTree = "<group>"; };
 		2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultCell.swift; sourceTree = "<group>"; };
@@ -463,6 +467,8 @@
 				2A2BBF622CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.xib */,
 				2A763F4A2CBE4F2800705C02 /* SearchResultHeaderView.swift */,
 				2A763F4B2CBE4F2800705C02 /* SearchResultHeaderView.xib */,
+				2AD675562CBFA36C007D9169 /* PracticeRecordCell.swift */,
+				2AD675572CBFA36C007D9169 /* PracticeRecordCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -672,6 +678,7 @@
 				2AFC91542C7C6634002C2AD1 /* PracticeSettingHeaderView.xib in Resources */,
 				2AFC914B2C7C4F6F002C2AD1 /* PracticeSequenceCell.xib in Resources */,
 				2AED807F2C2E987B001E675A /* SearchClozeResultCell.xib in Resources */,
+				2AD675592CBFA36C007D9169 /* PracticeRecordCell.xib in Resources */,
 				D04AC2052C51E78E00F91A07 /* SearchCell.xib in Resources */,
 				2A17DAFC2C158C3B00919642 /* InputAccessoryView.xib in Resources */,
 				D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */,
@@ -761,6 +768,7 @@
 				D03107CC2C16EE6200EEF772 /* CardInformationViewController.swift in Sources */,
 				2A2683772C6DA4DD00FFF81D /* AudioPlayer.swift in Sources */,
 				2A763F4C2CBE4F2800705C02 /* SearchResultHeaderView.swift in Sources */,
+				2AD675582CBFA36C007D9169 /* PracticeRecordCell.swift in Sources */,
 				2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */,
 				2AFC914D2C7C5720002C2AD1 /* PracticeSettingViewController.swift in Sources */,
 				2A7B6CD52C0810030017BB5C /* NotificationName+Extension.swift in Sources */,

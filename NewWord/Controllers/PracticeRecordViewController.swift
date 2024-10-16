@@ -10,7 +10,12 @@ import UIKit
 class PracticeRecordViewController: UIViewController {
     
     struct Item: Hashable {
-        
+        let learnedDate: Date
+        let formattedLearnedDate: String?
+        let state: String
+        let rate: String
+        let interval: String
+        let ease: String
     }
     
     struct Section: Hashable {
@@ -23,7 +28,7 @@ class PracticeRecordViewController: UIViewController {
     
     var sections: [Section] = []
     
-//    var
+    var practice: CDPractice?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,22 +36,65 @@ class PracticeRecordViewController: UIViewController {
     }
     
     private func setup() {
+        setupProperties()
+        updateData()
         setupCollectionView()
         updateSnapshot()
     }
     
+    private func setupProperties() {
+        view.backgroundColor = .background
+        self.title = "練習記錄"
+    }
+    
+    private func updateData() {
+        guard let standardRecords = practice?.record?.standardRecords else {
+            return
+        }
+        
+        var items: [Item] = []
+        
+        for record in standardRecords {
+            guard let learnedDate = record.learnedDate,
+                  let stateType = record.stateType,
+                  let rate = record.statusType
+            else {
+                return
+            }
+            
+            let item = Item(learnedDate: learnedDate,
+                            formattedLearnedDate: record.formattedLearnedDate,
+                            state: stateType.title,
+                            rate: rate.title,
+                            interval: record.formattedInterval,
+                            ease: record.formattedEase)
+            
+            items.append(item)
+        }
+        
+        items = items.sorted { $0.learnedDate < $1.learnedDate }
+        
+        sections.append(Section(items: items))
+    }
+    
     private func setupCollectionView() {
-        collectionView.frame = view.bounds
-        collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: SearchResultCell.reuseIdentifier)
+        view.addSubview(collectionView)
+        
         dataSource = createCollectionViewDataSource()
         
+        collectionView.backgroundColor = .background
+        collectionView.frame = view.bounds
+        collectionView.register(UINib(nibName: PracticeRecordCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: PracticeRecordCell.reuseIdentifier)
         collectionView.collectionViewLayout = createCollectionViewLayout()
         collectionView.dataSource = dataSource
     }
     
     private func createCollectionViewDataSource() -> UICollectionViewDiffableDataSource<Section, Item> {
         return UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCell.reuseIdentifier, for: indexPath) as! SearchResultCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeRecordCell.reuseIdentifier, for: indexPath) as! PracticeRecordCell
+            
+            cell.updateUI(itemIdentifier)
+            
             return cell
         }
     }
