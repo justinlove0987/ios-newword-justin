@@ -872,7 +872,7 @@ extension WordSelectorViewControllerViewModel {
     func createNewStateStandardRecord() -> CDPracticeRecordStandard {
         let standardRecord = CoreDataManager.shared.createEntity(ofType: CDPracticeRecordStandard.self)
         standardRecord.dueDate = Date()
-        standardRecord.duration = 0
+        standardRecord.interval = 0
         standardRecord.ease = 2.5
         standardRecord.learnedDate = Date()
         standardRecord.stateRawValue = PracticeRecordStandardStateType.new.rawValue.toInt64

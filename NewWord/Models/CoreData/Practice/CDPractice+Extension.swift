@@ -128,7 +128,7 @@ extension CDPractice {
 
         case .remember:
             newEase += referenceStatus.easeAdjustment
-            newDuration = newEase * referenceStatus.easeBonus * latestRecord.duration
+            newDuration = newEase * referenceStatus.easeBonus * latestRecord.interval
             newDueDate = learnedDate.adding(seconds: newDuration)
             newRecordState = referenceStatus.type == .again ? .relearn : .review
 
@@ -151,7 +151,8 @@ extension CDPractice {
         newStatusType: PracticeStandardStatusType
     ) {
         let standardRecord = CoreDataManager.shared.createEntity(ofType: CDPracticeRecordStandard.self)
-        standardRecord.duration = newDuration
+        standardRecord.ease = newEase
+        standardRecord.interval = newDuration
         standardRecord.learnedDate = learnedDate
         standardRecord.dueDate = newDueDate
         standardRecord.stateRawValue = newStateType.rawValue.toInt64
