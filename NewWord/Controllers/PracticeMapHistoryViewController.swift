@@ -1,13 +1,15 @@
 //
-//  PracticeSequenceViewController.swift
+//  PracticeMapHistoryViewController.swift
 //  NewWord
 //
-//  Created by 曾柏楊 on 2024/8/26.
+//  Created by 曾柏楊 on 2024/10/17.
 //
 
 import UIKit
 
-class PracticeMapViewController: UIViewController, StoryboardGenerated {
+import UIKit
+
+class PracticeMapHistoryViewController: UIViewController, StoryboardGenerated {
     
     enum CellType {
         case addPractice
@@ -22,7 +24,7 @@ class PracticeMapViewController: UIViewController, StoryboardGenerated {
     
     static var storyboardName: String = K.Storyboard.main
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    private var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     
     var practiceMap: CDPracticeMap?
     
@@ -91,6 +93,10 @@ class PracticeMapViewController: UIViewController, StoryboardGenerated {
     }
 
     private func setupCollectionView() {
+        view.addSubview(collectionView)
+        
+        collectionView.frame = view.bounds
+        
         collectionView.register(UINib(nibName: PracticeSequenceCell.reuseIdentifier, bundle: nil).self, forCellWithReuseIdentifier: PracticeSequenceCell.reuseIdentifier)
         dataSource = createDataSource()
         collectionView.dataSource = dataSource
@@ -158,7 +164,7 @@ class PracticeMapViewController: UIViewController, StoryboardGenerated {
     }
 }
 
-extension PracticeMapViewController: UICollectionViewDelegate {
+extension PracticeMapHistoryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let practiceMap else { return }
         
@@ -205,11 +211,9 @@ extension PracticeMapViewController: UICollectionViewDelegate {
             updateSnapshot(true)
             
         case .practice:
-//            let controller = PracticeSettingViewController.instantiate()
             let controller = PracticeRecordViewController()
             controller.practice = item.practice
             navigationController?.pushViewController(controller, animated: true)
-//            navigationController?.pushViewControllerWithCustomTransition(controller)
         }
     }
 }
@@ -217,7 +221,7 @@ extension PracticeMapViewController: UICollectionViewDelegate {
 
 // MARK: - CoreData
 
-extension PracticeMapViewController {
+extension PracticeMapHistoryViewController {
     
     func createPracticeBlueprint() -> CDPractice {
         let practiceBlueprint = CoreDataManager.shared.createEntity(ofType: CDPractice.self)

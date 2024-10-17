@@ -13,7 +13,7 @@ enum PracticeThresholdRuleActionType: Int {
     case levelUp
 }
 
-enum PracticeThresholdRuleConditionType: Int {
+enum PracticeThresholdRuleConditionType: Int, CaseIterable {
     case totalAgainAttempts
     case cumulativeAgainAttempts
     case totalEasyAttempts

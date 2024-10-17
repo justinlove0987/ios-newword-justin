@@ -18,7 +18,7 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
         var rows: [Row] {
             switch self {
             case .practiceTypeAndDetails:
-                return [.practiceType, .deck]
+                return [.type, .deck, .threshold]
             case .firstPractice:
                 return [.firstPracticeLearningPhase, .firstPracticeGraduationInterval, .firstPracticeEasyInterval]
             case .forget:
@@ -51,7 +51,7 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
             case toggleSwitch  // 有 switch 開關的 cell
         }
         
-        case practiceType
+        case type
         case firstPracticeLearningPhase
         case firstPracticeGraduationInterval
         case firstPracticeEasyInterval
@@ -61,10 +61,11 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
         case followPreviousPractice
         case practiceCompletionRules
         case deck
+        case threshold
         
         var cellType: CellType {
             switch self {
-            case .practiceType:
+            case .type:
                 return .navigation
             case .firstPracticeLearningPhase:
                 return .information
@@ -84,12 +85,14 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
                 return .navigation
             case .deck:
                 return .navigation
+            case .threshold:
+                return .navigation
             }
         }
         
         var title: String {
             switch self {
-            case .practiceType:
+            case .type:
                 return "練習種類"
             case .firstPracticeLearningPhase:
                 return "畢業階段"
@@ -109,12 +112,14 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
                 return "練習畢業規則"
             case .deck:
                 return "練習牌組"
+            case .threshold:
+                return "練習次數設定"
             }
         }
         
         var sfSymbolName: String {
             switch self {
-            case .practiceType:
+            case .type:
                 return "list.bullet"
             case .firstPracticeLearningPhase:
                 return "graduationcap"
@@ -134,6 +139,8 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
                 return "doc.text.magnifyingglass"
             case .deck:
                 return "sparkles.rectangle.stack"
+            case .threshold:
+                return "repeat"
             }
         }
     }
@@ -245,7 +252,7 @@ extension PracticeSettingViewController: UICollectionViewDelegate {
         let row = section.rows[indexPath.row]
                 
         switch row {
-        case .practiceType:
+        case .type:
             let controller = SelectPracticeTypeViewController()
             controller.practiceBlueprint = practice
             navigationController?.pushViewControllerWithCustomTransition(controller)
@@ -257,6 +264,10 @@ extension PracticeSettingViewController: UICollectionViewDelegate {
             
         case .practiceCompletionRules:
             let controller = PracticeCompletionViewController.instantiate()
+            navigationController?.pushViewControllerWithCustomTransition(controller)
+            
+        case .threshold:
+            let controller = PracticeThresholdSettingsViewController()
             navigationController?.pushViewControllerWithCustomTransition(controller)
             
         default:

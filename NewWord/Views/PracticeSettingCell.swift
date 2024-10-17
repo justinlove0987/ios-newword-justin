@@ -36,7 +36,7 @@ class PracticeSettingCell: UICollectionViewCell {
         var description: String
         
         switch row {
-        case .practiceType:
+        case .type:
             guard let title = data.type?.title else { return }
 
             description = title

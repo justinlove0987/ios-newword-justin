@@ -236,7 +236,7 @@ extension SearchResultViewController {
             headerView.recordCallback = { [weak self] in
                 guard let self else { return }
                 
-                let controller = PracticeMapViewController.instantiate()
+                let controller = PracticeMapHistoryViewController()
                 controller.practiceMap = highlightContexts.practiceContext.map
                 
                 self.navigationController?.pushViewControllerWithCustomTransition(controller)

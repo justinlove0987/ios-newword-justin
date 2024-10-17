@@ -84,6 +84,10 @@
 		2AC5D8BB2C54942A0090AEBB /* PlayButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */; };
 		2AD675582CBFA36C007D9169 /* PracticeRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD675562CBFA36C007D9169 /* PracticeRecordCell.swift */; };
 		2AD675592CBFA36C007D9169 /* PracticeRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD675572CBFA36C007D9169 /* PracticeRecordCell.xib */; };
+		2AD6758B2CC0F58E007D9169 /* PracticeMapHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6758A2CC0F58E007D9169 /* PracticeMapHistoryViewController.swift */; };
+		2AD6758D2CC0F91D007D9169 /* PracticeThresholdSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6758C2CC0F91D007D9169 /* PracticeThresholdSettingsViewController.swift */; };
+		2AD675922CC0FECD007D9169 /* PracticeThresholdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD675902CC0FECD007D9169 /* PracticeThresholdCell.swift */; };
+		2AD675932CC0FECD007D9169 /* PracticeThresholdCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD675912CC0FECD007D9169 /* PracticeThresholdCell.xib */; };
 		2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */; };
 		2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */; };
 		2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */; };
@@ -96,7 +100,7 @@
 		2AFABE742C99137B00BA2347 /* CDPracticeRecord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE722C99137B00BA2347 /* CDPracticeRecord+Extension.swift */; };
 		2AFABE782C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE762C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift */; };
 		2AFABE7C2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFABE7A2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift */; };
-		2AFC91472C7C4BB9002C2AD1 /* PracticeMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91462C7C4BB9002C2AD1 /* PracticeMapViewController.swift */; };
+		2AFC91472C7C4BB9002C2AD1 /* PracticeMapReferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91462C7C4BB9002C2AD1 /* PracticeMapReferenceViewController.swift */; };
 		2AFC914A2C7C4F6F002C2AD1 /* PracticeSequenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */; };
 		2AFC914B2C7C4F6F002C2AD1 /* PracticeSequenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */; };
 		2AFC914D2C7C5720002C2AD1 /* PracticeSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */; };
@@ -233,6 +237,10 @@
 		2AC5D8BA2C54942A0090AEBB /* PlayButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayButton.xib; sourceTree = "<group>"; };
 		2AD675562CBFA36C007D9169 /* PracticeRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeRecordCell.swift; sourceTree = "<group>"; };
 		2AD675572CBFA36C007D9169 /* PracticeRecordCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeRecordCell.xib; sourceTree = "<group>"; };
+		2AD6758A2CC0F58E007D9169 /* PracticeMapHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeMapHistoryViewController.swift; sourceTree = "<group>"; };
+		2AD6758C2CC0F91D007D9169 /* PracticeThresholdSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeThresholdSettingsViewController.swift; sourceTree = "<group>"; };
+		2AD675902CC0FECD007D9169 /* PracticeThresholdCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeThresholdCell.swift; sourceTree = "<group>"; };
+		2AD675912CC0FECD007D9169 /* PracticeThresholdCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeThresholdCell.xib; sourceTree = "<group>"; };
 		2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSettingViewController.swift; sourceTree = "<group>"; };
 		2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultViewController.swift; sourceTree = "<group>"; };
 		2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultCell.swift; sourceTree = "<group>"; };
@@ -245,7 +253,7 @@
 		2AFABE722C99137B00BA2347 /* CDPracticeRecord+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeRecord+Extension.swift"; sourceTree = "<group>"; };
 		2AFABE762C991C2100BA2347 /* CDPracticeRecordStandard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeRecordStandard+Extension.swift"; sourceTree = "<group>"; };
 		2AFABE7A2C997FFF00BA2347 /* CDPracticeStatus+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDPracticeStatus+Extension.swift"; sourceTree = "<group>"; };
-		2AFC91462C7C4BB9002C2AD1 /* PracticeMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeMapViewController.swift; sourceTree = "<group>"; };
+		2AFC91462C7C4BB9002C2AD1 /* PracticeMapReferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeMapReferenceViewController.swift; sourceTree = "<group>"; };
 		2AFC91482C7C4F6F002C2AD1 /* PracticeSequenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSequenceCell.swift; sourceTree = "<group>"; };
 		2AFC91492C7C4F6F002C2AD1 /* PracticeSequenceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeSequenceCell.xib; sourceTree = "<group>"; };
 		2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeSettingViewController.swift; sourceTree = "<group>"; };
@@ -469,6 +477,8 @@
 				2A763F4B2CBE4F2800705C02 /* SearchResultHeaderView.xib */,
 				2AD675562CBFA36C007D9169 /* PracticeRecordCell.swift */,
 				2AD675572CBFA36C007D9169 /* PracticeRecordCell.xib */,
+				2AD675902CC0FECD007D9169 /* PracticeThresholdCell.swift */,
+				2AD675912CC0FECD007D9169 /* PracticeThresholdCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -506,13 +516,15 @@
 				2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */,
 				2AFF6C9E2C5B6F8B00629B26 /* ServerProvidedArticleViewController.swift */,
 				D0696DD62C31094600FE4FE1 /* UserGeneratedArticleViewController.swift */,
-				2AFC91462C7C4BB9002C2AD1 /* PracticeMapViewController.swift */,
+				2AFC91462C7C4BB9002C2AD1 /* PracticeMapReferenceViewController.swift */,
+				2AD6758A2CC0F58E007D9169 /* PracticeMapHistoryViewController.swift */,
 				2AFC914C2C7C5720002C2AD1 /* PracticeSettingViewController.swift */,
 				2A2BBF5B2CAA40E100BA02F2 /* PracticeCompletionViewController.swift */,
 				2A9911DD2CAB7FA3004F2625 /* SelectPracticeTypeViewController.swift */,
 				2A9911E12CAB8D91004F2625 /* SelectDeckViewController.swift */,
 				2A9911DB2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift */,
 				2A763F482CBE465B00705C02 /* PracticeRecordViewController.swift */,
+				2AD6758C2CC0F91D007D9169 /* PracticeThresholdSettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -685,6 +697,7 @@
 				2A2BBF642CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.xib in Resources */,
 				2A89D86C2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib in Resources */,
 				D00A72EF2BFDEC5A0064F325 /* NoCardView.xib in Resources */,
+				2AD675932CC0FECD007D9169 /* PracticeThresholdCell.xib in Resources */,
 				2A9911FC2CAF7F56004F2625 /* SearchResultCell.xib in Resources */,
 				2A02EF2A2C4A386500E21A6E /* TagTestingCell.xib in Resources */,
 				2AFF6C9C2C5B5FF100629B26 /* ExploreCell.xib in Resources */,
@@ -703,6 +716,7 @@
 			files = (
 				2A034F812C37CCB600AEDA65 /* CustomNumberTagView.swift in Sources */,
 				2A763F492CBE465B00705C02 /* PracticeRecordViewController.swift in Sources */,
+				2AD675922CC0FECD007D9169 /* PracticeThresholdCell.swift in Sources */,
 				D0DA5AC92BB66A05008644DC /* MainViewController.swift in Sources */,
 				2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */,
 				2A6BA1442C63622B00F0DE3F /* FirebaseManager.swift in Sources */,
@@ -712,6 +726,7 @@
 				2A38F8C52BE48FD4003F058F /* SettingsViewController.swift in Sources */,
 				2A9911DC2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift in Sources */,
 				2AC3D4262C2D550200B72791 /* SearchDeckViewController.swift in Sources */,
+				2AD6758B2CC0F58E007D9169 /* PracticeMapHistoryViewController.swift in Sources */,
 				2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */,
 				2A791A6E2C0EF1FA00C26FFB /* ContextRevisionInputAccessoryView.swift in Sources */,
 				2A7B6CCF2C0809FE0017BB5C /* ReviseDeckViewController.swift in Sources */,
@@ -798,7 +813,7 @@
 				2A17DAFE2C158C5A00919642 /* InputAccessoryView.swift in Sources */,
 				2A89D86E2C74721600DDBFF0 /* PracticeModeSelectorView.swift in Sources */,
 				D0A0643F2BFC8E78001AFE08 /* PronounciationView.swift in Sources */,
-				2AFC91472C7C4BB9002C2AD1 /* PracticeMapViewController.swift in Sources */,
+				2AFC91472C7C4BB9002C2AD1 /* PracticeMapReferenceViewController.swift in Sources */,
 				2AC3C3E92CAA814D0010E7AA /* CDPracticeServerProvidedContent+Extension.swift in Sources */,
 				2AFABE682C98156D00BA2347 /* CDPracticeSequence+Extension.swift in Sources */,
 				D0B2E3FC2C2BB15F0047B2F5 /* CustomTextView.swift in Sources */,
@@ -806,6 +821,7 @@
 				D0A86A682C1B5FA00022DFDD /* ContextCell.swift in Sources */,
 				D090167A2C93E01900A5FBD2 /* CDUserGeneratedContextTag+Extension.swift in Sources */,
 				2A2BBF5C2CAA40E100BA02F2 /* PracticeCompletionViewController.swift in Sources */,
+				2AD6758D2CC0F91D007D9169 /* PracticeThresholdSettingsViewController.swift in Sources */,
 				D0DA5AC72BB66A05008644DC /* SceneDelegate.swift in Sources */,
 				2A17DAF82C1579E400919642 /* ClozeView.swift in Sources */,
 				D00A72F12BFDEDA00064F325 /* NoCardView.swift in Sources */,

@@ -35,7 +35,7 @@ extension AppDelegate {
 //            UserDefaultsManager.shared.preferredLineSpacing = 5
 //        }
 
-        UserDefaultsManager.shared.preferredFontSize = 22
+        UserDefaultsManager.shared.preferredFontSize = 20
         UserDefaultsManager.shared.preferredLineSpacing = 15
 
         // CoreDataManager.shared.deleteAllEntities()
