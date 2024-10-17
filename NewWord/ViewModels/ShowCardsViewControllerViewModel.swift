@@ -13,16 +13,25 @@ protocol ShowCardsViewControllerViewModelDelegate: AnyObject {
 
 class ShowCardsViewControllerViewModel {
     
-    enum CardType: Int {
+    enum PracticeType: Int {
         case new
         case relearn
         case review
         case notToday
     }
     
-    private var currentPractice: CDPractice? {
-        return getCurrentPractice() ?? nil
+    struct PracticePosition {
+        let startPosition: (Int, Int)
+        let endPosition: (Int,Int)
     }
+    
+    private var practiceTypeOrder: [PracticeType] = [.new, .review, .relearn]
+    private var storagePractices: [CDPractice] = []
+    private var practicePositions: [PracticePosition] = []
+    
+    private var currentMatrix: (collectionIndex: Int, practiceIndex: Int) = (0,0)
+    
+    private var practiceCollections: [[CDPractice]] = []
     
     var deck: CDDeck?
 
@@ -30,52 +39,94 @@ class ShowCardsViewControllerViewModel {
     var answerStackViewShouldHidden: ((Bool) -> ())?
 
     weak var delegate: ShowCardsViewControllerViewModelDelegate?
+    
+    var hasPractice: Bool {
+        guard getCurrentPractice() != nil else {
+            return false
+        }
 
+        return true
+    }
+    
+    var hasNextPracticeCollection: Bool {
+        return currentMatrix.collectionIndex + 1 < practiceTypeOrder.count
+    }
+    
+    var isCurrentPracticeIndexWithinBounds: Bool {
+        guard currentMatrix.collectionIndex < practiceCollections.count else {
+            return false
+        }
+        
+        let practiceCollection = practiceCollections[currentMatrix.collectionIndex]
+        let practiceIndex = currentMatrix.practiceIndex
+        
+        return practiceIndex >= 0 && practiceIndex < practiceCollection.count
+    }
+    
     // MARK: - Helpers
-
-    func getNewPracticeNumber() -> Int {
-        guard let newPractices = deck?.newPractices else { return 0 }
-        return newPractices.count
+    
+    func getPracticeNumber(type: PracticeType) -> Int {
+        switch type {
+        case .new:
+            return practiceCollections[0].count
+        case .relearn:
+            let practices = practiceCollections[2]
+            let filteredPractices = practices.filter { $0.isDue }
+            return filteredPractices.count
+        case .review:
+            return practiceCollections[1].count
+        case .notToday:
+            return 0
+        }
     }
-
-    func getRelearnPracticeNumber() -> Int {
-        guard let newPractices = deck?.relearnPractices else { return 0 }
-        return newPractices.count
-    }
-
-    func getReviewPracticeNumber() -> Int {
-        guard let newPractices = deck?.reviewPractices else { return 0 }
-        return newPractices.count
-    }
-
-    func hasPractice() -> Bool {
-        let count = getNewPracticeNumber() + getRelearnPracticeNumber() + getReviewPracticeNumber()
-
-        return count > 0
+    
+    func updatePracticesIntoCollections() {
+        guard let deck else { return }
+        
+        for order in practiceTypeOrder {
+            switch order {
+            case .new:
+                practiceCollections.append(deck.newPractices)
+            case .relearn:
+                practiceCollections.append(deck.relearnPractices)
+            case .review:
+                practiceCollections.append(deck.reviewPractices)
+            case .notToday:
+                break
+            }
+        }
     }
     
     func getCurrentPractice() -> CDPractice? {
-        guard let deck else { return nil }
-
-        let relearnPractices = deck.relearnPractices
-
-        if !relearnPractices.isEmpty {
-            return relearnPractices.first
-        }
-
-        let newPractices = deck.newPractices
-
-        if !newPractices.isEmpty {
-            return newPractices.first
-        }
-
-        let reviewPractices = deck.reviewPractices
-
-        if !reviewPractices.isEmpty {
-            return reviewPractices.first
+        currentMatrix.collectionIndex = 0
+        currentMatrix.practiceIndex = 0
+        
+        return getCurrentPracticeHelper()
+    }
+    
+    func getCurrentPracticeHelper() -> CDPractice? {
+        if isCurrentPracticeIndexWithinBounds {
+            let practice = practiceCollections[currentMatrix.collectionIndex][currentMatrix.practiceIndex]
+            
+            if practice.isDue {
+                return practice
+            }
+            
+            currentMatrix.practiceIndex += 1
+            
+            return getCurrentPracticeHelper()
+            
+        } else if hasNextPracticeCollection {
+            currentMatrix.collectionIndex += 1
+            
+            return getCurrentPracticeHelper()
         }
         
         return nil
+    }
+    
+    func getCurrentPracticeCollection() -> [CDPractice] {
+        return practiceCollections[currentMatrix.collectionIndex]
     }
     
     func getCurrentSubview() -> any ShowCardsSubviewDelegate {
@@ -117,6 +168,37 @@ class ShowCardsViewControllerViewModel {
                            standardPreset: standardPreset)
     }
     
+    func moveCard(userPressedStatusType: PracticeStandardStatusType) {
+        guard practiceCollections[currentMatrix.collectionIndex].count > 0 else { return }
+        
+        let moveCard = practiceCollections[currentMatrix.collectionIndex].remove(at: currentMatrix.practiceIndex)
+        
+        
+        guard let intervalType = moveCard.latestPracticeStandardRecord?.intervalType else {
+            return
+        }
+        
+        switch intervalType {
+        case .new, .firstPractice, .forget:
+            
+            switch userPressedStatusType {
+            case .again, .hard, .good:
+                practiceCollections[2].append(moveCard)
+            case .easy:
+                break
+            }
+            
+        case .remember:
+            switch userPressedStatusType {
+            case .again:
+                practiceCollections[2].append(moveCard)
+            case .hard, .good, .easy:
+                break
+            }
+        case .unknown:
+            break
+        }
+    }
 }
 
 extension ShowCardsViewControllerViewModel: ClozeViewProtocol {

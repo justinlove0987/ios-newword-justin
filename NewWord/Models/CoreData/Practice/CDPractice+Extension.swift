@@ -64,6 +64,17 @@ extension CDPractice {
 
         return latestPracticeStandardRecord.stateType == .new
     }
+    
+    var isDue: Bool {
+        guard let record = latestPracticeStandardRecord,
+              let dueDate = record.dueDate
+        else {
+            return false
+        }
+        
+        return dueDate <= Date()
+    }
+    
 }
 
 extension CDPractice {

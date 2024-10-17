@@ -100,6 +100,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
     private func setupViewModel() {
         viewModel.deck = deck
         viewModel.delegate = self
+        viewModel.updatePracticesIntoCollections()
         
         viewModel.tapAction = { sender in
             self.tapHelper(sender)
@@ -117,7 +118,7 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
         self.view.addGestureRecognizer(tap)
 
-        updateLabels()
+        updatePracticeCountLabels()
         
         answerTypeStackView.isHidden = true
         rateStackView.isHidden = false
@@ -220,23 +221,24 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
     
     private func showAnswer(with userPressedStatusType: PracticeStandardStatusType) {
         viewModel.addLearningRecordToCurrentCard(userPressedStatusType: userPressedStatusType)
+        viewModel.moveCard(userPressedStatusType: userPressedStatusType)
 
         lastShowingSubview = viewModel.getCurrentSubview()
-        updateLabels()
+        updatePracticeCountLabels()
     }
     
-    private func updateLabels() {
-        newLabel.text = "\(viewModel.getNewPracticeNumber())"
-        relearnLabel.text = "\(viewModel.getRelearnPracticeNumber())"
-        reviewLabel.text = "\(viewModel.getReviewPracticeNumber())"
+    private func updatePracticeCountLabels() {
+        newLabel.text = "\(viewModel.getPracticeNumber(type: .new))"
+        relearnLabel.text = "\(viewModel.getPracticeNumber(type: .relearn))"
+        reviewLabel.text = "\(viewModel.getPracticeNumber(type: .review))"
     }
     
     private func updateAnswerStateView(isFinalState: Bool) {
-        if isFinalState && viewModel.hasPractice() {
+        if isFinalState && viewModel.hasPractice {
             answerTypeStackView.isHidden = false
             rateStackView.isHidden = true
             
-        } else if isFinalState && !viewModel.hasPractice() {
+        } else if isFinalState && !viewModel.hasPractice {
             answerTypeStackView.isHidden = true
             rateStackView.isHidden = false
             
@@ -285,15 +287,6 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
 
     
     // MARK: - Actions
-
-//    @IBAction func correctAction(_ sender: UIButton) {
-//        showAnswer(with: true)
-//    }
-//
-//    @IBAction func incorrectAction(_ sender: UIButton) {
-//        showAnswer(with: false)
-//    }
-
     @objc func touchButton(_ sender: UIButton) {
         sender.backgroundColor = UIColor.transition
     }
