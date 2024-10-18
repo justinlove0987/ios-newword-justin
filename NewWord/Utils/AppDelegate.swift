@@ -38,7 +38,7 @@ extension AppDelegate {
         UserDefaultsManager.shared.preferredFontSize = 20
         UserDefaultsManager.shared.preferredLineSpacing = 15
 
-        // CoreDataManager.shared.deleteAllEntities()
+         CoreDataManager.shared.deleteAllEntities()
         
         if !CoreDataManager.shared.hasPracticeMap() {
             CoreDataManager.shared.createPracticeMapBlueprint()

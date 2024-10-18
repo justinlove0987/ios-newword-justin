@@ -18,45 +18,44 @@
                 <rect key="frame" x="0.0" y="0.0" width="456" height="102"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nor-FR-18u">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ATf-5j-PUX">
                         <rect key="frame" x="0.0" y="0.0" width="456" height="102"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Akv-Xm-Mts">
-                                <rect key="frame" x="0.0" y="0.0" width="182.33333333333334" height="102"/>
+                                <rect key="frame" x="20" y="20" width="159" height="62"/>
+                                <color key="tintColor" name="title"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="回答重來累績次數"/>
                                 <connections>
                                     <action selector="thresholdSettingsAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="FAz-8f-XjN"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Md-XJ-aYN">
-                                <rect key="frame" x="205.33333333333334" y="0.0" width="91.000000000000028" height="102"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="right" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Md-XJ-aYN">
+                                <rect key="frame" x="432" y="41.666666666666664" width="4" height="18.666666666666664"/>
+                                <color key="backgroundColor" name="background"/>
+                                <color key="textColor" name="title"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="進入下一階" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LW0-jb-X2y">
-                                <rect key="frame" x="319.33333333333331" y="0.0" width="136.66666666666669" height="102"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" name="title"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" name="background"/>
                         <constraints>
-                            <constraint firstItem="6Md-XJ-aYN" firstAttribute="width" secondItem="nor-FR-18u" secondAttribute="width" multiplier="0.2" id="ISW-xc-u98"/>
-                            <constraint firstItem="Akv-Xm-Mts" firstAttribute="width" secondItem="nor-FR-18u" secondAttribute="width" multiplier="0.4" id="Ifj-7N-FYd"/>
-                            <constraint firstItem="LW0-jb-X2y" firstAttribute="width" secondItem="nor-FR-18u" secondAttribute="width" multiplier="0.3" id="r7j-P3-cYo"/>
+                            <constraint firstItem="Akv-Xm-Mts" firstAttribute="leading" secondItem="ATf-5j-PUX" secondAttribute="leading" constant="20" symbolic="YES" id="KRu-fy-3Sn"/>
+                            <constraint firstAttribute="trailing" secondItem="6Md-XJ-aYN" secondAttribute="trailing" constant="20" symbolic="YES" id="iJU-cX-ctw"/>
+                            <constraint firstAttribute="bottom" secondItem="Akv-Xm-Mts" secondAttribute="bottom" constant="20" symbolic="YES" id="l0i-J4-wnM"/>
+                            <constraint firstItem="6Md-XJ-aYN" firstAttribute="centerY" secondItem="Akv-Xm-Mts" secondAttribute="centerY" id="p7C-NX-dZZ"/>
+                            <constraint firstItem="Akv-Xm-Mts" firstAttribute="top" secondItem="ATf-5j-PUX" secondAttribute="top" constant="20" symbolic="YES" id="q57-lm-sV4"/>
                         </constraints>
-                    </stackView>
+                    </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <color key="backgroundColor" name="background"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="nor-FR-18u" secondAttribute="bottom" id="4bK-m4-8vf"/>
-                <constraint firstAttribute="trailing" secondItem="nor-FR-18u" secondAttribute="trailing" id="6Gq-Gy-y2B"/>
-                <constraint firstItem="nor-FR-18u" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="EpX-uc-Ytn"/>
-                <constraint firstItem="nor-FR-18u" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="dct-Ws-qjD"/>
+                <constraint firstAttribute="bottom" secondItem="ATf-5j-PUX" secondAttribute="bottom" id="2Zp-kR-OGk"/>
+                <constraint firstItem="ATf-5j-PUX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="W5d-ru-Qn8"/>
+                <constraint firstItem="ATf-5j-PUX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="j2P-Ml-6wr"/>
+                <constraint firstAttribute="trailing" secondItem="ATf-5j-PUX" secondAttribute="trailing" id="tRb-cm-tlG"/>
             </constraints>
             <size key="customSize" width="456" height="102"/>
             <connections>

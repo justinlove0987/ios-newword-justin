@@ -63,6 +63,7 @@ class PracticeThresholdSettingsViewController: UIViewController {
     private func createCollectionViewDataSource() -> UICollectionViewDiffableDataSource<Section, Item> {
         return UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeThresholdCell.reuseIdentifier, for: indexPath) as! PracticeThresholdCell
+            cell.updateUI(threshold: itemIdentifier)
             return cell
         }
     }
@@ -131,9 +132,6 @@ extension PracticeThresholdSettingsViewController {
     
     private func createSection(for section: Section, with group: NSCollectionLayoutGroup) -> NSCollectionLayoutSection {
         let layoutSection = NSCollectionLayoutSection(group: group)
-        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
-        
-//        layoutSection.interGroupSpacing = 15
         
         return layoutSection
     }

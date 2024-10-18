@@ -891,6 +891,7 @@ extension CoreDataManager {
             let threshold = createEntity(ofType: CDPracticeThresholdRule.self)
             threshold.conditionTypeRawValue = thresholdConditionType.rawValue.toInt64
             threshold.conditionValue = thresholdConditionType.value.toInt64
+            threshold.standardPreset = standardPreset
         }
     }
 }

@@ -14,13 +14,9 @@ class PracticeThresholdCell: UICollectionViewCell {
     @IBOutlet weak var thresholdSettingsButton: UIButton!
     @IBOutlet weak var thresholdValueTextField: UITextField!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    private func updateUI() {
-        
+    func updateUI(threshold: CDPracticeThresholdRule) {
+        thresholdSettingsButton.setTitle(threshold.conditionType?.title, for: .normal)
+        thresholdValueTextField.text = String(threshold.conditionValue)
     }
     
     @IBAction func thresholdSettingsAction(_ sender: UIButton) {

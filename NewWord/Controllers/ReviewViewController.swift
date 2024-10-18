@@ -102,9 +102,19 @@ class ReviewViewController: UIViewController, StoryboardGenerated {
             cell.configureUI(with: itemIdentifier)
             return cell
 
-        case .practiceByDeck(_):
+        case .practiceByDeck(let deck):
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SingleDeckPracticeCell.reuseIdentifier, for: indexPath) as! SingleDeckPracticeCell
             cell.configureUI(with: itemIdentifier)
+            
+            cell.settingCallback = { [weak self] in
+                guard let self else { return }
+                
+                let controller = DeckSettingViewController()
+                controller.deck = deck
+                navigationController?.pushViewControllerWithCustomTransition(controller)
+                
+            }
+            
             return cell
         }
     }

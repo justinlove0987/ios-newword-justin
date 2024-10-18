@@ -7,10 +7,15 @@
 
 import UIKit
 
-class DeckSettingViewController: UIViewController {
+class DeckSettingViewController: UIViewController, PracticeSettingCellProtocol {
+    
+    struct ThrehsholdsItem: Hashable {
+        let thresholds: [CDPracticeThresholdRule]
+        let cellContent: PracticeSettingCell.CellContent
+    }
     
     enum Item: Hashable {
-        case thresholds([CDPracticeThresholdRule])
+        case thresholds(ThrehsholdsItem)
     }
     
     struct Section: Hashable {
@@ -21,9 +26,11 @@ class DeckSettingViewController: UIViewController {
     
     private var dataSource: UICollectionViewDiffableDataSource<Section,Item>!
     
-    var sections: [Section] = []
-    
     var deck: CDDeck?
+    
+    var itemTypes: [PracticeSettingCellItemType] = [.threshold]
+    
+    var sections: [Section] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,29 +38,57 @@ class DeckSettingViewController: UIViewController {
     }
     
     private func setup() {
+        setupProperties()
         updateData()
         setupCollectionView()
         updateSnapshot()
     }
     
+    private func setupProperties() {
+        self.title = "牌組設定"
+    }
+    
     private func updateData() {
-        if let thresholdRules = deck?.preset?.standardPreset?.thresholdRules {
-            sections.append(Section(items: [Item.thresholds(thresholdRules)]))
+        for itemType in itemTypes {
+            switch itemType {
+            case .threshold:
+                if let thresholdRules = deck?.preset?.standardPreset?.thresholdRules {
+                    let cellContent = PracticeSettingCell.CellContent(title: itemType.title,
+                                                                      description: nil,
+                                                                      imageName: itemType.sfSymbolName,
+                                                                      cellType: itemType.cellType)
+                    
+                    let thresholdItem = ThrehsholdsItem(thresholds: thresholdRules, cellContent: cellContent)
+                    sections.append(Section(items: [Item.thresholds(thresholdItem)]))
+                }
+
+            default:
+                break
+            }
         }
     }
     
     private func setupCollectionView() {
-        collectionView.frame = view.bounds
-        collectionView.register(PracticeSettingCell.self, forCellWithReuseIdentifier: SearchResultCell.reuseIdentifier)
-        dataSource = createCollectionViewDataSource()
+        view.addSubview(collectionView)
         
+        collectionView.backgroundColor = .background
+        collectionView.frame = view.bounds
+        collectionView.register(UINib(nibName: PracticeSettingCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: PracticeSettingCell.reuseIdentifier)
+        dataSource = createCollectionViewDataSource()
         collectionView.collectionViewLayout = createCollectionViewLayout()
         collectionView.dataSource = dataSource
+        collectionView.delegate = self
     }
     
     private func createCollectionViewDataSource() -> UICollectionViewDiffableDataSource<Section, Item> {
         return UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeSettingCell.reuseIdentifier, for: indexPath) as! PracticeSettingCell
+            
+            switch itemIdentifier {
+            case .thresholds(let thresholdItem):
+                cell.updateUI(content: thresholdItem.cellContent)
+            }
+
             return cell
         }
     }
@@ -82,7 +117,21 @@ class DeckSettingViewController: UIViewController {
         
         dataSource.apply(snapshot)
     }
-    
+}
+
+extension DeckSettingViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let section = sections[indexPath.section]
+        let item = section.items[indexPath.row]
+        
+        switch item {
+        case .thresholds(let thresholdsItem):
+            let controller = PracticeThresholdSettingsViewController()
+            controller.thresholds = thresholdsItem.thresholds
+            
+            navigationController?.pushViewControllerWithCustomTransition(controller)
+        }
+    }
 }
 
 
@@ -96,7 +145,7 @@ extension DeckSettingViewController {
         
         itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(100)
+            heightDimension: .estimated(44)
         )
         
         return NSCollectionLayoutItem(layoutSize: itemSize)
@@ -108,7 +157,7 @@ extension DeckSettingViewController {
         
         groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(100)
+            heightDimension: .estimated(44)
         )
         
         let group = NSCollectionLayoutGroup.vertical(
@@ -122,7 +171,7 @@ extension DeckSettingViewController {
     
     private func createSection(for section: Section, with group: NSCollectionLayoutGroup) -> NSCollectionLayoutSection {
         let layoutSection = NSCollectionLayoutSection(group: group)
-        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
+        layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0)
         
         return layoutSection
     }

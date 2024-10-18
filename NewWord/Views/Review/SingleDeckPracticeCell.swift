@@ -16,6 +16,8 @@ class SingleDeckPracticeCell: UICollectionViewCell {
     @IBOutlet weak var reviewLabel: UILabel!
 
     static let reuseIdentifier = String(describing: SingleDeckPracticeCell.self)
+    
+    var settingCallback: (() ->())?
 
     func configureUI(with itemIdentifier: ReviewViewController.ItemIdentifer) {
         innerView.addDefaultBorder()
@@ -31,8 +33,8 @@ class SingleDeckPracticeCell: UICollectionViewCell {
         }
     }
     
-    
     @IBAction func settingAction(_ sender: UIButton) {
+        settingCallback?()
     }
     
 }

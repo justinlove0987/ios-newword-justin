@@ -137,7 +137,7 @@
         <relationship name="preset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePreset" inverseName="standardPreset" inverseEntity="CDPracticePreset"/>
         <relationship name="statusSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPracticeStatus" inverseName="standardPreset" inverseEntity="CDPracticeStatus"/>
         <relationship name="synchronizedPracticePreset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePresetStandard" inverseName="synchronizedPracticePreset" inverseEntity="CDPracticePresetStandard"/>
-        <relationship name="thresholdRuleSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPracticeThresholdRule" inverseName="practiceDefaultPreset" inverseEntity="CDPracticeThresholdRule"/>
+        <relationship name="thresholdRuleSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDPracticeThresholdRule" inverseName="standardPreset" inverseEntity="CDPracticeThresholdRule"/>
     </entity>
     <entity name="CDPracticeRecord" representedClassName="CDPracticeRecord" syncable="YES" codeGenerationType="category">
         <attribute name="id" optional="YES" attributeType="String"/>
@@ -182,7 +182,7 @@
         <attribute name="conditionTypeRawValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="conditionValue" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="String"/>
-        <relationship name="practiceDefaultPreset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePresetStandard" inverseName="thresholdRuleSet" inverseEntity="CDPracticePresetStandard"/>
+        <relationship name="standardPreset" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPracticePresetStandard" inverseName="thresholdRuleSet" inverseEntity="CDPracticePresetStandard"/>
     </entity>
     <entity name="CDPracticeUserGeneratedContent" representedClassName="CDPracticeUserGeneratedContent" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String"/>

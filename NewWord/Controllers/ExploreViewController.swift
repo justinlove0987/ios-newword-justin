@@ -25,7 +25,7 @@ class ExploreViewController: UIViewController, StoryboardGenerated {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        resetData()
+        resetData()
 //        uploadArticle()
         setup()
     }

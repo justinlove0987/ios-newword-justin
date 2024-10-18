@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PracticeSettingViewController: UIViewController, StoryboardGenerated {
+class PracticeSettingViewController: UIViewController, StoryboardGenerated, PracticeSettingCellProtocol {
     
     enum Section: Hashable {
         case practice([Item])
@@ -31,38 +31,8 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     }
     
     struct Item: Hashable {
-        let type: ItemType
+        let type: PracticeSettingCellItemType
         let cellContent: PracticeSettingCell.CellContent
-    }
-    
-    enum ItemType: Int, CaseIterable {
-        case practiceType
-        case deck
-        
-        var cellType: PracticeSettingCell.CellType {
-            switch self {
-            case .practiceType, .deck:
-                return .navigation
-            }
-        }
-        
-        var title: String {
-            switch self {
-            case .practiceType:
-                return "練習種類"
-            case .deck:
-                return "練習牌組"
-            }
-        }
-        
-        var sfSymbolName: String {
-            switch self {
-            case .practiceType:
-                return "list.bullet"
-            case .deck:
-                return "sparkles.rectangle.stack"
-            }
-        }
     }
     
     static var storyboardName: String = K.Storyboard.main
@@ -70,6 +40,8 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     @IBOutlet weak var collectionView: UICollectionView!
     
     private var dataSource: UICollectionViewDiffableDataSource<Section,Item>!
+    
+    var itemTypes: [PracticeSettingCellItemType] = [.practiceType, .deck]
     
     private var sections: [Section] = []
     
@@ -87,11 +59,11 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     }
     
     private func updateData() {
-        let items: [Item] = ItemType.allCases.compactMap { createItem(for: $0) }
+        let items: [Item] = itemTypes.compactMap { createItem(for: $0) }
         sections.append(.practice(items))
     }
     
-    private func createItem(for itemType: ItemType) -> Item? {
+    private func createItem(for itemType: PracticeSettingCellItemType) -> Item? {
         var description: String?
         
         switch itemType {
@@ -99,6 +71,8 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
             description = practice?.type?.title
         case .deck:
             description = practice?.deck?.name
+        default:
+            break
         }
         
         guard let desc = description else { return nil }
@@ -211,6 +185,9 @@ extension PracticeSettingViewController: UICollectionViewDelegate {
             let controller = SelectDeckViewController()
             controller.blueprintPractice = practice
             navigationController?.pushViewControllerWithCustomTransition(controller)
+            
+        default:
+            break
         }
     }
 }

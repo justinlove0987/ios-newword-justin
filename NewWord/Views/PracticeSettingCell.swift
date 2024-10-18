@@ -7,7 +7,48 @@
 
 import UIKit
 
+enum PracticeSettingCellItemType: Int, CaseIterable {
+    case practiceType
+    case deck
+    case threshold
+    
+    var cellType: PracticeSettingCell.CellType {
+        switch self {
+        case .practiceType, .deck, .threshold:
+            return .navigation
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .practiceType:
+            return "練習種類"
+        case .deck:
+            return "練習牌組"
+        case .threshold:
+            return "進入下一階段條件"
+        }
+    }
+    
+    var sfSymbolName: String {
+        switch self {
+        case .practiceType:
+            return "list.bullet"
+        case .deck:
+            return "sparkles.rectangle.stack"
+        case .threshold:
+            return "flag.checkered.circle"
+        }
+    }
+}
+
+protocol PracticeSettingCellProtocol {
+    var itemTypes: [PracticeSettingCellItemType] { get set }
+}
+
 class PracticeSettingCell: UICollectionViewCell {
+    
+    static let reuseIdentifier = String(describing: PracticeSettingCell.self)
     
     struct CellContent: Hashable {
         let title: String?
@@ -21,8 +62,6 @@ class PracticeSettingCell: UICollectionViewCell {
         case information
         case toggleSwitch
     }
-    
-    static let reuseIdentifier = String(describing: PracticeSettingCell.self)
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
