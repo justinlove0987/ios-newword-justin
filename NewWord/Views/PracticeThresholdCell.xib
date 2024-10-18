@@ -12,29 +12,30 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PracticeThresholdCell" customModule="NewWord" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="380" height="59"/>
+            <rect key="frame" x="0.0" y="0.0" width="456" height="102"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="380" height="59"/>
+                <rect key="frame" x="0.0" y="0.0" width="456" height="102"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="nor-FR-18u">
-                        <rect key="frame" x="0.0" y="0.0" width="380" height="59"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nor-FR-18u">
+                        <rect key="frame" x="0.0" y="0.0" width="456" height="102"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="回答重來累績次數" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4i-sm-YTa">
-                                <rect key="frame" x="0.0" y="0.0" width="190" height="59"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" name="title"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CaH-QJ-PXC">
-                                <rect key="frame" x="190" y="0.0" width="76" height="59"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" name="title"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Akv-Xm-Mts">
+                                <rect key="frame" x="0.0" y="0.0" width="182.33333333333334" height="102"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="回答重來累績次數"/>
+                                <connections>
+                                    <action selector="thresholdSettingsAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="FAz-8f-XjN"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Md-XJ-aYN">
+                                <rect key="frame" x="205.33333333333334" y="0.0" width="91.000000000000028" height="102"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="進入下一階" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LW0-jb-X2y">
-                                <rect key="frame" x="266" y="0.0" width="114" height="59"/>
+                                <rect key="frame" x="319.33333333333331" y="0.0" width="136.66666666666669" height="102"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" name="title"/>
                                 <nil key="highlightedColor"/>
@@ -42,8 +43,8 @@
                         </subviews>
                         <color key="backgroundColor" name="background"/>
                         <constraints>
-                            <constraint firstItem="CaH-QJ-PXC" firstAttribute="width" secondItem="nor-FR-18u" secondAttribute="width" multiplier="0.2" id="OL5-CD-cAN"/>
-                            <constraint firstItem="B4i-sm-YTa" firstAttribute="width" secondItem="nor-FR-18u" secondAttribute="width" multiplier="0.5" id="XQ6-Gp-ZCe"/>
+                            <constraint firstItem="6Md-XJ-aYN" firstAttribute="width" secondItem="nor-FR-18u" secondAttribute="width" multiplier="0.2" id="ISW-xc-u98"/>
+                            <constraint firstItem="Akv-Xm-Mts" firstAttribute="width" secondItem="nor-FR-18u" secondAttribute="width" multiplier="0.4" id="Ifj-7N-FYd"/>
                             <constraint firstItem="LW0-jb-X2y" firstAttribute="width" secondItem="nor-FR-18u" secondAttribute="width" multiplier="0.3" id="r7j-P3-cYo"/>
                         </constraints>
                     </stackView>
@@ -57,8 +58,12 @@
                 <constraint firstItem="nor-FR-18u" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="EpX-uc-Ytn"/>
                 <constraint firstItem="nor-FR-18u" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="dct-Ws-qjD"/>
             </constraints>
-            <size key="customSize" width="380" height="59"/>
-            <point key="canvasLocation" x="164.8854961832061" y="22.887323943661972"/>
+            <size key="customSize" width="456" height="102"/>
+            <connections>
+                <outlet property="thresholdSettingsButton" destination="Akv-Xm-Mts" id="e71-EH-eM3"/>
+                <outlet property="thresholdValueTextField" destination="6Md-XJ-aYN" id="eof-vA-xxB"/>
+            </connections>
+            <point key="canvasLocation" x="222.90076335877862" y="38.028169014084511"/>
         </collectionViewCell>
     </objects>
     <resources>

@@ -9,6 +9,19 @@ import UIKit
 
 class PracticeSettingCell: UICollectionViewCell {
     
+    struct CellContent: Hashable {
+        let title: String?
+        let description: String?
+        let imageName: String?
+        let cellType: CellType
+    }
+    
+    enum CellType: Int, CaseIterable {
+        case navigation
+        case information
+        case toggleSwitch
+    }
+    
     static let reuseIdentifier = String(describing: PracticeSettingCell.self)
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -20,61 +33,20 @@ class PracticeSettingCell: UICollectionViewCell {
     
     @IBOutlet weak var radioButtonImageView: UIImageView!
     
-    func configure(row: PracticeSettingViewController.Row, data: CDPractice) {
+    func updateUI(content: CellContent) {
         hideStackViewArrangedSubviews()
+        updateCellType(content.cellType)
         
-        titleLabel.text = row.title
-        imageView.image = UIImage(systemName: row.sfSymbolName)
+        self.titleLabel.text = content.title
+        self.descriptionLabel.text = content.description
         
-        configureDescriptionLabel(row: row, data: data)
-        configureCellType(row: row)
-    }
-    
-    func configureDescriptionLabel(row: PracticeSettingViewController.Row, data: CDPractice) {
-        guard let preset = data.preset?.standardPreset else { return }
-
-        var description: String
-        
-        switch row {
-        case .type:
-            guard let title = data.type?.title else { return }
-
-            description = title
-
-//        case .firstPracticeLearningPhase:
-//            description = String(preset.firstPracticeLearningPhase)
-//            
-//        case .firstPracticeGraduationInterval:
-//            description = String(preset.firstPracticeGraduationInterval)
-//            
-//        case .firstPracticeEasyInterval:
-//            description = String(preset.firstPracticeEasyInterval)
-//            
-//        case .forgotRelearningPhase:
-//            description = String(preset.forgetPracticeRelearningSteps)
-//            
-//        case .forgotGraduationInterval:
-//            description = String(preset.forgetPracticeInterval)
-            
-        case .initialEase:
-            description = String(preset.firstPracticeEase)
-            
-        case .followPreviousPractice:
-            description = ""
-            
-        case .practiceCompletionRules:
-            description = ""
-
-        default:
-            description = ""
+        if let imageName = content.imageName {
+            self.imageView.image = UIImage(systemName: imageName)
         }
-        
-        descriptionLabel.text = description
-        
     }
     
-    func configureCellType(row: PracticeSettingViewController.Row) {
-        switch row.cellType {
+    func updateCellType(_ type: CellType) {
+        switch type {
         case .navigation:
             chevronImageView.isHidden = false
             

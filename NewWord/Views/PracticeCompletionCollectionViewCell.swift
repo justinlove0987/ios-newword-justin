@@ -22,7 +22,7 @@ class PracticeCompletionCollectionViewCell: UICollectionViewCell {
         }
         
         conditionLabel.text = rule.conditionType?.title
-        textField.text = "\(rule.thresholdValue)"
+        textField.text = "\(rule.conditionValue)"
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         textField.delegate = self
         textField.keyboardType = .numberPad
@@ -35,7 +35,7 @@ class PracticeCompletionCollectionViewCell: UICollectionViewCell {
             return
         }
         
-        rule.thresholdValue = value.toInt64
+        rule.conditionValue = value.toInt64
         
         updateUI()
     }

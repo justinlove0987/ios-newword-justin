@@ -34,6 +34,21 @@ enum PracticeThresholdRuleConditionType: Int, CaseIterable {
             return "下一次練習間隔天數"
         }
     }
+    
+    var value: Int {
+        switch self {
+        case .totalAgainAttempts:
+            return 1
+        case .cumulativeAgainAttempts:
+            return 2
+        case .totalEasyAttempts:
+            return 3
+        case .cumulativeEasyAttempts:
+            return 4
+        case .nextPracticeIntervalInDays:
+            return 365
+        }
+    }
 }
 
 @objc(CDPracticeThresholdRule)

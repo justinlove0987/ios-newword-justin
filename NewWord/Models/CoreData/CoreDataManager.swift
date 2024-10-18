@@ -812,7 +812,6 @@ extension CoreDataManager {
                     practice.typeRawValue = practiceTypeBlueprint.rawValue.toInt64
                     practice.sequence = sequence
                     practice.deck = getOrCreateSystemGeneratedDecks(for: practiceTypeBlueprint)
-                    
                 }
             }
         }
@@ -863,6 +862,7 @@ extension CoreDataManager {
         let preset = createEntity(ofType: CDPracticePreset.self)
         preset.standardPreset = createDeckStandardPreset()
         assignStatusesToPreset(preset.standardPreset!)
+        assignThresholdRulesToPreset(preset.standardPreset!)
         return preset
     }
 
@@ -883,6 +883,14 @@ extension CoreDataManager {
             status.title = standardStatusType.title
             status.typeRawValue = standardStatusType.rawValue.toInt64
             status.standardPreset = standardPreset
+        }
+    }
+    
+    private func assignThresholdRulesToPreset(_ standardPreset: CDPracticePresetStandard) {
+        PracticeThresholdRuleConditionType.allCases.forEach { thresholdConditionType in
+            let threshold = createEntity(ofType: CDPracticeThresholdRule.self)
+            threshold.conditionTypeRawValue = thresholdConditionType.rawValue.toInt64
+            threshold.conditionValue = thresholdConditionType.value.toInt64
         }
     }
 }

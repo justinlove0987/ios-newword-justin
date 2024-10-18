@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -88,6 +88,15 @@
 		2AD6758D2CC0F91D007D9169 /* PracticeThresholdSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6758C2CC0F91D007D9169 /* PracticeThresholdSettingsViewController.swift */; };
 		2AD675922CC0FECD007D9169 /* PracticeThresholdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD675902CC0FECD007D9169 /* PracticeThresholdCell.swift */; };
 		2AD675932CC0FECD007D9169 /* PracticeThresholdCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD675912CC0FECD007D9169 /* PracticeThresholdCell.xib */; };
+		2AD675A82CC10C2E007D9169 /* DeckPracticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD675A42CC10C2E007D9169 /* DeckPracticeCell.swift */; };
+		2AD675A92CC10C2E007D9169 /* SingleDeckPracticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD675A62CC10C2E007D9169 /* SingleDeckPracticeCell.swift */; };
+		2AD675AA2CC10C2E007D9169 /* DeckPracticeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD675A52CC10C2E007D9169 /* DeckPracticeCell.xib */; };
+		2AD675AB2CC10C2E007D9169 /* SingleDeckPracticeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD675A72CC10C2E007D9169 /* SingleDeckPracticeCell.xib */; };
+		2AD675B02CC10C2E007D9169 /* ListeningClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD675AC2CC10C2E007D9169 /* ListeningClozeView.swift */; };
+		2AD675B12CC10C2E007D9169 /* PracticeClozeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD675AE2CC10C2E007D9169 /* PracticeClozeView.swift */; };
+		2AD675B22CC10C2E007D9169 /* ListeningClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD675AD2CC10C2E007D9169 /* ListeningClozeView.xib */; };
+		2AD675B32CC10C2E007D9169 /* PracticeClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD675AF2CC10C2E007D9169 /* PracticeClozeView.xib */; };
+		2AD675B82CC2478B007D9169 /* DeckSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD675B72CC2478B007D9169 /* DeckSettingViewController.swift */; };
 		2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */; };
 		2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */; };
 		2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */; };
@@ -241,6 +250,15 @@
 		2AD6758C2CC0F91D007D9169 /* PracticeThresholdSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeThresholdSettingsViewController.swift; sourceTree = "<group>"; };
 		2AD675902CC0FECD007D9169 /* PracticeThresholdCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeThresholdCell.swift; sourceTree = "<group>"; };
 		2AD675912CC0FECD007D9169 /* PracticeThresholdCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeThresholdCell.xib; sourceTree = "<group>"; };
+		2AD675A42CC10C2E007D9169 /* DeckPracticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckPracticeCell.swift; sourceTree = "<group>"; };
+		2AD675A52CC10C2E007D9169 /* DeckPracticeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeckPracticeCell.xib; sourceTree = "<group>"; };
+		2AD675A62CC10C2E007D9169 /* SingleDeckPracticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleDeckPracticeCell.swift; sourceTree = "<group>"; };
+		2AD675A72CC10C2E007D9169 /* SingleDeckPracticeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleDeckPracticeCell.xib; sourceTree = "<group>"; };
+		2AD675AC2CC10C2E007D9169 /* ListeningClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListeningClozeView.swift; sourceTree = "<group>"; };
+		2AD675AD2CC10C2E007D9169 /* ListeningClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListeningClozeView.xib; sourceTree = "<group>"; };
+		2AD675AE2CC10C2E007D9169 /* PracticeClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeClozeView.swift; sourceTree = "<group>"; };
+		2AD675AF2CC10C2E007D9169 /* PracticeClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeClozeView.xib; sourceTree = "<group>"; };
+		2AD675B72CC2478B007D9169 /* DeckSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckSettingViewController.swift; sourceTree = "<group>"; };
 		2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSettingViewController.swift; sourceTree = "<group>"; };
 		2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultViewController.swift; sourceTree = "<group>"; };
 		2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultCell.swift; sourceTree = "<group>"; };
@@ -319,11 +337,6 @@
 		D0EE06FC2C6A4CFD000B5BC8 /* ChatGPTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		2A5A77922CA637F000A481BE /* Practice */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Practice; sourceTree = "<group>"; };
-		D0449D452CAE7AB100ED4D40 /* Review */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Review; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
 		D0DA5ABE2BB66A05008644DC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -351,6 +364,28 @@
 				2AED807D2C2E987B001E675A /* SearchClozeResultCell.xib */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		2AD675B52CC24445007D9169 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				2AD675A42CC10C2E007D9169 /* DeckPracticeCell.swift */,
+				2AD675A52CC10C2E007D9169 /* DeckPracticeCell.xib */,
+				2AD675A62CC10C2E007D9169 /* SingleDeckPracticeCell.swift */,
+				2AD675A72CC10C2E007D9169 /* SingleDeckPracticeCell.xib */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		2AD675B62CC24457007D9169 /* Practice */ = {
+			isa = PBXGroup;
+			children = (
+				2AD675AC2CC10C2E007D9169 /* ListeningClozeView.swift */,
+				2AD675AD2CC10C2E007D9169 /* ListeningClozeView.xib */,
+				2AD675AE2CC10C2E007D9169 /* PracticeClozeView.swift */,
+				2AD675AF2CC10C2E007D9169 /* PracticeClozeView.xib */,
+			);
+			path = Practice;
 			sourceTree = "<group>";
 		};
 		2AFABE712C99114B00BA2347 /* Practice */ = {
@@ -416,8 +451,8 @@
 		D020A4EA2BB9D8E700CA5CAF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D0449D452CAE7AB100ED4D40 /* Review */,
-				2A5A77922CA637F000A481BE /* Practice */,
+				2AD675B62CC24457007D9169 /* Practice */,
+				2AD675B52CC24445007D9169 /* Review */,
 				2A9911FD2CAF7F5D004F2625 /* Search */,
 				2A18E7B32BE74008005139C8 /* DeckCell.swift */,
 				D04AC2062C51EF0300F91A07 /* DeckCell.xib */,
@@ -524,6 +559,7 @@
 				2A9911E12CAB8D91004F2625 /* SelectDeckViewController.swift */,
 				2A9911DB2CAB7E1B004F2625 /* ReusableRadioButtonCollectionViewController.swift */,
 				2A763F482CBE465B00705C02 /* PracticeRecordViewController.swift */,
+				2AD675B72CC2478B007D9169 /* DeckSettingViewController.swift */,
 				2AD6758C2CC0F91D007D9169 /* PracticeThresholdSettingsViewController.swift */,
 			);
 			path = Controllers;
@@ -612,10 +648,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				2A5A77922CA637F000A481BE /* Practice */,
-				D0449D452CAE7AB100ED4D40 /* Review */,
-			);
 			name = NewWord;
 			packageProductDependencies = (
 				2A9C8AF52C3BBE3500D839D8 /* OpenCC */,
@@ -695,6 +727,10 @@
 				2A17DAFC2C158C3B00919642 /* InputAccessoryView.xib in Resources */,
 				D0A064412BFC913C001AFE08 /* PronounciationView.xib in Resources */,
 				2A2BBF642CAA46D300BA02F2 /* PracticeCompletionCollectionViewCell.xib in Resources */,
+				2AD675AA2CC10C2E007D9169 /* DeckPracticeCell.xib in Resources */,
+				2AD675B22CC10C2E007D9169 /* ListeningClozeView.xib in Resources */,
+				2AD675B32CC10C2E007D9169 /* PracticeClozeView.xib in Resources */,
+				2AD675AB2CC10C2E007D9169 /* SingleDeckPracticeCell.xib in Resources */,
 				2A89D86C2C7471FA00DDBFF0 /* PracticeModeSelectorView.xib in Resources */,
 				D00A72EF2BFDEC5A0064F325 /* NoCardView.xib in Resources */,
 				2AD675932CC0FECD007D9169 /* PracticeThresholdCell.xib in Resources */,
@@ -714,6 +750,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AD675A82CC10C2E007D9169 /* DeckPracticeCell.swift in Sources */,
+				2AD675A92CC10C2E007D9169 /* SingleDeckPracticeCell.swift in Sources */,
 				2A034F812C37CCB600AEDA65 /* CustomNumberTagView.swift in Sources */,
 				2A763F492CBE465B00705C02 /* PracticeRecordViewController.swift in Sources */,
 				2AD675922CC0FECD007D9169 /* PracticeThresholdCell.swift in Sources */,
@@ -756,6 +794,8 @@
 				2A0D41F32C6EF2C3000B1B3B /* ArticlePlayButtonView.swift in Sources */,
 				2AFABE702C99111300BA2347 /* CDDeck+Extension.swift in Sources */,
 				D0DF66A12C3E3ED600749D96 /* UIView+Extension.swift in Sources */,
+				2AD675B02CC10C2E007D9169 /* ListeningClozeView.swift in Sources */,
+				2AD675B12CC10C2E007D9169 /* PracticeClozeView.swift in Sources */,
 				2A38F8C32BE48FB2003F058F /* SearchViewController.swift in Sources */,
 				D0344F602C56B25D00F721BF /* CDNote+Extension.swift in Sources */,
 				2A5EFEF32C09C0450068672B /* CDWord+Extension.swift in Sources */,
@@ -782,6 +822,7 @@
 				2AB3DC952CA145E0004CAFE3 /* CDUserGeneratedArticle+Extension.swift in Sources */,
 				D03107CC2C16EE6200EEF772 /* CardInformationViewController.swift in Sources */,
 				2A2683772C6DA4DD00FFF81D /* AudioPlayer.swift in Sources */,
+				2AD675B82CC2478B007D9169 /* DeckSettingViewController.swift in Sources */,
 				2A763F4C2CBE4F2800705C02 /* SearchResultHeaderView.swift in Sources */,
 				2AD675582CBFA36C007D9169 /* PracticeRecordCell.swift in Sources */,
 				2A7B6CD72C081B8E0017BB5C /* ReviseNameViewController.swift in Sources */,

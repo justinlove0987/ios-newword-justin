@@ -30,5 +30,9 @@ class SingleDeckPracticeCell: UICollectionViewCell {
             }
         }
     }
-
+    
+    
+    @IBAction func settingAction(_ sender: UIButton) {
+    }
+    
 }

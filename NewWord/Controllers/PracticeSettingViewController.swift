@@ -10,23 +10,10 @@ import UIKit
 class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     
     enum Section: Hashable {
-        case practiceTypeAndDetails
+        case practice([Item])
         case firstPractice
         case forget
         case advanced
-        
-        var rows: [Row] {
-            switch self {
-            case .practiceTypeAndDetails:
-                return [.type, .deck, .threshold]
-            case .firstPractice:
-                return [.firstPracticeLearningPhase, .firstPracticeGraduationInterval, .firstPracticeEasyInterval]
-            case .forget:
-                return [.forgotRelearningPhase, .forgotGraduationInterval]
-            case .advanced:
-                return [.initialEase, .followPreviousPractice, .practiceCompletionRules]
-            }
-        }
         
         var title: String? {
             switch self {
@@ -43,145 +30,100 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
         }
     }
     
-    enum Row: Hashable {
-        
-        enum CellType {
-            case navigation    // 轉跳畫面的 cell
-            case information   // 顯示資訊的 cell
-            case toggleSwitch  // 有 switch 開關的 cell
-        }
-        
-        case type
-        case firstPracticeLearningPhase
-        case firstPracticeGraduationInterval
-        case firstPracticeEasyInterval
-        case forgotRelearningPhase
-        case forgotGraduationInterval
-        case initialEase
-        case followPreviousPractice
-        case practiceCompletionRules
+    struct Item: Hashable {
+        let type: ItemType
+        let cellContent: PracticeSettingCell.CellContent
+    }
+    
+    enum ItemType: Int, CaseIterable {
+        case practiceType
         case deck
-        case threshold
         
-        var cellType: CellType {
+        var cellType: PracticeSettingCell.CellType {
             switch self {
-            case .type:
-                return .navigation
-            case .firstPracticeLearningPhase:
-                return .information
-            case .firstPracticeGraduationInterval:
-                return .information
-            case .firstPracticeEasyInterval:
-                return .information
-            case .forgotRelearningPhase:
-                return .information
-            case .forgotGraduationInterval:
-                return .information
-            case .initialEase:
-                return .information
-            case .followPreviousPractice:
-                return .toggleSwitch
-            case .practiceCompletionRules:
-                return .navigation
-            case .deck:
-                return .navigation
-            case .threshold:
+            case .practiceType, .deck:
                 return .navigation
             }
         }
         
         var title: String {
             switch self {
-            case .type:
+            case .practiceType:
                 return "練習種類"
-            case .firstPracticeLearningPhase:
-                return "畢業階段"
-            case .firstPracticeGraduationInterval:
-                return "畢業間隔"
-            case .firstPracticeEasyInterval:
-                return "畢業階段"
-            case .forgotRelearningPhase:
-                return "重新學習階段"
-            case .forgotGraduationInterval:
-                return "畢業間隔"
-            case .initialEase:
-                return "起始輕鬆度"
-            case .followPreviousPractice:
-                return "緊接上一個練習"
-            case .practiceCompletionRules:
-                return "練習畢業規則"
             case .deck:
                 return "練習牌組"
-            case .threshold:
-                return "練習次數設定"
             }
         }
         
         var sfSymbolName: String {
             switch self {
-            case .type:
+            case .practiceType:
                 return "list.bullet"
-            case .firstPracticeLearningPhase:
-                return "graduationcap"
-            case .firstPracticeGraduationInterval:
-                return "calendar"
-            case .firstPracticeEasyInterval:
-                return "clock"
-            case .forgotRelearningPhase:
-                return "arrow.uturn.backward"
-            case .forgotGraduationInterval:
-                return "calendar.badge.clock"
-            case .initialEase:
-                return "dial"
-            case .followPreviousPractice:
-                return "arrow.turn.down.right"
-            case .practiceCompletionRules:
-                return "doc.text.magnifyingglass"
             case .deck:
                 return "sparkles.rectangle.stack"
-            case .threshold:
-                return "repeat"
             }
         }
-    }
-    
-    struct PracticeSetting: Hashable {
-        var title: String
-        var id: String = UUID().uuidString
     }
     
     static var storyboardName: String = K.Storyboard.main
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    private var dataSource: UICollectionViewDiffableDataSource<Section,Row>!
+    private var dataSource: UICollectionViewDiffableDataSource<Section,Item>!
     
-    private var sections: [Section] = [.practiceTypeAndDetails]
+    private var sections: [Section] = []
     
     var practice: CDPractice?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
     
     private func setup() {
+        updateData()
         setupProperties()
         setupCollectionView()
     }
+    
+    private func updateData() {
+        let items: [Item] = ItemType.allCases.compactMap { createItem(for: $0) }
+        sections.append(.practice(items))
+    }
+    
+    private func createItem(for itemType: ItemType) -> Item? {
+        var description: String?
+        
+        switch itemType {
+        case .practiceType:
+            description = practice?.type?.title
+        case .deck:
+            description = practice?.deck?.name
+        }
+        
+        guard let desc = description else { return nil }
+        
+        let cellContent = PracticeSettingCell.CellContent(
+            title: itemType.title,
+            description: desc,
+            imageName: itemType.sfSymbolName,
+            cellType: itemType.cellType
+        )
+        
+        return Item(type: itemType, cellContent: cellContent)
+    }
+
     
     private func setupProperties() {
         let backItem = UIBarButtonItem()
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
-
+        
         self.title = "練習地圖設定"
     }
-
+    
     private func setupCollectionView() {
-        collectionView.register(UINib(nibName: PracticeSettingCell.reuseIdentifier, bundle: nil).self, forCellWithReuseIdentifier: PracticeSettingCell.reuseIdentifier)
-        collectionView.register(UINib(nibName: PracticeSettingHeaderView.reuseIdentifier, bundle: nil).self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PracticeSettingHeaderView.reuseIdentifier)
-        collectionView.register(SeparatorFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: SeparatorFooterView.reuseIdentifier)
+        registerCollectionViewComponents()
         dataSource = createDataSource()
         collectionView.dataSource = dataSource
         collectionView.collectionViewLayout = createCollectionViewLayout()
@@ -189,9 +131,16 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
         updateSnapshot()
     }
 
-    private func createDataSource() -> UICollectionViewDiffableDataSource<Section, Row> {
+    
+    private func registerCollectionViewComponents() {
+        collectionView.register(UINib(nibName: PracticeSettingCell.reuseIdentifier, bundle: nil).self, forCellWithReuseIdentifier: PracticeSettingCell.reuseIdentifier)
+        collectionView.register(UINib(nibName: PracticeSettingHeaderView.reuseIdentifier, bundle: nil).self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PracticeSettingHeaderView.reuseIdentifier)
+        collectionView.register(SeparatorFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: SeparatorFooterView.reuseIdentifier)
+    }
+    
+    private func createDataSource() -> UICollectionViewDiffableDataSource<Section, Item> {
         // 建立 DataSource
-        let dataSource = UICollectionViewDiffableDataSource<Section, Row>(
+        let dataSource = UICollectionViewDiffableDataSource<Section, Item>(
             collectionView: collectionView,
             cellProvider: cellProvider
         )
@@ -201,7 +150,7 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
         
         return dataSource
     }
-
+    
     
     private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { [weak self] (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
@@ -232,27 +181,28 @@ class PracticeSettingViewController: UIViewController, StoryboardGenerated {
     }
     
     private func updateSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Row>()
-        
-        for i in 0..<sections.count {
-            let section = sections[i]
-            
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        sections.forEach { section in
             snapshot.appendSections([section])
-            snapshot.appendItems(section.rows, toSection: section)
+            if case let .practice(items) = section {
+                snapshot.appendItems(items, toSection: section)
+            }
         }
-        
         dataSource.apply(snapshot, animatingDifferences: false)
     }
+
 }
 
 extension PracticeSettingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let section = sections[indexPath.section]
-        let row = section.rows[indexPath.row]
-                
-        switch row {
-        case .type:
+        
+        guard case let .practice(items) = section else { return }
+        
+        let item = items[indexPath.row]
+        
+        switch item.type {
+        case .practiceType:
             let controller = SelectPracticeTypeViewController()
             controller.practiceBlueprint = practice
             navigationController?.pushViewControllerWithCustomTransition(controller)
@@ -261,17 +211,6 @@ extension PracticeSettingViewController: UICollectionViewDelegate {
             let controller = SelectDeckViewController()
             controller.blueprintPractice = practice
             navigationController?.pushViewControllerWithCustomTransition(controller)
-            
-        case .practiceCompletionRules:
-            let controller = PracticeCompletionViewController.instantiate()
-            navigationController?.pushViewControllerWithCustomTransition(controller)
-            
-        case .threshold:
-            let controller = PracticeThresholdSettingsViewController()
-            navigationController?.pushViewControllerWithCustomTransition(controller)
-            
-        default:
-            break
         }
     }
 }
@@ -284,17 +223,15 @@ extension PracticeSettingViewController {
     private func cellProvider(
         collectionView: UICollectionView,
         indexPath: IndexPath,
-        itemIdentifier: Row
+        itemIdentifier: Item
     ) -> UICollectionViewCell? {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeSettingCell.reuseIdentifier, for: indexPath) as! PracticeSettingCell
         
-        if let practice {
-            cell.configure(row: itemIdentifier, data: practice)
-        }
+        cell.updateUI(content: itemIdentifier.cellContent)
         
         return cell
     }
-
+    
     // 提供 Supplementary View 的配置方法
     private func supplementaryViewProvider(
         collectionView: UICollectionView,
@@ -308,7 +245,7 @@ extension PracticeSettingViewController {
         }
         return nil
     }
-
+    
     // 配置 Header View
     private func configureHeaderView(
         collectionView: UICollectionView,
@@ -327,7 +264,7 @@ extension PracticeSettingViewController {
         
         return headerView
     }
-
+    
     // 配置 Footer View
     private func configureFooterView(
         collectionView: UICollectionView,

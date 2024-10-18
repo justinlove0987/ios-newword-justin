@@ -38,7 +38,7 @@ class PracticeCompletionViewController: UIViewController, StoryboardGenerated {
         let rule = CoreDataManager.shared.createEntity(ofType: CDPracticeThresholdRule.self)
         
         rule.conditionTypeRawValue = PracticeThresholdRuleConditionType.totalAgainAttempts.rawValue.toInt64
-        rule.thresholdValue = 3.toInt64
+        rule.conditionValue = 3.toInt64
         
         rows.append(Row(practiceThreshold: rule))
     }

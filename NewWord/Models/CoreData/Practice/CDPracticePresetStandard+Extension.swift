@@ -27,6 +27,14 @@ extension CDPracticePresetStandard {
         return statuses.sorted { $0.order < $1.order }
     }
     
+    var thresholdRules: [CDPracticeThresholdRule] {
+        guard let thresholdRules = self.thresholdRuleSet as? Set<CDPracticeThresholdRule> else {
+            return []
+        }
+        
+        return Array(thresholdRules)
+    }
+    
     func getStatus(from userPressedStatus: PracticeStandardStatusType) -> CDPracticeStatus? {
         for status in statuses {
             if status.type == userPressedStatus {

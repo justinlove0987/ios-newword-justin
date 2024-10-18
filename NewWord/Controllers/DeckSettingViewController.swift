@@ -1,15 +1,17 @@
 //
-//  PracticeThresholdSettingsViewController.swift
+//  DeckSettingViewController.swift
 //  NewWord
 //
-//  Created by 曾柏楊 on 2024/10/17.
+//  Created by 曾柏楊 on 2024/10/18.
 //
 
 import UIKit
 
-class PracticeThresholdSettingsViewController: UIViewController {
+class DeckSettingViewController: UIViewController {
     
-    typealias Item = CDPracticeThresholdRule
+    enum Item: Hashable {
+        case thresholds([CDPracticeThresholdRule])
+    }
     
     struct Section: Hashable {
         var items: [Item]
@@ -21,7 +23,7 @@ class PracticeThresholdSettingsViewController: UIViewController {
     
     var sections: [Section] = []
     
-    var thresholds: [CDPracticeThresholdRule] = []
+    var deck: CDDeck?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,30 +32,19 @@ class PracticeThresholdSettingsViewController: UIViewController {
     
     private func setup() {
         updateData()
-        setupProperties()
         setupCollectionView()
         updateSnapshot()
     }
     
-    private func setupProperties() {
-        self.title = "練習次數設定"
-    }
-    
     private func updateData() {
-        var thresholds: [CDPracticeThresholdRule] = []
-        
-        thresholds = self.thresholds
-        
-        sections.append(Section(items: thresholds))
+        if let thresholdRules = deck?.preset?.standardPreset?.thresholdRules {
+            sections.append(Section(items: [Item.thresholds(thresholdRules)]))
+        }
     }
     
     private func setupCollectionView() {
-        view.backgroundColor = .background
-        view.addSubview(collectionView)
-        
         collectionView.frame = view.bounds
-        collectionView.backgroundColor = .background
-        collectionView.register(UINib(nibName: PracticeThresholdCell.reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: PracticeThresholdCell.reuseIdentifier)
+        collectionView.register(PracticeSettingCell.self, forCellWithReuseIdentifier: SearchResultCell.reuseIdentifier)
         dataSource = createCollectionViewDataSource()
         
         collectionView.collectionViewLayout = createCollectionViewLayout()
@@ -62,7 +53,7 @@ class PracticeThresholdSettingsViewController: UIViewController {
     
     private func createCollectionViewDataSource() -> UICollectionViewDiffableDataSource<Section, Item> {
         return UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeThresholdCell.reuseIdentifier, for: indexPath) as! PracticeThresholdCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PracticeSettingCell.reuseIdentifier, for: indexPath) as! PracticeSettingCell
             return cell
         }
     }
@@ -97,7 +88,7 @@ class PracticeThresholdSettingsViewController: UIViewController {
 
 // MARK: - UICollectionViewCompositionalLayout
 
-extension PracticeThresholdSettingsViewController {
+extension DeckSettingViewController {
     
     private func createItem(for section: Section) -> NSCollectionLayoutItem {
         
@@ -105,7 +96,7 @@ extension PracticeThresholdSettingsViewController {
         
         itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(44)
+            heightDimension: .estimated(100)
         )
         
         return NSCollectionLayoutItem(layoutSize: itemSize)
@@ -117,7 +108,7 @@ extension PracticeThresholdSettingsViewController {
         
         groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(44)
+            heightDimension: .estimated(100)
         )
         
         let group = NSCollectionLayoutGroup.vertical(
@@ -133,9 +124,6 @@ extension PracticeThresholdSettingsViewController {
         let layoutSection = NSCollectionLayoutSection(group: group)
         layoutSection.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 15, bottom: 15, trailing: 15)
         
-//        layoutSection.interGroupSpacing = 15
-        
         return layoutSection
     }
 }
-
