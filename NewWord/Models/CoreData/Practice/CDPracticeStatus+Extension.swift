@@ -37,6 +37,7 @@ extension CDPracticeStatus {
 }
 
 enum PracticeStandardStatusType: Int, CaseIterable {
+    case new
     case again
     case hard
     case good
@@ -52,6 +53,8 @@ enum PracticeStandardStatusType: Int, CaseIterable {
             return "良好"
         case .easy:
             return "簡單"
+        case .new:
+            return "--"
         }
     }
     
@@ -85,6 +88,8 @@ enum PracticeStandardStatusType: Int, CaseIterable {
             return timeConverter.convertToSeconds(from: .minutes(10))
         case .easy:
             return timeConverter.convertToSeconds(from: .days(3))
+        case .new:
+            return 0
         }
     }
     
@@ -100,6 +105,8 @@ enum PracticeStandardStatusType: Int, CaseIterable {
             return timeConverter.convertToSeconds(from: .minutes(10))
         case .easy:
             return timeConverter.convertToSeconds(from: .days(3))
+        case .new:
+            return 0
         }
     }
     

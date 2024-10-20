@@ -876,7 +876,7 @@ extension WordSelectorViewControllerViewModel {
         standardRecord.ease = 2.5
         standardRecord.learnedDate = Date()
         standardRecord.stateRawValue = PracticeRecordStandardStateType.new.rawValue.toInt64
-        standardRecord.statusRawValue = PracticeStandardStatusType.again.rawValue.toInt64
+        standardRecord.statusRawValue = PracticeStandardStatusType.new.rawValue.toInt64
 
         return standardRecord
     }

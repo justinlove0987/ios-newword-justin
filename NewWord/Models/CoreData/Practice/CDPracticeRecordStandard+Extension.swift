@@ -77,6 +77,10 @@ extension CDPracticeRecordStandard {
         let day: TimeInterval = hour * 24
         let month: TimeInterval = day * 30.44 // 平均一個月的天數
         let year: TimeInterval = day * 365.25 // 平均一年的天數
+        
+        if statusType == .new {
+            return "--"
+        }
 
         switch interval {
         case let x where x >= year:

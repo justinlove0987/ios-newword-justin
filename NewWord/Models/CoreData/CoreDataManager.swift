@@ -820,22 +820,6 @@ extension CoreDataManager {
     }
 }
 
-// MARK: CDPractice
-
-extension CoreDataManager {
-//    func getFirstDeck(with practiceType: PracticeType) -> CDDeck? {
-//        let practices = CoreDataManager.shared.getAll(ofType: CDPractice.self)
-//        
-//        for practice in practices {
-//            if practice.type == practiceType && practice.deck != nil {
-//                return practice.deck
-//            }
-//        }
-//        
-//        return nil
-//    }
-}
-
 // MARK: CDDeck
 
 extension CoreDataManager {
@@ -873,7 +857,9 @@ extension CoreDataManager {
     }
 
     private func assignStatusesToPreset(_ standardPreset: CDPracticePresetStandard) {
-        PracticeStandardStatusType.allCases.forEach { standardStatusType in
+        let answerStatuses: [PracticeStandardStatusType] = [.again, .hard, .good, .easy]
+        
+        answerStatuses.forEach { standardStatusType in
             let status = createEntity(ofType: CDPracticeStatus.self)
             status.easeAdjustment = standardStatusType.easeAdjustment
             status.easeBonus = standardStatusType.easeBonus

@@ -15,8 +15,8 @@ enum PracticeThresholdRuleActionType: Int {
 
 enum PracticeThresholdRuleConditionType: Int, CaseIterable {
     case totalAgainAttempts
-    case cumulativeAgainAttempts
     case totalEasyAttempts
+    case cumulativeAgainAttempts
     case cumulativeEasyAttempts
     case nextPracticeIntervalInDays
     
@@ -38,13 +38,13 @@ enum PracticeThresholdRuleConditionType: Int, CaseIterable {
     var value: Int {
         switch self {
         case .totalAgainAttempts:
-            return 1
+            return 21
         case .cumulativeAgainAttempts:
-            return 2
+            return 7
         case .totalEasyAttempts:
-            return 3
+            return 7
         case .cumulativeEasyAttempts:
-            return 4
+            return 21
         case .nextPracticeIntervalInDays:
             return 365
         }

@@ -174,9 +174,9 @@ extension CDPractice {
         CoreDataManager.shared.save()
     }
 
-    func getInterval(at order: Int, standardPreset: CDPracticePresetStandard) -> Double? {
-        guard let statusType = PracticeStandardStatusType(rawValue: order) else { return nil }
-
+    func getInterval(statusType: PracticeStandardStatusType,
+                     standardPreset: CDPracticePresetStandard) -> Double? {
+        
         let referenceStatus = standardPreset.getStatus(from: statusType)
 
         guard let referenceStatus = referenceStatus,
@@ -193,8 +193,6 @@ extension CDPractice {
 
         return newValues.newDuration
     }
-    
-//    func 
 }
 
 enum ContextType: Int, CaseIterable {

@@ -220,8 +220,13 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
     }
     
     private func showAnswer(with userPressedStatusType: PracticeStandardStatusType) {
-        viewModel.addLearningRecordToCurrentCard(userPressedStatusType: userPressedStatusType)
-        viewModel.moveCard(userPressedStatusType: userPressedStatusType)
+        guard let practice = viewModel.getCurrentPractice() else {
+            return
+        }
+        
+        viewModel.addLearningRecord(to: practice, userPressedStatusType: userPressedStatusType)
+        viewModel.move(practice, userPressedStatusType: userPressedStatusType)
+        viewModel.deactivatePracticeIfThresholdReached(practice)
 
         lastShowingSubview = viewModel.getCurrentSubview()
         updatePracticeCountLabels()
@@ -255,11 +260,13 @@ class ShowCardsViewController: UIViewController, StoryboardGenerated {
         for i in 0..<answerTypeStackView.arrangedSubviews.count {
             let subview = answerTypeStackView.arrangedSubviews[i]
 
-            guard let button = subview as? PracticeButton else {
+            guard let button = subview as? PracticeButton,
+                  let statusType = button.status?.type
+            else {
                 return
             }
 
-            guard let interval = practice.getInterval(at: i, standardPreset: preset) else {
+            guard let interval = practice.getInterval(statusType: statusType, standardPreset: preset) else {
                 return
             }
 
