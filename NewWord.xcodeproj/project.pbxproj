@@ -97,6 +97,7 @@
 		2AD675B22CC10C2E007D9169 /* ListeningClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD675AD2CC10C2E007D9169 /* ListeningClozeView.xib */; };
 		2AD675B32CC10C2E007D9169 /* PracticeClozeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AD675AF2CC10C2E007D9169 /* PracticeClozeView.xib */; };
 		2AD675B82CC2478B007D9169 /* DeckSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD675B72CC2478B007D9169 /* DeckSettingViewController.swift */; };
+		2AD675BA2CC5FE33007D9169 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD675B92CC5FE33007D9169 /* Language.swift */; };
 		2ADC28BE2C4A3A6F00999C71 /* TagSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */; };
 		2AED807B2C2E9698001E675A /* SearchClozeResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */; };
 		2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */; };
@@ -259,6 +260,7 @@
 		2AD675AE2CC10C2E007D9169 /* PracticeClozeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeClozeView.swift; sourceTree = "<group>"; };
 		2AD675AF2CC10C2E007D9169 /* PracticeClozeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PracticeClozeView.xib; sourceTree = "<group>"; };
 		2AD675B72CC2478B007D9169 /* DeckSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckSettingViewController.swift; sourceTree = "<group>"; };
+		2AD675B92CC5FE33007D9169 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		2ADC28BD2C4A3A6F00999C71 /* TagSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSettingViewController.swift; sourceTree = "<group>"; };
 		2AED807A2C2E9698001E675A /* SearchClozeResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultViewController.swift; sourceTree = "<group>"; };
 		2AED807C2C2E987B001E675A /* SearchClozeResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchClozeResultCell.swift; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 				D09262C22C098A4400CA90BA /* CDLapses+Extension.swift */,
 				2A5EFEF22C09C0450068672B /* CDWord+Extension.swift */,
 				D09262B62C097D2400CA90BA /* DataModel.xcdatamodeld */,
+				2AD675B92CC5FE33007D9169 /* Language.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -803,6 +806,7 @@
 				2AED807E2C2E987B001E675A /* SearchClozeResultCell.swift in Sources */,
 				D02E46F72C272CC500418781 /* UserDefaultsManager.swift in Sources */,
 				2AC3D4232C2D52BC00B72791 /* SearchSelectionCell.swift in Sources */,
+				2AD675BA2CC5FE33007D9169 /* Language.swift in Sources */,
 				2A9911F82CAF7D4D004F2625 /* SearchResultViewController.swift in Sources */,
 				D090167E2C93E56600A5FBD2 /* CDTimepointInformation+Extension.swift in Sources */,
 				2A70455A2C7FF7AC00A58672 /* ClozeViewControllerViewModel.swift in Sources */,
